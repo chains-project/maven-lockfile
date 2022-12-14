@@ -44,6 +44,14 @@
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
+
+        <!-- I would want to do something like this, but we can't nestle properties, so it will be hard to link a
+         dependency to a digest in a nice way. -->
+        <dependency>org.apache.maven</dependency>
+        <artifactId>maven-project</artifactId>
+        <version>2.2.1</version>
+        <algorithm>MD5</algorithm>
+        <digest>ee3c981f43a1d5b1578d146a935010f6</digest>
     </properties>
     <build>
         <pluginManagement>

@@ -17,7 +17,6 @@ package se.kth;
  */
 
 import org.eclipse.aether.artifact.Artifact;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -35,7 +34,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -64,10 +62,6 @@ public class HashPinMojo
     @Parameter(defaultValue = "${repositorySystemSession}")
     private RepositorySystemSession repoSession;
 
-    // Use https://maven.apache.org/resolver/apidocs/org/eclipse/aether/spi/checksums/package-summary.html
-    // for checksums, maybe?
-
-
     /**
      * Returns the local file that an artifact has been resolved to
      * @param artifact the artifact to be resolved
@@ -83,6 +77,8 @@ public class HashPinMojo
 
     private boolean check(Path artifactPath, String expectedMD5Checksum) {
         try {
+            // TODO: maybe use https://maven.apache.org/resolver/apidocs/org/eclipse/aether/spi/checksums/package-summary.html
+            // instead? Should be equivalent, but maybe best to stay inside the Maven ecosystem if possible
             byte[] fileBuffer = Files.readAllBytes(artifactPath);
             byte[] artifactHash = MessageDigest.getInstance("MD5").digest(fileBuffer);
             String checksum = new BigInteger(1, artifactHash).toString(16);
@@ -97,19 +93,22 @@ public class HashPinMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().info( "Project: " + project );
-
+        // Get all the artifacts for the dependencies in the project
         Set<org.apache.maven.artifact.Artifact> dependencyArtifacts = project.getDependencyArtifacts();
 
         for (var a : dependencyArtifacts) {
             String coords = a.getGroupId() + ":" + a.getArtifactId() + ":" + a.getVersion();
             Artifact artifact = new DefaultArtifact(coords);
             Path path = getLocalArtifactPath(artifact);
+
+            // TODO: get checksums from pom.xml instead of hardcoded example
             if (check(path, "ee3c981f43a1d5b1578d146a935010f6")) {
                 getLog().info("Artifact " + artifact.getArtifactId() + " matches expected checksum of ee3c981f43a1d5b1578d146a935010f6");
             } else {
                 getLog().info("Artifact " + artifact.getArtifactId() + "does not match expected checksum.");
             }
         }
+
+        // getLog().info("Properties: " + project.getProperties());
     }
 }
