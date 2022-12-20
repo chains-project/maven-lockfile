@@ -18,7 +18,6 @@ package se.kth;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.eclipse.aether.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -26,21 +25,13 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.repository.LocalRepositoryManager;
 
-import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
-import static se.kth.Utilities.getLocalArtifactPath;
+import static se.kth.Utilities.generateLockFileFromProject;
 
 /**
  * Goal which pins the dependencies of a project to a specific version.
@@ -68,51 +59,19 @@ public class GenerateLockFileMojo
     @Parameter(defaultValue = "${repositorySystemSession}")
     private RepositorySystemSession repoSession;
 
-    private final Gson gson;
-    private final LockFile lockFile;
-    private final String checksumAlgorithm;
-
-
-    public GenerateLockFileMojo() throws NoSuchAlgorithmException {
-        gson = new GsonBuilder().setPrettyPrinting().create();
-        lockFile = new LockFile();
-        checksumAlgorithm = "SHA-256";
-    }
-
-
     public void execute()
             throws MojoExecutionException
     {
-        // Get all the artifacts for the dependencies in the project
-        Set<org.apache.maven.artifact.Artifact> dependencyArtifacts = project.getDependencyArtifacts();
-
-        for (var a : dependencyArtifacts) {
-            String groupId = a.getGroupId();
-            String artifactId = a.getArtifactId();
-            String version = a.getVersion();
-            String coords = groupId + ":" + artifactId + ":" + version;
-            Artifact artifact = new DefaultArtifact(coords);
-            Path path = getLocalArtifactPath(repoSession, artifact);
-            String checksum;
-            try {
-                checksum = Utilities.calculateChecksum(path, checksumAlgorithm);
-            } catch (IOException | NoSuchAlgorithmException e) {
-                getLog().error(e);
-                return;
-            }
-
-            lockFile.dependencies.add(new LockFileDependency(groupId, artifactId, version, checksumAlgorithm, checksum));
-        }
-
-        String json = gson.toJson(lockFile);
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
+            LockFile lockFile = generateLockFileFromProject(project, repoSession);
+            String json = gson.toJson(lockFile);
+
             Path lockFilePath = Utilities.getLockFilePath(project);
             Files.writeString(lockFilePath, json);
             getLog().info("Lockfile written to " + lockFilePath);
-        } catch (IOException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             getLog().error(e);
-            return;
         }
     }
 }
