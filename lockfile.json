@@ -1,0 +1,46 @@
+{
+  "dependencies": [
+    {
+      "artifactId": "org.apache.maven",
+      "groupId": "maven-plugin-api",
+      "version": "2.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "5b62626069d85bb463314572734988d47bc98aab9f0ed48d2f1f9554960f5a35"
+    },
+    {
+      "artifactId": "junit",
+      "groupId": "junit",
+      "version": "3.8.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "b58e459509e190bed737f3592bc1950485322846cf10e78ded1d065153012d70"
+    },
+    {
+      "artifactId": "org.apache.maven.plugin-tools",
+      "groupId": "maven-plugin-annotations",
+      "version": "3.6.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9e2434820dd2ba44ad70a66e5b2a9993a2a8b047ceabc3e850e4858cbf3f91c3"
+    },
+    {
+      "artifactId": "org.apache.maven",
+      "groupId": "maven-project",
+      "version": "2.2.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "24ddb65b7a6c3befb6267ce5f739f237c84eba99389265c30df67c3dd8396a40"
+    },
+    {
+      "artifactId": "com.google.code.gson",
+      "groupId": "gson",
+      "version": "2.10",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf"
+    },
+    {
+      "artifactId": "org.apache.maven.resolver",
+      "groupId": "maven-resolver-api",
+      "version": "1.9.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "129a2785d266744d63bcc0b2f6034c658725b09c16ea8abdb62075fbe15c6953"
+    }
+  ]
+}

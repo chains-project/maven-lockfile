@@ -1,0 +1,81 @@
+package se.kth;
+
+/*
+ * Copyright 2001-2005 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import com.google.gson.Gson;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+import org.eclipse.aether.RepositorySystemSession;
+
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
+import static se.kth.Utilities.generateLockFileFromProject;
+import static se.kth.Utilities.getLockFilePath;
+
+/**
+ * Goal which pins the dependencies of a project to a specific version.
+ *
+ * @goal pin dependencies to hash values
+ * 
+ * @phase compile
+ */
+@Mojo(name = "validate", defaultPhase = LifecyclePhase.VALIDATE)
+public class ValidateChecksumMojo
+    extends AbstractMojo
+{
+    /**
+     * The Maven project.
+     * @parameter defaultvalue = ${project}
+     * @readonly
+     * @required
+     */
+    @Parameter( defaultValue = "${project}", readonly = true, required = true )
+    private MavenProject project;
+
+    /**
+     * The current repository session, used for accessing the local artifact files, among other things
+     */
+    @Parameter(defaultValue = "${repositorySystemSession}")
+    private RepositorySystemSession repoSession;
+
+    public void execute()
+        throws MojoExecutionException
+    {
+        try {
+            LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
+            LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession);
+            if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
+                getLog().error("Lock file is not equivalent to the current project.");
+                getLog().error("Lock file from file: " + new Gson().toJson(lockFileFromFile));
+                getLog().error("Lock file from project: " + new Gson().toJson(lockFileFromProject));
+                getLog().error("Difference: " + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
+                return;
+            }
+        } catch (IOException e) {
+            throw new MojoExecutionException("Could not read lock file", e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new MojoExecutionException("No such algorithm", e);
+        }
+
+        getLog().info("Lockfile successfully validated.");
+    }
+}

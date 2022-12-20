@@ -14,4 +14,32 @@ public class LockFileDependency {
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final LockFileDependency other = (LockFileDependency) obj;
+
+        return this.artifactId.equals(other.artifactId) &&
+               this.groupId.equals(other.groupId) &&
+               this.version.equals(other.version) &&
+               this.checksumAlgorithm.equals(other.checksumAlgorithm) &&
+               this.checksum.equals(other.checksum);
+    }
+
+    @Override
+    public int hashCode() {
+        return artifactId.hashCode() +
+               groupId.hashCode() +
+               version.hashCode() +
+               checksumAlgorithm.hashCode() +
+               checksum.hashCode();
+    }
 }
