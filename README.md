@@ -17,3 +17,7 @@ Stand in the repository that you want to validate and run
 ```
  mvn hash-pin:validate
 ```
+
+## TODO
+
+Make the integrity conformant to https://w3c.github.io/webappsec-subresource-integrity/
