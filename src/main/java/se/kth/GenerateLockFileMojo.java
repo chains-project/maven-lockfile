@@ -40,6 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static se.kth.Utilities.getLocalArtifactPath;
+
 /**
  * Goal which pins the dependencies of a project to a specific version.
  *
@@ -77,18 +79,6 @@ public class GenerateLockFileMojo
         checksumAlgorithm = "SHA-256";
     }
 
-    /**
-     * Returns the local file that an artifact has been resolved to
-     * @param artifact the artifact to be resolved
-     * @return the file constituting the local artifact
-     */
-    private Path getLocalArtifactPath(Artifact artifact) {
-        LocalRepositoryManager repoManager = repoSession.getLocalRepositoryManager();
-        String pathStringRelativeToBaseDirectory = repoManager.getPathForLocalArtifact(artifact);
-        File localRepositoryBaseDirectory = repoManager.getRepository().getBasedir();
-        File artifactFile = new File(localRepositoryBaseDirectory, pathStringRelativeToBaseDirectory);
-        return Path.of(artifactFile.getAbsolutePath());
-    }
 
     public void execute()
             throws MojoExecutionException
@@ -102,7 +92,7 @@ public class GenerateLockFileMojo
             String version = a.getVersion();
             String coords = groupId + ":" + artifactId + ":" + version;
             Artifact artifact = new DefaultArtifact(coords);
-            Path path = getLocalArtifactPath(artifact);
+            Path path = getLocalArtifactPath(repoSession, artifact);
             String checksum;
             try {
                 checksum = Utilities.calculateChecksum(path, checksumAlgorithm);
