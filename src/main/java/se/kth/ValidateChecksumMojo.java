@@ -32,18 +32,18 @@ import static se.kth.Utilities.generateLockFileFromProject;
 import static se.kth.Utilities.getLockFilePath;
 
 /**
- * Goal which pins the dependencies of a project to a specific version.
+ * Plugin goal that validates the checksums of the dependencies of a project against a lock file.
  *
  * @goal pin dependencies to hash values
- * 
  * @phase compile
+ * @author Arvid Siberov
  */
 @Mojo(name = "validate", defaultPhase = LifecyclePhase.VALIDATE)
 public class ValidateChecksumMojo
     extends AbstractMojo
 {
     /**
-     * The Maven project.
+     * The Maven project for which we are generating a lock file.
      * @parameter defaultvalue = ${project}
      * @readonly
      * @required
@@ -57,6 +57,10 @@ public class ValidateChecksumMojo
     @Parameter(defaultValue = "${repositorySystemSession}")
     private RepositorySystemSession repoSession;
 
+    /**
+     * Validate the local copies of the dependencies against the project's lock file.
+     * @throws MojoExecutionException
+     */
     public void execute()
         throws MojoExecutionException
     {

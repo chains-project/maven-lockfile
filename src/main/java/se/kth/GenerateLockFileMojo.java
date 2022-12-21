@@ -34,18 +34,22 @@ import java.security.NoSuchAlgorithmException;
 import static se.kth.Utilities.generateLockFileFromProject;
 
 /**
- * Goal which pins the dependencies of a project to a specific version.
+ * This plugin generates a lock file for a project. The lock file contains the checksums of all
+ * dependencies of the project. This can be used to validate that the dependencies of a project
+ * have not changed.
  *
  * @goal generate a lock file
  *
  * @phase compile
+ *
+ * @author Arvid Siberov
  */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class GenerateLockFileMojo
         extends AbstractMojo
 {
     /**
-     * The Maven project.
+     * The Maven project for which we are generating a lock file.
      * @parameter defaultvalue = ${project}
      * @readonly
      * @required
@@ -55,10 +59,17 @@ public class GenerateLockFileMojo
 
     /**
      * The current repository session, used for accessing the local artifact files, among other things
+     * @parameter defaultvalue = ${repositorySystemSession}
+     * @readonly
+     * @required
      */
-    @Parameter(defaultValue = "${repositorySystemSession}")
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
     private RepositorySystemSession repoSession;
 
+    /**
+     * Generate a lock file for the dependencies of the current project.
+     * @throws MojoExecutionException
+     */
     public void execute()
             throws MojoExecutionException
     {

@@ -15,10 +15,30 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
+/**
+ * Utilities for the lock file plugin. These are shared between generating and validating the lock file.
+ *
+ * @author Arvid Siberov
+ */
 public class Utilities {
+    /**
+     * Currently the only supported checksum algorithm.
+     */
     public static final String checksumAlgorithm = "SHA-256";
 
+    /**
+     * Calculate the checksum of a file with a given path, using the specified algorithm.
+     * @param artifactPath The path to the file to calculate the checksum of.
+     * @param algorithm The algorithm to use for calculating the checksum, e.g. "SHA-256".
+     *                  Should be a valid argument to <code>MessageDigest.getInstance()</code>
+     * @return A string of the hexadecimal representation of the checksum.
+     * @throws IOException if the path is not a file, or the file could not be read.
+     * @throws NoSuchAlgorithmException if the algorithm is not supported.
+     */
     public static String calculateChecksum(Path artifactPath, String algorithm) throws IOException, NoSuchAlgorithmException {
+        if (!artifactPath.toFile().isFile()) {
+            throw new IOException("Artifact path is not a file: " + artifactPath);
+        }
         MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
         byte[] fileBuffer = Files.readAllBytes(artifactPath);
         byte[] artifactHash = messageDigest.digest(fileBuffer);
@@ -26,6 +46,11 @@ public class Utilities {
         return checksum;
     }
 
+    /**
+     * Generate a lock file for a project.
+     * @param project The project to generate a lock file for.
+     * @return A lock file for the project.
+     */
     public static Path getLockFilePath(MavenProject project) {
         return Path.of(project.getBasedir().getAbsolutePath(), "lockfile.json");
     }
@@ -43,6 +68,14 @@ public class Utilities {
         return Path.of(artifactFile.getAbsolutePath());
     }
 
+    /**
+     * Generate a lock file for the dependencies of a project.
+     * @param project The project to generate a lock file for.
+     * @param repositorySystemSession The repository system session for the project.
+     * @return A lock file for the project.
+     * @throws IOException if the artifact file could not be read.
+     * @throws NoSuchAlgorithmException if the checksum algorithm is not supported.
+     */
     public static LockFile generateLockFileFromProject(MavenProject project, RepositorySystemSession repositorySystemSession)
             throws IOException, NoSuchAlgorithmException {
         LockFile lockFile = new LockFile();
