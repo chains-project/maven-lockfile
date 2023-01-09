@@ -1,6 +1,6 @@
 # Maven Integrity Plugin
 
-Does **not** work currently!
+Does work currently!
 
 ## Installation:
 
@@ -16,6 +16,20 @@ Stand in the repository that you want to validate and run
 
 ```
  mvn hash-pin:validate
+```
+
+## Format
+
+The lockfile consists of an object containing an array of objects that looks like the following:
+
+```
+{
+"artifactId": "com.google.code.gson",
+"groupId": "gson",
+"version": "2.10",
+"checksumAlgorithm": "SHA-256",
+"checksum": "cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf"
+}
 ```
 
 ## TODO
