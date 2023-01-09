@@ -20,4 +20,6 @@ Stand in the repository that you want to validate and run
 
 ## TODO
 
-Make the integrity conformant to https://w3c.github.io/webappsec-subresource-integrity/
+- Make the integrity conformant to https://w3c.github.io/webappsec-subresource-integrity/
+- Make the validation fail message more human readable
+- Add functionality for modifying lock files, e.g., adding a new dependency without generating the whole file from scratch.

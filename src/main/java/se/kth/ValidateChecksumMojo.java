@@ -38,7 +38,7 @@ import static se.kth.Utilities.getLockFilePath;
  * @phase compile
  * @author Arvid Siberov
  */
-@Mojo(name = "validate", defaultPhase = LifecyclePhase.VALIDATE)
+@Mojo(name = "validate", defaultPhase = LifecyclePhase.COMPILE)
 public class ValidateChecksumMojo
     extends AbstractMojo
 {
@@ -64,15 +64,14 @@ public class ValidateChecksumMojo
     public void execute()
         throws MojoExecutionException
     {
+        getLog().info("Validating lock file ...");
         try {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession);
             if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
-                getLog().error("Lock file is not equivalent to the current project.");
-                getLog().error("Lock file from file: " + new Gson().toJson(lockFileFromFile));
-                getLog().error("Lock file from project: " + new Gson().toJson(lockFileFromProject));
-                getLog().error("Difference: " + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
-                return;
+                getLog().error("Failed verifying: " + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
+                throw new MojoExecutionException("Failed verifying lock file");
+                //return;
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
