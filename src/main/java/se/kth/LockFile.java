@@ -1,7 +1,6 @@
 package se.kth;
 
 import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

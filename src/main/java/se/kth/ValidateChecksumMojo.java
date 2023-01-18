@@ -16,7 +16,12 @@ package se.kth;
  * limitations under the License.
  */
 
+import static se.kth.Utilities.generateLockFileFromProject;
+import static se.kth.Utilities.getLockFilePath;
+
 import com.google.gson.Gson;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -24,12 +29,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystemSession;
-
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-
-import static se.kth.Utilities.generateLockFileFromProject;
-import static se.kth.Utilities.getLockFilePath;
 
 /**
  * Plugin goal that validates the checksums of the dependencies of a project against a lock file.
@@ -39,16 +38,14 @@ import static se.kth.Utilities.getLockFilePath;
  * @author Arvid Siberov
  */
 @Mojo(name = "validate", defaultPhase = LifecyclePhase.COMPILE)
-public class ValidateChecksumMojo
-    extends AbstractMojo
-{
+public class ValidateChecksumMojo extends AbstractMojo {
     /**
      * The Maven project for which we are generating a lock file.
      * @parameter defaultvalue = ${project}
      * @readonly
      * @required
      */
-    @Parameter( defaultValue = "${project}", readonly = true, required = true )
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private MavenProject project;
 
     /**
@@ -61,17 +58,16 @@ public class ValidateChecksumMojo
      * Validate the local copies of the dependencies against the project's lock file.
      * @throws MojoExecutionException
      */
-    public void execute()
-        throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
         getLog().info("Validating lock file ...");
         try {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession);
             if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
-                getLog().error("Failed verifying: " + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
+                getLog().error("Failed verifying: "
+                        + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
                 throw new MojoExecutionException("Failed verifying lock file");
-                //return;
+                // return;
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
