@@ -9,14 +9,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import se.kth.LockFile;
 
 @MavenJupiterExtension
 public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
+        // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFile = getLockFile(result);
-        assertThat(lockFile).exists();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.dependencies).isEmpty();
     }
 
     private Path getLockFile(MavenExecutionResult result) throws IOException {
