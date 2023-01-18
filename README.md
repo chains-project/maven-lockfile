@@ -37,3 +37,10 @@ The lockfile consists of an object containing an array of objects that looks lik
 - Make the integrity conformant to https://w3c.github.io/webappsec-subresource-integrity/
 - Make the validation fail message more human readable
 - Add functionality for modifying lock files, e.g., adding a new dependency without generating the whole file from scratch.
+
+## Related work
+
+- Java
+  - https://github.com/vandmo/dependency-lock-maven-plugin 
+- Gradle 
+  - 
