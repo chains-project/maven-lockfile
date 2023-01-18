@@ -1,11 +1,5 @@
 package se.kth;
 
-import org.apache.maven.project.MavenProject;
-import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.Artifact;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.repository.LocalRepositoryManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -14,6 +8,11 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Set;
+import org.apache.maven.project.MavenProject;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.repository.LocalRepositoryManager;
 
 /**
  * Utilities for the lock file plugin. These are shared between generating and validating the lock file.
@@ -35,7 +34,8 @@ public class Utilities {
      * @throws IOException if the path is not a file, or the file could not be read.
      * @throws NoSuchAlgorithmException if the algorithm is not supported.
      */
-    public static String calculateChecksum(Path artifactPath, String algorithm) throws IOException, NoSuchAlgorithmException {
+    public static String calculateChecksum(Path artifactPath, String algorithm)
+            throws IOException, NoSuchAlgorithmException {
         if (!artifactPath.toFile().isFile()) {
             throw new IOException("Artifact path is not a file: " + artifactPath);
         }
@@ -76,7 +76,8 @@ public class Utilities {
      * @throws IOException if the artifact file could not be read.
      * @throws NoSuchAlgorithmException if the checksum algorithm is not supported.
      */
-    public static LockFile generateLockFileFromProject(MavenProject project, RepositorySystemSession repositorySystemSession)
+    public static LockFile generateLockFileFromProject(
+            MavenProject project, RepositorySystemSession repositorySystemSession)
             throws IOException, NoSuchAlgorithmException {
         LockFile lockFile = new LockFile();
 
@@ -93,7 +94,8 @@ public class Utilities {
             String checksum;
             checksum = calculateChecksum(path, checksumAlgorithm);
 
-            lockFile.dependencies.add(new LockFileDependency(groupId, artifactId, version, checksumAlgorithm, checksum));
+            lockFile.dependencies.add(
+                    new LockFileDependency(groupId, artifactId, version, checksumAlgorithm, checksum));
         }
 
         return lockFile;

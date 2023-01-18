@@ -9,7 +9,7 @@ package se.kth;
  */
 public class LockFileDependency {
     public final String artifactId;
-    public final String  groupId;
+    public final String groupId;
     public final String version;
     public final String checksumAlgorithm;
     public final String checksum;
@@ -22,7 +22,8 @@ public class LockFileDependency {
      * @param checksumAlgorithm the name of the algorithm used to calculate the checksum, e.g. "SHA-256"
      * @param checksum the hexadecimal representation of the checksum of the dependency, e.g. "cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf"
      */
-    public LockFileDependency(String artifactId, String groupId, String version, String checksumAlgorithm, String checksum) {
+    public LockFileDependency(
+            String artifactId, String groupId, String version, String checksumAlgorithm, String checksum) {
         this.artifactId = artifactId;
         this.groupId = groupId;
         this.version = version;
@@ -42,19 +43,19 @@ public class LockFileDependency {
 
         final LockFileDependency other = (LockFileDependency) obj;
 
-        return this.artifactId.equals(other.artifactId) &&
-               this.groupId.equals(other.groupId) &&
-               this.version.equals(other.version) &&
-               this.checksumAlgorithm.equals(other.checksumAlgorithm) &&
-               this.checksum.equals(other.checksum);
+        return this.artifactId.equals(other.artifactId)
+                && this.groupId.equals(other.groupId)
+                && this.version.equals(other.version)
+                && this.checksumAlgorithm.equals(other.checksumAlgorithm)
+                && this.checksum.equals(other.checksum);
     }
 
     @Override
     public int hashCode() {
-        return artifactId.hashCode() +
-               groupId.hashCode() +
-               version.hashCode() +
-               checksumAlgorithm.hashCode() +
-               checksum.hashCode();
+        return artifactId.hashCode()
+                + groupId.hashCode()
+                + version.hashCode()
+                + checksumAlgorithm.hashCode()
+                + checksum.hashCode();
     }
 }

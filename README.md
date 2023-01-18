@@ -15,7 +15,7 @@ mvn clean install
 Stand in the repository that you want to validate and run
 
 ```
- mvn hash-pin:validate
+mvn hash-pin:validate
 ```
 
 ## Format
@@ -41,6 +41,6 @@ The lockfile consists of an object containing an array of objects that looks lik
 ## Related work
 
 - Java
-  - https://github.com/vandmo/dependency-lock-maven-plugin 
-- Gradle 
-  - 
+- https://github.com/vandmo/dependency-lock-maven-plugin
+- Gradle
+-

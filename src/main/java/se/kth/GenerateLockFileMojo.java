@@ -16,52 +16,46 @@ package se.kth;
  * limitations under the License.
  */
 
+import static se.kth.Utilities.generateLockFileFromProject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystemSession;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
-
-import static se.kth.Utilities.generateLockFileFromProject;
 
 /**
  * This plugin generates a lock file for a project. The lock file contains the checksums of all
  * dependencies of the project. This can be used to validate that the dependencies of a project
  * have not changed.
  *
- * @goal generate a lock file
- *
- * @phase compile
- *
+ * @description Generate a lock file for the dependencies of the current project.
  * @author Arvid Siberov
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class GenerateLockFileMojo
-        extends AbstractMojo
-{
+@Mojo(
+        name = "generate",
+        defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
+        requiresDependencyResolution = ResolutionScope.COMPILE,
+        requiresProject = true,
+        requiresOnline = true)
+public class GenerateLockFileMojo extends AbstractMojo {
     /**
      * The Maven project for which we are generating a lock file.
-     * @parameter defaultvalue = ${project}
-     * @readonly
-     * @required
      */
-    @Parameter( defaultValue = "${project}", readonly = true, required = true )
+    @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private MavenProject project;
 
     /**
      * The current repository session, used for accessing the local artifact files, among other things
-     * @parameter defaultvalue = ${repositorySystemSession}
-     * @readonly
-     * @required
      */
     @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
     private RepositorySystemSession repoSession;
@@ -70,9 +64,9 @@ public class GenerateLockFileMojo
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException
      */
-    public void execute()
-            throws MojoExecutionException
-    {
+    public void execute() throws MojoExecutionException {
+        System.out.println(repoSession);
+        System.out.println(project);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             LockFile lockFile = generateLockFileFromProject(project, repoSession);
