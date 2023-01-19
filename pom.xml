@@ -3,10 +3,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.chains-project</groupId>
-    <artifactId>hash-pin</artifactId>
+    <artifactId>maven-integrity-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hash-pin Maven Mojo</name>
+    <name>maven-integrity-plugin Maven Mojo</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>

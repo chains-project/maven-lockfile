@@ -23,7 +23,7 @@
       <plugin>
         <groupId>io.github.chains-project</groupId>
         <artifactId>
-          hash-pin</artifactId>
+          maven-integrity-plugin</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>
