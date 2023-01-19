@@ -1,23 +1,25 @@
 package io.github.chains_project.maven_lockfile;
 
-import static se.kth.Utilities.generateLockFileFromProject;
+import static io.github.chains_project.maven_lockfile.Utilities.generateLockFileFromProject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
-import se.kth.LockFile;
-import se.kth.Utilities;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.resolution.ArtifactResolutionException;
 
 /**
  * This plugin generates a lock file for a project. The lock file contains the checksums of all
@@ -44,19 +46,27 @@ public class GenerateLockFileMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
     private RepositorySystemSession repoSession;
-
+    /**
+     * The entry point to Aether, i.e. the component doing all the work.
+     */
+    @Component
+    private RepositorySystem repoSystem;
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException
      */
     public void execute() throws MojoExecutionException {
         try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            LockFile lockFile = generateLockFileFromProject(project, repoSession);
+            ArtifactRequest artifactRequest = new ArtifactRequest();
+            artifactRequest.setRepositories(project.getRemoteProjectRepositories());
+            artifactRequest.setArtifact(new DefaultArtifact("org.apache.maven:maven-core:3.6.3"));
+            var result = repoSystem.resolveArtifact(repoSession, artifactRequest);
+            Files.writeString(Path.of("foo"), result.toString());
+            LockFile lockFile = generateLockFileFromProject(project, repoSession, repoSystem);
             Path lockFilePath = Utilities.getLockFilePath(project);
-            Files.writeString(lockFilePath, gson.toJson(lockFile));
+            Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
-        } catch (IOException | NoSuchAlgorithmException e) {
+        } catch (IOException | NoSuchAlgorithmException | ArtifactResolutionException e) {
             getLog().error(e);
         }
     }

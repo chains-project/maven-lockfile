@@ -11,12 +11,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
-</dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.9.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>io.github.chains-project</groupId>
-        <artifactId>hash-pin</artifactId>
+        <artifactId>
+          hash-pin</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>

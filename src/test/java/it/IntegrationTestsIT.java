@@ -5,11 +5,11 @@ import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
+import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import se.kth.LockFile;
 
 @MavenJupiterExtension
 public class IntegrationTestsIT extends AbstractMojoTestCase {
@@ -20,7 +20,23 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         Path lockFilePath = getLockFile(result);
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.dependencies).isEmpty();
+        assertThat(lockFile.getDependencies()).isEmpty();
+    }
+
+    @MavenTest
+    public void singleDependency(MavenExecutionResult result) throws Exception {
+        // contract: an empty project should generate an empty lock file
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).hasSize(1);
+        var junitDep = lockFile.getDependencies().get(0);
+        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
+        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
     }
 
     private Path getLockFile(MavenExecutionResult result) throws IOException {

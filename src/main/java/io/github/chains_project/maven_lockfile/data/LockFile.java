@@ -1,6 +1,7 @@
-package se.kth;
+package io.github.chains_project.maven_lockfile.data;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+import io.github.chains_project.maven_lockfile.JsonUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +17,23 @@ import java.util.Set;
  * @author Arvid Siberov
  */
 public class LockFile {
-    public List<LockFileDependency> dependencies = new ArrayList<>();
 
+    @SerializedName("name")
+    private final ArtifactId name;
+
+    @SerializedName("version")
+    private final VersionNumber version;
+
+    @SerializedName("lockFileVersion")
+    private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
+
+    private List<LockFileDependency> dependencies = new ArrayList<>();
+
+    public LockFile(ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
+        this.dependencies = dependencies;
+        this.name = name;
+        this.version = versionNumber;
+    }
     /**
      * Create a lock file object from a serialized JSON string.
      * @param lockFilePath the path to the lock file
@@ -26,8 +42,7 @@ public class LockFile {
      */
     public static LockFile readLockFile(Path lockFilePath) throws IOException {
         String lockFileContents = Files.readString(lockFilePath);
-        Gson gson = new Gson();
-        return gson.fromJson(lockFileContents, LockFile.class);
+        return JsonUtils.fromJson(lockFileContents, LockFile.class);
     }
 
     /**
@@ -51,5 +66,12 @@ public class LockFile {
         Set<LockFileDependency> otherSet = Set.copyOf(other.dependencies);
         thisSet.removeAll(otherSet);
         return thisSet;
+    }
+
+    /**
+     * @return the dependencies
+     */
+    public List<LockFileDependency> getDependencies() {
+        return dependencies;
     }
 }

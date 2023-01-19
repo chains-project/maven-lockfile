@@ -1,25 +1,10 @@
 package se.kth;
 
-/*
- * Copyright 2001-2005 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-import static se.kth.Utilities.generateLockFileFromProject;
-import static se.kth.Utilities.getLockFilePath;
+import static io.github.chains_project.maven_lockfile.Utilities.generateLockFileFromProject;
+import static io.github.chains_project.maven_lockfile.Utilities.getLockFilePath;
 
 import com.google.gson.Gson;
+import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import org.apache.maven.plugin.AbstractMojo;
@@ -62,7 +47,7 @@ public class ValidateChecksumMojo extends AbstractMojo {
         getLog().info("Validating lock file ...");
         try {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
-            LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession);
+            LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession, null);
             if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
                 getLog().error("Failed verifying: "
                         + new Gson().toJson(lockFileFromFile.differenceTo(lockFileFromProject)));
