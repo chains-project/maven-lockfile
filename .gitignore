@@ -18,3 +18,4 @@ buildNumber.properties
 
 .idea
 .DS_Store
+.vscode/settings.json
