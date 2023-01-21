@@ -12,10 +12,9 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * A lock file that contains checksums for dependencies.
- * It can be serialised with Gson to JSON, which is the format used for the lock file on disk.
+ * A lock file contains a list of dependencies, and the version of the lock file format.
+ * It also contains the name and version of the project that the lock file belongs to.
  *
- * @author Arvid Siberov
  */
 public class LockFile {
 
@@ -67,12 +66,6 @@ public class LockFile {
         Set<LockFileDependency> otherSet = Set.copyOf(other.getDependencies());
         System.out.println(otherSet);
         thisSet.removeAll(otherSet);
-        if (thisSet.size() == 1) {
-            this.getDependencies().get(0).getRequires().stream()
-                    .filter(v -> !otherSet.iterator().next().getRequires().contains(v))
-                    .forEach(System.out::println);
-            ;
-        }
         return thisSet;
     }
 

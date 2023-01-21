@@ -17,9 +17,6 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.resolution.ArtifactRequest;
-import org.eclipse.aether.resolution.ArtifactResolutionException;
 
 /**
  * This plugin generates a lock file for a project. The lock file contains the checksums of all
@@ -56,16 +53,11 @@ public class GenerateLockFileMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException {
         try {
-            ArtifactRequest artifactRequest = new ArtifactRequest();
-            artifactRequest.setRepositories(project.getRemoteProjectRepositories());
-            artifactRequest.setArtifact(new DefaultArtifact("org.apache.maven:maven-core:3.6.3"));
-            var result = repoSystem.resolveArtifact(repoSession, artifactRequest);
-            Files.writeString(Path.of("foo"), result.toString());
             LockFile lockFile = generateLockFileFromProject(project, repoSession, repoSystem);
             Path lockFilePath = Utilities.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
-        } catch (IOException | NoSuchAlgorithmException | ArtifactResolutionException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             getLog().error(e);
         }
     }

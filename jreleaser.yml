@@ -1,7 +1,7 @@
 # Generated with JReleaser 1.4.0 at 2023-01-21T15:05:38.5591119+01:00
 project:
   name: integrity-maven-plugin
-  version: 0.0.1
+  version: 0.0.2
   description: A plugin to lock and validate the integrity of the dependencies of a maven based project.
   longDescription: This plugin is a proof of concept for a maven plugin that can be used to validate
         the integrity of a maven repository. It does this by generating a lock file that contains

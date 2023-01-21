@@ -10,7 +10,6 @@ import java.util.Objects;
  * It contains an artifact id, a group id, a version, the name of the algorithm used to calculate the checksum,
  * and the checksum itself.
  *
- * @author Arvid Siberov
  */
 public class LockFileDependency {
     private final ArtifactId artifactId;
@@ -104,27 +103,6 @@ public class LockFileDependency {
         }
 
         LockFileDependency lockFileDependency = (LockFileDependency) o;
-        if (!Objects.equals(artifactId, lockFileDependency.artifactId)) {
-            System.out.println("Du bist zu dumm für artifaktid");
-        }
-        if (!Objects.equals(groupId, lockFileDependency.groupId)) {
-            System.out.println("Du bist zu dumm für groupid");
-        }
-        if (!Objects.equals(version, lockFileDependency.version)) {
-            System.out.println("Du bist zu dumm für version");
-        }
-        if (!Objects.equals(checksumAlgorithm, lockFileDependency.checksumAlgorithm)) {
-            System.out.println("Du bist zu dumm für checksumAlgorithm");
-        }
-        if (!Objects.equals(checksum, lockFileDependency.checksum)) {
-            System.out.println("Du bist zu dumm für checksum");
-        }
-        if (!Objects.equals(repoUrl, lockFileDependency.repoUrl)) {
-            System.out.println("Du bist zu dumm für repoUrl");
-        }
-        if (!Objects.equals(requires, lockFileDependency.requires)) {
-            System.out.println("Du bist zu dumm für requires");
-        }
         return Objects.equals(artifactId, lockFileDependency.artifactId)
                 && Objects.equals(groupId, lockFileDependency.groupId)
                 && Objects.equals(version, lockFileDependency.version)
