@@ -16,7 +16,7 @@
     <plugins>
       <plugin>
         <groupId>io.github.chains-project</groupId>
-        <artifactId>maven-integrity-plugin</artifactId>
+        <artifactId>integrity-maven-plugin</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>

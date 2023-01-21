@@ -16,13 +16,13 @@ mvn clean install
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn maven-integrity-plugin:generate
+mvn integrity-maven-plugin:generate
 ```
 
 Then run the following command to validate the repository:
 
 ```
-mvn maven-integrity-plugin:validate
+mvn integrity-maven-plugin:validate
 ```
 
 ## Format
@@ -31,45 +31,45 @@ The lockfile consists of an object containing an array of objects that looks lik
 
 ```json
 {
-  "name": "my-app",
-  "version": "1",
-  "lockFileVersion": 1,
-  "dependencies": [
-    {
-      "artifactId": "junit-jupiter-api",
-      "groupId": "org.junit.jupiter",
-      "version": "5.9.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-      "repoUrl": "https://repo.maven.apache.org/maven2",
-      "requires": [
-        {
-          "artifactId": "opentest4j",
-          "groupId": "org.opentest4j",
-          "version": "1.2.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-          "repoUrl": "https://repo.maven.apache.org/maven2"
-        },
-        {
-          "artifactId": "junit-platform-commons",
-          "groupId": "org.junit.platform",
-          "version": "1.9.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-          "repoUrl": "https://repo.maven.apache.org/maven2"
-        },
-        {
-          "artifactId": "apiguardian-api",
-          "groupId": "org.apiguardian",
-          "version": "1.1.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-          "repoUrl": "https://repo.maven.apache.org/maven2"
-        }
-      ]
-    }
-  ]
+"name": "my-app",
+"version": "1",
+"lockFileVersion": 1,
+"dependencies": [
+	{
+	"artifactId": "junit-jupiter-api",
+	"groupId": "org.junit.jupiter",
+	"version": "5.9.2",
+	"checksumAlgorithm": "SHA-256",
+	"checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+	"repoUrl": "https://repo.maven.apache.org/maven2",
+	"requires": [
+		{
+		"artifactId": "opentest4j",
+		"groupId": "org.opentest4j",
+		"version": "1.2.0",
+		"checksumAlgorithm": "SHA-256",
+		"checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+		"repoUrl": "https://repo.maven.apache.org/maven2"
+		},
+		{
+		"artifactId": "junit-platform-commons",
+		"groupId": "org.junit.platform",
+		"version": "1.9.2",
+		"checksumAlgorithm": "SHA-256",
+		"checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+		"repoUrl": "https://repo.maven.apache.org/maven2"
+		},
+		{
+		"artifactId": "apiguardian-api",
+		"groupId": "org.apiguardian",
+		"version": "1.1.2",
+		"checksumAlgorithm": "SHA-256",
+		"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+		"repoUrl": "https://repo.maven.apache.org/maven2"
+		}
+	]
+	}
+]
 }%
 ```
 This is close to the format of the lock file in the npm package-lock.json file.

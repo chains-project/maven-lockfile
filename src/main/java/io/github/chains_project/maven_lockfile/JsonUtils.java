@@ -26,9 +26,7 @@ public class JsonUtils {
                 .registerTypeAdapter(
                         GroupId.class, (JsonSerializer<GroupId>) (it, type, ignore) -> new JsonPrimitive(it.getValue()))
                 .registerTypeAdapter(
-                                        GroupId.class,
-                                        (JsonDeserializer<GroupId>) (it, type, ignore) -> GroupId
-                                                        .of(it.getAsString()))
+                        GroupId.class, (JsonDeserializer<GroupId>) (it, type, ignore) -> GroupId.of(it.getAsString()))
                 // .registerTypeAdapter(LockFileDependency.class, new LockFileDependencyAdapter())
                 .create();
     }

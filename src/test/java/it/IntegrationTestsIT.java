@@ -39,6 +39,29 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
                 .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
     }
 
+    @MavenTest
+    public void singleDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
+        // contract: an empty project should generate an empty lock file
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).hasSize(1);
+        var junitDep = lockFile.getDependencies().get(0);
+        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
+        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
+    }
+
+    @MavenTest
+    public void singleDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
+        // contract: a changed dependency should fail the build.
+        // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
+        assertThat(result).isFailure();
+    }
+
     private Path getLockFile(MavenExecutionResult result) throws IOException {
         return Files.find(
                         result.getMavenProjectResult().getTargetBaseDirectory(),
