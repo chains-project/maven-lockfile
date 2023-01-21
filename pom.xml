@@ -5,10 +5,36 @@
     <groupId>io.github.chains-project</groupId>
     <artifactId>integrity-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>integrity-maven-plugin</name>
-    <url>http://maven.apache.org</url>
-
+    <url>https://github.com/chains-project/maven-lockfile</url>
+    <description>This plugin is a proof of concept for a maven plugin that can be used to validate
+        the integrity of a maven repository. It does this by generating a lock file that contains
+        the checksums of all the artifacts in the repository. The lock file can then be used to
+        validate the integrity of the repository. This guards the supply chain against malicious
+        actors that might tamper with the artifacts in the repository.
+    </description>
+    <scm>
+        <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
+        <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
+        <url>
+            https://github.com/chains-project/maven-lockfile.git</url>
+        <tag>HEAD</tag>
+    </scm>
+    <inceptionYear>2023</inceptionYear>
+    <developers>
+        <developer>
+            <id>MartinWitt</id>
+            <name>Martin Wittlinger</name>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
     <dependencies>
         <dependency>
             <groupId>com.diffplug.spotless</groupId>
@@ -85,7 +111,8 @@
         </dependency>
     </dependencies>
     <properties>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.target>
+            11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -97,7 +124,8 @@
                 <version>3.6.0</version>
                 <configuration>
                     <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
-                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                    <skipErrorNoDescriptorsFound>
+                        true</skipErrorNoDescriptorsFound>
                 </configuration>
                 <executions>
                     <execution>
@@ -175,14 +203,16 @@
                         <format>
                             <!-- define the files to apply to -->
                             <includes>
-                                <include>*.md</include>
+                                <include>
+                                    *.md</include>
                                 <include>.gitignore</include>
                             </includes>
                             <!-- define the steps to apply to those files -->
                             <trimTrailingWhitespace />
                             <endWithNewline />
                             <indent>
-                                <tabs>true</tabs>
+                                <tabs>
+                                    true</tabs>
                                 <spacesPerTab>4</spacesPerTab>
                             </indent>
                         </format>
@@ -195,7 +225,55 @@
                     <sortPom></sortPom>
                 </configuration>
             </plugin>
-            <!-- end::failsafe[] -->
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>publication</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <attach>
+                                        true</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <attach>
+                                        true</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>3.0.0</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>

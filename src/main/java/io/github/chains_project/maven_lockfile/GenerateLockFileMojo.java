@@ -26,7 +26,6 @@ import org.eclipse.aether.resolution.ArtifactResolutionException;
  * dependencies of the project. This can be used to validate that the dependencies of a project
  * have not changed.
  *
- * @description Generate a lock file for the dependencies of the current project.
  */
 @Mojo(
         name = "generate",

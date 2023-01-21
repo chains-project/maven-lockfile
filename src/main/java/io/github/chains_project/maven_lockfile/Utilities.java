@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
@@ -129,7 +130,7 @@ public class Utilities {
                         remoteUrl,
                         getDependencies(project, repositorySystemSession, repoSystem, resolvedArtifact.getArtifact())));
             } catch (ArtifactResolutionException e) {
-                throw new RuntimeException("Could not resolve artifact: " + artifact, e);
+                new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
             }
         }
         return new LockFile(
