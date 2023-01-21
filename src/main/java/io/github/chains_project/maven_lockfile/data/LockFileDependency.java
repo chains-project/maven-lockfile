@@ -1,12 +1,9 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import com.google.common.base.Preconditions;
-import com.google.gson.annotations.JsonAdapter;
-import io.github.chains_project.maven_lockfile.typeadapters.EmptyListToNullFactory;
 
 /**
  * A single dependency that can be in a lock file.
@@ -23,7 +20,7 @@ public class LockFileDependency {
     private final String checksum;
     private final String repoUrl;
 
-    @JsonAdapter(EmptyListToNullFactory.class)
+    // @JsonAdapter(EmptyListToNullFactory.class)
     private final List<LockFileDependency> requires;
 
     public LockFileDependency(
@@ -87,20 +84,17 @@ public class LockFileDependency {
         return requires;
     }
 
-
     @Override
     public String toString() {
-        return "{" +
-            " artifactId='" + getArtifactId() + "'" +
-            ", groupId='" + getGroupId() + "'" +
-            ", version='" + getVersion() + "'" +
-            ", checksumAlgorithm='" + getChecksumAlgorithm() + "'" +
-            ", checksum='" + getChecksum() + "'" +
-            ", repoUrl='" + getRepoUrl() + "'" +
-            ", requires='" + getRequires() + "'" +
-            "}";
+        return "{" + " artifactId='"
+                + getArtifactId() + "'" + ", groupId='"
+                + getGroupId() + "'" + ", version='"
+                + getVersion() + "'" + ", checksumAlgorithm='"
+                + getChecksumAlgorithm() + "'" + ", checksum='"
+                + getChecksum() + "'" + ", repoUrl='"
+                + getRepoUrl() + "'" + ", requires='"
+                + getRequires() + "'" + "}";
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -131,17 +125,13 @@ public class LockFileDependency {
         if (!Objects.equals(requires, lockFileDependency.requires)) {
             System.out.println("Du bist zu dumm für requires");
         }
-        var otherRequires = lockFileDependency.requires;
-        if (otherRequires == null) {
-            otherRequires =Collections.emptyList();
-        }
         return Objects.equals(artifactId, lockFileDependency.artifactId)
                 && Objects.equals(groupId, lockFileDependency.groupId)
                 && Objects.equals(version, lockFileDependency.version)
                 && Objects.equals(checksumAlgorithm, lockFileDependency.checksumAlgorithm)
                 && Objects.equals(checksum, lockFileDependency.checksum)
                 && Objects.equals(repoUrl, lockFileDependency.repoUrl)
-                && Objects.equals(requires, otherRequires);
+                && Objects.equals(requires, lockFileDependency.requires);
     }
 
     @Override
