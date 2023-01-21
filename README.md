@@ -1,8 +1,14 @@
 
-![Maven Integrity Plugin (3)](https://user-images.githubusercontent.com/25300639/213880064-10f22902-1605-4bf4-9778-1f7d3c41e835.png)
-
 # Maven Integrity Plugin
+<p align="left">
+    <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
+        <img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
+    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" alt=Maven-Central">
+        <img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" /></a>
+</p>
 
+
+![image](https://user-images.githubusercontent.com/25300639/213881088-0c5abda8-9722-40d0-9e25-17558e63b0da.png)
 This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 
