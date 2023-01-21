@@ -1,4 +1,6 @@
-![A rusty chain as logo for this project](doc/logo.png)
+
+![Maven Integrity Plugin (3)](https://user-images.githubusercontent.com/25300639/213880064-10f22902-1605-4bf4-9778-1f7d3c41e835.png)
+
 # Maven Integrity Plugin
 
 This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
