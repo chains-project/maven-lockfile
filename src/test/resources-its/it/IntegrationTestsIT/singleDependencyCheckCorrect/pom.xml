@@ -28,8 +28,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>
-                generate</goal>
+              <goal>validate</goal>
             </goals>
           </execution>
         </executions>

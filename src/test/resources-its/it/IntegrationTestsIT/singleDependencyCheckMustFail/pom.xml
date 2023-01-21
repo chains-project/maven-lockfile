@@ -29,7 +29,7 @@
           <execution>
             <goals>
               <goal>
-                generate</goal>
+                validate</goal>
             </goals>
           </execution>
         </executions>

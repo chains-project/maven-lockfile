@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -63,8 +64,15 @@ public class LockFile {
      */
     public Set<LockFileDependency> differenceTo(LockFile other) {
         Set<LockFileDependency> thisSet = new HashSet<>(dependencies);
-        Set<LockFileDependency> otherSet = Set.copyOf(other.dependencies);
+        Set<LockFileDependency> otherSet = Set.copyOf(other.getDependencies());
+        System.out.println(otherSet);
         thisSet.removeAll(otherSet);
+        if (thisSet.size() == 1) {
+            this.getDependencies().get(0).getRequires().stream()
+                    .filter(v -> !otherSet.iterator().next().getRequires().contains(v))
+                    .forEach(System.out::println);
+            ;
+        }
         return thisSet;
     }
 
@@ -73,5 +81,29 @@ public class LockFile {
      */
     public List<LockFileDependency> getDependencies() {
         return dependencies;
+    }
+    /** (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, version, lockfileVersion, dependencies);
+    }
+    /** (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof LockFile)) {
+            return false;
+        }
+        LockFile other = (LockFile) obj;
+        return Objects.equals(name, other.name)
+                && Objects.equals(version, other.version)
+                && lockfileVersion == other.lockfileVersion
+                && Objects.equals(dependencies, other.dependencies);
     }
 }

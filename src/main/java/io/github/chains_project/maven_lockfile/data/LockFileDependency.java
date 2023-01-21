@@ -1,11 +1,9 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import com.google.common.base.Preconditions;
-import com.google.gson.annotations.JsonAdapter;
-import io.github.chains_project.maven_lockfile.typeadapters.EmptyListToNullFactory;
 
 /**
  * A single dependency that can be in a lock file.
@@ -21,7 +19,8 @@ public class LockFileDependency {
     private final String checksumAlgorithm;
     private final String checksum;
     private final String repoUrl;
-    @JsonAdapter(EmptyListToNullFactory.class)
+
+    // @JsonAdapter(EmptyListToNullFactory.class)
     private final List<LockFileDependency> requires;
 
     public LockFileDependency(
@@ -93,7 +92,8 @@ public class LockFileDependency {
                 + getVersion() + "'" + ", checksumAlgorithm='"
                 + getChecksumAlgorithm() + "'" + ", checksum='"
                 + getChecksum() + "'" + ", repoUrl='"
-                + getRepoUrl() + "'" + "}";
+                + getRepoUrl() + "'" + ", requires='"
+                + getRequires() + "'" + "}";
     }
 
     @Override
@@ -102,7 +102,29 @@ public class LockFileDependency {
         if (!(o instanceof LockFileDependency)) {
             return false;
         }
+
         LockFileDependency lockFileDependency = (LockFileDependency) o;
+        if (!Objects.equals(artifactId, lockFileDependency.artifactId)) {
+            System.out.println("Du bist zu dumm für artifaktid");
+        }
+        if (!Objects.equals(groupId, lockFileDependency.groupId)) {
+            System.out.println("Du bist zu dumm für groupid");
+        }
+        if (!Objects.equals(version, lockFileDependency.version)) {
+            System.out.println("Du bist zu dumm für version");
+        }
+        if (!Objects.equals(checksumAlgorithm, lockFileDependency.checksumAlgorithm)) {
+            System.out.println("Du bist zu dumm für checksumAlgorithm");
+        }
+        if (!Objects.equals(checksum, lockFileDependency.checksum)) {
+            System.out.println("Du bist zu dumm für checksum");
+        }
+        if (!Objects.equals(repoUrl, lockFileDependency.repoUrl)) {
+            System.out.println("Du bist zu dumm für repoUrl");
+        }
+        if (!Objects.equals(requires, lockFileDependency.requires)) {
+            System.out.println("Du bist zu dumm für requires");
+        }
         return Objects.equals(artifactId, lockFileDependency.artifactId)
                 && Objects.equals(groupId, lockFileDependency.groupId)
                 && Objects.equals(version, lockFileDependency.version)

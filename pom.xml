@@ -3,10 +3,10 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.chains-project</groupId>
-    <artifactId>maven-integrity-plugin</artifactId>
+    <artifactId>integrity-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>maven-integrity-plugin Maven Mojo</name>
+    <name>integrity-maven-plugin</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
@@ -77,6 +77,12 @@
             <version>0.12.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.instancio</groupId>
+            <artifactId>instancio</artifactId>
+            <version>1.0.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
@@ -103,19 +109,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            src/test/java/org/apache/maven/it/**</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                        <exclude>
-                            src/test/resources-its/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
@@ -127,23 +120,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <!--
-                 ! We need to skip any check cause we use a
-                                plugin
-                    which
-                 ! is not a release only at the time of
-                                the
-                    release.
-                -->
-                    <skip>
-                        true</skip>
-                </configuration>
-            </plugin>
-            <!-- tag::itf-maven-plugin[] -->
             <plugin>
                 <groupId>com.soebes.itf.jupiter.extension</groupId>
                 <artifactId>itf-maven-plugin</artifactId>
@@ -159,9 +135,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- end::itf-maven-plugin[] -->
-
-            <!-- tag::failsafe[] -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
