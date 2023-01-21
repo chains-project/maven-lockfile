@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import com.google.common.base.Preconditions;
@@ -130,13 +131,17 @@ public class LockFileDependency {
         if (!Objects.equals(requires, lockFileDependency.requires)) {
             System.out.println("Du bist zu dumm für requires");
         }
+        var otherRequires = lockFileDependency.requires;
+        if (otherRequires == null) {
+            otherRequires =Collections.emptyList();
+        }
         return Objects.equals(artifactId, lockFileDependency.artifactId)
                 && Objects.equals(groupId, lockFileDependency.groupId)
                 && Objects.equals(version, lockFileDependency.version)
                 && Objects.equals(checksumAlgorithm, lockFileDependency.checksumAlgorithm)
                 && Objects.equals(checksum, lockFileDependency.checksum)
                 && Objects.equals(repoUrl, lockFileDependency.repoUrl)
-                && Objects.equals(requires, lockFileDependency.requires);
+                && Objects.equals(requires, otherRequires);
     }
 
     @Override
