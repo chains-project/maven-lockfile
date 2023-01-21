@@ -1,3 +1,4 @@
+![A rusty chain as logo for this project](doc/logo.png)
 # Maven Integrity Plugin
 
 This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
@@ -5,24 +6,23 @@ This guards the supply chain against malicious actors that might tamper with the
 
 ## Installation:
 
-We have not yet published this plugin to maven central, so you will have to build it yourself.:
-For now, you can build it by running the following command in the root of the repository:
+This plugin is available on maven central. To use it, add the following to your pom.xml:
+See https://search.maven.org/artifact/io.github.chains-project/integrity-maven-plugin for the latest version.
+All versions below 1.0.0 are considered unstable and should not be used in production.
+We will release a stable version once we have implemented all the features we want to have.
 
-```
-mvn clean install
-```
 
 ## Usage
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn integrity-maven-plugin:generate
+mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:generate
 ```
 
 Then run the following command to validate the repository:
 
 ```
-mvn integrity-maven-plugin:validate
+mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:validate
 ```
 
 ## Format

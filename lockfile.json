@@ -1,46 +1,684 @@
 {
+  "name": "integrity-maven-plugin",
+  "version": "0.0.2",
+  "lockFileVersion": 1,
   "dependencies": [
     {
-      "artifactId": "org.apache.maven",
-      "groupId": "maven-plugin-api",
-      "version": "2.0",
+      "artifactId": "spotless-maven-plugin",
+      "groupId": "com.diffplug.spotless",
+      "version": "2.30.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "5b62626069d85bb463314572734988d47bc98aab9f0ed48d2f1f9554960f5a35"
+      "checksum": "a2dbd7f1b84193d6bf6fa43410c3de861b66e862ebd0a0125b2aa0dcd6bc650c",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "spotless-lib",
+          "groupId": "com.diffplug.spotless",
+          "version": "2.32.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4bac6126b5d668865d805ac61aa0e25288b910deb33f274764ee78deb691b2ec",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "spotless-lib-extra",
+          "groupId": "com.diffplug.spotless",
+          "version": "2.32.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "8bc4906062dc966c056862fc9260ac7d0593660b843ad65c11b156e9dccb64a1",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "durian-core",
+          "groupId": "com.diffplug.durian",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "17ed0aacb3a3c16323332168bbdead8694f32800b2b47d69d4a4c49b114d5dae",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "durian-collect",
+          "groupId": "com.diffplug.durian",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b194c0b88021cc116c21c1dc76f49c2c1fe175af5bcb74c8ba67b9dbbf9a48cc",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-resources",
+          "groupId": "org.codehaus.plexus",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "898fc46841ce7defce320b78b748e285cc4790f9db931045d1f4b139a35f065d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "org.eclipse.jgit",
+          "groupId": "org.eclipse.jgit",
+          "version": "5.13.1.202206130422-r",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d679365a6c8e55c1496701099f5e5765433f68dcb659759416ba5b222eb5055c",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-build-api",
+          "groupId": "org.sonatype.plexus",
+          "version": "0.0.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "934171640fbd3d2495c50b79b0d9adb11e2c83e65bad157df8fe34bcac0ff798",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
     },
     {
-      "artifactId": "junit",
-      "groupId": "junit",
-      "version": "3.8.1",
+      "artifactId": "maven-plugin-api",
+      "groupId": "org.apache.maven",
+      "version": "3.8.7",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b58e459509e190bed737f3592bc1950485322846cf10e78ded1d065153012d70"
+      "checksum": "4f084b22f76f14eb8a795101fb83627ff11b6f2c7cb17f400d54322e7d000f74",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "maven-model",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "6fcadaee2a885c43b158f2e3833d0a3ecb68efc62e25ea5b11f77cc0716a7b2d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-artifact",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "23eb1c5c26f3d1b4694647b071beabfd96083191b006394707753af2ced8db01",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "org.eclipse.sisu.plexus",
+          "groupId": "org.eclipse.sisu",
+          "version": "0.3.5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7e4c61096d70826f20f7a7d55c59a5528e7aa5ad247ee2dfe544e4dd25f6a784",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-utils",
+          "groupId": "org.codehaus.plexus",
+          "version": "3.3.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4b570fcdbe5a894f249d2eb9b929358a9c88c3e548d227a80010461930222f2a",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-classworlds",
+          "groupId": "org.codehaus.plexus",
+          "version": "2.6.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "52f77c5ec49f787c9c417ebed5d6efd9922f44a202f217376e4f94c0d74f3549",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
     },
     {
-      "artifactId": "org.apache.maven.plugin-tools",
-      "groupId": "maven-plugin-annotations",
+      "artifactId": "maven-plugin-annotations",
+      "groupId": "org.apache.maven.plugin-tools",
       "version": "3.6.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "9e2434820dd2ba44ad70a66e5b2a9993a2a8b047ceabc3e850e4858cbf3f91c3"
+      "checksum": "9e2434820dd2ba44ad70a66e5b2a9993a2a8b047ceabc3e850e4858cbf3f91c3",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "maven-artifact",
+          "groupId": "org.apache.maven",
+          "version": "3.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "759079b9cf0cddae5ba06c96fd72347d82d0bc1d903c95d398c96522b139e470",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
     },
     {
-      "artifactId": "org.apache.maven",
-      "groupId": "maven-project",
-      "version": "2.2.1",
+      "artifactId": "junit-jupiter-api",
+      "groupId": "org.junit.jupiter",
+      "version": "5.9.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "24ddb65b7a6c3befb6267ce5f739f237c84eba99389265c30df67c3dd8396a40"
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "opentest4j",
+          "groupId": "org.opentest4j",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "junit-platform-commons",
+          "groupId": "org.junit.platform",
+          "version": "1.9.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "apiguardian-api",
+          "groupId": "org.apiguardian",
+          "version": "1.1.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
     },
     {
-      "artifactId": "com.google.code.gson",
-      "groupId": "gson",
+      "artifactId": "maven-core",
+      "groupId": "org.apache.maven",
+      "version": "3.8.7",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "c767facd54ab8f6eea972ccfa9c1d3f3a5daa210ff3353c98ad023f520562940",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "maven-model",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "6fcadaee2a885c43b158f2e3833d0a3ecb68efc62e25ea5b11f77cc0716a7b2d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-settings",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c098d2be3b81da037fa2d41179bf14938edb12ec3ada2c8df640c4a67710bb",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-settings-builder",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "2cd3d9d10e8486b29d46ef436dc96bbbfaf435a45dd328ccf955f5af969c8abe",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-builder-support",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "26b4653545ecc3f039982b2c8f13bc2a6e0e0fa1372c041bd451946cc37a59c1",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-repository-metadata",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "ae07c180da5ae7784915cf3980e90de361ea4d1bc5337b969694f50339efd9e1",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-artifact",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "23eb1c5c26f3d1b4694647b071beabfd96083191b006394707753af2ced8db01",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-plugin-api",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4f084b22f76f14eb8a795101fb83627ff11b6f2c7cb17f400d54322e7d000f74",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-model-builder",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "f1c47b4a29d3267532c6a1e499f0ccd5307b321a97e985af4573138ea5cdeb69",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-provider",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "98a5f43a2988078558cc22f8641124c74572dd9e600bc7d7db7de9ae88cc11ba",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-impl",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "17aaebe6e3e59df8cb5b4ec210196f7084637312b9bc4ff14cb77ad1ae3c381b",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-api",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d0b28ed944058ba4f9be4b54c25d6d5269cc4f3f3c49aa450d4dc2f7e0d552f6",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-spi",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "17441a39045ac19bc4a8068fb7284facebf6337754bf2bf8f26a76b5f98ed108",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-util",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "cdcad9355b625743f40e4cead9a96353404e010c39c808d23b044be331afa251",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-shared-utils",
+          "groupId": "org.apache.maven.shared",
+          "version": "3.3.4",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7925d9c5a0e2040d24b8fae3f612eb399cbffe5838b33ba368777dc7bddf6dda",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "org.eclipse.sisu.plexus",
+          "groupId": "org.eclipse.sisu",
+          "version": "0.3.5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7e4c61096d70826f20f7a7d55c59a5528e7aa5ad247ee2dfe544e4dd25f6a784",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "org.eclipse.sisu.inject",
+          "groupId": "org.eclipse.sisu",
+          "version": "0.3.5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c5994010bcdce1d2bd603a4d50c47191ddbd7875d1157b23aaa26d33c82fda13",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "gson",
+      "groupId": "com.google.code.gson",
       "version": "2.10",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf"
+      "checksum": "cdd163ce3598a20fc04eee71b140b24f6f2a3b35f0a499dbbdd9852e83fbfaf",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": []
     },
     {
-      "artifactId": "org.apache.maven.resolver",
-      "groupId": "maven-resolver-api",
+      "artifactId": "maven-resolver-api",
+      "groupId": "org.apache.maven.resolver",
       "version": "1.9.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "129a2785d266744d63bcc0b2f6034c658725b09c16ea8abdb62075fbe15c6953"
+      "checksum": "129a2785d266744d63bcc0b2f6034c658725b09c16ea8abdb62075fbe15c6953",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": []
+    },
+    {
+      "artifactId": "maven-plugin-testing-harness",
+      "groupId": "org.apache.maven.plugin-testing",
+      "version": "3.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "4b251e8a8bc345639525427dbe54d8b38650506c1cd2ce7b81fa47e514685ad6",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "commons-io",
+          "groupId": "commons-io",
+          "version": "2.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "675f60bd11a82d481736591fe4054c66471fa5463d45616652fd71585792ba87",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-archiver",
+          "groupId": "org.codehaus.plexus",
+          "version": "2.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "9154a5e6e1f95a1c74d4254670fec8d7aacd5692115710fe7e1381636c6be38c",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "maven-compat",
+      "groupId": "org.apache.maven",
+      "version": "3.8.7",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "829d065d9f336f3022913d050beee3713216bc9189c116f0b259caf857228101",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "maven-model",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "6fcadaee2a885c43b158f2e3833d0a3ecb68efc62e25ea5b11f77cc0716a7b2d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-model-builder",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "f1c47b4a29d3267532c6a1e499f0ccd5307b321a97e985af4573138ea5cdeb69",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-settings",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c098d2be3b81da037fa2d41179bf14938edb12ec3ada2c8df640c4a67710bb",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-settings-builder",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "2cd3d9d10e8486b29d46ef436dc96bbbfaf435a45dd328ccf955f5af969c8abe",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-artifact",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "23eb1c5c26f3d1b4694647b071beabfd96083191b006394707753af2ced8db01",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-core",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c767facd54ab8f6eea972ccfa9c1d3f3a5daa210ff3353c98ad023f520562940",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-provider",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "98a5f43a2988078558cc22f8641124c74572dd9e600bc7d7db7de9ae88cc11ba",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-repository-metadata",
+          "groupId": "org.apache.maven",
+          "version": "3.8.7",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "ae07c180da5ae7784915cf3980e90de361ea4d1bc5337b969694f50339efd9e1",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-api",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d0b28ed944058ba4f9be4b54c25d6d5269cc4f3f3c49aa450d4dc2f7e0d552f6",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-util",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "cdcad9355b625743f40e4cead9a96353404e010c39c808d23b044be331afa251",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-resolver-impl",
+          "groupId": "org.apache.maven.resolver",
+          "version": "1.6.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "17aaebe6e3e59df8cb5b4ec210196f7084637312b9bc4ff14cb77ad1ae3c381b",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-utils",
+          "groupId": "org.codehaus.plexus",
+          "version": "3.3.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4b570fcdbe5a894f249d2eb9b929358a9c88c3e548d227a80010461930222f2a",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-interpolation",
+          "groupId": "org.codehaus.plexus",
+          "version": "1.26",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b3b5412ce17889103ea564bcdfcf9fb3dfa540344ffeac6b538a73c9d7182662",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "org.eclipse.sisu.plexus",
+          "groupId": "org.eclipse.sisu",
+          "version": "0.3.5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7e4c61096d70826f20f7a7d55c59a5528e7aa5ad247ee2dfe544e4dd25f6a784",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "plexus-component-annotations",
+          "groupId": "org.codehaus.plexus",
+          "version": "2.1.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "bde3617ce9b5bcf9584126046080043af6a4b3baea40a3b153f02e7bbc32acac",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "wagon-provider-api",
+          "groupId": "org.apache.maven.wagon",
+          "version": "3.5.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "5e72000338945ed3e96f8e4f578d1d0672e1af7e19c0e9014197ae5b31af3ef4",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "junit-jupiter-engine",
+      "groupId": "org.junit.jupiter",
+      "version": "5.9.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "74cfc49388f760413ff348ca2c9ab39527484b57deecd157f2275a5f8a5fe971",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "junit-platform-engine",
+          "groupId": "org.junit.platform",
+          "version": "1.9.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "junit-jupiter-api",
+          "groupId": "org.junit.jupiter",
+          "version": "5.9.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "apiguardian-api",
+          "groupId": "org.apiguardian",
+          "version": "1.1.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "itf-jupiter-extension",
+      "groupId": "com.soebes.itf.jupiter.extension",
+      "version": "0.12.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "1abeb8c791a9d451a40d3876a01ce3ece98e0f90e7ec4b464d5f70a4705893fb",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "itf-extension-maven",
+          "groupId": "com.soebes.itf.jupiter.extension",
+          "version": "0.12.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c4296d868e6b70fa8a091090d99d2191b0f64efae3d56625f9a6926c1e8ada1d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "junit-jupiter-api",
+          "groupId": "org.junit.jupiter",
+          "version": "5.9.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "5d2fe4d719dffb25a95d77e9c7a34893cbbb1b4cc6c86f2726af7e0fb7035b2f",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "maven-model",
+          "groupId": "org.apache.maven",
+          "version": "3.1.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "f9f7ad6301942d385fc79ed0615a7d5f06dbda60dee70b709e679624313e642a",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "itf-assertj",
+      "groupId": "com.soebes.itf.jupiter.extension",
+      "version": "0.12.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d154bec8c7c7dbb43428e43f7a6ebac0abe5cb576c2d466e0d731f7b187bd8a4",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "itf-extension-maven",
+          "groupId": "com.soebes.itf.jupiter.extension",
+          "version": "0.12.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c4296d868e6b70fa8a091090d99d2191b0f64efae3d56625f9a6926c1e8ada1d",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "assertj-core",
+          "groupId": "org.assertj",
+          "version": "3.23.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "36af798af9fc20537669e02618bd39f2c797f4813824ef222108cb686fa4c88e",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "artifactId": "instancio",
+      "groupId": "org.instancio",
+      "version": "1.0.4",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "b6935fe0444250cc204d67885929f422466e89bb1081e5947b5971bfbf0f4316",
+      "repoUrl": "https://repo.maven.apache.org/maven2",
+      "requires": [
+        {
+          "artifactId": "slf4j-api",
+          "groupId": "org.slf4j",
+          "version": "1.7.36",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "objenesis",
+          "groupId": "org.objenesis",
+          "version": "3.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "3d960bd5aef03c653eb000413ada15eb77cdd2b8e4448886edf5692805e35f3",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        },
+        {
+          "artifactId": "reflections",
+          "groupId": "org.reflections",
+          "version": "0.10.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "938a2d08fe54050d7610b944d8ddc3a09355710d9e6be0aac838dbc04e9a2825",
+          "repoUrl": "https://repo.maven.apache.org/maven2",
+          "requires": []
+        }
+      ]
     }
   ]
 }
