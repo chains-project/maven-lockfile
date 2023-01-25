@@ -64,7 +64,6 @@ public class LockFile {
     public Set<LockFileDependency> differenceTo(LockFile other) {
         Set<LockFileDependency> thisSet = new HashSet<>(dependencies);
         Set<LockFileDependency> otherSet = Set.copyOf(other.getDependencies());
-        System.out.println(otherSet);
         thisSet.removeAll(otherSet);
         return thisSet;
     }
