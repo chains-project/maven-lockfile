@@ -88,11 +88,6 @@ The `repoUrl` field is used to validate that the artifact is downloaded from the
 Different from JS, all build tools download almost everything from maven-central instead of multiple different repositories.
 This means changes in the `repoUrl` field are not as common as in JS.
 
-## TODO
-
-- Make the integrity conformant to https://w3c.github.io/webappsec-subresource-integrity/
-- Make the validation failure message more human-readable
-- Add functionality for modifying lock files, e.g., adding a new dependency without generating the whole file from scratch.
 
 ## Related work
 Here we list some related work that we found while researching this topic.
