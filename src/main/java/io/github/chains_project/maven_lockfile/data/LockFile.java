@@ -5,7 +5,6 @@ import io.github.chains_project.maven_lockfile.JsonUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +29,7 @@ public class LockFile {
     @SerializedName("lockFileVersion")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
-    private List<LockFileDependency> dependencies = new ArrayList<>();
+    private List<LockFileDependency> dependencies;
 
     public LockFile(
             GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
@@ -80,14 +79,14 @@ public class LockFile {
         return dependencies;
     }
     /** (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
         return Objects.hash(name, version, lockfileVersion, dependencies);
     }
     /** (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object obj) {

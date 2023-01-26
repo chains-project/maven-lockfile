@@ -22,6 +22,7 @@ import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.collection.CollectRequest;
 import org.eclipse.aether.collection.DependencyCollectionException;
+import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.repository.LocalRepositoryManager;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.resolution.ArtifactRequest;
@@ -105,16 +106,9 @@ public class Utilities {
             VersionNumber version = VersionNumber.of(artifact.getVersion());
 
             try {
-                ArtifactRequest artifactRequest = new ArtifactRequest();
-                artifactRequest.setArtifact(new DefaultArtifact(
-                        groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue()));
-                artifactRequest.setRepositories(project.getRemoteProjectRepositories());
-                ArtifactResult resolvedArtifact = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
-                String remoteUrl = "";
-                if (resolvedArtifact.getRepository() instanceof RemoteRepository) {
-                    RemoteRepository remoteRepo = (RemoteRepository) resolvedArtifact.getRepository();
-                    remoteUrl = remoteRepo.getUrl();
-                }
+                ArtifactResult resolvedArtifact = resolveArtifact(project, repositorySystemSession,
+                        repoSystem, groupId, artifactId, version);
+                String remoteUrl = tryResolveUrl(resolvedArtifact);
                 Path path = resolvedArtifact.getArtifact().getFile().toPath();
                 String checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
                 dependencies.add(new LockFileDependency(
@@ -142,6 +136,26 @@ public class Utilities {
                 dependencies);
     }
 
+    private static ArtifactResult resolveArtifact(MavenProject project,
+            RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem,
+            GroupId groupId, ArtifactId artifactId, VersionNumber version)
+            throws ArtifactResolutionException {
+        ArtifactRequest artifactRequest = new ArtifactRequest();
+        artifactRequest.setArtifact(new DefaultArtifact(
+                groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue()));
+        artifactRequest.setRepositories(project.getRemoteProjectRepositories());
+        return repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
+    }
+
+    private static String tryResolveUrl(ArtifactResult resolvedArtifact) {
+        String remoteUrl = "";
+        if (resolvedArtifact.getRepository() instanceof RemoteRepository) {
+            RemoteRepository remoteRepo = (RemoteRepository) resolvedArtifact.getRepository();
+            remoteUrl = remoteRepo.getUrl();
+        }
+        return remoteUrl;
+    }
+
     private static List<LockFileDependency> getDependencies(
             MavenProject project,
             RepositorySystemSession repositorySystemSession,
@@ -151,28 +165,24 @@ public class Utilities {
         List<LockFileDependency> dependencies = new ArrayList<>();
         try {
             CollectRequest collectRequest = new CollectRequest();
-            collectRequest.setRoot(new org.eclipse.aether.graph.Dependency(artifact, null));
+            collectRequest.setRoot(new Dependency(artifact, null));
             collectRequest.setRepositories(project.getRemoteProjectRepositories());
             var result = repoSystem.collectDependencies(repositorySystemSession, collectRequest);
             for (var dependency : result.getRoot().getChildren()) {
                 var artifactResult = repoSystem.resolveArtifact(
                         repositorySystemSession,
                         new ArtifactRequest(dependency.getArtifact(), project.getRemoteProjectRepositories(), null));
-                var path = getPathOfArtifact(
-                        repositorySystemSession,
-                        GroupId.of(dependency.getArtifact().getGroupId()),
-                        ArtifactId.of(dependency.getArtifact().getArtifactId()),
-                        VersionNumber.of(dependency.getArtifact().getVersion()));
+                GroupId groupId = GroupId.of(dependency.getArtifact().getGroupId());
+                ArtifactId artifactId = ArtifactId.of(dependency.getArtifact().getArtifactId());
+                VersionNumber versionNumber =
+                        VersionNumber.of(dependency.getArtifact().getVersion());
+                var path = getPathOfArtifact(repositorySystemSession, groupId, artifactId, versionNumber);
                 var checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
-                var remoteUrl = "";
-                if (artifactResult.getRepository() instanceof RemoteRepository) {
-                    RemoteRepository remoteRepo = (RemoteRepository) artifactResult.getRepository();
-                    remoteUrl = remoteRepo.getUrl();
-                }
+                var remoteUrl = tryResolveUrl(artifactResult);
                 dependencies.add(new LockFileDependency(
-                        ArtifactId.of(dependency.getArtifact().getArtifactId()),
-                        GroupId.of(dependency.getArtifact().getGroupId()),
-                        VersionNumber.of(dependency.getArtifact().getVersion()),
+                        artifactId,
+                        groupId,
+                        versionNumber,
                         CHECKSUM_ALGORITHM,
                         checksum,
                         remoteUrl,
@@ -185,7 +195,7 @@ public class Utilities {
                 | ArtifactResolutionException
                 | NoSuchAlgorithmException
                 | IOException e) {
-            e.printStackTrace();
+            new SystemStreamLog().warn("Could not resolve dependencies for artifact: " + artifact, e);
         }
 
         return dependencies;
