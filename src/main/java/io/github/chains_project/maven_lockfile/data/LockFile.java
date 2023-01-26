@@ -20,6 +20,7 @@ public class LockFile {
 
     @SerializedName("artifactID")
     private final ArtifactId name;
+
     @SerializedName("groupID")
     private final GroupId groupId;
 
@@ -31,7 +32,8 @@ public class LockFile {
 
     private List<LockFileDependency> dependencies = new ArrayList<>();
 
-    public LockFile(GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
+    public LockFile(
+            GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
         this.dependencies = dependencies;
         this.name = name;
         this.version = versionNumber;

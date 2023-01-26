@@ -1,10 +1,10 @@
 
 # Maven Integrity Plugin
 <p align="left">
-    <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
-        <img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" alt=Maven-Central">
-        <img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" /></a>
+	<a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
+		<img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
+	<a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" alt=Maven-Central">
+		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" /></a>
 </p>
 
 
