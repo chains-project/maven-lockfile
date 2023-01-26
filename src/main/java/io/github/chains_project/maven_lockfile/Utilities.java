@@ -133,7 +133,7 @@ public class Utilities {
                 new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
             }
         }
-        return new LockFile(
+        return new LockFile(GroupId.of(project.getGroupId()), 
                 ArtifactId.of(project.getArtifactId()), VersionNumber.of(project.getVersion()), dependencies);
     }
 
