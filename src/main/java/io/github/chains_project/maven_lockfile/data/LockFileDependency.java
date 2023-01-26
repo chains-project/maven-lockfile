@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.data;
 
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,32 +12,18 @@ import java.util.Objects;
  * and the checksum itself.
  *
  */
-public class LockFileDependency {
+public class LockFileDependency implements Comparable<LockFileDependency>{
     private final ArtifactId artifactId;
     private final GroupId groupId;
     private final VersionNumber version;
     private final String checksumAlgorithm;
     private final String checksum;
     private final String repoUrl;
+    private final String scope;
 
     // @JsonAdapter(EmptyListToNullFactory.class)
     private final List<LockFileDependency> requires;
 
-    public LockFileDependency(
-            ArtifactId artifactId,
-            GroupId groupId,
-            VersionNumber version,
-            String checksumAlgorithm,
-            String checksum,
-            String repoId) {
-        this.artifactId = Preconditions.checkNotNull(artifactId);
-        this.groupId = Preconditions.checkNotNull(groupId);
-        this.version = Preconditions.checkNotNull(version);
-        this.checksumAlgorithm = checksumAlgorithm;
-        this.checksum = checksum;
-        this.repoUrl = repoId;
-        this.requires = new ArrayList<>();
-    }
 
     public LockFileDependency(
             ArtifactId artifactId,
@@ -45,14 +32,17 @@ public class LockFileDependency {
             String checksumAlgorithm,
             String checksum,
             String repoId,
-            List<LockFileDependency> requires) {
+            List<LockFileDependency> requires,
+            String scope) {
         this.artifactId = Preconditions.checkNotNull(artifactId);
         this.groupId = Preconditions.checkNotNull(groupId);
         this.version = Preconditions.checkNotNull(version);
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
         this.repoUrl = repoId;
+        Collections.sort(requires);
         this.requires = requires;
+        this.scope = Preconditions.checkNotNull(scope);
     }
 
     public ArtifactId getArtifactId() {
@@ -115,5 +105,17 @@ public class LockFileDependency {
     @Override
     public int hashCode() {
         return Objects.hash(artifactId, groupId, version, checksumAlgorithm, checksum, repoUrl, requires);
+    }
+
+    @Override
+    public int compareTo(LockFileDependency o) {
+        int result = this.getGroupId().getValue().compareTo(o.getGroupId().getValue());
+        if (result == 0) {
+            result = this.getArtifactId().getValue().compareTo(o.getArtifactId().getValue());
+            if (result == 0) {
+                result = this.getVersion().getValue().compareTo(o.getVersion().getValue());
+            }
+        }
+        return result;
     }
 }

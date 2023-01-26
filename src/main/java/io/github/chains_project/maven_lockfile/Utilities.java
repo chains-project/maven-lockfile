@@ -14,7 +14,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystem;
@@ -99,10 +98,8 @@ public class Utilities {
             throws IOException, NoSuchAlgorithmException {
 
         // Get all the artifacts for the dependencies in the project
-        List<Dependency> dependencyArtifacts = project.getDependencies();
         List<LockFileDependency> dependencies = new ArrayList<>();
-        for (var artifact : dependencyArtifacts) {
-
+        for (var artifact : project.getDependencies()) {
             GroupId groupId = GroupId.of(artifact.getGroupId());
             ArtifactId artifactId = ArtifactId.of(artifact.getArtifactId());
             VersionNumber version = VersionNumber.of(artifact.getVersion());
@@ -120,7 +117,6 @@ public class Utilities {
                 }
                 Path path = resolvedArtifact.getArtifact().getFile().toPath();
                 String checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
-                ;
                 dependencies.add(new LockFileDependency(
                         artifactId,
                         groupId,
@@ -128,7 +124,8 @@ public class Utilities {
                         CHECKSUM_ALGORITHM,
                         checksum,
                         remoteUrl,
-                        getDependencies(project, repositorySystemSession, repoSystem, resolvedArtifact.getArtifact())));
+                        getDependencies(project, repositorySystemSession, repoSystem, resolvedArtifact.getArtifact(), artifact.getScope()),
+                        artifact.getScope()));
             } catch (ArtifactResolutionException e) {
                 new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
             }
@@ -144,7 +141,7 @@ public class Utilities {
             MavenProject project,
             RepositorySystemSession repositorySystemSession,
             RepositorySystem repoSystem,
-            Artifact artifact) {
+            Artifact artifact, String parentScope) {
         List<LockFileDependency> dependencies = new ArrayList<>();
         try {
             CollectRequest collectRequest = new CollectRequest();
@@ -172,7 +169,9 @@ public class Utilities {
                         VersionNumber.of(dependency.getArtifact().getVersion()),
                         CHECKSUM_ALGORITHM,
                         checksum,
-                        remoteUrl));
+                        remoteUrl, getDependencies(project, repositorySystemSession, repoSystem, 
+                                dependency.getArtifact(), parentScope),
+                                parentScope));
             }
 
         } catch (DependencyCollectionException
