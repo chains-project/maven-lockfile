@@ -71,6 +71,10 @@ public class LockFileDependency implements Comparable<LockFileDependency> {
         return requires;
     }
 
+    public String getScope() {
+        return scope;
+    }
+
     @Override
     public String toString() {
         return "{" + " artifactId='"
@@ -79,17 +83,19 @@ public class LockFileDependency implements Comparable<LockFileDependency> {
                 + getVersion() + "'" + ", checksumAlgorithm='"
                 + getChecksumAlgorithm() + "'" + ", checksum='"
                 + getChecksum() + "'" + ", repoUrl='"
-                + getRepoUrl() + "'" + ", requires='"
+                + getRepoUrl() + "'" + ", scope='"
+                + getScope() + "'" + ", requires='"
                 + getRequires() + "'" + "}";
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
+        if (o == this) {
+            return true;
+        }
         if (!(o instanceof LockFileDependency)) {
             return false;
         }
-
         LockFileDependency lockFileDependency = (LockFileDependency) o;
         return Objects.equals(artifactId, lockFileDependency.artifactId)
                 && Objects.equals(groupId, lockFileDependency.groupId)
@@ -97,12 +103,13 @@ public class LockFileDependency implements Comparable<LockFileDependency> {
                 && Objects.equals(checksumAlgorithm, lockFileDependency.checksumAlgorithm)
                 && Objects.equals(checksum, lockFileDependency.checksum)
                 && Objects.equals(repoUrl, lockFileDependency.repoUrl)
+                && Objects.equals(scope, lockFileDependency.scope)
                 && Objects.equals(requires, lockFileDependency.requires);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artifactId, groupId, version, checksumAlgorithm, checksum, repoUrl, requires);
+        return Objects.hash(artifactId, groupId, version, checksumAlgorithm, checksum, repoUrl, scope, requires);
     }
 
     @Override
