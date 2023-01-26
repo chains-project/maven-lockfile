@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "semanticCommitType": ":arrow_up:",
+  "semanticCommits": true,
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "fix"
+      ],
+      "automerge": true,
+      "semanticCommitType": ":arrow_up:"
+    },
+    {
+      "updateTypes": [
+        "lockFileMaintenance",
+        "pin"
+      ],
+      "semanticCommitType": ":pushpin:"
+    },
+    {
+      "updateTypes": [
+        "rollback"
+      ],
+      "semanticCommitType": ":arrow_down:"
+    },
+    {
+      "updateTypes": [
+        "digest",
+        "bump"
+      ],
+      "semanticCommitType": ":bookmark:"
+    }
+  ]
+}
