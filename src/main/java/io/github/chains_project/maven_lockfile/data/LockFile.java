@@ -18,8 +18,11 @@ import java.util.Set;
  */
 public class LockFile {
 
-    @SerializedName("name")
+    @SerializedName("artifactID")
     private final ArtifactId name;
+
+    @SerializedName("groupID")
+    private final GroupId groupId;
 
     @SerializedName("version")
     private final VersionNumber version;
@@ -29,10 +32,12 @@ public class LockFile {
 
     private List<LockFileDependency> dependencies = new ArrayList<>();
 
-    public LockFile(ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
+    public LockFile(
+            GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
         this.dependencies = dependencies;
         this.name = name;
         this.version = versionNumber;
+        this.groupId = groupId;
     }
     /**
      * Create a lock file object from a serialized JSON string.

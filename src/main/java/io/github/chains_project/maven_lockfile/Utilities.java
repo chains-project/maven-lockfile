@@ -134,7 +134,10 @@ public class Utilities {
             }
         }
         return new LockFile(
-                ArtifactId.of(project.getArtifactId()), VersionNumber.of(project.getVersion()), dependencies);
+                GroupId.of(project.getGroupId()),
+                ArtifactId.of(project.getArtifactId()),
+                VersionNumber.of(project.getVersion()),
+                dependencies);
     }
 
     private static List<LockFileDependency> getDependencies(
