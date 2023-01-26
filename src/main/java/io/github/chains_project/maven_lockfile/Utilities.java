@@ -124,7 +124,12 @@ public class Utilities {
                         CHECKSUM_ALGORITHM,
                         checksum,
                         remoteUrl,
-                        getDependencies(project, repositorySystemSession, repoSystem, resolvedArtifact.getArtifact(), artifact.getScope()),
+                        getDependencies(
+                                project,
+                                repositorySystemSession,
+                                repoSystem,
+                                resolvedArtifact.getArtifact(),
+                                artifact.getScope()),
                         artifact.getScope()));
             } catch (ArtifactResolutionException e) {
                 new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
@@ -141,7 +146,8 @@ public class Utilities {
             MavenProject project,
             RepositorySystemSession repositorySystemSession,
             RepositorySystem repoSystem,
-            Artifact artifact, String parentScope) {
+            Artifact artifact,
+            String parentScope) {
         List<LockFileDependency> dependencies = new ArrayList<>();
         try {
             CollectRequest collectRequest = new CollectRequest();
@@ -169,9 +175,10 @@ public class Utilities {
                         VersionNumber.of(dependency.getArtifact().getVersion()),
                         CHECKSUM_ALGORITHM,
                         checksum,
-                        remoteUrl, getDependencies(project, repositorySystemSession, repoSystem, 
-                                dependency.getArtifact(), parentScope),
-                                parentScope));
+                        remoteUrl,
+                        getDependencies(
+                                project, repositorySystemSession, repoSystem, dependency.getArtifact(), parentScope),
+                        parentScope));
             }
 
         } catch (DependencyCollectionException

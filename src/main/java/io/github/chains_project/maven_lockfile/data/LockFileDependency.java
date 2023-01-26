@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +11,7 @@ import java.util.Objects;
  * and the checksum itself.
  *
  */
-public class LockFileDependency implements Comparable<LockFileDependency>{
+public class LockFileDependency implements Comparable<LockFileDependency> {
     private final ArtifactId artifactId;
     private final GroupId groupId;
     private final VersionNumber version;
@@ -23,7 +22,6 @@ public class LockFileDependency implements Comparable<LockFileDependency>{
 
     // @JsonAdapter(EmptyListToNullFactory.class)
     private final List<LockFileDependency> requires;
-
 
     public LockFileDependency(
             ArtifactId artifactId,
