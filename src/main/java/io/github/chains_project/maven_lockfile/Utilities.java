@@ -186,7 +186,9 @@ public class Utilities {
                 var remoteUrl = tryResolveUrl(artifactResult);
                 if (result.getCycles().stream().anyMatch(v -> v.getCyclicDependencies().stream()
                         .anyMatch(it -> it.getArtifact().getArtifactId().equals(artifact.getArtifactId())))) {
-                    System.out.println("Skipping " + artifactId + " " + groupId + " " + versionNumber);
+                    new SystemStreamLog()
+                            .warn("Skipping " + artifactId + " " + groupId + " " + versionNumber
+                                    + "because it is a cyclic dependency");
                     dependencies.add(new LockFileDependency(
                             artifactId,
                             groupId,
