@@ -106,8 +106,8 @@ public class Utilities {
             VersionNumber version = VersionNumber.of(artifact.getVersion());
 
             try {
-                ArtifactResult resolvedArtifact = resolveArtifact(project, repositorySystemSession,
-                        repoSystem, groupId, artifactId, version);
+                ArtifactResult resolvedArtifact =
+                        resolveArtifact(project, repositorySystemSession, repoSystem, groupId, artifactId, version);
                 String remoteUrl = tryResolveUrl(resolvedArtifact);
                 Path path = resolvedArtifact.getArtifact().getFile().toPath();
                 String checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
@@ -136,13 +136,17 @@ public class Utilities {
                 dependencies);
     }
 
-    private static ArtifactResult resolveArtifact(MavenProject project,
-            RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem,
-            GroupId groupId, ArtifactId artifactId, VersionNumber version)
+    private static ArtifactResult resolveArtifact(
+            MavenProject project,
+            RepositorySystemSession repositorySystemSession,
+            RepositorySystem repoSystem,
+            GroupId groupId,
+            ArtifactId artifactId,
+            VersionNumber version)
             throws ArtifactResolutionException {
         ArtifactRequest artifactRequest = new ArtifactRequest();
-        artifactRequest.setArtifact(new DefaultArtifact(
-                groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue()));
+        artifactRequest.setArtifact(
+                new DefaultArtifact(groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue()));
         artifactRequest.setRepositories(project.getRemoteProjectRepositories());
         return repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
     }
@@ -163,6 +167,7 @@ public class Utilities {
             Artifact artifact,
             String parentScope) {
         List<LockFileDependency> dependencies = new ArrayList<>();
+        System.err.println("Getting dependencies for " + artifact);
         try {
             CollectRequest collectRequest = new CollectRequest();
             collectRequest.setRoot(new Dependency(artifact, null));
@@ -179,6 +184,20 @@ public class Utilities {
                 var path = getPathOfArtifact(repositorySystemSession, groupId, artifactId, versionNumber);
                 var checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
                 var remoteUrl = tryResolveUrl(artifactResult);
+                if (result.getCycles().stream().anyMatch(v -> v.getCyclicDependencies().stream()
+                        .anyMatch(it -> it.getArtifact().getArtifactId().equals(artifact.getArtifactId())))) {
+                    System.out.println("Skipping " + artifactId + " " + groupId + " " + versionNumber);
+                    dependencies.add(new LockFileDependency(
+                            artifactId,
+                            groupId,
+                            versionNumber,
+                            CHECKSUM_ALGORITHM,
+                            checksum,
+                            remoteUrl,
+                            new ArrayList<>(),
+                            parentScope));
+                    continue;
+                }
                 dependencies.add(new LockFileDependency(
                         artifactId,
                         groupId,
