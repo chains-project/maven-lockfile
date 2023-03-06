@@ -30,6 +30,7 @@ public class LockFile {
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
     private List<LockFileDependency> dependencies;
+    private List<PackagedDependency> packagedDependencies;
 
     public LockFile(
             GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
@@ -71,7 +72,19 @@ public class LockFile {
         thisSet.removeAll(otherSet);
         return thisSet;
     }
+    /**
+     * @param packagedDependencies the packagedDependencies to set
+     */
+    public void setPackagedDependencies(List<PackagedDependency> packagedDependencies) {
+        this.packagedDependencies = packagedDependencies;
+    }
 
+    /**
+     * @return the packagedDependencies
+     */
+    public List<PackagedDependency> getPackagedDependencies() {
+        return packagedDependencies;
+    }
     /**
      * @return the dependencies
      */

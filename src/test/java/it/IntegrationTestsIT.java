@@ -62,6 +62,17 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(result).isFailure();
     }
 
+    @MavenTest
+    public void singleDependencyNotPackaged(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getPackagedDependencies())
+                .isNotEmpty()
+                .noneMatch(it -> it.getArtifactId().getValue().equals("org.junit.platform"));
+    }
+
     private Path getLockFile(MavenExecutionResult result) throws IOException {
         return Files.find(
                         result.getMavenProjectResult().getTargetBaseDirectory(),

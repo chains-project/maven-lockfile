@@ -28,7 +28,6 @@ import org.eclipse.aether.RepositorySystemSession;
         name = "generate",
         defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE,
-        requiresProject = true,
         requiresOnline = true)
 public class GenerateLockFileMojo extends AbstractMojo {
     /**
