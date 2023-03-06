@@ -27,7 +27,6 @@ import org.eclipse.aether.RepositorySystemSession;
         name = "validate",
         defaultPhase = LifecyclePhase.COMPILE,
         requiresDependencyResolution = ResolutionScope.COMPILE,
-        requiresProject = true,
         requiresOnline = true)
 public class ValidateChecksumMojo extends AbstractMojo {
     /**

@@ -26,7 +26,6 @@ import org.eclipse.aether.RepositorySystemSession;
         name = "checkPackaged",
         defaultPhase = LifecyclePhase.PACKAGE,
         requiresDependencyResolution = ResolutionScope.RUNTIME,
-        requiresProject = true,
         requiresOnline = true)
 public class PackagedFlagMojo extends AbstractMojo {
     /**
