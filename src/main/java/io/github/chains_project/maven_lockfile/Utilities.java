@@ -167,7 +167,6 @@ public class Utilities {
             Artifact artifact,
             String parentScope) {
         List<LockFileDependency> dependencies = new ArrayList<>();
-        System.err.println("Getting dependencies for " + artifact);
         try {
             CollectRequest collectRequest = new CollectRequest();
             collectRequest.setRoot(new Dependency(artifact, null));
