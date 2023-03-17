@@ -1,18 +1,19 @@
 package io.github.chains_project.maven_lockfile;
 
+import com.google.common.graph.Graph;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.LockFileDependency;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -21,13 +22,18 @@ import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.collection.CollectRequest;
-import org.eclipse.aether.collection.DependencyCollectionException;
 import org.eclipse.aether.graph.Dependency;
+import org.eclipse.aether.graph.DependencyFilter;
+import org.eclipse.aether.graph.DependencyNode;
+import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.LocalRepositoryManager;
 import org.eclipse.aether.repository.RemoteRepository;
-import org.eclipse.aether.resolution.ArtifactRequest;
-import org.eclipse.aether.resolution.ArtifactResolutionException;
+import org.eclipse.aether.repository.RepositoryPolicy;
 import org.eclipse.aether.resolution.ArtifactResult;
+import org.eclipse.aether.resolution.DependencyRequest;
+import org.eclipse.aether.resolution.DependencyResolutionException;
+import org.eclipse.aether.util.artifact.JavaScopes;
+import org.eclipse.aether.util.filter.DependencyFilterUtils;
 
 /**
  * Utilities for the lock file plugin. These are shared between generating and validating the lock file.
@@ -38,30 +44,6 @@ public class Utilities {
 
     private Utilities() {
         // Prevent instantiation
-    }
-    /**
-     * Currently the only supported checksum algorithm.
-     */
-    public static final String CHECKSUM_ALGORITHM = "SHA-256";
-
-    /**
-     * Calculate the checksum of a file with a given path, using the specified algorithm.
-     * @param artifactPath The path to the file to calculate the checksum of.
-     * @param algorithm The algorithm to use for calculating the checksum, e.g. "SHA-256".
-     *                  Should be a valid argument to <code>MessageDigest.getInstance()</code>
-     * @return A string of the hexadecimal representation of the checksum.
-     * @throws IOException if the path is not a file, or the file could not be read.
-     * @throws NoSuchAlgorithmException if the algorithm is not supported.
-     */
-    public static String calculateChecksum(Path artifactPath, String algorithm)
-            throws IOException, NoSuchAlgorithmException {
-        if (!artifactPath.toFile().isFile()) {
-            throw new IOException("Artifact path is not a file: " + artifactPath);
-        }
-        MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
-        byte[] fileBuffer = Files.readAllBytes(artifactPath);
-        byte[] artifactHash = messageDigest.digest(fileBuffer);
-        return new BigInteger(1, artifactHash).toString(16);
     }
 
     /**
@@ -95,60 +77,27 @@ public class Utilities {
      * @throws NoSuchAlgorithmException if the checksum algorithm is not supported.
      */
     public static LockFile generateLockFileFromProject(
-            MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem)
-            throws IOException, NoSuchAlgorithmException {
+            MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem) {
 
         // Get all the artifacts for the dependencies in the project
-        List<LockFileDependency> dependencies = new ArrayList<>();
         for (var artifact : project.getDependencies()) {
-            GroupId groupId = GroupId.of(artifact.getGroupId());
-            ArtifactId artifactId = ArtifactId.of(artifact.getArtifactId());
-            VersionNumber version = VersionNumber.of(artifact.getVersion());
-
             try {
-                ArtifactResult resolvedArtifact =
-                        resolveArtifact(project, repositorySystemSession, repoSystem, groupId, artifactId, version);
-                String remoteUrl = tryResolveUrl(resolvedArtifact);
-                Path path = resolvedArtifact.getArtifact().getFile().toPath();
-                String checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
-                dependencies.add(new LockFileDependency(
-                        artifactId,
-                        groupId,
-                        version,
-                        CHECKSUM_ALGORITHM,
-                        checksum,
-                        remoteUrl,
-                        getDependencies(
-                                project,
-                                repositorySystemSession,
-                                repoSystem,
-                                resolvedArtifact.getArtifact(),
-                                artifact.getScope()),
-                        artifact.getScope()));
-            } catch (ArtifactResolutionException e) {
+                var graph = DependencyGraph.of(
+                        Utilities.generateDependencyGraphForProject(project, repositorySystemSession, repoSystem));
+                var roots = graph.getGraph().stream()
+                        .filter(v -> v.getParent() == null)
+                        .toList();
+                return new LockFile(
+                        GroupId.of(project.getGroupId()),
+                        ArtifactId.of(project.getArtifactId()),
+                        VersionNumber.of(project.getVersion()),
+                        roots);
+
+            } catch (DependencyResolutionException e) {
                 new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
             }
         }
-        return new LockFile(
-                GroupId.of(project.getGroupId()),
-                ArtifactId.of(project.getArtifactId()),
-                VersionNumber.of(project.getVersion()),
-                dependencies);
-    }
-
-    private static ArtifactResult resolveArtifact(
-            MavenProject project,
-            RepositorySystemSession repositorySystemSession,
-            RepositorySystem repoSystem,
-            GroupId groupId,
-            ArtifactId artifactId,
-            VersionNumber version)
-            throws ArtifactResolutionException {
-        ArtifactRequest artifactRequest = new ArtifactRequest();
-        artifactRequest.setArtifact(
-                new DefaultArtifact(groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue()));
-        artifactRequest.setRepositories(project.getRemoteProjectRepositories());
-        return repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
+        return null;
     }
 
     private static String tryResolveUrl(ArtifactResult resolvedArtifact) {
@@ -160,74 +109,52 @@ public class Utilities {
         return remoteUrl;
     }
 
-    private static List<LockFileDependency> getDependencies(
-            MavenProject project,
-            RepositorySystemSession repositorySystemSession,
-            RepositorySystem repoSystem,
-            Artifact artifact,
-            String parentScope) {
-        List<LockFileDependency> dependencies = new ArrayList<>();
-        try {
+    public static Graph<Artifact> generateDependencyGraphForProject(
+            MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem)
+            throws DependencyResolutionException {
+        MutableGraph<Artifact> graph = GraphBuilder.directed().build();
+
+        var root = new DefaultArtifact(project.getGroupId(), project.getArtifactId(), null, project.getVersion());
+        for (var dep : project.getDependencies()) {
+            var defaultArtifact =
+                    new DefaultArtifact(dep.getGroupId(), dep.getArtifactId(), dep.getType(), dep.getVersion());
             CollectRequest collectRequest = new CollectRequest();
-            collectRequest.setRoot(new Dependency(artifact, null));
-            collectRequest.setRepositories(project.getRemoteProjectRepositories());
-            var result = repoSystem.collectDependencies(repositorySystemSession, collectRequest);
-            for (var dependency : result.getRoot().getChildren()) {
-                var artifactResult = repoSystem.resolveArtifact(
-                        repositorySystemSession,
-                        new ArtifactRequest(dependency.getArtifact(), project.getRemoteProjectRepositories(), null));
-                GroupId groupId = GroupId.of(dependency.getArtifact().getGroupId());
-                ArtifactId artifactId = ArtifactId.of(dependency.getArtifact().getArtifactId());
-                VersionNumber versionNumber =
-                        VersionNumber.of(dependency.getArtifact().getVersion());
-                var path = getPathOfArtifact(repositorySystemSession, groupId, artifactId, versionNumber);
-                var checksum = calculateChecksum(path, CHECKSUM_ALGORITHM);
-                var remoteUrl = tryResolveUrl(artifactResult);
-                if (result.getCycles().stream().anyMatch(v -> v.getCyclicDependencies().stream()
-                        .anyMatch(it -> it.getArtifact().getArtifactId().equals(artifact.getArtifactId())))) {
-                    new SystemStreamLog()
-                            .warn("Skipping " + artifactId + " " + groupId + " " + versionNumber
-                                    + "because it is a cyclic dependency");
-                    dependencies.add(new LockFileDependency(
-                            artifactId,
-                            groupId,
-                            versionNumber,
-                            CHECKSUM_ALGORITHM,
-                            checksum,
-                            remoteUrl,
-                            new ArrayList<>(),
-                            parentScope));
-                    continue;
+            graph.putEdge(root, defaultArtifact);
+            var list = newRepositories();
+            // there is a feature in maven where it will not resolve dependencies from http repositories
+            list.addAll(project.getRemoteProjectRepositories().stream()
+                    .filter(v -> v.getUrl().contains("https"))
+                    .toList());
+            collectRequest.setRoot(new Dependency(defaultArtifact, null));
+            collectRequest.setRepositories(list);
+            DependencyFilter classpathFilter = DependencyFilterUtils.classpathFilter(
+                    JavaScopes.TEST, JavaScopes.COMPILE, JavaScopes.RUNTIME, JavaScopes.SYSTEM, JavaScopes.PROVIDED);
+            DependencyRequest dependencyRequest = new DependencyRequest(collectRequest, classpathFilter);
+            var nodes = repoSystem.resolveDependencies(repositorySystemSession, dependencyRequest);
+            nodes.getRoot().accept(new DependencyVisitor() {
+                @Override
+                public boolean visitEnter(DependencyNode node) {
+                    node.getChildren().forEach(it -> graph.putEdge(node.getArtifact(), it.getArtifact()));
+                    return true;
                 }
-                dependencies.add(new LockFileDependency(
-                        artifactId,
-                        groupId,
-                        versionNumber,
-                        CHECKSUM_ALGORITHM,
-                        checksum,
-                        remoteUrl,
-                        getDependencies(
-                                project, repositorySystemSession, repoSystem, dependency.getArtifact(), parentScope),
-                        parentScope));
-            }
 
-        } catch (DependencyCollectionException
-                | ArtifactResolutionException
-                | NoSuchAlgorithmException
-                | IOException e) {
-            new SystemStreamLog().warn("Could not resolve dependencies for artifact: " + artifact, e);
+                @Override
+                public boolean visitLeave(DependencyNode node) {
+                    return true;
+                }
+            });
+            graph.removeNode(root);
         }
-
-        return dependencies;
+        return graph;
     }
 
-    private static Path getPathOfArtifact(
-            RepositorySystemSession repositorySystemSession,
-            GroupId groupId,
-            ArtifactId artifactId,
-            VersionNumber version) {
-        String coords = groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue();
-        Artifact artifact = new DefaultArtifact(coords);
-        return getLocalArtifactPath(repositorySystemSession, artifact);
+    public static List<RemoteRepository> newRepositories() {
+        return new ArrayList<>(Collections.singletonList(newCentralRepository()));
+    }
+
+    private static RemoteRepository newCentralRepository() {
+        return new RemoteRepository.Builder("central", "default", "https://repo.maven.apache.org/maven2/")
+                .setPolicy(new RepositoryPolicy(true, "always", RepositoryPolicy.CHECKSUM_POLICY_FAIL))
+                .build();
     }
 }

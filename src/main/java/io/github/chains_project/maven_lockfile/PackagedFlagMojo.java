@@ -1,16 +1,5 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.Utilities.getLockFilePath;
-
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.PackagedDependency;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -51,7 +40,8 @@ public class PackagedFlagMojo extends AbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException {
-        try {
+        return;
+        /* try {
             getLog().info("Packaged flag");
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             ArrayList<PackagedDependency> packagedDependencies = new ArrayList<>();
@@ -87,5 +77,6 @@ public class PackagedFlagMojo extends AbstractMojo {
             getLog().error(e);
             throw new MojoExecutionException("Error", e);
         }
+        */
     }
 }
