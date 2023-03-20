@@ -1,6 +1,6 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.Utilities.generateLockFileFromProject;
+import static io.github.chains_project.maven_lockfile.LockFileFacade.generateLockFileFromProject;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class GenerateLockFileMojo extends AbstractMojo {
         try {
             LockFile lockFile = generateLockFileFromProject(project, repoSession, repoSystem);
 
-            Path lockFilePath = Utilities.getLockFilePath(project);
+            Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
         } catch (IOException e) {

@@ -3,7 +3,7 @@ package io.github.chains_project.maven_lockfile.data;
 import com.google.common.base.Strings;
 import java.util.Objects;
 
-public class GroupId {
+public class GroupId implements Comparable<GroupId> {
     public static GroupId of(String groupId) {
         String checked = Objects.requireNonNull(groupId);
         if (Strings.isNullOrEmpty(checked)) {
@@ -40,5 +40,10 @@ public class GroupId {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public int compareTo(GroupId o) {
+        return this.value.compareTo(o.value);
     }
 }

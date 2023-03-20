@@ -13,11 +13,12 @@ import java.util.Objects;
  * This class represents a node in the dependency graph. It contains the artifactId, groupId and version  of the dependency.
  * It also contains a reference to the parent node.
  */
-public class DependencyNode {
+public class DependencyNode implements Comparable<DependencyNode> {
 
     private GroupId groupId;
     private ArtifactId artifactId;
     private VersionNumber version;
+    private String checksumAlgorithm;
     private String checksum;
     NodeId id;
 
@@ -31,6 +32,7 @@ public class DependencyNode {
         this.artifactId = artifactId;
         this.groupId = groupId;
         this.version = version;
+        this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
         this.children = new ArrayList<>();
         this.id = new NodeId(groupId, artifactId, version);
@@ -62,6 +64,7 @@ public class DependencyNode {
 
     void addChild(DependencyNode child) {
         children.add(child);
+        Collections.sort(children);
     }
 
     void setParent(NodeId parent) {
@@ -80,6 +83,12 @@ public class DependencyNode {
      */
     public String getChecksum() {
         return checksum;
+    }
+    /**
+     * @return the checksumAlgorithm
+     */
+    public String getChecksumAlgorithm() {
+        return checksumAlgorithm;
     }
 
     @Override
@@ -102,5 +111,18 @@ public class DependencyNode {
                 && Objects.equals(parent, other.parent)
                 && Objects.equals(children, other.children)
                 && Objects.equals(checksum, other.checksum);
+    }
+
+    @Override
+    public int compareTo(DependencyNode o) {
+        int groupIdCompare = groupId.compareTo(o.groupId);
+        if (groupIdCompare != 0) {
+            return groupIdCompare;
+        }
+        int artifactIdCompare = artifactId.compareTo(o.artifactId);
+        if (artifactIdCompare != 0) {
+            return artifactIdCompare;
+        }
+        return version.compareTo(o.version);
     }
 }

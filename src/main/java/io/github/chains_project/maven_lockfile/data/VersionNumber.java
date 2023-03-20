@@ -3,7 +3,7 @@ package io.github.chains_project.maven_lockfile.data;
 import com.google.common.base.Strings;
 import java.util.Objects;
 
-public class VersionNumber {
+public class VersionNumber implements Comparable<VersionNumber> {
     public static VersionNumber of(String versionNumber) {
         String checked = Objects.requireNonNull(versionNumber);
         if (Strings.isNullOrEmpty(checked)) {
@@ -40,5 +40,10 @@ public class VersionNumber {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public int compareTo(VersionNumber o) {
+        return this.value.compareTo(o.value);
     }
 }

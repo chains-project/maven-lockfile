@@ -11,7 +11,7 @@ import java.util.Objects;
  * It is also used to identify a maven artifact in a dependency graph.
  * For example, the artifact id of the artifact "org.apache.commons:commons-lang3:3.9" is "commons-lang3".
  */
-public class ArtifactId {
+public class ArtifactId implements Comparable<ArtifactId> {
     public static ArtifactId of(String artifactId) {
         // Artifact ID must be non-null and non-empty.
         String checked = Objects.requireNonNull(artifactId);
@@ -49,5 +49,10 @@ public class ArtifactId {
     @Override
     public int hashCode() {
         return Objects.hashCode(value);
+    }
+
+    @Override
+    public int compareTo(ArtifactId o) {
+        return this.value.compareTo(o.value);
     }
 }

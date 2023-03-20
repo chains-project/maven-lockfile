@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile.graph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import java.util.Objects;
 
 public class NodeId {
 
@@ -24,5 +25,24 @@ public class NodeId {
     public static NodeId fromValue(String value) {
         String[] split = value.split(":");
         return new NodeId(GroupId.of(split[0]), ArtifactId.of(split[1]), VersionNumber.of(split[2]));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groupId, artifactId, version);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof NodeId)) {
+            return false;
+        }
+        NodeId other = (NodeId) obj;
+        return Objects.equals(groupId, other.groupId)
+                && Objects.equals(artifactId, other.artifactId)
+                && Objects.equals(version, other.version);
     }
 }

@@ -29,7 +29,6 @@ import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.LocalRepositoryManager;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.repository.RepositoryPolicy;
-import org.eclipse.aether.resolution.ArtifactResult;
 import org.eclipse.aether.resolution.DependencyRequest;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.util.artifact.JavaScopes;
@@ -40,9 +39,9 @@ import org.eclipse.aether.util.filter.DependencyFilterUtils;
  *
  * @author Arvid Siberov
  */
-public class Utilities {
+public class LockFileFacade {
 
-    private Utilities() {
+    private LockFileFacade() {
         // Prevent instantiation
     }
 
@@ -83,7 +82,7 @@ public class Utilities {
         for (var artifact : project.getDependencies()) {
             try {
                 var graph = DependencyGraph.of(
-                        Utilities.generateDependencyGraphForProject(project, repositorySystemSession, repoSystem));
+                        LockFileFacade.generateDependencyGraphForProject(project, repositorySystemSession, repoSystem));
                 var roots = graph.getGraph().stream()
                         .filter(v -> v.getParent() == null)
                         .toList();
@@ -97,16 +96,11 @@ public class Utilities {
                 new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
             }
         }
-        return null;
-    }
-
-    private static String tryResolveUrl(ArtifactResult resolvedArtifact) {
-        String remoteUrl = "";
-        if (resolvedArtifact.getRepository() instanceof RemoteRepository) {
-            RemoteRepository remoteRepo = (RemoteRepository) resolvedArtifact.getRepository();
-            remoteUrl = remoteRepo.getUrl();
-        }
-        return remoteUrl;
+        return new LockFile(
+                GroupId.of(project.getGroupId()),
+                ArtifactId.of(project.getArtifactId()),
+                VersionNumber.of(project.getVersion()),
+                new ArrayList<>());
     }
 
     public static Graph<Artifact> generateDependencyGraphForProject(

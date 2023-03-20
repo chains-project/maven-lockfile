@@ -7,6 +7,8 @@ import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +50,11 @@ public class DependencyGraph {
             nodes.get(target).setParent(toNodeId(nodes.get(source)));
             nodes.get(source).addChild(nodes.get(target));
         }
-        return new DependencyGraph(List.copyOf(nodes.values()));
+        ArrayList<DependencyNode> roots = new ArrayList<>();
+        roots.addAll(nodes.values());
+        Collections.sort(roots);
+
+        return new DependencyGraph(roots);
     }
 
     private static NodeId toNodeId(DependencyNode node) {
