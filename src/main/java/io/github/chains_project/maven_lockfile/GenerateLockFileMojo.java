@@ -1,12 +1,11 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.Utilities.generateLockFileFromProject;
+import static io.github.chains_project.maven_lockfile.LockFileFacade.generateLockFileFromProject;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -53,10 +52,11 @@ public class GenerateLockFileMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         try {
             LockFile lockFile = generateLockFileFromProject(project, repoSession, repoSystem);
-            Path lockFilePath = Utilities.getLockFilePath(project);
+
+            Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
-        } catch (IOException | NoSuchAlgorithmException e) {
+        } catch (IOException e) {
             getLog().error(e);
         }
     }

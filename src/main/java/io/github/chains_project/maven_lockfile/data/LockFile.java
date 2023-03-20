@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.data;
 
 import com.google.gson.annotations.SerializedName;
 import io.github.chains_project.maven_lockfile.JsonUtils;
+import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,11 +30,10 @@ public class LockFile {
     @SerializedName("lockFileVersion")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
-    private List<LockFileDependency> dependencies;
+    private List<DependencyNode> dependencies;
     private List<PackagedDependency> packagedDependencies;
 
-    public LockFile(
-            GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<LockFileDependency> dependencies) {
+    public LockFile(GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<DependencyNode> dependencies) {
         this.dependencies = dependencies;
         this.name = name;
         this.version = versionNumber;
@@ -66,9 +66,9 @@ public class LockFile {
      * @param other the lock file to compare with
      * @return a set of dependencies that are in this lock file but not in the other lock file
      */
-    public Set<LockFileDependency> differenceTo(LockFile other) {
-        Set<LockFileDependency> thisSet = new HashSet<>(dependencies);
-        Set<LockFileDependency> otherSet = Set.copyOf(other.getDependencies());
+    public Set<DependencyNode> differenceTo(LockFile other) {
+        Set<DependencyNode> thisSet = new HashSet<>(dependencies);
+        Set<DependencyNode> otherSet = Set.copyOf(other.getDependencies());
         thisSet.removeAll(otherSet);
         return thisSet;
     }
@@ -88,7 +88,7 @@ public class LockFile {
     /**
      * @return the dependencies
      */
-    public List<LockFileDependency> getDependencies() {
+    public List<DependencyNode> getDependencies() {
         return dependencies;
     }
     /** (non-Javadoc)

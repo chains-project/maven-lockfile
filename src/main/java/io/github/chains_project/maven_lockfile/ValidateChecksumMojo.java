@@ -1,12 +1,11 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.Utilities.generateLockFileFromProject;
-import static io.github.chains_project.maven_lockfile.Utilities.getLockFilePath;
+import static io.github.chains_project.maven_lockfile.LockFileFacade.generateLockFileFromProject;
+import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.LockFileDependency;
+import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -56,16 +55,21 @@ public class ValidateChecksumMojo extends AbstractMojo {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession, repoSystem);
             if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
-                var missing = new ArrayList<LockFileDependency>(lockFileFromProject.getDependencies());
+                var missing = new ArrayList<DependencyNode>(lockFileFromProject.getDependencies());
                 missing.removeAll(lockFileFromFile.getDependencies());
-
-                getLog().error("Failed verifying: " + JsonUtils.toJson(missing));
+                StringBuilder sb = new StringBuilder();
+                sb.append("Failed verifying Lockfile. The following are missing:");
+                sb.append(JsonUtils.toJson(missing));
+                sb.append("your lockfile contains the following:");
+                sb.append(JsonUtils.toJson(lockFileFromFile.getDependencies()));
+                sb.append("your project contains the following:");
+                sb.append(JsonUtils.toJson(lockFileFromProject.getDependencies()));
+                sb.append("Your lockfile is out of date. Please run 'mvn lockfile:generate' to update it.");
+                getLog().error(sb.toString());
                 throw new MojoExecutionException("Failed verifying lock file");
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
-        } catch (NoSuchAlgorithmException e) {
-            throw new MojoExecutionException("No such algorithm", e);
         }
         getLog().info("Lockfile successfully validated.");
     }
