@@ -65,4 +65,4 @@ include:
   - name: StaticCallOnSubclass
 exclude:
   - name: UseOfClone
-  - name: UnstableAPIUsage
+  - name: UnstableApiUsage
