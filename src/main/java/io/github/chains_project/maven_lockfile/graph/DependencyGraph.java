@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.eclipse.aether.artifact.Artifact;
 
@@ -23,7 +24,7 @@ public class DependencyGraph {
     private List<DependencyNode> graph;
 
     public List<DependencyNode> getRoots() {
-        return graph.stream().filter(node -> node.getParent() == null).toList();
+        return graph.stream().filter(node -> node.getParent() == null).collect(Collectors.toList());
     }
 
     private DependencyGraph(List<DependencyNode> graph) {

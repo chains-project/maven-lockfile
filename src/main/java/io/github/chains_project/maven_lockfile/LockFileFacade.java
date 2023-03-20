@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.RepositorySystem;
@@ -85,7 +86,7 @@ public class LockFileFacade {
                         LockFileFacade.generateDependencyGraphForProject(project, repositorySystemSession, repoSystem));
                 var roots = graph.getGraph().stream()
                         .filter(v -> v.getParent() == null)
-                        .toList();
+                        .collect(Collectors.toList());
                 return new LockFile(
                         GroupId.of(project.getGroupId()),
                         ArtifactId.of(project.getArtifactId()),
@@ -118,7 +119,7 @@ public class LockFileFacade {
             // there is a feature in maven where it will not resolve dependencies from http repositories
             list.addAll(project.getRemoteProjectRepositories().stream()
                     .filter(v -> v.getUrl().contains("https"))
-                    .toList());
+                    .collect(Collectors.toList()));
             collectRequest.setRoot(new Dependency(defaultArtifact, null));
             collectRequest.setRepositories(list);
             DependencyFilter classpathFilter = DependencyFilterUtils.classpathFilter(
