@@ -15,10 +15,8 @@ jobs:
         key: $-jbang-$
         restore-keys: |
             $-jbang-
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@v4.5
-      with:
-        maven-version: 3.8.2
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.2.1
     - name: jbang
       uses: jbangdev/jbang-action@v0.105.1
       with:
