@@ -5,7 +5,7 @@ on:
 jobs:
   jbang:
     runs-on: ubuntu-latest
-    name: A job to run jbang
+    name: smoke test against different repos
     steps:
     - name: checkout
       uses: actions/checkout@v1
@@ -15,6 +15,10 @@ jobs:
         key: $-jbang-$
         restore-keys: |
             $-jbang-
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.2
     - name: jbang
       uses: jbangdev/jbang-action@v0.105.1
       with:
