@@ -1,0 +1,25 @@
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  jbang:
+    runs-on: ubuntu-latest
+    name: A job to run jbang
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      with:
+        path: /root/.jbang
+        key: $-jbang-$
+        restore-keys: |
+            $-jbang-
+    - name: jbang
+      uses: jbangdev/jbang-action@v0.105.1
+      with:
+        script: ".github/smoketest/SmokeTest.java"
+        scriptargs: "my world"
+      env:
+        JBANG_REPO: /root/.jbang/repository
+        GITHUB_TOKEN: $
