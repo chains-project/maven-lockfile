@@ -18,7 +18,7 @@ jobs:
     - name: Set up Maven
       run: sudo apt install maven
     - name: where is maven?
-      run: whereis mvn
+      run: mvn wrapper:wrapper
     - name: jbang
       uses: jbangdev/jbang-action@v0.105.1
       with:
