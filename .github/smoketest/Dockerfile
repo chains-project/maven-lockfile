@@ -14,6 +14,6 @@ ENV PATH="${PATH}:/jbang/bin"
 RUN jbang --help
 USER root
 COPY SmokeTest.java /SmokeTest.java
-RUN jbang --fresh app install /GraphParser.java
+RUN jbang --fresh app install /SmokeTest.java
 # Get dependency tree in dot format
 CMD jbang /SmokeTest.java
