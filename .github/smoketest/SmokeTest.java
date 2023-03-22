@@ -18,7 +18,13 @@ public class SmokeTest {
             "io.github.chains-project:integrity-maven-plugin:%s:generate";
     private static String[] mavenGraph = new String[] { "com.github.ferstl:depgraph-maven-plugin:4.0.2:graph", "-DgraphFormat=json" };
         private static ObjectMapper mapper = new ObjectMapper();
-        private static List<String> projects = List.of("https://github.com/INRIA/spoon", "https://github.com/stanfordnlp/CoreNLP", "https://github.com/javaparser/javaparser", "https://github.com/checkstyle/checkstyle");
+        private static List<CiProject> projects =
+                List.of(new CiProject("https://github.com/INRIA/spoon","8e1d4272f58189587279033e3b3ca80c5f78f8ff"),
+                        new CiProject("https://github.com/stanfordnlp/CoreNLP","139893242878ecacde79b2ba1d0102b855526610"),
+                        new CiProject("https://github.com/javaparser/javaparser","7e761814c661d67293fb9941287f544ce7fdd14c"),
+                        new CiProject("https://github.com/checkstyle/checkstyle","2a54782ebf952cab6adf00f874a9148859e46e47")
+                        );
+        
 
         public static void main(String... args) throws Exception {
         Path mavenPath = Path.of("./mvnw");
@@ -26,11 +32,12 @@ public class SmokeTest {
         new ProcBuilder("./mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
         out.println("your version is:" + getProjectVersion(mavenPath));
         String command = String.format(pluginCommand, pluginVersion);
-        for(String projectUrl : projects) {
+        for(CiProject projectUrl : projects) {
             out.println("Testing project " + projectUrl);
-            try (Git result = Git.cloneRepository().setURI(projectUrl)
-                         .call()) {
-                File workingDir = result.getRepository().getDirectory().getParentFile();
+            try (Git result = Git.cloneRepository().setURI(projectUrl.projectUrl)
+                    .call()) {
+                result.checkout().setName(projectUrl.commitHash).call();
+                File workingDir = result.getRepository().getDisrectory().getParentFile();
                 new ProcBuilder("../mvnw", command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
@@ -106,6 +113,9 @@ public class SmokeTest {
 
     public record DependencyLockFile(String groupId, String artifactId, String version, String checksumAlgorithm, String checksum,
                     String id,String parent, List<DependencyLockFile> children) {
+    };
+
+    private record CiProject(String projectUrl, String commitHash) {
     };
     
 }
