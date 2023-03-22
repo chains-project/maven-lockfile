@@ -22,7 +22,8 @@ public class SmokeTest {
 
         public static void main(String... args) throws Exception {
             Files.list(Path.of(".")).forEach(out::println);
-        String pluginVersion = getProjectVersion();
+        String mavenPath = Path.of("./mvnw");
+        String pluginVersion = getProjectVersion(mavenPath);
         new ProcBuilder("./mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
         out.println("your version is:" + getProjectVersion());
         String command = String.format(pluginCommand, pluginVersion);
@@ -85,8 +86,8 @@ public class SmokeTest {
         return null;
     }
 
-    private static String getProjectVersion() {
-        return ProcBuilder.run("../mvnw", "help:evaluate", "-Dexpression=project.version", "-q",
+    private static String getProjectVersion(Path path) {
+        return ProcBuilder.run(path.toAbsolutePath().toString(), "help:evaluate", "-Dexpression=project.version", "-q",
                 "-DforceStdout");
     }
     
