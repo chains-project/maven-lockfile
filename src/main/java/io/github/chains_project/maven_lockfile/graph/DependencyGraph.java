@@ -41,7 +41,6 @@ public class DependencyGraph {
             var checksum = calculateChecksum(node).orElse("");
             if (checksum.isBlank()) {
                 new SystemStreamLog().warn("Could not calculate checksum for artifact " + node);
-                continue;
             }
             nodes.put(node, new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum));
         }
@@ -64,6 +63,7 @@ public class DependencyGraph {
 
     private static Optional<String> calculateChecksum(Artifact artifact) {
         if (artifact.getFile() == null) {
+            new SystemStreamLog().error("Artifact " + artifact + " has no file");
             return Optional.empty();
         }
         try {
