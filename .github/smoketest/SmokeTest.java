@@ -37,7 +37,7 @@ public class SmokeTest {
             try (Git result = Git.cloneRepository().setURI(projectUrl.projectUrl)
                     .call()) {
                 result.checkout().setName(projectUrl.commitHash).call();
-                File workingDir = result.getRepository().getDisrectory().getParentFile();
+                File workingDir = result.getRepository().getDirectory().getParentFile();
                 new ProcBuilder("../mvnw", command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
