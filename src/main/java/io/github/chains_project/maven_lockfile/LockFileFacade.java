@@ -129,28 +129,37 @@ public class LockFileFacade {
             } catch (Exception e) {
                 new SystemStreamLog().warn("Could not resolve artifact: " + defaultArtifact);
             }
-            CollectRequest collectRequest = new CollectRequest();
+            try {
+                CollectRequest collectRequest = new CollectRequest();
 
-            collectRequest.setRoot(new Dependency(defaultArtifact, null));
-            collectRequest.setRepositories(list);
-            DependencyFilter classpathFilter = DependencyFilterUtils.classpathFilter(
-                    JavaScopes.TEST, JavaScopes.COMPILE, JavaScopes.RUNTIME, JavaScopes.SYSTEM, JavaScopes.PROVIDED);
-            DependencyRequest dependencyRequest = new DependencyRequest(collectRequest, classpathFilter);
-            var nodes = repoSystem.resolveDependencies(repositorySystemSession, dependencyRequest);
-            nodes.getRoot().accept(new DependencyVisitor() {
-                @Override
-                public boolean visitEnter(DependencyNode node) {
+                collectRequest.setRoot(new Dependency(defaultArtifact, null));
+                collectRequest.setRepositories(list);
+                DependencyFilter classpathFilter =
+                        DependencyFilterUtils.classpathFilter(JavaScopes.TEST, JavaScopes.COMPILE,
+                                JavaScopes.RUNTIME, JavaScopes.SYSTEM, JavaScopes.PROVIDED);
+                DependencyRequest dependencyRequest =
+                        new DependencyRequest(collectRequest, classpathFilter);
+                var nodes =
+                        repoSystem.resolveDependencies(repositorySystemSession, dependencyRequest);
 
-                    node.getChildren().forEach(it -> graph.putEdge(node.getArtifact(), it.getArtifact()));
-                    return true;
-                }
+                nodes.getRoot().accept(new DependencyVisitor() {
+                    @Override
+                    public boolean visitEnter(DependencyNode node) {
+                        node.getChildren()
+                                .forEach(it -> graph.putEdge(node.getArtifact(), it.getArtifact()));
+                        return true;
+                    }
 
-                @Override
-                public boolean visitLeave(DependencyNode node) {
-                    return true;
-                }
-            });
-            graph.removeNode(root);
+                    @Override
+                    public boolean visitLeave(DependencyNode node) {
+                        return true;
+                    }
+                });
+                graph.removeNode(root);
+            } catch (Exception e) {
+                new SystemStreamLog().warn("Could not resolve artifact: " + defaultArtifact);
+            }
+
         }
         return graph;
     }
