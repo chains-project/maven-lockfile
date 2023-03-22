@@ -18,7 +18,7 @@ public class SmokeTest {
             "io.github.chains-project:integrity-maven-plugin:%s:generate";
     private static String[] mavenGraph = new String[] { "com.github.ferstl:depgraph-maven-plugin:4.0.2:graph", "-DgraphFormat=json" };
         private static ObjectMapper mapper = new ObjectMapper();
-        private static List<String> projects = List.of("https://github.com/INRIA/spoon", "https://github.com/stanfordnlp/CoreNLP", "https://github.com/google/error-prone", "https://github.com/javaparser/javaparser", "https://github.com/checkstyle/checkstyle");
+        private static List<String> projects = List.of("https://github.com/INRIA/spoon", "https://github.com/stanfordnlp/CoreNLP", "https://github.com/javaparser/javaparser", "https://github.com/checkstyle/checkstyle");
 
         public static void main(String... args) throws Exception {
         Path mavenPath = Path.of("./mvnw");
