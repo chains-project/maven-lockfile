@@ -18,10 +18,9 @@ public class SmokeTest {
             "io.github.chains-project:integrity-maven-plugin:%s:generate";
     private static String[] mavenGraph = new String[] { "com.github.ferstl:depgraph-maven-plugin:4.0.2:graph", "-DgraphFormat=json" };
         private static ObjectMapper mapper = new ObjectMapper();
-        private static List<String> projects = List.of("https://github.com/INRIA/spoon");
+        private static List<String> projects = List.of("https://github.com/INRIA/spoon", "https://github.com/stanfordnlp/CoreNLP");
 
         public static void main(String... args) throws Exception {
-            Files.list(Path.of(".")).forEach(out::println);
         Path mavenPath = Path.of("./mvnw");
         String pluginVersion = getProjectVersion(mavenPath);
         new ProcBuilder("./mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
@@ -29,51 +28,48 @@ public class SmokeTest {
         String command = String.format(pluginCommand, pluginVersion);
         for(String projectUrl : projects) {
             out.println("Testing project " + projectUrl);
-
-        try (Git result = Git.cloneRepository().setURI(projectUrl)
+            try (Git result = Git.cloneRepository().setURI(projectUrl)
                          .call()) {
                 File workingDir = result.getRepository().getDirectory().getParentFile();
                 new ProcBuilder("../mvnw", command)
-                .withWorkingDirectory(workingDir)
-                .withNoTimeout()
-                .run();
-            LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
-                new ProcBuilder("../mvnw", mavenGraph)
-                .withWorkingDirectory(workingDir)
-                .withNoTimeout()
-                .run();
+                    .withWorkingDirectory(workingDir)
+                    .withNoTimeout()
+                    .run();
+                LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
+                    new ProcBuilder("../mvnw", mavenGraph)
+                    .withWorkingDirectory(workingDir)
+                    .withNoTimeout()
+                    .run();
 
-                JsonFile jsonFile = mapper.readValue(new File(workingDir, "/target/dependency-graph.json"), JsonFile.class);
-                List<Node> dependencies = jsonFile.artifacts;
-                // the first is the root
-                dependencies.remove(0);
-                List<DependencyLockFile> errors = new ArrayList<>();
-                Queue<DependencyLockFile> workingQueue = new ArrayDeque<>(lockFile.dependencies());
-                List<DependencyLockFile> completeList = new ArrayList<>();
-                while(!workingQueue.isEmpty()) {
-                    DependencyLockFile current = workingQueue.poll();
-                    completeList.add(current);
-                    workingQueue.addAll(current.children());
-                }
-                for (Node dependency : dependencies) {
-                    DependencyLockFile lockFileDependency = findDependency(
-                            completeList, dependency);
-                    if(lockFileDependency == null) {
-                        errors.add(new DependencyLockFile(dependency.groupId(), dependency.artifactId(), dependency.version(), "", "", "", "", new ArrayList<>()));
+                    JsonFile jsonFile = mapper.readValue(new File(workingDir, "/target/dependency-graph.json"), JsonFile.class);
+                    List<Node> dependencies = jsonFile.artifacts;
+                    // the first is the root
+                    dependencies.remove(0);
+                    List<DependencyLockFile> errors = new ArrayList<>();
+                    Queue<DependencyLockFile> workingQueue = new ArrayDeque<>(lockFile.dependencies());
+                    List<DependencyLockFile> completeList = new ArrayList<>();
+                    while(!workingQueue.isEmpty()) {
+                        DependencyLockFile current = workingQueue.poll();
+                        completeList.add(current);
+                        workingQueue.addAll(current.children());
                     }
-                }
-                if (!errors.isEmpty()) {
-                    fail("The following dependencies are not in the lockfile: " + errors.stream()
+                    for (Node dependency : dependencies) {
+                        DependencyLockFile lockFileDependency = findDependency(
+                                completeList, dependency);
+                        if(lockFileDependency == null) {
+                            errors.add(new DependencyLockFile(dependency.groupId(), dependency.artifactId(), dependency.version(), "", "", "", "", new ArrayList<>()));
+                        }
+                    }
+                    if (!errors.isEmpty()) {
+                        fail("The following dependencies are not in the lockfile: " + errors.stream()
                             .map(d -> d.groupId() + ":" + d.artifactId() + ":" + d.version)
                             .collect(Collectors.joining("\n")));
+                    }
+                    if(errors.isEmpty()) {
+                        out.println("All dependencies are in the lockfile");
+                    }
                 }
-                if(errors.isEmpty()) {
-                    out.println("All dependencies are in the lockfile");
-                }
-        }
-                }
-
-
+            }
     }
 
     private static DependencyLockFile findDependency(List<DependencyLockFile> dependencies,
