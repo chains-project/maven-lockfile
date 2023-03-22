@@ -83,7 +83,7 @@ public class SmokeTest {
     }
 
     private static String getProjectVersion(Path path) {
-        return ProcBuilder.run(path.toAbsolutePath().toString(), "help:evaluate", "-Dexpression=project.version", "-q",
+        return new ProcBuilder().withNoTimeout().run(path.toAbsolutePath().toString(), "help:evaluate", "-Dexpression=project.version", "-q",
                 "-DforceStdout");
     }
     
