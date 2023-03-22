@@ -110,9 +110,7 @@ This means changes in the `repoUrl` field are not as common as in JS.
 
 ## Related work
 Here we list some related work that we found while researching this topic.
-## Maven
-- https://github.com/vandmo/dependency-lock-maven-plugin
-##  Gradle
-- https://docs.gradle.org/current/userguide/dependency_locking.html
-## NPM
-- https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json
+
+- Maven: https://github.com/vandmo/dependency-lock-maven-plugin
+- Gradle: https://docs.gradle.org/current/userguide/dependency_locking.html
+- NPM: https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json
