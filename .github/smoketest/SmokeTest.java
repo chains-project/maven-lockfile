@@ -83,8 +83,8 @@ public class SmokeTest {
     }
 
     private static String getProjectVersion(Path path) {
-        return new ProcBuilder().withNoTimeout().run(path.toAbsolutePath().toString(), "help:evaluate", "-Dexpression=project.version", "-q",
-                "-DforceStdout");
+        return new ProcBuilder().withNoTimeout().run(path.toAbsolutePath().toString(), new String[]{ "help:evaluate", "-Dexpression=project.version", "-q",
+                "-DforceStdout"});
     }
     
     record Dependency(String groupId, String artifactId, String classifier, String version,
