@@ -23,7 +23,7 @@ public class SmokeTest {
         public static void main(String... args) throws Exception {
             Files.list(Path.of(".")).forEach(out::println);
         String pluginVersion = getProjectVersion();
-        new ProcBuilder("./mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
+        new ProcBuilder("../mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
         out.println("your version is:" + getProjectVersion());
         String command = String.format(pluginCommand, pluginVersion);
         for(String projectUrl : projects) {
@@ -32,12 +32,12 @@ public class SmokeTest {
         try (Git result = Git.cloneRepository().setURI(projectUrl)
                          .call()) {
                 File workingDir = result.getRepository().getDirectory().getParentFile();
-                new ProcBuilder("./mvnw", command)
+                new ProcBuilder("../mvnw", command)
                 .withWorkingDirectory(workingDir)
                 .withNoTimeout()
                 .run();
             LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
-                new ProcBuilder("./mvnw", mavenGraph)
+                new ProcBuilder("../mvnw", mavenGraph)
                 .withWorkingDirectory(workingDir)
                 .withNoTimeout()
                 .run();
@@ -86,7 +86,7 @@ public class SmokeTest {
     }
 
     private static String getProjectVersion() {
-        return ProcBuilder.run("./mvnw", "help:evaluate", "-Dexpression=project.version", "-q",
+        return ProcBuilder.run("../mvnw", "help:evaluate", "-Dexpression=project.version", "-q",
                 "-DforceStdout");
     }
     
