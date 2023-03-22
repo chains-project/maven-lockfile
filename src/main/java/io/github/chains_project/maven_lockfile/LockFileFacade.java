@@ -30,6 +30,7 @@ import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.LocalRepositoryManager;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.repository.RepositoryPolicy;
+import org.eclipse.aether.resolution.ArtifactRequest;
 import org.eclipse.aether.resolution.DependencyRequest;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.util.artifact.JavaScopes;
@@ -94,7 +95,7 @@ public class LockFileFacade {
                         roots);
 
             } catch (DependencyResolutionException e) {
-                new SystemStreamLog().warn("Could not resolve artifact: " + artifact, e);
+                new SystemStreamLog().warn("Could not resolve artifact: " + artifact.getArtifactId());
             }
         }
         return new LockFile(
@@ -110,16 +111,26 @@ public class LockFileFacade {
         MutableGraph<Artifact> graph = GraphBuilder.directed().build();
 
         var root = new DefaultArtifact(project.getGroupId(), project.getArtifactId(), null, project.getVersion());
+        var list = newRepositories();
+        // there is a feature in maven where it will not resolve dependencies from http repositories
+        list.addAll(project.getRemoteProjectRepositories().stream()
+                .filter(v -> v.getUrl().contains("https"))
+                .collect(Collectors.toList()));
         for (var dep : project.getDependencies()) {
             var defaultArtifact =
                     new DefaultArtifact(dep.getGroupId(), dep.getArtifactId(), dep.getType(), dep.getVersion());
+            try {
+                ArtifactRequest artifactRequest = new ArtifactRequest();
+                artifactRequest.setArtifact(defaultArtifact);
+                artifactRequest.setRepositories(list);
+                var result = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
+                graph.putEdge(root, result.getArtifact());
+
+            } catch (Exception e) {
+                new SystemStreamLog().warn("Could not resolve artifact: " + defaultArtifact);
+            }
             CollectRequest collectRequest = new CollectRequest();
-            graph.putEdge(root, defaultArtifact);
-            var list = newRepositories();
-            // there is a feature in maven where it will not resolve dependencies from http repositories
-            list.addAll(project.getRemoteProjectRepositories().stream()
-                    .filter(v -> v.getUrl().contains("https"))
-                    .collect(Collectors.toList()));
+
             collectRequest.setRoot(new Dependency(defaultArtifact, null));
             collectRequest.setRepositories(list);
             DependencyFilter classpathFilter = DependencyFilterUtils.classpathFilter(
@@ -129,6 +140,7 @@ public class LockFileFacade {
             nodes.getRoot().accept(new DependencyVisitor() {
                 @Override
                 public boolean visitEnter(DependencyNode node) {
+
                     node.getChildren().forEach(it -> graph.putEdge(node.getArtifact(), it.getArtifact()));
                     return true;
                 }
