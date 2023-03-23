@@ -175,6 +175,18 @@ public class LockFileFacade {
                 .filter(v -> v.getUrl().contains("https"))
                 .collect(Collectors.toList()));
         for (var dep : project.getDependencies()) {
+            ArtifactRequest artifactRequest = new ArtifactRequest();
+            artifactRequest.setArtifact(dependencyToArtifact(dep));
+            artifactRequest.setRepositories(list);
+            try {
+                var result = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
+                graph.addNode(result.getArtifact());
+            } catch (Exception e) {
+                new SystemStreamLog().warn("Could not resolve artifact: " + dep.getArtifactId(), e);
+            }
+        }
+
+        for (var dep : project.getDependencies()) {
             try {
 
                 CollectRequest collectRequest = new CollectRequest();
@@ -219,7 +231,12 @@ public class LockFileFacade {
         public boolean visitLeave(DependencyNode node) {
             return true;
         }
-
+        
+        /**
+         * Resolves the artifact for the given node. If the artifact is not found, it will try to resolve the pom instead.
+         * @param node  the node to resolve the artifact for
+         * @return  the resolved artifact
+         */
         private Artifact resolveArtifact(DependencyNode node) {
             try {
                 ArtifactRequest artifactRequest = new ArtifactRequest();
