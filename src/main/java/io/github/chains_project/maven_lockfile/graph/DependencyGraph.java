@@ -15,10 +15,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.maven.plugin.logging.SystemStreamLog;
+import org.apache.log4j.Logger;
 import org.eclipse.aether.artifact.Artifact;
 
 public class DependencyGraph {
+
+    private static final Logger LOGGER = Logger.getLogger(DependencyGraph.class);
 
     public static final String CHECKSUM_ALGORITHM = "SHA-256";
     private List<DependencyNode> graph;
@@ -40,7 +42,7 @@ public class DependencyGraph {
             var version = VersionNumber.of(node.getVersion());
             var checksum = calculateChecksum(node).orElse("");
             if (checksum.isBlank()) {
-                new SystemStreamLog().warn("Could not calculate checksum for artifact " + node);
+                LOGGER.warn("Could not calculate checksum for artifact " + node);
             }
             nodes.put(node, new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum));
         }
@@ -63,7 +65,7 @@ public class DependencyGraph {
 
     private static Optional<String> calculateChecksum(Artifact artifact) {
         if (artifact.getFile() == null) {
-            new SystemStreamLog().error("Artifact " + artifact + " has no file");
+            LOGGER.error("Artifact " + artifact + " has no file");
             return Optional.empty();
         }
         try {
@@ -72,7 +74,7 @@ public class DependencyGraph {
             byte[] artifactHash = messageDigest.digest(fileBuffer);
             return Optional.of(new BigInteger(1, artifactHash).toString(16));
         } catch (Exception e) {
-            new SystemStreamLog().error("Could not calculate checksum for artifact " + artifact, e);
+            LOGGER.error("Could not calculate checksum for artifact " + artifact, e);
             return Optional.empty();
         }
     }
