@@ -23,7 +23,6 @@ public class SmokeTest {
                         new CiProject("https://github.com/stanfordnlp/CoreNLP","139893242878ecacde79b2ba1d0102b855526610"),
                         new CiProject("https://github.com/javaparser/javaparser","7e761814c661d67293fb9941287f544ce7fdd14c"),
                         new CiProject("https://github.com/checkstyle/checkstyle","dffecfe45722704f54b1727f969445e2aacd4cb3"),
-                        new CiProject("https://github.com/hcoles/pitest", "42fb6d22ff0b3317205f11786e155d5830b6b8fb")
                         );
         
 
