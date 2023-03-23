@@ -43,7 +43,7 @@ public class LockFileFacade {
         private MutableGraph<Artifact> graph;
 
         public Visitor(
-                RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<? extends Artifact> graph) {
+                RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
             this.session = session;
             this.repoSystem = repoSystem;
             this.graph = graph;
