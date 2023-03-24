@@ -4,6 +4,12 @@ import com.google.common.base.Strings;
 import java.util.Objects;
 
 public class GroupId implements Comparable<GroupId> {
+
+    /**
+     * Creates a new GroupId from a string. The string must not be null or empty.
+     * @param groupId  the string to create the GroupId from
+     * @return  the new GroupId
+     */
     public static GroupId of(String groupId) {
         String checked = Objects.requireNonNull(groupId);
         if (Strings.isNullOrEmpty(checked)) {

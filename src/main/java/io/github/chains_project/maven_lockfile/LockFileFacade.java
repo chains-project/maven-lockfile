@@ -111,8 +111,6 @@ public class LockFileFacade {
      * @param project The project to generate a lock file for.
      * @param repositorySystemSession The repository system session for the project.
      * @return A lock file for the project.
-     * @throws IOException if the artifact file could not be read.
-     * @throws NoSuchAlgorithmException if the checksum algorithm is not supported.
      */
     public static LockFile generateLockFileFromProject(
             MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem) {
