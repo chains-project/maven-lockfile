@@ -1,11 +1,18 @@
-name: release
+name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+      nextVersion:
+        description: 'Next version after release (-SNAPSHOT will be added automatically)'
+        required: true
 
 jobs:
-  release:
-    name: Release
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -13,40 +20,47 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      # Configure build steps as you'd normally do
-
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
+          cache: maven
+      - name: Set release version
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=${{ github.event.inputs.version }}
 
-      # Post JARs to Maven Central
-      - name: git settings
-        run: |
-          git config --global user.name "${{ github.event.head_commit.committer.name }}"
-          git config --global user.email "${{ github.event.head_commit.committer.email }}"
-          git config user.email
-          git config user.name
-      - name: Release to Maven Central
-        env:
-          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.SONATYPE_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          export GPG_TTY=$(tty)
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          message: Releasing version ${{ github.event.inputs.version }}
 
-          mvn -B --file pom.xml release:prepare release:perform
-
-      # Create a release
+      - name: Stage release
+        run: mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
 
       - name: Run JReleaser
         uses: jreleaser/release-action@v2
+        with:
+          setup-java: false
+          version: 1.4.0
         env:
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD }}
 
-      # Persist logs
+      - name: Set release version
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=${{ github.event.inputs.nextVersion }}
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          message: Setting SNAPSHOT version ${{ github.event.inputs.nextVersion }}-SNAPSHOT
+          tags: true
 
       - name: JReleaser release output
         if: always()
