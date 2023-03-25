@@ -26,6 +26,9 @@ import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.repository.RepositoryPolicy;
 import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.util.version.GenericVersionScheme;
+import org.eclipse.aether.version.InvalidVersionSpecificationException;
+import org.eclipse.aether.version.VersionRange;
 
 /**
  * Utilities for the lock file plugin. These are shared between generating and validating the lock file.
@@ -49,6 +52,9 @@ public class LockFileFacade {
         @Override
         public boolean visitEnter(DependencyNode node) {
             var artifact = resolveArtifact(node);
+            if (node.getChildren().isEmpty()) {
+                graph.addNode(artifact);
+            }
             node.getChildren().forEach(it -> graph.putEdge(artifact, resolveArtifact(it)));
             return true;
         }
@@ -151,9 +157,6 @@ public class LockFileFacade {
                 Visitor visitor = new Visitor(repositorySystemSession, repoSystem, graph);
                 var root = result.getRoot();
                 root.accept(visitor);
-                if (!graph.nodes().contains(artifact.getArtifact())) {
-                    graph.addNode(artifact.getArtifact());
-                }
                 graphs.add(graph);
             } catch (Exception e) {
                 LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
@@ -169,8 +172,26 @@ public class LockFileFacade {
     }
 
     private static Artifact dependencyToArtifact(org.apache.maven.model.Dependency dependency) {
-        return new DefaultArtifact(
-                dependency.getGroupId(), dependency.getArtifactId(), dependency.getType(), dependency.getVersion());
+        if (dependency.getVersion().startsWith("[") || dependency.getVersion().startsWith("(")) {
+
+            try {
+                VersionRange version = new GenericVersionScheme().parseVersionRange(dependency.getVersion());
+                return new DefaultArtifact(
+                        dependency.getGroupId(),
+                        dependency.getArtifactId(),
+                        dependency.getType(),
+                        version.getLowerBound().toString());
+            } catch (InvalidVersionSpecificationException e) {
+                return new DefaultArtifact(
+                        dependency.getGroupId(),
+                        dependency.getArtifactId(),
+                        dependency.getType(),
+                        dependency.getVersion());
+            }
+        } else {
+            return new DefaultArtifact(
+                    dependency.getGroupId(), dependency.getArtifactId(), dependency.getType(), dependency.getVersion());
+        }
     }
 
     private LockFileFacade() {
