@@ -1,0 +1,19 @@
+name: Semantic Version
+on:
+  workflow_dispatch:
+  pull_request:
+
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v5.0.3
+        with:
+          major_pattern: "✨"
+          minor_pattern: "^(?!✨).*$"
+          format: "${major}.${minor}.${patch}-prereleases${increment}"
