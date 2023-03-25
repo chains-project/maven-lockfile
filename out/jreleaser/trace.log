@@ -1,0 +1,1054 @@
+[INFO]  JReleaser 1.4.0
+------------------------------------------------------------
+jreleaser 1.4.0
+------------------------------------------------------------
+Build time:   2022-12-29 15:08:38Z
+Revision:     b977b66baed1e4761af054c5d747a0804f457252
+JVM:          11.0.18 (Eclipse Adoptium 11.0.18+10)
+------------------------------------------------------------
+[INFO]  Configuring with jreleaser.yml
+[INFO]    - basedir set to /home/runner/work/maven-lockfile/maven-lockfile
+[INFO]    - outputdir set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser
+[INFO]  Reading configuration
+[DEBUG]   - basedir set to /home/runner/work/maven-lockfile/maven-lockfile
+[DEBUG]   - baseOutputDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out
+[DEBUG]   - outputDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser
+[DEBUG]   - checksumDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/checksums
+[DEBUG]   - signaturesDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/signatures
+[DEBUG]   - prepareDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/prepare
+[DEBUG]   - packageDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/package
+[DEBUG]   - downloadDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/download
+[DEBUG]   - assembleDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/assemble
+[DEBUG]   - artifactsDirectory set to /home/runner/work/maven-lockfile/maven-lockfile/out/jreleaser/artifacts
+[INFO]  git-root-search set to false
+[INFO]  Loading variables from /home/runner/.jreleaser/config.properties
+[WARN]  Variables source /home/runner/.jreleaser/config.properties does not exist
+[INFO]  Validating configuration
+[INFO]  Strict mode set to false
+[DEBUG] adjusting distributions with assemblies
+[DEBUG]   [validation] --== ASSEMBLE ==--
+[DEBUG]   [validation] hooks
+[DEBUG]   [validation] hooks.command
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] project
+[DEBUG]   [validation] project.java
+[DEBUG]   [validation] download
+[DEBUG]   [validation] assemble
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] signing
+[DEBUG]   [validation] release
+[DEBUG]   [validation] release.github
+[DEBUG]   [validation] checksum
+[DEBUG]   [validation] deploy
+[DEBUG]   [validation] deploy.maven
+[DEBUG]   [validation] deploy.maven.nexus2
+[DEBUG]   [validation] upload
+[DEBUG]   [validation] announce
+[DEBUG]   [validation] - disabled
+[DEBUG]   [postvalidation] project
+[DEBUG]   [postvalidation] assemble
+[DEBUG]   [postvalidation] assemble.jpackage
+[DEBUG]   [resolution] assemble
+[DEBUG]   [validation] --== FULL ==--
+[DEBUG]   [validation] hooks
+[DEBUG]   [validation] hooks.command
+[DEBUG]   [validation] project
+[DEBUG]   [validation] project.java
+[DEBUG]   [validation] download
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] assemble
+[DEBUG]   [validation] signing
+[DEBUG]   [validation] release
+[DEBUG]   [validation] release.github
+[DEBUG]   [validation] checksum
+[DEBUG]   [validation] deploy
+[DEBUG]   [validation] deploy.maven
+[DEBUG]   [validation] deploy.maven.nexus2
+[DEBUG]   [validation] deploy.maven.nexus2.maven-central
+[DEBUG]   [validation] upload
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] packagers
+[DEBUG]   [validation] files
+[DEBUG]   [validation] announce
+[DEBUG]   [validation] announce.article
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.discussions
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.discord
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.discourse
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.gitter
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.googleChat
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.http
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.mail
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.mastodon
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.mattermost
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.sdkman
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.slack
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.teams
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.telegram
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.twitter
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.webhooks
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] announce.zulip
+[DEBUG]   [validation] - disabled
+[DEBUG]   [validation] - disabled
+[DEBUG]   [postvalidation] project
+[DEBUG]   [postvalidation] assemble
+[DEBUG]   [postvalidation] assemble.jpackage
+[DEBUG]   [postvalidation] distributions
+environment:
+ 
+hooks:
+    enabled: false
+    active: never
+    command:
+        enabled: false
+        active: never
+ 
+project:
+    name: integrity-maven-plugin
+    version: 0.1.0
+    versionPattern: semver
+    snapshot:
+        enabled: false
+        pattern: .*-SNAPSHOT
+        label: early-access
+        fullChangelog: false
+    description: A plugin to lock and validate the integrity of the dependencies of a maven based project.
+    longDescription: This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository. This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
+    license: MIT
+    inceptionYear: 2023
+    authors:
+        MartinWitt
+    stereotype: none
+    links:
+        homepage: https://github.com/chains-project/maven-lockfile
+        documentation: https://github.com/chains-project/maven-lockfile
+        license: https://spdx.org/licenses/MIT.html
+        bugTracker: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/issues
+        vcsBrowser: https://{{repoHost}}/{{repoOwner}}/{{repoName}}
+    extraProperties:
+        projectVersionMajor: 0
+        projectVersionMinor: 1
+        projectVersionPatch: 0
+        projectVersionNumber: 0.1.0
+        projectVersionWithUnderscores: 0_1_0
+        projectVersionWithDashes: 0-1-0
+        projectVersionNumberWithUnderscores: 0_1_0
+        projectVersionNumberWithDashes: 0-1-0
+        projectEffectiveVersionWithUnderscores: 0_1_0
+        projectEffectiveVersionWithDashes: 0-1-0
+    java:
+        enabled: true
+        version: 11
+        groupId: io.github.chains-project
+        artifactId: integrity-maven-plugin
+        multiProject: false
+ 
+platform:
+ 
+release:
+    github:
+        enabled: true
+        host: github.com
+        owner: chains-project
+        name: maven-lockfile
+        username: chains-project
+        token: ************
+        artifacts: true
+        files: true
+        checksums: true
+        signatures: true
+        repoUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}
+        repoCloneUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}.git
+        commitUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/commits
+        srcUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/blob/{{repoBranch}}
+        downloadUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/releases/download/{{tagName}}/{{artifactFile}}
+        releaseNotesUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/releases/tag/{{tagName}}
+        latestReleaseUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/releases/latest
+        issueTrackerUrl: https://{{repoHost}}/{{repoOwner}}/{{repoName}}/issues
+        tagName: v{{projectVersion}}
+        releaseName: Release {{tagName}}
+        branch: main
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        sign: false
+        skipTag: false
+        skipRelease: false
+        overwrite: false
+        update:
+            enabled: false
+        apiEndpoint: https://api.github.com
+        connectTimeout: 20
+        readTimeout: 60
+        changelog:
+            enabled: true
+            append:
+                enabled: false
+            links: false
+            skipMergeCommits: false
+            formatted: never
+            hide:
+            contributors:
+        milestone:
+            name: {{tagName}}
+            close: true
+        issues:
+            enabled: false
+            comment: Released in {{tagName}} -> {{releaseNotesUrl}}
+            label:
+                name: released
+                color: #FF0000
+                description: Issue has been released
+        prerelease:
+            enabled: false
+        draft: false
+        releaseNotes:
+            enabled: false
+ 
+checksum:
+    name: checksums.txt
+    individual: false
+    algorithms:
+        SHA_256
+    files: true
+ 
+signing:
+    enabled: true
+    active: always
+    armored: true
+    mode: memory
+    artifacts: true
+    files: true
+    checksums: true
+    passphrase: ************
+    publicKey: ************
+    secretKey: ************
+ 
+announce:
+    enabled: false
+    active: never
+    article:
+        enabled: false
+        active: never
+        commitAuthor:
+        repository:
+            enabled: false
+            name: article
+            token: **unset**
+    discord:
+        enabled: false
+        active: never
+        webhook: **unset**
+    discourse:
+        enabled: false
+        active: never
+        apiKey: **unset**
+        username: **unset**
+    discussions:
+        enabled: false
+        active: never
+    gitter:
+        enabled: false
+        active: never
+        webhook: **unset**
+    googlechat:
+        enabled: false
+        active: never
+        webhook: **unset**
+    smtp:
+        enabled: false
+        active: never
+        auth: false
+        password: **unset**
+    mastodon:
+        enabled: false
+        active: never
+        accessToken: **unset**
+    mattermost:
+        enabled: false
+        active: never
+        webhook: **unset**
+        structuredMessage: true
+    sdkman:
+        enabled: false
+        active: never
+        consumerKey: **unset**
+        consumerToken: **unset**
+    slack:
+        enabled: false
+        active: never
+        webhook: **unset**
+        token: **unset**
+    teams:
+        enabled: false
+        active: never
+        webhook: **unset**
+    telegram:
+        enabled: false
+        active: never
+        token: **unset**
+        chatId: **unset**
+    twitter:
+        enabled: false
+        active: never
+        consumerKey: **unset**
+        consumerSecret: **unset**
+        accessToken: **unset**
+        accessTokenSecret: **unset**
+    zulip:
+        enabled: false
+        active: never
+        apiKey: **unset**
+ 
+packagers:
+    appimage:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        developerName: MartinWitt
+        requiresTerminal: false
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: appimage
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    asdf:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: asdf
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    brew:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        multiPlatform: false
+        tap:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: homebrew-tap
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+        cask:
+            enabled: false
+    chocolatey:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        apiKey: **unset**
+        remoteBuild: false
+        bucket:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: chocolatey-bucket
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    docker:
+        enabled: false
+        active: never
+        useLocalArtifact: true
+        buildx:
+            enabled: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: docker
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+            versionedSubfolders: false
+        continueOnError: false
+    flatpak:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        developerName: MartinWitt
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: flatpak
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    gofish:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: chains-project-fish-food
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    jbang:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        catalog:
+            enabled: true
+            active: always
+            owner: chains-project
+            name: jbang-catalog
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    macports:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: macports
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    scoop:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        bucket:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: scoop-chains-project
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    sdkman:
+        enabled: false
+        active: never
+        continueOnError: false
+        connectTimeout: 20
+        readTimeout: 60
+        consumerKey: **unset**
+        consumerToken: **unset**
+    snap:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        base: core20
+        grade: stable
+        confinement: strict
+        remoteBuild: false
+        snap:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: snap
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+    spec:
+        enabled: false
+        active: never
+        continueOnError: false
+        commitAuthor:
+            name: jreleaserbot
+            email: jreleaser@kordamp.org
+        repository:
+            enabled: true
+            active: release
+            owner: chains-project
+            name: chains-project-spec
+            tagName: v{{projectVersion}}
+            branch: HEAD
+            username: chains-project
+            token: ************
+ 
+download:
+    enabled: false
+    active: never
+ 
+assemble:
+    enabled: false
+    active: never
+ 
+deploy:
+    enabled: true
+    active: always
+    maven:
+        enabled: true
+        active: always
+        nexus2:
+            maven-central:
+                enabled: true
+                active: always
+                connectTimeout: 20
+                readTimeout: 60
+                authorization: basic
+                url: https://s01.oss.sonatype.org/service/local
+                username: ************
+                password: ************
+                sign: true
+                verifyPom: true
+                applyMavenCentralRules: true
+                stagingRepositories:
+                    target/staging-deploy
+                closeRepository: true
+                releaseRepository: true
+                transitionDelay: 10
+                transitionMaxRetries: 60
+ 
+upload:
+    enabled: false
+    active: never
+ 
+[INFO]  Project version set to 0.1.0
+[INFO]  Release is not snapshot
+[INFO]  Timestamp is 2023-03-25T12:12:59.928833Z
+[INFO]  HEAD is at 60f5140
+[INFO]  Platform is linux-x86_64
+[DEBUG] loading extension default-jreleaser-mustache:jreleaser.shadow.org.jreleaser.extensions.internal.mustache.DefaultMustacheExtension
+[DEBUG] adding jreleaser.shadow.org.jreleaser.extensions.internal.mustache.DefaultMustacheExtensionPoint from default-jreleaser-mustache extension
+[INFO]  dry-run set to false
+[INFO]  Generating changelog
+[DEBUG] resolving commits
+[DEBUG] looking for tag that matches 'v0.1.0'
+[DEBUG] looking for tags that match 'v.*', excluding 'v0.1.0'
+[DEBUG] found tag v0.0.2
+[DEBUG] sorting commits null
+[INFO]  Storing changelog: out/jreleaser/release/CHANGELOG.md
+[DEBUG] ## Changelog
+
+60f5140 :arrow_up:(deps): Update jbangdev/jbang-action action to v0.105.2
+668fa6f Releasing version 0.1.0
+ae05680 👷 Update jreleaser.yml
+85ed1c6 Releasing version 0.4.0
+3d46ee8 📝 Add javadoc check to CI and fix errors
+2e1c17f Releasing version 0.1.0
+19f1833 👷 Add jreleaser to CI/CD (#69)
+25c44d8 👷 Add jreleaser to CI/CD (#68)
+87fcb3e chore(deps): update actions/cache action to v3 (#64)
+ffb8472 ✅ Add more testcases in smoke test (#62)
+5b46dbd Update README.md
+e0f8f03 ✅ Add test case for coreNLP (#61)
+b4c10ca ✨ Add smoke test in CI (#60)
+fa65f77 ✨ Switch backend to dependency graph (#56)
+48af14d :arrow_up:(deps): Update dependency org.apache.maven:maven-plugin-api to v3.9.1
+7e03b22 :arrow_up:(deps): Update dependency org.apache.maven:maven-core to v3.9.1
+6f93d4d :arrow_up:(deps): Update dependency org.apache.maven:maven-compat to v3.9.1
+0155844 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.35.0
+7564c0d :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.7
+3a0ca9c :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.6
+5c9af8f ✨ Add the feature to include packaged deps in lockfile (#36)
+2b3cc0e :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.34.0
+e21f266 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.8.1
+aa41fae :arrow_up:(deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.8.1
+bc34ba7 :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.5
+f281ff5 :arrow_up:(deps): Update JetBrains/qodana-action action to v2022.3.4
+811779a :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-javadoc-plugin to v3.5.0
+48fc0a3 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.33.0
+6dd376f :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-deploy-plugin to v3.1.0
+9d827fa :arrow_up:(deps): Update JetBrains/qodana-action action to v2022.3.3
+439ed14 :arrow_up:(deps): Update dependency org.apache.maven:maven-plugin-api to v3.9.0
+86ecea7 :arrow_up:(deps): Update dependency org.apache.maven:maven-core to v3.9.0
+bb14241 :arrow_up:(deps): Update dependency org.apache.maven:maven-compat to v3.9.0
+35a4cc6 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.32.0
+4d958c4 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.7.1
+ffb6ec5 :arrow_up:(deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.7.1
+6a93e69 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.31.0
+f5137fc :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.4
+af6b523 :arrow_up:(deps): Update JetBrains/qodana-action action to v2022.3.2
+b5dd9c3 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-javadoc-plugin to v3 (#28)
+589dc61 ♻️ Refactor code style (#33)
+01ee3ce 📝 update example file (#32)
+ecc7ba7 👷 update Qodana rules (#31)
+f801048 📝 Move ToDos to issues
+9596f76 ✨ Add scopes to lockfile (#24)
+9c8d09e :arrow_up:(deps): Update dependency com.google.code.gson:gson to v2.10.1
+d149dd0 💚 Add renovate config
+b0f4bcb ✨ Add groupId to lockfile (#19)
+e633f3d ⚰️ Remove dead sysout
+0feb4e2 👷 Add qodana scan action (#14)
+0c6abd2 📝 Update readme
+d553460 📝 Add Image (#13)
+[INFO]  Calculating checksums
+[INFO]    [checksum] No files configured for checksum. Skipping
+[INFO]  Signing files
+[INFO]    [sign] No files configured for signing. Skipping
+[INFO]  Deploying all staged artifacts
+[INFO]    [nexus2] Deploying to maven-central
+[DEBUG]   [nexus2] Cannot run program "pomchecker": error=2, No such file or directory
+[DEBUG]   [nexus2] located pomchecker-1.4.0.zip
+[DEBUG]   [nexus2] downloading https://github.com/kordamp/pomchecker/releases/download/v1.4.0/pomchecker-1.4.0.zip
+[DEBUG]   [nexus2] downloaded pomchecker-1.4.0.zip successfully
+[DEBUG]   [nexus2] unpacked pomchecker-1.4.0.zip
+[DEBUG]   [nexus2] cached /home/runner/.jreleaser/caches/pomchecker/1.4.0/pomchecker-1.4.0/bin/pomchecker
+[DEBUG]   [sign] signature does not exist: target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.asc
+[INFO]    [sign] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [verify] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.asc
+[DEBUG]   [sign] signature does not exist: target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.asc
+[INFO]    [sign] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [verify] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.asc
+[DEBUG]   [sign] signature does not exist: target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.asc
+[INFO]    [sign] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [verify] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.asc
+[DEBUG]   [sign] signature does not exist: target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.asc
+[INFO]    [sign] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [verify] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.asc
+[DEBUG]   [sign] signature does not exist: target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.asc
+[INFO]    [sign] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar
+[DEBUG]   [verify] target/staging-deploy/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.asc
+[DEBUG]   [nexus2] calculating sha256 checksum for integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [nexus2] calculating sha512 checksum for integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [nexus2] calculating sha256 checksum for integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [nexus2] calculating sha512 checksum for integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [nexus2] calculating sha256 checksum for integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [nexus2] calculating sha512 checksum for integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [nexus2] calculating sha256 checksum for integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [nexus2] calculating sha512 checksum for integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [nexus2] calculating sha256 checksum for integrity-maven-plugin-0.1.0-javadoc.jar
+[DEBUG]   [nexus2] calculating sha512 checksum for integrity-maven-plugin-0.1.0-javadoc.jar
+[INFO]    [nexus2] Lookup staging profile for io.github.chains-project
+[INFO]    [nexus2] Creating a staging repository for io.github.chains-project
+[DEBUG]   [nexus2] creating staging repository for io.github.chains-project:beafe7c785e17
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [application/java-archive]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar.asc
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar.asc as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.asc
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.asc
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar.md5
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar.md5 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.md5
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.md5
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar.sha1
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar.sha1 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha1
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha1
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar.sha256
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar.sha256 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha256
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha256
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-javadoc.jar.sha512
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-javadoc.jar.sha512 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha512
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-javadoc.jar.sha512
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [application/java-archive]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar.asc
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar.asc as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.asc
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.asc
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar.md5
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar.md5 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.md5
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.md5
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar.sha1
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar.sha1 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha1
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha1
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar.sha256
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar.sha256 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha256
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha256
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-sources.jar.sha512
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-sources.jar.sha512 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha512
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-sources.jar.sha512
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [application/java-archive]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar.asc
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar.asc as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.asc
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.asc
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar.md5
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar.md5 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.md5
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.md5
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar.sha1
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar.sha1 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha1
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha1
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar.sha256
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar.sha256 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha256
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha256
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0-tests.jar.sha512
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0-tests.jar.sha512 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha512
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0-tests.jar.sha512
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [application/java-archive]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar.asc
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar.asc as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.asc
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.asc
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar.md5
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar.md5 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.md5
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.md5
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar.sha1
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar.sha1 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha1
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha1
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar.sha256
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar.sha256 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha256
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha256
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.jar.sha512
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.jar.sha512 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha512
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.jar.sha512
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [application/xml]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom.asc
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom.asc as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.asc
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.asc
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom.md5
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom.md5 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.md5
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.md5
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom.sha1
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom.sha1 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha1
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha1
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom.sha256
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom.sha256 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha256
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha256
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2]  - integrity-maven-plugin-0.1.0.pom.sha512
+[DEBUG]   [nexus2]  - deploying integrity-maven-plugin-0.1.0.pom.sha512 as /io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha512
+[DEBUG]   [nexus2] url: https://s01.oss.sonatype.org/service/local/staging/deployByRepositoryId/iogithubchains-project-1010/io/github/chains-project/integrity-maven-plugin/0.1.0/integrity-maven-plugin-0.1.0.pom.sha512
+[DEBUG]   [nexus2] opening connection
+[DEBUG]   [nexus2] configuring connection
+[DEBUG]   [nexus2] Expect: [100-continue]
+[DEBUG]   [nexus2] Accept: [*/*]
+[DEBUG]   [nexus2] User-Agent: [JReleaser/1.4.0]
+[DEBUG]   [nexus2] Content-Type: [text/plain]
+[DEBUG]   [nexus2] sending data
+[DEBUG]   [nexus2] handling response
+[INFO]    [nexus2] Closing staging repository iogithubchains-project-1010
+[INFO]    [nexus2] This operation may take some time. Please wait.
+[DEBUG]   [nexus2] waiting for staged repository (iogithubchains-project-1010) state to be one of [CLOSED]
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Attempt 1 of 61
+[DEBUG]   [nexus2] attempt 1/61 failed with result: StagingProfileRepository{profileId='beafe7c785e17', profileName='io.github.chains-project', repositoryId='iogithubchains-project-1010', type='open', transitioning=true}
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Attempt 2 of 61
+[DEBUG]   [nexus2] attempt 2/61 failed with result: StagingProfileRepository{profileId='beafe7c785e17', profileName='io.github.chains-project', repositoryId='iogithubchains-project-1010', type='open', transitioning=true}
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Attempt 3 of 61
+[DEBUG]   [nexus2] attempt 3/61 failed with result: StagingProfileRepository{profileId='beafe7c785e17', profileName='io.github.chains-project', repositoryId='iogithubchains-project-1010', type='open', transitioning=true}
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Attempt 4 of 61
+[DEBUG]   [nexus2] attempt 4/61 failed with result: StagingProfileRepository{profileId='beafe7c785e17', profileName='io.github.chains-project', repositoryId='iogithubchains-project-1010', type='open', transitioning=true}
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Releasing staging repository iogithubchains-project-1010
+[INFO]    [nexus2] This operation may take some time. Please wait.
+[DEBUG]   [nexus2] waiting for staged repository (iogithubchains-project-1010) state to be one of [RELEASED, NOT_FOUND]
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]    [nexus2] Attempt 1 of 61
+[DEBUG]   [nexus2] attempt 1/61 failed with result: StagingProfileRepository{profileId='beafe7c785e17', profileName='io.github.chains-project', repositoryId='iogithubchains-project-1010', type='closed', transitioning=true}
+[DEBUG]   [nexus2] fetching staging repository for iogithubchains-project-1010
+[INFO]  Uploading is not enabled. Skipping
+[INFO]  Releasing to https://github.com/chains-project/maven-lockfile
+[DEBUG] fetching all branches on chains-project/maven-lockfile
+[DEBUG] looking up release with tag v0.1.0 at repository chains-project/maven-lockfile
+[DEBUG] fetching release on chains-project/maven-lockfile with tag v0.1.0
+[DEBUG] release v0.1.0 does not exist
+[DEBUG] creating release v0.1.0
+[DEBUG] tagging local repository with v0.1.0
+[DEBUG] creating release on chains-project/maven-lockfile with tag v0.1.0
+[DEBUG] lookup open milestone 'v0.1.0' on chains-project/maven-lockfile
+[DEBUG] lookup repository chains-project/maven-lockfile
+[DEBUG] No active distributions for preparing. Skipping
+[DEBUG] No active distributions for packaging. Skipping
+[DEBUG] No active distributions for publishing. Skipping
+[INFO]  Announcing release
+[INFO]  Announcing is not enabled. Skipping
+[INFO]  Writing output properties to out/jreleaser/output.properties
+[INFO]  JReleaser succeeded after 01:11 m
