@@ -33,34 +33,37 @@ public class DependencyGraph {
         this.graph = graph;
     }
 
-    public static DependencyGraph of(Graph<? extends Artifact> mavenDependencyGraph) {
-
-        Map<Artifact, DependencyNode> nodes = new HashMap<>();
-        for (var node : mavenDependencyGraph.nodes()) {
-            var groupId = GroupId.of(node.getGroupId());
-            var artifactId = ArtifactId.of(node.getArtifactId());
-            var version = VersionNumber.of(node.getVersion());
-            var checksum = calculateChecksum(node).orElse("");
-            if (checksum.isBlank()) {
-                LOGGER.warn("Could not calculate checksum for artifact " + node);
-            }
-            nodes.put(node, new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum));
-        }
-        for (var edge : mavenDependencyGraph.edges()) {
-            var source = edge.source();
-            var target = edge.target();
-            nodes.get(target).setParent(toNodeId(nodes.get(source)));
-            nodes.get(source).addChild(nodes.get(target));
-        }
+    public static DependencyGraph of(List<Graph<Artifact>> mavenDependencyGraph) {
         ArrayList<DependencyNode> roots = new ArrayList<>();
-        roots.addAll(nodes.values());
+        LOGGER.debug("Creating dependency graph from Maven dependency graph with %s subgraphs"
+                .formatted(mavenDependencyGraph.size()));
+        for (Graph<Artifact> graph : mavenDependencyGraph) {
+            LOGGER.debug("Creating dependency graph from Maven dependency graph with %s nodes and %s edges"
+                    .formatted(graph.nodes().size(), graph.edges().size()));
+            Map<Artifact, DependencyNode> nodes = new HashMap<>();
+            for (var node : graph.nodes()) {
+                var groupId = GroupId.of(node.getGroupId());
+                var artifactId = ArtifactId.of(node.getArtifactId());
+                var version = VersionNumber.of(node.getVersion());
+                var checksum = calculateChecksum(node).orElse("");
+                if (checksum.isBlank()) {
+                    LOGGER.warn("Could not calculate checksum for artifact " + node);
+                }
+                DependencyNode value = new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum);
+                if (graph.predecessors(node).isEmpty()) {
+                    LOGGER.debug("Found root node: " + node);
+                    roots.add(value);
+                }
+                nodes.put(node, value);
+            }
+            for (var edge : graph.edges()) {
+                var source = edge.source();
+                var target = edge.target();
+                nodes.get(source).addChild(nodes.get(target));
+            }
+        }
         Collections.sort(roots);
-
         return new DependencyGraph(roots);
-    }
-
-    private static NodeId toNodeId(DependencyNode node) {
-        return new NodeId(node.getGroupId(), node.getArtifactId(), node.getVersion());
     }
 
     private static Optional<String> calculateChecksum(Artifact artifact) {

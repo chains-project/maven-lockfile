@@ -64,6 +64,10 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     void addChild(DependencyNode child) {
         children.add(child);
+        child.setParent(id);
+        if (!child.parent.equals(id)) {
+            throw new IllegalStateException("Child node has wrong parent");
+        }
         Collections.sort(children);
     }
 

@@ -8,9 +8,7 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,8 +40,7 @@ public class LockFileFacade {
         private RepositorySystem repoSystem;
         private MutableGraph<Artifact> graph;
 
-        public Visitor(
-                RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
+        public Visitor(RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
             this.session = session;
             this.repoSystem = repoSystem;
             this.graph = graph;
@@ -130,41 +127,36 @@ public class LockFileFacade {
         return new ArrayList<>(Collections.singletonList(newCentralRepository()));
     }
 
-    public static Graph<Artifact> createDependencyGraph(
+    public static List<Graph<Artifact>> createDependencyGraph(
             MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem) {
-        MutableGraph<Artifact> graph = GraphBuilder.directed().build();
+        List<Graph<Artifact>> graphs = new ArrayList<>();
         var list = newRepositories();
         // there is a feature in maven where it will not resolve dependencies from http repositories
         list.addAll(project.getRemoteProjectRepositories().stream()
                 .filter(v -> v.getUrl().contains("https"))
                 .collect(Collectors.toList()));
-        for (var dep : project.getDependencies()) {
-            ArtifactRequest artifactRequest = new ArtifactRequest();
-            artifactRequest.setArtifact(dependencyToArtifact(dep));
-            artifactRequest.setRepositories(list);
-            try {
-                var result = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
-                graph.addNode(result.getArtifact());
-            } catch (Exception e) {
-                LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
-            }
-        }
 
         for (var dep : project.getDependencies()) {
             try {
+                MutableGraph<Artifact> graph = GraphBuilder.directed().build();
+                ArtifactRequest artifactRequest = new ArtifactRequest();
+                artifactRequest.setArtifact(dependencyToArtifact(dep));
+                artifactRequest.setRepositories(list);
 
+                var artifact = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
                 CollectRequest collectRequest = new CollectRequest();
-                collectRequest.setRoot(new Dependency(dependencyToArtifact(dep), dep.getScope()));
+                collectRequest.setRoot(new Dependency(artifact.getArtifact(), dep.getScope()));
                 collectRequest.setRepositories(list);
                 var result = repoSystem.collectDependencies(repositorySystemSession, collectRequest);
                 Visitor visitor = new Visitor(repositorySystemSession, repoSystem, graph);
                 var root = result.getRoot();
                 root.accept(visitor);
+                graphs.add(graph);
             } catch (Exception e) {
                 LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
             }
         }
-        return graph;
+        return graphs;
     }
 
     private static RemoteRepository newCentralRepository() {
