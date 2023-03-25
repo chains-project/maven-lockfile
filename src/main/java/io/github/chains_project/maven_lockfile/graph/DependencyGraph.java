@@ -35,11 +35,13 @@ public class DependencyGraph {
 
     public static DependencyGraph of(List<Graph<Artifact>> mavenDependencyGraph) {
         ArrayList<DependencyNode> roots = new ArrayList<>();
-        LOGGER.debug("Creating dependency graph from Maven dependency graph with %s subgraphs"
-                .formatted(mavenDependencyGraph.size()));
+        LOGGER.debug(String.format(
+                "Creating dependency graph from Maven dependency graph with %s subgraphs",
+                mavenDependencyGraph.size()));
         for (Graph<Artifact> graph : mavenDependencyGraph) {
-            LOGGER.debug("Creating dependency graph from Maven dependency graph with %s nodes and %s edges"
-                    .formatted(graph.nodes().size(), graph.edges().size()));
+            LOGGER.debug(String.format(
+                    "Creating dependency graph from Maven dependency graph with %s nodes and %s edges",
+                    graph.nodes().size(), graph.edges().size()));
             Map<Artifact, DependencyNode> nodes = new HashMap<>();
             for (var node : graph.nodes()) {
                 var groupId = GroupId.of(node.getGroupId());
