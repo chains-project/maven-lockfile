@@ -8,9 +8,7 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,8 +40,7 @@ public class LockFileFacade {
         private RepositorySystem repoSystem;
         private MutableGraph<Artifact> graph;
 
-        public Visitor(
-                RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
+        public Visitor(RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
             this.session = session;
             this.repoSystem = repoSystem;
             this.graph = graph;

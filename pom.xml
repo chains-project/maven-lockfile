@@ -26,6 +26,9 @@
       <name>Martin Wittlinger</name>
     </developer>
   </developers>
+  <prerequisites>
+    <maven>${mavenVersion}</maven>
+  </prerequisites>
   <scm>
     <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
     <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
@@ -33,6 +36,7 @@
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
   <properties>
+    <mavenVersion>3.2.5</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,12 +45,14 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.9.0</version>
+      <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.8.1</version>
+      <version>3.2</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -57,7 +63,8 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
-      <version>3.9.0</version>
+      <version>${mavenVersion}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -182,10 +189,10 @@
           </systemProperties>
           <properties>
             <configurationParameters>junit.jupiter.execution.parallel.enabled=true
-                            junit.jupiter.execution.parallel.mode.default=concurrent
-                            junit.jupiter.execution.parallel.mode.classes.default=same_thread
-                            junit.jupiter.execution.parallel.config.strategy=fixed
-                            junit.jupiter.execution.parallel.config.fixed.parallelism=6</configurationParameters>
+              junit.jupiter.execution.parallel.mode.default=concurrent
+              junit.jupiter.execution.parallel.mode.classes.default=same_thread
+              junit.jupiter.execution.parallel.config.strategy=fixed
+              junit.jupiter.execution.parallel.config.fixed.parallelism=6</configurationParameters>
           </properties>
         </configuration>
         <executions>
