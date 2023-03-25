@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>integrity-maven-plugin</artifactId>
-  <version>0.1.0</version>
+  <version>0.4.0</version>
   <packaging>maven-plugin</packaging>
   <name>integrity-maven-plugin</name>
   <description>This plugin is a proof of concept for a maven plugin that can be used to validate
