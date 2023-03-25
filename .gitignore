@@ -19,3 +19,11 @@ buildNumber.properties
 .idea
 .DS_Store
 .vscode/settings.json
+.idea/
+target/
+out/
+
+*.class
+*.jar
+*.versionsBackup
+*.log
