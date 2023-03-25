@@ -16,4 +16,4 @@ jobs:
         with:
           major_pattern: "✨"
           minor_pattern: "^(?!✨).*$"
-          format: "${major}.${minor}.${patch}-prereleases${increment}"
+          enable_prerelease_mode: true
