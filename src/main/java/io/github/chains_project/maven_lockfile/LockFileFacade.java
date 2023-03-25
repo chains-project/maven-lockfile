@@ -151,6 +151,9 @@ public class LockFileFacade {
                 Visitor visitor = new Visitor(repositorySystemSession, repoSystem, graph);
                 var root = result.getRoot();
                 root.accept(visitor);
+                if (!graph.nodes().contains(artifact.getArtifact())) {
+                    graph.addNode(artifact.getArtifact());
+                }
                 graphs.add(graph);
             } catch (Exception e) {
                 LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
