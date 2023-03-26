@@ -4,14 +4,6 @@
   "version": "1",
   "lockFileVersion": 1,
   "dependencies": [
-    {
-      "groupId": "com.mycompany.app",
-      "artifactId": "my-app",
-      "version": "1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "",
-      "id": "com.mycompany.app:my-app:1",
-      "children": [
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
@@ -65,6 +57,4 @@
           ]
         }
       ]
-    }
-  ]
 }

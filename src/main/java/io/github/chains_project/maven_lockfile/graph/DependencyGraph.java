@@ -1,6 +1,5 @@
 package io.github.chains_project.maven_lockfile.graph;
 
-import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
@@ -9,15 +8,11 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.eclipse.aether.artifact.Artifact;
 
 public class DependencyGraph {
 
@@ -33,8 +28,6 @@ public class DependencyGraph {
     private DependencyGraph(List<DependencyNode> graph) {
         this.graph = graph;
     }
-
-
 
     /**
      * @return the graph
@@ -70,7 +63,11 @@ public class DependencyGraph {
         for (var artifact : roots) {
             nodes.add(createDependencyNode(artifact, graph));
         }
-        return new DependencyGraph(nodes);
+        // maven dependency tree contains the project itself as a root node. We remove it here.
+        List<DependencyNode> dependencyRoots =
+                nodes.stream().flatMap(v -> v.getChildren().stream()).collect(Collectors.toList());
+        dependencyRoots.forEach(v -> v.setParent(null));
+        return new DependencyGraph(dependencyRoots);
     }
 
     private static DependencyNode createDependencyNode(
