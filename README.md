@@ -44,58 +44,58 @@ An example lockfile is shown below:
 "version": "1",
 "lockFileVersion": 1,
 "dependencies": [
-	{
-	"artifactId": "junit-jupiter-api",
-	"groupId": "org.junit.jupiter",
-	"version": "5.9.2",
-	"checksumAlgorithm": "SHA-256",
-	"checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-	"repoUrl": "https://repo.maven.apache.org/maven2",
-	"scope": "test",
-	"requires": [
-		{
-		"artifactId": "apiguardian-api",
-		"groupId": "org.apiguardian",
-		"version": "1.1.2",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": []
-		},
-		{
-		"artifactId": "junit-platform-commons",
-		"groupId": "org.junit.platform",
-		"version": "1.9.2",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": [
-			{
-			"artifactId": "apiguardian-api",
-			"groupId": "org.apiguardian",
-			"version": "1.1.2",
-			"checksumAlgorithm": "SHA-256",
-			"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-			"repoUrl": "https://repo.maven.apache.org/maven2",
-			"scope": "test",
-			"requires": []
-			}
-		]
-		},
-		{
-		"artifactId": "opentest4j",
-		"groupId": "org.opentest4j",
-		"version": "1.2.0",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": []
-		}
-	]
-	}
+            {
+              "groupId": "org.junit.platform",
+              "artifactId": "junit-platform-engine",
+              "version": "1.9.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
+              "id": "org.junit.platform:junit-platform-engine:1.9.2",
+              "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+              "children": [
+                {
+                  "groupId": "org.apiguardian",
+                  "artifactId": "apiguardian-api",
+                  "version": "1.1.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                  "id": "org.apiguardian:apiguardian-api:1.1.2",
+                  "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+                  "children": []
+                },
+                {
+                  "groupId": "org.junit.platform",
+                  "artifactId": "junit-platform-commons",
+                  "version": "1.9.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+                  "id": "org.junit.platform:junit-platform-commons:1.9.2",
+                  "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+                  "children": [
+                    {
+                      "groupId": "org.apiguardian",
+                      "artifactId": "apiguardian-api",
+                      "version": "1.1.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                      "id": "org.apiguardian:apiguardian-api:1.1.2",
+                      "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.opentest4j",
+                  "artifactId": "opentest4j",
+                  "version": "1.2.0",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+                  "id": "org.opentest4j:opentest4j:1.2.0",
+                  "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+                  "children": []
+                }
+              ]
+            }
 ]
 }
 ```
