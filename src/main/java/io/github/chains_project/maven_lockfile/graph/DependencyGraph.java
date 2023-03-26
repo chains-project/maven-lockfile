@@ -1,6 +1,6 @@
 package io.github.chains_project.maven_lockfile.graph;
 
-import com.google.common.graph.MutableGraph;
+import com.google.common.graph.Graph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.apache.maven.artifact.Artifact;
 
 public class DependencyGraph {
 
@@ -55,7 +56,7 @@ public class DependencyGraph {
         return graph.stream().filter(n -> n.id.equals(node.getParent())).findFirst();
     }
 
-    public static DependencyGraph of(MutableGraph<org.apache.maven.artifact.Artifact> graph) {
+    public static DependencyGraph of(Graph<Artifact> graph) {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
@@ -70,8 +71,7 @@ public class DependencyGraph {
         return new DependencyGraph(dependencyRoots);
     }
 
-    private static DependencyNode createDependencyNode(
-            org.apache.maven.artifact.Artifact node, MutableGraph<org.apache.maven.artifact.Artifact> graph) {
+    private static DependencyNode createDependencyNode(Artifact node, Graph<Artifact> graph) {
         var groupId = GroupId.of(node.getGroupId());
         var artifactId = ArtifactId.of(node.getArtifactId());
         var version = VersionNumber.of(node.getVersion());
@@ -86,7 +86,7 @@ public class DependencyGraph {
         return value;
     }
 
-    private static Optional<String> calculateChecksum(org.apache.maven.artifact.Artifact artifact) {
+    private static Optional<String> calculateChecksum(Artifact artifact) {
         if (artifact.getFile() == null) {
             LOGGER.error("Artifact " + artifact + " has no file");
             return Optional.empty();
