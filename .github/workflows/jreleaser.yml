@@ -60,7 +60,6 @@ jobs:
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: Setting SNAPSHOT version ${{ github.event.inputs.nextVersion }}-SNAPSHOT
-          tags: true
 
       - name: JReleaser release output
         if: always()
