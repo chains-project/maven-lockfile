@@ -8,15 +8,12 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.eclipse.aether.artifact.Artifact;
+import org.apache.maven.artifact.Artifact;
 
 public class DependencyGraph {
 
@@ -31,52 +28,6 @@ public class DependencyGraph {
 
     private DependencyGraph(List<DependencyNode> graph) {
         this.graph = graph;
-    }
-
-    public static DependencyGraph of(Graph<? extends Artifact> mavenDependencyGraph) {
-
-        Map<Artifact, DependencyNode> nodes = new HashMap<>();
-        for (var node : mavenDependencyGraph.nodes()) {
-            var groupId = GroupId.of(node.getGroupId());
-            var artifactId = ArtifactId.of(node.getArtifactId());
-            var version = VersionNumber.of(node.getVersion());
-            var checksum = calculateChecksum(node).orElse("");
-            if (checksum.isBlank()) {
-                LOGGER.warn("Could not calculate checksum for artifact " + node);
-            }
-            nodes.put(node, new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum));
-        }
-        for (var edge : mavenDependencyGraph.edges()) {
-            var source = edge.source();
-            var target = edge.target();
-            nodes.get(target).setParent(toNodeId(nodes.get(source)));
-            nodes.get(source).addChild(nodes.get(target));
-        }
-        ArrayList<DependencyNode> roots = new ArrayList<>();
-        roots.addAll(nodes.values());
-        Collections.sort(roots);
-
-        return new DependencyGraph(roots);
-    }
-
-    private static NodeId toNodeId(DependencyNode node) {
-        return new NodeId(node.getGroupId(), node.getArtifactId(), node.getVersion());
-    }
-
-    private static Optional<String> calculateChecksum(Artifact artifact) {
-        if (artifact.getFile() == null) {
-            LOGGER.error("Artifact " + artifact + " has no file");
-            return Optional.empty();
-        }
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance(CHECKSUM_ALGORITHM);
-            byte[] fileBuffer = Files.readAllBytes(artifact.getFile().toPath());
-            byte[] artifactHash = messageDigest.digest(fileBuffer);
-            return Optional.of(new BigInteger(1, artifactHash).toString(16));
-        } catch (Exception e) {
-            LOGGER.error("Could not calculate checksum for artifact " + artifact, e);
-            return Optional.empty();
-        }
     }
 
     /**
@@ -103,5 +54,51 @@ public class DependencyGraph {
 
     public Optional<DependencyNode> getParentForNode(DependencyNode node) {
         return graph.stream().filter(n -> n.id.equals(node.getParent())).findFirst();
+    }
+
+    public static DependencyGraph of(Graph<Artifact> graph) {
+        var roots = graph.nodes().stream()
+                .filter(it -> graph.predecessors(it).isEmpty())
+                .collect(Collectors.toList());
+        List<DependencyNode> nodes = new ArrayList<>();
+        for (var artifact : roots) {
+            nodes.add(createDependencyNode(artifact, graph));
+        }
+        // maven dependency tree contains the project itself as a root node. We remove it here.
+        List<DependencyNode> dependencyRoots =
+                nodes.stream().flatMap(v -> v.getChildren().stream()).collect(Collectors.toList());
+        dependencyRoots.forEach(v -> v.setParent(null));
+        return new DependencyGraph(dependencyRoots);
+    }
+
+    private static DependencyNode createDependencyNode(Artifact node, Graph<Artifact> graph) {
+        var groupId = GroupId.of(node.getGroupId());
+        var artifactId = ArtifactId.of(node.getArtifactId());
+        var version = VersionNumber.of(node.getVersion());
+        var checksum = calculateChecksum(node).orElse("");
+        if (checksum.isBlank()) {
+            LOGGER.warn("Could not calculate checksum for artifact " + node);
+        }
+        DependencyNode value = new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum);
+        for (var artifact : graph.successors(node)) {
+            value.addChild(createDependencyNode(artifact, graph));
+        }
+        return value;
+    }
+
+    private static Optional<String> calculateChecksum(Artifact artifact) {
+        if (artifact.getFile() == null) {
+            LOGGER.error("Artifact " + artifact + " has no file");
+            return Optional.empty();
+        }
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(CHECKSUM_ALGORITHM);
+            byte[] fileBuffer = Files.readAllBytes(artifact.getFile().toPath());
+            byte[] artifactHash = messageDigest.digest(fileBuffer);
+            return Optional.of(new BigInteger(1, artifactHash).toString(16));
+        } catch (Exception e) {
+            LOGGER.error("Could not calculate checksum for artifact " + artifact, e);
+            return Optional.empty();
+        }
     }
 }

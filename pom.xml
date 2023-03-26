@@ -128,6 +128,17 @@
       <artifactId>guava</artifactId>
       <version>31.1-jre</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-dependency-tree</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-artifact-transfer</artifactId>
+      <version>0.13.1</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -280,7 +291,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-deploy-plugin</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
           </plugin>
         </plugins>
       </build>

@@ -1,12 +1,12 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.LockFileFacade.generateLockFileFromProject;
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -15,8 +15,8 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
+import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
+import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 /**
  * Plugin goal that validates the checksums of the dependencies of a project against a lock file.
@@ -31,19 +31,23 @@ public class ValidateChecksumMojo extends AbstractMojo {
     /**
      * The Maven project for which we are generating a lock file.
      */
+    /**
+     * The Maven project for which we are generating a lock file.
+     */
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private MavenProject project;
 
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    private MavenSession session;
+
     /**
-     * The current repository session, used for accessing the local artifact files, among other things
+     * The dependency collector builder to use.
      */
-    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
-    private RepositorySystemSession repoSession;
-    /**
-     * The entry point to Aether, i.e. the component doing all the work.
-     */
+    @Component(hint = "default")
+    private DependencyCollectorBuilder dependencyCollectorBuilder;
+
     @Component
-    private RepositorySystem repoSystem;
+    private DependencyResolver dependencyResolver;
 
     /**
      * Validate the local copies of the dependencies against the project's lock file.
@@ -53,7 +57,8 @@ public class ValidateChecksumMojo extends AbstractMojo {
         getLog().info("Validating lock file ...");
         try {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
-            LockFile lockFileFromProject = generateLockFileFromProject(project, repoSession, repoSystem);
+            LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
+                    session, project, dependencyCollectorBuilder, dependencyResolver);
             if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
                 var missing = new ArrayList<DependencyNode>(lockFileFromProject.getDependencies());
                 missing.removeAll(lockFileFromFile.getDependencies());
