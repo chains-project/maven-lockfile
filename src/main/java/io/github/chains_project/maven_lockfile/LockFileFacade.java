@@ -1,6 +1,5 @@
 package io.github.chains_project.maven_lockfile;
 
-import com.google.common.graph.Graph;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
@@ -8,94 +7,90 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.Artifact;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.collection.CollectRequest;
-import org.eclipse.aether.graph.Dependency;
-import org.eclipse.aether.graph.DependencyNode;
-import org.eclipse.aether.graph.DependencyVisitor;
-import org.eclipse.aether.repository.RemoteRepository;
-import org.eclipse.aether.repository.RepositoryPolicy;
-import org.eclipse.aether.resolution.ArtifactRequest;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
+import org.apache.maven.shared.dependency.graph.DependencyNode;
+import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
+import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 /**
- * Utilities for the lock file plugin. These are shared between generating and validating the lock file.
+ * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
  *
- * @author Arvid Siberov
  */
 public class LockFileFacade {
 
-    private static class Visitor implements DependencyVisitor {
+    private static final Logger LOGGER = Logger.getLogger(LockFileFacade.class);
 
-        private RepositorySystemSession session;
-        private RepositorySystem repoSystem;
-        private MutableGraph<Artifact> graph;
-
-        public Visitor(
-                RepositorySystemSession session, RepositorySystem repoSystem, MutableGraph<Artifact> graph) {
-            this.session = session;
-            this.repoSystem = repoSystem;
-            this.graph = graph;
-        }
-
-        @Override
-        public boolean visitEnter(DependencyNode node) {
-            var artifact = resolveArtifact(node);
-            node.getChildren().forEach(it -> graph.putEdge(artifact, resolveArtifact(it)));
-            return true;
-        }
-
-        @Override
-        public boolean visitLeave(DependencyNode node) {
-            return true;
-        }
-
+    /**
+     * This visitor is used to traverse the dependency graph and add the edges to the graph. It also resolves the dependencies. This is necessary because the dependency graph does not contain the resolved dependencies.
+     */
+    private static final class ResolvingDependencyNodeVisitor implements DependencyNodeVisitor {
+        private final MutableGraph<Artifact> graph;
+        private final DependencyResolver resolver;
+        private final ProjectBuildingRequest buildingRequest;
         /**
-         * Resolves the artifact for the given node. If the artifact is not found, it will try to resolve the pom instead.
-         * @param node  the node to resolve the artifact for
-         * @return  the resolved artifact
+         * Create a new instance of the visitor.
+         * @param graph  The graph to add the edges to.
+         * @param resolver  The dependency resolver to use for resolving the dependencies.
+         * @param buildingRequest  The building request to use for resolving the dependencies.
          */
-        private Artifact resolveArtifact(DependencyNode node) {
+        private ResolvingDependencyNodeVisitor(
+                MutableGraph<Artifact> graph, DependencyResolver resolver, ProjectBuildingRequest buildingRequest) {
+            this.graph = graph;
+            this.resolver = resolver;
+            this.buildingRequest = buildingRequest;
+        }
+
+        @Override
+        public boolean visit(DependencyNode node) {
+
+            node.getChildren()
+                    .forEach(v ->
+                            graph.putEdge(resolveDependency(node.getArtifact()), resolveDependency(v.getArtifact())));
+            return true;
+        }
+        /**
+         * Create a dependency from an artifact. This is necessary because the API of the dependency resolver expects a dependency.
+         * @param node  The artifact to create a dependency from.
+         * @return  The dependency
+         */
+        private Dependency createDependency(Artifact node) {
+            Dependency dependency = new Dependency();
+            dependency.setGroupId(node.getGroupId());
+            dependency.setArtifactId(node.getArtifactId());
+            dependency.setVersion(node.getVersion());
+            dependency.setScope(node.getScope());
+            dependency.setType(node.getType());
+            dependency.setClassifier(node.getClassifier());
+            return dependency;
+        }
+
+        @Override
+        public boolean endVisit(DependencyNode node) {
+            return true;
+        }
+
+        private Artifact resolveDependency(Artifact artifact) {
             try {
-                ArtifactRequest artifactRequest = new ArtifactRequest();
-                artifactRequest.setArtifact(node.getArtifact());
-                artifactRequest.setRepositories(node.getRepositories());
-                var result = repoSystem.resolveArtifact(session, artifactRequest);
-                return result.getArtifact();
+                return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
+                        .iterator()
+                        .next()
+                        .getArtifact();
             } catch (Exception e) {
-                try {
-                    ArtifactRequest artifactRequest = new ArtifactRequest();
-                    artifactRequest.setArtifact(new DefaultArtifact(
-                            node.getArtifact().getGroupId(),
-                            node.getArtifact().getArtifactId(),
-                            node.getArtifact().getClassifier(),
-                            "pom",
-                            node.getArtifact().getVersion()));
-                    artifactRequest.setRepositories(node.getRepositories());
-                    var result = repoSystem.resolveArtifact(session, artifactRequest);
-                    return result.getArtifact();
-                } catch (Exception inner) {
-                    LOGGER.warn("Could not resolve artifact: " + node.getArtifact(), inner);
-                }
-                LOGGER.warn("Could not resolve artifact: " + node.getArtifact(), e);
+                LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
+                return artifact;
             }
-            // fallback to the original artifact
-            return node.getArtifact();
         }
     }
-
-    private static final Logger LOGGER = Logger.getLogger(LockFileFacade.class);
 
     /**
      * Generate a lock file for a project.
@@ -106,18 +101,25 @@ public class LockFileFacade {
         return Path.of(project.getBasedir().getAbsolutePath(), "lockfile.json");
     }
 
+    private LockFileFacade() {
+        // Prevent instantiation
+    }
     /**
-     * Generate a lock file for the dependencies of a project.
-     * @param project The project to generate a lock file for.
-     * @param repositorySystemSession The repository system session for the project.
-     * @return A lock file for the project.
+     * Generate a lock file for a project. This method is responsible for generating the lock file for a project. It uses the dependency collector to generate the dependency graph and then resolves the dependencies.
+     * @param session  The maven session.
+     * @param project  The project to generate a lock file for.
+     * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
+     * @param resolver  The dependency resolver to use for resolving the dependencies.
+     * @return  A lock file for the project.
      */
     public static LockFile generateLockFileFromProject(
-            MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem) {
+            MavenSession session,
+            MavenProject project,
+            DependencyCollectorBuilder dependencyCollectorBuilder,
+            DependencyResolver resolver) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
         // Get all the artifacts for the dependencies in the project
-        var graph =
-                DependencyGraph.of(LockFileFacade.createDependencyGraph(project, repositorySystemSession, repoSystem));
+        var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, resolver);
         var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -126,59 +128,24 @@ public class LockFileFacade {
                 roots);
     }
 
-    public static List<RemoteRepository> newRepositories() {
-        return new ArrayList<>(Collections.singletonList(newCentralRepository()));
-    }
+    private static DependencyGraph graph(
+            MavenSession session,
+            MavenProject project,
+            DependencyCollectorBuilder dependencyCollectorBuilder,
+            DependencyResolver resolver) {
+        try {
+            ProjectBuildingRequest buildingRequest =
+                    new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
 
-    public static Graph<Artifact> createDependencyGraph(
-            MavenProject project, RepositorySystemSession repositorySystemSession, RepositorySystem repoSystem) {
-        MutableGraph<Artifact> graph = GraphBuilder.directed().build();
-        var list = newRepositories();
-        // there is a feature in maven where it will not resolve dependencies from http repositories
-        list.addAll(project.getRemoteProjectRepositories().stream()
-                .filter(v -> v.getUrl().contains("https"))
-                .collect(Collectors.toList()));
-        for (var dep : project.getDependencies()) {
-            ArtifactRequest artifactRequest = new ArtifactRequest();
-            artifactRequest.setArtifact(dependencyToArtifact(dep));
-            artifactRequest.setRepositories(list);
-            try {
-                var result = repoSystem.resolveArtifact(repositorySystemSession, artifactRequest);
-                graph.addNode(result.getArtifact());
-            } catch (Exception e) {
-                LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
-            }
+            buildingRequest.setProject(project);
+            var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
+            MutableGraph<Artifact> graph = GraphBuilder.directed().build();
+            rootNode.accept(new ResolvingDependencyNodeVisitor(graph, resolver, buildingRequest));
+
+            return DependencyGraph.of(graph);
+        } catch (Exception e) {
+            LOGGER.warn("Could not generate graph", e);
+            return DependencyGraph.of(GraphBuilder.directed().build());
         }
-
-        for (var dep : project.getDependencies()) {
-            try {
-
-                CollectRequest collectRequest = new CollectRequest();
-                collectRequest.setRoot(new Dependency(dependencyToArtifact(dep), dep.getScope()));
-                collectRequest.setRepositories(list);
-                var result = repoSystem.collectDependencies(repositorySystemSession, collectRequest);
-                Visitor visitor = new Visitor(repositorySystemSession, repoSystem, graph);
-                var root = result.getRoot();
-                root.accept(visitor);
-            } catch (Exception e) {
-                LOGGER.warn("Could not resolve artifact: " + dep.getArtifactId(), e);
-            }
-        }
-        return graph;
-    }
-
-    private static RemoteRepository newCentralRepository() {
-        return new RemoteRepository.Builder("central", "default", "https://repo.maven.apache.org/maven2/")
-                .setPolicy(new RepositoryPolicy(true, "always", RepositoryPolicy.CHECKSUM_POLICY_FAIL))
-                .build();
-    }
-
-    private static Artifact dependencyToArtifact(org.apache.maven.model.Dependency dependency) {
-        return new DefaultArtifact(
-                dependency.getGroupId(), dependency.getArtifactId(), dependency.getType(), dependency.getVersion());
-    }
-
-    private LockFileFacade() {
-        // Prevent instantiation
     }
 }
