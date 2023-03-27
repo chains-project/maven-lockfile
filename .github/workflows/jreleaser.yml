@@ -4,8 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version'
+        description: 'Next release version'
         required: true
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
       nextVersion:
         description: 'Next version after release (-SNAPSHOT will be added automatically)'
         required: true
@@ -26,6 +32,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+          
+      - name: install go
+        uses: actions/setup-go@v4
+      - name: install semversion
+        run: go install github.com/ffurrer2/semver/cmd/semver@latest
+      
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=${{ github.event.inputs.version }}
 
