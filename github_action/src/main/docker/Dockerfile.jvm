@@ -77,6 +77,8 @@
 ###
 FROM registry.access.redhat.com/ubi8/openjdk-11:1.14
 
+RUN microdnf install maven
+
 ENV LANGUAGE='en_US:en'
 
 
