@@ -1,14 +1,35 @@
-FROM debian:bullseye-slim
+FROM curlimages/curl AS downloader
+ARG RUN_JAVA_VERSION=1.3.8
+RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o /tmp/run-java.sh
 
-# install java
-ENV PATH=$PATH:/opt/java/jdk-17/bin
-RUN apt-get update && apt-get install --yes --no-install-recommends openjdk-17-jdk-headless \
-  maven
-RUN chown 1001 / \
-  && chmod "g+rwX" / \
-  && chown 1001:root /
-COPY --chown=1001:root target/*-runner /application
+
+# FROM eclipse-temurin:11-jdk-alpine
+FROM eclipse-temurin:19.0.2_7-jdk-focal
+
+RUN mkdir /deployments \
+  && chown 185 /deployments \
+  && chmod "g+rwX" /deployments \
+  && chown 185:root /deployments
+
+COPY --from=downloader /tmp/run-java.sh /deployments/run-java.sh
+
+RUN chown 185 /deployments/run-java.sh \
+  && chmod 540 /deployments/run-java.sh
+
+# Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
+ENV JAVA_OPTIONS="-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+# ENV JAVA_HOME=/opt/java/openjdk
+# We make four distinct layers so if there are application changes the library layers can be re-used
+COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=185 target/quarkus-app/*.jar /deployments/
+COPY --chown=185 target/quarkus-app/app/ /deployments/app/
+COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+
+RUN echo ${JAVA_HOME}
+RUN bash java -version
+RUN mvn -version
 EXPOSE 8080
-USER 1001
-RUN export JAVA_HOME=/usr/bin/java
-CMD ["/application", "-Dquarkus.http.host=0.0.0.0"]
+USER 185
+
+ENTRYPOINT [ "java -jar ", JAVA_APP_JAR]
