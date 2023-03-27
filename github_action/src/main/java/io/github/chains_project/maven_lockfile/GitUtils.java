@@ -1,11 +1,7 @@
 package io.github.chains_project.maven_lockfile;
 
-
-  
-
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.jgit.api.Git;
@@ -62,5 +58,4 @@ public class GitUtils {
             return treeParser;
         }
     }
-
 }

@@ -46,7 +46,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jgit</artifactId>
-        </dependency>
+    </dependency>
 
     <dependency>
       <groupId>org.buildobjects</groupId>

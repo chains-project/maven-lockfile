@@ -1,0 +1,21 @@
+# publish a docker image to ghcr.io for pushes to main or dev with github actions
+
+name: Docker
+on:
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build -f src/main/docker/Dockerfile.jvm -t chains/lockfile_action ./github_action
+      - name: Log into registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+      - name: Push image
+        run: docker push ghcr.io/$GITHUB_REPOSITORY:latest
+
+
