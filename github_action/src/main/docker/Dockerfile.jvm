@@ -8,13 +8,13 @@ FROM maven:eclipse-temurin
 
 
 RUN mkdir /deployments \
-  && chown 1001 /deployments \
+  && chown 185 /deployments \
   && chmod "g+rwX" /deployments \
-  && chown 1001:root /deployments
+  && chown 185:root /deployments
 
 COPY --from=downloader /tmp/run-java.sh /deployments/run-java.sh
 
-RUN chown 1001 /deployments/run-java.sh \
+RUN chown 185 /deployments/run-java.sh \
   && chmod 540 /deployments/run-java.sh
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
