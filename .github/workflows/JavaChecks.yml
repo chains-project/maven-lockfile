@@ -17,3 +17,5 @@ jobs:
         run: mvn clean verify
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean package
+      - name: Run doc check
+        run: mvn org.apache.maven.plugins:maven-javadoc-plugin:3.5.0:jar

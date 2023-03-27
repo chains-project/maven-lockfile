@@ -30,7 +30,18 @@
           "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
           "id": "org.junit.platform:junit-platform-commons:1.9.2",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "children": []
+          "children": [
+            {
+              "groupId": "org.apiguardian",
+              "artifactId": "apiguardian-api",
+              "version": "1.1.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+              "id": "org.apiguardian:apiguardian-api:1.1.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "children": []
+            }
+          ]
         },
         {
           "groupId": "org.opentest4j",

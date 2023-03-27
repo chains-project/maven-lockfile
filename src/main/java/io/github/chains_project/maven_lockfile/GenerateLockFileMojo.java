@@ -1,11 +1,10 @@
 package io.github.chains_project.maven_lockfile;
 
-import static io.github.chains_project.maven_lockfile.LockFileFacade.generateLockFileFromProject;
-
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
@@ -14,8 +13,8 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
+import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
+import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 /**
  * This plugin generates a lock file for a project. The lock file contains the checksums of all
@@ -35,23 +34,26 @@ public class GenerateLockFileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     private MavenProject project;
 
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    private MavenSession session;
+
     /**
-     * The current repository session, used for accessing the local artifact files, among other things
+     * The dependency collector builder to use.
      */
-    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true, required = true)
-    private RepositorySystemSession repoSession;
-    /**
-     * The entry point to Aether, i.e. the component doing all the work.
-     */
+    @Component(hint = "default")
+    private DependencyCollectorBuilder dependencyCollectorBuilder;
+
     @Component
-    private RepositorySystem repoSystem;
+    private DependencyResolver dependencyResolver;
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException
      */
     public void execute() throws MojoExecutionException {
         try {
-            LockFile lockFile = generateLockFileFromProject(project, repoSession, repoSystem);
+
+            LockFile lockFile = LockFileFacade.generateLockFileFromProject(
+                    session, project, dependencyCollectorBuilder, dependencyResolver);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));

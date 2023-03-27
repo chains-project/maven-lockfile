@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v1
-    - uses: actions/cache@v1
+    - uses: actions/cache@v3
       with:
         path: /root/.jbang
         key: $-jbang-$
@@ -20,7 +20,7 @@ jobs:
     - name: where is maven?
       run: mvn wrapper:wrapper
     - name: jbang
-      uses: jbangdev/jbang-action@v0.105.1
+      uses: jbangdev/jbang-action@v0.105.2
       with:
         script: ".github/smoketest/SmokeTest.java"
         scriptargs: "my world"
