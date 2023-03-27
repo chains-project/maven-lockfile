@@ -46,9 +46,7 @@ public class GithubAction {
     try {
       ProcBuilder.run("mvn", COMMAND_VALIDATE);
     } catch (Exception e) {
-      commands.jobSummary("# Integrity check failed.\n" + e.getMessage()
-          + "Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes.");
-      commands.error("Integrity check failed\n Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes.");
+      commands.error("Integrity check failed\n Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes." + e.getMessage());
 
           
     }
