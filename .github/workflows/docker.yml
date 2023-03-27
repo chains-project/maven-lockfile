@@ -41,5 +41,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: check lock file
+        uses: docker://ghcr.io/chains-project/maven-lockfile:dev
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
 
