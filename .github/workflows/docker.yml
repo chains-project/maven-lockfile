@@ -17,7 +17,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean package
+        run: cd github_action  && mvn --batch-mode --update-snapshots clean package
       - name: Build the Docker image
         run: cd github_action && docker build -f src/main/docker/Dockerfile.jvm -t chains/lockfile_action .
       - name: Log into registry
