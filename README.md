@@ -9,7 +9,7 @@
 
 
 ![image](https://user-images.githubusercontent.com/25300639/213881088-0c5abda8-9722-40d0-9e25-17558e63b0da.png)
-This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
+This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 
 ## Installation:
@@ -101,16 +101,19 @@ An example lockfile is shown below:
 ```
 This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the groupId field.
-For each artifact, we store the hashes of all transitive dependencies in the `requires` field.
+For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
-The `repoUrl` field is used to validate that the artifact is downloaded from the correct repository.
-Different from JS, all build tools download almost everything from maven-central instead of multiple different repositories.
-This means changes in the `repoUrl` field are not as common as in JS.
 
 
 ## Related work
 Here we list some related work that we found while researching this topic.
 
 - Maven: https://github.com/vandmo/dependency-lock-maven-plugin
-- Gradle: https://docs.gradle.org/current/userguide/dependency_locking.html
+  ## Gradle:
+	For Gradle exists a built-in solution: https://docs.gradle.org/current/userguide/dependency_locking.html
+	This solution only works for Gradle builds and is deeply connected to the Gradle build system. 
+	The Gradle ecosystem is fast changing and so there dependency resolution. 
+	Our lockfile is independent of the build system and can be used to validate the integrity of a maven repository.
+
+
 - NPM: https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json
