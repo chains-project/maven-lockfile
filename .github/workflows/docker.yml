@@ -1,5 +1,3 @@
-# publish a docker image to ghcr.io for pushes to main or dev with github actions
-
 name: Docker
 on:
   push:
