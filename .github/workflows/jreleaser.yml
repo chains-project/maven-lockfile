@@ -44,7 +44,7 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-          message: Releasing version ${{ env.NEXT_VERSION }}
+          message: 🔖 Releasing version ${{ env.NEXT_VERSION }}
 
       - name: Stage release
         run: mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
@@ -73,7 +73,7 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-          message: Setting SNAPSHOT version ${{ github.event.inputs.nextVersion }}-SNAPSHOT
+          message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}-SNAPSHOT
 
       - name: JReleaser release output
         if: always()
