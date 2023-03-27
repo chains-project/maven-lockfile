@@ -10,5 +10,5 @@ RUN chown 1001 / \
 COPY --chown=1001:root target/*-runner /application
 EXPOSE 8080
 USER 1001
-
+RUN export JAVA_HOME=/usr/bin/java
 CMD ["/application", "-Dquarkus.http.host=0.0.0.0"]
