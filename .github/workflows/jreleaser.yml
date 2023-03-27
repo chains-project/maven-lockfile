@@ -44,18 +44,20 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-          message: Releasing version $NEXT_VERSION
+          message: Releasing version ${{ env.NEXT_VERSION }}
 
       - name: Stage release
         run: mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
-
+      - name: Print next version
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
         uses: jreleaser/release-action@v2
         with:
           setup-java: false
           version: 1.4.0
+          arguments: full-release 
         env:
-          JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
+          JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
