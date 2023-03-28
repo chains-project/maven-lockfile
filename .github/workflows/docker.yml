@@ -21,7 +21,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Build with Maven
-        run: cd github_action  && mvn --batch-mode --update-snapshots clean package deploy || true
+        run: cd github_action  && mvn --batch-mode -Dquarkus.package.type=uber-jar --update-snapshots clean package deploy || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

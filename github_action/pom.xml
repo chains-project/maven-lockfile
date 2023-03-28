@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains_project.maven_lockfile</groupId>
   <artifactId>maven_lockfile_action</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <properties>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
