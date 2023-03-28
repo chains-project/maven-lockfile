@@ -35,9 +35,10 @@ jobs:
         run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-
-      - name: check lock file
-        uses: docker://ghcr.io/chains-project/maven-lockfile:dev
+      - name: get version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
+      - name: check lock file with current version
+        uses: docker://ghcr.io/chains-project/maven-lockfile:${{ env.VERSION }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
