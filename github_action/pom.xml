@@ -8,13 +8,16 @@
   <properties>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>
+      UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+    <quarkus.platform.group-id>
+      io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.16.5.Final</quarkus.platform.version>
     <skipITs>true</skipITs>
-    <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <surefire-plugin.version>
+      3.0.0-M7</surefire-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -79,13 +82,15 @@
           <formats>
             <format>
               <includes>
-                <include>*.md</include>
+                <include>
+                  *.md</include>
                 <include>.gitignore</include>
               </includes>
               <trimTrailingWhitespace></trimTrailingWhitespace>
               <endWithNewline></endWithNewline>
               <indent>
-                <tabs>true</tabs>
+                <tabs>
+                  true</tabs>
                 <spacesPerTab>4</spacesPerTab>
               </indent>
             </format>
@@ -95,7 +100,8 @@
           </java>
           <pom>
             <includes>
-              <include>pom.xml</include>
+              <include>
+                pom.xml</include>
             </includes>
             <sortPom></sortPom>
           </pom>
@@ -121,7 +127,8 @@
         <version>${compiler-plugin.version}</version>
         <configuration>
           <compilerArgs>
-            <arg>-parameters</arg>
+            <arg>
+              -parameters</arg>
           </compilerArgs>
         </configuration>
       </plugin>
@@ -130,7 +137,8 @@
         <version>${surefire-plugin.version}</version>
         <configuration>
           <systemPropertyVariables>
-            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <java.util.logging.manager>
+              org.jboss.logmanager.LogManager</java.util.logging.manager>
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
@@ -146,8 +154,10 @@
             </goals>
             <configuration>
               <systemPropertyVariables>
-                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                <native.image.path>
+                  ${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                <java.util.logging.manager>
+                  org.jboss.logmanager.LogManager</java.util.logging.manager>
                 <maven.home>${maven.home}</maven.home>
               </systemPropertyVariables>
             </configuration>
@@ -165,9 +175,17 @@
         </property>
       </activation>
       <properties>
-        <skipITs>false</skipITs>
+        <skipITs>
+          false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
     </profile>
   </profiles>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/chains-project/maven_lockfile_action</url>
+    </repository>
+  </distributionManagement>
 </project>
