@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains_project.maven_lockfile</groupId>
-  <artifactId>github_action</artifactId>
+  <artifactId>maven_lockfile_action</artifactId>
   <version>0.0.1</version>
   <properties>
     <compiler-plugin.version>3.10.1</compiler-plugin.version>
