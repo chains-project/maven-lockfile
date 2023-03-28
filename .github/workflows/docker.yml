@@ -37,7 +37,7 @@ jobs:
           context: ./github_action
           file: ./github_action/src/main/docker/Dockerfile.jvm
           push: true
-          tags: ${{ steps.meta.outputs.tags }}, "latest"
+          tags: ${{ steps.meta.outputs.tags }}, latest
           labels: ${{ steps.meta.outputs.labels }}
 
   check-lockfile:
