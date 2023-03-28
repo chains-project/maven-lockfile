@@ -32,7 +32,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
-        run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile
+        run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile -Dquarkus.container-image.additional-tags=latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
@@ -46,10 +46,8 @@ jobs:
           with:
             java-version: '11'
             distribution: 'temurin'
-        - name: get version
-          run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
-        - name: check lock file with current version
-          uses: docker://ghcr.io/chains-project/maven-lockfile:$VERSION
+        - name: pull image with current version from maven 
+          uses: docker://ghcr.io/chains-project/maven-lockfile
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
 
