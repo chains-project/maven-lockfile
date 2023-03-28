@@ -33,6 +33,7 @@ public class GithubAction {
             }
         } catch (Exception e) {
             commands.error(e.getMessage());
+            System.exit(-1);
         }
     }
 
@@ -43,6 +44,7 @@ public class GithubAction {
             commands.error(
                     "Integrity check failed\n Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes."
                             + e.getMessage());
+            System.exit(-1);
         }
     }
 }
