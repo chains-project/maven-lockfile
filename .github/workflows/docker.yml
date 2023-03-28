@@ -38,7 +38,7 @@ jobs:
       - name: get version
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
       - name: check lock file with current version
-        uses: docker://ghcr.io/chains-project/maven-lockfile:${{ env.VERSION }}
+        uses: docker://ghcr.io/chains-project/maven-lockfile:$VERSION
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
