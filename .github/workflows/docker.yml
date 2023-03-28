@@ -18,7 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Build with Maven
-        run: cd github_action  && mvn package
+        run: cd github_action  && mvn --batch-mode --update-snapshots clean package
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
         with:
@@ -32,9 +32,17 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
-        run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile -Dquarkus.container-image.additional-tags=latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./github_action
+          file: ./github_action/src/main/docker/Dockerfile.jvm
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      - name: check lock file
+        uses: docker://ghcr.io/chains-project/maven-lockfile:dev
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   check-lockfile:
         runs-on: ubuntu-latest

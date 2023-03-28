@@ -1,65 +1,17 @@
-FROM curlimages/curl AS downloader
-ARG RUN_JAVA_VERSION=1.3.8
-RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSION}/run-java-sh-${RUN_JAVA_VERSION}-sh.sh -o /tmp/run-java.sh
-
-
 # FROM eclipse-temurin:11-jdk-alpine
-FROM maven:latest
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.15-1.1679485273
 
-# update CA certificates
-RUN apt-get update -y \
-  && apt-get install -y ca-certificates maven\
-  && apt-get clean all
+ENV LANGUAGE='en_US:en'
+USER root
 
-RUN mkdir /deployments \
-  && chown 185 /deployments \
-  && chmod "g+rwX" /deployments \
-  && chown 185:root /deployments
-
- COPY --from=downloader /tmp/run-java.sh /deployments/run-java.sh
-
-RUN chown 185 /deployments/run-java.sh \
-  && chmod 540 /deployments/run-java.sh
-
-# Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
-ENV JAVA_OPTIONS="-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
-# ENV JAVA_HOME=/opt/java/openjdk
+RUN microdnf update && microdnf install maven
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY target/quarkus-app/lib/ /deployments/lib/
+COPY target/quarkus-app/*.jar /deployments/
+COPY target/quarkus-app/app/ /deployments/app/
+COPY target/quarkus-app/quarkus/ /deployments/quarkus/
 
-# Downloading and installing Maven
-# 1- Define a constant with the version of maven you want to install
-#ARG MAVEN_VERSION=3.9.0       
-
-# 2- Define a constant with the working directory
-#ARG USER_HOME_DIR="/root"
-
-# 3- Define the SHA key to validate the maven download
-#ARG SHA=b4880fb7a3d81edd190a029440cdf17f308621af68475a4fe976296e71ff4a4b546dd6d8a58aaafba334d309cc11e638c52808a4b0e818fc0fd544226d952544
-
-# 4- Define the URL where maven can be downloaded from
-#ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
-
-# 5- Create the directories, download maven, validate the download, install it, remove downloaded file and set links
-# RUN mkdir -p /usr/share/maven /usr/share/maven/ref
-# RUN echo "Downlaoding maven" && curl -o /tmp/apache-maven.tar.gz https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz
-# Copy apache-maven-3.9.0-bin.tar.gz to /tmp/apache-maven.tar.gz
-# COPY apache-maven-3.9.0-bin.tar.gz /tmp/apache-maven.tar.gz
-
-# COPY /apache-maven-3.9.0-bin.tar.gz /tmp/apache-maven.tar.gz
-# RUN tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1
-# RUN echo "Cleaning and setting links" && rm -f /tmp/apache-maven.tar.gz && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-
-# 6- Define environmental variables required by Maven, like Maven_Home directory and where the maven repo is located
-# ENV MAVEN_HOME /usr/share/maven
-# ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
-# RUN echo ${JAVA_HOME}
-# RUN java -version
-# RUN mvn -version
-
-
-ENTRYPOINT ["sh", "/deployments/run-java.sh"]
+ENV AB_JOLOKIA_OFF=""
+ENV JAVA_OPTS="-Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+ENTRYPOINT [ "java", "-jar", "/deployments/quarkus-run.jar" ]
