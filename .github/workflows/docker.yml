@@ -19,7 +19,8 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: cd github_action  && mvn --batch-mode --update-snapshots clean package deploy
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
