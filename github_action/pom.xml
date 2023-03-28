@@ -185,7 +185,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/chains-project/maven_lockfile_action</url>
+      <url>https://maven.pkg.github.com/chains-project/maven_lockfile</url>
     </repository>
   </distributionManagement>
 </project>
