@@ -4,7 +4,7 @@ RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSIO
 
 
 # FROM eclipse-temurin:11-jdk-alpine
-FROM eclipse-temurin:17.0.6_10-jdk-jammy
+FROM maven:latest
 
 # update CA certificates
 RUN apt-get update -y \
@@ -16,7 +16,7 @@ RUN mkdir /deployments \
   && chmod "g+rwX" /deployments \
   && chown 185:root /deployments
 
-COPY --from=downloader /tmp/run-java.sh /deployments/run-java.sh
+ COPY --from=downloader /tmp/run-java.sh /deployments/run-java.sh
 
 RUN chown 185 /deployments/run-java.sh \
   && chmod 540 /deployments/run-java.sh
@@ -62,4 +62,4 @@ COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
 # RUN mvn -version
 
 
-ENTRYPOINT [ "java -jar ", JAVA_APP_JAR]
+ENTRYPOINT ["sh", "/deployments/run-java.sh"]

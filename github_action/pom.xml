@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains_project.maven_lockfile</groupId>
   <artifactId>github_action</artifactId>
@@ -42,12 +43,10 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jgit</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.buildobjects</groupId>
       <artifactId>jproc</artifactId>
@@ -59,6 +58,10 @@
     <dependency>
       <groupId>io.quarkiverse.githubaction</groupId>
       <artifactId>quarkus-github-action</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-jib</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -74,14 +77,11 @@
         <version>2.35.0</version>
         <configuration>
           <formats>
-            <!-- you can define as many formats as you want, each is independent -->
             <format>
-              <!-- define the files to apply to -->
               <includes>
                 <include>*.md</include>
                 <include>.gitignore</include>
               </includes>
-              <!-- define the steps to apply to those files -->
               <trimTrailingWhitespace></trimTrailingWhitespace>
               <endWithNewline></endWithNewline>
               <indent>
@@ -90,7 +90,6 @@
               </indent>
             </format>
           </formats>
-          <!-- define a language-specific format -->
           <java>
             <palantirJavaFormat></palantirJavaFormat>
           </java>
