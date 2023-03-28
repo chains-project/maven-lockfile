@@ -32,7 +32,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
-        run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile -Dquarkus.container-image.additional-tags=latest
+        run: cd github_action  && mvn package -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.group=chains-project -Dquarkus.container-image.registry=${{ env.REGISTRY }} -Dquarkus.container-image.name=maven-lockfile -Dquarkus.container-image.additional-tags=latest -Dquarkus.jib.working-directory=/github/workspace
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
