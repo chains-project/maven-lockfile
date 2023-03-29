@@ -39,7 +39,7 @@ public class SmokeTest {
                 result.checkout().setName(projectUrl.commitHash).call();
                 File workingDir = result.getRepository().getDirectory().getParentFile();
                 new ProcBuilder(
-                        mavenPath.toString(), command)
+                      "." + mavenPath.toString(), command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
