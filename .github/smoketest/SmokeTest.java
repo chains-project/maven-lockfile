@@ -38,6 +38,7 @@ public class SmokeTest {
                     .call()) {
                 result.checkout().setName(projectUrl.commitHash).call();
                 File workingDir = result.getRepository().getDirectory().getParentFile();
+                System.out.println("Cloned " + projectUrl.projectUrl + " to " + workingDir);
                 new ProcBuilder(
                       "." + mavenPath.toString(), command)
                     .withWorkingDirectory(workingDir)
