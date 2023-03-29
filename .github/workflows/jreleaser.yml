@@ -12,12 +12,15 @@ on:
           - major
           - minor
           - patch
-
+env:
+  working-directory: ./maven_plugin
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
