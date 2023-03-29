@@ -28,3 +28,4 @@ jobs:
       env:
         JBANG_REPO: /root/.jbang/repository
         GITHUB_TOKEN: $
+        WORKING_DIRECTORY: ${{ env.working-directory }}
