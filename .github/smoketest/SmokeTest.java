@@ -29,7 +29,7 @@ public class SmokeTest {
         public static void main(String... args) throws Exception {
         Path mavenPath = Path.of("./maven_plugin/./mvnw");
         String pluginVersion = getProjectVersion(mavenPath);
-        new ProcBuilder(mavenPath.toString(), "clean", "install", "-DskipTests")
+        new ProcBuilder(mavenPath.toString(), "clean", "install", "-DskipTests", "-q")
                 .withNoTimeout()
                 .run();
         out.println("your version is:" + getProjectVersion(mavenPath));
