@@ -38,7 +38,8 @@ public class SmokeTest {
                     .call()) {
                 result.checkout().setName(projectUrl.commitHash).call();
                 File workingDir = result.getRepository().getDirectory().getParentFile();
-                new ProcBuilder("../mvnw", command)
+                new ProcBuilder(
+                        mavenPath.toString(), command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
