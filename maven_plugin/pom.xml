@@ -5,6 +5,7 @@
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>integrity-maven-plugin</artifactId>
@@ -41,7 +42,8 @@
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
   <properties>
-    <mavenVersion>3.2.5</mavenVersion>
+    <mavenVersion>
+      3.2.5</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -165,7 +167,8 @@
         <version>3.8.1</version>
         <configuration>
           <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
-          <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+          <skipErrorNoDescriptorsFound>
+            true</skipErrorNoDescriptorsFound>
         </configuration>
         <executions>
           <execution>
@@ -212,7 +215,8 @@
                ! currently needed to run integration tests.
               -->
           <systemProperties>
-            <maven.version>${maven.version}</maven.version>
+            <maven.version>
+              ${maven.version}</maven.version>
             <maven.home>${maven.home}</maven.home>
           </systemProperties>
           <properties>
@@ -250,7 +254,8 @@
                   <goal>jar</goal>
                 </goals>
                 <configuration>
-                  <attach>true</attach>
+                  <attach>
+                    true</attach>
                 </configuration>
               </execution>
             </executions>
@@ -266,7 +271,8 @@
                   <goal>jar</goal>
                 </goals>
                 <configuration>
-                  <attach>true</attach>
+                  <attach>
+                    true</attach>
                 </configuration>
               </execution>
             </executions>
