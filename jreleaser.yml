@@ -19,6 +19,10 @@ project:
 release:
   github:
     owner: chains-project
+    changelog:
+      formatted: ALWAYS
+      preset: 'gitmoji'
+      format: '- {{commitShortHash}} {{commitTitle}}'
 
 signing:
   active: ALWAYS
