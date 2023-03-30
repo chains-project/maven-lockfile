@@ -39,7 +39,15 @@ public class GithubAction {
 
     private void validateLockFile(Commands commands) {
         try {
-            new ProcBuilder("mvn").withNoTimeout().withArg(COMMAND_VALIDATE).run();
+            if (new ProcBuilder("mvn")
+                            .withNoTimeout()
+                            .withArg(COMMAND_VALIDATE)
+                            .run()
+                            .getExitValue()
+                    != 0) {
+                commands.error("Integrity check failed\n");
+                System.exit(-1);
+            }
         } catch (Exception e) {
             commands.error(
                     "Integrity check failed\n Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes."

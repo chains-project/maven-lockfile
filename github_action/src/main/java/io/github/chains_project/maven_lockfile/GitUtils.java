@@ -37,6 +37,7 @@ public class GitUtils {
                     .call();
             return diff.stream().map(DiffEntry::getNewPath).anyMatch(v -> v.endsWith("pom.xml"));
         } catch (Exception e) {
+            System.out.println("Error while checking if pom.xml has changed: " + e.getMessage());
             // error while filtering lets keep all results
             return false;
         }
