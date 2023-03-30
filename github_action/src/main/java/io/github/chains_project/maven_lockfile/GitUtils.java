@@ -15,6 +15,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import io.quarkus.logging.Log;
 
 @ApplicationScoped
 public class GitUtils {
@@ -34,9 +35,9 @@ public class GitUtils {
                     .setNewTree(newTreeParser)
                     .setPathFilter(PathSuffixFilter.create("pom.xml"))
                     .call();
-            return diff.size() > 0;
+            return !diff.isEmpty();
         } catch (Exception e) {
-            System.out.println("Error while checking if pom.xml has changed: " + e.getMessage());
+            Log.error("Error while checking if pom.xml has changed", e);
             // error while filtering lets keep all results
             return false;
         }
