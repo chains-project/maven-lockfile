@@ -14,6 +14,8 @@ import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
+import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import io.quarkus.logging.Log;
 
 @ApplicationScoped
 public class GitUtils {
@@ -31,12 +33,11 @@ public class GitUtils {
             List<DiffEntry> diff = git.diff()
                     .setOldTree(oldTreeParser)
                     .setNewTree(newTreeParser)
-                    // to filter on Suffix use the following instead
-                    // setPathFilter(PathFilter.create("README.md")).
-                    // setPathFilter(PathSuffixFilter.create(".java")).
+                    .setPathFilter(PathSuffixFilter.create("pom.xml"))
                     .call();
-            return diff.stream().map(DiffEntry::getNewPath).anyMatch(v -> v.endsWith("pom.xml"));
+            return !diff.isEmpty();
         } catch (Exception e) {
+            Log.error("Error while checking if pom.xml has changed", e);
             // error while filtering lets keep all results
             return false;
         }
