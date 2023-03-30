@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - dev
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -35,7 +34,7 @@ jobs:
             java-version: '11'
             distribution: 'temurin'
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@dev
+          uses: chains-project/maven-lockfile@main
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
 
