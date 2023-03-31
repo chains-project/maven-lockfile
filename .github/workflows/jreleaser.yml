@@ -38,7 +38,7 @@ jobs:
       - name: Set next version
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
@@ -66,7 +66,9 @@ jobs:
       - name : Set next version (patch of release version) with -SNAPSHOT suffix
         run: echo "NEXT_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV        
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+      - name: SED io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }} in java files with io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}
+        run: sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g" `find . -name "*.java"`
 
       - name: Commit & Push changes
         uses: actions-js/push@master

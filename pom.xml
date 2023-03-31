@@ -49,8 +49,8 @@
                 <include>.gitignore</include>
               </includes>
               <!-- define the steps to apply to those files -->
-              <trimTrailingWhitespace></trimTrailingWhitespace>
-              <endWithNewline></endWithNewline>
+              <trimTrailingWhitespace />
+              <endWithNewline />
               <indent>
                 <tabs>true</tabs>
                 <spacesPerTab>4</spacesPerTab>
@@ -59,13 +59,13 @@
           </formats>
           <!-- define a language-specific format -->
           <java>
-            <palantirJavaFormat></palantirJavaFormat>
+            <palantirJavaFormat />
           </java>
           <pom>
             <includes>
               <include>pom.xml</include>
             </includes>
-            <sortPom></sortPom>
+            <sortPom />
           </pom>
         </configuration>
       </plugin>
