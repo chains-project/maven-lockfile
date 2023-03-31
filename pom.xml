@@ -5,7 +5,7 @@
   <artifactId>maven-lockfile-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>integrity-maven-plugin</name>
+  <name>maven-lockfile</name>
   <description>Integrity Maven Plugin</description>
   <modules>
     <module>maven_plugin</module>

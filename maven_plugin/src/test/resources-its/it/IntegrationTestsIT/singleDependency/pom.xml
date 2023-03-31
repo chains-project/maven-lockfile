@@ -22,7 +22,7 @@
       <plugin>
         <groupId>io.github.chains-project</groupId>
         <artifactId>
-          integrity-maven-plugin</artifactId>
+          maven-lockfile</artifactId>
         <version>@project.version@</version>
         <executions>
           <execution>
