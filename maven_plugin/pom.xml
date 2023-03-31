@@ -8,10 +8,10 @@
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
-  <artifactId>integrity-maven-plugin</artifactId>
-  <version>0.3.3-SNAPSHOT</version>
+  <artifactId>maven-lockfile</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>integrity-maven-plugin</name>
+  <name>maven-lockfile</name>
   <description>This plugin is a proof of concept for a maven plugin that can be used to validate
         the integrity of a maven repository. It does this by generating a lock file that contains
         the checksums of all the artifacts in the repository. The lock file can then be used to

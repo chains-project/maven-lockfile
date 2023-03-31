@@ -1,21 +1,20 @@
 
-# Maven Integrity Plugin
+# Maven Lockfile
 <p align="left">
 	<a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
 		<img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-	<a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" alt=Maven-Central">
-		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" /></a>
+	<a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt=Maven-Central">
+		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
 </p>
 
 
-![image](https://user-images.githubusercontent.com/25300639/213881088-0c5abda8-9722-40d0-9e25-17558e63b0da.png)
 This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 
 ## Installation:
 
 This plugin is available on maven central. To use it, add the following to your pom.xml:
-See https://search.maven.org/artifact/io.github.chains-project/integrity-maven-plugin for the latest version.
+See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
 All versions below 1.0.0 are considered unstable and should not be used in production.
 We will release a stable version once we have implemented all the features we want to have.
 
@@ -24,13 +23,13 @@ We will release a stable version once we have implemented all the features we wa
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:generate
+mvn io.github.chains-project:maven-lockfile:${CurrentVersion}:generate
 ```
 
 Then run the following command to validate the repository:
 
 ```
-mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:validate
+mvn io.github.chains-project:maven-lockfile:${CurrentVersion}:validate
 ```
 
 ## Format

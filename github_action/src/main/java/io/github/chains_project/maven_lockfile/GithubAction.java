@@ -13,8 +13,8 @@ import org.kohsuke.github.GitHub;
 public class GithubAction {
 
     private final GitUtils gitUtils;
-    private static final String COMMAND_GENERATE = "io.github.chains-project:integrity-maven-plugin:0.3.2:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:integrity-maven-plugin:0.3.2:generate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:0.3.2:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:0.3.2:generate";
 
     public GithubAction(GitUtils gitUtils) {
         this.gitUtils = gitUtils;
@@ -50,7 +50,7 @@ public class GithubAction {
             }
         } catch (Exception e) {
             commands.error(
-                    "Integrity check failed\n Please run `mvn io.github.chains-project:integrity-maven-plugin:0.3.2:generate` and commit the changes."
+                    "Integrity check failed\n Please run `mvn io.github.chains-project:maven-lockfile:0.3.2:generate` and commit the changes."
                             + e.getMessage());
             System.exit(-1);
         }

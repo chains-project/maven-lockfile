@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SmokeTest {
     private static String pluginCommand =
-            "io.github.chains-project:integrity-maven-plugin:%s:generate";
+            "io.github.chains-project:maven-lockfile:%s:generate";
     private static String[] mavenGraph = new String[] { "com.github.ferstl:depgraph-maven-plugin:4.0.2:graph", "-DgraphFormat=json" };
         private static ObjectMapper mapper = new ObjectMapper();
         private static List<CiProject> projects =
