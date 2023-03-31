@@ -1,5 +1,6 @@
 # Generated with JReleaser 1.4.0 at 2023-01-21T15:05:38.5591119+01:00
 project:
+  version: 0.1.0
   name: maven-lockfile
   description: A plugin to lock and validate the integrity of the dependencies of a maven based project.
   longDescription: This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. 
@@ -23,8 +24,6 @@ release:
       formatted: ALWAYS
       preset: 'gitmoji'
       format: '- {{commitShortHash}} {{commitTitle}}'
-      append: 
-        enabled: true
 
 signing:
   active: ALWAYS

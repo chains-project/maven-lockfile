@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile</name>
   <description>This plugin is a proof of concept for a maven plugin that can be used to validate
@@ -18,29 +18,10 @@
         validate the integrity of the repository. This guards the supply chain against malicious
         actors that might tamper with the artifacts in the repository.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
-  <inceptionYear>2023</inceptionYear>
-  <licenses>
-    <license>
-      <name>MIT</name>
-      <url>https://opensource.org/licenses/MIT</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <developers>
-    <developer>
-      <id>MartinWitt</id>
-      <name>Martin Wittlinger</name>
-    </developer>
-  </developers>
   <prerequisites>
     <maven>${mavenVersion}</maven>
   </prerequisites>
-  <scm>
-    <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
-    <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>https://github.com/chains-project/maven-lockfile.git</url>
-  </scm>
+
   <properties>
     <mavenVersion>3.2.5</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>

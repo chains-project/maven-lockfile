@@ -38,7 +38,7 @@ jobs:
       - name: Set next version
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
       - name: Set release version
-        run: cd ./maven_plugin && mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
@@ -46,9 +46,9 @@ jobs:
           message: 🔖 Releasing version ${{ env.NEXT_VERSION }}
 
       - name: Stage release
-        run: cd ./maven_plugin && mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
+        run: mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
       - name: Print next version
-        run: cd ./maven_plugin && mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
         uses: jreleaser/release-action@v2
         with:
