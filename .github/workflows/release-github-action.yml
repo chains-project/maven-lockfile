@@ -1,4 +1,4 @@
-name: Docker
+name: Github-Action Release
 on:
   push:
     branches:
