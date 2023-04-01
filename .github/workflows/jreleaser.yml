@@ -12,15 +12,11 @@ on:
           - major
           - minor
           - patch
-env:
-  working-directory: ./maven_plugin
+
 jobs:
 
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.working-directory }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -42,7 +38,7 @@ jobs:
       - name: Set next version
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
@@ -70,8 +66,9 @@ jobs:
       - name : Set next version (patch of release version) with -SNAPSHOT suffix
         run: echo "NEXT_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV        
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION
-
+        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+      - name: SED io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }} in java files with io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}
+        run: find . -name "*.java" | xargs sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g"`
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:

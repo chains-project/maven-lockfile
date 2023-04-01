@@ -1,5 +1,6 @@
 package io.github.chains_project.maven_lockfile;
 
+import io.quarkus.logging.Log;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -15,7 +16,6 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
-import io.quarkus.logging.Log;
 
 @ApplicationScoped
 public class GitUtils {
