@@ -1,5 +1,5 @@
 name: 'Maven-Lockfile' 
-description: 'Description of my action' 
+description: 'This action generates a lockfile for a Maven project.' 
 inputs:
   github-token: 
     description: 'GitHub token'
@@ -20,10 +20,8 @@ runs:
       shell: bash
     - run: curl -Ls https://sh.jbang.dev | bash -s - app setup 
       shell: bash
-    - run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile' io.github.chains-project:maven-lockfile-github-action:1.0.0
+    - run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile' --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.0
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }} 
         GITHUB_TOKEN: ${{ inputs.github-token }} 
-
-
