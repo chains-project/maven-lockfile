@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-parent</artifactId>
@@ -29,10 +29,8 @@
   <scm>
     <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
     <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
-    <tag>HEAD</tag>
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
-
   <build>
     <plugins>
       <plugin>
@@ -41,31 +39,27 @@
         <version>2.35.0</version>
         <configuration>
           <formats>
-            <!-- you can define as many formats as you want, each is independent -->
             <format>
-              <!-- define the files to apply to -->
               <includes>
                 <include>*.md</include>
                 <include>.gitignore</include>
               </includes>
-              <!-- define the steps to apply to those files -->
-              <trimTrailingWhitespace />
-              <endWithNewline />
+              <trimTrailingWhitespace></trimTrailingWhitespace>
+              <endWithNewline></endWithNewline>
               <indent>
                 <tabs>true</tabs>
                 <spacesPerTab>4</spacesPerTab>
               </indent>
             </format>
           </formats>
-          <!-- define a language-specific format -->
           <java>
-            <palantirJavaFormat />
+            <palantirJavaFormat></palantirJavaFormat>
           </java>
           <pom>
             <includes>
               <include>pom.xml</include>
             </includes>
-            <sortPom />
+            <sortPom></sortPom>
           </pom>
         </configuration>
       </plugin>

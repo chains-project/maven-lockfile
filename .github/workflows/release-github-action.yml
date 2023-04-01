@@ -1,5 +1,6 @@
 name: Github-Action Release
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -17,7 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Build with Maven
-        run: cd github_action  && mvn --batch-mode -Dquarkus.package.type=uber-jar --update-snapshots clean package deploy || true
+        run: cd github_action  && mvn --batch-mode -Dquarkus.package.type=uber-jar -Dquarkus.package.add-runner-suffix=false --update-snapshots clean package deploy || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
