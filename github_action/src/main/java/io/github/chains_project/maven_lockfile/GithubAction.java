@@ -13,8 +13,8 @@ import org.kohsuke.github.GitHub;
 public class GithubAction {
 
     private final GitUtils gitUtils;
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.2-SNAPSHOT:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.2-SNAPSHOT:generate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.3:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.3:generate";
 
     public GithubAction(GitUtils gitUtils) {
         this.gitUtils = gitUtils;
@@ -23,7 +23,7 @@ public class GithubAction {
     @Action
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) throws IOException {
         String baseRef = context.getGitHubBaseRef();
-        String headRef = context.getGitHubHeadRef();
+        String headRef = context.getGitHubRef();
         Path repo = Path.of(context.getGitHubWorkspace());
         try (Git git = Git.open(repo.toFile())) {
             if (gitUtils.isPomChanged(repo, baseRef, headRef)) {

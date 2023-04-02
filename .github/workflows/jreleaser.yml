@@ -75,7 +75,7 @@ jobs:
          echo "NEXT_VERSION_WITHOUT_SNAPSHOT=$(semver next patch $NEXT_VERSION)" >> $GITHUB_ENV
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
-      - name: SED io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }} in java files with io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}
+      - name: SED io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }} in java files with io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION_WITHOUT_SNAPSHOT }}
         run: |
           find . -name "*.java" | xargs sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g"
           find . -name "action.yml" | xargs sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g"
