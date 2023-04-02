@@ -7,6 +7,7 @@
 		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
 </p>
 
+![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
 
 This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
