@@ -14,7 +14,9 @@
 
 ## Contributors
 We'd like to thank the following people for their contributions:
-GitHub, Martin Wittlinger, github-actions[bot]# 1.0.6
+GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.6
 ## Changelog
 
 ## 🔄️ Changed
