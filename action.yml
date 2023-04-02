@@ -1,5 +1,8 @@
 name: 'Maven-Lockfile' 
 description: 'This action generates a lockfile for a Maven project.' 
+branding:
+  icon: 'lock'
+  color: 'blue'
 inputs:
   github-token: 
     description: 'GitHub token'
