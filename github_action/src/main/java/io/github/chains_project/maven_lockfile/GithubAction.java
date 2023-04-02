@@ -13,8 +13,8 @@ import org.kohsuke.github.GitHub;
 public class GithubAction {
 
     private final GitUtils gitUtils;
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.4:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.4:generate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.7:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.7:validate";
 
     public GithubAction(GitUtils gitUtils) {
         this.gitUtils = gitUtils;
@@ -33,7 +33,7 @@ public class GithubAction {
             }
         } catch (Exception e) {
             commands.error(e.getMessage());
-            System.exit(-1);
+            System.exit(1);
         }
     }
 
@@ -46,7 +46,7 @@ public class GithubAction {
                             .getExitValue()
                     != 0) {
                 commands.error("Integrity check failed\n");
-                System.exit(-1);
+                System.exit(1);
             }
         } catch (Exception e) {
             commands.error(
