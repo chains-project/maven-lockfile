@@ -10,6 +10,7 @@
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-github-action</artifactId>
   <version>1.0.0</version>
+  <name>maven-lockfile-github-action-</name>
   <distributionManagement>
     <repository>
       <id>github</id>

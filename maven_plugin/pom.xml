@@ -11,7 +11,7 @@
   <artifactId>maven-lockfile</artifactId>
   <version>1.0.0</version>
   <packaging>maven-plugin</packaging>
-  <name>maven-lockfile</name>
+  <name>maven-lockfile-plugin</name>
   <description>This plugin is a proof of concept for a maven plugin that can be used to validate
         the integrity of a maven repository. It does this by generating a lock file that contains
         the checksums of all the artifacts in the repository. The lock file can then be used to

@@ -108,20 +108,20 @@ We have created a GithubAction that can be used to validate the integrity of a m
 Usage:
 ```yml
 on:
-  workflow_dispatch:
-  pull_request:
+workflow_dispatch:
+pull_request:
 
 
 jobs:
-  lockfile:
-    runs-on: ubuntu-latest
-        runs-on: ubuntu-latest
-        needs: build-and-publish
-        steps:
-        - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@main
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+lockfile:
+	runs-on: ubuntu-latest
+		runs-on: ubuntu-latest
+		needs: build-and-publish
+		steps:
+		- name: run maven-lockfile
+		uses: chains-project/maven-lockfile@main
+		with:
+			github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 
