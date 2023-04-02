@@ -33,3 +33,21 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+# 1.0.7## Changelog
+
+## 🚀 Added
+- acdafb8 🔊 Add logging for ref (#102)
+
+## 🔄️ Changed
+- 9b28243 💄 Add new brand logo to readme (#101)
+- e0978b0 💄 Add github action branding (#100)
+- c1de4cd 💄 Fix format in changelog file
+
+## 🏁 Release
+- 3ecc57c 🔖 Releasing version 1.0.7
+- c862218 🔖 Setting SNAPSHOT version 1.0.7-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
