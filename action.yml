@@ -17,7 +17,7 @@ runs:
         java-version: '11'
         distribution: 'temurin'
     - name: Setup Maven Action
-      uses: s4u/setup-maven-action@
+      uses: s4u/setup-maven-action@v1.7.0
       with:
           java-version: 11
           maven-version: '3.8.1'
