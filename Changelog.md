@@ -1,3 +1,2 @@
 # Changelog
 
-<!-- JRELEASER_CHANGELOG_APPEND -
