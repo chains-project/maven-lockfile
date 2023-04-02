@@ -23,6 +23,7 @@ release:
       formatted: ALWAYS
       preset: 'gitmoji'
       format: '- {{commitShortHash}} {{commitTitle}}'
+      external: Changelog.md
 
 signing:
   active: ALWAYS

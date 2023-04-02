@@ -35,8 +35,10 @@ jobs:
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
       - name: Get current version from pom and remove snapshot if present.
         run: echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
+      - name: Get version with snapshot
+        run: echo "CURRENT_VERSION_WITH_SNAPSHOT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: Set next version
-        run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
+        run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION_WITH_SNAPSHOT)" >> $GITHUB_ENV
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Commit & Push changes
@@ -64,18 +66,23 @@ jobs:
           JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME }}
           JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD }}
       - name : Set next version (patch of release version) with -SNAPSHOT suffix
-        run: echo "NEXT_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV        
+        run: |
+         echo "NEXT_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV
+         echo "NEXT_VERSION_WITHOUT_SNAPSHOT=$(semver next patch $NEXT_VERSION)" >> $GITHUB_ENV
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: SED io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }} in java files with io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}
         run: |
           find . -name "*.java" | xargs sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g"`
           find . -name "action.yml" | xargs sed -i "s/io.github.chains-project:maven-lockfile:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile:${{ env.NEXT_VERSION }}/g"`
+      - name: Set in action.yml io.github.chains-project:maven-lockfile-github-action:${{ env.CURRENT_VERSION }} with io.github.chains-project:maven-lockfile-github-action:${{ env.NEXT_VERSION }} without snapshot
+        run: |
+          find . -name "action.yml" | xargs sed -i "s/io.github.chains-project:maven-lockfile-github-action:${{ env.CURRENT_VERSION }}/io.github.chains-project:maven-lockfile-github-action:${{ env.NEXT_VERSION_WITHOUT_SNAPSHOT }}/g"`
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-          message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}-SNAPSHOT
+          message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}
 
       - name: JReleaser release output
         if: always()
