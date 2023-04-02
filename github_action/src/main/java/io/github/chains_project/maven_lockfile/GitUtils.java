@@ -26,6 +26,7 @@ public class GitUtils {
      * @return  True if a pom.xml file has changed, false otherwise.
      */
     public boolean isPomChanged(Path repoRoot, String baseRef, String headRef) {
+        Log.info("Checking if pom.xml has changed" + baseRef + " " + headRef);
         try (Git git = Git.open(repoRoot.toFile())) {
             AbstractTreeIterator oldTreeParser = prepareTreeParser(git.getRepository(), baseRef);
             AbstractTreeIterator newTreeParser = prepareTreeParser(git.getRepository(), headRef);
