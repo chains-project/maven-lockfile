@@ -13,8 +13,8 @@ import org.kohsuke.github.GitHub;
 public class GithubAction {
 
     private final GitUtils gitUtils;
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.3:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.3:generate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.4:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.4:generate";
 
     public GithubAction(GitUtils gitUtils) {
         this.gitUtils = gitUtils;
