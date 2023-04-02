@@ -75,7 +75,7 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-          message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}-SNAPSHOT
+          message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}
 
       - name: JReleaser release output
         if: always()
