@@ -23,7 +23,7 @@ runs:
           maven-version: '3.8.1'
     - run: curl -Ls https://sh.jbang.dev | bash -s - app setup 
       shell: bash
-    - run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.2
+    - run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.3
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }} 
