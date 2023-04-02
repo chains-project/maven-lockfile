@@ -24,6 +24,8 @@ release:
       preset: 'gitmoji'
       format: '- {{commitShortHash}} {{commitTitle}}'
       external: Changelog.md
+      append:
+        enabled: true
 
 signing:
   active: ALWAYS
