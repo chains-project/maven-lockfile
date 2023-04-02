@@ -14,4 +14,20 @@
 
 ## Contributors
 We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]# 1.0.6
+## Changelog
+
+## 🔄️ Changed
+- 254246b 📌 pin lockfile version to 1.0.6 (#98)
+
+## 🗑 Removed
+- 0dd59f0 🔥Delete old changelog file (#99)
+
+## 🏁 Release
+- 8f6acbd 🔖 Releasing version 1.0.6
+- 7c67083 🔖 Setting SNAPSHOT version 1.0.6-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
