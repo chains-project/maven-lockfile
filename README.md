@@ -102,6 +102,27 @@ This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the groupId field.
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
+## GithubAction
+
+We have created a GithubAction that can be used to validate the integrity of a maven repository.
+Usage:
+```yml
+on:
+  workflow_dispatch:
+  pull_request:
+
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
+        needs: build-and-publish
+        steps:
+        - name: run maven-lockfile
+          uses: chains-project/maven-lockfile@main
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+```
 
 
 ## Related work
