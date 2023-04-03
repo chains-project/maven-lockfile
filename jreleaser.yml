@@ -1,12 +1,10 @@
-# Generated with JReleaser 1.4.0 at 2023-01-21T15:05:38.5591119+01:00
 project:
-  name: integrity-maven-plugin
+  name: maven-lockfile
   description: A plugin to lock and validate the integrity of the dependencies of a maven based project.
-  longDescription: This plugin is a proof of concept for a maven plugin that can be used to validate
-        the integrity of a maven repository. It does this by generating a lock file that contains
-        the checksums of all the artifacts in the repository. The lock file can then be used to
-        validate the integrity of the repository. This guards the supply chain against malicious
-        actors that might tamper with the artifacts in the repository.
+  longDescription: This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. 
+                  It does this by generating a lock file that contains the checksums of all the artifacts in the repository.
+                  The lock file can then be used to validate the integrity of the repository.
+                  This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
   authors:
     - MartinWitt
   license: MIT
@@ -20,6 +18,10 @@ project:
 release:
   github:
     owner: chains-project
+    changelog:
+      formatted: ALWAYS
+      preset: 'gitmoji'
+      format: '- {{commitShortHash}} {{commitTitle}}'
 
 signing:
   active: ALWAYS

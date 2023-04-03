@@ -1,21 +1,21 @@
 
-# Maven Integrity Plugin
+# Maven Lockfile
 <p align="left">
 	<a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
 		<img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-	<a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" alt=Maven-Central">
-		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/integrity-maven-plugin/badge.png?gav=true" /></a>
+	<a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt=Maven-Central">
+		<img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
 </p>
 
+![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
 
-![image](https://user-images.githubusercontent.com/25300639/213881088-0c5abda8-9722-40d0-9e25-17558e63b0da.png)
-This plugin is a proof of concept for a maven plugin that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
+This plugin is a state-of-the-art solution that can be used to validate the integrity of a maven repository. It does this by generating a lock file that contains the checksums of all the artifacts in the repository. The lock file can then be used to validate the integrity of the repository.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 
 ## Installation:
 
 This plugin is available on maven central. To use it, add the following to your pom.xml:
-See https://search.maven.org/artifact/io.github.chains-project/integrity-maven-plugin for the latest version.
+See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
 All versions below 1.0.0 are considered unstable and should not be used in production.
 We will release a stable version once we have implemented all the features we want to have.
 
@@ -24,13 +24,13 @@ We will release a stable version once we have implemented all the features we wa
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:generate
+mvn io.github.chains-project:maven-lockfile:${CurrentVersion}:generate
 ```
 
 Then run the following command to validate the repository:
 
 ```
-mvn io.github.chains-project:integrity-maven-plugin:${CurrentVersion}:validate
+mvn io.github.chains-project:maven-lockfile:${CurrentVersion}:validate
 ```
 
 ## Format
@@ -44,73 +44,97 @@ An example lockfile is shown below:
 "version": "1",
 "lockFileVersion": 1,
 "dependencies": [
-	{
-	"artifactId": "junit-jupiter-api",
-	"groupId": "org.junit.jupiter",
-	"version": "5.9.2",
-	"checksumAlgorithm": "SHA-256",
-	"checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-	"repoUrl": "https://repo.maven.apache.org/maven2",
-	"scope": "test",
-	"requires": [
-		{
-		"artifactId": "apiguardian-api",
-		"groupId": "org.apiguardian",
-		"version": "1.1.2",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": []
-		},
-		{
-		"artifactId": "junit-platform-commons",
-		"groupId": "org.junit.platform",
-		"version": "1.9.2",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": [
 			{
-			"artifactId": "apiguardian-api",
-			"groupId": "org.apiguardian",
-			"version": "1.1.2",
+			"groupId": "org.junit.platform",
+			"artifactId": "junit-platform-engine",
+			"version": "1.9.2",
 			"checksumAlgorithm": "SHA-256",
-			"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-			"repoUrl": "https://repo.maven.apache.org/maven2",
-			"scope": "test",
-			"requires": []
+			"checksum": "25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
+			"id": "org.junit.platform:junit-platform-engine:1.9.2",
+			"parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+			"children": [
+				{
+				"groupId": "org.apiguardian",
+				"artifactId": "apiguardian-api",
+				"version": "1.1.2",
+				"checksumAlgorithm": "SHA-256",
+				"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+				"id": "org.apiguardian:apiguardian-api:1.1.2",
+				"parent": "org.junit.platform:junit-platform-engine:1.9.2",
+				"children": []
+				},
+				{
+				"groupId": "org.junit.platform",
+				"artifactId": "junit-platform-commons",
+				"version": "1.9.2",
+				"checksumAlgorithm": "SHA-256",
+				"checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+				"id": "org.junit.platform:junit-platform-commons:1.9.2",
+				"parent": "org.junit.platform:junit-platform-engine:1.9.2",
+				"children": [
+					{
+					"groupId": "org.apiguardian",
+					"artifactId": "apiguardian-api",
+					"version": "1.1.2",
+					"checksumAlgorithm": "SHA-256",
+					"checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+					"id": "org.apiguardian:apiguardian-api:1.1.2",
+					"parent": "org.junit.platform:junit-platform-commons:1.9.2",
+					"children": []
+					}
+				]
+				},
+				{
+				"groupId": "org.opentest4j",
+				"artifactId": "opentest4j",
+				"version": "1.2.0",
+				"checksumAlgorithm": "SHA-256",
+				"checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+				"id": "org.opentest4j:opentest4j:1.2.0",
+				"parent": "org.junit.platform:junit-platform-engine:1.9.2",
+				"children": []
+				}
+			]
 			}
-		]
-		},
-		{
-		"artifactId": "opentest4j",
-		"groupId": "org.opentest4j",
-		"version": "1.2.0",
-		"checksumAlgorithm": "SHA-256",
-		"checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-		"repoUrl": "https://repo.maven.apache.org/maven2",
-		"scope": "test",
-		"requires": []
-		}
-	]
-	}
 ]
 }
 ```
 This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the groupId field.
-For each artifact, we store the hashes of all transitive dependencies in the `requires` field.
+For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
-The `repoUrl` field is used to validate that the artifact is downloaded from the correct repository.
-Different from JS, all build tools download almost everything from maven-central instead of multiple different repositories.
-This means changes in the `repoUrl` field are not as common as in JS.
+## GithubAction
+
+We have created a GithubAction that can be used to validate the integrity of a maven repository.
+Usage:
+```yml
+on:
+workflow_dispatch:
+pull_request:
+
+
+jobs:
+lockfile:
+	runs-on: ubuntu-latest
+		runs-on: ubuntu-latest
+		needs: build-and-publish
+		steps:
+		- name: run maven-lockfile
+		uses: chains-project/maven-lockfile@main
+		with:
+			github-token: ${{ secrets.GITHUB_TOKEN }}
+```
 
 
 ## Related work
 Here we list some related work that we found while researching this topic.
 
 - Maven: https://github.com/vandmo/dependency-lock-maven-plugin
-- Gradle: https://docs.gradle.org/current/userguide/dependency_locking.html
+## Gradle:
+	For Gradle exists a built-in solution: https://docs.gradle.org/current/userguide/dependency_locking.html
+	This solution only works for Gradle builds and is deeply connected to the Gradle build system.
+	The Gradle ecosystem is fast changing and so is there dependency resolution.
+	Our lockfile is independent of the build system and can be used to validate the integrity of a maven repository.
+
+
 - NPM: https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json

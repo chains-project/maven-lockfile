@@ -1,0 +1,40 @@
+name: 'Maven-Lockfile' 
+description: 'This action generates a lockfile for a Maven project.' 
+branding:
+  icon: 'lock'
+  color: 'blue'
+inputs:
+  github-token: 
+    description: 'GitHub token'
+    required: true
+runs:
+  using: "composite" 
+  steps:
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.7.0
+      with:
+          java-version: 11
+          maven-version: '3.8.1'
+          checkout-fetch-depth: 0
+    - run: curl -Ls https://sh.jbang.dev | bash -s - app setup 
+      shell: bash
+    - name: Get all changed pom.xml file(s) or any file in the static folder excluding the docs folder
+      id: changed-files
+      uses: tj-actions/changed-files@v35
+      with:
+        files: |
+              **/pom.xml
+    - run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.9
+      shell: bash
+      if: steps.changed-files.outputs.any_changed == 'true'
+      env:
+        action: "generate"
+        JSON_INPUTS: ${{ toJSON(inputs) }} 
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+    - run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.9
+      shell: bash
+      if: steps.changed-files.outputs.any_changed == 'false'
+      env:
+        action: "validate"
+        JSON_INPUTS: ${{ toJSON(inputs) }} 
+        GITHUB_TOKEN: ${{ inputs.github-token }}

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SmokeTest {
     private static String pluginCommand =
-            "io.github.chains-project:integrity-maven-plugin:%s:generate";
+            "io.github.chains-project:maven-lockfile:%s:generate";
     private static String[] mavenGraph = new String[] { "com.github.ferstl:depgraph-maven-plugin:4.0.2:graph", "-DgraphFormat=json" };
         private static ObjectMapper mapper = new ObjectMapper();
         private static List<CiProject> projects =
@@ -27,10 +27,12 @@ public class SmokeTest {
         
 
         public static void main(String... args) throws Exception {
-        Path mavenPath = Path.of("./mvnw");
+        Path mavenPath = Path.of("./maven_plugin/./mvnw");
         String pluginVersion = getProjectVersion(mavenPath);
-        new ProcBuilder("./mvnw", "clean", "install", "-DskipTests").withNoTimeout().run();
-        out.println("your version is:" + getProjectVersion(mavenPath));
+        new ProcBuilder(mavenPath.toString(), "clean", "install", "-DskipTests", "-q")
+                .withNoTimeout()
+                .run();
+        out.println("your version is: " + getProjectVersion(mavenPath));
         String command = String.format(pluginCommand, pluginVersion);
         for(CiProject projectUrl : projects) {
             out.println("Testing project " + projectUrl);
@@ -38,12 +40,14 @@ public class SmokeTest {
                     .call()) {
                 result.checkout().setName(projectUrl.commitHash).call();
                 File workingDir = result.getRepository().getDirectory().getParentFile();
-                new ProcBuilder("../mvnw", command)
+                System.out.println("Cloned " + projectUrl.projectUrl + " to " + workingDir);
+                new ProcBuilder(
+                      "." + mavenPath.toString(), command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
                 LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
-                    new ProcBuilder("../mvnw", mavenGraph)
+                    new ProcBuilder("."+mavenPath, mavenGraph)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
@@ -91,7 +95,7 @@ public class SmokeTest {
 
     private static String getProjectVersion(Path path) {
         return new ProcBuilder(path.toAbsolutePath().toString(), new String[]{ "help:evaluate", "-Dexpression=project.version", "-q",
-                "-DforceStdout"}).withNoTimeout().run().getOutputString().trim();
+                "-DforceStdout"}).withNoTimeout().withWorkingDirectory(Path.of("./maven_plugin").toFile()).run().getOutputString().trim();
     }
     
     record Dependency(String groupId, String artifactId, String classifier, String version,

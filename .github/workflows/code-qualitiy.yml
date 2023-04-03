@@ -1,10 +1,28 @@
-name: Qodana
+name: Code-Quality
 on:
   workflow_dispatch:
   pull_request:
 
 
 jobs:
+  maven-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: mvn clean verify
+        run: mvn clean verify
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots clean package
+      - name: Run doc check
+        run: mvn org.apache.maven.plugins:maven-javadoc-plugin:3.5.0:jar
+      - name: Run spotless check
+        run: mvn spotless:check
   qodana:
     runs-on: ubuntu-latest
     steps:
