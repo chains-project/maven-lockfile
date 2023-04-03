@@ -15,14 +15,14 @@ import io.quarkus.test.junit.TestProfile;
 import io.quarkus.test.junit.main.Launch;
 import io.quarkus.test.junit.main.LaunchResult;
 import io.quarkus.test.junit.main.QuarkusMainTest;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
-import javax.enterprise.inject.Alternative;
-import javax.inject.Singleton;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

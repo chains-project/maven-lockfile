@@ -25,6 +25,7 @@ public class GithubAction {
                     .withArg(COMMAND_GENERATE)
                     .run();
             if (result.getExitValue() != 0) {
+                commands.jobSummary(COMMAND_GENERATE + " failed" + result.getOutputString() + result.getErrorString());
                 commands.error("Lockfile generation failed\n");
                 commands.notice(result.getOutputString());
                 commands.notice(result.getErrorString());
@@ -34,8 +35,10 @@ public class GithubAction {
         } catch (Exception e) {
             commands.error("Lockfile generation failed\n" + e.getMessage());
             commands.endGroup();
+            commands.jobSummary("Lockfile generation failed\n" + e.getMessage());
             System.exit(1);
         }
+        commands.jobSummary("Lockfile generated");
         commands.notice("Lockfile generated");
         commands.endGroup();
     }
@@ -63,8 +66,10 @@ public class GithubAction {
             commands.error(
                     "Integrity check failed\n Please run `mvn io.github.chains-project:maven-lockfile:0.3.2:generate` and commit the changes."
                             + e.getMessage());
+            commands.jobSummary("Lockfile generation failed\n" + e.getMessage());
             System.exit(1);
         }
         Log.info("Lockfile validated");
+        commands.jobSummary("Lockfile validated successfully");
     }
 }
