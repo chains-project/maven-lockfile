@@ -12,6 +12,8 @@ jobs:
       uses: stCarolas/setup-maven@v4.5
       with:
         maven-version: 3.8.2
+    - name: Set which mvn result as env.MVN_PATH_BIN
+      run: echo "MVN_PATH_BIN=$(which mvn)" >> $GITHUB_ENV
     - uses: actions/cache@v3
       with:
         path: /root/.jbang
@@ -26,4 +28,4 @@ jobs:
         JBANG_REPO: /root/.jbang/repository
         GITHUB_TOKEN: $
         WORKING_DIRECTORY: ${{ env.working-directory }}
-        MVN_PATH_BIN: $(which mvn)
+        MVN_PATH_BIN: ${{ env.MVN_PATH_BIN }}
