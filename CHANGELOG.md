@@ -110,3 +110,19 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.11
+## Changelog
+
+## 🚀 Added
+- 8ac99ac ✨ Add commit action option to lockfile action (#114)
+- 68124f9 ✨ Add logging groups and quarkus github action testcase (#113)
+
+## 🏁 Release
+- 9137cb5 🔖 Releasing version 1.0.11
+- ce458d0 🔖 Setting SNAPSHOT version 1.0.11-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
