@@ -69,3 +69,28 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 Arman Sharif, GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.9
+## Changelog
+
+## 🚀 Added
+- 8883d15 👷 Rename CI script (#109)
+
+## 🔄️ Changed
+- e271661 📌 Upgrade checkout v1 to v3 (#110)
+- 51ef035 💄 Change changelog format (#106)
+
+## 🐛 Fixed
+- 57d1cb2 💚 Fix wrong version ref (#108)
+
+## 📝 Documentation
+- cf91424 📝 Add contributing file (#107)
+
+## 🏁 Release
+- 33ce6f7 🔖 Releasing version 1.0.9
+- 82dcd49 🔖 Setting SNAPSHOT version 1.0.9-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
