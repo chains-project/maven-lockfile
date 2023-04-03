@@ -18,8 +18,6 @@ jobs:
         key: $-jbang-$
         restore-keys: |
             $-jbang-
-    - name: Set up Maven
-      run: sudo apt install maven
     - name: jbang
       uses: jbangdev/jbang-action@v0.106.1
       with:
