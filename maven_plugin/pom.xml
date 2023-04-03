@@ -106,8 +106,8 @@
     </dependency>
     <dependency>
       <groupId>org.instancio</groupId>
-      <artifactId>instancio</artifactId>
-      <version>1.0.4</version>
+      <artifactId>instancio-junit</artifactId>
+      <version>2.12.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
