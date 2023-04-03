@@ -1,0 +1,25 @@
+on:
+  pull_request:
+jobs:
+  jbang:
+    runs-on: ubuntu-latest
+    name: smoke test against different repos
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: /root/.jbang
+        key: $-jbang-$
+        restore-keys: |
+            $-jbang-
+    - name: Set up Maven
+      run: sudo apt install maven
+    - name: jbang
+      uses: jbangdev/jbang-action@v0.106.1
+      with:
+        script: ".github/smoketest/TestJava.java"
+      env:
+        JBANG_REPO: /root/.jbang/repository
+        GITHUB_TOKEN: $
+        WORKING_DIRECTORY: ${{ env.working-directory }}
