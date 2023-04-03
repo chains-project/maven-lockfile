@@ -18,11 +18,11 @@ We use gitmoji to define the type of the commit. You can find a list of all gitm
 
 ## Pull Request Process
 
-We don't require you to open an issue before you open a PR. But if you want to discuss something, please open an issue first. This will help us to keep track of the changes and to discuss them. If you open a PR without an issue, please add a description to the PR. This will help us to understand what you want to change.
+We don't require you to open an issue before you open a PR. But if you want to discuss something, please open an issue first. This will help us to keep track of the changes and to discuss them. If you open a PR without an issue, please add a description to the PR. This will help us to understand what you would like to change.
 
 ## Reporting Bugs
 
-If you find a bug, please open an issue. Please add as much information as possible. This will help us to fix the bug as fast as possible. If you want to fix the bug yourself, please open an issue first. This will help us to keep track of the changes and to discuss them.
+If you find a bug, please open an issue. Please add as much information as possible. This will help us to fix the bug as fast as possible. If you would like to fix the bug yourself, please open an issue first. This will help us to keep track of the changes and to discuss them.
 
 
 Don't be scared to ask questions. We are happy to help you.
