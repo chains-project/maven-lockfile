@@ -18,7 +18,7 @@ public class GithubAction {
         commands.group("maven-lockfile");
         commands.notice("Generating lockfile");
         try {
-            var result = new ProcBuilder("mvn")
+            var result = new ProcBuilder("./mvnw")
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
@@ -48,7 +48,7 @@ public class GithubAction {
     private void validateLockFile(Commands commands) {
         Log.info("Validating lockfile");
         try {
-            if (new ProcBuilder("mvn")
+            if (new ProcBuilder("./mvnw")
                             .withNoTimeout()
                             .withArg(COMMAND_VALIDATE)
                             .withOutputStream(System.out)

@@ -14,12 +14,16 @@ inputs:
 runs:
   using: "composite" 
   steps:
-    - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.7.0
+    - uses: actions/checkout@v3
       with:
-          java-version: 11
-          maven-version: '3.8.1'
-          checkout-fetch-depth: 0
+        fetch-depth: 0
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.2
+    - name: Maven Wrapper
+      run: mvn wrapper:wrapper
+      shell: bash
     - run: curl -Ls https://sh.jbang.dev | bash -s - app setup 
       shell: bash
     - name: Get all changed pom.xml file(s) or any file in the static folder excluding the docs folder
@@ -47,3 +51,4 @@ runs:
       uses: EndBug/add-and-commit@v9
       with:
           default_author: github_actions
+          add: "**/lockfile.json"
