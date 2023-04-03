@@ -18,7 +18,7 @@ public class TestJava {
     public static void main(String[] args) {
 
         try {
-            var result = new ProcBuilder(System.getenv("MVN_PATH_BIN"))
+            var result = new ProcBuilder("./mvnw")
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
