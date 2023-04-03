@@ -7,6 +7,10 @@ inputs:
   github-token: 
     description: 'GitHub token'
     required: true
+  commit-lockfile: 
+    description: 'Commit the lockfile to the repository'
+    required: false
+    default: 'true'
 runs:
   using: "composite" 
   steps:
@@ -38,3 +42,8 @@ runs:
         action: "validate"
         JSON_INPUTS: ${{ toJSON(inputs) }} 
         GITHUB_TOKEN: ${{ inputs.github-token }}
+    - name: Commit lockfile
+      if: inputs.commit-lockfile == 'true' && steps.changed-files.outputs.any_changed == 'true'
+      uses: EndBug/add-and-commit@v9
+      with:
+          default_author: github_actions
