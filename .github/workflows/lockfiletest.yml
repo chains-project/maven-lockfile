@@ -5,12 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: smoke test against different repos
     steps:
-    - name: Setup Maven Action
-      uses: s4u/setup-maven-action@v1.7.0
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
       with:
-          java-version: 11
-          maven-version: '3.8.1'
-          checkout-fetch-depth: 0
+        maven-version: 3.8.2
     - uses: actions/cache@v3
       with:
         path: /root/.jbang
