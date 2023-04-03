@@ -94,3 +94,19 @@ Arman Sharif, GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.10
+## Changelog
+
+## 🔄️ Changed
+- b2268e7 🎨 Improve logging structure and options (#112)
+
+## 🏁 Release
+- 588cfde 🔖 Releasing version 1.0.10
+- 8fe3a1a 🚀 Change deployment sed command (#111)
+- b602e57 🔖 Setting SNAPSHOT version 1.0.10-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
