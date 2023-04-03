@@ -50,4 +50,19 @@ GitHub, Martin Wittlinger, github-actions[bot]
 
 ## Contributors
 We'd like to thank the following people for their contributions:
-GitHub, Martin Wittlinger, github-actions[bot]
+GitHub, Martin Wittlinger, github-actions[bot]# 1.0.8## Changelog
+
+## 🚀 Added
+- 9b05cba ✨ Use changed Files action instead of jgit (#105)
+
+## 🔄️ Changed
+- 9af122a 📌 Update instancio version to 2.12.1 (#103)
+
+## 🏁 Release
+- 778a794 🔖 Releasing version 1.0.8
+- 41c74b6 🔖 Setting SNAPSHOT version 1.0.8-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+Arman Sharif, GitHub, Martin Wittlinger, github-actions[bot]

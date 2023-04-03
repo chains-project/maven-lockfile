@@ -9,8 +9,8 @@ import org.kohsuke.github.GitHub;
 
 public class GithubAction {
 
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.8-SNAPSHOT:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.8-SNAPSHOT:validate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.9-SNAPSHOT-SNAPSHOT:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.9-SNAPSHOT-SNAPSHOT:validate";
 
 
     @Action("generate")
