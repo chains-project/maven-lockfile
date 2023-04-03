@@ -67,9 +67,11 @@ jobs:
           JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD }}
       - name: Append changelog from out/jreleaser/CHANGELOG.md to CHANGELOG.md with version as header
         run: |
+          echo "" >> CHANGELOG.md
           echo -n "# ${{ env.NEXT_VERSION }}" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
           cat out/jreleaser/release/CHANGELOG.md >> CHANGELOG.md
-          echo -n "" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
       - name : Set next version (patch of release version) with -SNAPSHOT suffix
         run: |
          echo "NEXT_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV
