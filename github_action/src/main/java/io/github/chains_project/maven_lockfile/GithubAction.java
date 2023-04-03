@@ -9,14 +9,21 @@ import org.kohsuke.github.GitHub;
 
 public class GithubAction {
 
-    private static final String COMMAND_GENERATE =
-            "io.github.chains-project:maven-lockfile:1.0.10-SNAPSHOT-SNAPSHOT-SNAPSHOT:generate";
-    private static final String COMMAND_VALIDATE =
-            "io.github.chains-project:maven-lockfile:1.0.10-SNAPSHOT-SNAPSHOT-SNAPSHOT:validate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.10:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.10:validate";
 
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
-        new ProcBuilder("mvn").withNoTimeout().withArg(COMMAND_GENERATE).run();
+        try {
+            new ProcBuilder("mvn")
+                    .withOutputStream(System.out)
+                    .withNoTimeout()
+                    .withArg(COMMAND_GENERATE)
+                    .run();
+        } catch (Exception e) {
+            commands.error("Lockfile generation failed\n" + e.getMessage());
+            System.exit(1);
+        }
     }
 
     @Action("validate")
@@ -29,6 +36,7 @@ public class GithubAction {
             if (new ProcBuilder("mvn")
                             .withNoTimeout()
                             .withArg(COMMAND_VALIDATE)
+                            .withOutputStream(System.out)
                             .run()
                             .getExitValue()
                     != 0) {
