@@ -19,7 +19,7 @@ jobs:
         restore-keys: |
             $-jbang-
     - name: wrapper
-      uses: mvn wrapper:wrapper
+      run: mvn wrapper:wrapper
     - name: run which maven
       run: which mvn
     - name: jbang
