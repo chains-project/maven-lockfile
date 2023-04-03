@@ -15,24 +15,29 @@ public class GithubAction {
 
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
-        Log.info("Generating lockfile");
+        commands.group("maven-lockfile");
+        commands.notice("Generating lockfile");
         try {
-            if (new ProcBuilder("mvn")
-                            .withOutputStream(System.out)
-                            .withErrorStream(System.err)
-                            .withNoTimeout()
-                            .withArg(COMMAND_GENERATE)
-                            .run()
-                            .getExitValue()
-                    != 0) {
+            var result = new ProcBuilder("mvn")
+                    .withOutputStream(System.out)
+                    .withErrorStream(System.err)
+                    .withNoTimeout()
+                    .withArg(COMMAND_GENERATE)
+                    .run();
+            if (result.getExitValue() != 0) {
                 commands.error("Lockfile generation failed\n");
+                commands.notice(result.getOutputString());
+                commands.notice(result.getErrorString());
+                commands.endGroup();
                 System.exit(1);
             }
         } catch (Exception e) {
             commands.error("Lockfile generation failed\n" + e.getMessage());
+            commands.endGroup();
             System.exit(1);
         }
-        Log.info("Lockfile generated");
+        commands.notice("Lockfile generated");
+        commands.endGroup();
     }
 
     @Action("validate")
