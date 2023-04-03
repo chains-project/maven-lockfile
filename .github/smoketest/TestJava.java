@@ -18,6 +18,7 @@ public class TestJava {
     public static void main(String[] args) {
 
         try {
+          System.out.println(ProcBuilder.run("which", "mvn").getOutputString());
             var result = new ProcBuilder("mvn")
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
