@@ -18,10 +18,6 @@ jobs:
         key: $-jbang-$
         restore-keys: |
             $-jbang-
-    - name: wrapper
-      run: mvn wrapper:wrapper
-    - name: run which maven
-      run: which mvn
     - name: jbang
       uses: jbangdev/jbang-action@v0.106.1
       with:
@@ -30,3 +26,4 @@ jobs:
         JBANG_REPO: /root/.jbang/repository
         GITHUB_TOKEN: $
         WORKING_DIRECTORY: ${{ env.working-directory }}
+        MVN_PATH_BIN: $(which mvn)
