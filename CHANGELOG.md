@@ -126,3 +126,18 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.12
+## Changelog
+
+## 🐛 Fixed
+- 3486e09 🚑 Fix maven path for github action (#116)
+
+## 🏁 Release
+- c170876 🔖 Releasing version 1.0.12
+- b864668 🔖 Setting SNAPSHOT version 1.0.12-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]

@@ -10,8 +10,8 @@ import org.kohsuke.github.GitHub;
 
 public class GithubAction {
 
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.12:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.12:validate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.13:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.13:validate";
 
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
