@@ -19,6 +19,11 @@ public class GithubAction {
     public GithubAction() {
         System.out.println("GithubAction created");
     }
+
+    @Action
+    void run() {
+        System.out.println("Running");
+    }
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
         System.out.println("Generating lockfile");
