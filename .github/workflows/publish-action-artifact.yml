@@ -2,7 +2,9 @@ name: Publish action artifact to GitHub project's Maven repository
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-push-action:
