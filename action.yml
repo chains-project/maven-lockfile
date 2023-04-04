@@ -39,7 +39,7 @@ runs:
       run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
     - name: Set pom-changed environment variable
-      run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed}" >> $GITHUB_ENV
+      run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
     - name: print pom-changed
       run: echo ${{ env.pom-changed }}
