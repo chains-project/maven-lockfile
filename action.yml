@@ -32,6 +32,8 @@ runs:
     - name: Get changed files
       id: changed-files2
       uses: tj-actions/changed-files@v35
+      with:
+        since_last_remote_commit: true 
         
         # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
         # with:
