@@ -44,7 +44,7 @@ runs:
       shell: bash
 
     - id: action
-      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:1.0.14-SNAPSHOT
+      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:1.0.14
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
