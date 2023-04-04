@@ -141,3 +141,22 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.13
+## Changelog
+
+## 🚀 Added
+- 349978e 🎉 Refactor GitHib action to new Quarkus Version (#117)
+
+## 🐛 Fixed
+- 30576d7 💚 Fix SNAPSHOT version tag in poms (#120)
+
+## 🏁 Release
+- 8763d80 🔖 Releasing version 1.0.13
+- b99dd96 🔖 Releasing version 1.0.13
+- 7994499 🔖 Setting SNAPSHOT version 1.0.13-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
