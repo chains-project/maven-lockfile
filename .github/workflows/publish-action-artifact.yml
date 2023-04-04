@@ -32,6 +32,9 @@ jobs:
   test-lockfile:
     runs-on: ubuntu-latest
     needs: build-and-push-action
+    permissions:
+      contents: read
+      packages: read
     steps:
       - name: lockfile
         uses: chains-project/maven-lockfile@8092d791a371c3564338767f74b49f1b63f326ff
