@@ -5,14 +5,20 @@ import io.quarkiverse.githubaction.Commands;
 import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
 import io.quarkus.logging.Log;
+import javax.enterprise.context.ApplicationScoped;
 import org.buildobjects.process.ProcBuilder;
 import org.kohsuke.github.GitHub;
 
+@ApplicationScoped
 public class GithubAction {
 
     private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.13:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.13:validate";
+    private static final String COMMAND_VALIDATE =
+            "io.github.chains-project:maven-lockfile:1.0.13:validate";
 
+    public GithubAction() {
+        System.out.println("GithubAction created");
+    }
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
         System.out.println("Generating lockfile");
