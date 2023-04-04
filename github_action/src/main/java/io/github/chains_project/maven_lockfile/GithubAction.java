@@ -15,6 +15,7 @@ public class GithubAction {
 
     @Action("generate")
     void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
+        System.out.println("Generating lockfile");
         commands.group("maven-lockfile");
         commands.notice("Generating lockfile");
         try {
