@@ -28,3 +28,12 @@ jobs:
           cd github_action && mvn -B clean deploy -Dquarkus.package.type=uber-jar --update-snapshots -Dquarkus.package.add-runner-suffix=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test-lockfile:
+    runs-on: ubuntu-latest
+    needs: build-and-push-action
+    steps:
+      - name: lockfile
+        uses: chains-project/maven-lockfile@fd4843fc61a65bc7770d360a767ec8d9de67a831
+        with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
