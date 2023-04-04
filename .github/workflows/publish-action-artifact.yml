@@ -36,4 +36,4 @@ jobs:
       - name: lockfile
         uses: chains-project/maven-lockfile@fd4843fc61a65bc7770d360a767ec8d9de67a831
         with:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
