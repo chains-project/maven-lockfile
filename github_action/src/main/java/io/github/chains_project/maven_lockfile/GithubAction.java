@@ -16,22 +16,22 @@ public class GithubAction {
     private static final String COMMAND_VALIDATE =
             "io.github.chains-project:maven-lockfile:1.0.13:validate";
 
-    public GithubAction() {
-        System.out.println("GithubAction created");
-    }
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
-        inputs.getBoolean("POM_CHANGED").ifPresent(pomChanged -> {
-            if (pomChanged) {
-                System.out.println("POM changed");
-            }
-        });
-        System.out.println("Running");
+        if(inputs.getBoolean("pom-changed").orElse(false)) {
+            commands.group("maven-lockfile");
+            commands.notice("Pom file changed, running lockfile generation");
+            commands.endGroup();
+            generateLockFile(commands);
+        } else {
+            commands.group("maven-lockfile");
+            commands.notice("Pom file not changed, running lockfile validation");
+            commands.endGroup();
+            validateLockFile(commands);
+        }
     }
-    @Action("generate")
-    void runLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
-        System.out.println("Generating lockfile");
+    void generateLockFile(Commands commands) {
         commands.group("maven-lockfile");
         commands.notice("Generating lockfile");
         try {
@@ -57,12 +57,7 @@ public class GithubAction {
         commands.endGroup();
     }
 
-    @Action("validate")
-    void validateLockFile(Inputs inputs, Commands commands, Context context, GitHub gitHub) {
-        validateLockFile(commands);
-    }
-
-    private void validateLockFile(Commands commands) {
+    void validateLockFile(Commands commands) {
         Log.info("Validating lockfile");
         try {
             if (new ProcBuilder("./mvnw")
