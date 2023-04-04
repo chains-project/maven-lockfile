@@ -11,6 +11,10 @@ inputs:
     description: 'Commit the lockfile to the repository'
     required: false
     default: 'true'
+  POM-CHANGED: 
+    description: 'Whether the POM file has changed'
+    required: false
+    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -21,6 +25,10 @@ runs:
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
+    - name: Set pom-changed
+      if: inputs.POM-CHANGED == 'false'
+      run: echo "::set-output name=pom-changed::true"
+      shell: bash
     - id: action
       run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:999-SNAPSHOT
       shell: bash
@@ -28,4 +36,3 @@ runs:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         action: "generate"
-        POM-CHANGED: 'true'
