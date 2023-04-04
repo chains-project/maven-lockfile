@@ -4,22 +4,18 @@ import io.quarkiverse.githubaction.Action;
 import io.quarkiverse.githubaction.Commands;
 import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
-import io.quarkus.logging.Log;
 import javax.enterprise.context.ApplicationScoped;
 import org.buildobjects.process.ProcBuilder;
-import org.kohsuke.github.GitHub;
 
 @ApplicationScoped
 public class GithubAction {
 
     private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.0.13:generate";
-    private static final String COMMAND_VALIDATE =
-            "io.github.chains-project:maven-lockfile:1.0.13:validate";
-
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.0.13:validate";
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
-        if(inputs.getBoolean("pom-changed").orElse(false)) {
+        if (inputs.getBoolean("pom-changed").orElse(false)) {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
             commands.endGroup();
@@ -31,6 +27,7 @@ public class GithubAction {
             validateLockFile(commands);
         }
     }
+
     void generateLockFile(Commands commands) {
         commands.group("maven-lockfile");
         commands.notice("Generating lockfile");
@@ -58,7 +55,7 @@ public class GithubAction {
     }
 
     void validateLockFile(Commands commands) {
-        Log.info("Validating lockfile");
+        commands.notice("Validating lockfile");
         try {
             if (new ProcBuilder("./mvnw")
                             .withNoTimeout()
@@ -77,6 +74,6 @@ public class GithubAction {
                             + e.getMessage());
             System.exit(1);
         }
-        Log.info("Lockfile validated");
+       commands.notice("Integrity check passed");
     }
 }

@@ -83,8 +83,7 @@
         <version>${compiler-plugin.version}</version>
         <configuration>
           <compilerArgs>
-            <arg>
-              -parameters</arg>
+            <arg>-parameters</arg>
           </compilerArgs>
         </configuration>
       </plugin>
@@ -93,8 +92,7 @@
         <version>${surefire-plugin.version}</version>
         <configuration>
           <systemPropertyVariables>
-            <java.util.logging.manager>
-              org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
         </configuration>
@@ -110,10 +108,8 @@
             </goals>
             <configuration>
               <systemPropertyVariables>
-                <native.image.path>
-                  ${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                <java.util.logging.manager>
-                  org.jboss.logmanager.LogManager</java.util.logging.manager>
+                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                 <maven.home>${maven.home}</maven.home>
               </systemPropertyVariables>
             </configuration>
@@ -131,8 +127,7 @@
         </property>
       </activation>
       <properties>
-        <skipITs>
-          false</skipITs>
+        <skipITs>false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
     </profile>
@@ -150,36 +145,34 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>flatten-maven-plugin</artifactId>
             <version>1.3.0</version>
-            <executions>
-              <execution>
-                <id>flatten</id>
-                <phase>process-resources</phase>
-                <goals>
-                  <goal>flatten</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>flatten.clean</id>
-                <phase>clean</phase>
-                <goals>
-                  <goal>clean</goal>
-                </goals>
-              </execution>
-            </executions>
             <configuration>
               <pomElements>
-                <description>
-                  keep</description>
+                <description>keep</description>
                 <url>keep</url>
                 <developers>keep</developers>
                 <scm>keep</scm>
                 <issueManagement>keep</issueManagement>
-                <repositories>
-                  remove</repositories>
+                <repositories>remove</repositories>
                 <dependencies>remove</dependencies>
                 <build>remove</build>
               </pomElements>
             </configuration>
+            <executions>
+              <execution>
+                <id>flatten</id>
+                <goals>
+                  <goal>flatten</goal>
+                </goals>
+                <phase>process-resources</phase>
+              </execution>
+              <execution>
+                <id>flatten.clean</id>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+                <phase>clean</phase>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -199,48 +192,46 @@
         </repository>
       </distributionManagement>
     </profile>
-      <profile>
-        <id>publication</id>
-        <build>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-javadoc-plugin</artifactId>
-              <version>3.5.0</version>
-              <executions>
-                <execution>
-                  <id>attach-javadocs</id>
-                  <goals>
-                    <goal>jar</goal>
+    <profile>
+      <id>publication</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
                 </goals>
-                  <configuration>
-                    <attach>
-                    true</attach>
+                <configuration>
+                  <attach>true</attach>
                 </configuration>
               </execution>
             </executions>
           </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-source-plugin</artifactId>
-              <version>3.2.1</version>
-              <executions>
-                <execution>
-                  <id>attach-sources</id>
-                  <goals>
-                    <goal>jar</goal>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
                 </goals>
-                  <configuration>
-                    <attach>
-                    true</attach>
+                <configuration>
+                  <attach>true</attach>
                 </configuration>
               </execution>
             </executions>
           </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-deploy-plugin</artifactId>
-              <version>3.1.1</version>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>3.1.1</version>
           </plugin>
         </plugins>
       </build>
