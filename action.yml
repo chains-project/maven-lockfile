@@ -38,12 +38,11 @@ runs:
     - name: print all changed files
       run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
-    - name: Set pom-changed input to true
-      if: steps.changed-files.outputs.any_changed == 'true'
-      run: echo "::set-input name=pom-changed::true"
+    - name: Set pom-changed environment variable
+      run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed_files}}" >> $GITHUB_ENV
       shell: bash
     - name: print pom-changed
-      run: echo ${{ inputs.pom-changed }}
+      run: echo ${{ env.pom-changed }}
       shell: bash
     - id: action
       run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:1.0.13-SNAPSHOT
@@ -51,3 +50,4 @@ runs:
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
+        POM_CHANGED: ${{ env.pom-changed }}

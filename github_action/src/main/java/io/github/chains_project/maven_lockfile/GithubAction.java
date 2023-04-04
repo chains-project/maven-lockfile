@@ -15,7 +15,8 @@ public class GithubAction {
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
-        if (inputs.getBoolean("pom-changed").orElse(false)) {
+        
+        if (Boolean.parseBoolean(System.getenv("POM_CHANGED"))) {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
             commands.endGroup();
