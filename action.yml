@@ -36,16 +36,16 @@ runs:
         files: |
               **/pom.xml
     - name: print all changed files
-      run: echo ${{ steps.changed-files.outputs.all_changed_files }}
+      run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
     - name: Set pom-changed environment variable
       run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
     - name: print pom-changed
-      run: echo ${{ env.pom-changed }}
+      run: echo "pom changed ${{ env.pom-changed }}""
       shell: bash
     - id: action
-      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:1.0.13-SNAPSHOT
+      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:999-SNAPSHOT
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
