@@ -175,3 +175,18 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.15
+## Changelog
+
+## 🐛 Fixed
+- d1a08c7 🚑 Add missing mavencentral repo
+
+## 🏁 Release
+- 484450a 🔖 Releasing version 1.0.15
+- 01e7f7e 🔖 Setting SNAPSHOT version 1.0.15-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
