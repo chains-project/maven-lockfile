@@ -38,11 +38,6 @@ runs:
     - name: print all changed files
       run: echo ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
-    - name: Set pom-changed input to false
-      if: steps.changed-files.outputs.any_changed == 'false'
-      run: echo "::set-input name=pom-changed::false"
-      shell: bash
-
     - name: Set pom-changed input to true
       if: steps.changed-files.outputs.any_changed == 'true'
       run: echo "::set-input name=pom-changed::true"
