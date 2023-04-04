@@ -29,6 +29,20 @@ runs:
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v35
+        
+        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
+        # with:
+        #   since_last_remote_commit: true 
+
+    - name: List all changed files
+      shell: bash
+      run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
     - name: Get all changed pom.xml file(s)
       id: changed-files
       uses: tj-actions/changed-files@v35
@@ -42,7 +56,7 @@ runs:
       run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
     - name: print pom-changed
-      run: echo "pom changed ${{ env.pom-changed }}""
+      run: echo "pom changed ${{ env.pom-changed }}"
       shell: bash
     - id: action
       run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:999-SNAPSHOT
