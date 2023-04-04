@@ -21,7 +21,12 @@ public class GithubAction {
     }
 
     @Action
-    void run() {
+    void run(Inputs inputs, Commands commands, Context context) {
+        inputs.getBoolean("POM_CHANGED").ifPresent(pomChanged -> {
+            if (pomChanged) {
+                System.out.println("POM changed");
+            }
+        });
         System.out.println("Running");
     }
     @Action("generate")

@@ -28,3 +28,4 @@ runs:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         action: "generate"
+        POM-CHANGED: 'true'
