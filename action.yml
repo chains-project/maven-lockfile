@@ -11,10 +11,6 @@ inputs:
     description: 'Commit the lockfile to the repository'
     required: false
     default: 'true'
-  pom-changed: 
-    description: 'Whether the POM file has changed'
-    required: false
-    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -29,22 +25,8 @@ runs:
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
-    - name: Get changed files
-      id: changed-files2
-      uses: tj-actions/changed-files@v35
-      with:
-        since_last_remote_commit: true 
-        
-        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
-        # with:
-        #   since_last_remote_commit: true 
 
-    - name: List all changed files
-      shell: bash
-      run: |
-          for file in ${{ steps.changed-files2.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+
     - name: Get all changed pom.xml file(s)
       id: changed-files
       uses: tj-actions/changed-files@v35
@@ -60,10 +42,10 @@ runs:
     - name: print pom-changed
       run: echo "pom changed ${{ env.pom-changed }}"
       shell: bash
+
     - id: action
       run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:999-SNAPSHOT
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        POM_CHANGED: ${{ env.pom-changed }}
