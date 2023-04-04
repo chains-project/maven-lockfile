@@ -39,6 +39,6 @@ jobs:
       packages: read
     steps:
       - name: lockfile
-        uses: chains-project/maven-lockfile@e337e98f2023b129dd819742dcb871ad9a17e2c8
+        uses: chains-project/maven-lockfile@ff504e20df6202914d01987b4ee6e3110e7ecb78
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
