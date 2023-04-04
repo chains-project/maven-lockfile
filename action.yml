@@ -35,6 +35,9 @@ runs:
       with:
         files: |
               **/pom.xml
+    - name: print all changed files
+      run: echo ${{ steps.changed-files.outputs.all_changed_files }}
+      shell: bash
     - name: Set pom-changed input to false
       if: steps.changed-files.outputs.any_changed == 'false'
       run: echo "::set-input name=pom-changed::false"
@@ -48,7 +51,7 @@ runs:
       run: echo ${{ inputs.pom-changed }}
       shell: bash
     - id: action
-      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.13-SNAPSHOT
+      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' io.github.chains-project:maven-lockfile-github-action:1.0.13-SNAPSHOT
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
