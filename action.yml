@@ -11,7 +11,7 @@ inputs:
     description: 'Commit the lockfile to the repository'
     required: false
     default: 'true'
-  POM-CHANGED: 
+  pom-changed: 
     description: 'Whether the POM file has changed'
     required: false
     default: 'false'
@@ -29,9 +29,15 @@ runs:
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
-    - name: Set pom-changed
-      if: inputs.POM-CHANGED == 'false'
-      run: echo "::set-output name=pom-changed::true"
+    - name: Get all changed pom.xml file(s) or any file in the static folder excluding the docs folder
+      id: changed-files
+      uses: tj-actions/changed-files@v35
+      with:
+        files: |
+              **/pom.xml
+    - name: Set pom-changed input to true
+      if: steps.changed-files.outputs.any_changed == 'true'
+      run: echo "::set-input name=pom-changed::true"
       shell: bash
     - id: action
       run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:1.0.13-SNAPSHOT
