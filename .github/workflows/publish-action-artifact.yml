@@ -45,6 +45,6 @@ jobs:
             cache: maven
 
         - name: Run my action
-          uses: chains-project/maven-lockfile@5c4eb1f90e30279a111999a57d4e08fec56e1ec7
+          uses: chains-project/maven-lockfile@d9e649cb8b833cbe8646d73e3726a34fc2c8651c
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
