@@ -34,6 +34,6 @@ jobs:
     needs: build-and-push-action
     steps:
       - name: lockfile
-        uses: chains-project/maven-lockfile@8a606e25ff4a946604943bdeebef69ae607092ff
+        uses: chains-project/maven-lockfile@daed1c42f678c126104eaf5c0b0e69182c5b9add
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
