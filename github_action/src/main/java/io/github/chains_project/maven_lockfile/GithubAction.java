@@ -32,7 +32,7 @@ public class GithubAction {
         commands.group("maven-lockfile");
         commands.notice("Generating lockfile");
         try {
-            var result = new ProcBuilder("./mvnw")
+            var result = new ProcBuilder("mvn")
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
@@ -55,9 +55,10 @@ public class GithubAction {
     }
 
     void validateLockFile(Commands commands) {
+        commands.group("maven-lockfile-validation");
         commands.notice("Validating lockfile");
         try {
-            if (new ProcBuilder("./mvnw")
+            if (new ProcBuilder("mvn")
                             .withNoTimeout()
                             .withArg(COMMAND_VALIDATE)
                             .withOutputStream(System.out)
@@ -66,14 +67,15 @@ public class GithubAction {
                             .getExitValue()
                     != 0) {
                 commands.error("Integrity check failed\n");
+                commands.endGroup();
                 System.exit(1);
             }
         } catch (Exception e) {
-            commands.error(
-                    "Integrity check failed\n Please run `mvn io.github.chains-project:maven-lockfile:0.3.2:generate` and commit the changes."
-                            + e.getMessage());
+            commands.error("Integrity check failed\n." + e.getMessage());
+            commands.endGroup();
             System.exit(1);
         }
-       commands.notice("Integrity check passed");
+        commands.notice("Integrity check passed");
+        commands.endGroup();
     }
 }

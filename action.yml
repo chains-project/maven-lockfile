@@ -22,6 +22,10 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.2
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
