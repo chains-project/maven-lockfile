@@ -48,7 +48,8 @@
               <trimTrailingWhitespace></trimTrailingWhitespace>
               <endWithNewline></endWithNewline>
               <indent>
-                <tabs>true</tabs>
+                <tabs>false</tabs>
+                <spaces>true</spaces>
                 <spacesPerTab>4</spacesPerTab>
               </indent>
             </format>
