@@ -127,14 +127,9 @@ lockfile:
 
 
 ## Related work
+
 Here we list some related work that we found while researching this topic.
 
 - Maven: https://github.com/vandmo/dependency-lock-maven-plugin
-## Gradle:
-	For Gradle exists a built-in solution: https://docs.gradle.org/current/userguide/dependency_locking.html
-	This solution only works for Gradle builds and is deeply connected to the Gradle build system.
-	The Gradle ecosystem is fast changing and so is there dependency resolution.
-	Our lockfile is independent of the build system and can be used to validate the integrity of a maven repository.
-
-
+- Gradle: For Gradle, there exists a built-in solution: https://docs.gradle.org/current/userguide/dependency_locking.html. This solution only works for Gradle builds and is deeply connected to the Gradle build system. The Gradle ecosystem is fast changing and so is there dependency resolution. Our lockfile is independent of the build system and can be used to validate the integrity of a maven repository.
 - NPM: https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json
