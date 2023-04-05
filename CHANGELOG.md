@@ -213,3 +213,18 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot], renovate[bot]
+
+# 1.0.17
+## Changelog
+
+## 🐛 Fixed
+- 0c5db00 🚑  Fix name of env var
+
+## 🏁 Release
+- 5f721b0 🔖 Releasing version 1.0.17
+- 6578265 🔖 Setting SNAPSHOT version 1.0.17-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
