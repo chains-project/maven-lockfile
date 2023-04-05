@@ -244,3 +244,15 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.1.2
+## Changelog
+
+## 🏁 Release
+- 20c8a02 🔖 Releasing version 1.1.2
+- 2c96dda 🔖 Setting SNAPSHOT version 1.1.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+github-actions[bot]
