@@ -22,7 +22,12 @@ release:
       formatted: ALWAYS
       preset: 'gitmoji'
       format: '- {{commitShortHash}} {{commitTitle}}'
-
+      contributors:
+        format: '- {{contributorName}} ({{contributorUsernameAsLink}})'
+      hide:
+        contributors:
+          - '[bot]'
+          - 'GitHub'
 signing:
   active: ALWAYS
   armored: true
