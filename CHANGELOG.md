@@ -228,3 +228,19 @@ GitHub, Martin Wittlinger, github-actions[bot], renovate[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.1.0
+## Changelog
+
+## 🐛 Fixed
+- 3d4f19f 💚 Fix version bump for major releases (#126)
+- 4c2eab2 💚 Fix wrong head ref (#125)
+
+## 🏁 Release
+- bf5477f 🔖 Releasing version 1.1.0
+- 3bcc826 🔖 Setting SNAPSHOT version 1.0.18-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot]
