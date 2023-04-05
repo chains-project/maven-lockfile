@@ -256,3 +256,24 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 github-actions[bot]
+
+# 1.1.4
+## Changelog
+
+## 🚀 Added
+- 9cc882a 👷 Add maven central pom quality check (#128)
+
+## 🔄️ Changed
+- 1d41303 ♻️ Improve release script (#127)
+
+## 🏁 Release
+- dc7a17a 🔖 Releasing version 1.1.4
+- bc012c0 🔖 Setting SNAPSHOT version 1.1.3-SNAPSHOT
+
+---
+- 73354cf fix formatting in README.md
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Monperrus, Martin Wittlinger, github-actions[bot]

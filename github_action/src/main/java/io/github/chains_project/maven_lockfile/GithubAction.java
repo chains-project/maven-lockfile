@@ -10,8 +10,8 @@ import org.buildobjects.process.ProcBuilder;
 @ApplicationScoped
 public class GithubAction {
 
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.1.3:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.1.3:validate";
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.1.5:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.1.5:validate";
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
