@@ -36,11 +36,11 @@ runs:
     - name: print all changed files
       run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
-    - name: Set pom-changed environment variable
-      run: echo "pom-changed=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
+    - name: Set POM-CHANGED environment variable
+      run: echo "POM-CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
-    - name: print pom-changed
-      run: echo "pom changed ${{ env.pom-changed }}"
+    - name: print POM-CHANGED
+      run: echo "pom changed ${{ env.POM-CHANGED }}"
       shell: bash
 
     - id: action
@@ -49,3 +49,8 @@ runs:
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
+    - id: commit-lockfile
+      if: inputs.commit-lockfile == 'true'
+      uses: EndBug/add-and-commit@v9
+      with:
+          default_author: github_actions
