@@ -18,6 +18,7 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.ref }}
     - name: Set up Maven
       uses: stCarolas/setup-maven@v4.5
       with:
