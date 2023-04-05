@@ -277,3 +277,21 @@ github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Monperrus, Martin Wittlinger, github-actions[bot]
+
+# 1.1.6
+## Changelog
+
+## 🚀 Added
+- 872cc15 👷Update release script (#129)
+
+## 🔄️ Changed
+- 52c9a1c 💄 remove bots from changelog (#130)
+
+## 🏁 Release
+- 0234c73 🔖 Releasing version 1.1.6
+- bb01e54 🔖 Setting SNAPSHOT version 1.1.5-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
