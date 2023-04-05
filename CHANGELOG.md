@@ -190,3 +190,26 @@ GitHub, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 GitHub, Martin Wittlinger, github-actions[bot]
+
+# 1.0.16
+## Changelog
+
+## 🚀 Added
+- f01c80f 👷 Hande major and minor increments correct (#124)
+
+## 🐛 Fixed
+- ce99ea9 💚 fix wrong env var and add commit script (#123)
+
+## 📦 Dependencies
+- 05b7717 ⬆️ (deps): Update dependency org.codehaus.mojo:flatten-maven-plugin to v1.4.1
+- 1f46816 ⬆️ (deps): Update quarkus.platform.version to v2.16.6.Final
+- d738b66 ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v1.0.2
+
+## 🏁 Release
+- 35a311e 🔖 Releasing version 1.0.16
+- 080e017 🔖 Setting SNAPSHOT version 1.0.16-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+GitHub, Martin Wittlinger, github-actions[bot], renovate[bot]
