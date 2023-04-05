@@ -23,6 +23,8 @@ jobs:
         run: mvn org.apache.maven.plugins:maven-javadoc-plugin:3.5.0:jar
       - name: Run spotless check
         run: mvn spotless:check
+      - name: Check maven pom quality
+        run: mvn org.kordamp.maven:pomchecker-maven-plugin:1.9.0:check-maven-central -D"checker.release=false"
   qodana:
     runs-on: ubuntu-latest
     steps:
