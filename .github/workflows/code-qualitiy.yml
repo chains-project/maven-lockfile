@@ -15,6 +15,10 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.0
       - name: mvn clean verify
         run: mvn clean verify
       - name: Build with Maven
