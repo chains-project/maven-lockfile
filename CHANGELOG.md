@@ -295,3 +295,18 @@ GitHub, Martin Monperrus, Martin Wittlinger, github-actions[bot]
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+
+# 1.1.7
+## Changelog
+
+## 🐛 Fixed
+- f0321c9 🚑 Fix issue with skipped releases (#131)
+
+## 🏁 Release
+- 20c4949 🔖 Releasing version 1.1.7
+- bec8f39 🔖 Setting SNAPSHOT version 1.1.6
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
