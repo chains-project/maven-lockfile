@@ -39,6 +39,10 @@ jobs:
         run: echo "CURRENT_VERSION_WITH_SNAPSHOT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: Set next version
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION_WITH_SNAPSHOT)" >> $GITHUB_ENV
+      - name: Set next version
+        # semver next for a snapshot only releases the snapshot version, so we need to run it 2 times
+        if: ${{ github.event.inputs.version == 'major' }} || ${{ github.event.inputs.version == 'minor' }}
+        run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION_WITH_SNAPSHOT)" >> $GITHUB_ENV
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Commit & Push changes
