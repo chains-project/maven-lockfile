@@ -36,11 +36,11 @@ runs:
     - name: print all changed files
       run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
-    - name: Set POM-CHANGED environment variable
-      run: echo "POM-CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
+    - name: Set POM_CHANGED environment variable
+      run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
     - name: print POM-CHANGED
-      run: echo "pom changed ${{ env.POM-CHANGED }}"
+      run: echo "pom changed ${{ env.POM_CHANGED }}"
       shell: bash
 
     - id: action
