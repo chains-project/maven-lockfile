@@ -101,7 +101,7 @@ We made some java-specific changes to the format, e.g., we added the `groupId` f
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
 ## GithubAction
- 
+
 We have created a GithubAction that can be used to validate the integrity of your maven repository.
 A sample workflow is shown below:
 Usage:
