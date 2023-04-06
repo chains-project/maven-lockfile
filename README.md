@@ -33,7 +33,7 @@ mvn io.github.chains-project:maven-lockfile:${CurrentVersion}:validate
 ## Format
 
 An example lockfile is shown below:
-For a full example, see the [lockfile.json](lockfile.json) file in this repository.
+For a full example, see the [lockfile.json](./maven_plugin/lockfile.json) file in this repository.
 ```json
 {
 "artifactID": "my-app",
