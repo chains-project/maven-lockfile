@@ -101,7 +101,7 @@ We made some java-specific changes to the format, e.g., we added the `groupId` f
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
 ## GithubAction
-
+ 
 We have created a GithubAction that can be used to validate the integrity of your maven repository.
 A sample workflow is shown below:
 Usage:
@@ -123,6 +123,7 @@ check-lockfile:
 If a pom.xml file is changed this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 
+**Warning**: The action result of your lockfile could be platform dependent. Some artifacts are platform dependent and the checksums will differ between platforms.
 ## Related work
 
 Here we list some related work that we found while researching this topic.
