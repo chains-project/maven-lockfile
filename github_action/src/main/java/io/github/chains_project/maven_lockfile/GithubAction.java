@@ -37,7 +37,7 @@ public class GithubAction {
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
-                    .withArg(COMMAND_GENERATE)
+                    .withArgs(COMMAND_GENERATE, "-q")
                     .run();
             if (result.getExitValue() != 0) {
                 commands.error("Lockfile generation failed\n");
@@ -61,7 +61,7 @@ public class GithubAction {
         try {
             if (new ProcBuilder("mvn")
                             .withNoTimeout()
-                            .withArg(COMMAND_VALIDATE)
+                            .withArgs(COMMAND_VALIDATE, "-q")
                             .withOutputStream(System.out)
                             .withErrorStream(System.err)
                             .run()
