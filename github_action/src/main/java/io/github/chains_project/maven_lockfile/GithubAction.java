@@ -6,16 +6,19 @@ import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
 import javax.enterprise.context.ApplicationScoped;
 import org.buildobjects.process.ProcBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class GithubAction {
 
-    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:1.1.8:generate";
-    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:1.1.8:validate";
+    @ConfigProperty(name = "quarkus.application.version")
+    public String version;
+
+    private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:%s:generate";
+    private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:%s:validate";
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
-
         if (Boolean.parseBoolean(System.getenv("POM_CHANGED"))) {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
@@ -37,7 +40,7 @@ public class GithubAction {
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
-                    .withArgs(COMMAND_GENERATE, "-q")
+                    .withArgs(String.format(COMMAND_GENERATE, version), "-q")
                     .run();
             if (result.getExitValue() != 0) {
                 commands.error("Lockfile generation failed\n");
@@ -61,7 +64,7 @@ public class GithubAction {
         try {
             if (new ProcBuilder("mvn")
                             .withNoTimeout()
-                            .withArgs(COMMAND_VALIDATE, "-q")
+                            .withArgs(String.format(COMMAND_VALIDATE, version), "-q")
                             .withOutputStream(System.out)
                             .withErrorStream(System.err)
                             .run()
