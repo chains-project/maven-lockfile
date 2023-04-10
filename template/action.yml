@@ -1,0 +1,57 @@
+name: 'Maven-Lockfile' 
+description: 'This action generates a lockfile for a Maven project.' 
+branding:
+  icon: 'lock'
+  color: 'blue'
+inputs:
+  github-token: 
+    description: 'GitHub token'
+    required: true
+  commit-lockfile: 
+    description: 'Commit the lockfile to the repository'
+    required: false
+    default: 'true'
+runs:
+  using: "composite"
+  steps:
+    - name: checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.ref }}
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.8.2
+    - id: install-jbang
+      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+      shell: bash
+
+
+    - name: Get all changed pom.xml file(s)
+      id: changed-files
+      uses: tj-actions/changed-files@v35
+      with:
+        files: |
+              **/pom.xml
+    - name: print all changed files
+      run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
+      shell: bash
+    - name: Set POM_CHANGED environment variable
+      run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
+      shell: bash
+    - name: print POM-CHANGED
+      run: echo "pom changed ${{ env.POM_CHANGED }}"
+      shell: bash
+
+    - id: action
+      run: ~/.jbang/bin/jbang --repos 'github=https://maven.pkg.github.com/chains-project/maven-lockfile/' --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:${project.version}
+      shell: bash
+      env:
+        JSON_INPUTS: ${{ toJSON(inputs) }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+    - id: commit-lockfile
+      if: inputs.commit-lockfile == 'true'
+      uses: EndBug/add-and-commit@v9
+      with:
+          default_author: github_actions

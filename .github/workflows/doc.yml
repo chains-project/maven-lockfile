@@ -1,0 +1,25 @@
+name: Generate Doc
+
+on:
+  pull_request:
+
+
+jobs:
+  readme:
+    runs-on: ubuntu-latest
+    steps:
+        - name: checkout repository
+          uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+            ref: ${{ github.event.pull_request.head.ref }}
+        - name: Set up Maven
+          uses: stCarolas/setup-maven@v4.5
+          with:
+            maven-version: 3.9.0
+        - name: Generate Readme+action.yml
+          run: mvn resources:copy-resources
+        - id: commit-lockfile
+          uses: EndBug/add-and-commit@v9
+          with:
+              message: "📝Update Documentation with current version"
