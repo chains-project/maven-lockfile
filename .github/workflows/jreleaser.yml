@@ -103,7 +103,7 @@ jobs:
 # Time to update some files with the new version
 #1 Readme and action.yml
       - name: Generate Readme
-        run : mvn resources:copy-resources
+        run : mvn resources:copy-resources -q
 # Commit and push changes
       - name: Commit & Push changes
         uses: actions-js/push@master
