@@ -337,3 +337,26 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 1.1.9
+## Changelog
+
+## 🚀 Added
+- 94413fb 👷 Fix timestamp for build result (#142)
+- d06dd2c 👷 Let renovate pin github action versions
+
+## 🔄️ Changed
+- 6319e31 📌 pin dependencies (#143)
+
+## 🐛 Fixed
+- 2432e9b 🚑 Use java 11 instead of 17 (#145)
+
+## 🏁 Release
+- b33e935 🔖 Releasing version 1.1.9
+- 48c2fda 🔖 Setting SNAPSHOT version 1.1.8
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
