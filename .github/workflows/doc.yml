@@ -19,7 +19,7 @@ jobs:
             maven-version: 3.9.0
         - name: Generate Readme+action.yml
           run: mvn resources:copy-resources -q
-        - id: commit-lockfile
+        - name: commit doc changes
           uses: EndBug/add-and-commit@v9
           with:
               message: "📝Update Documentation with current version"
