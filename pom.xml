@@ -73,7 +73,7 @@
           <outputDirectory>${project.basedir}</outputDirectory>
           <resources>
             <resource>
-              <directory>/template/</directory>
+              <directory>./template/</directory>
               <includes>
                 <include>README.md</include>
                 <include>action.yml</include>
