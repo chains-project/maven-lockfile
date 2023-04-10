@@ -19,7 +19,6 @@ runs:
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
     - name: Set up Maven
       uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
       with:
