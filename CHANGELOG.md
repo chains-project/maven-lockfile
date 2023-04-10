@@ -310,3 +310,30 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+
+# 1.1.8
+## Changelog
+
+## 🚀 Added
+- 69573b5 ✨ Silence maven logs (#135)
+- 17f3f92 👷 Add lockfile action (#132)
+
+## 📦 Dependencies
+- b462c5c ⬆️ (deps): Update dependency org.instancio:instancio-junit to v2.13.0 (#140)
+- f09d02a ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.36.0
+
+## 📝 Documentation
+- e566d27 📝 Switch sed commands for docgen to maven resource plugin (#141)
+- b9b5892 📝 Change link to a real lockfile (#137)
+- 25d5f57 📝 Document warning about plattform artifacts (#136)
+- 4e4d2ad 📝 Update doc about usage (#133)
+
+## 🏁 Release
+- 082cd8b 🔖 Releasing version 1.1.8
+- 2c93786 🔖 Setting SNAPSHOT version 1.1.7
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
