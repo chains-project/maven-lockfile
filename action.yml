@@ -16,7 +16,13 @@ inputs:
     required: false
     default: 'chore: update lockfile'
   commit-author:
-    description: 'Author for the lockfile commit. GitHub provides default values for this field. "github_actions" for "Github Actions", "github_bot" for "Github Bot" or "github_actor" for the original user.'
+    description: |
+        '
+        Author for the lockfile commit. GitHub provides three values for this field.
+        - github_actor -> UserName <UserName@users.noreply.github.com>
+        - user_info -> Your Display Name <your-actual@email.com>
+        - github_actions -> github-actions <email associated with the github logo
+        '
     required: false
     default: 'github_actions'
 runs:
