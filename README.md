@@ -21,13 +21,13 @@ See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile fo
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn io.github.chains-project:maven-lockfile:1.1.10-SNAPSHOT:generate
+mvn io.github.chains-project:maven-lockfile:1.1.10:generate
 ```
 
 Then run the following command to validate the repository:
 
 ```
-mvn io.github.chains-project:maven-lockfile:1.1.10-SNAPSHOT:validate
+mvn io.github.chains-project:maven-lockfile:1.1.10:validate
 ```
 
 ## Format
