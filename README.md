@@ -108,16 +108,16 @@ Usage:
 ```yml
 name: Lockfile
 on:
-pull_request:
+  pull_request:
 
 
 jobs:
-check-lockfile:
+  check-lockfile:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@v1.1.7
-        with:
+          uses: chains-project/maven-lockfile@20c49498ce30d0d6505ef97e8055c7cba90caa9f # v1.1.7
+          with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 If a pom.xml file is changed this action will add a commit with the updated lockfile to the pull request.

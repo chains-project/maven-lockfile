@@ -57,7 +57,7 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Generate Readme
-        run : mvn resources:copy-resources
+        run : mvn generate-resources resources:copy-resources
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
@@ -103,7 +103,7 @@ jobs:
 # Time to update some files with the new version
 #1 Readme and action.yml
       - name: Generate Readme
-        run : mvn resources:copy-resources -q
+        run : mvn generate-resources resources:copy-resources -q
 # Commit and push changes
       - name: Commit & Push changes
         uses: actions-js/push@master

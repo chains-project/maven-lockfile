@@ -18,7 +18,7 @@ jobs:
           with:
             maven-version: 3.9.0
         - name: Generate Readme+action.yml
-          run: mvn resources:copy-resources -q
+          run: mvn generate-resources resources:copy-resources -q
         - name: commit doc changes
           uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # v9
           with:
