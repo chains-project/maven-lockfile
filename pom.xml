@@ -76,6 +76,7 @@
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
         <version>2.1.0</version>
+        <inherited>false</inherited>
         <dependencies>
           <dependency>
             <groupId>org.apache.groovy</groupId>
