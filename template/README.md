@@ -1,10 +1,12 @@
 
 # Maven Lockfile
 <p align="left">
-    <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt=SemVersion">
+    <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt="SemVersion">
         <img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt=Maven-Central">
+    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt="Maven-Central">
         <img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
+    <a href="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml" alt="Lockfile">
+        <img src="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg" /></a>
 </p>
 
 ![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
@@ -14,8 +16,7 @@ This guards the supply chain against malicious actors that might tamper with the
 
 ## Installation:
 
-This plugin is available on maven central. To use it, add the following to your pom.xml:
-See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
+This plugin is available on maven central. See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
 
 ## Usage
 First, generate a lock file by running the following command in the repository that you want to validate:
@@ -23,13 +24,16 @@ First, generate a lock file by running the following command in the repository t
 ```
 mvn io.github.chains-project:maven-lockfile:${project.version}:generate
 ```
+This should generate a lockfile.json file in each module of the repository.
+This file contains the checksums of all the artifacts in the repository.
+Also, the complete dependency tree is stored in the lock file.
 
 Then run the following command to validate the repository:
 
 ```
 mvn io.github.chains-project:maven-lockfile:${project.version}:validate
 ```
-
+If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
 ## Format
 
 An example lockfile is shown below:
@@ -102,13 +106,13 @@ For each artifact, we store the hashes of all transitive dependencies in the `ch
 This allows us to validate the integrity of the transitive dependencies as well.
 ## GithubAction
 
-We have created a GithubAction that can be used to validate the integrity of your maven repository.
+We have created a GithubAction that can be used to validate the integrity of your `maven` repository.
 A sample workflow is shown below:
 Usage:
 ```yml
 ${action_content}
 ```
-If a pom.xml file is changed this action will add a commit with the updated lockfile to the pull request.
+If a pom.xml file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 
 ⚠️**Warning**: The action result of your lockfile could be platform dependent. Some artifacts are platform dependent and the checksums will differ between platforms.
