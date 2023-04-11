@@ -11,6 +11,20 @@ inputs:
     description: 'Commit the lockfile to the repository'
     required: false
     default: 'true'
+  commit-message:
+    description: 'Commit message for the lockfile'
+    required: false
+    default: 'chore: update lockfile'
+  commit-author:
+    description: |
+        '
+        Author for the lockfile commit. GitHub provides three values for this field.
+        - github_actor -> UserName <UserName@users.noreply.github.com>
+        - user_info -> Your Display Name <your-actual@email.com>
+        - github_actions -> github-actions <email associated with the github logo
+        '
+    required: false
+    default: 'github_actions'
 runs:
   using: "composite"
   steps:
@@ -55,4 +69,5 @@ runs:
       if: inputs.commit-lockfile == 'true'
       uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # v9
       with:
-          default_author: github_actions
+          default_author: ${{ inputs.commit-author }}
+          message: ${{ inputs.commit-message }}
