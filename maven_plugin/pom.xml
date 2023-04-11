@@ -212,8 +212,7 @@
                ! currently needed to run integration tests.
               -->
           <systemProperties>
-            <maven.version>
-              ${maven.version}</maven.version>
+            <maven.version>${maven.version}</maven.version>
             <maven.home>${maven.home}</maven.home>
           </systemProperties>
           <properties>
