@@ -386,3 +386,26 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 1.1.11
+## Changelog
+
+## 🐛 Fixed
+- 030bd09 🚑Fix release build issue (#154)
+
+## 📝 Documentation
+- 655f9d4 📝 Add lockfile badge (#152)
+
+## 🏁 Release
+- 4e7ff06 🔖 Releasing version 1.1.11
+- 7847df2 🔖 Setting SNAPSHOT version 1.1.10
+
+---
+- ee8b32b Commit from GitHub Actions (Release)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))

@@ -22,7 +22,7 @@ This plugin is available on maven central. See https://search.maven.org/artifact
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn io.github.chains-project:maven-lockfile:1.1.11:generate
+mvn io.github.chains-project:maven-lockfile:1.1.12-SNAPSHOT:generate
 ```
 This should generate a lockfile.json file in each module of the repository.
 This file contains the checksums of all the artifacts in the repository.
@@ -31,7 +31,7 @@ Also, the complete dependency tree is stored in the lock file.
 Then run the following command to validate the repository:
 
 ```
-mvn io.github.chains-project:maven-lockfile:1.1.11:validate
+mvn io.github.chains-project:maven-lockfile:1.1.12-SNAPSHOT:validate
 ```
 If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
 ## Format
