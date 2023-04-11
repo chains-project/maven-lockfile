@@ -1,7 +1,7 @@
 {
   "artifactID": "maven-lockfile",
   "groupID": "io.github.chains-project",
-  "version": "1.1.10-SNAPSHOT",
+  "version": "1.1.11-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [
     {
