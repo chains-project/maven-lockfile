@@ -360,3 +360,29 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 1.1.10
+## Changelog
+
+## 🚀 Added
+- 46d8a15 ✨ Allow setting the commit message and git author (#150)
+
+## 🐛 Fixed
+- 91ef4bf 🚑 Use explicit repository instead of implicit (#146)
+
+## 📦 Dependencies
+- 381c02b ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-resources-plugin to v3.3.1 (#147)
+
+## 📝 Documentation
+- 21038b8 📝Update lockfile snippet for each version automatic (#151)
+
+## 🏁 Release
+- a899f42 🔖 Releasing version 1.1.10
+- df94b8d 🔖 Setting SNAPSHOT version 1.1.9
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
