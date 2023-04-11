@@ -17,6 +17,7 @@ jobs:
           uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
           with:
             maven-version: 3.9.0
+            java-version: 17
         - name: Generate Readme+action.yml
           run: mvn resources:copy-resources -q
         - name: commit doc changes
