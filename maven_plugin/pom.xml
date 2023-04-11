@@ -155,6 +155,22 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <outputDirectory>${project.basedir}</outputDirectory>
+          <resources>
+            <resource>
+              <directory>./template/</directory>
+              <includes>
+              </includes>
+              <filtering>true</filtering>
+            </resource>
+          </resources>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <executions>
@@ -189,7 +205,8 @@
                ! currently needed to run integration tests.
               -->
           <systemProperties>
-            <maven.version>${maven.version}</maven.version>
+            <maven.version>
+              ${maven.version}</maven.version>
             <maven.home>${maven.home}</maven.home>
           </systemProperties>
           <properties>

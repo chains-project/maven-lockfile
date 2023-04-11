@@ -106,25 +106,14 @@ We have created a GithubAction that can be used to validate the integrity of you
 A sample workflow is shown below:
 Usage:
 ```yml
-name: Lockfile
-on:
-pull_request:
+%{snippet|id=lockfilegithubaction|file=.github/workflows/Lockfile.yml}
 
-
-jobs:
-check-lockfile:
-        runs-on: ubuntu-latest
-        steps:
-        - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@v1.1.7
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 If a pom.xml file is changed this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 
-⚠️**Warning**: The action result of your lockfile could be platform dependent. Some artifacts are platform dependent and the checksums will differ between platforms.
-## Related work
+⚠️**Warning**: The action result of your lockfile could be platform-dependent. Some artifacts are platform-dependent and the checksums will differ between platforms.
+## Related Work
 
 Here we list some related work that we found while researching this topic.
 
