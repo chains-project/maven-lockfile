@@ -118,7 +118,6 @@ Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 ⚠️**Warning**: The action result of your lockfile could be platform dependent. Some artifacts are platform dependent and the checksums will differ between platforms.
 
 ⚠️**Warning**: This action will only retrigger CI if you use a personal access token. If you use the default token, the action will not retrigger CI. See https://github.com/EndBug/add-and-commit#the-commit-from-the-action-is-not-triggering-ci for more information.
-```
 
 ## Related work
 
