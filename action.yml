@@ -25,6 +25,14 @@ inputs:
         '
     required: false
     default: 'github_actions'
+  install-command:
+    description: 'Command to install the maven project'
+    required: false
+    default: 'mvn install -DskipTests=true -Dmaven.javadoc.skip=true'
+  install-artifacts:
+    description: 'Install artifacts to the local repository'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -55,8 +63,9 @@ runs:
     - name: Set POM_CHANGED environment variable
       run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
-    - name: print POM-CHANGED
-      run: echo "pom changed ${{ env.POM_CHANGED }}"
+    - name: install project
+      if: env.POM_CHANGED == 'true'
+      run: ${{ inputs.install-command }}
       shell: bash
 
     - id: action

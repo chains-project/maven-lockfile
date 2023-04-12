@@ -119,6 +119,7 @@ Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 
 ⚠️**Warning**: This action will only retrigger CI if you use a personal access token. If you use the default token, the action will not retrigger CI. See https://github.com/EndBug/add-and-commit#the-commit-from-the-action-is-not-triggering-ci for more information.
 ```
+
 ## Related work
 
 Here we list some related work that we found while researching this topic.
