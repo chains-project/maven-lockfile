@@ -34,7 +34,6 @@ public class GithubAction {
 
     void generateLockFile(Commands commands) {
         commands.group("maven-lockfile");
-        commands.notice("Generating lockfile");
         try {
             var result = new ProcBuilder("mvn")
                     .withOutputStream(System.out)
@@ -49,8 +48,13 @@ public class GithubAction {
                 commands.endGroup();
                 System.exit(1);
             }
+            commands.jobSummary("# Maven Lockfile");
+            commands.appendJobSummary("✅**Success** Lockfile generation succeeded");
         } catch (Exception e) {
             commands.error("Lockfile generation failed\n" + e.getMessage());
+            commands.jobSummary("# Maven Lockfile");
+            commands.appendJobSummary("⚠️**Warning** Lockfile generation failed");
+            commands.appendJobSummary("The error message is:\n " + e.getMessage());
             commands.endGroup();
             System.exit(1);
         }
@@ -60,7 +64,6 @@ public class GithubAction {
 
     void validateLockFile(Commands commands) {
         commands.group("maven-lockfile-validation");
-        commands.notice("Validating lockfile");
         try {
             if (new ProcBuilder("mvn")
                             .withNoTimeout()
@@ -76,9 +79,17 @@ public class GithubAction {
             }
         } catch (Exception e) {
             commands.error("Integrity check failed\n." + e.getMessage());
+            commands.jobSummary("# Maven Lockfile");
+            commands.appendJobSummary("⚠️**Warning** Integrity check failed");
+            commands.appendJobSummary(String.format(
+                    "The lockfile is not up to date with the pom file. Please run %s to update the lockfile. For your convenience, you can also download the generated lockfile from the artifacts of this check run.",
+                    String.format(COMMAND_GENERATE, version)));
             commands.endGroup();
             System.exit(1);
         }
+        commands.jobSummary("# Maven Lockfile");
+        commands.appendJobSummary("✅**Success** Integrity check passed");
+        commands.appendJobSummary("The lockfile is up to date with the pom files.");
         commands.notice("Integrity check passed");
         commands.endGroup();
     }
