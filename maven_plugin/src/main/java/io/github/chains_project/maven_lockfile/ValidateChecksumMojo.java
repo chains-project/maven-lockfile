@@ -69,8 +69,6 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
             if (!lockFileFromFile.equals(lockFileFromProject)) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
-                var missing = new ArrayList<DependencyNode>(lockFileFromProject.getDependencies());
-                missing.removeAll(lockFileFromFile.getDependencies());
                 StringBuilder sb = new StringBuilder();
                 sb.append("Lock file validation failed. Differences:");
                 sb.append("Missing dependencies in lock file:\n ");
