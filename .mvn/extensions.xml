@@ -1,0 +1,12 @@
+<extensions>
+  <extension>
+    <groupId>com.gradle</groupId>
+    <artifactId>gradle-enterprise-maven-extension</artifactId>
+    <version>1.17</version>
+  </extension>
+  <extension>
+    <groupId>org.apache.maven.extensions</groupId>
+    <artifactId>maven-build-cache-extension</artifactId>
+    <version>1.0.0</version>
+  </extension>
+</extensions>
