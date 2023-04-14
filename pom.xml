@@ -93,7 +93,8 @@
             <phase>generate-resources</phase>
             <configuration>
               <scripts>
-                <script>def file = new File(".github/workflows/Lockfile.yml")
+                <script>def
+                  file = new File(".github/workflows/Lockfile.yml")
                   project.properties.action_content = file.getText()</script>
               </scripts>
             </configuration>
@@ -118,6 +119,12 @@
           </resources>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration></configuration>
       </plugin>
     </plugins>
   </build>
