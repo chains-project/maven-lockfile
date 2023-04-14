@@ -4,6 +4,7 @@ import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFile
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.apache.maven.execution.MavenSession;
@@ -49,6 +50,8 @@ public class ValidateChecksumMojo extends AbstractMojo {
     @Component
     private DependencyResolver dependencyResolver;
 
+    @Parameter(defaultValue = "false", property = "includeMavenPlugins")
+    private String includeMavenPlugins;
     /**
      * Validate the local copies of the dependencies against the project's lock file.
      * @throws MojoExecutionException
@@ -58,18 +61,26 @@ public class ValidateChecksumMojo extends AbstractMojo {
         try {
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, dependencyResolver);
-            if (!lockFileFromFile.isEquivalentTo(lockFileFromProject)) {
+                    session,
+                    project,
+                    dependencyCollectorBuilder,
+                    dependencyResolver,
+                    Boolean.parseBoolean(includeMavenPlugins));
+
+            if (!lockFileFromFile.equals(lockFileFromProject)) {
+                var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
                 var missing = new ArrayList<DependencyNode>(lockFileFromProject.getDependencies());
                 missing.removeAll(lockFileFromFile.getDependencies());
                 StringBuilder sb = new StringBuilder();
-                sb.append("Failed verifying Lockfile. The following are missing:");
-                sb.append(JsonUtils.toJson(missing));
-                sb.append("your lockfile contains the following:");
-                sb.append(JsonUtils.toJson(lockFileFromFile.getDependencies()));
-                sb.append("your project contains the following:");
-                sb.append(JsonUtils.toJson(lockFileFromProject.getDependencies()));
-                sb.append("Your lockfile is out of date. Please run 'mvn lockfile:generate' to update it.");
+                sb.append("Lock file validation failed. Differences:");
+                sb.append("Missing dependencies in lock file:\n ");
+                sb.append(JsonUtils.toJson(diff.getMissingDependenciesInFile()));
+                sb.append("Missing dependencies in project:\n ");
+                sb.append(JsonUtils.toJson(diff.getMissingDependenciesInProject()));
+                sb.append("Missing plugins in lockfile:\n ");
+                sb.append(JsonUtils.toJson(diff.getMissingPluginsInFile()));
+                sb.append("Missing plugins in project:\n ");
+                sb.append(JsonUtils.toJson(diff.getMissingPluginsInProject()));
                 getLog().error(sb.toString());
                 throw new MojoExecutionException("Failed verifying lock file");
             }

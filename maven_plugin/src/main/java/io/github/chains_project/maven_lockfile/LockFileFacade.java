@@ -5,9 +5,11 @@ import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
@@ -110,14 +112,20 @@ public class LockFileFacade {
      * @param project  The project to generate a lock file for.
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param resolver  The dependency resolver to use for resolving the dependencies.
+     * @param includeMavenPlugins  Whether to include maven plugins in the lock file.
      * @return  A lock file for the project.
      */
     public static LockFile generateLockFileFromProject(
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            DependencyResolver resolver) {
+            DependencyResolver resolver,
+            boolean includeMavenPlugins) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
+        List<MavenPlugin> plugins = new ArrayList<>();
+        if (includeMavenPlugins) {
+            plugins = getAllPlugins(project);
+        }
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, resolver);
         var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
@@ -125,7 +133,15 @@ public class LockFileFacade {
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
                 VersionNumber.of(project.getVersion()),
-                roots);
+                roots,
+                plugins);
+    }
+
+    private static List<MavenPlugin> getAllPlugins(MavenProject project) {
+        return project.getBuildPlugins().stream()
+                .map(v -> new MavenPlugin(
+                        GroupId.of(v.getGroupId()), ArtifactId.of(v.getArtifactId()), VersionNumber.of(v.getVersion())))
+                .collect(Collectors.toList());
     }
 
     private static DependencyGraph graph(

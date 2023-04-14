@@ -25,6 +25,10 @@ inputs:
         '
     required: false
     default: 'github_actions'
+  include-maven-plugins:
+    description: 'Include Maven plugins in the lockfile'
+    required: false
+    default: 'false'
 runs:
   using: "composite"
   steps:

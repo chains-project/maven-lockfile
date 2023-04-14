@@ -6,10 +6,9 @@ import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A lock file contains a list of dependencies, and the version of the lock file format.
@@ -33,11 +32,19 @@ public class LockFile {
     private List<DependencyNode> dependencies;
     private List<PackagedDependency> packagedDependencies;
 
-    public LockFile(GroupId groupId, ArtifactId name, VersionNumber versionNumber, List<DependencyNode> dependencies) {
+    private List<MavenPlugin> mavenPlugins = new ArrayList<>();
+
+    public LockFile(
+            GroupId groupId,
+            ArtifactId name,
+            VersionNumber versionNumber,
+            List<DependencyNode> dependencies,
+            List<MavenPlugin> mavenPlugins) {
         this.dependencies = dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
+        this.mavenPlugins = mavenPlugins;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -50,28 +57,6 @@ public class LockFile {
         return JsonUtils.fromJson(lockFileContents, LockFile.class);
     }
 
-    /**
-     * Returns true if the lock file contains the same dependencies as the given set of dependencies,
-     * and all the checksums match.
-     * @param other the lockfile to compare with
-     * @return true if the lock file is equivalent
-     */
-    public boolean isEquivalentTo(LockFile other) {
-        return differenceTo(other).isEmpty() && other.differenceTo(this).isEmpty();
-    }
-
-    /**
-     * Returns a set of dependencies that are in this lock file but not in the other lock file.
-     * These could be either completely new dependencies, or dependencies that have different checksums.
-     * @param other the lock file to compare with
-     * @return a set of dependencies that are in this lock file but not in the other lock file
-     */
-    public Set<DependencyNode> differenceTo(LockFile other) {
-        Set<DependencyNode> thisSet = new HashSet<>(dependencies);
-        Set<DependencyNode> otherSet = Set.copyOf(other.getDependencies());
-        thisSet.removeAll(otherSet);
-        return thisSet;
-    }
     /**
      * @param packagedDependencies the packagedDependencies to set
      */
@@ -91,16 +76,19 @@ public class LockFile {
     public List<DependencyNode> getDependencies() {
         return dependencies;
     }
-    /** (non-Javadoc)
-     * @see Object#hashCode()
+
+    /**
+     * @return the mavenPlugins
      */
+    public List<MavenPlugin> getMavenPlugins() {
+        return mavenPlugins;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name, version, lockfileVersion, dependencies);
+        return Objects.hash(name, groupId, version, lockfileVersion, dependencies, mavenPlugins);
     }
-    /** (non-Javadoc)
-     * @see Object#equals(Object)
-     */
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -111,8 +99,10 @@ public class LockFile {
         }
         LockFile other = (LockFile) obj;
         return Objects.equals(name, other.name)
+                && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)
                 && lockfileVersion == other.lockfileVersion
-                && Objects.equals(dependencies, other.dependencies);
+                && Objects.equals(dependencies, other.dependencies)
+                && Objects.equals(mavenPlugins, other.mavenPlugins);
     }
 }
