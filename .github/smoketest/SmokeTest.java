@@ -11,6 +11,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmokeTest {
