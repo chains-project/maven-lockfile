@@ -22,7 +22,7 @@ This plugin is available on maven central. See https://search.maven.org/artifact
 First, generate a lock file by running the following command in the repository that you want to validate:
 
 ```
-mvn io.github.chains-project:maven-lockfile:${project.version}:generate
+mvn io.github.chains-project:maven-lockfile:generate
 ```
 This should generate a lockfile.json file in each module of the repository.
 This file contains the checksums of all the artifacts in the repository.
@@ -31,7 +31,7 @@ Also, the complete dependency tree is stored in the lock file.
 Then run the following command to validate the repository:
 
 ```
-mvn io.github.chains-project:maven-lockfile:${project.version}:validate
+mvn io.github.chains-project:maven-lockfile:validate
 ```
 If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
 ## Format
@@ -115,12 +115,12 @@ ${action_content}
 If a pom.xml file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is correct.
 
-⚠️**Warning**: The action result of your lockfile could be platform dependent. Some artifacts are platform dependent and the checksums will differ between platforms.
+⚠️**Warning**: The action result of your lockfile could be platform-dependent. Some artifacts are platform-dependent and the checksums will differ between platforms.
 
 ⚠️**Warning**: This action will only retrigger CI if you use a personal access token. If you use the default token, the action will not retrigger CI. See https://github.com/EndBug/add-and-commit#the-commit-from-the-action-is-not-triggering-ci for more information.
 
-⚠️**Warning**: Commiting the changed lockfile does not work for pull requests from forks. See https://github.com/EndBug/add-and-commit#working-with-prs. You can add a personal access token to your repository to fix this issue.
-It still works for pull requests from the same repository. Renovate also works with this action, because these PRs are created from the same repository.
+⚠️**Warning**: Commiting the changed lockfile does not work for pull requests from forks. See https://github.com/EndBug/add-and-commit#working-with-prs. You can add a personal access token to your repository to resolve this issue.
+It still works for pull requests from the same repository. Renovate also works with this action because these PRs are created from the same repository.
 ## Related work
 
 Here we list some related work that we found while researching this topic.
