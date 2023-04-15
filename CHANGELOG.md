@@ -409,3 +409,35 @@ We'd like to thank the following people for their contributions:
 - Martin ([@MartinWitt](https://github.com/MartinWitt))
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 1.2.0
+## Changelog
+
+## 🚀 Added
+- ce78dbc ✨ Add maven plugins to lockfile (#166)
+- 536ccb8 ✨ Add job summary to github action (#157)
+- 669beeb ✨ Add option to install the project before the lockfile (#155)
+
+## 🔄️ Changed
+- e87c8ee 📌 Update compiler plugin to 3.11 (#165)
+
+## 📝 Documentation
+- ce596eb 📝 Document behavior for PRs from forks (#159)
+
+## 🏁 Release
+- b440109 🔖 Releasing version 1.2.0
+- 683c749 🔖(deps): Update github/codeql-action digest to 7df0ce3
+- ae70355 🔖(deps): Update actions/checkout digest to 8e5e7e5
+- db222d7 🔖(deps): Update actions/checkout digest to 83b7061
+- 288e8bc 🔖(deps): Update tj-actions/changed-files digest to 7ecfc67 (#156)
+- 31384f1 🔖 Setting SNAPSHOT version 1.1.11
+
+---
+- bdc9639 🧱 Add buildscan and maven cache (#164)
+- 6e920dd 🚩 Remove github repo from jbang (#158)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
