@@ -6,7 +6,6 @@ import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -31,9 +30,8 @@ public class LockFile {
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
     private List<DependencyNode> dependencies;
-    private List<PackagedDependency> packagedDependencies;
 
-    private List<MavenPlugin> mavenPlugins = new ArrayList<>();
+    private List<MavenPlugin> mavenPlugins;
 
     public LockFile(
             GroupId groupId,
@@ -74,7 +72,7 @@ public class LockFile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, groupId, version, lockfileVersion, dependencies, mavenPlugins);
+        return Objects.hash(name, groupId, version, lockfileVersion, dependencies, nullToEmpty(mavenPlugins));
     }
 
     @Override
@@ -91,7 +89,7 @@ public class LockFile {
                 && Objects.equals(version, other.version)
                 && lockfileVersion == other.lockfileVersion
                 && Objects.equals(dependencies, other.dependencies)
-                && Objects.equals(mavenPlugins, other.mavenPlugins);
+                && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins));
     }
 
     private static <T> List<T> nullToEmpty(List<T> list) {
