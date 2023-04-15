@@ -11,3 +11,4 @@ jobs:
           uses: chains-project/maven-lockfile@b440109e6b695b1ac3d541c8b3fcd7a91631b88e # v1.2.0
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
