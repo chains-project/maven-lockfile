@@ -4,6 +4,8 @@ import io.quarkiverse.githubaction.Action;
 import io.quarkiverse.githubaction.Commands;
 import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import org.buildobjects.process.ProcBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -19,27 +21,35 @@ public class GithubAction {
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
+
+        boolean includeMavenPlugins = inputs.getBoolean("include-maven-plugins").orElse(false);
         if (Boolean.parseBoolean(System.getenv("POM_CHANGED"))) {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
             commands.endGroup();
-            generateLockFile(commands);
+            generateLockFile(commands, includeMavenPlugins);
         } else {
             commands.group("maven-lockfile");
             commands.notice("Pom file not changed, running lockfile validation");
             commands.endGroup();
-            validateLockFile(commands);
+            validateLockFile(commands, includeMavenPlugins);
         }
     }
 
-    void generateLockFile(Commands commands) {
+    void generateLockFile(Commands commands, boolean includeMavenPlugins) {
         commands.group("maven-lockfile");
         try {
+            List<String> arguments = new ArrayList<>();
+            arguments.add(String.format(COMMAND_GENERATE, version));
+            if (includeMavenPlugins) {
+                arguments.add("-DincludeMavenPlugins=true");
+            }
+            arguments.add("-q");
             var result = new ProcBuilder("mvn")
                     .withOutputStream(System.out)
                     .withErrorStream(System.err)
                     .withNoTimeout()
-                    .withArgs(String.format(COMMAND_GENERATE, version), "-q")
+                    .withArgs(arguments.toArray(new String[0]))
                     .run();
             if (result.getExitValue() != 0) {
                 commands.error("Lockfile generation failed\n");
@@ -62,12 +72,18 @@ public class GithubAction {
         commands.endGroup();
     }
 
-    void validateLockFile(Commands commands) {
+    void validateLockFile(Commands commands, boolean includeMavenPlugins) {
         commands.group("maven-lockfile-validation");
         try {
+            List<String> arguments = new ArrayList<>();
+            arguments.add(String.format(COMMAND_VALIDATE, version));
+            if (includeMavenPlugins) {
+                arguments.add("-DincludeMavenPlugins=true");
+            }
+            arguments.add("-q");
             if (new ProcBuilder("mvn")
                             .withNoTimeout()
-                            .withArgs(String.format(COMMAND_VALIDATE, version), "-q")
+                            .withArgs(arguments.toArray(new String[0]))
                             .withOutputStream(System.out)
                             .withErrorStream(System.err)
                             .run()

@@ -11,6 +11,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmokeTest {
@@ -27,6 +28,7 @@ public class SmokeTest {
         
 
         public static void main(String... args) throws Exception {
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Path mavenPath = Path.of("./maven_plugin/./mvnw");
         String pluginVersion = getProjectVersion(mavenPath);
         new ProcBuilder(mavenPath.toString(), "clean", "install", "-DskipTests", "-q")

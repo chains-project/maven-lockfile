@@ -62,6 +62,15 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(result).isFailure();
     }
 
+    @MavenTest
+    public void pluginProject(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
+    }
+
     private Path getLockFile(MavenExecutionResult result) throws IOException {
         return Files.find(
                         result.getMavenProjectResult().getTargetBaseDirectory(),

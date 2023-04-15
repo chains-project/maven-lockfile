@@ -45,6 +45,9 @@ public class GenerateLockFileMojo extends AbstractMojo {
 
     @Component
     private DependencyResolver dependencyResolver;
+
+    @Parameter(defaultValue = "false", property = "includeMavenPlugins")
+    private String includeMavenPlugins;
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException
@@ -53,7 +56,11 @@ public class GenerateLockFileMojo extends AbstractMojo {
         try {
 
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, dependencyResolver);
+                    session,
+                    project,
+                    dependencyCollectorBuilder,
+                    dependencyResolver,
+                    Boolean.parseBoolean(includeMavenPlugins));
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
