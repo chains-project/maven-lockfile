@@ -54,6 +54,7 @@ jobs:
         uses: chains-project/maven-lockfile@b440109e6b695b1ac3d541c8b3fcd7a91631b88e # v1.2.0
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Generate Readme
