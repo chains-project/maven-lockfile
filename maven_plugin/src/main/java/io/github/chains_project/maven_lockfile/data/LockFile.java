@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,30 +59,17 @@ public class LockFile {
     }
 
     /**
-     * @param packagedDependencies the packagedDependencies to set
-     */
-    public void setPackagedDependencies(List<PackagedDependency> packagedDependencies) {
-        this.packagedDependencies = packagedDependencies;
-    }
-
-    /**
-     * @return the packagedDependencies
-     */
-    public List<PackagedDependency> getPackagedDependencies() {
-        return packagedDependencies;
-    }
-    /**
      * @return the dependencies
      */
     public List<DependencyNode> getDependencies() {
-        return dependencies;
+        return nullToEmpty(dependencies);
     }
 
     /**
      * @return the mavenPlugins
      */
     public List<MavenPlugin> getMavenPlugins() {
-        return mavenPlugins;
+        return nullToEmpty(mavenPlugins);
     }
 
     @Override
@@ -104,5 +92,9 @@ public class LockFile {
                 && lockfileVersion == other.lockfileVersion
                 && Objects.equals(dependencies, other.dependencies)
                 && Objects.equals(mavenPlugins, other.mavenPlugins);
+    }
+
+    private static <T> List<T> nullToEmpty(List<T> list) {
+        return list == null ? Collections.emptyList() : list;
     }
 }

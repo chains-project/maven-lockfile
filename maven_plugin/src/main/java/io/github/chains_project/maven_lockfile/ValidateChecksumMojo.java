@@ -3,10 +3,8 @@ package io.github.chains_project.maven_lockfile;
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import java.io.IOException;
-import java.util.ArrayList;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
