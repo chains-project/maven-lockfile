@@ -123,6 +123,8 @@ jobs:
           uses: chains-project/maven-lockfile@b440109e6b695b1ac3d541c8b3fcd7a91631b88e # v1.2.0
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
+
 ```
 If a pom.xml file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is correct.
