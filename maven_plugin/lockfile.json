@@ -2185,19 +2185,19 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "2.13.0",
+      "version": "2.14.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ba6ee3a99dc1b7d7306f7a3f72bdfb258aedb82f39e834b04331ea3cad400e5f",
-      "id": "org.instancio:instancio-junit:2.13.0",
+      "checksum": "1c5fedb8cdd8e5f74bc1ebaef762f82769c07738f73d4b36e6257f9c0fe94630",
+      "id": "org.instancio:instancio-junit:2.14.0",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "2.13.0",
+          "version": "2.14.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "2c6ffcf48296a1b82899ccd1a0c9ded88eb63f387eba780823478b0ab30063b8",
-          "id": "org.instancio:instancio-core:2.13.0",
-          "parent": "org.instancio:instancio-junit:2.13.0",
+          "checksum": "ce9af654777a8407141e7bcdd0ed72c9e4d579b767f6c70df7fe30dbd89e4a8c",
+          "id": "org.instancio:instancio-core:2.14.0",
+          "parent": "org.instancio:instancio-junit:2.14.0",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -2206,7 +2206,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "5d6298b93a1905c32cda6478808ac14c2d4a47e91535e53c41f7feeb85d946f4",
               "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:2.13.0",
+              "parent": "org.instancio:instancio-core:2.14.0",
               "children": []
             }
           ]
