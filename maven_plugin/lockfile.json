@@ -1941,10 +1941,10 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "1.9.7",
+      "version": "1.9.8",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "894eb07ea795f374a3037dfee9583e2d2529d52c64a2a1fddad8ac71749ec252",
-      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.7",
+      "checksum": "74ac07363deadc64866f8dae8504b85ffa704c4aebb98934221e19850d21ffa2",
+      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.8",
       "children": []
     },
     {
