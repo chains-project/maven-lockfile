@@ -2,7 +2,6 @@ profile:
   name: qodana.recommended
 version: "1.0"
 linter: jetbrains/qodana-jvm:2023.1-eap
-failThreshold: 0
 groups:
   - groupId: IncludedPaths
     groups:
