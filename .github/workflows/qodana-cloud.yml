@@ -1,0 +1,20 @@
+name: Code-Quality
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  qodana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+        with:
+          fetch-depth: 0
+      - name: 'Qodana Scan'
+        uses: JetBrains/qodana-action@61b94e7e3a716dcb9e2030cfd79cd46149d56c26 # v2023.1.0
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+      - uses: github/codeql-action/upload-sarif@b2c19fb9a2a485599ccf4ed5d65527d94bc57226 # v2
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
