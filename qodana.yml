@@ -1,7 +1,7 @@
 profile:
   name: qodana.recommended
 version: "1.0"
-linter: jetbrains/qodana-jvm-community:2022.3
+linter: jetbrains/qodana-jvm:2023.1-eap
 failThreshold: 0
 include:
   - name: Anonymous2MethodRef
