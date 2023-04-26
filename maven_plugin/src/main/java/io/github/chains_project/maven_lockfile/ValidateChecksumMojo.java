@@ -27,9 +27,7 @@ import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
         requiresDependencyResolution = ResolutionScope.COMPILE,
         requiresOnline = true)
 public class ValidateChecksumMojo extends AbstractMojo {
-    /**
-     * The Maven project for which we are generating a lock file.
-     */
+
     /**
      * The Maven project for which we are generating a lock file.
      */
