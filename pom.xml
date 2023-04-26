@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-parent</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.0</version>
   <packaging>pom</packaging>
   <name>maven-lockfile-parent</name>
   <description>Integrity Maven Plugin</description>
@@ -32,7 +32,7 @@
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
   <properties>
-    <project.build.outputTimestamp>2023-04-15T16:35:15Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-04-26T14:06:28Z</project.build.outputTimestamp>
   </properties>
   <build>
     <plugins>
