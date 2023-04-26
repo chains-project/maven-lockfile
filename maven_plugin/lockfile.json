@@ -1921,22 +1921,11 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.2",
+      "version": "3.8.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f9eb7fa960edcf5d54a3c14c63b44c16720559b05e6c406ba19913f5f5319879",
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
-      "children": [
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-artifact",
-          "version": "3.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "759079b9cf0cddae5ba06c96fd72347d82d0bc1d903c95d398c96522b139e470",
-          "id": "org.apache.maven:maven-artifact:3.0",
-          "parent": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
-          "children": []
-        }
-      ]
+      "checksum": "ad347d51eb3fac03d3d95481857657426440751e58184c1c3375634cbc67badb",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.8.2",
+      "children": []
     },
     {
       "groupId": "org.apache.maven.resolver",
