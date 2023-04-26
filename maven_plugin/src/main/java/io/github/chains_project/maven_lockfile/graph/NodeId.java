@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class NodeId {
 
-    private GroupId groupId;
-    private ArtifactId artifactId;
-    private VersionNumber version;
+    private final GroupId groupId;
+    private final ArtifactId artifactId;
+    private final VersionNumber version;
 
     NodeId(GroupId groupId, ArtifactId artifactId, VersionNumber version) {
         this.groupId = groupId;
