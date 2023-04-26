@@ -1921,22 +1921,11 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.2",
+      "version": "3.8.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f9eb7fa960edcf5d54a3c14c63b44c16720559b05e6c406ba19913f5f5319879",
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
-      "children": [
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-artifact",
-          "version": "3.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "759079b9cf0cddae5ba06c96fd72347d82d0bc1d903c95d398c96522b139e470",
-          "id": "org.apache.maven:maven-artifact:3.0",
-          "parent": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.2",
-          "children": []
-        }
-      ]
+      "checksum": "ad347d51eb3fac03d3d95481857657426440751e58184c1c3375634cbc67badb",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.8.2",
+      "children": []
     },
     {
       "groupId": "org.apache.maven.resolver",
@@ -2216,10 +2205,10 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.9.2",
+      "version": "5.9.3",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "checksum": "d895e3eedf4fa1b10de31a91be55a301bb307bf18ef325b3fa5db3f80ee92d1c",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.9.3",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2228,17 +2217,17 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.9.2",
+          "version": "1.9.3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-          "id": "org.junit.platform:junit-platform-commons:1.9.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "checksum": "8519157df813c210e85fc1414b74109e3d85f43d7092563ed704c43c48f0d5e6",
+          "id": "org.junit.platform:junit-platform-commons:1.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2247,7 +2236,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.3",
               "children": []
             }
           ]
@@ -2259,7 +2248,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
           "id": "org.opentest4j:opentest4j:1.2.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": []
         }
       ]
@@ -2267,10 +2256,10 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-engine",
-      "version": "5.9.2",
+      "version": "5.9.3",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "74cfc49388f760413ff348ca2c9ab39527484b57deecd157f2275a5f8a5fe971",
-      "id": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+      "checksum": "b55e304b1cd2e8f116c1ab77a5dc3eca8c4d9b46a69e084b63aca51cdeb55f0f",
+      "id": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2279,17 +2268,17 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
           "children": []
         },
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
-          "version": "5.9.2",
+          "version": "5.9.3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-          "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+          "checksum": "d895e3eedf4fa1b10de31a91be55a301bb307bf18ef325b3fa5db3f80ee92d1c",
+          "id": "org.junit.jupiter:junit-jupiter-api:5.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2298,17 +2287,17 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.9.2",
+              "version": "1.9.3",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-              "id": "org.junit.platform:junit-platform-commons:1.9.2",
-              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+              "checksum": "8519157df813c210e85fc1414b74109e3d85f43d7092563ed704c43c48f0d5e6",
+              "id": "org.junit.platform:junit-platform-commons:1.9.3",
+              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
               "children": [
                 {
                   "groupId": "org.apiguardian",
@@ -2317,7 +2306,7 @@
                   "checksumAlgorithm": "SHA-256",
                   "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
                   "id": "org.apiguardian:apiguardian-api:1.1.2",
-                  "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+                  "parent": "org.junit.platform:junit-platform-commons:1.9.3",
                   "children": []
                 }
               ]
@@ -2329,7 +2318,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
               "id": "org.opentest4j:opentest4j:1.2.0",
-              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+              "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
               "children": []
             }
           ]
@@ -2337,11 +2326,11 @@
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-engine",
-          "version": "1.9.2",
+          "version": "1.9.3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
-          "id": "org.junit.platform:junit-platform-engine:1.9.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
+          "checksum": "c39553d9a03510757227f5a1c6cc6530287b1a321ed6258450664874aa2a16a",
+          "id": "org.junit.platform:junit-platform-engine:1.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2350,17 +2339,17 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.9.2",
+              "version": "1.9.3",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-              "id": "org.junit.platform:junit-platform-commons:1.9.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+              "checksum": "8519157df813c210e85fc1414b74109e3d85f43d7092563ed704c43c48f0d5e6",
+              "id": "org.junit.platform:junit-platform-commons:1.9.3",
+              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
               "children": [
                 {
                   "groupId": "org.apiguardian",
@@ -2369,7 +2358,7 @@
                   "checksumAlgorithm": "SHA-256",
                   "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
                   "id": "org.apiguardian:apiguardian-api:1.1.2",
-                  "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+                  "parent": "org.junit.platform:junit-platform-commons:1.9.3",
                   "children": []
                 }
               ]
@@ -2381,7 +2370,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
               "id": "org.opentest4j:opentest4j:1.2.0",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.2",
+              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
               "children": []
             }
           ]
@@ -2423,7 +2412,7 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-plugin-plugin",
-      "version": "3.8.1"
+      "version": "3.8.2"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
