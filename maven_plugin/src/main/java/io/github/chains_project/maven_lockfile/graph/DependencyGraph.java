@@ -20,14 +20,14 @@ public class DependencyGraph {
     private static final Logger LOGGER = Logger.getLogger(DependencyGraph.class);
 
     public static final String CHECKSUM_ALGORITHM = "SHA-256";
-    private List<DependencyNode> graph;
+    private final List<DependencyNode> graph;
 
     public List<DependencyNode> getRoots() {
         return graph.stream().filter(node -> node.getParent() == null).collect(Collectors.toList());
     }
 
     private DependencyGraph(List<DependencyNode> graph) {
-        this.graph = graph;
+        this.graph = graph == null ? List.of() : graph;
     }
 
     /**
