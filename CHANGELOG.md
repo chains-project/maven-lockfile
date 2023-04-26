@@ -441,3 +441,51 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 1.3.0
+## Changelog
+
+## 🚀 Added
+- 8375dcc ✨ Add null checks for dependencies & mavenPlugins (#187)
+- f9dac4a 👷 Refactor Qodana configuration: Update inspection group name to ExcludedInspections to better reflect its contents. (#180)
+- 8ba6c55 👷 Upload qodana to codeql and qodana cloud (#179)
+- 276ba98 👷 Update qodana config to new style (#178)
+- afbf2d3 👷 Add ignored authors to renovate config (#177)
+
+## 🔄️ Changed
+- 438213b 🔧 Update dependencies and package version (#189)
+- fd19f93 ♻️  Remove redundant code comments in ValidateChecksumMojo (#185)
+- 3c393f0 ♻️ Refactor DependencyGraph constructor to handle null input (#184)
+- 7ce284a ♻️  Add version field and configure injection of extension version in GithubAction class (#183)
+
+## 📦 Dependencies
+- df2a9c5 ⬆️ (deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.8.2
+- 2a79ed9 ⬆️ (deps): Update junit5 monorepo to v5.9.3
+- 842bfe0 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.8.2
+- d8b2d3a ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v1.0.3 (#167)
+- 5b5d2b2 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.8 (#168)
+- 7f1d393 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v2.14.0 (#170)
+- f9c8260 ⬆️ (deps): Update chains-project/maven-lockfile action to v1.2.0 (#144)
+
+## 📝 Documentation
+- 79c30a9 📝 Update missing javadoc tags (#182)
+- 3e9275b 📝 Update readme (#169)
+
+## 🏁 Release
+- e2e52ca 🔖 Releasing version 1.3.0
+- b47f070 🔖(deps): Update github/codeql-action digest to b2c19fb
+- 5202a05 🔖(deps): Update tj-actions/changed-files digest to ce810b2
+- c5af66d 🔖 Setting SNAPSHOT version 1.2.0
+
+---
+- 81ab718 🔼 Update renovate.json with squash strategy (#188)
+- ffc7b6a chore: update lockfile
+- 17dd2f1 chore: update lockfile
+- d85687f chore: update lockfile
+- e9f88d7 chore(deps): update jetbrains/qodana-action action to v2023 (#176)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
