@@ -13,8 +13,10 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class GithubAction {
 
+    // Injects the version of the extension from the pom.xml
+    // this field is intentionally set to package private instead of private to reduce reflection usage
     @ConfigProperty(name = "quarkus.application.version")
-    public String version;
+    String version;
 
     private static final String COMMAND_GENERATE = "io.github.chains-project:maven-lockfile:%s:generate";
     private static final String COMMAND_VALIDATE = "io.github.chains-project:maven-lockfile:%s:validate";
