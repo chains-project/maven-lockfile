@@ -39,11 +39,11 @@ public class LockFile {
             VersionNumber versionNumber,
             List<DependencyNode> dependencies,
             List<MavenPlugin> mavenPlugins) {
-        this.dependencies = dependencies;
+        this.dependencies = dependencies == null ? Collections.emptyList() : dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
-        this.mavenPlugins = mavenPlugins;
+        this.mavenPlugins = mavenPlugins == null ? Collections.emptyList() : mavenPlugins;
     }
     /**
      * Create a lock file object from a serialized JSON string.
