@@ -50,7 +50,7 @@ public class GenerateLockFileMojo extends AbstractMojo {
     private String includeMavenPlugins;
     /**
      * Generate a lock file for the dependencies of the current project.
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException if the lock file could not be written or the generation failed.
      */
     public void execute() throws MojoExecutionException {
         try {

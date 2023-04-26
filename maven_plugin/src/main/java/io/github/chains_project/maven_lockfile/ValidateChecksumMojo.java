@@ -52,7 +52,7 @@ public class ValidateChecksumMojo extends AbstractMojo {
     private String includeMavenPlugins;
     /**
      * Validate the local copies of the dependencies against the project's lock file.
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException if the lock file is invalid or could not be read.
      */
     public void execute() throws MojoExecutionException {
         getLog().info("Validating lock file ...");
