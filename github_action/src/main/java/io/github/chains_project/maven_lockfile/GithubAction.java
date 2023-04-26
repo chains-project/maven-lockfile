@@ -4,9 +4,9 @@ import io.quarkiverse.githubaction.Action;
 import io.quarkiverse.githubaction.Commands;
 import io.quarkiverse.githubaction.Context;
 import io.quarkiverse.githubaction.Inputs;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.enterprise.context.ApplicationScoped;
 import org.buildobjects.process.ProcBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
