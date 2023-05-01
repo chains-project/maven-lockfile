@@ -1,7 +1,7 @@
 {
   "artifactID": "maven-lockfile",
   "groupID": "io.github.chains-project",
-  "version": "1.2.1-SNAPSHOT",
+  "version": "1.3.1-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -2174,19 +2174,19 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "2.14.0",
+      "version": "2.15.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "1c5fedb8cdd8e5f74bc1ebaef762f82769c07738f73d4b36e6257f9c0fe94630",
-      "id": "org.instancio:instancio-junit:2.14.0",
+      "checksum": "da055a57c6070ccc3f0cc94fc3489bd9e7c5af7d84ec2ea25f9a2331b5d0bd6c",
+      "id": "org.instancio:instancio-junit:2.15.0",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "2.14.0",
+          "version": "2.15.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "ce9af654777a8407141e7bcdd0ed72c9e4d579b767f6c70df7fe30dbd89e4a8c",
-          "id": "org.instancio:instancio-core:2.14.0",
-          "parent": "org.instancio:instancio-junit:2.14.0",
+          "checksum": "699f9bdad3094710a983d3ecac6d11fa885a15b76b87dcbe8b4d2b893357f1bc",
+          "id": "org.instancio:instancio-core:2.15.0",
+          "parent": "org.instancio:instancio-junit:2.15.0",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -2195,7 +2195,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "5d6298b93a1905c32cda6478808ac14c2d4a47e91535e53c41f7feeb85d946f4",
               "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:2.14.0",
+              "parent": "org.instancio:instancio-core:2.15.0",
               "children": []
             }
           ]
