@@ -20,6 +20,6 @@ jobs:
         - name: Generate Readme+action.yml
           run: mvn generate-resources resources:copy-resources -q
         - name: commit doc changes
-          uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b # v9
+          uses: EndBug/add-and-commit@b97a9fe893e2984b63d00feaee5922e16ab1cc1e # v9
           with:
               message: "📝Update Documentation with current version"
