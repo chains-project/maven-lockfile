@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import java.io.IOException;
+import java.util.Objects;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -73,7 +74,7 @@ public class ValidateChecksumMojo extends AbstractMojo {
                     dependencyResolver,
                     Boolean.parseBoolean(includeMavenPlugins),
                     metadata);
-            if (!lockFileFromFile.getMetadata().equals(lockFileFromProject.getMetadata())) {
+            if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
                 getLog().warn(
                                 "Lock file metadata does not match project metadata. This could be due to a change in the environment.");
             }
