@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
+import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
@@ -113,6 +114,7 @@ public class LockFileFacade {
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param resolver  The dependency resolver to use for resolving the dependencies.
      * @param includeMavenPlugins  Whether to include maven plugins in the lock file.
+     * @param metadata The metadata to include in the lock file.
      * @return  A lock file for the project.
      */
     public static LockFile generateLockFileFromProject(
@@ -120,7 +122,8 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             DependencyResolver resolver,
-            boolean includeMavenPlugins) {
+            boolean includeMavenPlugins,
+            Metadata metadata) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
         List<MavenPlugin> plugins = new ArrayList<>();
         if (includeMavenPlugins) {
@@ -134,7 +137,8 @@ public class LockFileFacade {
                 ArtifactId.of(project.getArtifactId()),
                 VersionNumber.of(project.getVersion()),
                 roots,
-                plugins);
+                plugins,
+                metadata);
     }
 
     private static List<MavenPlugin> getAllPlugins(MavenProject project) {

@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.Metadata;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,19 +49,28 @@ public class GenerateLockFileMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "false", property = "includeMavenPlugins")
     private String includeMavenPlugins;
+
+    @Parameter(defaultValue = "${maven.version}")
+    private String mavenVersion;
+
+    @Parameter(defaultValue = "${java.version}")
+    private String javaVersion;
+
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException if the lock file could not be written or the generation failed.
      */
     public void execute() throws MojoExecutionException {
         try {
-
+            String osName = System.getProperty("os.name");
+            Metadata metadata = new Metadata(osName, mavenVersion, javaVersion);
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session,
                     project,
                     dependencyCollectorBuilder,
                     dependencyResolver,
-                    Boolean.parseBoolean(includeMavenPlugins));
+                    Boolean.parseBoolean(includeMavenPlugins),
+                    metadata);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));

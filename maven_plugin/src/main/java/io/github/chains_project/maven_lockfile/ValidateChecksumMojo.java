@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import java.io.IOException;
 import org.apache.maven.execution.MavenSession;
@@ -48,6 +49,12 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "false", property = "includeMavenPlugins")
     private String includeMavenPlugins;
+
+    @Parameter(defaultValue = "${maven.version}")
+    private String mavenVersion;
+
+    @Parameter(defaultValue = "${java.version}")
+    private String javaVersion;
     /**
      * Validate the local copies of the dependencies against the project's lock file.
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
@@ -55,14 +62,21 @@ public class ValidateChecksumMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         getLog().info("Validating lock file ...");
         try {
+
+            String osName = System.getProperty("os.name");
+            Metadata metadata = new Metadata(osName, mavenVersion, javaVersion);
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session,
                     project,
                     dependencyCollectorBuilder,
                     dependencyResolver,
-                    Boolean.parseBoolean(includeMavenPlugins));
-
+                    Boolean.parseBoolean(includeMavenPlugins),
+                    metadata);
+            if (!lockFileFromFile.getMetadata().equals(lockFileFromProject.getMetadata())) {
+                getLog().warn(
+                                "Lock file metadata does not match project metadata. This could be due to a change in the environment.");
+            }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
                 StringBuilder sb = new StringBuilder();

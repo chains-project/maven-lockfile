@@ -29,21 +29,25 @@ public class LockFile {
     @SerializedName("lockFileVersion")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
-    private List<DependencyNode> dependencies;
+    private final List<DependencyNode> dependencies;
 
-    private List<MavenPlugin> mavenPlugins;
+    private final List<MavenPlugin> mavenPlugins;
+
+    private final Metadata metadata;
 
     public LockFile(
             GroupId groupId,
             ArtifactId name,
             VersionNumber versionNumber,
             List<DependencyNode> dependencies,
-            List<MavenPlugin> mavenPlugins) {
+            List<MavenPlugin> mavenPlugins,
+            Metadata metadata) {
         this.dependencies = dependencies == null ? Collections.emptyList() : dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
         this.mavenPlugins = mavenPlugins == null ? Collections.emptyList() : mavenPlugins;
+        this.metadata = metadata;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -68,6 +72,12 @@ public class LockFile {
      */
     public List<MavenPlugin> getMavenPlugins() {
         return nullToEmpty(mavenPlugins);
+    }
+    /**
+     * @return the metadata about the environment in which the lock file was generated
+     */
+    public Metadata getMetadata() {
+        return metadata;
     }
 
     @Override
