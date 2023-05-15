@@ -2392,7 +2392,7 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-plugin-plugin",
-      "version": "3.8.2"
+      "version": "3.9.0"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
