@@ -1901,10 +1901,10 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.8.2",
+      "version": "3.9.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ad347d51eb3fac03d3d95481857657426440751e58184c1c3375634cbc67badb",
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.8.2",
+      "checksum": "6518bbac60808e1b74927bdc15a9f2a58073d23fa525d24032c229b426431585",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.9.0",
       "children": []
     },
     {
