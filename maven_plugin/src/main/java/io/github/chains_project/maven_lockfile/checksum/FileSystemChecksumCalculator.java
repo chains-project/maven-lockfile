@@ -65,7 +65,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             byte[] artifactHash = messageDigest.digest(fileBuffer);
             return Optional.of(new BigInteger(1, artifactHash).toString(16));
         } catch (Exception e) {
-            LOGGER.error("Could not calculate checksum for artifact " + artifact, e);
+            LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);
             return Optional.empty();
         }
     }
