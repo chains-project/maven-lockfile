@@ -17,13 +17,12 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     private final DependencyResolver resolver;
     private final ProjectBuildingRequest buildingRequest;
-    private final String checksumAlgorithm;
 
     public FileSystemChecksumCalculator(
             DependencyResolver resolver, ProjectBuildingRequest buildingRequest, String checksumAlgorithm) {
+        super(checksumAlgorithm);
         this.resolver = resolver;
         this.buildingRequest = buildingRequest;
-        this.checksumAlgorithm = checksumAlgorithm;
     }
 
     /**

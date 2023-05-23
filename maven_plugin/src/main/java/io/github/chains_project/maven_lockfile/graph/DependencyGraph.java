@@ -78,7 +78,7 @@ public class DependencyGraph {
         if (checksum.isBlank()) {
             LOGGER.warn("Could not calculate checksum for artifact " + node);
         }
-        DependencyNode value = new DependencyNode(artifactId, groupId, version, CHECKSUM_ALGORITHM, checksum);
+        DependencyNode value = new DependencyNode(artifactId, groupId, version, calc.getChecksumAlgorithm(), checksum);
         for (var artifact : graph.successors(node)) {
             value.addChild(createDependencyNode(artifact, graph, calc));
         }

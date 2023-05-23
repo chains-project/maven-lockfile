@@ -23,7 +23,6 @@ import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
-import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -78,7 +77,6 @@ public class LockFileFacade {
      * @param session  The maven session.
      * @param project  The project to generate a lock file for.
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
-     * @param resolver  The dependency resolver to use for resolving the dependencies.
      * @param includeMavenPlugins  Whether to include maven plugins in the lock file.
      * @param metadata The metadata to include in the lock file.
      * @return  A lock file for the project.
@@ -87,7 +85,6 @@ public class LockFileFacade {
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            DependencyResolver resolver,
             AbstractChecksumCalculator checksumCalculator,
             boolean includeMavenPlugins,
             Metadata metadata) {

@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class GenerateLockFileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${java.version}")
     private String javaVersion;
 
-    @Parameter(defaultValue = "SHA-256", property = "checksumAlgorithm")
+    @Parameter(defaultValue = "sha1", property = "checksumAlgorithm")
     private String checksumAlgorithm;
 
     @Parameter(defaultValue = "maven_local", property = "checksumMode")
@@ -81,7 +82,7 @@ public class GenerateLockFileMojo extends AbstractMojo {
                 checksumCalculator =
                         new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
             } else if (checksumMode.equals("maven_central")) {
-                // FIXME: do it
+                checksumCalculator = new RemoteChecksumCalculator(checksumAlgorithm);
             } else {
                 throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
             }
@@ -89,7 +90,6 @@ public class GenerateLockFileMojo extends AbstractMojo {
                     session,
                     project,
                     dependencyCollectorBuilder,
-                    dependencyResolver,
                     checksumCalculator,
                     Boolean.parseBoolean(includeMavenPlugins),
                     metadata);
