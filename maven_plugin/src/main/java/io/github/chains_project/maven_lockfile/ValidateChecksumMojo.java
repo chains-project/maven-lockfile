@@ -2,6 +2,9 @@ package io.github.chains_project.maven_lockfile;
 
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
+import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
@@ -15,7 +18,9 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
@@ -56,6 +61,13 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${java.version}")
     private String javaVersion;
+
+    @Parameter(defaultValue = "sha1", property = "checksumAlgorithm")
+    private String checksumAlgorithm;
+
+    @Parameter(defaultValue = "maven_local", property = "checksumMode")
+    private String checksumMode;
+
     /**
      * Validate the local copies of the dependencies against the project's lock file.
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
@@ -66,12 +78,23 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
             String osName = System.getProperty("os.name");
             Metadata metadata = new Metadata(osName, mavenVersion, javaVersion);
+            AbstractChecksumCalculator checksumCalculator;
+            ProjectBuildingRequest buildingRequest =
+                    new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+            if (checksumMode.equals("maven_local")) {
+                checksumCalculator =
+                        new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
+            } else if (checksumMode.equals("maven_central")) {
+                checksumCalculator = new RemoteChecksumCalculator(checksumAlgorithm);
+            } else {
+                throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
+            }
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session,
                     project,
                     dependencyCollectorBuilder,
-                    dependencyResolver,
+                    checksumCalculator,
                     Boolean.parseBoolean(includeMavenPlugins),
                     metadata);
             if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
@@ -84,14 +107,17 @@ public class ValidateChecksumMojo extends AbstractMojo {
                 sb.append("Lock file validation failed. Differences:");
                 sb.append("Missing dependencies in lock file:\n ");
                 sb.append(JsonUtils.toJson(diff.getMissingDependenciesInFile()));
+                sb.append("\n");
                 sb.append("Missing dependencies in project:\n ");
                 sb.append(JsonUtils.toJson(diff.getMissingDependenciesInProject()));
+                sb.append("\n");
                 sb.append("Missing plugins in lockfile:\n ");
                 sb.append(JsonUtils.toJson(diff.getMissingPluginsInFile()));
+                sb.append("\n");
                 sb.append("Missing plugins in project:\n ");
                 sb.append(JsonUtils.toJson(diff.getMissingPluginsInProject()));
-                getLog().error(sb.toString());
-                throw new MojoExecutionException("Failed verifying lock file");
+                sb.append("\n");
+                throw new MojoExecutionException("Failed verifying lock file" + sb);
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
