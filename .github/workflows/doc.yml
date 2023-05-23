@@ -22,6 +22,6 @@ jobs:
         - name: run maven spotless
           run: mvn spotless:apply
         - name: commit doc changes
-          uses: EndBug/add-and-commit@b97a9fe893e2984b63d00feaee5922e16ab1cc1e # v9
+          uses: EndBug/add-and-commit@1bad3abcf0d6ec49a5857d124b0bfb52dc7bb081 # v9
           with:
               message: "📝Update Documentation with current version"
