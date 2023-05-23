@@ -14,7 +14,6 @@ import org.apache.maven.artifact.Artifact;
 
 public class DependencyGraph {
 
-    public static final String CHECKSUM_ALGORITHM = "SHA-256";
     private final List<DependencyNode> graph;
 
     public List<DependencyNode> getRoots() {
@@ -57,7 +56,7 @@ public class DependencyGraph {
                 .collect(Collectors.toList());
         List<DependencyNode> nodes = new ArrayList<>();
         for (var artifact : roots) {
-            nodes.add(createDependencyNode(artifact, graph, calc));
+            nodes.add(createDependencyNode(artifact, graph, calc, true));
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
         List<DependencyNode> dependencyRoots =
@@ -67,15 +66,15 @@ public class DependencyGraph {
     }
 
     private static DependencyNode createDependencyNode(
-            Artifact node, Graph<Artifact> graph, AbstractChecksumCalculator calc) {
+            Artifact node, Graph<Artifact> graph, AbstractChecksumCalculator calc, boolean isRoot) {
         var groupId = GroupId.of(node.getGroupId());
         var artifactId = ArtifactId.of(node.getArtifactId());
         var version = VersionNumber.of(node.getVersion());
-        var checksum = calc.calculateChecksum(node);
+        var checksum = isRoot ? "" : calc.calculateChecksum(node);
 
         DependencyNode value = new DependencyNode(artifactId, groupId, version, calc.getChecksumAlgorithm(), checksum);
         for (var artifact : graph.successors(node)) {
-            value.addChild(createDependencyNode(artifact, graph, calc));
+            value.addChild(createDependencyNode(artifact, graph, calc, false));
         }
         return value;
     }
