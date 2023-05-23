@@ -28,7 +28,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String version = artifact.getVersion();
             String extension = artifact.getType();
             String filename = artifactId + "-" + version + "." + extension;
-            String url = this.CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename + "."
+            String url = CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename + "."
                     + checksumAlgorithm;
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
