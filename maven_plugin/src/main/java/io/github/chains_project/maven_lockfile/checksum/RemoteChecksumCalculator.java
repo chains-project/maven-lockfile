@@ -36,7 +36,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
         } catch (Exception e) {
             LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
-            return "";
+            throw new RuntimeException("Could not resolve artifact: " + artifact.getArtifactId(), e);
         }
     }
 }
