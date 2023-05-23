@@ -489,3 +489,54 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 2.0.0
+## Changelog
+
+## 📦 Dependencies
+- e4a2b07 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-source-plugin to v3.3.0 (#215)
+- aff0758 ⬆️ (deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.9.0
+- 85f6b7a ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.9.0
+- 2436914 ⬆️ (deps): Update mavenVersion to v3.9.2
+- 7730a55 ⬆️ (deps): Update dependency maven to v3.9.2
+- 327fcfd ⬆️ (deps): Update dependency org.apache.maven:maven-compat to v3.9.2
+- bcc1049 ⬆️ (deps): Update quarkus.platform.version to v3.0.3.Final
+- a3cb61a ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.12
+- a2d35a9 ⬆️ (deps): Update surefire-plugin.version to v3.1.0
+- 5bcd75d ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.1.0
+- 906a505 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.10
+- 8a1bba8 ⬆️ (deps): Update quarkus.platform.version to v3.0.2.Final
+- 0fe7c31 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v2.15.0
+
+## 🏁 Release
+- 492c645 🔖 Releasing version 2.0.0
+- f6ca966 🔖(deps): Update EndBug/add-and-commit digest to 1bad3ab (#201)
+- f90cf66 🔖(deps): Update actions/setup-go digest to fac708d (#212)
+- fd889df 🔖(deps): Update github/codeql-action digest to 29b1f65
+- 6e9d56d 🔖(deps): Update github/codeql-action digest to f3feb00
+- 82c9fbd 🔖(deps): Update tj-actions/changed-files digest to b2d17f5
+- 6285f52 🔖(deps): Update EndBug/add-and-commit digest to b97a9fe
+- 8297d0b 🔖 Setting SNAPSHOT version 1.3.0
+
+---
+- d809f45 feat: ✨ Add checksum modes (#216)
+- ae91eff chore: update lockfile
+- e767627 chore: update lockfile
+- ac4875d feat: ✨ Add metadata to lockfile (#211)
+- 81c9a4c doc: improve README (#207)
+- 5b492b3 chore: update lockfile
+- fb4aec8 chore: update lockfile
+- e3b03bc chore: update lockfile
+- 56b5881 chore: update lockfile
+- 50e49ef chore: update lockfile
+- 786da28 chore: update lockfile
+- de2d6c3 chore: update lockfile
+- 25181d2 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+- monperrus ([@monperrus](https://github.com/monperrus))
