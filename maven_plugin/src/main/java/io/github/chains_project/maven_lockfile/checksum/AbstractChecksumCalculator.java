@@ -4,7 +4,7 @@ import org.apache.maven.artifact.Artifact;
 
 public abstract class AbstractChecksumCalculator {
 
-    protected String checksumAlgorithm = "sha1";
+    protected String checksumAlgorithm;
 
     AbstractChecksumCalculator(String checksumAlgorithm) {
         this.checksumAlgorithm = checksumAlgorithm;

@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 
 public class DependencyGraph {
-
-    private static final Logger LOGGER = Logger.getLogger(DependencyGraph.class);
 
     public static final String CHECKSUM_ALGORITHM = "SHA-256";
     private final List<DependencyNode> graph;

@@ -78,7 +78,7 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
             String osName = System.getProperty("os.name");
             Metadata metadata = new Metadata(osName, mavenVersion, javaVersion);
-            AbstractChecksumCalculator checksumCalculator = null;
+            AbstractChecksumCalculator checksumCalculator;
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
             if (checksumMode.equals("maven_local")) {

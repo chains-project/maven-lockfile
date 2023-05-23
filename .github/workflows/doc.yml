@@ -19,6 +19,8 @@ jobs:
             maven-version: 3.9.0
         - name: Generate Readme+action.yml
           run: mvn generate-resources resources:copy-resources -q
+        - name: run maven spotless
+          run: mvn spotless:apply
         - name: commit doc changes
           uses: EndBug/add-and-commit@b97a9fe893e2984b63d00feaee5922e16ab1cc1e # v9
           with:

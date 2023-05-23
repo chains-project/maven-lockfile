@@ -10,7 +10,7 @@ import org.apache.maven.artifact.Artifact;
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     private static final Logger LOGGER = Logger.getLogger(RemoteChecksumCalculator.class);
-    private String centralUrl = "https://repo1.maven.org/maven2";
+    private static final String CENTRAL_URL = "https://repo1.maven.org/maven2";
 
     public RemoteChecksumCalculator(String checksumAlgorithm) {
         super(checksumAlgorithm);
@@ -28,7 +28,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String version = artifact.getVersion();
             String extension = artifact.getType();
             String filename = artifactId + "-" + version + "." + extension;
-            String url = this.centralUrl + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename + "."
+            String url = this.CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename + "."
                     + checksumAlgorithm;
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
