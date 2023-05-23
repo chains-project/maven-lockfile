@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
+import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -34,64 +34,30 @@ public class LockFileFacade {
     private static final Logger LOGGER = Logger.getLogger(LockFileFacade.class);
 
     /**
-     * This visitor is used to traverse the dependency graph and add the edges to the graph. It also resolves the dependencies. This is necessary because the dependency graph does not contain the resolved dependencies.
+     * This visitor is used to traverse the dependency graph and add the edges to the graph.
      */
-    private static final class ResolvingDependencyNodeVisitor implements DependencyNodeVisitor {
+    private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<Artifact> graph;
-        private final DependencyResolver resolver;
-        private final ProjectBuildingRequest buildingRequest;
+
         /**
          * Create a new instance of the visitor.
          * @param graph  The graph to add the edges to.
-         * @param resolver  The dependency resolver to use for resolving the dependencies.
-         * @param buildingRequest  The building request to use for resolving the dependencies.
          */
-        private ResolvingDependencyNodeVisitor(
-                MutableGraph<Artifact> graph, DependencyResolver resolver, ProjectBuildingRequest buildingRequest) {
+        private GraphBuildingNodeVisitor(MutableGraph<Artifact> graph) {
             this.graph = graph;
-            this.resolver = resolver;
-            this.buildingRequest = buildingRequest;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
 
-            node.getChildren()
-                    .forEach(v ->
-                            graph.putEdge(resolveDependency(node.getArtifact()), resolveDependency(v.getArtifact())));
+            node.getChildren().forEach(v -> graph.putEdge(node.getArtifact(), v.getArtifact()));
+
             return true;
-        }
-        /**
-         * Create a dependency from an artifact. This is necessary because the API of the dependency resolver expects a dependency.
-         * @param node  The artifact to create a dependency from.
-         * @return  The dependency
-         */
-        private Dependency createDependency(Artifact node) {
-            Dependency dependency = new Dependency();
-            dependency.setGroupId(node.getGroupId());
-            dependency.setArtifactId(node.getArtifactId());
-            dependency.setVersion(node.getVersion());
-            dependency.setScope(node.getScope());
-            dependency.setType(node.getType());
-            dependency.setClassifier(node.getClassifier());
-            return dependency;
         }
 
         @Override
         public boolean endVisit(DependencyNode node) {
             return true;
-        }
-
-        private Artifact resolveDependency(Artifact artifact) {
-            try {
-                return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
-                        .iterator()
-                        .next()
-                        .getArtifact();
-            } catch (Exception e) {
-                LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
-                return artifact;
-            }
         }
     }
 
@@ -122,6 +88,7 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             DependencyResolver resolver,
+            AbstractChecksumCalculator checksumCalculator,
             boolean includeMavenPlugins,
             Metadata metadata) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
@@ -130,7 +97,7 @@ public class LockFileFacade {
             plugins = getAllPlugins(project);
         }
         // Get all the artifacts for the dependencies in the project
-        var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, resolver);
+        var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, checksumCalculator);
         var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -152,7 +119,7 @@ public class LockFileFacade {
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            DependencyResolver resolver) {
+            AbstractChecksumCalculator checksumCalculator) {
         try {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
@@ -160,12 +127,11 @@ public class LockFileFacade {
             buildingRequest.setProject(project);
             var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
             MutableGraph<Artifact> graph = GraphBuilder.directed().build();
-            rootNode.accept(new ResolvingDependencyNodeVisitor(graph, resolver, buildingRequest));
-
-            return DependencyGraph.of(graph);
+            rootNode.accept(new GraphBuildingNodeVisitor(graph));
+            return DependencyGraph.of(graph, checksumCalculator);
         } catch (Exception e) {
             LOGGER.warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build());
+            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator);
         }
     }
 }

@@ -2,6 +2,8 @@ package io.github.chains_project.maven_lockfile;
 
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
+import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
@@ -15,7 +17,9 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
@@ -56,6 +60,13 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${java.version}")
     private String javaVersion;
+
+    @Parameter(defaultValue = "SHA-256", property = "checksumAlgorithm")
+    private String checksumAlgorithm;
+
+    @Parameter(defaultValue = "maven_local", property = "checksumMode")
+    private String checksumMode;
+
     /**
      * Validate the local copies of the dependencies against the project's lock file.
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
@@ -66,12 +77,24 @@ public class ValidateChecksumMojo extends AbstractMojo {
 
             String osName = System.getProperty("os.name");
             Metadata metadata = new Metadata(osName, mavenVersion, javaVersion);
+            AbstractChecksumCalculator checksumCalculator = null;
+            ProjectBuildingRequest buildingRequest =
+                    new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+            if (checksumMode.equals("maven_local")) {
+                checksumCalculator =
+                        new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
+            } else if (checksumMode.equals("maven_central")) {
+                // FIXME: do it
+            } else {
+                throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
+            }
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session,
                     project,
                     dependencyCollectorBuilder,
                     dependencyResolver,
+                    checksumCalculator,
                     Boolean.parseBoolean(includeMavenPlugins),
                     metadata);
             if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
