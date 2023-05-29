@@ -6,7 +6,6 @@
   "semanticCommitType": ":arrow_up:",
   "semanticCommits": true,
   "gitIgnoredAuthors" : [
-    // this id seems to be the same for all github actions.s
     "41898282+github-actions[bot]@users.noreply.github.com",
     "github-actions[bot]@users.noreply.github.com"
   ],
