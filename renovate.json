@@ -16,7 +16,8 @@
         "patch",
         "pin",
         "digest",
-        "fix"
+        "fix",
+        "action"
       ],
       "automerge": true,
       "automergeStrategy" : "squash",
