@@ -1,27 +1,33 @@
-name: Generate Doc
-
+name: My Workflow
 on:
-  pull_request:
-
-
+  push:
+    branches:
+      - main
 jobs:
-  readme:
+  build:
     runs-on: ubuntu-latest
     steps:
-        - name: checkout repository
-          uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-          with:
-            fetch-depth: 0
-            ref: ${{ github.event.pull_request.head.ref }}
-        - name: Set up Maven
-          uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
-          with:
-            maven-version: 3.9.0
-        - name: Generate Readme+action.yml
-          run: mvn generate-resources resources:copy-resources -q
-        - name: run maven spotless
-          run: mvn spotless:apply
-        - name: commit doc changes
-          uses: EndBug/add-and-commit@1bad3abcf0d6ec49a5857d124b0bfb52dc7bb081 # v9
-          with:
-              message: "📝Update Documentation with current version"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4
+        with:
+          maven-version: 3.9.0
+      - name: Generate Readme+action.yml
+        run: mvn generate-resources resources:copy-resources -q
+      - name: Run Maven Spotless
+        run: mvn spotless:apply
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git fetch
+          if git diff --quiet; then
+            echo "::set-output name=changes::false"
+          else
+            echo "::set-output name=changes::true"
+          fi
+      - name: Commit changes
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "📝 Update Documentation with current version"
