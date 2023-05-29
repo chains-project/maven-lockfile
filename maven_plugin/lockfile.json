@@ -2387,7 +2387,7 @@
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
-      "version": "2.36.0"
+      "version": "2.37.0"
     },
     {
       "groupId": "org.apache.maven.plugins",
