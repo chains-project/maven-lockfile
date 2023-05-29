@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
       - name: Set up Maven
-        uses: stCarolas/setup-maven@v4
+        uses: stCarolas/setup-maven@1d56b37995622db66cce1214d81014b09807fb5a # v4
         with:
           maven-version: 3.9.0
       - name: Generate Readme+action.yml
@@ -28,6 +28,6 @@ jobs:
           fi
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@1bad3abcf0d6ec49a5857d124b0bfb52dc7bb081 # v9
         with:
           message: "📝 Update Documentation with current version"
