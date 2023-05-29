@@ -25,7 +25,8 @@
     {
       "updateTypes": [
         "lockFileMaintenance",
-        "pin"
+        "pin",
+        "pinDigest"
       ],
       "semanticCommitType": ":pushpin:"
     },
