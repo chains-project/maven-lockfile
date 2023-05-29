@@ -20,6 +20,7 @@
         "action"
       ],
       "automerge": true,
+      "automergeType": "pr",
       "automergeStrategy" : "squash",
       "semanticCommitType": ":arrow_up:"
     },
