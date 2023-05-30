@@ -4,10 +4,56 @@
   "version": "2.0.1-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [],
-  "mavenPlugins": [],
+  "mavenPlugins": [
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.4.1"
+    },
+    {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.37.0"
+    },
+    {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "3.0.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-resources-plugin",
+      "version": "3.3.1"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-compiler-plugin",
+      "version": "3.11.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "2.5"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-install-plugin",
+      "version": "2.4"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-deploy-plugin",
+      "version": "2.7"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-site-plugin",
+      "version": "3.3"
+    }
+  ],
   "metadata": {
-    "osName": "Windows 11",
-    "mavenVersion": "3.9.1",
-    "javaVersion": "19.0.2"
+    "osName": "Linux",
+    "mavenVersion": "3.8.2",
+    "javaVersion": "11.0.19"
   }
 }
