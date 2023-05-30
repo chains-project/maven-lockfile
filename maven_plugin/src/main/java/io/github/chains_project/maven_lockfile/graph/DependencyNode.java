@@ -16,12 +16,12 @@ import org.apache.maven.artifact.versioning.VersionRange;
  */
 public class DependencyNode implements Comparable<DependencyNode> {
 
-    private GroupId groupId;
-    private ArtifactId artifactId;
-    private VersionNumber version;
-    private String checksumAlgorithm;
-    private String checksum;
-    private VersionRange versionRange;
+    private final GroupId groupId;
+    private final ArtifactId artifactId;
+    private final VersionNumber version;
+    private final String checksumAlgorithm;
+    private final String checksum;
+    private final VersionRange versionRange;
     NodeId id;
 
     @Expose(serialize = false, deserialize = false)
