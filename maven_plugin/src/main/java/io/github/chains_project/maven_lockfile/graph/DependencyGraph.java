@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.versioning.VersionRange;
 
 public class DependencyGraph {
 
@@ -56,7 +57,7 @@ public class DependencyGraph {
                 .collect(Collectors.toList());
         List<DependencyNode> nodes = new ArrayList<>();
         for (var artifact : roots) {
-            nodes.add(createDependencyNode(artifact, graph, calc, true));
+            nodes.add(createDependencyNode(artifact, graph, calc, artifact.getVersionRange(), true));
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
         List<DependencyNode> dependencyRoots =
@@ -66,15 +67,16 @@ public class DependencyGraph {
     }
 
     private static DependencyNode createDependencyNode(
-            Artifact node, Graph<Artifact> graph, AbstractChecksumCalculator calc, boolean isRoot) {
+            Artifact node, Graph<Artifact> graph, AbstractChecksumCalculator calc, VersionRange range, boolean isRoot) {
         var groupId = GroupId.of(node.getGroupId());
         var artifactId = ArtifactId.of(node.getArtifactId());
         var version = VersionNumber.of(node.getVersion());
         var checksum = isRoot ? "" : calc.calculateChecksum(node);
 
-        DependencyNode value = new DependencyNode(artifactId, groupId, version, calc.getChecksumAlgorithm(), checksum);
+        DependencyNode value =
+                new DependencyNode(artifactId, groupId, version, calc.getChecksumAlgorithm(), checksum, range);
         for (var artifact : graph.successors(node)) {
-            value.addChild(createDependencyNode(artifact, graph, calc, false));
+            value.addChild(createDependencyNode(artifact, graph, calc, artifact.getVersionRange(), false));
         }
         return value;
     }

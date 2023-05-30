@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import org.apache.maven.artifact.versioning.VersionRange;
 
 /**
  * This class represents a node in the dependency graph. It contains the artifactId, groupId and version  of the dependency.
@@ -20,6 +21,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private VersionNumber version;
     private String checksumAlgorithm;
     private String checksum;
+    private VersionRange versionRange;
     NodeId id;
 
     @Expose(serialize = false, deserialize = false)
@@ -28,7 +30,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private List<DependencyNode> children;
 
     DependencyNode(
-            ArtifactId artifactId, GroupId groupId, VersionNumber version, String checksumAlgorithm, String checksum) {
+            ArtifactId artifactId,
+            GroupId groupId,
+            VersionNumber version,
+            String checksumAlgorithm,
+            String checksum,
+            VersionRange versionRange) {
         this.artifactId = artifactId;
         this.groupId = groupId;
         this.version = version;
@@ -36,6 +43,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.checksum = checksum;
         this.children = new ArrayList<>();
         this.id = new NodeId(groupId, artifactId, version);
+        this.versionRange = versionRange;
     }
     /**
      * @return the artifactId
@@ -94,10 +102,16 @@ public class DependencyNode implements Comparable<DependencyNode> {
     public String getChecksumAlgorithm() {
         return checksumAlgorithm;
     }
+    /**
+     * @return the versionRange
+     */
+    public VersionRange getVersionRange() {
+        return versionRange;
+    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artifactId, groupId, version, parent, children, checksum);
+        return Objects.hash(artifactId, groupId, version, parent, children, checksum, versionRange);
     }
 
     @Override
@@ -114,7 +128,9 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(version, other.version)
                 && Objects.equals(parent, other.parent)
                 && Objects.equals(children, other.children)
-                && Objects.equals(checksum, other.checksum);
+                && Objects.equals(checksum, other.checksum)
+                && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
+                && Objects.equals(versionRange, other.versionRange);
     }
 
     @Override
