@@ -540,3 +540,51 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
 - monperrus ([@monperrus](https://github.com/monperrus))
+
+# 2.1.0
+## Changelog
+
+## 🚀 Added
+- 3b74bfa ✨ Add freeze mojo (#239)
+- 194e5b8 👷Fix renovate.json (#227)
+
+## 🔄️ Changed
+- e5bd5e6 📌(deps): Pin dependencies (#225)
+
+## 📦 Dependencies
+- 19c741d ⬆️ (deps): Update dependency org.instancio:instancio-junit to v2.16.0
+- fc01267 ⬆️ (deps): Update quarkus.platform.version to v3.1.0.Final
+- 498fad4 ⬆️ (deps): Update quarkus.platform.version to v3.0.4.Final
+- 92a77f7 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.37.0
+
+## 🏁 Release
+- 7141a94 🔖 Releasing version 2.1.0
+- 44b2950 🔖(deps): Update tj-actions/changed-files digest to b137868
+- ed24594 🔖(deps): Update tj-actions/changed-files digest to 1aae160
+- 50bca2b 🔖(deps): Update tj-actions/changed-files digest to 5d2fcdb
+- db5ca2c 🔖(deps): Update tj-actions/changed-files digest to 9ecc6e7
+- 40778c0 🔖(deps): Update github/codeql-action digest to 83f0fe6
+- f3c9771 🔖(deps): Update tj-actions/changed-files digest to 17c3e9e
+- 1bef8e5 🔖(deps): Update tj-actions/changed-files digest to 3f7b5c9
+- 1614707 🔖(deps): Update tj-actions/changed-files digest to cf4fe87
+- d839f79 🔖(deps): Update github/codeql-action digest to 0225834
+- 3cde0bb 🔖 Setting SNAPSHOT version 2.0.0
+
+---
+- 37cab7c chore: update lockfile
+- 9fee7cf chore: update lockfile
+- 2368c1e chore: update lockfile
+- 17c69bb chore(deps): update dependency org.codehaus.gmavenplus:gmavenplus-plugin to v3 (#219)
+- 3d25ba2 chore(deps): update actions/checkout action to v3 (#226)
+- f7815a0 chore(deps): update tj-actions/changed-files action to v36 (#223)
+- c8ea772 chore: update lockfile
+- bf069bf fix(deps): update dependency com.google.guava:guava to v32 (#224)
+- a2ab192 chore(deps): update chains-project/maven-lockfile action to v2 (#217)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
