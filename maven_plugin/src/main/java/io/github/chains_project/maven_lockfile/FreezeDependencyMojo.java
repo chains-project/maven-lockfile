@@ -88,8 +88,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
     private List<Dependency> getHighestVersionDependency(LockFile lockFileFromFile) {
         var deps = lockFileFromFile.getDependencies();
         List<Dependency> filteredDeps = new ArrayList<>();
-        Queue<DependencyNode> depQueue = new ArrayDeque<>();
-        depQueue.addAll(deps);
+        Queue<DependencyNode> depQueue = new ArrayDeque<>(deps);
         while (!depQueue.isEmpty()) {
             var dep = depQueue.poll();
             filteredDeps.add(toMavenDependency(dep));
