@@ -51,6 +51,13 @@ Then run the following command to validate the repository:
 mvn io.github.chains-project:maven-lockfile:validate
 ```
 If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
+
+
+```
+mvn io.github.chains-project:maven-lockfile:freeze
+```
+This replaces every version in the pom with the version from the lockfile. Also, every transitive dependency is added to the pom with the version from the lockfile.
+If you invoke build afterward, the exact versions from the lockfile are used.
 ## Format
 
 An example lockfile is shown below:
