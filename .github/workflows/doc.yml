@@ -1,8 +1,6 @@
-name: My Workflow
+name: Doc Generation
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 jobs:
   build:
     runs-on: ubuntu-latest
