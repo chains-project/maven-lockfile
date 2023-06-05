@@ -11,8 +11,8 @@
 
 ![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
 
-This plugin is a state-of-the-art solution that validates the integrity of a maven build.
-It does this by generating a lock file that contains the checksums of all the artifacts in the repository.
+This plugin is a state-of-the-art solution that validates the integrity of a maven build. 
+It does this by generating a lock file that contains the checksums of all the artifacts in the repository. 
 The lock file can then be used to validate the integrity prior to building.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 We also allow to rebuild your old versions with the pinned versions from the lockfile.
