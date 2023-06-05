@@ -31,7 +31,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * For this every version in the pom file will be replaced with the version from the lock file.
  * This also adds all dependencies from the lock file that are not in the pom file.
  * <br>
- * <b> If there exists no lock file, this fails.
+ * <b> If there exists no lock file, this fails.</b>
  */
 @Mojo(
         name = "freeze",
