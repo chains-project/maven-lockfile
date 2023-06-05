@@ -15,15 +15,21 @@ This plugin is a state-of-the-art solution that validates the integrity of a mav
 It does this by generating a lock file that contains the checksums of all the artifacts in the repository. 
 The lock file can then be used to validate the integrity prior to building.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
+We also allow to rebuild your old versions with the pinned versions from the lockfile.
+We call this `freeze` and replace all versions in the pom with the versions from the lockfile.
+Also, every transitive dependency is pinned to the version from the lockfile.
+We add these dependencies to the pom and due to the transitive dependency resolution of maven, the exact versions are used.
 
 # Features:
 
-* Generative Maven lockfiles 
+* Generative Maven lockfiles.
+* Rebuild old versions with the pinned versions from the lockfile.
 * Checking Maven lockfiles against the local dependencies.
 * Lockfile format in readable JSON
 * Support for application, test, plugin dependencies
 * One Lockfile per module
 * Usage as Maven plugin and GitHub action
+
 
 ## Installation:
 
