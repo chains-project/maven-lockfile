@@ -1,0 +1,65 @@
+{
+  "artifactID": "my-app",
+  "groupID": "com.mycompany.app",
+  "version": "1",
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "5.9.2",
+      "checksumAlgorithm": "sha1",
+      "checksum": "fed843581520eac594bc36bb4b0f55e7b947dda9",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "children": [
+        {
+          "groupId": "org.apiguardian",
+          "artifactId": "apiguardian-api",
+          "version": "1.1.2",
+          "checksumAlgorithm": "sha1",
+          "checksum": "a231e0d844d2721b0fa1b238006d15c6ded6842a",
+          "id": "org.apiguardian:apiguardian-api:1.1.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        },
+        {
+          "groupId": "org.junit.platform",
+          "artifactId": "junit-platform-commons",
+          "version": "1.9.2",
+          "checksumAlgorithm": "sha1",
+          "checksum": "6f9f8621d8230cd38aa42e58ccbc0c00569131ce",
+          "id": "org.junit.platform:junit-platform-commons:1.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": [
+            {
+              "groupId": "org.apiguardian",
+              "artifactId": "apiguardian-api",
+              "version": "1.1.2",
+              "checksumAlgorithm": "sha1",
+              "checksum": "a231e0d844d2721b0fa1b238006d15c6ded6842a",
+              "id": "org.apiguardian:apiguardian-api:1.1.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.opentest4j",
+          "artifactId": "opentest4j",
+          "version": "1.2.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "28c11eb91f9b6d8e200631d46e20a7f407f2a046",
+          "id": "org.opentest4j:opentest4j:1.2.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "metadata": {
+    "osName": "Windows 11",
+    "mavenVersion": "3.9.1",
+    "javaVersion": "20.0.1"
+  }
+}

@@ -69,6 +69,21 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(lockFile.getMavenPlugins()).isNotEmpty();
     }
 
+    @MavenTest
+    public void freezeJunit(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+        var path = Files.find(
+                        result.getMavenProjectResult().getTargetBaseDirectory(),
+                        Integer.MAX_VALUE,
+                        (u, v) -> u.getFileName().toString().contains("pom.xml"))
+                .findAny()
+                .orElseThrow();
+        var pom = Files.readString(path);
+        assertThat(pom).contains("<groupId>org.junit.jupiter</groupId>");
+        assertThat(pom).contains("<artifactId>junit-jupiter-api</artifactId>");
+        assertThat(pom).contains("<version>5.9.2</version>");
+    }
+
     private Path getLockFile(MavenExecutionResult result) throws IOException {
         return Files.find(
                         result.getMavenProjectResult().getTargetBaseDirectory(),
