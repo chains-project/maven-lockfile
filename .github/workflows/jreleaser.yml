@@ -19,6 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 # Setups the environment
+      - name: Harden Runner
+        uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969 # v2.4.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
@@ -60,7 +65,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Releasing version ${{ env.NEXT_VERSION }}
@@ -71,7 +76,7 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
-        uses: jreleaser/release-action@v2
+        uses: jreleaser/release-action@0b198089c53ad2aef0d2bff6b5e6061ead2bbb90 # v2
         with:
           setup-java: false
           version: 1.4.0
@@ -107,7 +112,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources -q
 # Commit and push changes
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # master
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}
