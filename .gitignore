@@ -28,3 +28,4 @@ out/
 *.versionsBackup
 *.log
 .mvn/.gradle-enterprise/gradle-enterprise-workspace-id
+JRELEASER_VERSION
