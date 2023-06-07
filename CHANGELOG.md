@@ -588,3 +588,38 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 2.2.0
+## Changelog
+
+## 🚀 Added
+- 83bf0cc 👷 Check reproducilbilty of maven plugin (#249)
+- e7ded4b ✨ Add SBOM to jreleaser (#247)
+
+## 🗑 Removed
+- 9ce7203 🔥 Remove dev files (#248)
+
+## 🐛 Fixed
+- 4b03712 🚑 Renable signing of artifacts
+- e9b3efc 💚 remove spotless from markdown file (#246)
+
+## 📦 Dependencies
+- 33d0b78 ⬆️ (deps): Update surefire-plugin.version to v3.1.2
+- fd38226 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.1.2
+
+## 🏁 Release
+- 9505072 🔖 Releasing version 2.2.0
+- 60a2cc8 🔖(deps): Update tj-actions/changed-files digest to 07e0177
+- e5440cb 🔖 Setting SNAPSHOT version 2.1.0
+
+---
+- 059fc8d chore: update lockfile
+- 0cc5301 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
