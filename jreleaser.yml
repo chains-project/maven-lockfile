@@ -34,7 +34,7 @@ files:
     - path: target/bom.xml
     - path: target/bom.json
 signing:
-  active: NEVER
+  active: ALWAYS
   armored: true
 deploy:
   maven:
