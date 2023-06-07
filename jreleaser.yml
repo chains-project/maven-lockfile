@@ -28,8 +28,13 @@ release:
         contributors:
           - '[bot]'
           - 'GitHub'
-signing:
+files:
   active: ALWAYS
+  artifacts:
+    - path: target/bom.xml
+    - path: target/bom.json
+signing:
+  active: NEVER
   armored: true
 deploy:
   maven:
