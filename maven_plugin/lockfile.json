@@ -2380,6 +2380,11 @@
   ],
   "mavenPlugins": [
     {
+      "groupId": "org.cyclonedx",
+      "artifactId": "cyclonedx-maven-plugin",
+      "version": "2.7.9"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
       "version": "3.4.1"
