@@ -33,7 +33,8 @@ files:
   artifacts:
     - path: target/bom.xml
     - path: target/bom.json
-    - path: target/*.buildinfo
+  globs:
+    - pattern: target/*.buildinfo
 signing:
   active: ALWAYS
   armored: true
