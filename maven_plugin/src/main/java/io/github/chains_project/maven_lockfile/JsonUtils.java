@@ -7,6 +7,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.NodeId;
 
@@ -32,6 +33,11 @@ public class JsonUtils {
                         NodeId.class, (JsonSerializer<NodeId>) (it, type, ignore) -> new JsonPrimitive(it.toString()))
                 .registerTypeAdapter(NodeId.class, (JsonDeserializer<NodeId>)
                         (it, type, ignore) -> NodeId.fromValue(it.getAsString()))
+                .registerTypeAdapter(MavenScope.class, (JsonSerializer<MavenScope>)
+                        (it, type, ignore) -> new JsonPrimitive(it.getValue()))
+                .registerTypeAdapter(MavenScope.class, (JsonDeserializer<MavenScope>) (it, type, ignore) -> {
+                    return MavenScope.fromString(it.getAsString());
+                })
                 // .registerTypeAdapter(LockFileDependency.class, new LockFileDependencyAdapter())
                 .create();
     }
