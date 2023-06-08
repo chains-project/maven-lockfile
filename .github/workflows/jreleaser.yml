@@ -68,6 +68,8 @@ jobs:
 # Now we can run the release
       - name: Stage release
         run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::default::file://`pwd`/target/staging-deploy
+      - name: generate buildinfo file
+        run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
