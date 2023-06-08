@@ -10,7 +10,7 @@ jobs:
   build-and-push-action:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
