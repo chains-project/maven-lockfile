@@ -7,6 +7,7 @@
         <img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
     <a href="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml" alt="Lockfile">
         <img src="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg" /></a>
+    <a href="https://bestpractices.coreinfrastructure.org/projects/7447"><img src="https://bestpractices.coreinfrastructure.org/projects/7447/badge"></a>
 </p>
 
 ![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
