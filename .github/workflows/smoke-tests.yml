@@ -2,7 +2,9 @@ on:
   workflow_dispatch:
   pull_request:
 env:
-  working-directory: ./maven_plugin
+  working-directory: ./
+permissions:
+  contents: read
 jobs:
   jbang:
     defaults:
