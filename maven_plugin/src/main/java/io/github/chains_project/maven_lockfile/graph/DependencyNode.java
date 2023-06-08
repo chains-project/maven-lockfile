@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile.graph;
 import com.google.gson.annotations.Expose;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private VersionNumber version;
     private String checksumAlgorithm;
     private String checksum;
+    private final MavenScope scope;
     NodeId id;
 
     @Expose(serialize = false, deserialize = false)
@@ -28,7 +30,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private List<DependencyNode> children;
 
     DependencyNode(
-            ArtifactId artifactId, GroupId groupId, VersionNumber version, String checksumAlgorithm, String checksum) {
+            ArtifactId artifactId,
+            GroupId groupId,
+            VersionNumber version,
+            MavenScope scope,
+            String checksumAlgorithm,
+            String checksum) {
         this.artifactId = artifactId;
         this.groupId = groupId;
         this.version = version;
@@ -36,6 +43,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.checksum = checksum;
         this.children = new ArrayList<>();
         this.id = new NodeId(groupId, artifactId, version);
+        this.scope = scope;
     }
     /**
      * @return the artifactId
@@ -60,6 +68,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public VersionNumber getVersion() {
         return version;
+    }
+    /**
+     * @return the scope
+     */
+    public MavenScope getScope() {
+        return scope;
     }
 
     void addChild(DependencyNode child) {
@@ -114,7 +128,9 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(version, other.version)
                 && Objects.equals(parent, other.parent)
                 && Objects.equals(children, other.children)
-                && Objects.equals(checksum, other.checksum);
+                && Objects.equals(checksum, other.checksum)
+                && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
+                && Objects.equals(scope, other.scope);
     }
 
     @Override

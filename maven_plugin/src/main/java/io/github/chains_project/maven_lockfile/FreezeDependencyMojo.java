@@ -61,12 +61,12 @@ public class FreezeDependencyMojo extends AbstractMojo {
             List<Dependency> pomDeps = pom.getDependencies();
             Map<String, Dependency> pomDepMap = new HashMap<>();
             for (var pomDep : pomDeps) {
-                String key = pomDep.getGroupId() + ":" + pomDep.getArtifactId();
+                String key = pomDep.getGroupId() + ":" + pomDep.getArtifactId() + ":" + pomDep.getScope();
                 pomDepMap.put(key, pomDep);
             }
 
             for (Dependency dep : filteredDeps) {
-                String key = dep.getGroupId() + ":" + dep.getArtifactId();
+                String key = dep.getGroupId() + ":" + dep.getArtifactId() + ":" + dep.getScope();
                 var pomDep = pomDepMap.get(key);
                 if (pomDep != null) {
                     pomDep.setVersion(dep.getVersion());
@@ -119,6 +119,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
         mavenDep.setGroupId(dep.getGroupId().getValue());
         mavenDep.setArtifactId(dep.getArtifactId().getValue());
         mavenDep.setVersion(dep.getVersion().getValue());
+        mavenDep.setScope(dep.getScope().getValue());
         return mavenDep;
     }
 }

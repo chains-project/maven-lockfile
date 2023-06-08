@@ -4,6 +4,7 @@ import com.google.common.graph.Graph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +72,9 @@ public class DependencyGraph {
         var artifactId = ArtifactId.of(node.getArtifactId());
         var version = VersionNumber.of(node.getVersion());
         var checksum = isRoot ? "" : calc.calculateChecksum(node);
-
-        DependencyNode value = new DependencyNode(artifactId, groupId, version, calc.getChecksumAlgorithm(), checksum);
+        var scope = MavenScope.fromString(node.getScope());
+        DependencyNode value =
+                new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
         for (var artifact : graph.successors(node)) {
             value.addChild(createDependencyNode(artifact, graph, calc, false));
         }
