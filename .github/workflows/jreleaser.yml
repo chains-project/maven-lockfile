@@ -60,7 +60,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # v 1.4.0
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Releasing version ${{ env.NEXT_VERSION }}
@@ -73,7 +73,7 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
-        uses: jreleaser/release-action@v2
+        uses: jreleaser/release-action@ab17acedd9cb61132c6143483d7730307b6893bc
         with:
           setup-java: false
           version: 1.4.0
@@ -109,7 +109,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources -q
 # Commit and push changes
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # v 1.4.0
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}
