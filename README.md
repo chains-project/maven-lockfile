@@ -138,7 +138,8 @@ name: Lockfile
 on:
   pull_request:
 
-
+permissions:
+  contents: write
 jobs:
   check-lockfile:
         runs-on: ubuntu-latest
