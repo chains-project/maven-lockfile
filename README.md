@@ -140,9 +140,11 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 jobs:
   check-lockfile:
+        permissions:
+          contents: write
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile

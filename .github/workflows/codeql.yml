@@ -24,6 +24,8 @@ env:
     -Dmaven.resolver.transport=native
     -Daether.connector.connectTimeout=300000
     -Daether.connector.requestTimeout=300000
+permissions:
+  contents: read
 jobs:
   analyze:
     name: Analyze
