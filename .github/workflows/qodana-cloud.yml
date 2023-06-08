@@ -5,10 +5,13 @@ on:
       - main
 permissions:
   contents: read
-  security-events: write
 jobs:
   qodana:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
