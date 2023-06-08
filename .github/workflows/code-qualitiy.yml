@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
   pull_request:
 
-
+permissions:
+  contents: read
 jobs:
   maven-quality:
     runs-on: ubuntu-latest
