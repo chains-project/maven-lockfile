@@ -623,3 +623,55 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 3.0.0
+## Changelog
+
+## 🚀 Added
+- 5d68811 ✨ Add scope information in lockfile (#271)
+- a61357e 👷 Restrict token scopes (#268)
+- 0fc8576 👷 Replace autobuild with maven commands (#265)
+- 1f89b52 👷 Add codeql (#259)
+- 4e34f8a 👷 Add buildinfo files to releases (#257)
+- 46eebad 👷 Add OpenSSF scorecard (#254)
+- 03fbbda 👷 Add dependency-review workflow (#253)
+
+## 🔄️ Changed
+- c39c060 📌(deps): Pin dependencies (#266)
+- a374f7b 📌 pin commit action to hash (#262)
+- 14dd743 📌(deps): Pin dependencies (#255)
+- 1f4e689 📌 Pin cyclonedx-maven-plugin to version 2.7.9 (#250)
+
+## 🐛 Fixed
+- 3e4f11f 🚑 Use globs instead of path
+
+## 🔒️ Security
+- 3c7decb 🔒️ Restrict permissions of github workflows (#258)
+
+## 📦 Dependencies
+- a0192a6 ⬆️ (deps): Update github/codeql-action action to v2.3.6
+- 66bb351 ⬆️ (deps): Update actions/checkout action to v3.5.2 (#267)
+- 3fb6c63 ⬆️ (deps): Update ossf/scorecard-action action to v2.1.3
+- ad18fdb ⬆️ (deps): Update actions/upload-artifact action to v3.1.2
+- f19c7e8 ⬆️ (deps): Update chains-project/maven-lockfile action to v2.2.0 (#240)
+- 7d98d26 ⬆️ (deps): Update quarkus.platform.version to v3.1.1.Final
+
+## 📝 Documentation
+- 72e3a30 📝 Add Security Policy (#269)
+- 9154f79 📝 Add openSSF badge (#264)
+
+## 🏁 Release
+- 4e584ec 🔖 Releasing version 3.0.0
+- 8c58371 🔖 Setting SNAPSHOT version 2.2.0
+
+---
+- 230076e chore(deps): update actions/dependency-review-action action to v3 (#256)
+- f0f5a8c chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
