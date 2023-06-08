@@ -7,10 +7,11 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.9.2",
+      "version": "5.9.3",
       "checksumAlgorithm": "sha1",
-      "checksum": "fed843581520eac594bc36bb4b0f55e7b947dda9",
-      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "checksum": "815818ad6ffcc8d320d8fbdf3d748c753cf83201",
+      "scope": "test",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.9.3",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -18,18 +19,20 @@
           "version": "1.1.2",
           "checksumAlgorithm": "sha1",
           "checksum": "a231e0d844d2721b0fa1b238006d15c6ded6842a",
+          "scope": "test",
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.9.2",
+          "version": "1.9.3",
           "checksumAlgorithm": "sha1",
-          "checksum": "6f9f8621d8230cd38aa42e58ccbc0c00569131ce",
-          "id": "org.junit.platform:junit-platform-commons:1.9.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "checksum": "36b2e26a90c41603be7f0094bee80e3f8a2cd4d4",
+          "scope": "test",
+          "id": "org.junit.platform:junit-platform-commons:1.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -37,8 +40,9 @@
               "version": "1.1.2",
               "checksumAlgorithm": "sha1",
               "checksum": "a231e0d844d2721b0fa1b238006d15c6ded6842a",
+              "scope": "test",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.3",
               "children": []
             }
           ]
@@ -49,8 +53,9 @@
           "version": "1.2.0",
           "checksumAlgorithm": "sha1",
           "checksum": "28c11eb91f9b6d8e200631d46e20a7f407f2a046",
+          "scope": "test",
           "id": "org.opentest4j:opentest4j:1.2.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
           "children": []
         }
       ]
@@ -60,6 +65,6 @@
   "metadata": {
     "osName": "Windows 11",
     "mavenVersion": "3.9.1",
-    "javaVersion": "20.0.1"
+    "javaVersion": "19.0.2"
   }
 }
