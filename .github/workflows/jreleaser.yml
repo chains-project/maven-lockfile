@@ -55,6 +55,8 @@ jobs:
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
+      - name: set branchname to next version
+        run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Generate Readme
@@ -64,6 +66,7 @@ jobs:
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Releasing version ${{ env.NEXT_VERSION }}
+          branch: ${{ env.BRANCH_NAME }}
 
 # Now we can run the release
       - name: Stage release
@@ -113,7 +116,16 @@ jobs:
         with:
           github_token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           message: 🔖 Setting SNAPSHOT version ${{ env.NEXT_VERSION }}
-
+          branch: ${{ env.BRANCH_NAME }}
+      - name: Merge Fast Forward
+        uses: MaximeHeckel/github-action-merge-fast-forward@9710f422198dd92989b8c076096d03c3bd61e6f4 # v1.1.1
+        with:
+          # Branch to merge
+          branchtomerge: ${{ env.BRANCH_NAME }}
+          # Branch that will be updated
+          branch: main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # Log failure:
       - name: JReleaser release output
         if: always()
