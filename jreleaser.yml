@@ -12,8 +12,8 @@ project:
     homepage: https://github.com/chains-project/maven-lockfile
   java:
     groupId: io.github.chains-project
-    version: 11
-  inceptionYear: 2023
+    version: "11"
+  inceptionYear: "2023"
 
 release:
   github:
@@ -31,8 +31,8 @@ release:
 files:
   active: ALWAYS
   artifacts:
-    - path: target/bom.xml
-    - path: target/bom.json
+    - path: target/staging-deploy/bom.xml
+    - path: target/staging-deploy/bom.json
   globs:
     - pattern: target/*.buildinfo
 signing:
