@@ -675,3 +675,22 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 3.1.1
+## Changelog
+
+## 🚀 Added
+- 28c3fd1 👷 Use FF merge in release script
+
+## 🏁 Release
+- aab5897 🔖 Releasing version 3.1.1
+
+---
+- 115219a chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
