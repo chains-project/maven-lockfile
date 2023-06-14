@@ -694,3 +694,43 @@ We'd like to thank the following people for their contributions:
 - Martin ([@MartinWitt](https://github.com/MartinWitt))
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 3.3.0
+## Changelog
+
+## 🚀 Added
+- e7a3438 ✨ Upgrade maven-lockfile version to 3.3.0-SNAPSHOT
+- df19514 ✨ Add plugin versions enforcement (#288)
+- 7c3c8c2 👷 Add JRELEASER_GITHUB_TOKEN environmental variable to actions/checkout to fetch repository (#281)
+
+## 🐛 Fixed
+- cc95eaf 🚑 fix deploy target
+- fd67834 🚑 Fix deploy target
+
+## 📦 Dependencies
+- d0bd5d8 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-surefire-plugin to v3.1.2
+- 6dc9ed3 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-install-plugin to v3.1.1
+- 4c6db90 ⬆️ (deps): Update JetBrains/qodana-action action to v2023.1.4 (#278)
+- ec62c41 ⬆️ (deps): Update github/codeql-action action to v2.20.0 (#283)
+
+## 📝 Documentation
+- 2c75605 📝 Improve Description (#285)
+
+## 🏁 Release
+- fa86d09 🔖 Releasing version 3.3.0
+- ec529e9 🔖(deps): Update github/codeql-action digest to 6c089f5 (#282)
+- a8890dd 🔖 Setting SNAPSHOT version 3.1.1
+- f39b371 🔖 Releasing version 3.1.1
+
+---
+- e0e13ce chore: update lockfile
+- 5c3d805 chore: update lockfile
+- abcba6c chore: update lockfile
+- 0351d74 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
