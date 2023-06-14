@@ -42,18 +42,53 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-clean-plugin",
-      "version": "2.5"
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.3.0"
     },
     {
-      "groupId": "org.apache.maven.plugins",
+      "groupId": "org.apache.maven.plugin",
+      "artifactId": "maven-site-plugin",
+      "version": "3.12.1"
+    },
+    {
+      "groupId": "org.apache.maven.plugin",
+      "artifactId": "maven-eclipse-plugin",
+      "version": "3.2.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugin",
       "artifactId": "maven-install-plugin",
-      "version": "2.4"
+      "version": "3.1.0"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-site-plugin",
-      "version": "3.3"
+      "version": "3.12.1"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-eclipse-plugin",
+      "version": "3.2.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.2.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-install-plugin",
+      "version": "3.1.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.0.0"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.3.0"
     }
   ],
   "metadata": {
