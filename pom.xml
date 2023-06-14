@@ -6,7 +6,13 @@
   <version>3.1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>maven-lockfile-parent</name>
-  <description>Integrity Maven Plugin</description>
+  <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
+    of a maven repository.
+    It does this by generating a lock file that contains the checksums of all the artifacts in the
+    repository.
+    The lock file can then be used to validate the integrity of the repository.
+    This guards the supply chain against malicious actors that might tamper with the artifacts in
+    the repository.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
   <inceptionYear>2023</inceptionYear>
   <licenses>
