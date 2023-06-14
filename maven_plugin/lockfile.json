@@ -2396,6 +2396,11 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-deploy-plugin",
+      "version": "3.1.1"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-plugin-plugin",
       "version": "3.9.0"
     },
@@ -2443,11 +2448,6 @@
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-install-plugin",
       "version": "2.4"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-deploy-plugin",
-      "version": "2.7"
     },
     {
       "groupId": "org.apache.maven.plugins",
