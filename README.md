@@ -148,7 +148,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@95050728e5a599a5e8b2da111f7adb394356ee4a # v2.2.0
+          uses: chains-project/maven-lockfile@115219a9d16011e77d57b64a000c13501615ef37 # v3.1.1
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
