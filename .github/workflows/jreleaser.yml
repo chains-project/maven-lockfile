@@ -69,6 +69,7 @@ jobs:
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
           git commit -am "🔖 Releasing version ${{ env.NEXT_VERSION }}"
+          git push --set-upstream origin ${{ env.BRANCH_NAME }}
 # Now we can run the release
       - name: Stage release
         run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy
@@ -114,7 +115,7 @@ jobs:
       - name: Commit & Push changes
         run: |
           git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
-          git push
+          git push --set-upstream origin ${{ env.BRANCH_NAME }}
       - name: Merge Fast Forward
         run: |
           git checkout main
