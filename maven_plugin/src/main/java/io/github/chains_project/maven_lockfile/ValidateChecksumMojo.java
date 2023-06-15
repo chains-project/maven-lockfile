@@ -105,6 +105,15 @@ public class ValidateChecksumMojo extends AbstractMojo {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
                 StringBuilder sb = new StringBuilder();
                 sb.append("Lock file validation failed. Differences:");
+                sb.append("\n");
+                sb.append("Your lockfile from file is for:"
+                        + lockFileFromFile.getGroupId().getValue() + ":"
+                        + lockFileFromFile.getName().getValue() + ":"
+                        + lockFileFromFile.getVersion().getValue() + "\n");
+                sb.append("Your generated lockfile is for:"
+                        + lockFileFromProject.getGroupId().getValue() + ":"
+                        + lockFileFromProject.getName().getValue() + ":"
+                        + lockFileFromProject.getVersion().getValue() + "\n");
                 sb.append("Missing dependencies in lock file:\n ");
                 sb.append(JsonUtils.toJson(diff.getMissingDependenciesInFile()));
                 sb.append("\n");

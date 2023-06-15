@@ -66,7 +66,24 @@ public class LockFile {
     public List<DependencyNode> getDependencies() {
         return nullToEmpty(dependencies);
     }
-
+    /**
+     * @return the groupId
+     */
+    public GroupId getGroupId() {
+        return groupId;
+    }
+    /**
+     * @return the name
+     */
+    public ArtifactId getName() {
+        return name;
+    }
+    /**
+     * @return the version
+     */
+    public VersionNumber getVersion() {
+        return version;
+    }
     /**
      * @return the mavenPlugins
      */
