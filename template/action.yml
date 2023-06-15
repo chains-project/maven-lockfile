@@ -29,6 +29,10 @@ inputs:
     description: 'Include Maven plugins in the lockfile'
     required: false
     default: 'false'
+  workflow-filename:
+    description: 'Name of the workflow file'
+    required: false
+    default: 'Lockfile.yml'
 runs:
   using: "composite"
   steps:
@@ -53,6 +57,7 @@ runs:
       with:
         files: |
               **/pom.xml
+              **/${{ inputs.workflow-filename}}
     - name: print all changed files
       run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
       shell: bash
