@@ -48,12 +48,12 @@
         <version>2.7.9</version>
         <configuration>
           <includeTestScope>true</includeTestScope>
-          <outputDirectory>${project.build.directory}/staging-deploy</outputDirectory>
+          <outputDirectory>${project.build.directory}/staging-deploy/io/github/chains-project/${project.artifactId}/</outputDirectory>
         </configuration>
         <executions>
           <execution>
             <goals>
-              <goal>makeAggregateBom</goal>
+              <goal>makeBom</goal>
             </goals>
             <phase>package</phase>
           </execution>

@@ -30,11 +30,9 @@ release:
           - 'GitHub'
 files:
   active: ALWAYS
-  artifacts:
-    - path: target/staging-deploy/bom.xml
-    - path: target/staging-deploy/bom.json
   globs:
     - pattern: target/*.buildinfo
+    - pattern: target/**/*cyclonedx.json
 signing:
   active: ALWAYS
   armored: true
