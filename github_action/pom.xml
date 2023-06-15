@@ -106,9 +106,7 @@
         <executions>
           <execution>
             <configuration>
-              <scripts>
-                <script></script>
-              </scripts>
+              <scripts></scripts>
             </configuration>
           </execution>
         </executions>
