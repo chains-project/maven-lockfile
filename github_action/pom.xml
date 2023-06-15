@@ -107,7 +107,6 @@
           <execution>
             <configuration>
               <scripts>
-                <script></script>
               </scripts>
             </configuration>
           </execution>
