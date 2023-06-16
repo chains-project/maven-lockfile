@@ -2363,21 +2363,21 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "2.16.0",
+      "version": "2.16.1",
       "checksumAlgorithm": "sha1",
-      "checksum": "7adcc632368d264000f05c980069070e64677b7c",
+      "checksum": "f187684536bcc54eecddba1fd389ea41a3ac77fd",
       "scope": "test",
-      "id": "org.instancio:instancio-junit:2.16.0",
+      "id": "org.instancio:instancio-junit:2.16.1",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "2.16.0",
+          "version": "2.16.1",
           "checksumAlgorithm": "sha1",
-          "checksum": "3b69f4e7e4f04752512993389844367db70e8573",
+          "checksum": "ecdbeabe0ebc607fee83c2d8f8372d0f06946e28",
           "scope": "test",
-          "id": "org.instancio:instancio-core:2.16.0",
-          "parent": "org.instancio:instancio-junit:2.16.0",
+          "id": "org.instancio:instancio-core:2.16.1",
+          "parent": "org.instancio:instancio-junit:2.16.1",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -2387,7 +2387,7 @@
               "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
               "scope": "test",
               "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:2.16.0",
+              "parent": "org.instancio:instancio-core:2.16.1",
               "children": []
             }
           ]
