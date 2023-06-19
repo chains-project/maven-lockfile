@@ -18,6 +18,7 @@ groups:
       - UseOfClone
       - UnstableApiUsage
 inspections:
+  - name: CheckDependencyLicenses
   - group: ExcludedInspections
     enabled: false
   - group: IncludedPaths
