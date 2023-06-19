@@ -734,3 +734,37 @@ We'd like to thank the following people for their contributions:
 - Martin ([@MartinWitt](https://github.com/MartinWitt))
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 3.4.1
+## Changelog
+
+## 📦 Dependencies
+- 406d938 ⬆️ (deps): Update chains-project/maven-lockfile action to v3.4.0 (#299)
+- 3ae3b52 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.12
+- 745aeef ⬆️ (deps): Update dependency org.instancio:instancio-junit to v2.16.1
+- c013614 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.11
+- 2bb7be5 ⬆️ (deps): Update quarkus.platform.version to v3.1.2.Final
+
+## 📝 Documentation
+- 4519853 📝 Update lockfile versions & add metadata (#306)
+
+## 🎲 Miscellaneous
+- a51bfba 🔍 Add dependency license checker to Qodana (#307)
+
+## 🏁 Release
+- 4ea1ddd 🔖 Releasing version 3.4.1
+- dd3f4da 🔖(deps): Update tj-actions/changed-files digest to e1754a4
+- f33573b 🔖(deps): Update tj-actions/changed-files digest to 9bf0914
+
+---
+- 6ded31f chore: update lockfile
+- 96950b4 chore: update lockfile
+- 2f561b2 chore: update lockfile
+- 02931a2 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
