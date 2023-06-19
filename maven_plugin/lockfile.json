@@ -1,7 +1,7 @@
 {
   "artifactID": "maven-lockfile",
   "groupID": "io.github.chains-project",
-  "version": "3.3.1-SNAPSHOT",
+  "version": "3.4.1-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -2095,11 +2095,11 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "1.9.10",
+      "version": "1.9.12",
       "checksumAlgorithm": "sha1",
-      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+      "checksum": "c16b76d44630ea6495b463678bd0b1a35eeced85",
       "scope": "compile",
-      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
+      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.12",
       "children": []
     },
     {
@@ -2363,21 +2363,21 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "2.16.0",
+      "version": "2.16.1",
       "checksumAlgorithm": "sha1",
-      "checksum": "7adcc632368d264000f05c980069070e64677b7c",
+      "checksum": "f187684536bcc54eecddba1fd389ea41a3ac77fd",
       "scope": "test",
-      "id": "org.instancio:instancio-junit:2.16.0",
+      "id": "org.instancio:instancio-junit:2.16.1",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "2.16.0",
+          "version": "2.16.1",
           "checksumAlgorithm": "sha1",
-          "checksum": "3b69f4e7e4f04752512993389844367db70e8573",
+          "checksum": "ecdbeabe0ebc607fee83c2d8f8372d0f06946e28",
           "scope": "test",
-          "id": "org.instancio:instancio-core:2.16.0",
-          "parent": "org.instancio:instancio-junit:2.16.0",
+          "id": "org.instancio:instancio-core:2.16.1",
+          "parent": "org.instancio:instancio-junit:2.16.1",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -2387,7 +2387,7 @@
               "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
               "scope": "test",
               "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:2.16.0",
+              "parent": "org.instancio:instancio-core:2.16.1",
               "children": []
             }
           ]

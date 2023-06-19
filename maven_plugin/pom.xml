@@ -4,14 +4,21 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.4.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>3.3.1-SNAPSHOT</version>
+  <version>3.4.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile-plugin</name>
+  <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
+    of a maven repository.
+    It does this by generating a lock file that contains the checksums of all the artifacts in the
+    repository.
+    The lock file can then be used to validate the integrity of the repository.
+    This guards the supply chain against malicious actors that might tamper with the artifacts in
+    the repository.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
   <prerequisites>
     <maven>${mavenVersion}</maven>
@@ -56,7 +63,7 @@
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
       <artifactId>maven-resolver-api</artifactId>
-      <version>1.9.10</version>
+      <version>1.9.12</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
@@ -102,7 +109,7 @@
     <dependency>
       <groupId>org.instancio</groupId>
       <artifactId>instancio-junit</artifactId>
-      <version>2.16.0</version>
+      <version>2.16.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
