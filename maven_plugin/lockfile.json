@@ -2095,11 +2095,11 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "1.9.12",
+      "version": "1.9.13",
       "checksumAlgorithm": "sha1",
-      "checksum": "c16b76d44630ea6495b463678bd0b1a35eeced85",
+      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
       "scope": "compile",
-      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.12",
+      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
       "children": []
     },
     {
