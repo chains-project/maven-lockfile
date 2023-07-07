@@ -45,5 +45,8 @@
       ],
       "semanticCommitType": ":bookmark:"
     }
+  ],
+  "ignoreDeps": [
+    "maven-core"
   ]
 }
