@@ -36,5 +36,3 @@ inspections:
       - "scope#file:buildSrc/*"
   - inspection: JavadocReference
     severity: WARNING # It has default ERROR severity. It's understandable for unresolved references in javadocs for editor but not on CI.
-include:
-  - name: CheckDependencyLicenses
