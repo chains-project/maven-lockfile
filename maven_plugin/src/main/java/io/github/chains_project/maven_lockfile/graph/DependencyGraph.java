@@ -73,8 +73,11 @@ public class DependencyGraph {
         var version = VersionNumber.of(node.getVersion());
         var checksum = isRoot ? "" : calc.calculateChecksum(node);
         var scope = MavenScope.fromString(node.getScope());
+        String baseVersion = node.getBaseVersion();
+        ;
         DependencyNode value =
                 new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
+        value.setSelectedVersion(baseVersion);
         for (var artifact : graph.successors(node)) {
             value.addChild(createDependencyNode(artifact, graph, calc, false));
         }

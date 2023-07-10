@@ -13,6 +13,7 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
@@ -22,7 +23,11 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
+import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
+import org.eclipse.aether.util.version.GenericVersionScheme;
+import org.eclipse.aether.version.Version;
+import org.eclipse.aether.version.VersionScheme;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -37,19 +42,39 @@ public class LockFileFacade {
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<Artifact> graph;
+        private final boolean reduced;
 
         /**
          * Create a new instance of the visitor.
          * @param graph  The graph to add the edges to.
+         * @param reduced
          */
-        private GraphBuildingNodeVisitor(MutableGraph<Artifact> graph) {
+        private GraphBuildingNodeVisitor(MutableGraph<Artifact> graph, boolean reduced) {
             this.graph = graph;
+            this.reduced = reduced;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
+            Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
+            if (winnerVersion.isPresent()) {
+                if (reduced) {
+                    isIncludedAfterVersionSelection(node, winnerVersion.get());
+                }
+                node.getArtifact().setBaseVersion(winnerVersion.get());
+            }
 
-            node.getChildren().forEach(v -> graph.putEdge(node.getArtifact(), v.getArtifact()));
+            node.getChildren().stream()
+                    .map(v -> {
+                        Optional<String> childWinnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(v);
+                        if (childWinnerVersion.isPresent()) {
+                            v.getArtifact().setBaseVersion(childWinnerVersion.get());
+                        }
+                        return v;
+                    })
+                    .filter(v ->
+                            isIncludedAfterVersionSelection(v, v.getArtifact().getBaseVersion()))
+                    .forEach(v -> graph.putEdge(node.getArtifact(), v.getArtifact()));
 
             return true;
         }
@@ -78,6 +103,7 @@ public class LockFileFacade {
      * @param project  The project to generate a lock file for.
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param includeMavenPlugins  Whether to include maven plugins in the lock file.
+     * @param b
      * @param metadata The metadata to include in the lock file.
      * @return  A lock file for the project.
      */
@@ -87,6 +113,7 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
             boolean includeMavenPlugins,
+            boolean reduced,
             Metadata metadata) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
         List<MavenPlugin> plugins = new ArrayList<>();
@@ -94,7 +121,7 @@ public class LockFileFacade {
             plugins = getAllPlugins(project);
         }
         // Get all the artifacts for the dependencies in the project
-        var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, checksumCalculator);
+        var graph = LockFileFacade.graph(session, project, dependencyCollectorBuilder, checksumCalculator, reduced);
         var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -116,19 +143,38 @@ public class LockFileFacade {
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            boolean reduced) {
         try {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
 
             buildingRequest.setProject(project);
             var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
+
             MutableGraph<Artifact> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(graph));
+            rootNode.accept(new GraphBuildingNodeVisitor(graph, reduced));
             return DependencyGraph.of(graph, checksumCalculator);
         } catch (Exception e) {
             LOGGER.warn("Could not generate graph", e);
             return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator);
         }
+    }
+
+    private static boolean isIncludedAfterVersionSelection(DependencyNode node, String selectedVersion) {
+        if (selectedVersion == null) {
+            return true;
+        }
+        try {
+            VersionScheme versionScheme = new GenericVersionScheme();
+            Version winnerVersionSchema = versionScheme.parseVersion(selectedVersion);
+            Version version2 = versionScheme.parseVersion(node.getArtifact().getVersion());
+            if (winnerVersionSchema.compareTo(version2) > 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error while parsing version", e);
+        }
+        return true;
     }
 }
