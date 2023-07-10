@@ -768,3 +768,51 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 3.4.2
+## Changelog
+
+## 📦 Dependencies
+- 049df98 ⬆️ (deps): Update jbangdev/jbang-action action to v0.109.0
+- c251087 ⬆️ (deps): Update github/codeql-action action to v2.20.3
+- 15210cd ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.13
+- 5225255 ⬆️ (deps): Update quarkus.platform.version to v3.2.0.Final
+- c2347e0 ⬆️ (deps): Update dependency com.google.guava:guava to v32.1.1-jre
+- 2fbe81c ⬆️ (deps): Update dependency com.google.guava:guava to v32.1.0-jre
+- 1f13ce7 ⬆️ (deps): Update quarkus.platform.version to v3.1.3.Final
+- c828beb ⬆️ (deps): Update mavenVersion to v3.9.3
+- 408c766 ⬆️ (deps): Update dependency org.apache.maven:maven-compat to v3.9.3
+- d3635a9 ⬆️ (deps): Update dependency maven to v3.9.3
+- 51d5192 ⬆️ (deps): Update ossf/scorecard-action action to v2.2.0
+- 9231b4e ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.13
+- d198a02 ⬆️ (deps): Update github/codeql-action action to v2.20.1
+- 2748b83 ⬆️ (deps): Update JetBrains/qodana-action action to v2023.1.5
+- 3c132b9 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-clean-plugin to v3.3.1
+- 7b5d009 ⬆️ (deps): Update chains-project/maven-lockfile action to v3.4.1 (#308)
+
+## 🏁 Release
+- 1be74c6 🔖 Releasing version 3.4.2
+- 7ba1c15 🔖(deps): Update jreleaser/release-action digest to d62273e
+- 30e2375 🔖(deps): Update github/codeql-action digest to 46ed16d
+- 86fc5be 🔖(deps): Update github/codeql-action digest to f6e388e
+- 1a1dee9 🔖(deps): Update tj-actions/changed-files digest to 54479c3
+- 2a039d7 🔖 Setting SNAPSHOT version 3.4.2-SNAPSHOT
+
+---
+- 575375b fix: set maven version to 3.2.5 (#327)
+- 4679c49 chore: update lockfile
+- 29849ea chore: update lockfile
+- 3bb48de chore: update lockfile
+- bb57fd1 chore: update lockfile
+- 83adf3d chore: update lockfile
+- b8ea60d chore: update lockfile
+- 188bad2 chore: update lockfile
+- 9444b16 chore: update lockfile
+- 0c03912 🛠️ Adjust qodana.yml file
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
