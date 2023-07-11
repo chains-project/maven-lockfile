@@ -1,14 +1,18 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 @MavenJupiterExtension
@@ -84,6 +88,28 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(pom).contains("<version>5.9.2</version>");
     }
 
+    @MavenTest
+    void reduceLog4jAffected(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
+                .anyMatch(v -> v.getArtifactId().getValue().equals("log4j-core")
+                        && v.getVersion().getValue().equals("2.0"));
+    }
+
+    @MavenTest
+    void reduceLog4jNotAffected(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+        Path lockFilePath = getLockFile(result);
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
+                .noneMatch(v -> v.getArtifactId().getValue().equals("log4j-core")
+                        && v.getVersion().getValue().equals("2.0"));
+    }
+
     private Path getLockFile(MavenExecutionResult result) throws IOException {
         return Files.find(
                         result.getMavenProjectResult().getTargetBaseDirectory(),
@@ -91,5 +117,18 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
                         (v, u) -> v.getFileName().toString().contains("lockfile.json"))
                 .findFirst()
                 .orElseThrow();
+    }
+
+    public List<DependencyNode> flattenDependencies(DependencyNode node) {
+        List<DependencyNode> dependencies = new ArrayList<>();
+        flattenDependencies(node, dependencies);
+        return dependencies;
+    }
+
+    private void flattenDependencies(DependencyNode node, List<DependencyNode> dependencies) {
+        dependencies.add(node);
+        for (DependencyNode child : node.getChildren()) {
+            flattenDependencies(child, dependencies);
+        }
     }
 }

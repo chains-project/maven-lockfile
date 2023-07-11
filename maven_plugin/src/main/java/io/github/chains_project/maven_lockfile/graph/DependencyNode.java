@@ -162,4 +162,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
         }
         return version.compareTo(o.version);
     }
+
+    @Override
+    public String toString() {
+        return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version="
+                + version + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
+                + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent="
+                + parent + ", children=" + children + "]";
+    }
 }

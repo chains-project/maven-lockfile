@@ -13,17 +13,14 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
-import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
 import org.eclipse.aether.util.version.GenericVersionScheme;
 import org.eclipse.aether.version.Version;
@@ -41,7 +38,7 @@ public class LockFileFacade {
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
-        private final MutableGraph<Artifact> graph;
+        private final MutableGraph<DependencyNode> graph;
         private final boolean reduced;
 
         /**
@@ -49,33 +46,14 @@ public class LockFileFacade {
          * @param graph  The graph to add the edges to.
          * @param reduced
          */
-        private GraphBuildingNodeVisitor(MutableGraph<Artifact> graph, boolean reduced) {
+        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph, boolean reduced) {
             this.graph = graph;
             this.reduced = reduced;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
-            Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
-            if (winnerVersion.isPresent()) {
-                if (reduced) {
-                    isIncludedAfterVersionSelection(node, winnerVersion.get());
-                }
-                node.getArtifact().setBaseVersion(winnerVersion.get());
-            }
-
-            node.getChildren().stream()
-                    .map(v -> {
-                        Optional<String> childWinnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(v);
-                        if (childWinnerVersion.isPresent()) {
-                            v.getArtifact().setBaseVersion(childWinnerVersion.get());
-                        }
-                        return v;
-                    })
-                    .filter(v ->
-                            isIncludedAfterVersionSelection(v, v.getArtifact().getBaseVersion()))
-                    .forEach(v -> graph.putEdge(node.getArtifact(), v.getArtifact()));
-
+            node.getChildren().stream().forEach(v -> graph.putEdge(node, v));
             return true;
         }
 
@@ -152,12 +130,12 @@ public class LockFileFacade {
             buildingRequest.setProject(project);
             var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
 
-            MutableGraph<Artifact> graph = GraphBuilder.directed().build();
+            MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph, reduced));
-            return DependencyGraph.of(graph, checksumCalculator);
+            return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (Exception e) {
             LOGGER.warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator);
+            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
         }
     }
 

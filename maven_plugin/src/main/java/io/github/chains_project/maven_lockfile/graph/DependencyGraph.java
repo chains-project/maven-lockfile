@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.graph;
 
 import com.google.common.graph.Graph;
+import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.maven.artifact.Artifact;
+import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 
 public class DependencyGraph {
 
@@ -51,13 +52,16 @@ public class DependencyGraph {
         return graph.stream().filter(n -> n.id.equals(node.getParent())).findFirst();
     }
 
-    public static DependencyGraph of(Graph<Artifact> graph, AbstractChecksumCalculator calc) {
+    public static DependencyGraph of(
+            MutableGraph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
+            AbstractChecksumCalculator calc,
+            boolean reduced) {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
         List<DependencyNode> nodes = new ArrayList<>();
         for (var artifact : roots) {
-            nodes.add(createDependencyNode(artifact, graph, calc, true));
+            createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
         List<DependencyNode> dependencyRoots =
@@ -66,21 +70,30 @@ public class DependencyGraph {
         return new DependencyGraph(dependencyRoots);
     }
 
-    private static DependencyNode createDependencyNode(
-            Artifact node, Graph<Artifact> graph, AbstractChecksumCalculator calc, boolean isRoot) {
-        var groupId = GroupId.of(node.getGroupId());
-        var artifactId = ArtifactId.of(node.getArtifactId());
-        var version = VersionNumber.of(node.getVersion());
-        var checksum = isRoot ? "" : calc.calculateChecksum(node);
-        var scope = MavenScope.fromString(node.getScope());
-        String baseVersion = node.getBaseVersion();
-        ;
+    private static Optional<DependencyNode> createDependencyNode(
+            org.apache.maven.shared.dependency.graph.DependencyNode node,
+            Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
+            AbstractChecksumCalculator calc,
+            boolean isRoot,
+            boolean reduce) {
+        var groupId = GroupId.of(node.getArtifact().getGroupId());
+        var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
+        var version = VersionNumber.of(node.getArtifact().getVersion());
+        var checksum = isRoot ? "" : calc.calculateChecksum(node.getArtifact());
+        var scope = MavenScope.fromString(node.getArtifact().getScope());
+        // if there is no conflict marker for this node, we use the version from the artifact
+        String baseVersion = SpyingDependencyNodeUtils.getWinnerVersion(node)
+                .orElse(node.getArtifact().getVersion());
+        if (reduce && !isRoot && !baseVersion.equals(node.getArtifact().getVersion())) {
+            return Optional.empty();
+        }
         DependencyNode value =
                 new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
         value.setSelectedVersion(baseVersion);
         for (var artifact : graph.successors(node)) {
-            value.addChild(createDependencyNode(artifact, graph, calc, false));
+            createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
+            ;
         }
-        return value;
+        return Optional.ofNullable(value);
     }
 }
