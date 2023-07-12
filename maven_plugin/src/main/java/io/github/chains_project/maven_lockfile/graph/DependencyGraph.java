@@ -84,7 +84,7 @@ public class DependencyGraph {
         // if there is no conflict marker for this node, we use the version from the artifact
         String baseVersion = SpyingDependencyNodeUtils.getWinnerVersion(node)
                 .orElse(node.getArtifact().getVersion());
-        if (reduce && !isRoot && !baseVersion.equals(node.getArtifact().getVersion())) {
+        if (reduce && !baseVersion.equals(version.getValue())) {
             return Optional.empty();
         }
         DependencyNode value =
@@ -92,7 +92,6 @@ public class DependencyGraph {
         value.setSelectedVersion(baseVersion);
         for (var artifact : graph.successors(node)) {
             createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
-            ;
         }
         return Optional.ofNullable(value);
     }

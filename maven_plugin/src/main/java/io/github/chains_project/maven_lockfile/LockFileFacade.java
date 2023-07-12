@@ -22,9 +22,6 @@ import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
-import org.eclipse.aether.util.version.GenericVersionScheme;
-import org.eclipse.aether.version.Version;
-import org.eclipse.aether.version.VersionScheme;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -137,22 +134,5 @@ public class LockFileFacade {
             LOGGER.warn("Could not generate graph", e);
             return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
         }
-    }
-
-    private static boolean isIncludedAfterVersionSelection(DependencyNode node, String selectedVersion) {
-        if (selectedVersion == null) {
-            return true;
-        }
-        try {
-            VersionScheme versionScheme = new GenericVersionScheme();
-            Version winnerVersionSchema = versionScheme.parseVersion(selectedVersion);
-            Version version2 = versionScheme.parseVersion(node.getArtifact().getVersion());
-            if (winnerVersionSchema.compareTo(version2) > 0) {
-                return false;
-            }
-        } catch (Exception e) {
-            LOGGER.error("Error while parsing version", e);
-        }
-        return true;
     }
 }
