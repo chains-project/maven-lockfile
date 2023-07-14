@@ -72,7 +72,7 @@ public class LockFileFacade {
     private LockFileFacade() {
         // Prevent instantiation
     }
-    
+
     /**
      * Generate a lock file for a project. This method is responsible for generating the lock file for a project. It uses the dependency collector to generate the dependency graph and then resolves the dependencies.
      * @param session  The maven session.
