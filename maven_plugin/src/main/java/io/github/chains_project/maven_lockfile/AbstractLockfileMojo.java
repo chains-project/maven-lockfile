@@ -1,10 +1,17 @@
 package io.github.chains_project.maven_lockfile;
 
+import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
+import io.github.chains_project.maven_lockfile.data.Metadata;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
@@ -45,4 +52,23 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "false", property = "reduced")
     protected String reduced;
+
+    @Parameter(defaultValue = "false", property = "skip")
+    protected String skip;
+
+    protected Metadata generateMetaInformation() {
+        String osName = System.getProperty("os.name");
+        return new Metadata(osName, mavenVersion, javaVersion);
+    }
+
+    protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        if (checksumMode.equals("maven_local")) {
+            return new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
+        } else if (checksumMode.equals("maven_central")) {
+            return new RemoteChecksumCalculator(checksumAlgorithm);
+        } else {
+            throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
+        }
+    }
 }
