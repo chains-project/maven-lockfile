@@ -8,7 +8,7 @@ public enum ChecksumModes {
     /**
      * Downloads the checksum from the maven repository.
      */
-    MAVEN_CENTER("maven_central"),
+    MAVEN_CENTRAL("maven_central"),
     /**
      * Calculates the checksum from the downloaded artifact.
      */

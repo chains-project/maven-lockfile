@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 /**
  * This class represents a node in the dependency graph. It contains the artifactId, groupId and version  of the dependency.
@@ -22,6 +23,10 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private String checksumAlgorithm;
     private String checksum;
     private final MavenScope scope;
+
+    @Nullable
+    private String selectedVersion;
+
     NodeId id;
 
     @Expose(serialize = false, deserialize = false)
@@ -108,6 +113,18 @@ public class DependencyNode implements Comparable<DependencyNode> {
     public String getChecksumAlgorithm() {
         return checksumAlgorithm;
     }
+    /**
+     * @param baseVersion the baseVersion to set
+     */
+    public void setSelectedVersion(String baseVersion) {
+        this.selectedVersion = baseVersion;
+    }
+    /**
+     * @return the baseVersion
+     */
+    public String getSelectedVersion() {
+        return selectedVersion;
+    }
 
     @Override
     public int hashCode() {
@@ -144,5 +161,13 @@ public class DependencyNode implements Comparable<DependencyNode> {
             return artifactIdCompare;
         }
         return version.compareTo(o.version);
+    }
+
+    @Override
+    public String toString() {
+        return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version="
+                + version + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
+                + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent="
+                + parent + ", children=" + children + "]";
     }
 }

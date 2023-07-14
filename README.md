@@ -59,6 +59,16 @@ mvn io.github.chains-project:maven-lockfile:freeze
 ```
 This replaces every version in the pom with the version from the lockfile. Also, every transitive dependency is added to the pom with the version from the lockfile.
 If you invoke build afterward, the exact versions from the lockfile are used.
+
+
+## Flags
+
+- `reduced` will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
+- `includeMavenPlugins` will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
+- `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default is `SHA-256`.
+- `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](#checksum-modes) for more information.
+- `skip` will skip the execution of the plugin. This is useful if you want to disable the plugin for a specific module.
+- 
 ## Format
 
 An example lockfile is shown below:

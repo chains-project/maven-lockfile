@@ -8,19 +8,12 @@ import io.github.chains_project.maven_lockfile.data.Metadata;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
-import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
-import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 /**
  * This plugin generates a lock file for a project. The lock file contains the checksums of all
@@ -33,39 +26,7 @@ import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
         defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
         requiresDependencyResolution = ResolutionScope.COMPILE,
         requiresOnline = true)
-public class GenerateLockFileMojo extends AbstractMojo {
-    /**
-     * The Maven project for which we are generating a lock file.
-     */
-    @Parameter(defaultValue = "${project}", readonly = true, required = true)
-    private MavenProject project;
-
-    @Parameter(defaultValue = "${session}", readonly = true, required = true)
-    private MavenSession session;
-
-    /**
-     * The dependency collector builder to use.
-     */
-    @Component(hint = "default")
-    private DependencyCollectorBuilder dependencyCollectorBuilder;
-
-    @Component
-    private DependencyResolver dependencyResolver;
-
-    @Parameter(defaultValue = "false", property = "includeMavenPlugins")
-    private String includeMavenPlugins;
-
-    @Parameter(defaultValue = "${maven.version}")
-    private String mavenVersion;
-
-    @Parameter(defaultValue = "${java.version}")
-    private String javaVersion;
-
-    @Parameter(defaultValue = "sha1", property = "checksumAlgorithm")
-    private String checksumAlgorithm;
-
-    @Parameter(defaultValue = "maven_local", property = "checksumMode")
-    private String checksumMode;
+public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
     /**
      * Generate a lock file for the dependencies of the current project.
@@ -92,6 +53,7 @@ public class GenerateLockFileMojo extends AbstractMojo {
                     dependencyCollectorBuilder,
                     checksumCalculator,
                     Boolean.parseBoolean(includeMavenPlugins),
+                    Boolean.parseBoolean(reduced),
                     metadata);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
