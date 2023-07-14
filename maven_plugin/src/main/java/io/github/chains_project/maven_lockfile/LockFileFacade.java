@@ -36,16 +36,12 @@ public class LockFileFacade {
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<DependencyNode> graph;
-        private final boolean reduced;
-
         /**
          * Create a new instance of the visitor.
          * @param graph  The graph to add the edges to.
-         * @param reduced
          */
-        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph, boolean reduced) {
+        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph) {
             this.graph = graph;
-            this.reduced = reduced;
         }
 
         @Override
@@ -130,7 +126,7 @@ public class LockFileFacade {
             var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(graph, reduced));
+            rootNode.accept(new GraphBuildingNodeVisitor(graph));
             return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (Exception e) {
             LOGGER.warn("Could not generate graph", e);
