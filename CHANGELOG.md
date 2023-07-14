@@ -816,3 +816,25 @@ We'd like to thank the following people for their contributions:
 - Martin ([@MartinWitt](https://github.com/MartinWitt))
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 4.0.0
+## Changelog
+
+## 📦 Dependencies
+- 48977d6 ⬆️ (deps): Update chains-project/maven-lockfile action to v3.4.2 (#333)
+
+## 🏁 Release
+- 86475e3 🔖 Releasing version 4.0.0
+- 5639db1 🔖(deps): Update tj-actions/changed-files digest to 2a968ff
+- 40c6ecd 🔖 Setting SNAPSHOT version 3.4.3-SNAPSHOT
+
+---
+- c81d4f7 refactor: ♻️ Unify common methods in AbstractLockFileMojo (#336)
+- dd598b9 feat: ✨ Add the concept of selected version and reduced lockfile (#334)
+- a5ee5d7 chore(deps): update tj-actions/changed-files action to v37 (#316)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
