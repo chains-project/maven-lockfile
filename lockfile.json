@@ -1,7 +1,7 @@
 {
   "artifactID": "maven-lockfile-parent",
   "groupID": "io.github.chains-project",
-  "version": "3.4.3-SNAPSHOT",
+  "version": "4.0.1-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [
@@ -18,7 +18,7 @@
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
-      "version": "2.37.0"
+      "version": "2.38.0"
     },
     {
       "groupId": "org.apache.maven.plugins",
