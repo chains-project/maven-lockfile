@@ -77,12 +77,12 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+              "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-core:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-core:3.2.1.Final",
               "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.314.1",
               "children": []
             },
@@ -163,12 +163,12 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+              "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-arc:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-arc:3.2.1.Final",
               "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.0",
               "children": []
             }
@@ -177,24 +177,24 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-arc",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+          "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-arc:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-arc:3.2.1.Final",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-jackson",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "4c2d415da0c2692de624ba2b619d40dc0d9f49d1",
+          "checksum": "7588c16fc6dc50b0f57c798d9ad661df82c6b0f7",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-jackson:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-jackson:3.2.1.Final",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
           "children": [
             {
@@ -206,7 +206,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.2",
               "id": "com.fasterxml.jackson.core:jackson-databind:2.15.2",
-              "parent": "io.quarkus:quarkus-jackson:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-jackson:3.2.1.Final",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -243,7 +243,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.2",
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.2",
-              "parent": "io.quarkus:quarkus-jackson:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-jackson:3.2.1.Final",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -280,7 +280,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.2",
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2",
-              "parent": "io.quarkus:quarkus-jackson:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-jackson:3.2.1.Final",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -329,7 +329,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.2",
               "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.2",
-              "parent": "io.quarkus:quarkus-jackson:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-jackson:3.2.1.Final",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -360,13 +360,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+              "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-jackson:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-jackson:3.2.1.Final",
               "children": []
             }
           ]
@@ -374,94 +374,94 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-smallrye-graphql-client",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "96619cc3c9a64ea6612043174f3a62ffcbf7d4eb",
+          "checksum": "f70f5b2a215a518ff2df28e2ed1fb1263ce415e5",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+              "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+              "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-core:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-core:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-jsonb",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "eceddef716c77f7e4c0a912080408ddfce7e6693",
+              "checksum": "2a98290a4ee0f7baa9856dd902549a891aacc2e4",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-jsonb:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-jsonb:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+                  "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-jsonb:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-jsonb:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                  "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-jsonb:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-jsonb:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-jsonp",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "79792627317e9489225d946dd4d55d3bd0b9854b",
+                  "checksum": "71140c7bab5618513c76286794e75221932850f9",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-jsonp:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-jsonb:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-jsonp:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-jsonb:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.2.0.Final",
+                      "version": "3.2.1.Final",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                      "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                       "scope": "compile",
-                      "selectedVersion": "3.2.0.Final",
-                      "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                      "parent": "io.quarkus:quarkus-jsonp:3.2.0.Final",
+                      "selectedVersion": "3.2.1.Final",
+                      "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                      "parent": "io.quarkus:quarkus-jsonp:3.2.1.Final",
                       "children": []
                     },
                     {
@@ -473,7 +473,7 @@
                       "scope": "compile",
                       "selectedVersion": "1.1.2",
                       "id": "org.eclipse.parsson:parsson:1.1.2",
-                      "parent": "io.quarkus:quarkus-jsonp:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-jsonp:3.2.1.Final",
                       "children": []
                     }
                   ]
@@ -487,7 +487,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.0.3",
                   "id": "org.eclipse:yasson:3.0.3",
-                  "parent": "io.quarkus:quarkus-jsonb:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-jsonb:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "jakarta.json",
@@ -545,60 +545,60 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-smallrye-stork",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "5cc29aa24ae7f634ab39ac39eab9c4ad20a0065d",
+              "checksum": "a594a23fcc0cf04e645b41702a051e8f742c3805",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+                  "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                  "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-vertx",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "80a66ebf0f2a0ed8bfe6f2b32b9e17f15c37f383",
+                  "checksum": "b377b90682a4fed05747b7db03a431d5cfbc16bc",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-vertx:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-vertx:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.smallrye.stork",
                   "artifactId": "stork-api",
-                  "version": "2.2.0",
+                  "version": "2.2.1",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "6690da0dd7a4eb6a427a97ef5a5a7eff155c1cbe",
+                  "checksum": "375b563fbde91076e0fca1165c36eed2c96c23a7",
                   "scope": "compile",
-                  "selectedVersion": "2.2.0",
-                  "id": "io.smallrye.stork:stork-api:2.2.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
+                  "selectedVersion": "2.2.1",
+                  "id": "io.smallrye.stork:stork-api:2.2.1",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.smallrye.reactive",
@@ -609,7 +609,7 @@
                       "scope": "compile",
                       "selectedVersion": "2.3.1",
                       "id": "io.smallrye.reactive:mutiny:2.3.1",
-                      "parent": "io.smallrye.stork:stork-api:2.2.0",
+                      "parent": "io.smallrye.stork:stork-api:2.2.1",
                       "children": []
                     }
                   ]
@@ -617,24 +617,24 @@
                 {
                   "groupId": "io.smallrye.stork",
                   "artifactId": "stork-core",
-                  "version": "2.2.0",
+                  "version": "2.2.1",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "ace83334099ad9b12507f7bdfa3242a03f3a61f0",
+                  "checksum": "836ff199f9230f9690f97a755ce1f9d74ba625da",
                   "scope": "compile",
-                  "selectedVersion": "2.2.0",
-                  "id": "io.smallrye.stork:stork-core:2.2.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.0.Final",
+                  "selectedVersion": "2.2.1",
+                  "id": "io.smallrye.stork:stork-core:2.2.1",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.smallrye.stork",
                       "artifactId": "stork-api",
-                      "version": "2.2.0",
+                      "version": "2.2.1",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "6690da0dd7a4eb6a427a97ef5a5a7eff155c1cbe",
+                      "checksum": "375b563fbde91076e0fca1165c36eed2c96c23a7",
                       "scope": "compile",
-                      "selectedVersion": "2.2.0",
-                      "id": "io.smallrye.stork:stork-api:2.2.0",
-                      "parent": "io.smallrye.stork:stork-core:2.2.0",
+                      "selectedVersion": "2.2.1",
+                      "id": "io.smallrye.stork:stork-api:2.2.1",
+                      "parent": "io.smallrye.stork:stork-core:2.2.1",
                       "children": []
                     },
                     {
@@ -646,7 +646,7 @@
                       "scope": "compile",
                       "selectedVersion": "4.0.1",
                       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-                      "parent": "io.smallrye.stork:stork-core:2.2.0",
+                      "parent": "io.smallrye.stork:stork-core:2.2.1",
                       "children": []
                     },
                     {
@@ -658,7 +658,7 @@
                       "scope": "compile",
                       "selectedVersion": "2.0.6",
                       "id": "org.slf4j:slf4j-api:2.0.6",
-                      "parent": "io.smallrye.stork:stork-core:2.2.0",
+                      "parent": "io.smallrye.stork:stork-core:2.2.1",
                       "children": []
                     }
                   ]
@@ -668,13 +668,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "80a66ebf0f2a0ed8bfe6f2b32b9e17f15c37f383",
+              "checksum": "b377b90682a4fed05747b7db03a431d5cfbc16bc",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-vertx:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-vertx:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": []
             },
             {
@@ -686,7 +686,7 @@
               "scope": "compile",
               "selectedVersion": "2.2.1",
               "id": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.2.1",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.smallrye",
@@ -941,12 +941,12 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-vertx",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "80a66ebf0f2a0ed8bfe6f2b32b9e17f15c37f383",
+          "checksum": "b377b90682a4fed05747b7db03a431d5cfbc16bc",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-vertx:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-vertx:3.2.1.Final",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
           "children": [
             {
@@ -958,7 +958,7 @@
               "scope": "compile",
               "selectedVersion": "4.1.94.Final",
               "id": "io.netty:netty-codec-haproxy:4.1.94.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.netty",
@@ -1051,71 +1051,71 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+              "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-mutiny",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "7388915d2e1fc04535efe0ae79a9ecf49714c4d2",
+              "checksum": "1380bb5f1f22ff6c013dec53d6c0096fe25e9de",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-mutiny:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-mutiny:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                  "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-mutiny:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-mutiny:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-smallrye-context-propagation",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "2f669f8f885406a0b30306430f948f66f81b0a24",
+                  "checksum": "762647ea68e5d471f5bb3eaf9aaf45bc37867660",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-mutiny:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-mutiny:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-arc",
-                      "version": "3.2.0.Final",
+                      "version": "3.2.1.Final",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+                      "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
                       "scope": "compile",
-                      "selectedVersion": "3.2.0.Final",
-                      "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.0.Final",
+                      "selectedVersion": "3.2.1.Final",
+                      "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.1.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.2.0.Final",
+                      "version": "3.2.1.Final",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                      "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                       "scope": "compile",
-                      "selectedVersion": "3.2.0.Final",
-                      "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.0.Final",
+                      "selectedVersion": "3.2.1.Final",
+                      "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.1.Final",
                       "children": []
                     },
                     {
@@ -1127,7 +1127,7 @@
                       "scope": "compile",
                       "selectedVersion": "2.1.0",
                       "id": "io.smallrye:smallrye-context-propagation:2.1.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.1.Final",
                       "children": [
                         {
                           "groupId": "io.smallrye",
@@ -1213,7 +1213,7 @@
                       "scope": "compile",
                       "selectedVersion": "4.0.1",
                       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.2.1.Final",
                       "children": []
                     }
                   ]
@@ -1227,7 +1227,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.3.1",
                   "id": "io.smallrye.reactive:mutiny:2.3.1",
-                  "parent": "io.quarkus:quarkus-mutiny:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-mutiny:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -1239,7 +1239,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.3.1",
                   "id": "io.smallrye.reactive:mutiny-smallrye-context-propagation:2.3.1",
-                  "parent": "io.quarkus:quarkus-mutiny:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-mutiny:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -1284,13 +1284,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-netty",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "77e1b01556b1f3bbc341067237a4da1066c5f264",
+              "checksum": "2abd849838724476370c17ee852078504f3edd86",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-netty:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-netty:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "com.aayushatharva.brotli4j",
@@ -1301,7 +1301,7 @@
                   "scope": "compile",
                   "selectedVersion": "1.12.0",
                   "id": "com.aayushatharva.brotli4j:brotli4j:1.12.0",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "com.aayushatharva.brotli4j",
@@ -1338,7 +1338,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.1.94.Final",
                   "id": "io.netty:netty-codec:4.1.94.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1387,7 +1387,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.1.94.Final",
                   "id": "io.netty:netty-codec-http:4.1.94.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1460,7 +1460,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.1.94.Final",
                   "id": "io.netty:netty-codec-http2:4.1.94.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1545,7 +1545,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.1.94.Final",
                   "id": "io.netty:netty-handler:4.1.94.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1674,13 +1674,13 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+                  "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
                   "scope": "compile",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-arc:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-arc:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -1692,7 +1692,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.0.1",
                   "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-                  "parent": "io.quarkus:quarkus-netty:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -1700,13 +1700,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx-latebound-mdc-provider",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "67e7db054a0fd7eccc37ff2442cfb0896f009473",
+              "checksum": "bc52a95b30229e5645b0519ece735a4dafdd8553",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "org.jboss.logmanager",
@@ -1717,7 +1717,7 @@
                   "scope": "compile",
                   "selectedVersion": "1.1.1",
                   "id": "org.jboss.logmanager:jboss-logmanager-embedded:1.1.1",
-                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -1731,7 +1731,7 @@
               "scope": "compile",
               "selectedVersion": "6.2.4",
               "id": "io.smallrye:smallrye-fault-tolerance-vertx:6.2.4",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": []
             },
             {
@@ -1743,7 +1743,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.0",
               "id": "io.smallrye.common:smallrye-common-annotation:2.1.0",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": []
             },
             {
@@ -1755,7 +1755,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.0",
               "id": "io.smallrye.common:smallrye-common-vertx-context:2.1.0",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -2182,7 +2182,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.0",
               "id": "io.smallrye.reactive:smallrye-mutiny-vertx-core:3.5.0",
-              "parent": "io.quarkus:quarkus-vertx:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.smallrye.reactive",
@@ -2316,34 +2316,34 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-arc",
-      "version": "3.2.0.Final",
+      "version": "3.2.1.Final",
       "checksumAlgorithm": "sha1",
-      "checksum": "452f0f6dc0913f0dadc816e6ed71f34c5f544f34",
+      "checksum": "3112ee1687554850d1dca5a820f9ddf91485cba2",
       "scope": "compile",
-      "selectedVersion": "3.2.0.Final",
-      "id": "io.quarkus:quarkus-arc:3.2.0.Final",
+      "selectedVersion": "3.2.1.Final",
+      "id": "io.quarkus:quarkus-arc:3.2.1.Final",
       "children": [
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+          "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-core:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-arc:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-core:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-arc:3.2.1.Final",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-runner",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "ef2528823f6413b4c21153891e7c8b4b49c149aa",
+              "checksum": "4bd8365031d3495374079f19fabd2b8350126c9b",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-bootstrap-runner:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-bootstrap-runner:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.github.crac",
@@ -2354,7 +2354,7 @@
                   "scope": "compile",
                   "selectedVersion": "0.1.3",
                   "id": "io.github.crac:org-crac:0.1.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -2366,7 +2366,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.1.0",
                   "id": "io.smallrye.common:smallrye-common-io:2.1.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -2378,7 +2378,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.5.1.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -2390,7 +2390,7 @@
                   "scope": "compile",
                   "selectedVersion": "1.1.1",
                   "id": "org.jboss.logmanager:jboss-logmanager-embedded:1.1.1",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -2398,13 +2398,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-development-mode-spi",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "4a8d8cc3e15191273101f8f0328f03c9c661889f",
+              "checksum": "6e5464e1577705ff31a5416f436616f9d831bed0",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-development-mode-spi:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-development-mode-spi:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2416,19 +2416,19 @@
               "scope": "compile",
               "selectedVersion": "0.0.9",
               "id": "io.quarkus:quarkus-fs-util:0.0.9",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-ide-launcher",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "1d849358504fc467dc61f0bc417d400de085e96c",
+              "checksum": "ba1ec774d9e00679cf315d0dd24d4cb8441bb8bd",
               "scope": "compile",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-ide-launcher:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-ide-launcher:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2440,7 +2440,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.0",
               "id": "io.smallrye.common:smallrye-common-os:2.1.0",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2452,7 +2452,7 @@
               "scope": "compile",
               "selectedVersion": "3.3.0",
               "id": "io.smallrye.config:smallrye-config:3.3.0",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.smallrye.config",
@@ -2649,7 +2649,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.1",
               "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2661,7 +2661,7 @@
               "scope": "compile",
               "selectedVersion": "4.0.1",
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2673,7 +2673,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.1",
               "id": "jakarta.inject:jakarta.inject-api:2.0.1",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2685,7 +2685,7 @@
               "scope": "compile",
               "selectedVersion": "22.3.2",
               "id": "org.graalvm.sdk:graal-sdk:22.3.2",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2697,7 +2697,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.1.Final",
               "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2709,7 +2709,7 @@
               "scope": "compile",
               "selectedVersion": "2.2.1.Final",
               "id": "org.jboss.logging:jboss-logging-annotations:2.2.1.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2721,7 +2721,7 @@
               "scope": "compile",
               "selectedVersion": "1.1.1",
               "id": "org.jboss.logmanager:jboss-logmanager-embedded:1.1.1",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": [
                 {
                   "groupId": "org.wildfly.common",
@@ -2746,7 +2746,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.0.Final",
               "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2758,7 +2758,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.0.Final",
               "id": "org.jboss.threads:jboss-threads:3.5.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -2795,7 +2795,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.6",
               "id": "org.slf4j:slf4j-api:2.0.6",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             },
             {
@@ -2807,7 +2807,7 @@
               "scope": "compile",
               "selectedVersion": "1.5.4.Final-format-001",
               "id": "org.wildfly.common:wildfly-common:1.5.4.Final-format-001",
-              "parent": "io.quarkus:quarkus-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-core:3.2.1.Final",
               "children": []
             }
           ]
@@ -2815,13 +2815,13 @@
         {
           "groupId": "io.quarkus.arc",
           "artifactId": "arc",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "239c124204c05a0ff7a1a1cea1f3228f3cc186a6",
+          "checksum": "48351a64e9cffdd2ffc868b1c280533c36fc48d0",
           "scope": "compile",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus.arc:arc:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-arc:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus.arc:arc:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-arc:3.2.1.Final",
           "children": [
             {
               "groupId": "io.smallrye.reactive",
@@ -2832,7 +2832,7 @@
               "scope": "compile",
               "selectedVersion": "2.3.1",
               "id": "io.smallrye.reactive:mutiny:2.3.1",
-              "parent": "io.quarkus.arc:arc:3.2.0.Final",
+              "parent": "io.quarkus.arc:arc:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -2857,7 +2857,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.1",
               "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
-              "parent": "io.quarkus.arc:arc:3.2.0.Final",
+              "parent": "io.quarkus.arc:arc:3.2.1.Final",
               "children": []
             },
             {
@@ -2869,7 +2869,7 @@
               "scope": "compile",
               "selectedVersion": "4.0.1",
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-              "parent": "io.quarkus.arc:arc:3.2.0.Final",
+              "parent": "io.quarkus.arc:arc:3.2.1.Final",
               "children": [
                 {
                   "groupId": "jakarta.annotation",
@@ -2942,7 +2942,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.1",
               "id": "jakarta.transaction:jakarta.transaction-api:2.0.1",
-              "parent": "io.quarkus.arc:arc:3.2.0.Final",
+              "parent": "io.quarkus.arc:arc:3.2.1.Final",
               "children": []
             },
             {
@@ -2954,7 +2954,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.1.Final",
               "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-              "parent": "io.quarkus.arc:arc:3.2.0.Final",
+              "parent": "io.quarkus.arc:arc:3.2.1.Final",
               "children": []
             }
           ]
@@ -2968,7 +2968,7 @@
           "scope": "compile",
           "selectedVersion": "1.3",
           "id": "org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api:1.3",
-          "parent": "io.quarkus:quarkus-arc:3.2.0.Final",
+          "parent": "io.quarkus:quarkus-arc:3.2.1.Final",
           "children": []
         }
       ]
@@ -2976,12 +2976,12 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-junit5",
-      "version": "3.2.0.Final",
+      "version": "3.2.1.Final",
       "checksumAlgorithm": "sha1",
-      "checksum": "b6565223e9aff59c81a13d6f4017dd157f51f3af",
+      "checksum": "46d71f87d048a8f4e6faf7a49a96e11e5498b977",
       "scope": "test",
-      "selectedVersion": "3.2.0.Final",
-      "id": "io.quarkus:quarkus-junit5:3.2.0.Final",
+      "selectedVersion": "3.2.1.Final",
+      "id": "io.quarkus:quarkus-junit5:3.2.1.Final",
       "children": [
         {
           "groupId": "com.thoughtworks.xstream",
@@ -2992,7 +2992,7 @@
           "scope": "test",
           "selectedVersion": "1.4.20",
           "id": "com.thoughtworks.xstream:xstream:1.4.20",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": [
             {
               "groupId": "io.github.x-stream",
@@ -3024,24 +3024,24 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-bootstrap-core",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "5b73d46dc2c0d2fa880e6e13a74b6d3d7b12e72c",
+          "checksum": "8fde9f24bddcdc6054698c5c1bf45956d6e04bd5",
           "scope": "test",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-bootstrap-core:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-bootstrap-core:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-app-model",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "ee2e56e498a81d896a3e3285babfc461ca48a6c7",
+              "checksum": "52ac7bd315c30076fcb88075bdab0955a5bcbb90",
               "scope": "test",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
@@ -3052,7 +3052,7 @@
                   "scope": "test",
                   "selectedVersion": "0.0.9",
                   "id": "io.quarkus:quarkus-fs-util:0.0.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3064,7 +3064,7 @@
                   "scope": "test",
                   "selectedVersion": "1.0.0.Final",
                   "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3076,7 +3076,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.1.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -3090,7 +3090,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.0",
               "id": "io.smallrye.common:smallrye-common-io:2.1.0",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.2.1.Final",
               "children": []
             }
           ]
@@ -3098,37 +3098,37 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+          "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
           "scope": "test",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-core:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-core:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-junit5-properties",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "ec755fa25956874a1ff0f11b16109eb652448560",
+          "checksum": "feb737041870fc153654753666e3e42d557d83cd",
           "scope": "test",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-junit5-properties:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-junit5-properties:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-test-common",
-          "version": "3.2.0.Final",
+          "version": "3.2.1.Final",
           "checksumAlgorithm": "sha1",
-          "checksum": "29bd247312dd0a1484fbe08f3fac0fa8392acab7",
+          "checksum": "e250649c44c8e103a64e6ff8e3db19ffe14cf2da",
           "scope": "test",
-          "selectedVersion": "3.2.0.Final",
-          "id": "io.quarkus:quarkus-test-common:3.2.0.Final",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "selectedVersion": "3.2.1.Final",
+          "id": "io.quarkus:quarkus-test-common:3.2.1.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": [
             {
               "groupId": "commons-io",
@@ -3139,30 +3139,30 @@
               "scope": "compile",
               "selectedVersion": "2.13.0",
               "id": "commons-io:commons-io:2.13.0",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-gradle-resolver",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "56937eb855c72bcfdb8ddd962ec15e6e1231691a",
+              "checksum": "49a35a17489b3dc2e4c32f3c1f7abc7f0bc1dea1",
               "scope": "test",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "ee2e56e498a81d896a3e3285babfc461ca48a6c7",
+                  "checksum": "52ac7bd315c30076fcb88075bdab0955a5bcbb90",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3174,7 +3174,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.1.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3186,7 +3186,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.0.Final",
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -3194,24 +3194,24 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-maven-resolver",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "2449a9dcde49e086ead47116cc82d4145030438c",
+              "checksum": "b04ef46353adf13966f5c819b8178ee2d99bc799",
               "scope": "test",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "ee2e56e498a81d896a3e3285babfc461ca48a6c7",
+                  "checksum": "52ac7bd315c30076fcb88075bdab0955a5bcbb90",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3223,7 +3223,7 @@
                   "scope": "test",
                   "selectedVersion": "0.0.9",
                   "id": "io.quarkus:quarkus-fs-util:0.0.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -3235,7 +3235,7 @@
                   "scope": "test",
                   "selectedVersion": "1.3.2",
                   "id": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "commons-codec",
@@ -3423,12 +3423,12 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-artifact",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "46dc61a88743a4b674b20f7f5a5495ee9b48b087",
+                      "checksum": "bdacc5d67014383c80f5561b3996454f5f36d134",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-artifact:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-artifact:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
@@ -3440,7 +3440,7 @@
                           "scope": "test",
                           "selectedVersion": "3.12.0",
                           "id": "org.apache.commons:commons-lang3:3.12.0",
-                          "parent": "org.apache.maven:maven-artifact:3.9.2",
+                          "parent": "org.apache.maven:maven-artifact:3.9.3",
                           "children": []
                         },
                         {
@@ -3452,7 +3452,7 @@
                           "scope": "test",
                           "selectedVersion": "3.5.1",
                           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                          "parent": "org.apache.maven:maven-artifact:3.9.2",
+                          "parent": "org.apache.maven:maven-artifact:3.9.3",
                           "children": []
                         }
                       ]
@@ -3460,24 +3460,24 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-builder-support",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7d6a3b947f22fb48f07e26ecf6bd17a7a37e3d09",
+                      "checksum": "aa3658cfa6ad9923f3a9fa99d8399052fd999567",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-builder-support:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-builder-support:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                      "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
@@ -3489,7 +3489,7 @@
                           "scope": "test",
                           "selectedVersion": "3.5.1",
                           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                          "parent": "org.apache.maven:maven-model:3.9.2",
+                          "parent": "org.apache.maven:maven-model:3.9.3",
                           "children": []
                         }
                       ]
@@ -3497,48 +3497,48 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model-builder",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "2cb41ae8b5eb2493143695ec3e97801860660bfd",
+                      "checksum": "2eda197ca81b2f189392f4041dc65abb46ff070f",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model-builder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model-builder:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-artifact",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "46dc61a88743a4b674b20f7f5a5495ee9b48b087",
+                          "checksum": "bdacc5d67014383c80f5561b3996454f5f36d134",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-artifact:3.9.2",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-artifact:3.9.3",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-builder-support",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "7d6a3b947f22fb48f07e26ecf6bd17a7a37e3d09",
+                          "checksum": "aa3658cfa6ad9923f3a9fa99d8399052fd999567",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-builder-support:3.9.2",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-builder-support:3.9.3",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-model",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                          "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-model:3.9.2",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-model:3.9.3",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         },
                         {
@@ -3550,7 +3550,7 @@
                           "scope": "test",
                           "selectedVersion": "1.26",
                           "id": "org.codehaus.plexus:plexus-interpolation:1.26",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         },
                         {
@@ -3562,7 +3562,7 @@
                           "scope": "test",
                           "selectedVersion": "3.5.1",
                           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         },
                         {
@@ -3574,7 +3574,7 @@
                           "scope": "test",
                           "selectedVersion": "0.3.5",
                           "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
-                          "parent": "org.apache.maven:maven-model-builder:3.9.2",
+                          "parent": "org.apache.maven:maven-model-builder:3.9.3",
                           "children": []
                         }
                       ]
@@ -3582,12 +3582,12 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-repository-metadata",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "41920d69d891a0c26fdeeab910ba04f6e96c8631",
+                      "checksum": "15ff2db741191064b7b59ef8704dcbf9f3a61db2",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-repository-metadata:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-repository-metadata:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
@@ -3599,7 +3599,7 @@
                           "scope": "test",
                           "selectedVersion": "3.5.1",
                           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                          "parent": "org.apache.maven:maven-repository-metadata:3.9.2",
+                          "parent": "org.apache.maven:maven-repository-metadata:3.9.3",
                           "children": []
                         }
                       ]
@@ -3607,24 +3607,24 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-resolver-provider",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "ba07d5c4593c362735e7d9840b2103cd104d97da",
+                      "checksum": "9f8941a1a62b3d2f56656e28fc828c00a1324682",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-settings",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "1b71b5935c433f61a3482e134682161a544183a6",
+                      "checksum": "4e3076219c554203485b7be51951007611bfe1f5",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-settings:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-settings:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
@@ -3636,7 +3636,7 @@
                           "scope": "test",
                           "selectedVersion": "3.5.1",
                           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                          "parent": "org.apache.maven:maven-settings:3.9.2",
+                          "parent": "org.apache.maven:maven-settings:3.9.3",
                           "children": []
                         }
                       ]
@@ -3644,72 +3644,72 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-settings-builder",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "1c61cb0cf780aca25e100226c0e76f3d9f4629e0",
+                      "checksum": "c2b51853feac5e7aa0e4fbff79c6fa3f0c3197a0",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-settings-builder:3.9.3",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-api",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-connector-basic",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "6adca3a1ae84f7aa596e867ace5e372a85ce07ce",
+                      "checksum": "9ab55b836913b98321101b23b4c61d8485a589d",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-impl",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "ff625f066d47769d9f9987243aa487cf48474721",
+                      "checksum": "9b1249902065aea64cbf1c5306dc43e8d7dbac4e",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-api",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                          "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-named-locks",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "56dc105d305725ebfcb496af92ec50804119e75b",
+                          "checksum": "5de261851d65144303f75aeeeb075f327fba2952",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                           "children": [
                             {
                               "groupId": "org.slf4j",
@@ -3720,7 +3720,7 @@
                               "scope": "test",
                               "selectedVersion": "2.0.6",
                               "id": "org.slf4j:slf4j-api:2.0.6",
-                              "parent": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.10",
+                              "parent": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.13",
                               "children": []
                             }
                           ]
@@ -3728,25 +3728,25 @@
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-spi",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                          "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-util",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                          "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                           "children": []
                         },
                         {
@@ -3758,7 +3758,7 @@
                           "scope": "test",
                           "selectedVersion": "2.0.6",
                           "id": "org.slf4j:slf4j-api:2.0.6",
-                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
+                          "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
                           "children": []
                         }
                       ]
@@ -3766,24 +3766,24 @@
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-spi",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                      "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-api",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                          "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
                           "children": []
                         }
                       ]
@@ -3826,36 +3826,36 @@
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-api",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                          "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
                           "parent": "org.apache.maven.resolver:maven-resolver-transport-http:1.9.10",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-spi",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                          "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
                           "parent": "org.apache.maven.resolver:maven-resolver-transport-http:1.9.10",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-util",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                          "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
                           "parent": "org.apache.maven.resolver:maven-resolver-transport-http:1.9.10",
                           "children": []
                         },
@@ -3876,36 +3876,36 @@
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-transport-wagon",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "40ff19e21d107d0ba73bc5922cae07a92fb0f627",
+                      "checksum": "d21763da9046a2378a857cd22c46486f7b1908e5",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-util",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                      "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
                       "parent": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
                       "children": [
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-api",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                          "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                          "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                          "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
                           "children": []
                         }
                       ]
@@ -4210,13 +4210,13 @@
                 {
                   "groupId": "org.apache.maven",
                   "artifactId": "maven-embedder",
-                  "version": "3.9.2",
+                  "version": "3.9.3",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "5c82e29db722c5f5b14346e69cdd3269df9691ca",
+                  "checksum": "f35b271023e13ee263bbdf8755f4ed57313d5e5f",
                   "scope": "test",
-                  "selectedVersion": "3.9.2",
-                  "id": "org.apache.maven:maven-embedder:3.9.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "3.9.3",
+                  "id": "org.apache.maven:maven-embedder:3.9.3",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "com.google.guava",
@@ -4227,7 +4227,7 @@
                       "scope": "test",
                       "selectedVersion": "1.0.1",
                       "id": "com.google.guava:failureaccess:1.0.1",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4239,7 +4239,7 @@
                       "scope": "test",
                       "selectedVersion": "32.0.0-jre",
                       "id": "com.google.guava:guava:32.0.0-jre",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4251,7 +4251,7 @@
                       "scope": "test",
                       "selectedVersion": "5.1.0",
                       "id": "com.google.inject:guice:5.1.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": [
                         {
                           "groupId": "aopalliance",
@@ -4288,7 +4288,7 @@
                       "scope": "test",
                       "selectedVersion": "1.5.0",
                       "id": "commons-cli:commons-cli:1.5.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4300,7 +4300,7 @@
                       "scope": "test",
                       "selectedVersion": "1.3.2",
                       "id": "javax.annotation:javax.annotation-api:1.3.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4312,7 +4312,7 @@
                       "scope": "test",
                       "selectedVersion": "1",
                       "id": "javax.inject:javax.inject:1",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4324,31 +4324,31 @@
                       "scope": "test",
                       "selectedVersion": "3.12.0",
                       "id": "org.apache.commons:commons-lang3:3.12.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-builder-support",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7d6a3b947f22fb48f07e26ecf6bd17a7a37e3d09",
+                      "checksum": "aa3658cfa6ad9923f3a9fa99d8399052fd999567",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-builder-support:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-builder-support:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-core",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "99d78fc569a74cd827b6944022da2f19c49e7033",
+                      "checksum": "d625bc169992f4eb807d7e6c03cdba0feb8841ed",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-core:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-core:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": [
                         {
                           "groupId": "com.google.guava",
@@ -4359,7 +4359,7 @@
                           "scope": "test",
                           "selectedVersion": "1.0.1",
                           "id": "com.google.guava:failureaccess:1.0.1",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4371,7 +4371,7 @@
                           "scope": "test",
                           "selectedVersion": "32.0.0-jre",
                           "id": "com.google.guava:guava:32.0.0-jre",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4383,7 +4383,7 @@
                           "scope": "test",
                           "selectedVersion": "5.1.0",
                           "id": "com.google.inject:guice:5.1.0",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4395,7 +4395,7 @@
                           "scope": "test",
                           "selectedVersion": "1",
                           "id": "javax.inject:javax.inject:1",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4407,163 +4407,163 @@
                           "scope": "test",
                           "selectedVersion": "3.12.0",
                           "id": "org.apache.commons:commons-lang3:3.12.0",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-artifact",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "46dc61a88743a4b674b20f7f5a5495ee9b48b087",
+                          "checksum": "bdacc5d67014383c80f5561b3996454f5f36d134",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-artifact:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-artifact:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-builder-support",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "7d6a3b947f22fb48f07e26ecf6bd17a7a37e3d09",
+                          "checksum": "aa3658cfa6ad9923f3a9fa99d8399052fd999567",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-builder-support:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-builder-support:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-model",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                          "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-model:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-model:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-model-builder",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "2cb41ae8b5eb2493143695ec3e97801860660bfd",
+                          "checksum": "2eda197ca81b2f189392f4041dc65abb46ff070f",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-model-builder:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-model-builder:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-plugin-api",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "c7b62f1c819330288af8bc8b2ed363d30423e8be",
+                          "checksum": "47c81ad57effde270a18e44eab72060ea5a9a451",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-plugin-api:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-plugin-api:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-repository-metadata",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "41920d69d891a0c26fdeeab910ba04f6e96c8631",
+                          "checksum": "15ff2db741191064b7b59ef8704dcbf9f3a61db2",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-repository-metadata:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-repository-metadata:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-resolver-provider",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "ba07d5c4593c362735e7d9840b2103cd104d97da",
+                          "checksum": "9f8941a1a62b3d2f56656e28fc828c00a1324682",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-resolver-provider:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-resolver-provider:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-settings",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "1b71b5935c433f61a3482e134682161a544183a6",
+                          "checksum": "4e3076219c554203485b7be51951007611bfe1f5",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-settings:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-settings:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-settings-builder",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "1c61cb0cf780aca25e100226c0e76f3d9f4629e0",
+                          "checksum": "c2b51853feac5e7aa0e4fbff79c6fa3f0c3197a0",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-settings-builder:3.9.2",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-settings-builder:3.9.3",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-api",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                          "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-impl",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "ff625f066d47769d9f9987243aa487cf48474721",
+                          "checksum": "9b1249902065aea64cbf1c5306dc43e8d7dbac4e",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-spi",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                          "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven.resolver",
                           "artifactId": "maven-resolver-util",
-                          "version": "1.9.10",
+                          "version": "1.9.13",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                          "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                           "scope": "test",
-                          "selectedVersion": "1.9.10",
-                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "selectedVersion": "1.9.13",
+                          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4575,7 +4575,7 @@
                           "scope": "test",
                           "selectedVersion": "3.3.4",
                           "id": "org.apache.maven.shared:maven-shared-utils:3.3.4",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4587,7 +4587,7 @@
                           "scope": "test",
                           "selectedVersion": "2.6.0",
                           "id": "org.codehaus.plexus:plexus-classworlds:2.6.0",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4599,7 +4599,7 @@
                           "scope": "test",
                           "selectedVersion": "2.1.0",
                           "id": "org.codehaus.plexus:plexus-component-annotations:2.1.0",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4611,7 +4611,7 @@
                           "scope": "test",
                           "selectedVersion": "1.26",
                           "id": "org.codehaus.plexus:plexus-interpolation:1.26",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4623,7 +4623,7 @@
                           "scope": "test",
                           "selectedVersion": "0.3.5",
                           "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         },
                         {
@@ -4635,7 +4635,7 @@
                           "scope": "test",
                           "selectedVersion": "0.3.5",
                           "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
-                          "parent": "org.apache.maven:maven-core:3.9.2",
+                          "parent": "org.apache.maven:maven-core:3.9.3",
                           "children": []
                         }
                       ]
@@ -4643,60 +4643,60 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                      "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model-builder",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "2cb41ae8b5eb2493143695ec3e97801860660bfd",
+                      "checksum": "2eda197ca81b2f189392f4041dc65abb46ff070f",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model-builder:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model-builder:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-plugin-api",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "c7b62f1c819330288af8bc8b2ed363d30423e8be",
+                      "checksum": "47c81ad57effde270a18e44eab72060ea5a9a451",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-plugin-api:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-plugin-api:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": [
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-artifact",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "46dc61a88743a4b674b20f7f5a5495ee9b48b087",
+                          "checksum": "bdacc5d67014383c80f5561b3996454f5f36d134",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-artifact:3.9.2",
-                          "parent": "org.apache.maven:maven-plugin-api:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-artifact:3.9.3",
+                          "parent": "org.apache.maven:maven-plugin-api:3.9.3",
                           "children": []
                         },
                         {
                           "groupId": "org.apache.maven",
                           "artifactId": "maven-model",
-                          "version": "3.9.2",
+                          "version": "3.9.3",
                           "checksumAlgorithm": "sha1",
-                          "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                          "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                           "scope": "test",
-                          "selectedVersion": "3.9.2",
-                          "id": "org.apache.maven:maven-model:3.9.2",
-                          "parent": "org.apache.maven:maven-plugin-api:3.9.2",
+                          "selectedVersion": "3.9.3",
+                          "id": "org.apache.maven:maven-model:3.9.3",
+                          "parent": "org.apache.maven:maven-plugin-api:3.9.3",
                           "children": []
                         },
                         {
@@ -4708,7 +4708,7 @@
                           "scope": "test",
                           "selectedVersion": "2.6.0",
                           "id": "org.codehaus.plexus:plexus-classworlds:2.6.0",
-                          "parent": "org.apache.maven:maven-plugin-api:3.9.2",
+                          "parent": "org.apache.maven:maven-plugin-api:3.9.3",
                           "children": []
                         },
                         {
@@ -4720,7 +4720,7 @@
                           "scope": "test",
                           "selectedVersion": "0.3.5",
                           "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
-                          "parent": "org.apache.maven:maven-plugin-api:3.9.2",
+                          "parent": "org.apache.maven:maven-plugin-api:3.9.3",
                           "children": []
                         }
                       ]
@@ -4728,49 +4728,49 @@
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-settings",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "1b71b5935c433f61a3482e134682161a544183a6",
+                      "checksum": "4e3076219c554203485b7be51951007611bfe1f5",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-settings:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-settings:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-settings-builder",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "1c61cb0cf780aca25e100226c0e76f3d9f4629e0",
+                      "checksum": "c2b51853feac5e7aa0e4fbff79c6fa3f0c3197a0",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-settings-builder:3.9.2",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-settings-builder:3.9.3",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-api",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-util",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                      "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4782,7 +4782,7 @@
                       "scope": "test",
                       "selectedVersion": "3.3.4",
                       "id": "org.apache.maven.shared:maven-shared-utils:3.3.4",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4794,7 +4794,7 @@
                       "scope": "test",
                       "selectedVersion": "2.0",
                       "id": "org.codehaus.plexus:plexus-cipher:2.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4806,7 +4806,7 @@
                       "scope": "test",
                       "selectedVersion": "2.6.0",
                       "id": "org.codehaus.plexus:plexus-classworlds:2.6.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4818,7 +4818,7 @@
                       "scope": "test",
                       "selectedVersion": "1.26",
                       "id": "org.codehaus.plexus:plexus-interpolation:1.26",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4830,7 +4830,7 @@
                       "scope": "test",
                       "selectedVersion": "2.0",
                       "id": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     },
                     {
@@ -4842,7 +4842,7 @@
                       "scope": "test",
                       "selectedVersion": "0.3.5",
                       "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
-                      "parent": "org.apache.maven:maven-embedder:3.9.2",
+                      "parent": "org.apache.maven:maven-embedder:3.9.3",
                       "children": []
                     }
                   ]
@@ -4850,13 +4850,13 @@
                 {
                   "groupId": "org.apache.maven",
                   "artifactId": "maven-resolver-provider",
-                  "version": "3.9.2",
+                  "version": "3.9.3",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "ba07d5c4593c362735e7d9840b2103cd104d97da",
+                  "checksum": "9f8941a1a62b3d2f56656e28fc828c00a1324682",
                   "scope": "test",
-                  "selectedVersion": "3.9.2",
-                  "id": "org.apache.maven:maven-resolver-provider:3.9.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "3.9.3",
+                  "id": "org.apache.maven:maven-resolver-provider:3.9.3",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -4867,91 +4867,91 @@
                       "scope": "test",
                       "selectedVersion": "1",
                       "id": "javax.inject:javax.inject:1",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "24adda115170fa12710f7a269f85fb93e2bab024",
+                      "checksum": "1b15ef66255145168949c1bdc20f70b9fff531aa",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model:3.9.2",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model:3.9.3",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-model-builder",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "2cb41ae8b5eb2493143695ec3e97801860660bfd",
+                      "checksum": "2eda197ca81b2f189392f4041dc65abb46ff070f",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-model-builder:3.9.2",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-model-builder:3.9.3",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-repository-metadata",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "41920d69d891a0c26fdeeab910ba04f6e96c8631",
+                      "checksum": "15ff2db741191064b7b59ef8704dcbf9f3a61db2",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-repository-metadata:3.9.2",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-repository-metadata:3.9.3",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-api",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-impl",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "ff625f066d47769d9f9987243aa487cf48474721",
+                      "checksum": "9b1249902065aea64cbf1c5306dc43e8d7dbac4e",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.10",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.13",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-spi",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                      "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-util",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                      "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     },
                     {
@@ -4963,7 +4963,7 @@
                       "scope": "test",
                       "selectedVersion": "3.5.1",
                       "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-                      "parent": "org.apache.maven:maven-resolver-provider:3.9.2",
+                      "parent": "org.apache.maven:maven-resolver-provider:3.9.3",
                       "children": []
                     }
                   ]
@@ -4971,13 +4971,13 @@
                 {
                   "groupId": "org.apache.maven",
                   "artifactId": "maven-settings-builder",
-                  "version": "3.9.2",
+                  "version": "3.9.3",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "1c61cb0cf780aca25e100226c0e76f3d9f4629e0",
+                  "checksum": "c2b51853feac5e7aa0e4fbff79c6fa3f0c3197a0",
                   "scope": "test",
-                  "selectedVersion": "3.9.2",
-                  "id": "org.apache.maven:maven-settings-builder:3.9.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "3.9.3",
+                  "id": "org.apache.maven:maven-settings-builder:3.9.3",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -4988,31 +4988,31 @@
                       "scope": "test",
                       "selectedVersion": "1",
                       "id": "javax.inject:javax.inject:1",
-                      "parent": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "parent": "org.apache.maven:maven-settings-builder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-builder-support",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7d6a3b947f22fb48f07e26ecf6bd17a7a37e3d09",
+                      "checksum": "aa3658cfa6ad9923f3a9fa99d8399052fd999567",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-builder-support:3.9.2",
-                      "parent": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-builder-support:3.9.3",
+                      "parent": "org.apache.maven:maven-settings-builder:3.9.3",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven",
                       "artifactId": "maven-settings",
-                      "version": "3.9.2",
+                      "version": "3.9.3",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "1b71b5935c433f61a3482e134682161a544183a6",
+                      "checksum": "4e3076219c554203485b7be51951007611bfe1f5",
                       "scope": "test",
-                      "selectedVersion": "3.9.2",
-                      "id": "org.apache.maven:maven-settings:3.9.2",
-                      "parent": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "selectedVersion": "3.9.3",
+                      "id": "org.apache.maven:maven-settings:3.9.3",
+                      "parent": "org.apache.maven:maven-settings-builder:3.9.3",
                       "children": []
                     },
                     {
@@ -5024,7 +5024,7 @@
                       "scope": "test",
                       "selectedVersion": "1.26",
                       "id": "org.codehaus.plexus:plexus-interpolation:1.26",
-                      "parent": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "parent": "org.apache.maven:maven-settings-builder:3.9.3",
                       "children": []
                     },
                     {
@@ -5036,7 +5036,7 @@
                       "scope": "test",
                       "selectedVersion": "2.0",
                       "id": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
-                      "parent": "org.apache.maven:maven-settings-builder:3.9.2",
+                      "parent": "org.apache.maven:maven-settings-builder:3.9.3",
                       "children": []
                     }
                   ]
@@ -5044,48 +5044,48 @@
                 {
                   "groupId": "org.apache.maven.resolver",
                   "artifactId": "maven-resolver-connector-basic",
-                  "version": "1.9.10",
+                  "version": "1.9.13",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "6adca3a1ae84f7aa596e867ace5e372a85ce07ce",
+                  "checksum": "9ab55b836913b98321101b23b4c61d8485a589d",
                   "scope": "test",
-                  "selectedVersion": "1.9.10",
-                  "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.10",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "1.9.13",
+                  "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.13",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-api",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.13",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-spi",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                      "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.13",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-util",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                      "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.13",
                       "children": []
                     }
                   ]
@@ -5093,48 +5093,48 @@
                 {
                   "groupId": "org.apache.maven.resolver",
                   "artifactId": "maven-resolver-transport-wagon",
-                  "version": "1.9.10",
+                  "version": "1.9.13",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "40ff19e21d107d0ba73bc5922cae07a92fb0f627",
+                  "checksum": "d21763da9046a2378a857cd22c46486f7b1908e5",
                   "scope": "test",
-                  "selectedVersion": "1.9.10",
-                  "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.10",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "selectedVersion": "1.9.13",
+                  "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.13",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-api",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "70920a458a3b765b8239726d75a1cea5e21386a6",
+                      "checksum": "3f270f7122047e4113ca7d66ad6f86a33c88c9ac",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.13",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-spi",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "bfb8483f801da24bdc61a31e63d86617be897644",
+                      "checksum": "112758c5e9b8eb9002bf129102d22cb887e3025c",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.13",
                       "children": []
                     },
                     {
                       "groupId": "org.apache.maven.resolver",
                       "artifactId": "maven-resolver-util",
-                      "version": "1.9.10",
+                      "version": "1.9.13",
                       "checksumAlgorithm": "sha1",
-                      "checksum": "7aa9a7d80728453903601700f60273238073bd84",
+                      "checksum": "edac336095d491fdd5c7572aec7f4547df4a8531",
                       "scope": "test",
-                      "selectedVersion": "1.9.10",
-                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.10",
-                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.10",
+                      "selectedVersion": "1.9.13",
+                      "id": "org.apache.maven.resolver:maven-resolver-util:1.9.13",
+                      "parent": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.13",
                       "children": []
                     }
                   ]
@@ -5148,7 +5148,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3",
                   "id": "org.apache.maven.wagon:wagon-file:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.apache.maven.wagon",
@@ -5173,7 +5173,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3",
                   "id": "org.apache.maven.wagon:wagon-http:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.apache.httpcomponents",
@@ -5222,7 +5222,7 @@
                   "scope": "test",
                   "selectedVersion": "0.3.5",
                   "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5234,7 +5234,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.1.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5246,7 +5246,7 @@
                   "scope": "test",
                   "selectedVersion": "1.1.1",
                   "id": "org.jboss.logmanager:jboss-logmanager-embedded:1.1.1",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5258,7 +5258,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.0.Final",
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5270,7 +5270,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.6",
                   "id": "org.slf4j:slf4j-api:2.0.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -5278,36 +5278,36 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core-deployment",
-              "version": "3.2.0.Final",
+              "version": "3.2.1.Final",
               "checksumAlgorithm": "sha1",
-              "checksum": "c4bfb772c1079540e10d4dbb68cceebcd3c0ed46",
+              "checksum": "b4740a5f2b436bae2bdff2cf27d8c179cb4cf2d5",
               "scope": "test",
-              "selectedVersion": "3.2.0.Final",
-              "id": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "selectedVersion": "3.2.1.Final",
+              "id": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-core",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "5b73d46dc2c0d2fa880e6e13a74b6d3d7b12e72c",
+                  "checksum": "8fde9f24bddcdc6054698c5c1bf45956d6e04bd5",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-bootstrap-core:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-bootstrap-core:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-builder",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "8a2da118c206ef61198a506da4ba2ac7df55d0ea",
+                  "checksum": "fb73f3bf1bf5f72c49052ebeb99ec0b57872ddeb",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-builder:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-builder:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.jboss.logging",
@@ -5318,7 +5318,7 @@
                       "scope": "test",
                       "selectedVersion": "3.5.1.Final",
                       "id": "org.jboss.logging:jboss-logging:3.5.1.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-builder:3.2.1.Final",
                       "children": []
                     },
                     {
@@ -5330,7 +5330,7 @@
                       "scope": "test",
                       "selectedVersion": "3.5.0.Final",
                       "id": "org.jboss.threads:jboss-threads:3.5.0.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-builder:3.2.1.Final",
                       "children": []
                     },
                     {
@@ -5342,7 +5342,7 @@
                       "scope": "test",
                       "selectedVersion": "1.5.4.Final-format-001",
                       "id": "org.wildfly.common:wildfly-common:1.5.4.Final-format-001",
-                      "parent": "io.quarkus:quarkus-builder:3.2.0.Final",
+                      "parent": "io.quarkus:quarkus-builder:3.2.1.Final",
                       "children": []
                     }
                   ]
@@ -5350,49 +5350,49 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-class-change-agent",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "f4f485d737d57f2376246c6c6e3173b8feba3072",
+                  "checksum": "3080762687067cde04e3a02114ef7f2e918be553",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-class-change-agent:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-class-change-agent:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "57ac542fa10a5161cd43a553a5f1bedbd25a6591",
+                  "checksum": "551706636f22fe98c74caa1ca338f7a3d9873315",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-core:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-core:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-development-mode-spi",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "4a8d8cc3e15191273101f8f0328f03c9c661889f",
+                  "checksum": "6e5464e1577705ff31a5416f436616f9d831bed0",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-development-mode-spi:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-development-mode-spi:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-devtools-utilities",
-                  "version": "3.2.0.Final",
+                  "version": "3.2.1.Final",
                   "checksumAlgorithm": "sha1",
-                  "checksum": "d2bdb9f1e244942682301a77deeb5645099be975",
+                  "checksum": "d8614fec29568494c56a3d55e35659e6fed5f0f8",
                   "scope": "test",
-                  "selectedVersion": "3.2.0.Final",
-                  "id": "io.quarkus:quarkus-devtools-utilities:3.2.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "selectedVersion": "3.2.1.Final",
+                  "id": "io.quarkus:quarkus-devtools-utilities:3.2.1.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5404,7 +5404,7 @@
                   "scope": "test",
                   "selectedVersion": "1.6.1.Final",
                   "id": "io.quarkus.gizmo:gizmo:1.6.1.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -5503,7 +5503,7 @@
                   "scope": "test",
                   "selectedVersion": "3.1.2",
                   "id": "io.smallrye:jandex:3.1.2",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5515,7 +5515,7 @@
                   "scope": "test",
                   "selectedVersion": "2.7",
                   "id": "org.aesh:aesh:2.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.aesh",
@@ -5540,7 +5540,7 @@
                   "scope": "test",
                   "selectedVersion": "2.4",
                   "id": "org.aesh:readline:2.4",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.fusesource.jansi",
@@ -5565,7 +5565,7 @@
                   "scope": "test",
                   "selectedVersion": "3.12.0",
                   "id": "org.apache.commons:commons-lang3:3.12.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5577,7 +5577,7 @@
                   "scope": "test",
                   "selectedVersion": "0.3.5",
                   "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5589,7 +5589,7 @@
                   "scope": "test",
                   "selectedVersion": "22.3.2",
                   "id": "org.graalvm.sdk:graal-sdk:22.3.2",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5601,7 +5601,7 @@
                   "scope": "test",
                   "selectedVersion": "5.9.3",
                   "id": "org.junit.jupiter:junit-jupiter:5.9.3",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5613,7 +5613,7 @@
                   "scope": "test",
                   "selectedVersion": "1.9.3",
                   "id": "org.junit.platform:junit-platform-launcher:1.9.3",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.apiguardian",
@@ -5650,7 +5650,7 @@
                   "scope": "test",
                   "selectedVersion": "9.5",
                   "id": "org.ow2.asm:asm:9.5",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 },
                 {
@@ -5662,7 +5662,7 @@
                   "scope": "test",
                   "selectedVersion": "9.5",
                   "id": "org.ow2.asm:asm-commons:9.5",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": [
                     {
                       "groupId": "org.ow2.asm",
@@ -5712,7 +5712,7 @@
                   "scope": "test",
                   "selectedVersion": "1.5.4.Final-format-001",
                   "id": "org.wildfly.common:wildfly-common:1.5.4.Final-format-001",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.2.0.Final",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.2.1.Final",
                   "children": []
                 }
               ]
@@ -5726,7 +5726,7 @@
               "scope": "test",
               "selectedVersion": "3.1.2",
               "id": "io.smallrye:jandex:3.1.2",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": []
             },
             {
@@ -5738,7 +5738,7 @@
               "scope": "test",
               "selectedVersion": "1.0.0.Final",
               "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.2.0.Final",
+              "parent": "io.quarkus:quarkus-test-common:3.2.1.Final",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -5765,7 +5765,7 @@
           "scope": "test",
           "selectedVersion": "0.3.5",
           "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": []
         },
         {
@@ -5777,7 +5777,7 @@
           "scope": "test",
           "selectedVersion": "5.9.3",
           "id": "org.junit.jupiter:junit-jupiter:5.9.3",
-          "parent": "io.quarkus:quarkus-junit5:3.2.0.Final",
+          "parent": "io.quarkus:quarkus-junit5:3.2.1.Final",
           "children": [
             {
               "groupId": "org.junit.jupiter",
@@ -6014,7 +6014,7 @@
     {
       "groupId": "io.quarkus.platform",
       "artifactId": "quarkus-maven-plugin",
-      "version": "3.2.0.Final"
+      "version": "3.2.1.Final"
     },
     {
       "groupId": "org.apache.maven.plugins",
