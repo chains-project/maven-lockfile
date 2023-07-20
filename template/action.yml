@@ -53,7 +53,7 @@ runs:
 
     - name: Get all changed pom.xml file(s)
       id: changed-files
-      uses: tj-actions/changed-files@39283171cefdf491e0f0d6cf285b86b31eb6f3cd # v37
+      uses: tj-actions/changed-files@de0eba32790fb9bf87471b32855a30fc8f9d5fc6 # v37
       with:
         files: |
               **/pom.xml
