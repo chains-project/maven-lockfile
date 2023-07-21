@@ -7,12 +7,12 @@
     {
       "groupId": "io.quarkiverse.githubaction",
       "artifactId": "quarkus-github-action",
-      "version": "2.0.1",
+      "version": "2.0.2",
       "checksumAlgorithm": "sha1",
-      "checksum": "9341707dfb700cdc5cfb61ae91fa9bf9f4d1492b",
+      "checksum": "ff8da3f985491895f5b798bc9c8a39d8c19a8163",
       "scope": "compile",
-      "selectedVersion": "2.0.1",
-      "id": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+      "selectedVersion": "2.0.2",
+      "id": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
       "children": [
         {
           "groupId": "com.fasterxml.jackson.dataformat",
@@ -23,7 +23,7 @@
           "scope": "compile",
           "selectedVersion": "2.15.2",
           "id": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "com.fasterxml.jackson.core",
@@ -66,13 +66,13 @@
         {
           "groupId": "io.quarkiverse.githubapi",
           "artifactId": "quarkus-github-api",
-          "version": "1.314.1",
+          "version": "1.315.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "ee3bedfd9113cf696e6f5ad75bd7f55920832f66",
+          "checksum": "a5b844b381f3fd4c25c58e2ec39bc0b728ee0148",
           "scope": "compile",
-          "selectedVersion": "1.314.1",
-          "id": "io.quarkiverse.githubapi:quarkus-github-api:1.314.1",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "selectedVersion": "1.315.0",
+          "id": "io.quarkiverse.githubapi:quarkus-github-api:1.315.0",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "io.quarkus",
@@ -83,19 +83,31 @@
               "scope": "compile",
               "selectedVersion": "3.2.1.Final",
               "id": "io.quarkus:quarkus-core:3.2.1.Final",
-              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.314.1",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.315.0",
+              "children": []
+            },
+            {
+              "groupId": "org.graalvm.sdk",
+              "artifactId": "graal-sdk",
+              "version": "22.3.2",
+              "checksumAlgorithm": "sha1",
+              "checksum": "da89e202c86ee7a58afa01e165d32bdd2114e769",
+              "scope": "compile",
+              "selectedVersion": "22.3.2",
+              "id": "org.graalvm.sdk:graal-sdk:22.3.2",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.315.0",
               "children": []
             },
             {
               "groupId": "org.kohsuke",
               "artifactId": "github-api",
-              "version": "1.314",
+              "version": "1.315",
               "checksumAlgorithm": "sha1",
-              "checksum": "c17a7611507f66a386f06a9c01f60b743153ba2c",
+              "checksum": "d804856b7288448529d1eef5679a69d0863f898",
               "scope": "compile",
-              "selectedVersion": "1.314",
-              "id": "org.kohsuke:github-api:1.314",
-              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.314.1",
+              "selectedVersion": "1.315",
+              "id": "org.kohsuke:github-api:1.315",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.315.0",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -106,7 +118,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.15.2",
                   "id": "com.fasterxml.jackson.core:jackson-databind:2.15.2",
-                  "parent": "org.kohsuke:github-api:1.314",
+                  "parent": "org.kohsuke:github-api:1.315",
                   "children": []
                 },
                 {
@@ -118,7 +130,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.13.0",
                   "id": "commons-io:commons-io:2.13.0",
-                  "parent": "org.kohsuke:github-api:1.314",
+                  "parent": "org.kohsuke:github-api:1.315",
                   "children": []
                 },
                 {
@@ -130,7 +142,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.12.0",
                   "id": "org.apache.commons:commons-lang3:3.12.0",
-                  "parent": "org.kohsuke:github-api:1.314",
+                  "parent": "org.kohsuke:github-api:1.315",
                   "children": []
                 }
               ]
@@ -140,24 +152,24 @@
         {
           "groupId": "io.quarkiverse.githubapp",
           "artifactId": "quarkus-github-app-events",
-          "version": "2.0.0",
+          "version": "2.0.4",
           "checksumAlgorithm": "sha1",
-          "checksum": "2cf1d39c5f1f6801dca8f4e8ac05e6ab52b05415",
+          "checksum": "5e68984ac525dda75c2a46e69d64f2d7a5cbfc78",
           "scope": "compile",
-          "selectedVersion": "2.0.0",
-          "id": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.0",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "selectedVersion": "2.0.4",
+          "id": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.4",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "io.quarkiverse.githubapi",
               "artifactId": "quarkus-github-api",
-              "version": "1.314.1",
+              "version": "1.315.0",
               "checksumAlgorithm": "sha1",
-              "checksum": "ee3bedfd9113cf696e6f5ad75bd7f55920832f66",
+              "checksum": "a5b844b381f3fd4c25c58e2ec39bc0b728ee0148",
               "scope": "compile",
-              "selectedVersion": "1.314.1",
-              "id": "io.quarkiverse.githubapi:quarkus-github-api:1.314.1",
-              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.0",
+              "selectedVersion": "1.315.0",
+              "id": "io.quarkiverse.githubapi:quarkus-github-api:1.315.0",
+              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.4",
               "children": []
             },
             {
@@ -169,7 +181,7 @@
               "scope": "compile",
               "selectedVersion": "3.2.1.Final",
               "id": "io.quarkus:quarkus-arc:3.2.1.Final",
-              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.0",
+              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.0.4",
               "children": []
             }
           ]
@@ -183,7 +195,7 @@
           "scope": "compile",
           "selectedVersion": "3.2.1.Final",
           "id": "io.quarkus:quarkus-arc:3.2.1.Final",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": []
         },
         {
@@ -195,7 +207,7 @@
           "scope": "compile",
           "selectedVersion": "3.2.1.Final",
           "id": "io.quarkus:quarkus-jackson:3.2.1.Final",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "com.fasterxml.jackson.core",
@@ -380,7 +392,7 @@
           "scope": "compile",
           "selectedVersion": "3.2.1.Final",
           "id": "io.quarkus:quarkus-smallrye-graphql-client:3.2.1.Final",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "io.quarkus",
@@ -947,7 +959,7 @@
           "scope": "compile",
           "selectedVersion": "3.2.1.Final",
           "id": "io.quarkus:quarkus-vertx:3.2.1.Final",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.0.2",
           "children": [
             {
               "groupId": "io.netty",
