@@ -18,12 +18,12 @@
     {
       "groupId": "com.google.guava",
       "artifactId": "guava",
-      "version": "32.1.1-jre",
+      "version": "32.1.2-jre",
       "checksumAlgorithm": "sha1",
-      "checksum": "ad575652d84153075dd41ec6177ccb15251262b2",
+      "checksum": "5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318",
       "scope": "compile",
-      "selectedVersion": "32.1.1-jre",
-      "id": "com.google.guava:guava:32.1.1-jre",
+      "selectedVersion": "32.1.2-jre",
+      "id": "com.google.guava:guava:32.1.2-jre",
       "children": [
         {
           "groupId": "com.google.code.findbugs",
@@ -34,7 +34,7 @@
           "scope": "compile",
           "selectedVersion": "3.0.2",
           "id": "com.google.code.findbugs:jsr305:3.0.2",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         },
         {
@@ -46,7 +46,7 @@
           "scope": "compile",
           "selectedVersion": "2.18.0",
           "id": "com.google.errorprone:error_prone_annotations:2.18.0",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         },
         {
@@ -58,7 +58,7 @@
           "scope": "compile",
           "selectedVersion": "1.0.1",
           "id": "com.google.guava:failureaccess:1.0.1",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         },
         {
@@ -70,7 +70,7 @@
           "scope": "compile",
           "selectedVersion": "9999.0-empty-to-avoid-conflict-with-guava",
           "id": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         },
         {
@@ -82,7 +82,7 @@
           "scope": "compile",
           "selectedVersion": "2.8",
           "id": "com.google.j2objc:j2objc-annotations:2.8",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         },
         {
@@ -94,7 +94,7 @@
           "scope": "compile",
           "selectedVersion": "3.33.0",
           "id": "org.checkerframework:checker-qual:3.33.0",
-          "parent": "com.google.guava:guava:32.1.1-jre",
+          "parent": "com.google.guava:guava:32.1.2-jre",
           "children": []
         }
       ]
@@ -1272,7 +1272,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "5fa98cd1a63c99a44dd8d3b77e4762b066a5d0c5",
               "scope": "provided",
-              "selectedVersion": "32.1.1-jre",
+              "selectedVersion": "32.1.2-jre",
               "id": "com.google.guava:guava:16.0.1",
               "parent": "org.sonatype.sisu:sisu-guice:3.2.3",
               "children": []
