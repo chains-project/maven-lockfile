@@ -176,7 +176,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "82b2f097c1cc9a8d0e6b99af5e56327d5002c30f",
               "scope": "test",
-              "selectedVersion": "3.2.5",
+              "selectedVersion": "3.9.4",
               "id": "org.apache.maven:maven-model:3.1.0",
               "parent": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.12.0",
               "children": []
@@ -202,7 +202,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "82b2f097c1cc9a8d0e6b99af5e56327d5002c30f",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-model:3.1.0",
           "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.12.0",
           "children": []
@@ -248,23 +248,35 @@
     {
       "groupId": "org.apache.maven",
       "artifactId": "maven-artifact",
-      "version": "3.2.5",
+      "version": "3.9.4",
       "checksumAlgorithm": "sha1",
-      "checksum": "bf5ce89d5f7ff57f2a33e78067ba97e62bae007d",
+      "checksum": "9738999a0459221e758ebe728449c43567d7fecc",
       "scope": "provided",
-      "selectedVersion": "3.2.5",
-      "id": "org.apache.maven:maven-artifact:3.2.5",
+      "selectedVersion": "3.9.4",
+      "id": "org.apache.maven:maven-artifact:3.9.4",
       "children": [
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.12.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e",
+          "scope": "provided",
+          "selectedVersion": "3.12.0",
+          "id": "org.apache.commons:commons-lang3:3.12.0",
+          "parent": "org.apache.maven:maven-artifact:3.9.4",
+          "children": []
+        },
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "3.0.20",
+          "version": "3.5.1",
           "checksumAlgorithm": "sha1",
-          "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
+          "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
           "scope": "provided",
-          "selectedVersion": "3.0.20",
-          "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-          "parent": "org.apache.maven:maven-artifact:3.2.5",
+          "selectedVersion": "3.5.1",
+          "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+          "parent": "org.apache.maven:maven-artifact:3.9.4",
           "children": []
         }
       ]
@@ -286,7 +298,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "9738999a0459221e758ebe728449c43567d7fecc",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-artifact:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -298,7 +310,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "c1585ee55fca8573e81f5affcf8d31578218cac8",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-core:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -310,7 +322,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-model:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -322,7 +334,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "b12e45736ddfb51f648e1579877a293659e5a96e",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-model-builder:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -334,7 +346,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "ef368d45a2caa54634de221540994ca2d810c4c9",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-repository-metadata:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -349,129 +361,7 @@
           "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-resolver-provider:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
-          "children": [
-            {
-              "groupId": "javax.inject",
-              "artifactId": "javax.inject",
-              "version": "1",
-              "checksumAlgorithm": "sha1",
-              "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
-              "scope": "test",
-              "selectedVersion": "1",
-              "id": "javax.inject:javax.inject:1",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-model",
-              "version": "3.9.4",
-              "checksumAlgorithm": "sha1",
-              "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
-              "scope": "test",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-model:3.9.4",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-model-builder",
-              "version": "3.9.4",
-              "checksumAlgorithm": "sha1",
-              "checksum": "b12e45736ddfb51f648e1579877a293659e5a96e",
-              "scope": "test",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-model-builder:3.9.4",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-repository-metadata",
-              "version": "3.9.4",
-              "checksumAlgorithm": "sha1",
-              "checksum": "ef368d45a2caa54634de221540994ca2d810c4c9",
-              "scope": "test",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-repository-metadata:3.9.4",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-api",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-impl",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "2aa090aca572f7061e5c57f714ef0445bbb4555f",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-spi",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "a190c3d49791240c87799f29848505fc9fd8be11",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": [
-                {
-                  "groupId": "org.apache.maven.resolver",
-                  "artifactId": "maven-resolver-api",
-                  "version": "1.9.14",
-                  "checksumAlgorithm": "sha1",
-                  "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
-                  "scope": "test",
-                  "selectedVersion": "1.9.14",
-                  "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
-                  "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-util",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "ea6fd2997903700191711dee4448746ed30fe4b9",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.5.1",
-              "checksumAlgorithm": "sha1",
-              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
-              "scope": "test",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
-              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "groupId": "org.apache.maven",
@@ -480,7 +370,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "f0553a72454ed3160cca729b75166077d8f3d499",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-settings:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -492,7 +382,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "b3f6479c00e9182b9b731caf69ac6f4f6f2a373f",
           "scope": "test",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-settings-builder:3.9.4",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -519,81 +409,7 @@
           "selectedVersion": "1.9.14",
           "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
           "parent": "org.apache.maven:maven-compat:3.9.4",
-          "children": [
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-api",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
-              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-named-locks",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "71cf74d91b4f6de1bff8fc1fafb401d9ac42b1b8",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.14",
-              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "children": [
-                {
-                  "groupId": "org.slf4j",
-                  "artifactId": "slf4j-api",
-                  "version": "1.7.36",
-                  "checksumAlgorithm": "sha1",
-                  "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
-                  "scope": "test",
-                  "selectedVersion": "2.0.7",
-                  "id": "org.slf4j:slf4j-api:1.7.36",
-                  "parent": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.14",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-spi",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "a190c3d49791240c87799f29848505fc9fd8be11",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
-              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-util",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "ea6fd2997903700191711dee4448746ed30fe4b9",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
-              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "children": []
-            },
-            {
-              "groupId": "org.slf4j",
-              "artifactId": "slf4j-api",
-              "version": "1.7.36",
-              "checksumAlgorithm": "sha1",
-              "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
-              "scope": "test",
-              "selectedVersion": "2.0.7",
-              "id": "org.slf4j:slf4j-api:1.7.36",
-              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "groupId": "org.apache.maven.resolver",
@@ -605,20 +421,7 @@
           "selectedVersion": "1.9.14",
           "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
           "parent": "org.apache.maven:maven-compat:3.9.4",
-          "children": [
-            {
-              "groupId": "org.apache.maven.resolver",
-              "artifactId": "maven-resolver-api",
-              "version": "1.9.14",
-              "checksumAlgorithm": "sha1",
-              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
-              "scope": "test",
-              "selectedVersion": "1.9.14",
-              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
-              "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "groupId": "org.apache.maven.wagon",
@@ -638,7 +441,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "9b41b2b76b1bfe3774411fe22f5868058a9fc822",
               "scope": "test",
-              "selectedVersion": "3.0.20",
+              "selectedVersion": "3.5.1",
               "id": "org.codehaus.plexus:plexus-utils:3.3.1",
               "parent": "org.apache.maven.wagon:wagon-provider-api:3.5.3",
               "children": []
@@ -652,7 +455,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "2f2147a6cc6a119a1b51a96f31d45c557f6244b9",
           "scope": "test",
-          "selectedVersion": "1.5.5",
+          "selectedVersion": "2.1.0",
           "id": "org.codehaus.plexus:plexus-component-annotations:2.1.0",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -664,7 +467,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "25b919c664b79795ccde0ede5cee0fd68b544197",
           "scope": "test",
-          "selectedVersion": "1.21",
+          "selectedVersion": "1.26",
           "id": "org.codehaus.plexus:plexus-interpolation:1.26",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -676,7 +479,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
           "scope": "test",
-          "selectedVersion": "3.0.20",
+          "selectedVersion": "3.5.1",
           "id": "org.codehaus.plexus:plexus-utils:3.5.1",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -688,7 +491,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "d71996bb2e536f966b3b70e647067fff3b73d32f",
           "scope": "test",
-          "selectedVersion": "0.3.0.M1",
+          "selectedVersion": "0.3.5",
           "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -698,560 +501,47 @@
     {
       "groupId": "org.apache.maven",
       "artifactId": "maven-core",
-      "version": "3.2.5",
+      "version": "3.9.4",
       "checksumAlgorithm": "sha1",
-      "checksum": "fbec7cf0df4fbc2896a6768ae59053877c05c241",
+      "checksum": "c1585ee55fca8573e81f5affcf8d31578218cac8",
       "scope": "provided",
-      "selectedVersion": "3.2.5",
-      "id": "org.apache.maven:maven-core:3.2.5",
+      "selectedVersion": "3.9.4",
+      "id": "org.apache.maven:maven-core:3.9.4",
       "children": [
         {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-aether-provider",
-          "version": "3.2.5",
+          "groupId": "com.google.guava",
+          "artifactId": "failureaccess",
+          "version": "1.0.1",
           "checksumAlgorithm": "sha1",
-          "checksum": "dfddf469d20b877b184dda5d6e60f0c75f558a72",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-aether-provider:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-model",
-              "version": "3.2.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "ced305476a43e8a042a59e94ef38b3291d9ce1e7",
-              "scope": "provided",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-model:3.2.5",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-model-builder",
-              "version": "3.2.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "7a32f3966fab463df9cdae95fd6df8c2e561e3ae",
-              "scope": "provided",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-model-builder:3.2.5",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-repository-metadata",
-              "version": "3.2.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "17049c63ce63654c112eeb82797edee49f8a4601",
-              "scope": "provided",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-repository-metadata:3.2.5",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-component-annotations",
-              "version": "1.5.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "c72f2660d0cbed24246ddb55d7fdc4f7374d2078",
-              "scope": "provided",
-              "selectedVersion": "1.5.5",
-              "id": "org.codehaus.plexus:plexus-component-annotations:1.5.5",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.0.20",
-              "checksumAlgorithm": "sha1",
-              "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-api",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-impl",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "a5ee67be2c99dfb95ad61235d749c92ae09c926e",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-impl:1.0.0.v20140518",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-spi",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "985a9a12b904fb3bafd4dc6b49f6a084845703a1",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-spi:1.0.0.v20140518",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": [
-                {
-                  "groupId": "org.eclipse.aether",
-                  "artifactId": "aether-api",
-                  "version": "1.0.0.v20140518",
-                  "checksumAlgorithm": "sha1",
-                  "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
-                  "scope": "provided",
-                  "selectedVersion": "1.0.0.v20140518",
-                  "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-                  "parent": "org.eclipse.aether:aether-spi:1.0.0.v20140518",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-util",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "7df5ba98ce8b78985d75fdd8c2981fe69234ef85",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-              "parent": "org.apache.maven:maven-aether-provider:3.2.5",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-artifact",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "bf5ce89d5f7ff57f2a33e78067ba97e62bae007d",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-artifact:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-model",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "ced305476a43e8a042a59e94ef38b3291d9ce1e7",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-model:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-model-builder",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "7a32f3966fab463df9cdae95fd6df8c2e561e3ae",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-model-builder:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-model",
-              "version": "3.2.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "ced305476a43e8a042a59e94ef38b3291d9ce1e7",
-              "scope": "provided",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-model:3.2.5",
-              "parent": "org.apache.maven:maven-model-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-component-annotations",
-              "version": "1.5.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "c72f2660d0cbed24246ddb55d7fdc4f7374d2078",
-              "scope": "provided",
-              "selectedVersion": "1.5.5",
-              "id": "org.codehaus.plexus:plexus-component-annotations:1.5.5",
-              "parent": "org.apache.maven:maven-model-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-interpolation",
-              "version": "1.21",
-              "checksumAlgorithm": "sha1",
-              "checksum": "f92de59d295f16868001644acc21720f3ec9eb15",
-              "scope": "provided",
-              "selectedVersion": "1.21",
-              "id": "org.codehaus.plexus:plexus-interpolation:1.21",
-              "parent": "org.apache.maven:maven-model-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.0.20",
-              "checksumAlgorithm": "sha1",
-              "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-              "parent": "org.apache.maven:maven-model-builder:3.2.5",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-plugin-api",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "5c6893f4ac5425d07c4053f3c4e27b2a3b37c516",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-plugin-api:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-repository-metadata",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "17049c63ce63654c112eeb82797edee49f8a4601",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-repository-metadata:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.0.20",
-              "checksumAlgorithm": "sha1",
-              "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-              "parent": "org.apache.maven:maven-repository-metadata:3.2.5",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-settings",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "52179da78893ed7afea98d980c55e658fb04d9b4",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-settings:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.0.20",
-              "checksumAlgorithm": "sha1",
-              "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-              "parent": "org.apache.maven:maven-settings:3.2.5",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.apache.maven",
-          "artifactId": "maven-settings-builder",
-          "version": "3.2.5",
-          "checksumAlgorithm": "sha1",
-          "checksum": "7fd98de76398a3ff5c1d9a7b85f26cb65a862578",
-          "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-settings-builder:3.2.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-settings",
-              "version": "3.2.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "52179da78893ed7afea98d980c55e658fb04d9b4",
-              "scope": "provided",
-              "selectedVersion": "3.2.5",
-              "id": "org.apache.maven:maven-settings:3.2.5",
-              "parent": "org.apache.maven:maven-settings-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-component-annotations",
-              "version": "1.5.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "c72f2660d0cbed24246ddb55d7fdc4f7374d2078",
-              "scope": "provided",
-              "selectedVersion": "1.5.5",
-              "id": "org.codehaus.plexus:plexus-component-annotations:1.5.5",
-              "parent": "org.apache.maven:maven-settings-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-interpolation",
-              "version": "1.21",
-              "checksumAlgorithm": "sha1",
-              "checksum": "f92de59d295f16868001644acc21720f3ec9eb15",
-              "scope": "provided",
-              "selectedVersion": "1.21",
-              "id": "org.codehaus.plexus:plexus-interpolation:1.21",
-              "parent": "org.apache.maven:maven-settings-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "3.0.20",
-              "checksumAlgorithm": "sha1",
-              "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-              "parent": "org.apache.maven:maven-settings-builder:3.2.5",
-              "children": []
-            },
-            {
-              "groupId": "org.sonatype.plexus",
-              "artifactId": "plexus-sec-dispatcher",
-              "version": "1.3",
-              "checksumAlgorithm": "sha1",
-              "checksum": "dedc02034fb8fcd7615d66593228cb71709134b4",
-              "scope": "provided",
-              "selectedVersion": "1.3",
-              "id": "org.sonatype.plexus:plexus-sec-dispatcher:1.3",
-              "parent": "org.apache.maven:maven-settings-builder:3.2.5",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-classworlds",
-          "version": "2.5.2",
-          "checksumAlgorithm": "sha1",
-          "checksum": "4abb111bfdace5b8167db4c0ef74644f3f88f142",
+          "checksum": "1dcf1de382a0bf95a3d8b0849546c88bac1292c9",
           "scope": "compile",
-          "selectedVersion": "2.5.2",
-          "id": "org.codehaus.plexus:plexus-classworlds:2.5.2",
-          "parent": "org.apache.maven:maven-core:3.2.5",
+          "selectedVersion": "1.0.1",
+          "id": "com.google.guava:failureaccess:1.0.1",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": []
         },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-component-annotations",
-          "version": "1.5.5",
+          "groupId": "com.google.guava",
+          "artifactId": "guava",
+          "version": "32.0.1-jre",
           "checksumAlgorithm": "sha1",
-          "checksum": "c72f2660d0cbed24246ddb55d7fdc4f7374d2078",
-          "scope": "compile",
-          "selectedVersion": "1.5.5",
-          "id": "org.codehaus.plexus:plexus-component-annotations:1.5.5",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-interpolation",
-          "version": "1.21",
-          "checksumAlgorithm": "sha1",
-          "checksum": "f92de59d295f16868001644acc21720f3ec9eb15",
+          "checksum": "6e5d51a72d142f2d40a57dfb897188b36a95b489",
           "scope": "provided",
-          "selectedVersion": "1.21",
-          "id": "org.codehaus.plexus:plexus-interpolation:1.21",
-          "parent": "org.apache.maven:maven-core:3.2.5",
+          "selectedVersion": "32.1.2-jre",
+          "id": "com.google.guava:guava:32.0.1-jre",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": []
         },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-utils",
-          "version": "3.0.20",
+          "groupId": "com.google.inject",
+          "artifactId": "guice",
+          "version": "5.1.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
-          "scope": "compile",
-          "selectedVersion": "3.0.20",
-          "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.eclipse.aether",
-          "artifactId": "aether-api",
-          "version": "1.0.0.v20140518",
-          "checksumAlgorithm": "sha1",
-          "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
-          "scope": "compile",
-          "selectedVersion": "1.0.0.v20140518",
-          "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.eclipse.aether",
-          "artifactId": "aether-impl",
-          "version": "1.0.0.v20140518",
-          "checksumAlgorithm": "sha1",
-          "checksum": "a5ee67be2c99dfb95ad61235d749c92ae09c926e",
+          "checksum": "da25056c694c54ba16e78e4fc35f17fc60f0d1b4",
           "scope": "provided",
-          "selectedVersion": "1.0.0.v20140518",
-          "id": "org.eclipse.aether:aether-impl:1.0.0.v20140518",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-api",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-              "parent": "org.eclipse.aether:aether-impl:1.0.0.v20140518",
-              "children": []
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-spi",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "985a9a12b904fb3bafd4dc6b49f6a084845703a1",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-spi:1.0.0.v20140518",
-              "parent": "org.eclipse.aether:aether-impl:1.0.0.v20140518",
-              "children": []
-            },
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-util",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "7df5ba98ce8b78985d75fdd8c2981fe69234ef85",
-              "scope": "provided",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-              "parent": "org.eclipse.aether:aether-impl:1.0.0.v20140518",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.eclipse.aether",
-          "artifactId": "aether-util",
-          "version": "1.0.0.v20140518",
-          "checksumAlgorithm": "sha1",
-          "checksum": "7df5ba98ce8b78985d75fdd8c2981fe69234ef85",
-          "scope": "compile",
-          "selectedVersion": "1.0.0.v20140518",
-          "id": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-api",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "sha1",
-              "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
-              "scope": "compile",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-              "parent": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.eclipse.sisu",
-          "artifactId": "org.eclipse.sisu.plexus",
-          "version": "0.3.0.M1",
-          "checksumAlgorithm": "sha1",
-          "checksum": "5dd889c7c3fa83f24ab7435d94da2cfe0a16dedd",
-          "scope": "provided",
-          "selectedVersion": "0.3.0.M1",
-          "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": []
-        },
-        {
-          "groupId": "org.sonatype.plexus",
-          "artifactId": "plexus-sec-dispatcher",
-          "version": "1.3",
-          "checksumAlgorithm": "sha1",
-          "checksum": "dedc02034fb8fcd7615d66593228cb71709134b4",
-          "scope": "provided",
-          "selectedVersion": "1.3",
-          "id": "org.sonatype.plexus:plexus-sec-dispatcher:1.3",
-          "parent": "org.apache.maven:maven-core:3.2.5",
-          "children": [
-            {
-              "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-utils",
-              "version": "1.5.5",
-              "checksumAlgorithm": "sha1",
-              "checksum": "7bd031358c3d6d3a7aea2e4de03c0d34675c5d9d",
-              "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:1.5.5",
-              "parent": "org.sonatype.plexus:plexus-sec-dispatcher:1.3",
-              "children": []
-            },
-            {
-              "groupId": "org.sonatype.plexus",
-              "artifactId": "plexus-cipher",
-              "version": "1.4",
-              "checksumAlgorithm": "sha1",
-              "checksum": "50ade46f23bb38cd984b4ec560c46223432aac38",
-              "scope": "provided",
-              "selectedVersion": "1.4",
-              "id": "org.sonatype.plexus:plexus-cipher:1.4",
-              "parent": "org.sonatype.plexus:plexus-sec-dispatcher:1.3",
-              "children": []
-            }
-          ]
-        },
-        {
-          "groupId": "org.sonatype.sisu",
-          "artifactId": "sisu-guice",
-          "version": "3.2.3",
-          "checksumAlgorithm": "sha1",
-          "checksum": "6b8262f32ff7b60881aed3e7aa9d81fdb48330e9",
-          "scope": "provided",
-          "selectedVersion": "3.2.3",
-          "id": "org.sonatype.sisu:sisu-guice:3.2.3",
-          "parent": "org.apache.maven:maven-core:3.2.5",
+          "selectedVersion": "5.1.0",
+          "id": "com.google.inject:guice:5.1.0",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": [
             {
               "groupId": "aopalliance",
@@ -1262,19 +552,7 @@
               "scope": "provided",
               "selectedVersion": "1.0",
               "id": "aopalliance:aopalliance:1.0",
-              "parent": "org.sonatype.sisu:sisu-guice:3.2.3",
-              "children": []
-            },
-            {
-              "groupId": "com.google.guava",
-              "artifactId": "guava",
-              "version": "16.0.1",
-              "checksumAlgorithm": "sha1",
-              "checksum": "5fa98cd1a63c99a44dd8d3b77e4762b066a5d0c5",
-              "scope": "provided",
-              "selectedVersion": "32.1.2-jre",
-              "id": "com.google.guava:guava:16.0.1",
-              "parent": "org.sonatype.sisu:sisu-guice:3.2.3",
+              "parent": "com.google.inject:guice:5.1.0",
               "children": []
             },
             {
@@ -1286,105 +564,421 @@
               "scope": "provided",
               "selectedVersion": "1",
               "id": "javax.inject:javax.inject:1",
-              "parent": "org.sonatype.sisu:sisu-guice:3.2.3",
+              "parent": "com.google.inject:guice:5.1.0",
               "children": []
             }
           ]
-        }
-      ]
-    },
-    {
-      "groupId": "org.apache.maven",
-      "artifactId": "maven-model",
-      "version": "3.2.5",
-      "checksumAlgorithm": "sha1",
-      "checksum": "ced305476a43e8a042a59e94ef38b3291d9ce1e7",
-      "scope": "provided",
-      "selectedVersion": "3.2.5",
-      "id": "org.apache.maven:maven-model:3.2.5",
-      "children": [
+        },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-utils",
-          "version": "3.0.20",
+          "groupId": "javax.inject",
+          "artifactId": "javax.inject",
+          "version": "1",
           "checksumAlgorithm": "sha1",
-          "checksum": "e121ed37af8ee3928952f6d8a303de24e019aab0",
+          "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
           "scope": "provided",
-          "selectedVersion": "3.0.20",
-          "id": "org.codehaus.plexus:plexus-utils:3.0.20",
-          "parent": "org.apache.maven:maven-model:3.2.5",
+          "selectedVersion": "1",
+          "id": "javax.inject:javax.inject:1",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": []
-        }
-      ]
-    },
-    {
-      "groupId": "org.apache.maven",
-      "artifactId": "maven-plugin-api",
-      "version": "3.2.5",
-      "checksumAlgorithm": "sha1",
-      "checksum": "5c6893f4ac5425d07c4053f3c4e27b2a3b37c516",
-      "scope": "provided",
-      "selectedVersion": "3.2.5",
-      "id": "org.apache.maven:maven-plugin-api:3.2.5",
-      "children": [
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.12.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e",
+          "scope": "provided",
+          "selectedVersion": "3.12.0",
+          "id": "org.apache.commons:commons-lang3:3.12.0",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
         {
           "groupId": "org.apache.maven",
           "artifactId": "maven-artifact",
-          "version": "3.2.5",
+          "version": "3.9.4",
           "checksumAlgorithm": "sha1",
-          "checksum": "bf5ce89d5f7ff57f2a33e78067ba97e62bae007d",
+          "checksum": "9738999a0459221e758ebe728449c43567d7fecc",
           "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-artifact:3.2.5",
-          "parent": "org.apache.maven:maven-plugin-api:3.2.5",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-artifact:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-builder-support",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "671110e56110d5c89eda904f198719a2b5fa4a21",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-builder-support:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": []
         },
         {
           "groupId": "org.apache.maven",
           "artifactId": "maven-model",
-          "version": "3.2.5",
+          "version": "3.9.4",
           "checksumAlgorithm": "sha1",
-          "checksum": "ced305476a43e8a042a59e94ef38b3291d9ce1e7",
+          "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
           "scope": "provided",
-          "selectedVersion": "3.2.5",
-          "id": "org.apache.maven:maven-model:3.2.5",
-          "parent": "org.apache.maven:maven-plugin-api:3.2.5",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-model:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": []
         },
         {
-          "groupId": "org.eclipse.sisu",
-          "artifactId": "org.eclipse.sisu.plexus",
-          "version": "0.3.0.M1",
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-model-builder",
+          "version": "3.9.4",
           "checksumAlgorithm": "sha1",
-          "checksum": "5dd889c7c3fa83f24ab7435d94da2cfe0a16dedd",
+          "checksum": "b12e45736ddfb51f648e1579877a293659e5a96e",
           "scope": "provided",
-          "selectedVersion": "0.3.0.M1",
-          "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
-          "parent": "org.apache.maven:maven-plugin-api:3.2.5",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-model-builder:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
           "children": [
             {
-              "groupId": "javax.enterprise",
-              "artifactId": "cdi-api",
-              "version": "1.0",
+              "groupId": "javax.inject",
+              "artifactId": "javax.inject",
+              "version": "1",
               "checksumAlgorithm": "sha1",
-              "checksum": "44c453f60909dfc223552ace63e05c694215156b",
+              "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
               "scope": "provided",
-              "selectedVersion": "1.0",
-              "id": "javax.enterprise:cdi-api:1.0",
-              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
+              "selectedVersion": "1",
+              "id": "javax.inject:javax.inject:1",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-artifact",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "9738999a0459221e758ebe728449c43567d7fecc",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-artifact:3.9.4",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-builder-support",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "671110e56110d5c89eda904f198719a2b5fa4a21",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-builder-support:3.9.4",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-model",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-model:3.9.4",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-interpolation",
+              "version": "1.26",
+              "checksumAlgorithm": "sha1",
+              "checksum": "25b919c664b79795ccde0ede5cee0fd68b544197",
+              "scope": "provided",
+              "selectedVersion": "1.26",
+              "id": "org.codehaus.plexus:plexus-interpolation:1.26",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-utils",
+              "version": "3.5.1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+              "scope": "provided",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.eclipse.sisu",
+              "artifactId": "org.eclipse.sisu.inject",
+              "version": "0.3.5",
+              "checksumAlgorithm": "sha1",
+              "checksum": "d4265dd4f0f1d7a06d80df5a5f475d5ff9c17140",
+              "scope": "provided",
+              "selectedVersion": "0.3.5",
+              "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
+              "parent": "org.apache.maven:maven-model-builder:3.9.4",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-plugin-api",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "54a5e32a3ecf77b09be683cba3067ea76e073d06",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-plugin-api:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-repository-metadata",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "ef368d45a2caa54634de221540994ca2d810c4c9",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-repository-metadata:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-utils",
+              "version": "3.5.1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+              "scope": "provided",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+              "parent": "org.apache.maven:maven-repository-metadata:3.9.4",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-resolver-provider",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "d5e38634c1251e000f7718437973a730346bc336",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-resolver-provider:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "javax.inject",
+              "artifactId": "javax.inject",
+              "version": "1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
+              "scope": "provided",
+              "selectedVersion": "1",
+              "id": "javax.inject:javax.inject:1",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-model",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-model:3.9.4",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-model-builder",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "b12e45736ddfb51f648e1579877a293659e5a96e",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-model-builder:3.9.4",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-repository-metadata",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "ef368d45a2caa54634de221540994ca2d810c4c9",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-repository-metadata:3.9.4",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-api",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-impl",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "2aa090aca572f7061e5c57f714ef0445bbb4555f",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-spi",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "a190c3d49791240c87799f29848505fc9fd8be11",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-util",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "ea6fd2997903700191711dee4448746ed30fe4b9",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-utils",
+              "version": "3.5.1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+              "scope": "provided",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+              "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-settings",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "f0553a72454ed3160cca729b75166077d8f3d499",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-settings:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-utils",
+              "version": "3.5.1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+              "scope": "provided",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+              "parent": "org.apache.maven:maven-settings:3.9.4",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-settings-builder",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "b3f6479c00e9182b9b731caf69ac6f4f6f2a373f",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-settings-builder:3.9.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "javax.inject",
+              "artifactId": "javax.inject",
+              "version": "1",
+              "checksumAlgorithm": "sha1",
+              "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
+              "scope": "provided",
+              "selectedVersion": "1",
+              "id": "javax.inject:javax.inject:1",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-builder-support",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "671110e56110d5c89eda904f198719a2b5fa4a21",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-builder-support:3.9.4",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-settings",
+              "version": "3.9.4",
+              "checksumAlgorithm": "sha1",
+              "checksum": "f0553a72454ed3160cca729b75166077d8f3d499",
+              "scope": "provided",
+              "selectedVersion": "3.9.4",
+              "id": "org.apache.maven:maven-settings:3.9.4",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-interpolation",
+              "version": "1.26",
+              "checksumAlgorithm": "sha1",
+              "checksum": "25b919c664b79795ccde0ede5cee0fd68b544197",
+              "scope": "provided",
+              "selectedVersion": "1.26",
+              "id": "org.codehaus.plexus:plexus-interpolation:1.26",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-sec-dispatcher",
+              "version": "2.0",
+              "checksumAlgorithm": "sha1",
+              "checksum": "f89c5080614ffd0764e49861895dbedde1b47237",
+              "scope": "provided",
+              "selectedVersion": "2.0",
+              "id": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
               "children": [
-                {
-                  "groupId": "javax.annotation",
-                  "artifactId": "jsr250-api",
-                  "version": "1.0",
-                  "checksumAlgorithm": "sha1",
-                  "checksum": "5025422767732a1ab45d93abfea846513d742dcf",
-                  "scope": "provided",
-                  "selectedVersion": "1.0",
-                  "id": "javax.annotation:jsr250-api:1.0",
-                  "parent": "javax.enterprise:cdi-api:1.0",
-                  "children": []
-                },
                 {
                   "groupId": "javax.inject",
                   "artifactId": "javax.inject",
@@ -1394,21 +988,423 @@
                   "scope": "provided",
                   "selectedVersion": "1",
                   "id": "javax.inject:javax.inject:1",
-                  "parent": "javax.enterprise:cdi-api:1.0",
+                  "parent": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
+                  "children": []
+                },
+                {
+                  "groupId": "org.codehaus.plexus",
+                  "artifactId": "plexus-cipher",
+                  "version": "2.0",
+                  "checksumAlgorithm": "sha1",
+                  "checksum": "425ea8e534716b4bff1ea90f39bd76be951d651b",
+                  "scope": "provided",
+                  "selectedVersion": "2.0",
+                  "id": "org.codehaus.plexus:plexus-cipher:2.0",
+                  "parent": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
+                  "children": [
+                    {
+                      "groupId": "javax.inject",
+                      "artifactId": "javax.inject",
+                      "version": "1",
+                      "checksumAlgorithm": "sha1",
+                      "checksum": "6975da39a7040257bd51d21a231b76c915872d38",
+                      "scope": "provided",
+                      "selectedVersion": "1",
+                      "id": "javax.inject:javax.inject:1",
+                      "parent": "org.codehaus.plexus:plexus-cipher:2.0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.codehaus.plexus",
+                  "artifactId": "plexus-utils",
+                  "version": "3.4.1",
+                  "checksumAlgorithm": "sha1",
+                  "checksum": "4de9992988c534efd668bfcca0480ebe13e0c0eb",
+                  "scope": "provided",
+                  "selectedVersion": "3.5.1",
+                  "id": "org.codehaus.plexus:plexus-utils:3.4.1",
+                  "parent": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
                   "children": []
                 }
               ]
             },
             {
               "groupId": "org.codehaus.plexus",
-              "artifactId": "plexus-classworlds",
-              "version": "2.5.1",
+              "artifactId": "plexus-utils",
+              "version": "3.5.1",
               "checksumAlgorithm": "sha1",
-              "checksum": "98fea8e8c3fb0e8670a69ad6ea445872c9972910",
+              "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
               "scope": "provided",
-              "selectedVersion": "2.5.2",
-              "id": "org.codehaus.plexus:plexus-classworlds:2.5.1",
-              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+              "parent": "org.apache.maven:maven-settings-builder:3.9.4",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven.resolver",
+          "artifactId": "maven-resolver-api",
+          "version": "1.9.14",
+          "checksumAlgorithm": "sha1",
+          "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
+          "scope": "provided",
+          "selectedVersion": "1.9.14",
+          "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.maven.resolver",
+          "artifactId": "maven-resolver-impl",
+          "version": "1.9.14",
+          "checksumAlgorithm": "sha1",
+          "checksum": "2aa090aca572f7061e5c57f714ef0445bbb4555f",
+          "scope": "provided",
+          "selectedVersion": "1.9.14",
+          "id": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-api",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-named-locks",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "71cf74d91b4f6de1bff8fc1fafb401d9ac42b1b8",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "children": [
+                {
+                  "groupId": "org.slf4j",
+                  "artifactId": "slf4j-api",
+                  "version": "1.7.36",
+                  "checksumAlgorithm": "sha1",
+                  "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
+                  "scope": "provided",
+                  "selectedVersion": "1.7.36",
+                  "id": "org.slf4j:slf4j-api:1.7.36",
+                  "parent": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.14",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-spi",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "a190c3d49791240c87799f29848505fc9fd8be11",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-util",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "ea6fd2997903700191711dee4448746ed30fe4b9",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "children": []
+            },
+            {
+              "groupId": "org.slf4j",
+              "artifactId": "slf4j-api",
+              "version": "1.7.36",
+              "checksumAlgorithm": "sha1",
+              "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
+              "scope": "provided",
+              "selectedVersion": "1.7.36",
+              "id": "org.slf4j:slf4j-api:1.7.36",
+              "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven.resolver",
+          "artifactId": "maven-resolver-spi",
+          "version": "1.9.14",
+          "checksumAlgorithm": "sha1",
+          "checksum": "a190c3d49791240c87799f29848505fc9fd8be11",
+          "scope": "provided",
+          "selectedVersion": "1.9.14",
+          "id": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-api",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven.resolver",
+          "artifactId": "maven-resolver-util",
+          "version": "1.9.14",
+          "checksumAlgorithm": "sha1",
+          "checksum": "ea6fd2997903700191711dee4448746ed30fe4b9",
+          "scope": "provided",
+          "selectedVersion": "1.9.14",
+          "id": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": [
+            {
+              "groupId": "org.apache.maven.resolver",
+              "artifactId": "maven-resolver-api",
+              "version": "1.9.14",
+              "checksumAlgorithm": "sha1",
+              "checksum": "bd5b7cd9d15c2efcab4d8c8215e769523e8843e4",
+              "scope": "provided",
+              "selectedVersion": "1.9.14",
+              "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
+              "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven.shared",
+          "artifactId": "maven-shared-utils",
+          "version": "3.3.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "f87a61adb1e12a00dcc6cc6005a51e693aa7c4ac",
+          "scope": "compile",
+          "selectedVersion": "3.3.4",
+          "id": "org.apache.maven.shared:maven-shared-utils:3.3.4",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-classworlds",
+          "version": "2.7.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "fe6f1acefd1a302dd4bc6d9d7f15358828d2a44d",
+          "scope": "provided",
+          "selectedVersion": "2.7.0",
+          "id": "org.codehaus.plexus:plexus-classworlds:2.7.0",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-component-annotations",
+          "version": "2.1.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "2f2147a6cc6a119a1b51a96f31d45c557f6244b9",
+          "scope": "compile",
+          "selectedVersion": "2.1.0",
+          "id": "org.codehaus.plexus:plexus-component-annotations:2.1.0",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-interpolation",
+          "version": "1.26",
+          "checksumAlgorithm": "sha1",
+          "checksum": "25b919c664b79795ccde0ede5cee0fd68b544197",
+          "scope": "provided",
+          "selectedVersion": "1.26",
+          "id": "org.codehaus.plexus:plexus-interpolation:1.26",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-utils",
+          "version": "3.5.1",
+          "checksumAlgorithm": "sha1",
+          "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+          "scope": "provided",
+          "selectedVersion": "3.5.1",
+          "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.eclipse.sisu",
+          "artifactId": "org.eclipse.sisu.inject",
+          "version": "0.3.5",
+          "checksumAlgorithm": "sha1",
+          "checksum": "d4265dd4f0f1d7a06d80df5a5f475d5ff9c17140",
+          "scope": "provided",
+          "selectedVersion": "0.3.5",
+          "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.eclipse.sisu",
+          "artifactId": "org.eclipse.sisu.plexus",
+          "version": "0.3.5",
+          "checksumAlgorithm": "sha1",
+          "checksum": "d71996bb2e536f966b3b70e647067fff3b73d32f",
+          "scope": "provided",
+          "selectedVersion": "0.3.5",
+          "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "1.7.36",
+          "checksumAlgorithm": "sha1",
+          "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
+          "scope": "compile",
+          "selectedVersion": "1.7.36",
+          "id": "org.slf4j:slf4j-api:1.7.36",
+          "parent": "org.apache.maven:maven-core:3.9.4",
+          "children": []
+        }
+      ]
+    },
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-model",
+      "version": "3.9.4",
+      "checksumAlgorithm": "sha1",
+      "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
+      "scope": "provided",
+      "selectedVersion": "3.9.4",
+      "id": "org.apache.maven:maven-model:3.9.4",
+      "children": [
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-utils",
+          "version": "3.5.1",
+          "checksumAlgorithm": "sha1",
+          "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+          "scope": "provided",
+          "selectedVersion": "3.5.1",
+          "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+          "parent": "org.apache.maven:maven-model:3.9.4",
+          "children": []
+        }
+      ]
+    },
+    {
+      "groupId": "org.apache.maven",
+      "artifactId": "maven-plugin-api",
+      "version": "3.9.4",
+      "checksumAlgorithm": "sha1",
+      "checksum": "54a5e32a3ecf77b09be683cba3067ea76e073d06",
+      "scope": "provided",
+      "selectedVersion": "3.9.4",
+      "id": "org.apache.maven:maven-plugin-api:3.9.4",
+      "children": [
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-artifact",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "9738999a0459221e758ebe728449c43567d7fecc",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-artifact:3.9.4",
+          "parent": "org.apache.maven:maven-plugin-api:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-model",
+          "version": "3.9.4",
+          "checksumAlgorithm": "sha1",
+          "checksum": "5b79d873cf6d13b3fc4020eac04e2a62ebbfa0aa",
+          "scope": "provided",
+          "selectedVersion": "3.9.4",
+          "id": "org.apache.maven:maven-model:3.9.4",
+          "parent": "org.apache.maven:maven-plugin-api:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-classworlds",
+          "version": "2.7.0",
+          "checksumAlgorithm": "sha1",
+          "checksum": "fe6f1acefd1a302dd4bc6d9d7f15358828d2a44d",
+          "scope": "compile",
+          "selectedVersion": "2.7.0",
+          "id": "org.codehaus.plexus:plexus-classworlds:2.7.0",
+          "parent": "org.apache.maven:maven-plugin-api:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-utils",
+          "version": "3.5.1",
+          "checksumAlgorithm": "sha1",
+          "checksum": "c6bfb17c97ecc8863e88778ea301be742c62b06d",
+          "scope": "compile",
+          "selectedVersion": "3.5.1",
+          "id": "org.codehaus.plexus:plexus-utils:3.5.1",
+          "parent": "org.apache.maven:maven-plugin-api:3.9.4",
+          "children": []
+        },
+        {
+          "groupId": "org.eclipse.sisu",
+          "artifactId": "org.eclipse.sisu.plexus",
+          "version": "0.3.5",
+          "checksumAlgorithm": "sha1",
+          "checksum": "d71996bb2e536f966b3b70e647067fff3b73d32f",
+          "scope": "provided",
+          "selectedVersion": "0.3.5",
+          "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
+          "parent": "org.apache.maven:maven-plugin-api:3.9.4",
+          "children": [
+            {
+              "groupId": "javax.annotation",
+              "artifactId": "javax.annotation-api",
+              "version": "1.2",
+              "checksumAlgorithm": "sha1",
+              "checksum": "479c1e06db31c432330183f5cae684163f186146",
+              "scope": "provided",
+              "selectedVersion": "1.2",
+              "id": "javax.annotation:javax.annotation-api:1.2",
+              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
+              "children": []
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-classworlds",
+              "version": "2.5.2",
+              "checksumAlgorithm": "sha1",
+              "checksum": "4abb111bfdace5b8167db4c0ef74644f3f88f142",
+              "scope": "provided",
+              "selectedVersion": "2.7.0",
+              "id": "org.codehaus.plexus:plexus-classworlds:2.5.2",
+              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
               "children": []
             },
             {
@@ -1418,33 +1414,33 @@
               "checksumAlgorithm": "sha1",
               "checksum": "c72f2660d0cbed24246ddb55d7fdc4f7374d2078",
               "scope": "provided",
-              "selectedVersion": "1.5.5",
+              "selectedVersion": "2.1.0",
               "id": "org.codehaus.plexus:plexus-component-annotations:1.5.5",
-              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
+              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
               "children": []
             },
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "2.1",
+              "version": "3.0.24",
               "checksumAlgorithm": "sha1",
-              "checksum": "8efcb5d86ba0a7f11c61dc67f54cfbe2192aef32",
+              "checksum": "b4ac9780b37cb1b736eae9fbcef27609b7c911ef",
               "scope": "provided",
-              "selectedVersion": "3.0.20",
-              "id": "org.codehaus.plexus:plexus-utils:2.1",
-              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
+              "selectedVersion": "3.5.1",
+              "id": "org.codehaus.plexus:plexus-utils:3.0.24",
+              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
               "children": []
             },
             {
               "groupId": "org.eclipse.sisu",
               "artifactId": "org.eclipse.sisu.inject",
-              "version": "0.3.0.M1",
+              "version": "0.3.5",
               "checksumAlgorithm": "sha1",
-              "checksum": "702dd8cdca70b89f16073e3de062035d8ce2486c",
+              "checksum": "d4265dd4f0f1d7a06d80df5a5f475d5ff9c17140",
               "scope": "provided",
-              "selectedVersion": "0.3.0.M1",
-              "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.0.M1",
-              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.0.M1",
+              "selectedVersion": "0.3.5",
+              "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.3.5",
+              "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.5",
               "children": []
             }
           ]
@@ -1467,7 +1463,7 @@
           "version": "2.2",
           "checksumAlgorithm": "sha1",
           "checksum": "83b5b8a7ba1c08f9e8c8ff2373724e33d3c1e22a",
-          "scope": "compile",
+          "scope": "test",
           "selectedVersion": "2.2",
           "id": "commons-io:commons-io:2.2",
           "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:3.3.0",
@@ -1526,7 +1522,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "60783e4623f2e44063cf2d43d9fbacb2816855c2",
                   "scope": "test",
-                  "selectedVersion": "3.0.20",
+                  "selectedVersion": "3.5.1",
                   "id": "org.codehaus.plexus:plexus-utils:1.0.4",
                   "parent": "org.codehaus.plexus:plexus-container-default:1.0-alpha-9-stable-1",
                   "children": []
@@ -1551,7 +1547,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "d63aa0daf60d573bada235e2b4207617dcf24959",
                   "scope": "test",
-                  "selectedVersion": "3.0.20",
+                  "selectedVersion": "3.5.1",
                   "id": "org.codehaus.plexus:plexus-utils:3.0",
                   "parent": "org.codehaus.plexus:plexus-io:2.0.4",
                   "children": []
@@ -1565,7 +1561,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "eb10e9cb2b2326fbf0cb68249b10a5c89e0642ef",
               "scope": "test",
-              "selectedVersion": "3.0.20",
+              "selectedVersion": "3.5.1",
               "id": "org.codehaus.plexus:plexus-utils:3.0.7",
               "parent": "org.codehaus.plexus:plexus-archiver:2.2",
               "children": []
@@ -1613,7 +1609,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "c29cfa43ce2ba09975a07c40d7241655d7c2fa29",
           "scope": "compile",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-artifact:3.0",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1625,7 +1621,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "73728ce32c9016c8bd05584301fa3ba3a6f5d20a",
           "scope": "compile",
-          "selectedVersion": "3.2.5",
+          "selectedVersion": "3.9.4",
           "id": "org.apache.maven:maven-core:3.0",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1648,7 +1644,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "c29cfa43ce2ba09975a07c40d7241655d7c2fa29",
               "scope": "compile",
-              "selectedVersion": "3.2.5",
+              "selectedVersion": "3.9.4",
               "id": "org.apache.maven:maven-artifact:3.0",
               "parent": "org.apache.maven.shared:maven-common-artifact-filters:3.1.0",
               "children": []
@@ -1660,7 +1656,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "73728ce32c9016c8bd05584301fa3ba3a6f5d20a",
               "scope": "compile",
-              "selectedVersion": "3.2.5",
+              "selectedVersion": "3.9.4",
               "id": "org.apache.maven:maven-core:3.0",
               "parent": "org.apache.maven.shared:maven-common-artifact-filters:3.1.0",
               "children": []
@@ -1672,7 +1668,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "24ce598c94a78341c42556fe9192dad6a2822405",
               "scope": "compile",
-              "selectedVersion": "3.2.5",
+              "selectedVersion": "3.9.4",
               "id": "org.apache.maven:maven-model:3.0",
               "parent": "org.apache.maven.shared:maven-common-artifact-filters:3.1.0",
               "children": []
@@ -1684,7 +1680,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "98f886f59bb0e69f8e86cdc082e69f2f4c13d648",
               "scope": "compile",
-              "selectedVersion": "3.2.5",
+              "selectedVersion": "3.9.4",
               "id": "org.apache.maven:maven-plugin-api:3.0",
               "parent": "org.apache.maven.shared:maven-common-artifact-filters:3.1.0",
               "children": []
@@ -1696,23 +1692,10 @@
               "checksumAlgorithm": "sha1",
               "checksum": "78d8798fe84d5e095577221d299e9a3c8e696bca",
               "scope": "compile",
-              "selectedVersion": "3.1.0",
+              "selectedVersion": "3.3.4",
               "id": "org.apache.maven.shared:maven-shared-utils:3.1.0",
               "parent": "org.apache.maven.shared:maven-common-artifact-filters:3.1.0",
-              "children": [
-                {
-                  "groupId": "commons-io",
-                  "artifactId": "commons-io",
-                  "version": "2.5",
-                  "checksumAlgorithm": "sha1",
-                  "checksum": "2852e6e05fbb95076fc091f6d1780f1f8fe35e0f",
-                  "scope": "compile",
-                  "selectedVersion": "2.2",
-                  "id": "commons-io:commons-io:2.5",
-                  "parent": "org.apache.maven.shared:maven-shared-utils:3.1.0",
-                  "children": []
-                }
-              ]
+              "children": []
             },
             {
               "groupId": "org.sonatype.sisu",
@@ -1732,7 +1715,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "93b34d7a40ed56fe33274480c5792b656d3697a9",
                   "scope": "compile",
-                  "selectedVersion": "2.5.2",
+                  "selectedVersion": "2.7.0",
                   "id": "org.codehaus.plexus:plexus-classworlds:2.2.3",
                   "parent": "org.sonatype.sisu:sisu-inject-plexus:1.4.2",
                   "children": []
@@ -1744,7 +1727,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "21f22fdd8e8494f2d7585088ed63497d05e54333",
                   "scope": "compile",
-                  "selectedVersion": "1.5.5",
+                  "selectedVersion": "2.1.0",
                   "id": "org.codehaus.plexus:plexus-component-annotations:1.5.4",
                   "parent": "org.sonatype.sisu:sisu-inject-plexus:1.4.2",
                   "children": []
@@ -1756,7 +1739,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "7841ba10ea46c9611ce702c3833ff9fccc8ae6eb",
                   "scope": "compile",
-                  "selectedVersion": "3.0.20",
+                  "selectedVersion": "3.5.1",
                   "id": "org.codehaus.plexus:plexus-utils:2.0.5",
                   "parent": "org.sonatype.sisu:sisu-inject-plexus:1.4.2",
                   "children": []
@@ -1797,7 +1780,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "6897b9fa8b67c900b52996f845e2d179eea13441",
           "scope": "compile",
-          "selectedVersion": "1.5.5",
+          "selectedVersion": "2.1.0",
           "id": "org.codehaus.plexus:plexus-component-annotations:2.0.0",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1809,7 +1792,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "cf43b5391de623b36fe066a21127baef82c64022",
           "scope": "compile",
-          "selectedVersion": "3.0.20",
+          "selectedVersion": "3.5.1",
           "id": "org.codehaus.plexus:plexus-utils:3.3.0",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1821,7 +1804,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "6b262da268f8ad9eff941b25503a9198f0a0ac93",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "1.7.36",
           "id": "org.slf4j:slf4j-api:1.7.5",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1848,7 +1831,20 @@
           "selectedVersion": "1.0.0.v20140518",
           "id": "org.eclipse.aether:aether-util:1.0.0.v20140518",
           "parent": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
-          "children": []
+          "children": [
+            {
+              "groupId": "org.eclipse.aether",
+              "artifactId": "aether-api",
+              "version": "1.0.0.v20140518",
+              "checksumAlgorithm": "sha1",
+              "checksum": "be68e917f454dcd841865ad7cf9b7615b26a51f7",
+              "scope": "compile",
+              "selectedVersion": "1.0.0.v20140518",
+              "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
+              "parent": "org.eclipse.aether:aether-util:1.0.0.v20140518",
+              "children": []
+            }
+          ]
         },
         {
           "groupId": "org.slf4j",
@@ -1857,7 +1853,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "1.7.36",
           "id": "org.slf4j:slf4j-api:1.7.36",
           "parent": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
           "children": []
@@ -1892,7 +1888,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
               "scope": "test",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "1.7.36",
               "id": "org.slf4j:slf4j-api:2.0.7",
               "parent": "org.instancio:instancio-core:2.16.1",
               "children": []
@@ -2064,7 +2060,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "1.7.36",
           "id": "org.slf4j:slf4j-api:2.0.7",
           "parent": "org.slf4j:log4j-over-slf4j:2.0.7",
           "children": []
