@@ -43,7 +43,7 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-enforcer-plugin",
-      "version": "3.3.0"
+      "version": "3.4.0"
     },
     {
       "groupId": "org.apache.maven.plugin",
