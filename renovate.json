@@ -1,14 +1,15 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     "helpers:pinGitHubActionDigests"
   ],
-  "semanticCommitType": ":arrow_up:",
-  "semanticCommits": true,
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com",
     "github-actions[bot]@users.noreply.github.com"
   ],
+  "squashMerges": true,
+  "autodiscover": true,
+  "onboarding": true,
   "packageRules": [
     {
       "matchUpdateTypes": [
