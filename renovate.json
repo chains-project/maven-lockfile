@@ -22,7 +22,6 @@
       ],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "squash",
       "semanticCommitType": ":arrow_up:"
     },
     {
@@ -33,8 +32,7 @@
       ],
       "semanticCommitType": ":pushpin:",
       "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash"
+      "automergeType": "pr"
     },
     {
       "updateTypes": [
@@ -42,8 +40,7 @@
       ],
       "semanticCommitType": ":arrow_down:",
       "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash"
+      "automergeType": "pr"
     },
     {
       "updateTypes": [
@@ -52,8 +49,7 @@
       ],
       "semanticCommitType": ":bookmark:",
       "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "squash"
+      "automergeType": "pr"
     }
   ],
   "ignoreDeps": [
