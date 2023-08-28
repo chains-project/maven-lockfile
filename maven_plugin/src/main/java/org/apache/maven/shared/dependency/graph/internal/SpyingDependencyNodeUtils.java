@@ -21,7 +21,7 @@ public class SpyingDependencyNodeUtils {
                 ConflictData data = (ConflictData) dataField.get(newNode);
                 data.getWinnerVersion();
                 return Optional.ofNullable(data.getWinnerVersion());
-            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ignored) {
             }
         }
         return Optional.empty();

@@ -17,11 +17,11 @@ import javax.annotation.Nullable;
  */
 public class DependencyNode implements Comparable<DependencyNode> {
 
-    private GroupId groupId;
-    private ArtifactId artifactId;
-    private VersionNumber version;
-    private String checksumAlgorithm;
-    private String checksum;
+    private final GroupId groupId;
+    private final ArtifactId artifactId;
+    private final VersionNumber version;
+    private final String checksumAlgorithm;
+    private final String checksum;
     private final MavenScope scope;
 
     @Nullable
@@ -32,7 +32,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     @Expose(serialize = false, deserialize = false)
     private NodeId parent;
 
-    private List<DependencyNode> children;
+    private final List<DependencyNode> children;
 
     DependencyNode(
             ArtifactId artifactId,
