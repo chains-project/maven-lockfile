@@ -1867,23 +1867,23 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "3.1.0",
+      "version": "3.2.0",
       "checksumAlgorithm": "sha1",
-      "checksum": "2fbec65e0c1bc1f204fec1d52cd727e7e9e1c8f5",
+      "checksum": "35d8d1ac5616fde42ef8dcf9f0a2fd58ff8d5f0",
       "scope": "test",
-      "selectedVersion": "3.1.0",
-      "id": "org.instancio:instancio-junit:3.1.0",
+      "selectedVersion": "3.2.0",
+      "id": "org.instancio:instancio-junit:3.2.0",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "3.1.0",
+          "version": "3.2.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "9d35d35d1f3f59a46fc1245567b645cff65570cc",
+          "checksum": "b192a4b3e6dc4eade1af339c80ce1c5ae15cd4dc",
           "scope": "test",
-          "selectedVersion": "3.1.0",
-          "id": "org.instancio:instancio-core:3.1.0",
-          "parent": "org.instancio:instancio-junit:3.1.0",
+          "selectedVersion": "3.2.0",
+          "id": "org.instancio:instancio-core:3.2.0",
+          "parent": "org.instancio:instancio-junit:3.2.0",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -1894,7 +1894,7 @@
               "scope": "test",
               "selectedVersion": "2.0.7",
               "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:3.1.0",
+              "parent": "org.instancio:instancio-core:3.2.0",
               "children": []
             }
           ]
