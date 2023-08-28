@@ -3,9 +3,11 @@ package io.github.chains_project.maven_lockfile;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
+import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -56,6 +58,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "skip")
     protected String skip;
 
+    @Parameter(defaultValue = "${mojoExecution}", readonly = true)
+    private MojoExecution mojo;
+
     protected Metadata generateMetaInformation() {
         String osName = System.getProperty("os.name");
         return new Metadata(osName, mavenVersion, javaVersion);
@@ -70,5 +75,14 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
         }
+    }
+
+    protected Config getConfig() {
+        return new Config(
+                Boolean.parseBoolean(includeMavenPlugins),
+                Boolean.parseBoolean(reduced),
+                mojo.getPlugin().getVersion(),
+                checksumMode,
+                checksumAlgorithm);
     }
 }

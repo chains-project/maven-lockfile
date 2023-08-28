@@ -37,14 +37,9 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             Metadata metadata = generateMetaInformation();
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator();
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
+
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session,
-                    project,
-                    dependencyCollectorBuilder,
-                    checksumCalculator,
-                    Boolean.parseBoolean(includeMavenPlugins),
-                    Boolean.parseBoolean(reduced),
-                    metadata);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, getConfig(), metadata);
             if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
                 getLog().warn(
                                 "Lock file metadata does not match project metadata. This could be due to a change in the environment.");

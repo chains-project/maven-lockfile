@@ -36,13 +36,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             Metadata metadata = generateMetaInformation();
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator();
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
-                    session,
-                    project,
-                    dependencyCollectorBuilder,
-                    checksumCalculator,
-                    Boolean.parseBoolean(includeMavenPlugins),
-                    Boolean.parseBoolean(reduced),
-                    metadata);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, getConfig(), metadata);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
