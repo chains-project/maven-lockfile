@@ -23,7 +23,6 @@
   <prerequisites>
     <maven>${mavenVersion}</maven>
   </prerequisites>
-
   <properties>
     <mavenVersion>3.2.5</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>
