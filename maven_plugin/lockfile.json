@@ -214,7 +214,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "7bb53fbc0173e9f6a9d21d58297af94b1f2f9ce1",
           "scope": "test",
-          "selectedVersion": "5.9.3",
+          "selectedVersion": "5.10.0",
           "id": "org.junit.jupiter:junit-jupiter-api:5.9.1",
           "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.12.0",
           "children": []
@@ -1904,12 +1904,12 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.9.3",
+      "version": "5.10.0",
       "checksumAlgorithm": "sha1",
-      "checksum": "815818ad6ffcc8d320d8fbdf3d748c753cf83201",
+      "checksum": "2fe4ba3d31d5067878e468c96aa039005a9134d3",
       "scope": "test",
-      "selectedVersion": "5.9.3",
-      "id": "org.junit.jupiter:junit-jupiter-api:5.9.3",
+      "selectedVersion": "5.10.0",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.10.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -1920,19 +1920,19 @@
           "scope": "test",
           "selectedVersion": "1.1.2",
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.10.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.9.3",
+          "version": "1.10.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "36b2e26a90c41603be7f0094bee80e3f8a2cd4d4",
+          "checksum": "d533ff2c286eaf963566f92baf5f8a06628d2609",
           "scope": "test",
-          "selectedVersion": "1.9.3",
-          "id": "org.junit.platform:junit-platform-commons:1.9.3",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
+          "selectedVersion": "1.10.0",
+          "id": "org.junit.platform:junit-platform-commons:1.10.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.10.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -1943,7 +1943,7 @@
               "scope": "test",
               "selectedVersion": "1.1.2",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.9.3",
+              "parent": "org.junit.platform:junit-platform-commons:1.10.0",
               "children": []
             }
           ]
@@ -1951,13 +1951,13 @@
         {
           "groupId": "org.opentest4j",
           "artifactId": "opentest4j",
-          "version": "1.2.0",
+          "version": "1.3.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "28c11eb91f9b6d8e200631d46e20a7f407f2a046",
+          "checksum": "152ea56b3a72f655d4fd677fc0ef2596c3dd5e6e",
           "scope": "test",
-          "selectedVersion": "1.2.0",
-          "id": "org.opentest4j:opentest4j:1.2.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.3",
+          "selectedVersion": "1.3.0",
+          "id": "org.opentest4j:opentest4j:1.3.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.10.0",
           "children": []
         }
       ]
@@ -1965,12 +1965,12 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-engine",
-      "version": "5.9.3",
+      "version": "5.10.0",
       "checksumAlgorithm": "sha1",
-      "checksum": "355322b03bf39306a183162cd06626c206f0286b",
+      "checksum": "90587932d718fc51a48112d33045a18476c542ad",
       "scope": "test",
-      "selectedVersion": "5.9.3",
-      "id": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
+      "selectedVersion": "5.10.0",
+      "id": "org.junit.jupiter:junit-jupiter-engine:5.10.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -1981,31 +1981,31 @@
           "scope": "test",
           "selectedVersion": "1.1.2",
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.10.0",
           "children": []
         },
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
-          "version": "5.9.3",
+          "version": "5.10.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "815818ad6ffcc8d320d8fbdf3d748c753cf83201",
+          "checksum": "2fe4ba3d31d5067878e468c96aa039005a9134d3",
           "scope": "test",
-          "selectedVersion": "5.9.3",
-          "id": "org.junit.jupiter:junit-jupiter-api:5.9.3",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
+          "selectedVersion": "5.10.0",
+          "id": "org.junit.jupiter:junit-jupiter-api:5.10.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.10.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-engine",
-          "version": "1.9.3",
+          "version": "1.10.0",
           "checksumAlgorithm": "sha1",
-          "checksum": "8616734a190f8d307376aeb7353dba0a2c037a09",
+          "checksum": "276c4edcf64fabb5a139fa7b4f99330d7a93b804",
           "scope": "test",
-          "selectedVersion": "1.9.3",
-          "id": "org.junit.platform:junit-platform-engine:1.9.3",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.3",
+          "selectedVersion": "1.10.0",
+          "id": "org.junit.platform:junit-platform-engine:1.10.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.10.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2016,31 +2016,31 @@
               "scope": "test",
               "selectedVersion": "1.1.2",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
+              "parent": "org.junit.platform:junit-platform-engine:1.10.0",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.9.3",
+              "version": "1.10.0",
               "checksumAlgorithm": "sha1",
-              "checksum": "36b2e26a90c41603be7f0094bee80e3f8a2cd4d4",
+              "checksum": "d533ff2c286eaf963566f92baf5f8a06628d2609",
               "scope": "test",
-              "selectedVersion": "1.9.3",
-              "id": "org.junit.platform:junit-platform-commons:1.9.3",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
+              "selectedVersion": "1.10.0",
+              "id": "org.junit.platform:junit-platform-commons:1.10.0",
+              "parent": "org.junit.platform:junit-platform-engine:1.10.0",
               "children": []
             },
             {
               "groupId": "org.opentest4j",
               "artifactId": "opentest4j",
-              "version": "1.2.0",
+              "version": "1.3.0",
               "checksumAlgorithm": "sha1",
-              "checksum": "28c11eb91f9b6d8e200631d46e20a7f407f2a046",
+              "checksum": "152ea56b3a72f655d4fd677fc0ef2596c3dd5e6e",
               "scope": "test",
-              "selectedVersion": "1.2.0",
-              "id": "org.opentest4j:opentest4j:1.2.0",
-              "parent": "org.junit.platform:junit-platform-engine:1.9.3",
+              "selectedVersion": "1.3.0",
+              "id": "org.opentest4j:opentest4j:1.3.0",
+              "parent": "org.junit.platform:junit-platform-engine:1.10.0",
               "children": []
             }
           ]
