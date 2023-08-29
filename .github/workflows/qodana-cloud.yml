@@ -7,8 +7,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
 jobs:
   qodana:
     runs-on: ubuntu-latest
@@ -24,6 +22,6 @@ jobs:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           pr-mode: false
-          args: --apply-fixes, -l,jetbrains/qodana-jvm:2023.2
+          args: -l,jetbrains/qodana-jvm:2023.2
           push-fixes: pull-request
 
