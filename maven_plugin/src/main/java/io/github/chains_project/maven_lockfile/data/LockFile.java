@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 /**
  * A lock file contains a list of dependencies, and the version of the lock file format.
@@ -34,6 +35,7 @@ public class LockFile {
     private final List<MavenPlugin> mavenPlugins;
 
     private final Metadata metadata;
+    private final Config config;
 
     public LockFile(
             GroupId groupId,
@@ -41,13 +43,15 @@ public class LockFile {
             VersionNumber versionNumber,
             List<DependencyNode> dependencies,
             List<MavenPlugin> mavenPlugins,
-            Metadata metadata) {
+            Metadata metadata,
+            Config config) {
         this.dependencies = dependencies == null ? Collections.emptyList() : dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
         this.mavenPlugins = mavenPlugins == null ? Collections.emptyList() : mavenPlugins;
         this.metadata = metadata;
+        this.config = config;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -95,6 +99,14 @@ public class LockFile {
      */
     public Metadata getMetadata() {
         return metadata;
+    }
+
+    /**
+     * @return the config
+     */
+    @Nullable
+    public Config getConfig() {
+        return config;
     }
 
     @Override

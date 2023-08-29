@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
@@ -35,16 +36,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
         }
         try {
             Metadata metadata = generateMetaInformation();
-            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator();
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
+            Config config = lockFileFromFile.getConfig() == null ? getConfig() : lockFileFromFile.getConfig();
+            getLog().warn("No config was found in the lock file. Using default config.");
+            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session,
-                    project,
-                    dependencyCollectorBuilder,
-                    checksumCalculator,
-                    Boolean.parseBoolean(includeMavenPlugins),
-                    Boolean.parseBoolean(reduced),
-                    metadata);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, config, metadata);
             if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
                 getLog().warn(
                                 "Lock file metadata does not match project metadata. This could be due to a change in the environment.");

@@ -1,6 +1,9 @@
 package io.github.chains_project.maven_lockfile;
 
+import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
+
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.Metadata;
 import java.io.IOException;
@@ -9,6 +12,7 @@ import java.nio.file.Path;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
@@ -24,6 +28,8 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
         requiresOnline = true)
 public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
+    @Parameter(defaultValue = "true", property = "getConfigFromFile")
+    String getConfigFromFile;
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException if the lock file could not be written or the generation failed.
@@ -34,15 +40,17 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         }
         try {
             Metadata metadata = generateMetaInformation();
-            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator();
+            LockFile lockFileFromFile =
+                    Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
+            Config config = Boolean.parseBoolean(getConfigFromFile)
+                    ? lockFileFromFile == null ? getConfig() : lockFileFromFile.getConfig()
+                    : getConfig();
+            if (lockFileFromFile == null) {
+                getLog().info("No lockfile found. Generating new lockfile.");
+            }
+            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
-                    session,
-                    project,
-                    dependencyCollectorBuilder,
-                    checksumCalculator,
-                    Boolean.parseBoolean(includeMavenPlugins),
-                    Boolean.parseBoolean(reduced),
-                    metadata);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, config, metadata);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));

@@ -38,6 +38,7 @@ public class JsonUtils {
                 .registerTypeAdapter(MavenScope.class, (JsonDeserializer<MavenScope>) (it, type, ignore) -> {
                     return MavenScope.fromString(it.getAsString());
                 })
+                .setLenient()
                 // .registerTypeAdapter(LockFileDependency.class, new LockFileDependencyAdapter())
                 .create();
     }
