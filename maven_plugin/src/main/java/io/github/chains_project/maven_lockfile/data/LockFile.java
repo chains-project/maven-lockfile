@@ -123,6 +123,24 @@ public class LockFile {
             return false;
         }
         LockFile other = (LockFile) obj;
+        if (!this.name.equals(other.name)) {
+            System.out.println("name");
+        }
+        if (!this.groupId.equals(other.groupId)) {
+            System.out.println("groupId");
+        }
+        if (!this.version.equals(other.version)) {
+            System.out.println("version");
+        }
+        if (this.lockfileVersion != other.lockfileVersion) {
+            System.out.println("lockfileVersion");
+        }
+        if (!this.dependencies.equals(other.dependencies)) {
+            System.out.println("dependencies");
+        }
+        if (!this.mavenPlugins.equals(other.mavenPlugins)) {
+            System.out.println("mavenPlugins");
+        }
         return Objects.equals(name, other.name)
                 && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)
