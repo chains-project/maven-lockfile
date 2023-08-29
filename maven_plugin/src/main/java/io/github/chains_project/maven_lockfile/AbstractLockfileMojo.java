@@ -59,7 +59,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected String skip;
 
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
-    private MojoExecution mojo;
+    protected MojoExecution mojo;
 
     protected Metadata generateMetaInformation() {
         String osName = System.getProperty("os.name");
@@ -74,6 +74,19 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
             return new RemoteChecksumCalculator(checksumAlgorithm);
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
+        }
+    }
+
+    protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        switch (config.getChecksumMode()) {
+            case "maven_local":
+                return new FileSystemChecksumCalculator(
+                        dependencyResolver, buildingRequest, config.getChecksumAlgorithm());
+            case "maven_central":
+                return new RemoteChecksumCalculator(config.getChecksumAlgorithm());
+            default:
+                throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
         }
     }
 
