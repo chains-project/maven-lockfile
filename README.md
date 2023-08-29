@@ -66,73 +66,79 @@ If you invoke build afterward, the exact versions from the lockfile are used.
 - `reduced` will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
 - `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default is `SHA-256`.
-- `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](#checksum-modes) for more information.
-- `skip` will skip the execution of the plugin. This is useful if you want to disable the plugin for a specific module.
-- 
+- `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
+- `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
+- `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
 ## Format
 
 An example lockfile is shown below:
-For a full example, see the [lockfile.json](./maven_plugin/lockfile.json) file in this repository.
+For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in this repository.
 ```json
 {
-"artifactID": "my-app",
-"groupID": "com.mycompany.app",
-"version": "1",
-"lockFileVersion": 1,
-"dependencies": [
+   "artifactID":"my-app",
+   "groupID":"com.mycompany.app",
+   "version":"1",
+   "lockFileVersion":1,
+   "dependencies":[
+      {
+         "groupId":"org.junit.platform",
+         "artifactId":"junit-platform-engine",
+         "version":"1.9.2",
+         "checksumAlgorithm":"SHA-256",
+         "checksum":"25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
+         "id":"org.junit.platform:junit-platform-engine:1.9.2",
+         "parent":"org.junit.jupiter:junit-jupiter-engine:5.9.2",
+         "children":[
             {
-            "groupId": "org.junit.platform",
-            "artifactId": "junit-platform-engine",
-            "version": "1.9.2",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
-            "id": "org.junit.platform:junit-platform-engine:1.9.2",
-            "parent": "org.junit.jupiter:junit-jupiter-engine:5.9.2",
-            "children": [
-                {
-                "groupId": "org.apiguardian",
-                "artifactId": "apiguardian-api",
-                "version": "1.1.2",
-                "checksumAlgorithm": "SHA-256",
-                "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-                "id": "org.apiguardian:apiguardian-api:1.1.2",
-                "parent": "org.junit.platform:junit-platform-engine:1.9.2",
-                "children": []
-                },
-                {
-                "groupId": "org.junit.platform",
-                "artifactId": "junit-platform-commons",
-                "version": "1.9.2",
-                "checksumAlgorithm": "SHA-256",
-                "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-                "id": "org.junit.platform:junit-platform-commons:1.9.2",
-                "parent": "org.junit.platform:junit-platform-engine:1.9.2",
-                "children": [
-                    {
-                    "groupId": "org.apiguardian",
-                    "artifactId": "apiguardian-api",
-                    "version": "1.1.2",
-                    "checksumAlgorithm": "SHA-256",
-                    "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-                    "id": "org.apiguardian:apiguardian-api:1.1.2",
-                    "parent": "org.junit.platform:junit-platform-commons:1.9.2",
-                    "children": []
-                    }
-                ]
-                },
-                {
-                "groupId": "org.opentest4j",
-                "artifactId": "opentest4j",
-                "version": "1.2.0",
-                "checksumAlgorithm": "SHA-256",
-                "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-                "id": "org.opentest4j:opentest4j:1.2.0",
-                "parent": "org.junit.platform:junit-platform-engine:1.9.2",
-                "children": []
-                }
-            ]
+               "groupId":"org.apiguardian",
+               "artifactId":"apiguardian-api",
+               "version":"1.1.2",
+               "checksumAlgorithm":"SHA-256",
+               "checksum":"b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+               "id":"org.apiguardian:apiguardian-api:1.1.2",
+               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
+               "children":[
+                  
+               ]
+            },
+            {
+               "groupId":"org.junit.platform",
+               "artifactId":"junit-platform-commons",
+               "version":"1.9.2",
+               "checksumAlgorithm":"SHA-256",
+               "checksum":"624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+               "id":"org.junit.platform:junit-platform-commons:1.9.2",
+               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
+               "children":[
+                  {
+                     "groupId":"org.apiguardian",
+                     "artifactId":"apiguardian-api",
+                     "version":"1.1.2",
+                     "checksumAlgorithm":"SHA-256",
+                     "checksum":"b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                     "id":"org.apiguardian:apiguardian-api:1.1.2",
+                     "parent":"org.junit.platform:junit-platform-commons:1.9.2",
+                     "children":[
+                        
+                     ]
+                  }
+               ]
+            },
+            {
+               "groupId":"org.opentest4j",
+               "artifactId":"opentest4j",
+               "version":"1.2.0",
+               "checksumAlgorithm":"SHA-256",
+               "checksum":"58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+               "id":"org.opentest4j:opentest4j:1.2.0",
+               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
+               "children":[
+                  
+               ]
             }
-]
+         ]
+      }
+   ]
 }
 ```
 This is close to the format of the lock file in the npm package-lock.json file.
@@ -165,7 +171,8 @@ jobs:
 
 ```
 If a pom.xml file is changed, this action will add a commit with the updated lockfile to the pull request.
-Otherwise, it will validate the lockfile and fail if the lockfile is correct.
+Otherwise, it will validate the lockfile and fail if the lockfile is incorrect.
+A lockfile is incorrect if any dependency has changed since the lockfile was generated. This includes versions and checksums.
 
 ⚠️**Warning**: The action result of your lockfile could be platform-dependent. Some artifacts are platform-dependent and the checksums will differ between platforms.
 
