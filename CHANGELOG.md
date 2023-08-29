@@ -838,3 +838,94 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 4.1.0
+## Changelog
+
+## 🚀 Added
+- a913b6b ✨ Add config object (#385)
+- 25b880d 👷 Add qodana fixes PR daily (#386)
+- 7236564 👷 Remove squash of dependency PRs by renovate (#384)
+
+## 📦 Dependencies
+- e54952c ⬆️ (deps): Update junit5 monorepo to v5.10.0 (#351)
+- 6dcc4e8 ⬆️ (deps): Update quarkus.platform.version to v3.3.1 (#391)
+- a22f9aa ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.39.0 (#389)
+- 8a36c96 ⬆️ (deps): Update github/codeql-action action to v2.21.5 (#388)
+- 6ee3158 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v3.2.0 (#381)
+- fa9fadf ⬆️ (deps): Update tj-actions/changed-files action to v38 (#375)
+- ad17cec ⬆️ (deps): Update actions/checkout action to v3.6.0 (#380)
+- d39154c ⬆️ (deps): Update jbangdev/jbang-action action to v0.110.1 (#372)
+- 49317e4 ⬆️ (deps): Update github/codeql-action action to v2.21.4 (#369)
+- 2ec56a6 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v3 (#341)
+- 2db28a4 ⬆️ (deps): Update quarkus.platform.version to v3.3.0 (#378)
+- f395149 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.14
+- 9beeb88 ⬇️ Set maven version to 3.2.5
+- f7794f1 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.4.0
+- 271d2f6 ⬆️ (deps): Update quarkus.platform.version to v3.2.4.Final
+- 26dd502 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.15
+- e54e78c ⬆️ (deps): Update mavenVersion to v3.9.4
+- d3140a7 ⬆️ (deps): Update dependency org.apache.maven:maven-compat to v3.9.4
+- 6efc58f ⬆️ (deps): Update dependency maven to v3.9.4
+- ebaeb51 ⬆️ (deps): Update quarkus.platform.version to v3.2.3.Final
+- fbabf26 ⬆️ (deps): Update dependency com.google.guava:guava to v32.1.2-jre
+- 8198cc9 ⬆️ (deps): Update github/codeql-action action to v2.21.2
+- ee03d41 ⬆️ (deps): Update github/codeql-action action to v2.21.1
+- cc81790 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v1.9.14
+- 39cd842 ⬆️ (deps): Update jbangdev/jbang-action action to v0.110.0
+- a0d9ae0 ⬆️ (deps): Update quarkus.platform.version to v3.2.2.Final
+- 3ab03f1 ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v2.0.2
+- c3fd6de ⬆️ (deps): Update quarkus.platform.version to v3.2.1.Final
+- 78ed2d2 ⬆️ (deps): Update github/codeql-action action to v2.21.0
+- 6f0de33 ⬆️ (deps): Update JetBrains/qodana-action action to v2023.2.1
+- a4a1172 ⬆️ (deps): Update github/codeql-action action to v2.20.4
+- 5f1d6a2 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.38.0
+
+## 🏁 Release
+- 016d0f8 🔖 Releasing version 4.1.0
+- 96ee42a 🔖(deps): Update github/codeql-action digest to 00e563e (#387)
+- 333efa3 🔖(deps): Update tj-actions/changed-files digest to c860b5c (#383)
+- 773161a 🔖(deps): Update tj-actions/changed-files digest to b7f1b73 (#382)
+- 0cb4a1e 🔖(deps): Update actions/checkout digest to f43a0e5 (#379)
+- f3d9792 🔖(deps): Update tj-actions/changed-files digest to a0585ff (#365)
+- 85f0a31 🔖(deps): Update github/codeql-action digest to a09933a (#368)
+- 5fd1078 🔖(deps): Update actions/setup-go digest to 93397be (#367)
+- 30ce7fb 🔖(deps): Update actions/dependency-review-action digest to 32037a1 (#370)
+- fbf6d27 🔖(deps): Update tj-actions/changed-files digest to a96679d
+- 0df3d86 🔖(deps): Update github/codeql-action digest to 0ba4244
+- 2e1d820 🔖(deps): Update github/codeql-action digest to 6ca1aa8
+- 50d0eb4 🔖(deps): Update tj-actions/changed-files digest to 920e7b9
+- 572ae96 🔖(deps): Update actions/setup-java digest to cd89f46
+- 9997635 🔖(deps): Update tj-actions/changed-files digest to de0eba3
+- a5038cb 🔖(deps): Update github/codeql-action digest to 1813ca7
+- 64a5b5e 🔖(deps): Update tj-actions/changed-files digest to 3928317
+- 3f50b57 🔖(deps): Update github/codeql-action digest to 489225d
+- d46671e 🔖 Setting SNAPSHOT version 4.0.1-SNAPSHOT
+
+---
+- 37cb3b4 refactor: ♻️ Improve reading config from file (#392)
+- 359fac6 ci: 👷 Disable daily PR for now (#390)
+- 10ecce5 Update renovate.json
+- 72c551c Update renovate.json
+- 628e406 🧱 Change renovate config to use squash merge (#377)
+- ed2ae24 chore: update lockfile
+- 3677beb chore: update lockfile
+- 938ff4b chore: update lockfile
+- cc0c09d chore: update lockfile
+- 6ff4466 chore: update lockfile
+- feb33e4 chore: update lockfile
+- ce33d9b chore: update lockfile
+- 59f2a5a chore: update lockfile
+- 47e75a9 chore: update lockfile
+- c0fd41b chore: update lockfile
+- 0deae4e chore: update lockfile
+- 06a2e02 chore: update lockfile
+- 7eb9e5f chore(deps): update chains-project/maven-lockfile action to v4 (#337)
+- b38e4a7 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin ([@MartinWitt](https://github.com/MartinWitt))
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
