@@ -76,8 +76,7 @@ public class LockFileFacade {
      * @param project  The project to generate a lock file for.
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param checksumCalculator  The checksum calculator to use for calculating the checksums of the artifacts.
-     * @param includeMavenPlugins  Whether to include maven plugins in the lock file.
-     * @param reduced  Whether to use the reduced dependency graph only containing selected dependency nodes.
+     * @param config  The config to use for generating the lock file.
      * @param metadata The metadata to include in the lock file.
      * @return  A lock file for the project.
      */
