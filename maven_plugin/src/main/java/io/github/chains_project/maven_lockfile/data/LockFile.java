@@ -123,24 +123,6 @@ public class LockFile {
             return false;
         }
         LockFile other = (LockFile) obj;
-        if (!this.name.equals(other.name)) {
-            throw new RuntimeException("name" + this.name + " " + other.name);
-        }
-        if (!this.groupId.equals(other.groupId)) {
-            throw new RuntimeException("groupId" + this.groupId + " " + other.groupId);
-        }
-        if (!this.version.equals(other.version)) {
-            throw new RuntimeException("version" + this.version + " " + other.version);
-        }
-        if (this.lockfileVersion != other.lockfileVersion) {
-            throw new RuntimeException("lockfileVersion" + this.lockfileVersion + " " + other.lockfileVersion);
-        }
-        if (!this.dependencies.equals(other.dependencies)) {
-            throw new RuntimeException("dependencies" + this.dependencies + " " + other.dependencies);
-        }
-        if (!this.mavenPlugins.equals(other.mavenPlugins)) {
-            throw new RuntimeException("mavenPlugins" + this.mavenPlugins + " " + other.mavenPlugins);
-        }
         return Objects.equals(name, other.name)
                 && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)

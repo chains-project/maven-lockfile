@@ -63,5 +63,3 @@ jobs:
         run: mvn --batch-mode --update-snapshots clean install
       - name: Run reproducibility check
         run: mvn clean install
-      - name:
-        run: mvn io.github.chains-project:maven-lockfile:4.0.1-SNAPSHOT:validate
