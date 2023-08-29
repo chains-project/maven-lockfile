@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 /**
  * A lock file contains a list of dependencies, and the version of the lock file format.
@@ -103,6 +104,7 @@ public class LockFile {
     /**
      * @return the config
      */
+    @Nullable
     public Config getConfig() {
         return config;
     }
