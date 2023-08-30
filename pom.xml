@@ -12,8 +12,7 @@
     repository.
     The lock file can then be used to validate the integrity of the repository.
     This guards the supply chain against malicious actors that might tamper with the artifacts in
-    the repository.
-  </description>
+    the repository.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
   <inceptionYear>2023</inceptionYear>
   <licenses>
