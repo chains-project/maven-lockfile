@@ -952,3 +952,20 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
+
+# 4.2.1
+## Changelog
+
+## 🏁 Release
+- c2c6ff4 🔖 Releasing version 4.2.1
+- 8b8d20d 🔖 Setting SNAPSHOT version 4.2.1-SNAPSHOT
+
+---
+- 5964e7a fix: 🐛 Include leading zeros in checksums (#399)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ()
+- SirYwell ()
+- i-al-istannen ([@I-Al-Istannen](https://github.com/I-Al-Istannen))
