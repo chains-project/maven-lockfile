@@ -55,8 +55,8 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                 sb.append("Lock file validation failed. Differences:");
                 sb.append("\n");
                 sb.append("Your lockfile from file is for:"
-                        + lockFileFromFile.getGroupId().getValue() + ":"
-                        + lockFileFromFile.getName().getValue() + ":"
+                        + lockFileFromFile.getGroupId().getValue()
+                        + ":" + lockFileFromFile.getName().getValue() + ":"
                         + lockFileFromFile.getVersion().getValue() + "\n");
                 sb.append("Your generated lockfile is for:"
                         + lockFileFromProject.getGroupId().getValue() + ":"
