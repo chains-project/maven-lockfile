@@ -929,3 +929,26 @@ We'd like to thank the following people for their contributions:
 - Martin ([@MartinWitt](https://github.com/MartinWitt))
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+# 4.2.0
+## Changelog
+
+## 📦 Dependencies
+- 347a8f3 ⬆️ (deps): Update chains-project/maven-lockfile action to v4.1.0 (#393)
+
+## 📝 Documentation
+- 99ac685 📝 Update Documentation with current version (#394)
+
+## 🏁 Release
+- 48db43a 🔖 Releasing version 4.2.0
+- 9b0020b 🔖(deps): Update tj-actions/changed-files digest to 0fc9663 (#396)
+- 948bd6d 🔖 Setting SNAPSHOT version 4.1.1-SNAPSHOT
+
+---
+- f99517e feat: ✨ Add the concept of different default checksum algorithms depending on the trust source (#398)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+- MartinWitt ([@MartinWitt](https://github.com/MartinWitt))
