@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-parent</artifactId>
-  <version>4.2.1-SNAPSHOT</version>
+  <version>4.2.1</version>
   <packaging>pom</packaging>
   <name>maven-lockfile-parent</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
@@ -38,7 +38,7 @@
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
   <properties>
-    <project.build.outputTimestamp>2023-08-31T14:26:18Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-08-31T19:56:01Z</project.build.outputTimestamp>
   </properties>
   <build>
     <plugins>
