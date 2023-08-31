@@ -127,7 +127,7 @@ public class LockFile {
                 && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)
                 && lockfileVersion == other.lockfileVersion
-                && Objects.equals(dependencies, other.dependencies)
+                && Objects.equals(nullToEmpty(dependencies), nullToEmpty(other.dependencies))
                 && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins));
     }
 

@@ -39,7 +39,8 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("spoon-core");
         assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("fr.inria.gforge.spoon");
         assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("10.3.0");
-        assertThat(junitDep.getChecksum()).isEqualTo("d94722f53c95e49d8c1628708e3a168dc748e956");
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("37a43de039cf9a6701777106e3c5921e7131e5417fa707709abf791d3d8d9174");
     }
 
     @MavenTest
