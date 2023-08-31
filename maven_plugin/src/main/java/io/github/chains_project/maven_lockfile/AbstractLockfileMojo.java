@@ -1,5 +1,6 @@
 package io.github.chains_project.maven_lockfile;
 
+import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
@@ -37,7 +38,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Component
     protected DependencyResolver dependencyResolver;
 
-    @Parameter(defaultValue = "false", property = "includeMavenPlugins")
+    @Parameter(property = "includeMavenPlugins")
     protected String includeMavenPlugins;
 
     @Parameter(defaultValue = "${maven.version}")
@@ -52,7 +53,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "maven_local", property = "checksumMode")
     protected String checksumMode;
 
-    @Parameter(defaultValue = "false", property = "reduced")
+    @Parameter(property = "reduced")
     protected String reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
@@ -91,11 +92,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected Config getConfig() {
+        String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
+        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? "maven_local" : checksumMode;
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
-                checksumMode,
-                checksumAlgorithm);
+                chosenMode,
+                chosenAlgo);
     }
 }

@@ -42,7 +42,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             Metadata metadata = generateMetaInformation();
             LockFile lockFileFromFile =
                     Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
-            Config config = getConfig(lockFileFromFile);
+            Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
             if (lockFileFromFile == null) {
                 getLog().info("No lockfile found. Generating new lockfile.");
             }
