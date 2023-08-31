@@ -74,4 +74,11 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     public String calculateChecksum(Artifact artifact) {
         return calculateChecksumInternal(resolveDependency(artifact)).orElse("");
     }
+
+    @Override
+    public String getDefaultChecksumAlgorithm() {
+        return "sha256";
+    }
+
+    
 }

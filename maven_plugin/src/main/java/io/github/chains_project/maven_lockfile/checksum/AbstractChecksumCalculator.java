@@ -7,7 +7,11 @@ public abstract class AbstractChecksumCalculator {
     protected String checksumAlgorithm;
 
     AbstractChecksumCalculator(String checksumAlgorithm) {
-        this.checksumAlgorithm = checksumAlgorithm;
+        if(checksumAlgorithm == null || checksumAlgorithm.isEmpty()) {
+            this.checksumAlgorithm = getDefaultChecksumAlgorithm();
+        } else {
+            this.checksumAlgorithm = checksumAlgorithm;
+        }
     }
 
     /**
@@ -18,4 +22,6 @@ public abstract class AbstractChecksumCalculator {
     }
 
     public abstract String calculateChecksum(Artifact artifact);
+
+    public abstract String getDefaultChecksumAlgorithm();
 }

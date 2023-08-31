@@ -39,4 +39,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             throw new RuntimeException("Could not resolve artifact: " + artifact.getArtifactId(), e);
         }
     }
+
+    @Override
+    public String getDefaultChecksumAlgorithm() {
+        return "sha1";
+    }
 }

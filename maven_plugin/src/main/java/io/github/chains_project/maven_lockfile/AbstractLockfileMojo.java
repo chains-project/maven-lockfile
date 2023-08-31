@@ -46,7 +46,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${java.version}")
     protected String javaVersion;
 
-    @Parameter(defaultValue = "sha1", property = "checksumAlgorithm")
+    @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
     @Parameter(defaultValue = "maven_local", property = "checksumMode")
