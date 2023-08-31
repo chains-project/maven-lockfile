@@ -5,7 +5,7 @@ import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculat
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
-import io.github.chains_project.maven_lockfile.data.Metadata;
+import io.github.chains_project.maven_lockfile.data.Environment;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
@@ -62,9 +62,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     protected MojoExecution mojo;
 
-    protected Metadata generateMetaInformation() {
+    protected Environment generateMetaInformation() {
         String osName = System.getProperty("os.name");
-        return new Metadata(osName, mavenVersion, javaVersion);
+        return new Environment(osName, mavenVersion, javaVersion);
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {

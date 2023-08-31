@@ -4,8 +4,9 @@ import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFile
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
+import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.Metadata;
+import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import java.io.IOException;
 import java.util.Objects;
@@ -35,16 +36,18 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             getLog().info("Skipping maven-lockfile");
         }
         try {
-            Metadata metadata = generateMetaInformation();
+            Environment environment = generateMetaInformation();
+
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));
             Config config = lockFileFromFile.getConfig() == null ? getConfig() : lockFileFromFile.getConfig();
+            MetaData metaData = new MetaData(environment, config);
             getLog().warn("No config was found in the lock file. Using default config.");
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, checksumCalculator, config, metadata);
-            if (!Objects.equals(lockFileFromFile.getMetadata(), lockFileFromProject.getMetadata())) {
+                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
+            if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
                 getLog().warn(
-                                "Lock file metadata does not match project metadata. This could be due to a change in the environment.");
+                                "Lock file environment does not match project environment. This could be due to a change in the environment.");
             }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);

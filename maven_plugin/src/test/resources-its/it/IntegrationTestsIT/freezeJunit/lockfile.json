@@ -67,15 +67,18 @@
     }
   ],
   "mavenPlugins": [],
-  "metadata": {
-    "osName": "Windows 11",
-    "mavenVersion": "3.9.1",
-    "javaVersion": "19.0.2"
-  },
-  "config": {
-    "includeMavenPlugins": false,
-    "reduced": false,
-    "mavenLockfileVersion": "4.1.1-SNAPSHOT",
-    "checksumMode": "maven_local"
+  "metaData": {
+    "environment": {
+      "osName": "Windows 11",
+      "mavenVersion": "3.9.1",
+      "javaVersion": "19.0.2"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "reduced": false,
+      "mavenLockfileVersion": "4.1.1-SNAPSHOT",
+      "checksumMode": "maven_local",
+      "checksumAlgorithm": "SHA-256"
+    }
   }
 }
