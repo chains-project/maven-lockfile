@@ -7,7 +7,7 @@ public abstract class AbstractChecksumCalculator {
     protected String checksumAlgorithm;
 
     AbstractChecksumCalculator(String checksumAlgorithm) {
-        if(checksumAlgorithm == null || checksumAlgorithm.isEmpty()) {
+        if (checksumAlgorithm == null || checksumAlgorithm.isEmpty()) {
             this.checksumAlgorithm = getDefaultChecksumAlgorithm();
         } else {
             this.checksumAlgorithm = checksumAlgorithm;

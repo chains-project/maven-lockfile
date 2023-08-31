@@ -79,6 +79,4 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     public String getDefaultChecksumAlgorithm() {
         return "sha256";
     }
-
-    
 }
