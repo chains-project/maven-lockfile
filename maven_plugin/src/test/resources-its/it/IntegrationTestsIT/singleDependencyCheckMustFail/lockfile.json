@@ -9,7 +9,7 @@
       "artifactId": "junit-jupiter-api",
       "version": "5.9.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5_TEMPER_ATTACK",
       "scope": "test",
       "selectedVersion": "5.9.2",
       "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
