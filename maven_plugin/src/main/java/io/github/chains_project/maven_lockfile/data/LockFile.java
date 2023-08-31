@@ -34,8 +34,7 @@ public class LockFile {
 
     private final List<MavenPlugin> mavenPlugins;
 
-    private final Metadata metadata;
-    private final Config config;
+    private final MetaData metaData;
 
     public LockFile(
             GroupId groupId,
@@ -43,15 +42,13 @@ public class LockFile {
             VersionNumber versionNumber,
             List<DependencyNode> dependencies,
             List<MavenPlugin> mavenPlugins,
-            Metadata metadata,
-            Config config) {
+            MetaData metaData) {
         this.dependencies = dependencies == null ? Collections.emptyList() : dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
         this.mavenPlugins = mavenPlugins == null ? Collections.emptyList() : mavenPlugins;
-        this.metadata = metadata;
-        this.config = config;
+        this.metaData = metaData;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -97,8 +94,8 @@ public class LockFile {
     /**
      * @return the metadata about the environment in which the lock file was generated
      */
-    public Metadata getMetadata() {
-        return metadata;
+    public Environment getEnvironment() {
+        return metaData.getEnvironment();
     }
 
     /**
@@ -106,7 +103,7 @@ public class LockFile {
      */
     @Nullable
     public Config getConfig() {
-        return config;
+        return metaData.getConfig();
     }
 
     @Override
@@ -127,7 +124,7 @@ public class LockFile {
                 && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)
                 && lockfileVersion == other.lockfileVersion
-                && Objects.equals(dependencies, other.dependencies)
+                && Objects.equals(nullToEmpty(dependencies), nullToEmpty(other.dependencies))
                 && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins));
     }
 

@@ -4,11 +4,10 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
-import io.github.chains_project.maven_lockfile.data.Metadata;
+import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
@@ -76,7 +75,6 @@ public class LockFileFacade {
      * @param project  The project to generate a lock file for.
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param checksumCalculator  The checksum calculator to use for calculating the checksums of the artifacts.
-     * @param config  The config to use for generating the lock file.
      * @param metadata The metadata to include in the lock file.
      * @return  A lock file for the project.
      */
@@ -85,16 +83,19 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            Config config,
-            Metadata metadata) {
+            MetaData metadata) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
         List<MavenPlugin> plugins = new ArrayList<>();
-        if (config.isIncludeMavenPlugins()) {
+        if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project);
         }
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
-                session, project, dependencyCollectorBuilder, checksumCalculator, config.isReduced());
+                session,
+                project,
+                dependencyCollectorBuilder,
+                checksumCalculator,
+                metadata.getConfig().isReduced());
         var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -102,8 +103,7 @@ public class LockFileFacade {
                 VersionNumber.of(project.getVersion()),
                 roots,
                 plugins,
-                metadata,
-                config);
+                metadata);
     }
 
     private static List<MavenPlugin> getAllPlugins(MavenProject project) {

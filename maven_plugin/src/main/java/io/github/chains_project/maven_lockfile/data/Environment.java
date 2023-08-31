@@ -5,13 +5,13 @@ import java.util.Objects;
 /**
  * Metadata about the environment in which the lock file was generated. This includes the OS name, the Maven version and the Java version.
  */
-public class Metadata {
+public class Environment {
 
     private final String osName;
     private final String mavenVersion;
     private final String javaVersion;
 
-    public Metadata(String osName, String mavenVersion, String javaVersion) {
+    public Environment(String osName, String mavenVersion, String javaVersion) {
         this.osName = osName;
         this.mavenVersion = mavenVersion;
         this.javaVersion = javaVersion;
@@ -51,10 +51,10 @@ public class Metadata {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Metadata)) {
+        if (!(obj instanceof Environment)) {
             return false;
         }
-        Metadata other = (Metadata) obj;
+        Environment other = (Environment) obj;
         return Objects.equals(osName, other.osName)
                 && Objects.equals(mavenVersion, other.mavenVersion)
                 && Objects.equals(javaVersion, other.javaVersion);

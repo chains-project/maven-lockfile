@@ -128,7 +128,17 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(artifactId, groupId, version, parent, children, checksum);
+        return Objects.hash(
+                groupId,
+                artifactId,
+                version,
+                checksumAlgorithm,
+                checksum,
+                scope,
+                selectedVersion,
+                id,
+                parent,
+                children);
     }
 
     @Override
@@ -140,14 +150,16 @@ public class DependencyNode implements Comparable<DependencyNode> {
             return false;
         }
         DependencyNode other = (DependencyNode) obj;
-        return Objects.equals(artifactId, other.artifactId)
-                && Objects.equals(groupId, other.groupId)
+        return Objects.equals(groupId, other.groupId)
+                && Objects.equals(artifactId, other.artifactId)
                 && Objects.equals(version, other.version)
-                && Objects.equals(parent, other.parent)
-                && Objects.equals(children, other.children)
-                && Objects.equals(checksum, other.checksum)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
-                && Objects.equals(scope, other.scope);
+                && Objects.equals(checksum, other.checksum)
+                && scope == other.scope
+                && Objects.equals(selectedVersion, other.selectedVersion)
+                && Objects.equals(id, other.id)
+                && Objects.equals(parent, other.parent)
+                && Objects.equals(children, other.children);
     }
 
     @Override

@@ -4,8 +4,9 @@ import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFile
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
+import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.Metadata;
+import io.github.chains_project.maven_lockfile.data.MetaData;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,16 +40,18 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             getLog().info("Skipping maven-lockfile");
         }
         try {
-            Metadata metadata = generateMetaInformation();
+            Environment environment = generateMetaInformation();
             LockFile lockFileFromFile =
                     Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
-            Config config = getConfig(lockFileFromFile);
+            Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
+            MetaData metaData = new MetaData(environment, config);
+
             if (lockFileFromFile == null) {
                 getLog().info("No lockfile found. Generating new lockfile.");
             }
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, checksumCalculator, config, metadata);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));

@@ -1,5 +1,8 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
+import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
+
 public class Config {
 
     private final boolean includeMavenPlugins;
@@ -25,8 +28,8 @@ public class Config {
         this.includeMavenPlugins = false;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
-        this.checksumMode = "maven_local";
-        this.checksumAlgorithm = "sha1";
+        this.checksumMode = ChecksumModes.MAVEN_LOCAL.name();
+        this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null).getDefaultChecksumAlgorithm();
     }
     /**
      * @return the includeMavenPlugins

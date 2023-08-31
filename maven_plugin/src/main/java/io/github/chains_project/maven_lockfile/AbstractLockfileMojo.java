@@ -1,10 +1,11 @@
 package io.github.chains_project.maven_lockfile;
 
+import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
-import io.github.chains_project.maven_lockfile.data.Metadata;
+import io.github.chains_project.maven_lockfile.data.Environment;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
@@ -37,7 +38,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Component
     protected DependencyResolver dependencyResolver;
 
-    @Parameter(defaultValue = "false", property = "includeMavenPlugins")
+    @Parameter(property = "includeMavenPlugins")
     protected String includeMavenPlugins;
 
     @Parameter(defaultValue = "${maven.version}")
@@ -46,13 +47,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${java.version}")
     protected String javaVersion;
 
-    @Parameter(defaultValue = "sha1", property = "checksumAlgorithm")
+    @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
     @Parameter(defaultValue = "maven_local", property = "checksumMode")
     protected String checksumMode;
 
-    @Parameter(defaultValue = "false", property = "reduced")
+    @Parameter(property = "reduced")
     protected String reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
@@ -61,9 +62,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     protected MojoExecution mojo;
 
-    protected Metadata generateMetaInformation() {
+    protected Environment generateMetaInformation() {
         String osName = System.getProperty("os.name");
-        return new Metadata(osName, mavenVersion, javaVersion);
+        return new Environment(osName, mavenVersion, javaVersion);
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
@@ -91,11 +92,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected Config getConfig() {
+        String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
+        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? "maven_local" : checksumMode;
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
-                checksumMode,
-                checksumAlgorithm);
+                chosenMode,
+                chosenAlgo);
     }
 }

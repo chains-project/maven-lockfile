@@ -45,25 +45,25 @@ public class LockFileDifference {
      * @return the missingDependenciesInFile
      */
     public Set<DependencyNode> getMissingDependenciesInFile() {
-        return missingDependenciesInFile;
+        return new HashSet<>(missingDependenciesInFile);
     }
 
     /**
      * @return the missingDependenciesInProject
      */
     public Set<DependencyNode> getMissingDependenciesInProject() {
-        return missingDependenciesInProject;
+        return new HashSet<>(missingDependenciesInProject);
     }
     /**
      * @return the missingPluginsInFile
      */
     public Set<MavenPlugin> getMissingPluginsInFile() {
-        return missingPluginsInFile;
+        return new HashSet<>(missingPluginsInFile);
     }
     /**
      * @return the missingPluginsInProject
      */
     public Set<MavenPlugin> getMissingPluginsInProject() {
-        return missingPluginsInProject;
+        return new HashSet<>(missingPluginsInProject);
     }
 }
