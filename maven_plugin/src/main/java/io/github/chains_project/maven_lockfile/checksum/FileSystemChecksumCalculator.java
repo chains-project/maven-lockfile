@@ -4,6 +4,7 @@ import com.google.common.io.BaseEncoding;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
@@ -64,7 +65,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             byte[] fileBuffer = Files.readAllBytes(artifact.getFile().toPath());
             byte[] artifactHash = messageDigest.digest(fileBuffer);
             BaseEncoding baseEncoding = BaseEncoding.base16();
-            return Optional.of(baseEncoding.encode(artifactHash));
+            return Optional.of(baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT));
         } catch (Exception e) {
             LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);
             return Optional.empty();
