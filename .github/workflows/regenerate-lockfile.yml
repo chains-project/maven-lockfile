@@ -1,0 +1,16 @@
+name: Lockfile-Regenerate
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  check-lockfile:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: run maven-lockfile
+        uses: chains-project/maven-lockfile@016d0f80f90e63dd0c1f018141c9a0694cbc59fb # v4.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
