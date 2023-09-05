@@ -969,3 +969,30 @@ We'd like to thank the following people for their contributions:
 - Martin Wittlinger ()
 - SirYwell ()
 - i-al-istannen ([@I-Al-Istannen](https://github.com/I-Al-Istannen))
+
+# 4.2.2
+## Changelog
+
+## 🚀 Added
+- 62e07b3 👷 Add workflow to regenerate lockfile on demand (#402)
+
+## 🐛 Fixed
+- 8854d48 🐛 fix json value names in lockfile (#403)
+
+## 📦 Dependencies
+- f31496a ⬆️ (deps): Update tj-actions/changed-files action to v39 (#410)
+- a399290 ⬆️ (deps): Update actions/checkout action to v4 (#408)
+- a9b7f0d ⬆️ (deps): Update JetBrains/qodana-action action to v2023.2.6 (#407)
+- a2fa2b6 ⬆️ (deps): Update dependency org.slf4j:log4j-over-slf4j to v2.0.9 (#406)
+- 167809e ⬆️ (deps): Update dependency org.slf4j:log4j-over-slf4j to v2.0.8 (#405)
+
+## 🏁 Release
+- 6ba071f 🔖 Releasing version 4.2.2
+- ff9c88b 🔖(deps): Update tj-actions/changed-files digest to 1aee362 (#409)
+- c9e209a 🔖(deps): Update tj-actions/changed-files digest to 2f7246c (#404)
+- 50f46e2 🔖 Setting SNAPSHOT version 4.2.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
