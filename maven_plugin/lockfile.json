@@ -550,7 +550,7 @@
                   "checksumAlgorithm": "sha1",
                   "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
                   "scope": "test",
-                  "selectedVersion": "2.0.7",
+                  "selectedVersion": "2.0.9",
                   "id": "org.slf4j:slf4j-api:1.7.36",
                   "parent": "org.apache.maven.resolver:maven-resolver-named-locks:1.9.14",
                   "children": []
@@ -588,7 +588,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
               "scope": "test",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.9",
               "id": "org.slf4j:slf4j-api:1.7.36",
               "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
               "children": []
@@ -1821,7 +1821,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "6b262da268f8ad9eff941b25503a9198f0a0ac93",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "2.0.9",
           "id": "org.slf4j:slf4j-api:1.7.5",
           "parent": "org.apache.maven.shared:maven-artifact-transfer:0.13.1",
           "children": []
@@ -1857,7 +1857,7 @@
           "checksumAlgorithm": "sha1",
           "checksum": "6c62681a2f655b49963a5983b8b0950a6120ae14",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "2.0.9",
           "id": "org.slf4j:slf4j-api:1.7.36",
           "parent": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
           "children": []
@@ -1892,7 +1892,7 @@
               "checksumAlgorithm": "sha1",
               "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
               "scope": "test",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.9",
               "id": "org.slf4j:slf4j-api:2.0.7",
               "parent": "org.instancio:instancio-core:3.2.0",
               "children": []
@@ -2050,23 +2050,23 @@
     {
       "groupId": "org.slf4j",
       "artifactId": "log4j-over-slf4j",
-      "version": "2.0.7",
+      "version": "2.0.9",
       "checksumAlgorithm": "sha1",
-      "checksum": "c7d822e808babcb3ca3f390e1992d483a26aa53",
+      "checksum": "47b18c09cda4a3bba2197ed6827cf6390c2a0adb",
       "scope": "compile",
-      "selectedVersion": "2.0.7",
-      "id": "org.slf4j:log4j-over-slf4j:2.0.7",
+      "selectedVersion": "2.0.9",
+      "id": "org.slf4j:log4j-over-slf4j:2.0.9",
       "children": [
         {
           "groupId": "org.slf4j",
           "artifactId": "slf4j-api",
-          "version": "2.0.7",
+          "version": "2.0.9",
           "checksumAlgorithm": "sha1",
-          "checksum": "41eb7184ea9d556f23e18b5cb99cad1f8581fc00",
+          "checksum": "7cf2726fdcfbc8610f9a71fb3ed639871f315340",
           "scope": "compile",
-          "selectedVersion": "2.0.7",
-          "id": "org.slf4j:slf4j-api:2.0.7",
-          "parent": "org.slf4j:log4j-over-slf4j:2.0.7",
+          "selectedVersion": "2.0.9",
+          "id": "org.slf4j:slf4j-api:2.0.9",
+          "parent": "org.slf4j:log4j-over-slf4j:2.0.9",
           "children": []
         }
       ]
