@@ -18,10 +18,14 @@ import javax.annotation.Nullable;
  */
 public class LockFile {
 
-    @SerializedName("artifactID")
+    @SerializedName(
+            value = "artifactId",
+            alternate = {"artifactID"})
     private final ArtifactId name;
 
-    @SerializedName("groupID")
+    @SerializedName(
+            value = "groupId",
+            alternate = {"groupID"})
     private final GroupId groupId;
 
     @SerializedName("version")
