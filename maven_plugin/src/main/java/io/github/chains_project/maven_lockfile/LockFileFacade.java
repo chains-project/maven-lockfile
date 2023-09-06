@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
@@ -87,7 +88,7 @@ public class LockFileFacade {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
         List<MavenPlugin> plugins = new ArrayList<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
-            plugins = getAllPlugins(project);
+            plugins = getAllPlugins(project, checksumCalculator);
         }
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
@@ -106,11 +107,18 @@ public class LockFileFacade {
                 metadata);
     }
 
-    private static List<MavenPlugin> getAllPlugins(MavenProject project) {
-        return project.getBuildPlugins().stream()
-                .map(v -> new MavenPlugin(
-                        GroupId.of(v.getGroupId()), ArtifactId.of(v.getArtifactId()), VersionNumber.of(v.getVersion())))
-                .collect(Collectors.toList());
+    private static List<MavenPlugin> getAllPlugins(
+            MavenProject project, AbstractChecksumCalculator checksumCalculator) {
+        List<MavenPlugin> plugins = new ArrayList<>();
+        for (Artifact pluginArtifact : project.getPluginArtifacts()) {
+            plugins.add(new MavenPlugin(
+                    GroupId.of(pluginArtifact.getGroupId()),
+                    ArtifactId.of(pluginArtifact.getArtifactId()),
+                    VersionNumber.of(pluginArtifact.getVersion()),
+                    checksumCalculator.getChecksumAlgorithm(),
+                    checksumCalculator.calculateChecksum(pluginArtifact)));
+        }
+        return plugins;
     }
 
     private static DependencyGraph graph(
