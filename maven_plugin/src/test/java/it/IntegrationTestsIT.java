@@ -73,6 +73,9 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getMavenPlugins()).isNotEmpty();
+        assertThat(lockFile.getMavenPlugins())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
     }
 
     @MavenTest
