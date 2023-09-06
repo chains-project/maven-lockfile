@@ -11,8 +11,8 @@ public class MavenPlugin {
     private final GroupId groupId;
     private final ArtifactId artifactId;
     private final VersionNumber version;
-    private String checksumAlgorithm;
-    private String checksum;
+    private final String checksumAlgorithm;
+    private final String checksum;
 
     public MavenPlugin(
             GroupId groupId, ArtifactId artifactId, VersionNumber version, String checksumAlgorithm, String checksum) {
