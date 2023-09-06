@@ -8,7 +8,7 @@
   <name>maven-lockfile-parent</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
     of a maven repository.
-    It does this by generating a lock file that contains the checksums of all the artifacts in the
+    It does this by generating a lock file that contains the checksums of all the artifacts and plugins in the
     repository.
     The lock file can then be used to validate the integrity of the repository.
     This guards the supply chain against malicious actors that might tamper with the artifacts in

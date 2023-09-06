@@ -15,6 +15,7 @@ jobs:
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Maven
         uses: stCarolas/setup-maven@1d56b37995622db66cce1214d81014b09807fb5a # v4
         with:

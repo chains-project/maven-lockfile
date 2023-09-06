@@ -2121,7 +2121,7 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-eclipse-plugin",
-      "version": "2.9"
+      "version": "2.10"
     },
     {
       "groupId": "org.apache.maven.plugins",
