@@ -996,3 +996,25 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
+
+# 5.0.0
+## Changelog
+
+## 🚀 Added
+- 75a6a7f 👷 Use tokens for commits inside github actions (#413)
+- ccc0d09 ✨ Add hash+algorithm for maven plugins (#412)
+
+## 📦 Dependencies
+- 8d3fd96 ⬆️ (deps): Update actions/upload-artifact action to v3.1.3 (#416)
+- a954cc1 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-eclipse-plugin to v2.10 (#414)
+- e609283 ⬆️ (deps): Update quarkus.platform.version to v3.3.2 (#411)
+
+## 🏁 Release
+- 6572b9a 🔖 Releasing version 5.0.0
+- 5f88293 🔖(deps): Update actions/upload-artifact digest to a8a3f3a (#415)
+- 649cf48 🔖 Setting SNAPSHOT version 4.2.3-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Wittlinger ([@MartinWitt](https://github.com/MartinWitt))
