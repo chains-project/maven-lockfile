@@ -1,0 +1,121 @@
+{
+  "artifactId": "maven-lockfile-parent",
+  "groupId": "io.github.chains-project",
+  "version": "5.0.1-SNAPSHOT",
+  "lockFileVersion": 1,
+  "dependencies": [],
+  "mavenPlugins": [
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.1.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "079f1ce924197890598b651f515b8337261cb37a0714341ed5ff5b312736b316"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-compiler-plugin",
+      "version": "3.11.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "b806a9ddc7ed5cfd7623ecb044e6fa506831987ee0c3df7d1358fd7568c396f7"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "17edc5d0289dc0a9b61bd5db15fdb5804b5fb73d7dbe458771e33fbc1d51fa94"
+    },
+    {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.39.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "69efd6b7ff7ee8d3bef1a9fcd23e81828b32d7e738ad633d380e9ea0353e64d8"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-site-plugin",
+      "version": "3.12.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "f7bd8e943977ca85022e1252d52575b769d12d49565375550251d2f471aa350c"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.4.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "b4f7fd50ceb2d506d94505dae2572c45633fa52167af816d12b1b28639b7db08"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-deploy-plugin",
+      "version": "3.1.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "c7c973af372dadb83c41e760a86af98b6291150ecdd235319c2a3635b85383ff"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-install-plugin",
+      "version": "3.1.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "6bf2f4a06369f599818c5cee1d5ed957b7caf4aa0003b9867ad5525f8bca8086"
+    },
+    {
+      "groupId": "org.cyclonedx",
+      "artifactId": "cyclonedx-maven-plugin",
+      "version": "2.7.9",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "aa09074fe5aa403c008cd4fc7ef8ce41cd244489337f16b3e91a3914158a4db8"
+    },
+    {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "3.0.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "0feec29c55962fb31dc911f63e3200e18837cc367c52de64e41a893df3a4436a"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.4.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e9b1edbe20dc39f44b59ef3a726d130d6dc9ba7fa05f6fa2c4e10f429f182b66"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-eclipse-plugin",
+      "version": "2.10",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-resources-plugin",
+      "version": "3.3.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.3.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "7c4b79c731f9595882e0c7374073015c4b7ed1b50575723e304bff16e2face04"
+    }
+  ],
+  "metaData": {
+    "environment": {
+      "osName": "Linux",
+      "mavenVersion": "3.8.2",
+      "javaVersion": "11.0.20"
+    },
+    "config": {
+      "includeMavenPlugins": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.0.0",
+      "checksumMode": "maven_local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}
