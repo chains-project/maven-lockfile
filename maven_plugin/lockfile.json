@@ -1867,34 +1867,34 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "3.2.0",
+      "version": "3.3.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "dd3f1f46df345a050347a32764a343a679b1a944322861d59a3e0b46b588f132",
+      "checksum": "44326ae77de794b65e4c11f7ea1396ed341d248bc6d582a9e04b77c5163bb0c5",
       "scope": "test",
-      "selectedVersion": "3.2.0",
-      "id": "org.instancio:instancio-junit:3.2.0",
+      "selectedVersion": "3.3.0",
+      "id": "org.instancio:instancio-junit:3.3.0",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "3.2.0",
+          "version": "3.3.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "4f0723e8a70f5532f4ce38bd5c3e302e67c9301578688aca279c583e7d85d91c",
+          "checksum": "27047f48209963f713780e1de5fb16742126c46b173fffbbfb704ee2e195770f",
           "scope": "test",
-          "selectedVersion": "3.2.0",
-          "id": "org.instancio:instancio-core:3.2.0",
-          "parent": "org.instancio:instancio-junit:3.2.0",
+          "selectedVersion": "3.3.0",
+          "id": "org.instancio:instancio-core:3.3.0",
+          "parent": "org.instancio:instancio-junit:3.3.0",
           "children": [
             {
               "groupId": "org.slf4j",
               "artifactId": "slf4j-api",
-              "version": "2.0.7",
+              "version": "2.0.9",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "5d6298b93a1905c32cda6478808ac14c2d4a47e91535e53c41f7feeb85d946f4",
+              "checksum": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c",
               "scope": "test",
               "selectedVersion": "2.0.9",
-              "id": "org.slf4j:slf4j-api:2.0.7",
-              "parent": "org.instancio:instancio-core:3.2.0",
+              "id": "org.slf4j:slf4j-api:2.0.9",
+              "parent": "org.instancio:instancio-core:3.3.0",
               "children": []
             }
           ]
