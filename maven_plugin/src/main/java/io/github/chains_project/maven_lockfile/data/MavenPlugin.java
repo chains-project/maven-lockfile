@@ -1,5 +1,8 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,6 +16,7 @@ public class MavenPlugin {
     private final VersionNumber version;
     private final String checksumAlgorithm;
     private final String checksum;
+    private final List<DependencyNode> dependencies = new ArrayList<>();
 
     public MavenPlugin(
             GroupId groupId, ArtifactId artifactId, VersionNumber version, String checksumAlgorithm, String checksum) {
@@ -21,6 +25,16 @@ public class MavenPlugin {
         this.version = version;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
+    }
+
+    public MavenPlugin(
+            GroupId groupId,
+            ArtifactId artifactId,
+            VersionNumber version,
+            String checksumAlgorithm,
+            String checksum,
+            List<DependencyNode> dependencies) {
+        this(groupId, artifactId, version, checksumAlgorithm, checksum);
     }
 
     public GroupId getGroupId() {
@@ -43,9 +57,13 @@ public class MavenPlugin {
         return checksumAlgorithm;
     }
 
+    public List<DependencyNode> getDependencies() {
+        return dependencies;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum);
+        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum, dependencies);
     }
 
     @Override
@@ -61,6 +79,7 @@ public class MavenPlugin {
                 && Objects.equals(artifactId, other.artifactId)
                 && Objects.equals(version, other.version)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
-                && Objects.equals(checksum, other.checksum);
+                && Objects.equals(checksum, other.checksum)
+                && Objects.equals(dependencies, other.dependencies);
     }
 }
