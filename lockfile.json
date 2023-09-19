@@ -78,9 +78,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-enforcer-plugin",
-      "version": "3.4.0",
+      "version": "3.4.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "e9b1edbe20dc39f44b59ef3a726d130d6dc9ba7fa05f6fa2c4e10f429f182b66"
+      "checksum": "1ff8f0b8ea14aed6a25eaef2046ece07c58841e8a7e87cab3645f1ac5177574e"
     },
     {
       "groupId": "org.apache.maven.plugins",
