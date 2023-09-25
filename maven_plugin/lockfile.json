@@ -405,7 +405,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "2b8939ebb46a760deca82faae356145105d27a01748aac30d202ce9d4494edf4",
               "scope": "test",
-              "selectedVersion": "1.9.15",
+              "selectedVersion": "1.9.16",
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
               "parent": "org.apache.maven:maven-resolver-provider:3.9.4",
               "children": []
@@ -440,7 +440,7 @@
                   "checksumAlgorithm": "SHA-256",
                   "checksum": "2b8939ebb46a760deca82faae356145105d27a01748aac30d202ce9d4494edf4",
                   "scope": "test",
-                  "selectedVersion": "1.9.15",
+                  "selectedVersion": "1.9.16",
                   "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
                   "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.14",
                   "children": []
@@ -504,7 +504,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "2b8939ebb46a760deca82faae356145105d27a01748aac30d202ce9d4494edf4",
           "scope": "test",
-          "selectedVersion": "1.9.15",
+          "selectedVersion": "1.9.16",
           "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
           "parent": "org.apache.maven:maven-compat:3.9.4",
           "children": []
@@ -527,7 +527,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "2b8939ebb46a760deca82faae356145105d27a01748aac30d202ce9d4494edf4",
               "scope": "test",
-              "selectedVersion": "1.9.15",
+              "selectedVersion": "1.9.16",
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
               "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.14",
               "children": []
@@ -613,7 +613,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "2b8939ebb46a760deca82faae356145105d27a01748aac30d202ce9d4494edf4",
               "scope": "test",
-              "selectedVersion": "1.9.15",
+              "selectedVersion": "1.9.16",
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.14",
               "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.14",
               "children": []
@@ -1588,12 +1588,12 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "1.9.15",
+      "version": "1.9.16",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "d54829d60a2827bb976312bdbbf627951e613292762ee146140c51aa7dce60be",
+      "checksum": "695bb724f719ef57b51e9117f8ad86e1d52ffd5df03b0913b68f6019ac137c8d",
       "scope": "compile",
-      "selectedVersion": "1.9.15",
-      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.15",
+      "selectedVersion": "1.9.16",
+      "id": "org.apache.maven.resolver:maven-resolver-api:1.9.16",
       "children": []
     },
     {
