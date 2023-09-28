@@ -6226,6 +6226,13 @@
       "checksum": "b4f7fd50ceb2d506d94505dae2572c45633fa52167af816d12b1b28639b7db08"
     },
     {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "3.0.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "3f4f612c310dedfa43b6aeb548d3deffe13f76712c8b183bbbbaa4755f289e1e"
+    },
+    {
       "groupId": "io.quarkus.platform",
       "artifactId": "quarkus-maven-plugin",
       "version": "3.4.1",
@@ -6252,13 +6259,6 @@
       "version": "2.7.9",
       "checksumAlgorithm": "SHA-256",
       "checksum": "aa09074fe5aa403c008cd4fc7ef8ce41cd244489337f16b3e91a3914158a4db8"
-    },
-    {
-      "groupId": "org.codehaus.gmavenplus",
-      "artifactId": "gmavenplus-plugin",
-      "version": "3.0.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "0feec29c55962fb31dc911f63e3200e18837cc367c52de64e41a893df3a4436a"
     },
     {
       "groupId": "org.apache.maven.plugins",
