@@ -6213,17 +6213,17 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9119dcba18b3b6be9b68f56733be2be54442ed9234f69cf4fe2de0b46c3e25de"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-site-plugin",
       "version": "3.12.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "f7bd8e943977ca85022e1252d52575b769d12d49565375550251d2f471aa350c"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-artifact-plugin",
-      "version": "3.4.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "b4f7fd50ceb2d506d94505dae2572c45633fa52167af816d12b1b28639b7db08"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
