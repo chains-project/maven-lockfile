@@ -69,18 +69,18 @@
       "checksum": "6bf2f4a06369f599818c5cee1d5ed957b7caf4aa0003b9867ad5525f8bca8086"
     },
     {
-      "groupId": "org.cyclonedx",
-      "artifactId": "cyclonedx-maven-plugin",
-      "version": "2.7.9",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "aa09074fe5aa403c008cd4fc7ef8ce41cd244489337f16b3e91a3914158a4db8"
-    },
-    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.3.2",
       "checksumAlgorithm": "SHA-256",
       "checksum": "0c86dc6dc7c3370ebe08b353a02a98fb17d14303036c00eb12f0c8977f264b9f"
+    },
+    {
+      "groupId": "org.cyclonedx",
+      "artifactId": "cyclonedx-maven-plugin",
+      "version": "2.7.10",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "bd0fdd8f2f2116eee5e715aeac1580f19eb7a10ec2b6f805b53567067658e872"
     },
     {
       "groupId": "org.apache.maven.plugins",
