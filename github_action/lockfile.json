@@ -6293,7 +6293,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.8.2",
-      "javaVersion": "11.0.20.1"
+      "javaVersion": "11.0.21"
     },
     "config": {
       "includeMavenPlugins": true,
