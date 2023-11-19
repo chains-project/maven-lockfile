@@ -24,7 +24,7 @@ jobs:
     - name: Set up Maven
       run: sudo apt install maven
     - name: jbang
-      uses: jbangdev/jbang-action@2b8b99c12dddb0dee305c1ddc4bd6049dd31738b # v0.111.0
+      uses: jbangdev/jbang-action@a3e884c850c3a492e55b4f7770be4aa0d540a546 # v0.112.4
       with:
         script: ".github/smoketest/SmokeTest.java"
       env:
