@@ -6184,13 +6184,6 @@
       "checksum": "a0c6e8ecd5b0e99a2f1d6c8fe211811e820aa37de4c704a0081cf31360fddae3"
     },
     {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "2.41.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "4818112aecf44d2c09de945d0616be24459084725c4b4cae82e49aff01f989c3"
-    },
-    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-compiler-plugin",
       "version": "3.11.0",
@@ -6280,6 +6273,13 @@
       "version": "2.10",
       "checksumAlgorithm": "SHA-256",
       "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
+    },
+    {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.41.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "25bba0363ba305daf50fc31d8241655241723e218b424b1f4c255ff0b6331612"
     },
     {
       "groupId": "org.apache.maven.plugins",
