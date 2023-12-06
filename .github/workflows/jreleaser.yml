@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
       - name: install go
-        uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5
       - name: install semversion
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
 # Get current version from pom and remove snapshot if present.
