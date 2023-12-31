@@ -116,7 +116,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "eb37be968a961dab2806d1a0b9e703f2a08bd932a996c21a91a25b9429b2ff0c",
           "scope": "test",
-          "selectedVersion": "0.13.0",
+          "selectedVersion": "0.13.1",
           "id": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.1",
           "parent": "com.soebes.itf.jupiter.extension:itf-assertj:0.13.1",
           "children": []
@@ -151,23 +151,23 @@
     {
       "groupId": "com.soebes.itf.jupiter.extension",
       "artifactId": "itf-jupiter-extension",
-      "version": "0.13.0",
+      "version": "0.13.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "657130420c8878cc46292402d32b2c65e8b9c71feb40863db80b10e45816cbd6",
+      "checksum": "7e433f10b5c3551bc80046a3455c0f8bf46cf8ccc077cf1180e3831e6512afeb",
       "scope": "test",
-      "selectedVersion": "0.13.0",
-      "id": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.0",
+      "selectedVersion": "0.13.1",
+      "id": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
       "children": [
         {
           "groupId": "com.soebes.itf.jupiter.extension",
           "artifactId": "itf-extension-maven",
-          "version": "0.13.0",
+          "version": "0.13.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6b1afdc6b8a27f05e92832ab1b08123105152f0a44298eb7910d10dc33b9ac3d",
+          "checksum": "eb37be968a961dab2806d1a0b9e703f2a08bd932a996c21a91a25b9429b2ff0c",
           "scope": "test",
-          "selectedVersion": "0.13.0",
-          "id": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.0",
-          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.0",
+          "selectedVersion": "0.13.1",
+          "id": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.1",
+          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
           "children": [
             {
               "groupId": "org.apache.maven",
@@ -178,7 +178,7 @@
               "scope": "test",
               "selectedVersion": "3.9.6",
               "id": "org.apache.maven:maven-model:3.2.5",
-              "parent": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.0",
+              "parent": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.1",
               "children": []
             },
             {
@@ -190,7 +190,7 @@
               "scope": "test",
               "selectedVersion": "1.1.2",
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.0",
+              "parent": "com.soebes.itf.jupiter.extension:itf-extension-maven:0.13.1",
               "children": []
             }
           ]
@@ -204,7 +204,7 @@
           "scope": "test",
           "selectedVersion": "3.9.6",
           "id": "org.apache.maven:maven-model:3.2.5",
-          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.0",
+          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
           "children": []
         },
         {
@@ -216,7 +216,7 @@
           "scope": "test",
           "selectedVersion": "5.10.1",
           "id": "org.junit.jupiter:junit-jupiter-api:5.10.1",
-          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.0",
+          "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
           "children": []
         }
       ]
