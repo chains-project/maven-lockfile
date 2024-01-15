@@ -6270,9 +6270,9 @@
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
-      "version": "2.41.1",
+      "version": "2.42.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "25bba0363ba305daf50fc31d8241655241723e218b424b1f4c255ff0b6331612"
+      "checksum": "2db1644560b1c90cb12d496ec6872d95153e60bae6fce5ee9979e65376bcee22"
     },
     {
       "groupId": "org.apache.maven.plugins",
