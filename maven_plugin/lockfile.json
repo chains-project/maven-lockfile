@@ -2161,18 +2161,18 @@
       "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
     },
     {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "2.42.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "2db1644560b1c90cb12d496ec6872d95153e60bae6fce5ee9979e65376bcee22"
-    },
-    {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
       "version": "2.7.11",
       "checksumAlgorithm": "SHA-256",
       "checksum": "70997d52dbffd4e797c467b2062c6ba9b8b5a7380ff2884779f2743b6172ebb5"
+    },
+    {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.43.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "166adb65bbecfbb413e87631fa6bd4d48d4f572ba810404819b45bf7f239821d"
     },
     {
       "groupId": "org.apache.maven.plugins",
