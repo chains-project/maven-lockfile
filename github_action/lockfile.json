@@ -77,12 +77,12 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+              "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-core:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-core:3.6.8",
               "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.318.0",
               "children": []
             },
@@ -175,12 +175,12 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+              "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-arc:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-arc:3.6.8",
               "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.1.1",
               "children": []
             }
@@ -189,24 +189,24 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-arc",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+          "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-arc:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-arc:3.6.8",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.1.1",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-jackson",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "0ca64b9a71dc11e534e9e543ff3a18f450984637ab9b7baf9c4a945015556f9a",
+          "checksum": "90d97565cb422c5fc6a4485a546e6ef0cc1f7582c59c701c2c7b4a66e77771f0",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-jackson:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-jackson:3.6.8",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.1.1",
           "children": [
             {
@@ -218,7 +218,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.3",
               "id": "com.fasterxml.jackson.core:jackson-databind:2.15.3",
-              "parent": "io.quarkus:quarkus-jackson:3.6.7",
+              "parent": "io.quarkus:quarkus-jackson:3.6.8",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -255,7 +255,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.3",
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.15.3",
-              "parent": "io.quarkus:quarkus-jackson:3.6.7",
+              "parent": "io.quarkus:quarkus-jackson:3.6.8",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -292,7 +292,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.3",
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3",
-              "parent": "io.quarkus:quarkus-jackson:3.6.7",
+              "parent": "io.quarkus:quarkus-jackson:3.6.8",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -341,7 +341,7 @@
               "scope": "compile",
               "selectedVersion": "2.15.3",
               "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.3",
-              "parent": "io.quarkus:quarkus-jackson:3.6.7",
+              "parent": "io.quarkus:quarkus-jackson:3.6.8",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -372,13 +372,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+              "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-arc:3.6.7",
-              "parent": "io.quarkus:quarkus-jackson:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-arc:3.6.8",
+              "parent": "io.quarkus:quarkus-jackson:3.6.8",
               "children": []
             }
           ]
@@ -386,94 +386,94 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-smallrye-graphql-client",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "5c081ca7b73edcff0b2b0311cee68a031c8b0ddb154bd2866c7e168df1be1c5c",
+          "checksum": "fe403f4a3205835edbd415a681c13fcb554399961278c3c013c280b743059fc9",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.1.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+              "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-arc:3.6.7",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-arc:3.6.8",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+              "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-core:3.6.7",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-core:3.6.8",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-jsonb",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6b9805f7200e0856ab5a30bc2c5ce37df2ae9244dba9f4b9d8a6cd1d9fec17db",
+              "checksum": "c6489e357866a9e9fc688359fe461763d995e53533c12192f959c188db1d41ce",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-jsonb:3.6.7",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-jsonb:3.6.8",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+                  "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-arc:3.6.7",
-                  "parent": "io.quarkus:quarkus-jsonb:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-arc:3.6.8",
+                  "parent": "io.quarkus:quarkus-jsonb:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                  "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-jsonb:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-jsonb:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-jsonp",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "5bd04fe6137a5d64728cba7a3a2483982f16da104dacc880d720b01e6a539ad8",
+                  "checksum": "25f2739911d6b8e5731db6a211e208753c0ff3b6751a7180c132e4b9057d2f30",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-jsonp:3.6.7",
-                  "parent": "io.quarkus:quarkus-jsonb:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-jsonp:3.6.8",
+                  "parent": "io.quarkus:quarkus-jsonb:3.6.8",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.6.7",
+                      "version": "3.6.8",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                      "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                       "scope": "compile",
-                      "selectedVersion": "3.6.7",
-                      "id": "io.quarkus:quarkus-core:3.6.7",
-                      "parent": "io.quarkus:quarkus-jsonp:3.6.7",
+                      "selectedVersion": "3.6.8",
+                      "id": "io.quarkus:quarkus-core:3.6.8",
+                      "parent": "io.quarkus:quarkus-jsonp:3.6.8",
                       "children": []
                     },
                     {
@@ -485,7 +485,7 @@
                       "scope": "compile",
                       "selectedVersion": "1.1.5",
                       "id": "org.eclipse.parsson:parsson:1.1.5",
-                      "parent": "io.quarkus:quarkus-jsonp:3.6.7",
+                      "parent": "io.quarkus:quarkus-jsonp:3.6.8",
                       "children": []
                     }
                   ]
@@ -499,7 +499,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.0.3",
                   "id": "org.eclipse:yasson:3.0.3",
-                  "parent": "io.quarkus:quarkus-jsonb:3.6.7",
+                  "parent": "io.quarkus:quarkus-jsonb:3.6.8",
                   "children": [
                     {
                       "groupId": "jakarta.json",
@@ -544,48 +544,48 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-smallrye-stork",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "cf2d3d78963edae55b8c422d70c656290a2688980addaeb4b5cff5c1f0d35324",
+              "checksum": "3723de2e0825e3c7893d0e9217c96c5809d4210e60625bdd2a5307996da12f10",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-smallrye-stork:3.6.7",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-smallrye-stork:3.6.8",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+                  "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-arc:3.6.7",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-arc:3.6.8",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                  "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-vertx",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "320b69807fd0a4b07c07c5c400c24199eb636866fe42ba00ace8cd0eadc0f92b",
+                  "checksum": "6bba382e16a9ee57f133ab6f41942713c2b72b898c9a6e27fe0d35be745531fc",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-vertx:3.6.7",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-vertx:3.6.8",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.8",
                   "children": []
                 },
                 {
@@ -597,7 +597,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.4.0",
                   "id": "io.smallrye.stork:stork-api:2.4.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.7",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.8",
                   "children": [
                     {
                       "groupId": "io.smallrye.reactive",
@@ -622,7 +622,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.4.0",
                   "id": "io.smallrye.stork:stork-core:2.4.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.7",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.6.8",
                   "children": [
                     {
                       "groupId": "io.smallrye.stork",
@@ -667,13 +667,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "320b69807fd0a4b07c07c5c400c24199eb636866fe42ba00ace8cd0eadc0f92b",
+              "checksum": "6bba382e16a9ee57f133ab6f41942713c2b72b898c9a6e27fe0d35be745531fc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-vertx:3.6.7",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-vertx:3.6.8",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": []
             },
             {
@@ -685,7 +685,7 @@
               "scope": "compile",
               "selectedVersion": "2.6.1",
               "id": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.6.1",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.7",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye",
@@ -940,46 +940,46 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-vertx",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "320b69807fd0a4b07c07c5c400c24199eb636866fe42ba00ace8cd0eadc0f92b",
+          "checksum": "6bba382e16a9ee57f133ab6f41942713c2b72b898c9a6e27fe0d35be745531fc",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-vertx:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-vertx:3.6.8",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.1.1",
           "children": [
             {
               "groupId": "io.netty",
               "artifactId": "netty-codec-haproxy",
-              "version": "4.1.100.Final",
+              "version": "4.1.106.Final",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "5688edfb554e3fbb76d3ebabc23557e60ab4941b903e4fee1803c35546718df1",
+              "checksum": "39afae12a6b67b0777521d2f18f54401f835080ae116826f8d4ec7e627b7fca3",
               "scope": "compile",
-              "selectedVersion": "4.1.100.Final",
-              "id": "io.netty:netty-codec-haproxy:4.1.100.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "4.1.106.Final",
+              "id": "io.netty:netty-codec-haproxy:4.1.106.Final",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-buffer",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                  "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-buffer:4.1.100.Final",
-                  "parent": "io.netty:netty-codec-haproxy:4.1.100.Final",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-buffer:4.1.106.Final",
+                  "parent": "io.netty:netty-codec-haproxy:4.1.106.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-buffer:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-buffer:4.1.106.Final",
                       "children": []
                     }
                   ]
@@ -987,60 +987,60 @@
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-codec",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                  "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-codec:4.1.100.Final",
-                  "parent": "io.netty:netty-codec-haproxy:4.1.100.Final",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-codec:4.1.106.Final",
+                  "parent": "io.netty:netty-codec-haproxy:4.1.106.Final",
                   "children": []
                 },
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-transport",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                  "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-transport:4.1.100.Final",
-                  "parent": "io.netty:netty-codec-haproxy:4.1.100.Final",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-transport:4.1.106.Final",
+                  "parent": "io.netty:netty-codec-haproxy:4.1.106.Final",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
-                      "parent": "io.netty:netty-transport:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
+                      "parent": "io.netty:netty-transport:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-transport:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-transport:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-resolver",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c42c481c776e9d367a45cc3a67a06f65897d280334eb30b2362b8c55b7523f4f",
+                      "checksum": "404958b8f0590ee526013d011cd2354dab78adbaad743d7d444db33a3f9eabac",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-resolver:4.1.100.Final",
-                      "parent": "io.netty:netty-transport:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-resolver:4.1.106.Final",
+                      "parent": "io.netty:netty-transport:4.1.106.Final",
                       "children": []
                     }
                   ]
@@ -1050,71 +1050,71 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+              "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-arc:3.6.7",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-arc:3.6.8",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-mutiny",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c1bb86d52ee781569e402d1bfaa9b0b4bf48cc14d9f3f8732bf1a255bd1cbce6",
+              "checksum": "4354fad02b4f1645791f7ed67a3343b9e5b4ac73246b147661359eac2d4179fc",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-mutiny:3.6.7",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-mutiny:3.6.8",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                  "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-mutiny:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-mutiny:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-smallrye-context-propagation",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "6808fe1f8afd3eded690f3dbe3748ae4f9022aa009bfb3f1926eebfc0c7662b6",
+                  "checksum": "4fabfd28ee810cf06b148f9dd093adcc48a5c39ec75c65e9456704ffc67d5997",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.6.7",
-                  "parent": "io.quarkus:quarkus-mutiny:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.6.8",
+                  "parent": "io.quarkus:quarkus-mutiny:3.6.8",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-arc",
-                      "version": "3.6.7",
+                      "version": "3.6.8",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+                      "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
                       "scope": "compile",
-                      "selectedVersion": "3.6.7",
-                      "id": "io.quarkus:quarkus-arc:3.6.7",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.7",
+                      "selectedVersion": "3.6.8",
+                      "id": "io.quarkus:quarkus-arc:3.6.8",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.8",
                       "children": []
                     },
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.6.7",
+                      "version": "3.6.8",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                      "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                       "scope": "compile",
-                      "selectedVersion": "3.6.7",
-                      "id": "io.quarkus:quarkus-core:3.6.7",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.7",
+                      "selectedVersion": "3.6.8",
+                      "id": "io.quarkus:quarkus-core:3.6.8",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.8",
                       "children": []
                     },
                     {
@@ -1126,7 +1126,7 @@
                       "scope": "compile",
                       "selectedVersion": "2.1.0",
                       "id": "io.smallrye:smallrye-context-propagation:2.1.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.7",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.8",
                       "children": [
                         {
                           "groupId": "io.smallrye",
@@ -1212,7 +1212,7 @@
                       "scope": "compile",
                       "selectedVersion": "4.0.1",
                       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.7",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.6.8",
                       "children": []
                     }
                   ]
@@ -1226,7 +1226,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.5.1",
                   "id": "io.smallrye.reactive:mutiny:2.5.1",
-                  "parent": "io.quarkus:quarkus-mutiny:3.6.7",
+                  "parent": "io.quarkus:quarkus-mutiny:3.6.8",
                   "children": []
                 },
                 {
@@ -1238,7 +1238,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.5.1",
                   "id": "io.smallrye.reactive:mutiny-smallrye-context-propagation:2.5.1",
-                  "parent": "io.quarkus:quarkus-mutiny:3.6.7",
+                  "parent": "io.quarkus:quarkus-mutiny:3.6.8",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -1283,13 +1283,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-netty",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "7d931932d26d8d3efadb22c6d768ca0cbf8cf10526ae0a2c838008ac37a945e0",
+              "checksum": "b9fee4a998ed488bdacf43a2658738b8df7cde9df6dd54b1b4239da0e3152a52",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-netty:3.6.7",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-netty:3.6.8",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "com.aayushatharva.brotli4j",
@@ -1300,7 +1300,7 @@
                   "scope": "compile",
                   "selectedVersion": "1.12.0",
                   "id": "com.aayushatharva.brotli4j:brotli4j:1.12.0",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": [
                     {
                       "groupId": "com.aayushatharva.brotli4j",
@@ -1331,48 +1331,48 @@
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-codec",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                  "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-codec:4.1.100.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-codec:4.1.106.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
-                      "parent": "io.netty:netty-codec:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
+                      "parent": "io.netty:netty-codec:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-codec:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-codec:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                      "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport:4.1.100.Final",
-                      "parent": "io.netty:netty-codec:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport:4.1.106.Final",
+                      "parent": "io.netty:netty-codec:4.1.106.Final",
                       "children": []
                     }
                   ]
@@ -1380,72 +1380,72 @@
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-codec-http",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "326811d249cb0e5555e78e026e877834e792261c38f0666d80464426695d9590",
+                  "checksum": "ba177a03adc587fa63e96f1dbae9c46ff25f59397ea34d960b45e05d0296026e",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-codec-http:4.1.100.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-codec-http:4.1.106.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                      "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-handler",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "0e10e584c2e7fdf7f4804e14760ed987003f1b62ab982f62eaf13a9892793d3a",
+                      "checksum": "5a919ad88b6d9e9f08c3069980bc656a62926a00e6ba2da5859aa0ee4e202e44",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-handler:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-handler:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                      "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http:4.1.106.Final",
                       "children": []
                     }
                   ]
@@ -1453,84 +1453,84 @@
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-codec-http2",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "23b4a74350f4cf8d41b93fb93d52b5050667d8d53fffc385672c86eab83b8749",
+                  "checksum": "c2b821d57a733cd671ea2ab0642002b17e0a2b89004ca026c6eae8f5381cf81e",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-codec-http2:4.1.100.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-codec-http2:4.1.106.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                      "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec-http",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "326811d249cb0e5555e78e026e877834e792261c38f0666d80464426695d9590",
+                      "checksum": "ba177a03adc587fa63e96f1dbae9c46ff25f59397ea34d960b45e05d0296026e",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec-http:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec-http:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-handler",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "0e10e584c2e7fdf7f4804e14760ed987003f1b62ab982f62eaf13a9892793d3a",
+                      "checksum": "5a919ad88b6d9e9f08c3069980bc656a62926a00e6ba2da5859aa0ee4e202e44",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-handler:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-handler:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                      "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport:4.1.100.Final",
-                      "parent": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport:4.1.106.Final",
+                      "parent": "io.netty:netty-codec-http2:4.1.106.Final",
                       "children": []
                     }
                   ]
@@ -1538,71 +1538,71 @@
                 {
                   "groupId": "io.netty",
                   "artifactId": "netty-handler",
-                  "version": "4.1.100.Final",
+                  "version": "4.1.106.Final",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "0e10e584c2e7fdf7f4804e14760ed987003f1b62ab982f62eaf13a9892793d3a",
+                  "checksum": "5a919ad88b6d9e9f08c3069980bc656a62926a00e6ba2da5859aa0ee4e202e44",
                   "scope": "compile",
-                  "selectedVersion": "4.1.100.Final",
-                  "id": "io.netty:netty-handler:4.1.100.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "selectedVersion": "4.1.106.Final",
+                  "id": "io.netty:netty-handler:4.1.106.Final",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": [
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                      "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-resolver",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c42c481c776e9d367a45cc3a67a06f65897d280334eb30b2362b8c55b7523f4f",
+                      "checksum": "404958b8f0590ee526013d011cd2354dab78adbaad743d7d444db33a3f9eabac",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-resolver:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-resolver:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": [
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-common",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                          "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-common:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-common:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver:4.1.106.Final",
                           "children": []
                         }
                       ]
@@ -1610,60 +1610,60 @@
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                      "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport-native-unix-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "5d888230a04c4a3e647c64e933cefb64fd49056f969bfb734c8a3fcedf0bea8a",
+                      "checksum": "f52d4b38c571066bfaae964a7867fa937f0e54fb5ff467c576cb650a20a854e8",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport-native-unix-common:4.1.100.Final",
-                      "parent": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport-native-unix-common:4.1.106.Final",
+                      "parent": "io.netty:netty-handler:4.1.106.Final",
                       "children": [
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-buffer",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                          "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-buffer:4.1.100.Final",
-                          "parent": "io.netty:netty-transport-native-unix-common:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-buffer:4.1.106.Final",
+                          "parent": "io.netty:netty-transport-native-unix-common:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-common",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                          "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-common:4.1.100.Final",
-                          "parent": "io.netty:netty-transport-native-unix-common:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-common:4.1.106.Final",
+                          "parent": "io.netty:netty-transport-native-unix-common:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-transport",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                          "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-transport:4.1.100.Final",
-                          "parent": "io.netty:netty-transport-native-unix-common:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-transport:4.1.106.Final",
+                          "parent": "io.netty:netty-transport-native-unix-common:4.1.106.Final",
                           "children": []
                         }
                       ]
@@ -1673,13 +1673,13 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+                  "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-arc:3.6.7",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-arc:3.6.8",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": []
                 },
                 {
@@ -1691,7 +1691,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.0.1",
                   "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-                  "parent": "io.quarkus:quarkus-netty:3.6.7",
+                  "parent": "io.quarkus:quarkus-netty:3.6.8",
                   "children": []
                 }
               ]
@@ -1699,13 +1699,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx-latebound-mdc-provider",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "14113bbd32ae0e8d7a779dacd88e26fe086b3cfd686bef68414bd67af80096f5",
+              "checksum": "faa040272728d86ad6b9c46ba78a92af73bc4b0df0ef837a7f2adf2ed98c98b8",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.6.7",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.6.8",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "org.jboss.logmanager",
@@ -1716,7 +1716,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.0.4.Final",
                   "id": "org.jboss.logmanager:jboss-logmanager:3.0.4.Final",
-                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.6.7",
+                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.6.8",
                   "children": []
                 }
               ]
@@ -1724,36 +1724,36 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-virtual-threads",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6188e6a2bb1eb7d67b65bddba57cb78549ba090edd0757dcce0235399bf86595",
+              "checksum": "6ab5eb5f6835d9a7b83e43ce65d5cf3878a00e6281f241f311b436ad79179650",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-virtual-threads:3.6.7",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-virtual-threads:3.6.8",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+                  "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-arc:3.6.7",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-arc:3.6.8",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                  "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                   "scope": "compile",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.8",
                   "children": []
                 },
                 {
@@ -1765,7 +1765,7 @@
                   "scope": "compile",
                   "selectedVersion": "4.4.6",
                   "id": "io.vertx:vertx-core:4.4.6",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.7",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.6.8",
                   "children": []
                 }
               ]
@@ -1779,7 +1779,7 @@
               "scope": "compile",
               "selectedVersion": "6.2.6",
               "id": "io.smallrye:smallrye-fault-tolerance-vertx:6.2.6",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": []
             },
             {
@@ -1791,7 +1791,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.2",
               "id": "io.smallrye.common:smallrye-common-annotation:2.1.2",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": []
             },
             {
@@ -1803,7 +1803,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.2",
               "id": "io.smallrye.common:smallrye-common-vertx-context:2.1.2",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -1856,167 +1856,167 @@
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-buffer",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                      "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-buffer:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-buffer:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec-http",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "326811d249cb0e5555e78e026e877834e792261c38f0666d80464426695d9590",
+                      "checksum": "ba177a03adc587fa63e96f1dbae9c46ff25f59397ea34d960b45e05d0296026e",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec-http:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec-http:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-codec-http2",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "23b4a74350f4cf8d41b93fb93d52b5050667d8d53fffc385672c86eab83b8749",
+                      "checksum": "c2b821d57a733cd671ea2ab0642002b17e0a2b89004ca026c6eae8f5381cf81e",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-codec-http2:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-codec-http2:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-common",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                      "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-common:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-common:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-handler",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "0e10e584c2e7fdf7f4804e14760ed987003f1b62ab982f62eaf13a9892793d3a",
+                      "checksum": "5a919ad88b6d9e9f08c3069980bc656a62926a00e6ba2da5859aa0ee4e202e44",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-handler:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-handler:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-handler-proxy",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "686dbc2e61407f216d6cb267dd7954896f851dd34b58be3e757c5a89f20a5e67",
+                      "checksum": "829a9c49afe0cb72d8c27a067d6bd61afb698ffa0db8117411b7437ecd83db7a",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-handler-proxy:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-handler-proxy:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": [
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-buffer",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                          "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-buffer:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-buffer:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-codec",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                          "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-codec:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-codec:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-codec-http",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "326811d249cb0e5555e78e026e877834e792261c38f0666d80464426695d9590",
+                          "checksum": "ba177a03adc587fa63e96f1dbae9c46ff25f59397ea34d960b45e05d0296026e",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-codec-http:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-codec-http:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-codec-socks",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "608a453b90f8384ba4efcdc6db7f899a1f10b9ea1890954696e6cfac45ff1ba9",
+                          "checksum": "9811f9bf20a6128518d92182527867e40a0dbc41ea5380d61e284ff9f4f488a3",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-codec-socks:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-codec-socks:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": [
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-buffer",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                              "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-buffer:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-socks:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-buffer:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-socks:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-codec",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                              "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-codec:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-socks:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-codec:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-socks:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-common",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                              "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-common:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-socks:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-common:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-socks:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-transport",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                              "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-transport:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-socks:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-transport:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-socks:4.1.106.Final",
                               "children": []
                             }
                           ]
@@ -2024,25 +2024,25 @@
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-common",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                          "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-common:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-common:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-transport",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                          "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-transport:4.1.100.Final",
-                          "parent": "io.netty:netty-handler-proxy:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-transport:4.1.106.Final",
+                          "parent": "io.netty:netty-handler-proxy:4.1.106.Final",
                           "children": []
                         }
                       ]
@@ -2050,107 +2050,107 @@
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-resolver",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c42c481c776e9d367a45cc3a67a06f65897d280334eb30b2362b8c55b7523f4f",
+                      "checksum": "404958b8f0590ee526013d011cd2354dab78adbaad743d7d444db33a3f9eabac",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-resolver:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-resolver:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     },
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-resolver-dns",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "4bafbd3e571ed2d9fb3f9550f8348ba37c183eda4a253fba5354166e409624c4",
+                      "checksum": "c2c1906c8134593b97c4920dce0ddddd3451cb4378c8d036b9e87420a53b7ee1",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-resolver-dns:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-resolver-dns:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": [
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-buffer",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                          "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-buffer:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-buffer:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-codec",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                          "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-codec:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-codec:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-codec-dns",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "f7f55bee95d2467e8bda6dda980a2830b351b0dd6f0f87fe5114645035ee55ca",
+                          "checksum": "9ca9e403a9bee24d53aa52704d23923c4c56b257c6ddce931bdbf19c3e7539f1",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-codec-dns:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-codec-dns:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": [
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-buffer",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "462874b44ee782fbefec64078cda6eb8e7bf9f0e0af71a928ef4c1f2d564f7ee",
+                              "checksum": "d5067bdbe476d63cb43293822832a749a7c38a38c1c516107c73d257c39bed21",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-buffer:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-dns:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-buffer:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-dns:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-codec",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "180a01ed67af399602e24ff1c32864e7f57f57c4a0fa5e9ab3fe9b0e5e9cf051",
+                              "checksum": "93863dfd690f7ace7c26e4c808fdc24780adad465b3cdcb7ce3fc73c422df76f",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-codec:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-dns:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-codec:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-dns:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-common",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                              "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-common:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-dns:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-common:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-dns:4.1.106.Final",
                               "children": []
                             },
                             {
                               "groupId": "io.netty",
                               "artifactId": "netty-transport",
-                              "version": "4.1.100.Final",
+                              "version": "4.1.106.Final",
                               "checksumAlgorithm": "SHA-256",
-                              "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                              "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                               "scope": "compile",
-                              "selectedVersion": "4.1.100.Final",
-                              "id": "io.netty:netty-transport:4.1.100.Final",
-                              "parent": "io.netty:netty-codec-dns:4.1.100.Final",
+                              "selectedVersion": "4.1.106.Final",
+                              "id": "io.netty:netty-transport:4.1.106.Final",
+                              "parent": "io.netty:netty-codec-dns:4.1.106.Final",
                               "children": []
                             }
                           ]
@@ -2158,49 +2158,49 @@
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-common",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "d2908301f1ac6f2910900742473c15d701765d3d4467acdb1eebb9df3aa82885",
+                          "checksum": "5ffbe01bd845617a916de3613010d5fda57c5eb694147d38d04f791e9834d5c3",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-common:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-common:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-handler",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "0e10e584c2e7fdf7f4804e14760ed987003f1b62ab982f62eaf13a9892793d3a",
+                          "checksum": "5a919ad88b6d9e9f08c3069980bc656a62926a00e6ba2da5859aa0ee4e202e44",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-handler:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-handler:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-resolver",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "c42c481c776e9d367a45cc3a67a06f65897d280334eb30b2362b8c55b7523f4f",
+                          "checksum": "404958b8f0590ee526013d011cd2354dab78adbaad743d7d444db33a3f9eabac",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-resolver:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-resolver:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         },
                         {
                           "groupId": "io.netty",
                           "artifactId": "netty-transport",
-                          "version": "4.1.100.Final",
+                          "version": "4.1.106.Final",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                          "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                           "scope": "compile",
-                          "selectedVersion": "4.1.100.Final",
-                          "id": "io.netty:netty-transport:4.1.100.Final",
-                          "parent": "io.netty:netty-resolver-dns:4.1.100.Final",
+                          "selectedVersion": "4.1.106.Final",
+                          "id": "io.netty:netty-transport:4.1.106.Final",
+                          "parent": "io.netty:netty-resolver-dns:4.1.106.Final",
                           "children": []
                         }
                       ]
@@ -2208,12 +2208,12 @@
                     {
                       "groupId": "io.netty",
                       "artifactId": "netty-transport",
-                      "version": "4.1.100.Final",
+                      "version": "4.1.106.Final",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b1deeceedab3734cdb959c55f4be5ab4a667a8aed59121ff93763f49470f5470",
+                      "checksum": "23ea9a39009b41e9d0aa1515b3073af9ee4da4e16c2e869b5aa8aa9f109d4251",
                       "scope": "compile",
-                      "selectedVersion": "4.1.100.Final",
-                      "id": "io.netty:netty-transport:4.1.100.Final",
+                      "selectedVersion": "4.1.106.Final",
+                      "id": "io.netty:netty-transport:4.1.106.Final",
                       "parent": "io.vertx:vertx-core:4.4.6",
                       "children": []
                     }
@@ -2230,7 +2230,7 @@
               "scope": "compile",
               "selectedVersion": "3.7.2",
               "id": "io.smallrye.reactive:smallrye-mutiny-vertx-core:3.7.2",
-              "parent": "io.quarkus:quarkus-vertx:3.6.7",
+              "parent": "io.quarkus:quarkus-vertx:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye.reactive",
@@ -2364,34 +2364,34 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-arc",
-      "version": "3.6.7",
+      "version": "3.6.8",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ba64542a62a4f6630d062df5909b74f325a9fa596954d8c4f80c2a6c0e935412",
+      "checksum": "a25f7936259d18bf592f3fe883d13b31d367d05ee2da0f2eea4bff4a1f2ab2dc",
       "scope": "compile",
-      "selectedVersion": "3.6.7",
-      "id": "io.quarkus:quarkus-arc:3.6.7",
+      "selectedVersion": "3.6.8",
+      "id": "io.quarkus:quarkus-arc:3.6.8",
       "children": [
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+          "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-core:3.6.7",
-          "parent": "io.quarkus:quarkus-arc:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-core:3.6.8",
+          "parent": "io.quarkus:quarkus-arc:3.6.8",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-runner",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "13b702603c16c1cec6c2d48faa788a44203761ddaea833d498d73368eef675b3",
+              "checksum": "022ece26264cd8bef6721bad053a5425c8ef50fcbf264210775b860a8da4d40f",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-bootstrap-runner:3.6.7",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-bootstrap-runner:3.6.8",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": [
                 {
                   "groupId": "io.github.crac",
@@ -2402,7 +2402,7 @@
                   "scope": "compile",
                   "selectedVersion": "0.1.3",
                   "id": "io.github.crac:org-crac:0.1.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.8",
                   "children": []
                 },
                 {
@@ -2414,7 +2414,7 @@
                   "scope": "compile",
                   "selectedVersion": "2.1.2",
                   "id": "io.smallrye.common:smallrye-common-io:2.1.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.8",
                   "children": []
                 },
                 {
@@ -2426,7 +2426,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.5.3.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.8",
                   "children": []
                 },
                 {
@@ -2438,7 +2438,7 @@
                   "scope": "compile",
                   "selectedVersion": "3.0.4.Final",
                   "id": "org.jboss.logmanager:jboss-logmanager:3.0.4.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.6.8",
                   "children": []
                 }
               ]
@@ -2446,13 +2446,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-development-mode-spi",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "e1c91a08ac01a36ba65f39e4a7d3947bdc92c4eedafb056f8bc91c4dd97cde94",
+              "checksum": "6d1026d841f400ceb19c6e38d361b2ebcda3ec00d8a4eee3406b1811587f2299",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-development-mode-spi:3.6.7",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-development-mode-spi:3.6.8",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2464,19 +2464,19 @@
               "scope": "compile",
               "selectedVersion": "0.0.9",
               "id": "io.quarkus:quarkus-fs-util:0.0.9",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-ide-launcher",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "23df7fc54177e2d2c3a6609569a031f8d753ec6575ba35d0847239e28d67d433",
+              "checksum": "4e635a034d277ef1ae8fb77cf0a2efd4307969598ac032ff8892735acb3e2119",
               "scope": "compile",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-ide-launcher:3.6.7",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-ide-launcher:3.6.8",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2488,7 +2488,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.2",
               "id": "io.smallrye.common:smallrye-common-os:2.1.2",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2500,7 +2500,7 @@
               "scope": "compile",
               "selectedVersion": "3.4.4",
               "id": "io.smallrye.config:smallrye-config:3.4.4",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye.config",
@@ -2659,7 +2659,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.1",
               "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2671,7 +2671,7 @@
               "scope": "compile",
               "selectedVersion": "4.0.1",
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2683,7 +2683,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.1",
               "id": "jakarta.inject:jakarta.inject-api:2.0.1",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2695,7 +2695,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.3.Final",
               "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2707,7 +2707,7 @@
               "scope": "compile",
               "selectedVersion": "2.2.1.Final",
               "id": "org.jboss.logging:jboss-logging-annotations:2.2.1.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2719,7 +2719,7 @@
               "scope": "compile",
               "selectedVersion": "3.0.4.Final",
               "id": "org.jboss.logmanager:jboss-logmanager:3.0.4.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -2941,7 +2941,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.0.Final",
               "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -2953,7 +2953,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.1.Final",
               "id": "org.jboss.threads:jboss-threads:3.5.1.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -2990,7 +2990,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.6",
               "id": "org.slf4j:slf4j-api:2.0.6",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             },
             {
@@ -3002,7 +3002,7 @@
               "scope": "compile",
               "selectedVersion": "1.7.0.Final",
               "id": "org.wildfly.common:wildfly-common:1.7.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.6.7",
+              "parent": "io.quarkus:quarkus-core:3.6.8",
               "children": []
             }
           ]
@@ -3010,13 +3010,13 @@
         {
           "groupId": "io.quarkus.arc",
           "artifactId": "arc",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a7faae6c384dabfd5d4af37c0eeb15a4149465905e300abb0d3ec53af53d8d93",
+          "checksum": "0f9b973116c5a7dd05a8988b76ee3bf66083398050486e3c0f6d84766e5c4bb9",
           "scope": "compile",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus.arc:arc:3.6.7",
-          "parent": "io.quarkus:quarkus-arc:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus.arc:arc:3.6.8",
+          "parent": "io.quarkus:quarkus-arc:3.6.8",
           "children": [
             {
               "groupId": "io.smallrye.reactive",
@@ -3027,7 +3027,7 @@
               "scope": "compile",
               "selectedVersion": "2.5.1",
               "id": "io.smallrye.reactive:mutiny:2.5.1",
-              "parent": "io.quarkus.arc:arc:3.6.7",
+              "parent": "io.quarkus.arc:arc:3.6.8",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -3052,7 +3052,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.1",
               "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
-              "parent": "io.quarkus.arc:arc:3.6.7",
+              "parent": "io.quarkus.arc:arc:3.6.8",
               "children": []
             },
             {
@@ -3064,7 +3064,7 @@
               "scope": "compile",
               "selectedVersion": "4.0.1",
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1",
-              "parent": "io.quarkus.arc:arc:3.6.7",
+              "parent": "io.quarkus.arc:arc:3.6.8",
               "children": [
                 {
                   "groupId": "jakarta.annotation",
@@ -3137,7 +3137,7 @@
               "scope": "compile",
               "selectedVersion": "2.0.1",
               "id": "jakarta.transaction:jakarta.transaction-api:2.0.1",
-              "parent": "io.quarkus.arc:arc:3.6.7",
+              "parent": "io.quarkus.arc:arc:3.6.8",
               "children": []
             },
             {
@@ -3149,7 +3149,7 @@
               "scope": "compile",
               "selectedVersion": "3.5.3.Final",
               "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-              "parent": "io.quarkus.arc:arc:3.6.7",
+              "parent": "io.quarkus.arc:arc:3.6.8",
               "children": []
             }
           ]
@@ -3163,7 +3163,7 @@
           "scope": "compile",
           "selectedVersion": "1.3",
           "id": "org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api:1.3",
-          "parent": "io.quarkus:quarkus-arc:3.6.7",
+          "parent": "io.quarkus:quarkus-arc:3.6.8",
           "children": []
         }
       ]
@@ -3171,12 +3171,12 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-junit5",
-      "version": "3.6.7",
+      "version": "3.6.8",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b0541750ac0d9d1d1631eeb0f8579bc9bfa8fda48f6427d3366d1c95b7992990",
+      "checksum": "94b22b857cac56dfe86df351f1a64f2efed6ba56a5dfe2c801678870cb8d7c6e",
       "scope": "test",
-      "selectedVersion": "3.6.7",
-      "id": "io.quarkus:quarkus-junit5:3.6.7",
+      "selectedVersion": "3.6.8",
+      "id": "io.quarkus:quarkus-junit5:3.6.8",
       "children": [
         {
           "groupId": "com.thoughtworks.xstream",
@@ -3187,7 +3187,7 @@
           "scope": "test",
           "selectedVersion": "1.4.20",
           "id": "com.thoughtworks.xstream:xstream:1.4.20",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": [
             {
               "groupId": "io.github.x-stream",
@@ -3219,24 +3219,24 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-bootstrap-core",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "9112f20f74426d8ffe0db0e019eef8c88c9eee89bd66a866e806a6a9b4b9ef4b",
+          "checksum": "f8c1962be228211b6f8e134989edf8511de097ee1c6a7e236e8fefce9710cc19",
           "scope": "test",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-bootstrap-core:3.6.7",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-bootstrap-core:3.6.8",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-app-model",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "5d068eff8c50bd85bc22aad1a67cbcb1dd0df9c4668790abf1a1811f57af0347",
+              "checksum": "f11a329bb55c592224431d28db1a2cd21db65e736d64da7ba567d956b7219f00",
               "scope": "test",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
@@ -3247,7 +3247,7 @@
                   "scope": "test",
                   "selectedVersion": "0.0.9",
                   "id": "io.quarkus:quarkus-fs-util:0.0.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
                   "children": []
                 },
                 {
@@ -3259,7 +3259,7 @@
                   "scope": "test",
                   "selectedVersion": "1.0.0.Final",
                   "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
                   "children": []
                 },
                 {
@@ -3271,7 +3271,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
                   "children": []
                 }
               ]
@@ -3285,7 +3285,7 @@
               "scope": "compile",
               "selectedVersion": "2.1.2",
               "id": "io.smallrye.common:smallrye-common-io:2.1.2",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.6.7",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.6.8",
               "children": []
             }
           ]
@@ -3293,37 +3293,37 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+          "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
           "scope": "test",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-core:3.6.7",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-core:3.6.8",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-junit5-properties",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "8da4106d92946095650f05974bd0d594e46e03211acc9c6ea73ea8554fcf1b03",
+          "checksum": "256559e428323c4d3346006e4c038f55b39d35824bace756c18212c78e4256a0",
           "scope": "test",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-junit5-properties:3.6.7",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-junit5-properties:3.6.8",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-test-common",
-          "version": "3.6.7",
+          "version": "3.6.8",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "313768212813fa057a4b73e2b0c564d67a12f7102d13bbd36ac7e78d67c2845d",
+          "checksum": "7b884380f8dd26ba860049a51c02ebf545eff60cb16536ccbf18f42241b50899",
           "scope": "test",
-          "selectedVersion": "3.6.7",
-          "id": "io.quarkus:quarkus-test-common:3.6.7",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "selectedVersion": "3.6.8",
+          "id": "io.quarkus:quarkus-test-common:3.6.8",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": [
             {
               "groupId": "commons-io",
@@ -3334,30 +3334,30 @@
               "scope": "compile",
               "selectedVersion": "2.15.1",
               "id": "commons-io:commons-io:2.15.1",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-gradle-resolver",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "7598dae54a7cd746942bfca291d5d990225efcb38668394d02ee5b3899f9717c",
+              "checksum": "3a6111b99de99068e19a1e1ba802043bf9947252eef5aac77746512ebd2d76a9",
               "scope": "test",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.7",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.8",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "5d068eff8c50bd85bc22aad1a67cbcb1dd0df9c4668790abf1a1811f57af0347",
+                  "checksum": "f11a329bb55c592224431d28db1a2cd21db65e736d64da7ba567d956b7219f00",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -3369,7 +3369,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -3381,7 +3381,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.0.Final",
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.6.8",
                   "children": []
                 }
               ]
@@ -3389,24 +3389,24 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-maven-resolver",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "305e3a0dce3924c26eeb3e8eaa2912f342c63dea5bd623229be1b246b2ab8dd0",
+              "checksum": "37b2a4c2bcbc357d0e2ec2045d90f32ec44189e6bd0fb61af261436cff978cb3",
               "scope": "test",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "5d068eff8c50bd85bc22aad1a67cbcb1dd0df9c4668790abf1a1811f57af0347",
+                  "checksum": "f11a329bb55c592224431d28db1a2cd21db65e736d64da7ba567d956b7219f00",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.7",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.6.8",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -3418,7 +3418,7 @@
                   "scope": "test",
                   "selectedVersion": "0.0.9",
                   "id": "io.quarkus:quarkus-fs-util:0.0.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -3430,7 +3430,7 @@
                   "scope": "test",
                   "selectedVersion": "1.3.2",
                   "id": "io.smallrye.beanbag:smallrye-beanbag-maven:1.3.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "commons-codec",
@@ -4411,7 +4411,7 @@
                   "scope": "test",
                   "selectedVersion": "3.9.6",
                   "id": "org.apache.maven:maven-embedder:3.9.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "com.google.guava",
@@ -5051,7 +5051,7 @@
                   "scope": "test",
                   "selectedVersion": "3.9.6",
                   "id": "org.apache.maven:maven-resolver-provider:3.9.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -5172,7 +5172,7 @@
                   "scope": "test",
                   "selectedVersion": "3.9.6",
                   "id": "org.apache.maven:maven-settings-builder:3.9.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -5245,7 +5245,7 @@
                   "scope": "test",
                   "selectedVersion": "1.9.18",
                   "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.18",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
@@ -5294,7 +5294,7 @@
                   "scope": "test",
                   "selectedVersion": "1.9.18",
                   "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.18",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
@@ -5343,7 +5343,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3",
                   "id": "org.apache.maven.wagon:wagon-file:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "org.apache.maven.wagon",
@@ -5368,7 +5368,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3",
                   "id": "org.apache.maven.wagon:wagon-http:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": [
                     {
                       "groupId": "org.apache.httpcomponents",
@@ -5417,7 +5417,7 @@
                   "scope": "test",
                   "selectedVersion": "0.9.0.M2",
                   "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -5429,7 +5429,7 @@
                   "scope": "test",
                   "selectedVersion": "3.5.3.Final",
                   "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -5441,7 +5441,7 @@
                   "scope": "test",
                   "selectedVersion": "3.0.4.Final",
                   "id": "org.jboss.logmanager:jboss-logmanager:3.0.4.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -5453,7 +5453,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.0.Final",
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 },
                 {
@@ -5465,7 +5465,7 @@
                   "scope": "test",
                   "selectedVersion": "2.0.6",
                   "id": "org.slf4j:slf4j-api:2.0.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.7",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.6.8",
                   "children": []
                 }
               ]
@@ -5473,36 +5473,36 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core-deployment",
-              "version": "3.6.7",
+              "version": "3.6.8",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "81ddf82eccef581df9dc3bb160b95f866f2876cf13f943bed42ba8b9e6715914",
+              "checksum": "7ab65799f18984abc2ca7eaf2bd8585a3482a0bd0cabcc0702ad1927757317b0",
               "scope": "test",
-              "selectedVersion": "3.6.7",
-              "id": "io.quarkus:quarkus-core-deployment:3.6.7",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "selectedVersion": "3.6.8",
+              "id": "io.quarkus:quarkus-core-deployment:3.6.8",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "9112f20f74426d8ffe0db0e019eef8c88c9eee89bd66a866e806a6a9b4b9ef4b",
+                  "checksum": "f8c1962be228211b6f8e134989edf8511de097ee1c6a7e236e8fefce9710cc19",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-bootstrap-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-bootstrap-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-builder",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b294639e03ae530dc8e77080fb852acdc311c3e6ade839855247546ee4db52a7",
+                  "checksum": "2ee477910d34c0a0d0e40b94eab0b905b334ee0b4c68ebf0e8d2d806d49aaa33",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-builder:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-builder:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "org.jboss.logging",
@@ -5513,7 +5513,7 @@
                       "scope": "test",
                       "selectedVersion": "3.5.3.Final",
                       "id": "org.jboss.logging:jboss-logging:3.5.3.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.6.7",
+                      "parent": "io.quarkus:quarkus-builder:3.6.8",
                       "children": []
                     },
                     {
@@ -5525,7 +5525,7 @@
                       "scope": "test",
                       "selectedVersion": "3.5.1.Final",
                       "id": "org.jboss.threads:jboss-threads:3.5.1.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.6.7",
+                      "parent": "io.quarkus:quarkus-builder:3.6.8",
                       "children": []
                     },
                     {
@@ -5537,7 +5537,7 @@
                       "scope": "test",
                       "selectedVersion": "1.7.0.Final",
                       "id": "org.wildfly.common:wildfly-common:1.7.0.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.6.7",
+                      "parent": "io.quarkus:quarkus-builder:3.6.8",
                       "children": []
                     }
                   ]
@@ -5545,49 +5545,49 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-class-change-agent",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "2248b627da7b3e6ba45c98f76884654d882878f5e9f650aba29e6dd8c239a940",
+                  "checksum": "76ae865a183cb3dff674ed8c5bfa59564d99e168dda13f9421c726670452d1a0",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-class-change-agent:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-class-change-agent:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "75393d73334adba89762462d2e74d0e7dd2bbf8ed2e47c8d4671710114c2e45b",
+                  "checksum": "447f85b06cdbce370d46467b0354955aefe7faa474a5660dedb1e9fbc09f807d",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-core:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-core:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-development-mode-spi",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "e1c91a08ac01a36ba65f39e4a7d3947bdc92c4eedafb056f8bc91c4dd97cde94",
+                  "checksum": "6d1026d841f400ceb19c6e38d361b2ebcda3ec00d8a4eee3406b1811587f2299",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-development-mode-spi:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-development-mode-spi:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-devtools-utilities",
-                  "version": "3.6.7",
+                  "version": "3.6.8",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b3e457b5bc92dec2b93824e25a930bc6afa7ce198357824345deeaefd205a88f",
+                  "checksum": "6fbd58b0423a68f85e4a5a54c0149ab8d265a1925c082f2d7f8ceee768a15586",
                   "scope": "test",
-                  "selectedVersion": "3.6.7",
-                  "id": "io.quarkus:quarkus-devtools-utilities:3.6.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "selectedVersion": "3.6.8",
+                  "id": "io.quarkus:quarkus-devtools-utilities:3.6.8",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5599,7 +5599,7 @@
                   "scope": "test",
                   "selectedVersion": "1.7.0",
                   "id": "io.quarkus.gizmo:gizmo:1.7.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -5698,7 +5698,7 @@
                   "scope": "test",
                   "selectedVersion": "3.1.6",
                   "id": "io.smallrye:jandex:3.1.6",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5710,7 +5710,7 @@
                   "scope": "test",
                   "selectedVersion": "2.7",
                   "id": "org.aesh:aesh:2.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "org.aesh",
@@ -5735,7 +5735,7 @@
                   "scope": "test",
                   "selectedVersion": "2.4",
                   "id": "org.aesh:readline:2.4",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "org.fusesource.jansi",
@@ -5760,7 +5760,7 @@
                   "scope": "test",
                   "selectedVersion": "3.13.0",
                   "id": "org.apache.commons:commons-lang3:3.13.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5772,7 +5772,7 @@
                   "scope": "test",
                   "selectedVersion": "0.9.0.M2",
                   "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M2",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5784,7 +5784,7 @@
                   "scope": "test",
                   "selectedVersion": "23.0.1",
                   "id": "org.graalvm.sdk:graal-sdk:23.0.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5796,7 +5796,7 @@
                   "scope": "test",
                   "selectedVersion": "5.10.1",
                   "id": "org.junit.jupiter:junit-jupiter:5.10.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5808,7 +5808,7 @@
                   "scope": "test",
                   "selectedVersion": "1.10.1",
                   "id": "org.junit.platform:junit-platform-launcher:1.10.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "org.apiguardian",
@@ -5845,7 +5845,7 @@
                   "scope": "test",
                   "selectedVersion": "9.6",
                   "id": "org.ow2.asm:asm:9.6",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 },
                 {
@@ -5857,7 +5857,7 @@
                   "scope": "test",
                   "selectedVersion": "9.6",
                   "id": "org.ow2.asm:asm-commons:9.6",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": [
                     {
                       "groupId": "org.ow2.asm",
@@ -5907,7 +5907,7 @@
                   "scope": "test",
                   "selectedVersion": "1.7.0.Final",
                   "id": "org.wildfly.common:wildfly-common:1.7.0.Final",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.6.7",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.6.8",
                   "children": []
                 }
               ]
@@ -5921,7 +5921,7 @@
               "scope": "test",
               "selectedVersion": "3.1.6",
               "id": "io.smallrye:jandex:3.1.6",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": []
             },
             {
@@ -5933,7 +5933,7 @@
               "scope": "test",
               "selectedVersion": "1.0.0.Final",
               "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.6.7",
+              "parent": "io.quarkus:quarkus-test-common:3.6.8",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -5960,7 +5960,7 @@
           "scope": "test",
           "selectedVersion": "0.9.0.M2",
           "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M2",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": []
         },
         {
@@ -5972,7 +5972,7 @@
           "scope": "test",
           "selectedVersion": "5.10.1",
           "id": "org.junit.jupiter:junit-jupiter:5.10.1",
-          "parent": "io.quarkus:quarkus-junit5:3.6.7",
+          "parent": "io.quarkus:quarkus-junit5:3.6.8",
           "children": [
             {
               "groupId": "org.junit.jupiter",
@@ -6212,6 +6212,13 @@
       "checksum": "c7c973af372dadb83c41e760a86af98b6291150ecdd235319c2a3635b85383ff"
     },
     {
+      "groupId": "io.quarkus.platform",
+      "artifactId": "quarkus-maven-plugin",
+      "version": "3.6.8",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "8f6310938af257c2e1ecdad117307aced20ebbd2635ef79e6ba005ce5aaa9d0d"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-install-plugin",
       "version": "3.1.1",
@@ -6238,13 +6245,6 @@
       "version": "3.2.5",
       "checksumAlgorithm": "SHA-256",
       "checksum": "e35a8d2114b4c0166c3bf8e40ac63dd4608734347d7294555b6160a661294a92"
-    },
-    {
-      "groupId": "io.quarkus.platform",
-      "artifactId": "quarkus-maven-plugin",
-      "version": "3.6.7",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "11274bbdb9b3eb43be5cb4aa267bc135632bf8783c48a5872badc0d4f7003e0b"
     },
     {
       "groupId": "org.apache.maven.plugins",
