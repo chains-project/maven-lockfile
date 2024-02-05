@@ -78,7 +78,7 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
       - name: Run JReleaser
-        uses: jreleaser/release-action@d62273ed7005724d7ef99ef9e9b25ba19efdce1d
+        uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8
         with:
           setup-java: false
           version: 1.4.0
