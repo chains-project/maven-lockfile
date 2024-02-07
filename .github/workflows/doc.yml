@@ -17,7 +17,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Maven
-        uses: stCarolas/setup-maven@1d56b37995622db66cce1214d81014b09807fb5a # v4
+        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
         with:
           maven-version: 3.9.0
       - name: Generate Readme+action.yml
