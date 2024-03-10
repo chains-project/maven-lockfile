@@ -224,23 +224,23 @@
     {
       "groupId": "org.apache.logging.log4j",
       "artifactId": "log4j-core",
-      "version": "2.23.0",
+      "version": "2.23.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "0fef441ee938719f635db7ef21ad5b1ddf7d5bf8f5abf5eca8f29c3f432681db",
+      "checksum": "7079368005fc34f56248f57f8a8a53361c3a53e9007d556dbc66fc669df081b5",
       "scope": "compile",
-      "selectedVersion": "2.23.0",
-      "id": "org.apache.logging.log4j:log4j-core:2.23.0",
+      "selectedVersion": "2.23.1",
+      "id": "org.apache.logging.log4j:log4j-core:2.23.1",
       "children": [
         {
           "groupId": "org.apache.logging.log4j",
           "artifactId": "log4j-api",
-          "version": "2.23.0",
+          "version": "2.23.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "ff1a58a39df66d55534de744eb97225d4f7665482e73988a496681f5f2744938",
+          "checksum": "92ec1fd36ab3bc09de6198d2d7c0914685c0f7127ea931acc32fd2ecdd82ea89",
           "scope": "compile",
-          "selectedVersion": "2.23.0",
-          "id": "org.apache.logging.log4j:log4j-api:2.23.0",
-          "parent": "org.apache.logging.log4j:log4j-core:2.23.0",
+          "selectedVersion": "2.23.1",
+          "id": "org.apache.logging.log4j:log4j-api:2.23.1",
+          "parent": "org.apache.logging.log4j:log4j-core:2.23.1",
           "children": []
         }
       ]
