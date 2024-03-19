@@ -99,9 +99,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-compiler-plugin",
-      "version": "3.12.1",
+      "version": "3.13.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "32bdf8aa04759b0f0768350640bb6cfff2488252361b5b36adc2d7fefc18c5e0"
+      "checksum": "6f819947a2a773792dc91d17f906e22113bfb2fefb6b64dec836175715d7402a"
     }
   ],
   "metaData": {
