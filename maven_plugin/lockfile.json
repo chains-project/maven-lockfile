@@ -2163,9 +2163,9 @@
     {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
-      "version": "2.7.11",
+      "version": "2.8.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "70997d52dbffd4e797c467b2062c6ba9b8b5a7380ff2884779f2743b6172ebb5"
+      "checksum": "6852aa0f4e42a2db745bab80e384951a6a65b9215d041081d675780999027e81"
     },
     {
       "groupId": "com.diffplug.spotless",
