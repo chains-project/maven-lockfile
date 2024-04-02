@@ -7,12 +7,13 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 
 public class DependencyGraph {
 
@@ -81,15 +82,17 @@ public class DependencyGraph {
         var version = VersionNumber.of(node.getArtifact().getVersion());
         var checksum = isRoot ? "" : calc.calculateChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
+        Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
+        boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
-        String baseVersion = SpyingDependencyNodeUtils.getWinnerVersion(node)
-                .orElse(node.getArtifact().getVersion());
-        if (reduce && !baseVersion.equals(version.getValue())) {
+        String baseVersion = included ? node.getArtifact().getVersion() : winnerVersion.get();
+        if (reduce && !included) {
             return Optional.empty();
         }
         DependencyNode value =
                 new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
         value.setSelectedVersion(baseVersion);
+        value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
             createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
         }
