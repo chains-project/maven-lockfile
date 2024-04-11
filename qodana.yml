@@ -16,6 +16,7 @@ groups:
       - JavadocBlankLines # Questionable. Spam on mockito, RxJava and other projects.
       - UseOfClone
       - UnstableApiUsage
+      - NullableProblems
 exclude:
   - name: UnstableApiUsage
 inspections:
