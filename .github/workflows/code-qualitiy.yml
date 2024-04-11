@@ -43,6 +43,7 @@ jobs:
       - uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+          pr-mode: false
   reproducilbilty:
     runs-on: ubuntu-latest
     defaults:
