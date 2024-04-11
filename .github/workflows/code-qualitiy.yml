@@ -40,9 +40,7 @@ jobs:
         uses: JetBrains/qodana-action@a040a784cc28cb9cabdf884c4e8c32d0aa3fcdb3 # v2023.3.2
         with:
           args: "--fail-threshold,0"
-          pr-mode: false
-          exclude: 
-            - name: UnstableApiUsage     
+          pr-mode: false    
       - uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
