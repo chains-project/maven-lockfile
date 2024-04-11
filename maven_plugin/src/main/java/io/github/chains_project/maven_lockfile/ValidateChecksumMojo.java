@@ -51,28 +51,25 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
-                String sb = "Lock file validation failed. Differences:" +
-                        "\n" +
-                        "Your lockfile from file is for:"
+                String sb = "Lock file validation failed. Differences:" + "\n"
+                        + "Your lockfile from file is for:"
                         + lockFileFromFile.getGroupId().getValue()
                         + ":" + lockFileFromFile.getName().getValue() + ":"
-                        + lockFileFromFile.getVersion().getValue() + "\n" +
-                        "Your generated lockfile is for:"
+                        + lockFileFromFile.getVersion().getValue() + "\n" + "Your generated lockfile is for:"
                         + lockFileFromProject.getGroupId().getValue() + ":"
                         + lockFileFromProject.getName().getValue() + ":"
-                        + lockFileFromProject.getVersion().getValue() + "\n" +
-                        "Missing dependencies in lock file:\n " +
-                        JsonUtils.toJson(diff.getMissingDependenciesInFile()) +
-                        "\n" +
-                        "Missing dependencies in project:\n " +
-                        JsonUtils.toJson(diff.getMissingDependenciesInProject()) +
-                        "\n" +
-                        "Missing plugins in lockfile:\n " +
-                        JsonUtils.toJson(diff.getMissingPluginsInFile()) +
-                        "\n" +
-                        "Missing plugins in project:\n " +
-                        JsonUtils.toJson(diff.getMissingPluginsInProject()) +
-                        "\n";
+                        + lockFileFromProject.getVersion().getValue() + "\n" + "Missing dependencies in lock file:\n "
+                        + JsonUtils.toJson(diff.getMissingDependenciesInFile())
+                        + "\n"
+                        + "Missing dependencies in project:\n "
+                        + JsonUtils.toJson(diff.getMissingDependenciesInProject())
+                        + "\n"
+                        + "Missing plugins in lockfile:\n "
+                        + JsonUtils.toJson(diff.getMissingPluginsInFile())
+                        + "\n"
+                        + "Missing plugins in project:\n "
+                        + JsonUtils.toJson(diff.getMissingPluginsInProject())
+                        + "\n";
                 throw new MojoExecutionException("Failed verifying lock file" + sb);
             }
         } catch (IOException e) {

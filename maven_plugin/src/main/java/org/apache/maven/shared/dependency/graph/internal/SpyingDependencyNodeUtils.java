@@ -1,10 +1,9 @@
 package org.apache.maven.shared.dependency.graph.internal;
 
-import org.apache.log4j.Logger;
-import org.apache.maven.shared.dependency.graph.DependencyNode;
-
 import java.lang.reflect.Field;
 import java.util.Optional;
+import org.apache.log4j.Logger;
+import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 public class SpyingDependencyNodeUtils {
 

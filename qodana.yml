@@ -15,10 +15,9 @@ groups:
       - Since15 #Detects wrong language level. Should work on sanity.
       - JavadocBlankLines # Questionable. Spam on mockito, RxJava and other projects.
       - UseOfClone
-      - UnstableApiUsage
-      - NullableProblems
 exclude:
   - name: UnstableApiUsage
+  - name: NullableProblems
 inspections:
   - group: ExcludedInspections
     enabled: false
