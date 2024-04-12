@@ -19,7 +19,7 @@ jobs:
       - name: Set up Maven
         uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
         with:
-          maven-version: 3.9.0
+          maven-version: 3.9.6
       - name: mvn clean verify
         run: mvn clean verify
       - name: Build with Maven
@@ -40,6 +40,7 @@ jobs:
         uses: JetBrains/qodana-action@a040a784cc28cb9cabdf884c4e8c32d0aa3fcdb3 # v2023.3.2
         with:
           args: "--fail-threshold,0"
+          pr-mode: false    
       - uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
@@ -58,7 +59,7 @@ jobs:
       - name: Set up Maven
         uses: stCarolas/setup-maven@07fbbe97d97ef44336b7382563d66743297e442f # v4.5
         with:
-          maven-version: 3.9.0
+          maven-version: 3.9.6
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean install
       - name: Run reproducibility check

@@ -50,10 +50,12 @@
       "semanticCommitType": ":bookmark:",
       "automerge": true,
       "automergeType": "pr"
+    },
+    {
+      "matchPackagePatterns": [
+        "org.apache.maven:"
+      ],
+      "enabled": false
     }
-  ],
-  "ignoreDeps": [
-    "maven-core",
-    "mavenVersion"
   ]
 }
