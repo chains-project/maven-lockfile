@@ -47,7 +47,7 @@ public class LockFileFacade {
 
         @Override
         public boolean visit(DependencyNode node) {
-            node.getChildren().stream().forEach(v -> graph.putEdge(node, v));
+            node.getChildren().forEach(v -> graph.putEdge(node, v));
             return true;
         }
 

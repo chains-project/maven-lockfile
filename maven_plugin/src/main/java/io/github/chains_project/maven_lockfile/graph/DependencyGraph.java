@@ -96,6 +96,6 @@ public class DependencyGraph {
         for (var artifact : graph.successors(node)) {
             createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
         }
-        return Optional.ofNullable(value);
+        return Optional.of(value);
     }
 }

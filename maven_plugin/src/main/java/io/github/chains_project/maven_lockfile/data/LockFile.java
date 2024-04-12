@@ -32,6 +32,7 @@ public class LockFile {
     private final VersionNumber version;
 
     @SerializedName("lockFileVersion")
+    @SuppressWarnings("FieldMayBeFinal")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
     private final List<DependencyNode> dependencies;
