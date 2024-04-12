@@ -81,15 +81,17 @@ public class DependencyGraph {
         var version = VersionNumber.of(node.getArtifact().getVersion());
         var checksum = isRoot ? "" : calc.calculateChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
+        Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
+        boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
-        String baseVersion = SpyingDependencyNodeUtils.getWinnerVersion(node)
-                .orElse(node.getArtifact().getVersion());
-        if (reduce && !baseVersion.equals(version.getValue())) {
+        String baseVersion = included ? node.getArtifact().getVersion() : winnerVersion.get();
+        if (reduce && !included) {
             return Optional.empty();
         }
         DependencyNode value =
                 new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
         value.setSelectedVersion(baseVersion);
+        value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
             createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
         }
