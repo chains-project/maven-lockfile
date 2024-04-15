@@ -1,16 +1,12 @@
 package it;
 
+import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -18,8 +14,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 @MavenJupiterExtension
 public class IntegrationTestsIT extends AbstractMojoTestCase {
@@ -112,9 +111,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         // ensure pom.xml is similar to the lockfile pom after applying freeze
         List<String> lockfileDepKeys = getDependencyKeys(lockfilePom.getDependencies());
         List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
-        assertThat(pomDepKeys)
-                .hasSameSizeAs(lockfileDepKeys)
-                .containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
+        assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
@@ -136,8 +133,8 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     private List<String> getDependencyKeys(List<Dependency> dependencies) {
         List<String> keys = new ArrayList<>();
         for (Dependency dependency : dependencies) {
-            String key = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getScope()
-                    + ":" + dependency.getVersion();
+            String key = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getScope() + ":"
+                    + dependency.getVersion();
             keys.add(key);
         }
         return keys;
