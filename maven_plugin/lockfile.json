@@ -1573,12 +1573,12 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.11.0",
+      "version": "3.12.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ec1f1741f529b289090cd34799e69be43b6cc37e26a69b5db70789f10af7b7b0",
+      "checksum": "d3ddd26c5b0e6c0e9521d1dac4ca5a02d633f628f6f06b847a5dc425c6b34e7a",
       "scope": "provided",
-      "selectedVersion": "3.11.0",
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.11.0",
+      "selectedVersion": "3.12.0",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.12.0",
       "children": []
     },
     {
@@ -2046,23 +2046,23 @@
     {
       "groupId": "org.slf4j",
       "artifactId": "log4j-over-slf4j",
-      "version": "2.0.12",
+      "version": "2.0.13",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "6271f07eeab8f14321dcdfed8d1de9458198eaa3320174923d1ef3ace9048efa",
+      "checksum": "fe55a985e82370e5c457119a79195a4639cbd6ffa73963d4fdae85dfa228e724",
       "scope": "compile",
-      "selectedVersion": "2.0.12",
-      "id": "org.slf4j:log4j-over-slf4j:2.0.12",
+      "selectedVersion": "2.0.13",
+      "id": "org.slf4j:log4j-over-slf4j:2.0.13",
       "children": [
         {
           "groupId": "org.slf4j",
           "artifactId": "slf4j-api",
-          "version": "2.0.12",
+          "version": "2.0.13",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a79502b8abdfbd722846a27691226a4088682d6d35654f9b80e2a9ccacf7ed47",
+          "checksum": "e7c2a48e8515ba1f49fa637d57b4e2f590b3f5bd97407ac699c3aa5efb1204a9",
           "scope": "compile",
           "selectedVersion": "1.7.36",
-          "id": "org.slf4j:slf4j-api:2.0.12",
-          "parent": "org.slf4j:log4j-over-slf4j:2.0.12",
+          "id": "org.slf4j:slf4j-api:2.0.13",
+          "parent": "org.slf4j:log4j-over-slf4j:2.0.13",
           "children": []
         }
       ]
@@ -2078,17 +2078,10 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-jar-plugin",
-      "version": "3.3.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "17edc5d0289dc0a9b61bd5db15fdb5804b5fb73d7dbe458771e33fbc1d51fa94"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
-      "version": "3.5.0",
+      "version": "3.5.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "9119dcba18b3b6be9b68f56733be2be54442ed9234f69cf4fe2de0b46c3e25de"
+      "checksum": "e4b0a098f12d466bda92b2430169ac713f67499dd1a4c508df3c2983be5a2553"
     },
     {
       "groupId": "org.apache.maven.plugins",
@@ -2103,6 +2096,13 @@
       "version": "3.0.2",
       "checksumAlgorithm": "SHA-256",
       "checksum": "3f4f612c310dedfa43b6aeb548d3deffe13f76712c8b183bbbbaa4755f289e1e"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.4.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "760d6480c5fb7d330a2fb936613ef173077c3f368f75c176d933844125865874"
     },
     {
       "groupId": "org.apache.maven.plugins",
