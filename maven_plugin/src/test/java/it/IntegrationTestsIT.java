@@ -122,9 +122,12 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
         assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
 
-        List<String> lockfileDepManKeys = getDependencyKeys(lockfilePom.getDependencyManagement().getDependencies());
-        List<String> pomDepManKeys = getDependencyKeys(pom.getDependencyManagement().getDependencies());
-        assertThat(pomDepManKeys).hasSameSizeAs(lockfileDepManKeys)
+        List<String> lockfileDepManKeys =
+                getDependencyKeys(lockfilePom.getDependencyManagement().getDependencies());
+        List<String> pomDepManKeys =
+                getDependencyKeys(pom.getDependencyManagement().getDependencies());
+        assertThat(pomDepManKeys)
+                .hasSameSizeAs(lockfileDepManKeys)
                 .containsExactlyInAnyOrderElementsOf(lockfileDepManKeys);
     }
 
