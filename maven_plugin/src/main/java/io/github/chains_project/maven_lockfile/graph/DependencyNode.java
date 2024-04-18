@@ -27,6 +27,9 @@ public class DependencyNode implements Comparable<DependencyNode> {
     @Nullable
     private String selectedVersion;
 
+    @Nullable
+    private boolean included;
+
     NodeId id;
 
     @Expose(serialize = false, deserialize = false)
@@ -124,6 +127,20 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public String getSelectedVersion() {
         return selectedVersion;
+    }
+
+    /**
+     * @param included the state of inclusion
+     */
+    public void setIncluded(boolean included) {
+        this.included = included;
+    }
+
+    /**
+     * @return the state of inclusion
+     */
+    public boolean isIncluded() {
+        return included;
     }
 
     @Override

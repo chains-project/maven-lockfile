@@ -1,19 +1,24 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 @MavenJupiterExtension
 public class IntegrationTestsIT extends AbstractMojoTestCase {
@@ -91,6 +96,48 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(pom).contains("<groupId>org.junit.jupiter</groupId>");
         assertThat(pom).contains("<artifactId>junit-jupiter-api</artifactId>");
         assertThat(pom).contains("<version>5.9.2</version>");
+    }
+
+    @MavenTest
+    public void checkSpringFreeze(MavenExecutionResult result) throws Exception {
+        assertThat(result).isSuccessful();
+
+        Path pomPath = findFile(result, "pom.xml");
+        Path lockfilePomPath = findFile(result, "pom.lockfile.xml");
+
+        Model lockfilePom = readPom(lockfilePomPath);
+        Model pom = readPom(pomPath);
+
+        // ensure pom.xml is similar to the lockfile pom after applying freeze
+        List<String> lockfileDepKeys = getDependencyKeys(lockfilePom.getDependencies());
+        List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
+        assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
+    }
+
+    private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
+        return Files.find(
+                        result.getMavenProjectResult().getTargetBaseDirectory(),
+                        Integer.MAX_VALUE,
+                        (path, attr) -> path.getFileName().toString().contains(fileName))
+                .findAny()
+                .orElseThrow(FileNotFoundException::new);
+    }
+
+    private Model readPom(Path pomPath) throws IOException, XmlPullParserException {
+        try (Reader reader = Files.newBufferedReader(pomPath)) {
+            MavenXpp3Reader pomReader = new MavenXpp3Reader();
+            return pomReader.read(reader);
+        }
+    }
+
+    private List<String> getDependencyKeys(List<Dependency> dependencies) {
+        List<String> keys = new ArrayList<>();
+        for (Dependency dependency : dependencies) {
+            String key = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getScope() + ":"
+                    + dependency.getVersion();
+            keys.add(key);
+        }
+        return keys;
     }
 
     @MavenTest

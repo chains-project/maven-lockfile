@@ -1,0 +1,1596 @@
+{
+  "artifactId": "my-app",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-test",
+      "version": "2.7.6",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "76c446648574753254018f4aef51fef7ea3e54c51b0ff7df7aa2e7124404602a",
+      "scope": "test",
+      "selectedVersion": "2.7.6",
+      "included": true,
+      "id": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+      "children": [
+        {
+          "groupId": "com.jayway.jsonpath",
+          "artifactId": "json-path",
+          "version": "2.7.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "de82f0e4602eea0187df36779ae8cfc1653b6d920125674af4d365d0bca59508",
+          "scope": "test",
+          "selectedVersion": "2.7.0",
+          "included": true,
+          "id": "com.jayway.jsonpath:json-path:2.7.0",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "net.minidev",
+              "artifactId": "json-smart",
+              "version": "2.4.8",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "174a9ad578b56644e62b3965d8bf94ac3a76e707c6343b8abac9d3671438b4b2",
+              "scope": "test",
+              "selectedVersion": "2.4.8",
+              "included": true,
+              "id": "net.minidev:json-smart:2.4.8",
+              "parent": "com.jayway.jsonpath:json-path:2.7.0",
+              "children": [
+                {
+                  "groupId": "net.minidev",
+                  "artifactId": "accessors-smart",
+                  "version": "2.4.8",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7dd705aa1ac0e030f8ee2624e8e77239ae1eef6ccc2621c0b8c189866ee1c42c",
+                  "scope": "test",
+                  "selectedVersion": "2.4.8",
+                  "included": true,
+                  "id": "net.minidev:accessors-smart:2.4.8",
+                  "parent": "net.minidev:json-smart:2.4.8",
+                  "children": [
+                    {
+                      "groupId": "org.ow2.asm",
+                      "artifactId": "asm",
+                      "version": "9.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "cda4de455fab48ff0bcb7c48b4639447d4de859a7afc30a094a986f0936beba2",
+                      "scope": "test",
+                      "selectedVersion": "9.1",
+                      "included": true,
+                      "id": "org.ow2.asm:asm:9.1",
+                      "parent": "net.minidev:accessors-smart:2.4.8",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "groupId": "org.slf4j",
+              "artifactId": "slf4j-api",
+              "version": "1.7.36",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+              "scope": "test",
+              "selectedVersion": "1.7.36",
+              "included": false,
+              "id": "org.slf4j:slf4j-api:1.7.36",
+              "parent": "com.jayway.jsonpath:json-path:2.7.0",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "jakarta.xml.bind",
+          "artifactId": "jakarta.xml.bind-api",
+          "version": "2.3.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5",
+          "scope": "test",
+          "selectedVersion": "2.3.3",
+          "included": true,
+          "id": "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "jakarta.activation",
+              "artifactId": "jakarta.activation-api",
+              "version": "1.2.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "a187a939103aef5849a7af84bd7e27be2d120c410af291437375ffe061f4f09d",
+              "scope": "test",
+              "selectedVersion": "1.2.2",
+              "included": true,
+              "id": "jakarta.activation:jakarta.activation-api:1.2.2",
+              "parent": "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.assertj",
+          "artifactId": "assertj-core",
+          "version": "3.22.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "419b7594a869147ee9578f5af2297fdd2c03c07c835927dbf4a7b32ad22cb411",
+          "scope": "test",
+          "selectedVersion": "3.22.0",
+          "included": true,
+          "id": "org.assertj:assertj-core:3.22.0",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.hamcrest",
+          "artifactId": "hamcrest",
+          "version": "2.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "5e62846a89f05cd78cd9c1a553f340d002458380c320455dd1f8fc5497a8a1c1",
+          "scope": "test",
+          "selectedVersion": "2.2",
+          "included": true,
+          "id": "org.hamcrest:hamcrest:2.2",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.junit.jupiter",
+          "artifactId": "junit-jupiter",
+          "version": "5.8.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4f5c1cc6432244cd16e36aa0e02b74bce34a81ff95a13d63d50951ec4ce3f4bd",
+          "scope": "test",
+          "selectedVersion": "5.8.2",
+          "included": true,
+          "id": "org.junit.jupiter:junit-jupiter:5.8.2",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "org.junit.jupiter",
+              "artifactId": "junit-jupiter-api",
+              "version": "5.8.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801",
+              "scope": "test",
+              "selectedVersion": "5.8.2",
+              "included": true,
+              "id": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+              "parent": "org.junit.jupiter:junit-jupiter:5.8.2",
+              "children": [
+                {
+                  "groupId": "org.apiguardian",
+                  "artifactId": "apiguardian-api",
+                  "version": "1.1.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                  "scope": "test",
+                  "selectedVersion": "1.1.2",
+                  "included": true,
+                  "id": "org.apiguardian:apiguardian-api:1.1.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+                  "children": []
+                },
+                {
+                  "groupId": "org.junit.platform",
+                  "artifactId": "junit-platform-commons",
+                  "version": "1.8.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "d2e015fca7130e79af2f4608dc54415e4b10b592d77333decb4b1a274c185050",
+                  "scope": "test",
+                  "selectedVersion": "1.8.2",
+                  "included": true,
+                  "id": "org.junit.platform:junit-platform-commons:1.8.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+                  "children": [
+                    {
+                      "groupId": "org.apiguardian",
+                      "artifactId": "apiguardian-api",
+                      "version": "1.1.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                      "scope": "test",
+                      "selectedVersion": "1.1.2",
+                      "included": false,
+                      "id": "org.apiguardian:apiguardian-api:1.1.2",
+                      "parent": "org.junit.platform:junit-platform-commons:1.8.2",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.opentest4j",
+                  "artifactId": "opentest4j",
+                  "version": "1.2.0",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+                  "scope": "test",
+                  "selectedVersion": "1.2.0",
+                  "included": true,
+                  "id": "org.opentest4j:opentest4j:1.2.0",
+                  "parent": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.junit.jupiter",
+              "artifactId": "junit-jupiter-engine",
+              "version": "5.8.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "753b7726cdd158bb34cedb94c161e2291896f47832a1e9eda53d970020a8184e",
+              "scope": "test",
+              "selectedVersion": "5.8.2",
+              "included": true,
+              "id": "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+              "parent": "org.junit.jupiter:junit-jupiter:5.8.2",
+              "children": [
+                {
+                  "groupId": "org.apiguardian",
+                  "artifactId": "apiguardian-api",
+                  "version": "1.1.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                  "scope": "test",
+                  "selectedVersion": "1.1.2",
+                  "included": false,
+                  "id": "org.apiguardian:apiguardian-api:1.1.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+                  "children": []
+                },
+                {
+                  "groupId": "org.junit.jupiter",
+                  "artifactId": "junit-jupiter-api",
+                  "version": "5.8.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801",
+                  "scope": "test",
+                  "selectedVersion": "5.8.2",
+                  "included": false,
+                  "id": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+                  "children": []
+                },
+                {
+                  "groupId": "org.junit.platform",
+                  "artifactId": "junit-platform-engine",
+                  "version": "1.8.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "0b7d000f8c3e8e5f7d6b819649936e7b9938314e87c8f983805218ea57567e59",
+                  "scope": "test",
+                  "selectedVersion": "1.8.2",
+                  "included": true,
+                  "id": "org.junit.platform:junit-platform-engine:1.8.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+                  "children": [
+                    {
+                      "groupId": "org.apiguardian",
+                      "artifactId": "apiguardian-api",
+                      "version": "1.1.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                      "scope": "test",
+                      "selectedVersion": "1.1.2",
+                      "included": false,
+                      "id": "org.apiguardian:apiguardian-api:1.1.2",
+                      "parent": "org.junit.platform:junit-platform-engine:1.8.2",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.junit.platform",
+                      "artifactId": "junit-platform-commons",
+                      "version": "1.8.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "d2e015fca7130e79af2f4608dc54415e4b10b592d77333decb4b1a274c185050",
+                      "scope": "test",
+                      "selectedVersion": "1.8.2",
+                      "included": false,
+                      "id": "org.junit.platform:junit-platform-commons:1.8.2",
+                      "parent": "org.junit.platform:junit-platform-engine:1.8.2",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.opentest4j",
+                      "artifactId": "opentest4j",
+                      "version": "1.2.0",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+                      "scope": "test",
+                      "selectedVersion": "1.2.0",
+                      "included": false,
+                      "id": "org.opentest4j:opentest4j:1.2.0",
+                      "parent": "org.junit.platform:junit-platform-engine:1.8.2",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "groupId": "org.junit.jupiter",
+              "artifactId": "junit-jupiter-params",
+              "version": "5.8.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "d1c22d6fe5483568c08c8913f34abd2303490c3480ce6c18a2ea31c65e44102a",
+              "scope": "test",
+              "selectedVersion": "5.8.2",
+              "included": true,
+              "id": "org.junit.jupiter:junit-jupiter-params:5.8.2",
+              "parent": "org.junit.jupiter:junit-jupiter:5.8.2",
+              "children": [
+                {
+                  "groupId": "org.apiguardian",
+                  "artifactId": "apiguardian-api",
+                  "version": "1.1.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+                  "scope": "test",
+                  "selectedVersion": "1.1.2",
+                  "included": false,
+                  "id": "org.apiguardian:apiguardian-api:1.1.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-params:5.8.2",
+                  "children": []
+                },
+                {
+                  "groupId": "org.junit.jupiter",
+                  "artifactId": "junit-jupiter-api",
+                  "version": "5.8.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801",
+                  "scope": "test",
+                  "selectedVersion": "5.8.2",
+                  "included": false,
+                  "id": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+                  "parent": "org.junit.jupiter:junit-jupiter-params:5.8.2",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-core",
+          "version": "4.5.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "0b66f11abbb39eaffb05989109892a50fd344d633a3b3587726ef1fe5fc8ab78",
+          "scope": "test",
+          "selectedVersion": "4.5.1",
+          "included": true,
+          "id": "org.mockito:mockito-core:4.5.1",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "net.bytebuddy",
+              "artifactId": "byte-buddy",
+              "version": "1.12.19",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "030704139e46f32c38d27060edee9e0676b0a0fff8a8be53461515154ba8a7be",
+              "scope": "test",
+              "selectedVersion": "1.12.19",
+              "included": true,
+              "id": "net.bytebuddy:byte-buddy:1.12.19",
+              "parent": "org.mockito:mockito-core:4.5.1",
+              "children": []
+            },
+            {
+              "groupId": "net.bytebuddy",
+              "artifactId": "byte-buddy-agent",
+              "version": "1.12.19",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "3a70240de7cdcde04e7c504c2327d7035b9c25ae0206881e3bf4e6798a273ed8",
+              "scope": "test",
+              "selectedVersion": "1.12.19",
+              "included": true,
+              "id": "net.bytebuddy:byte-buddy-agent:1.12.19",
+              "parent": "org.mockito:mockito-core:4.5.1",
+              "children": []
+            },
+            {
+              "groupId": "org.objenesis",
+              "artifactId": "objenesis",
+              "version": "3.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "03d960bd5aef03c653eb000413ada15eb77cdd2b8e4448886edf5692805e35f3",
+              "scope": "test",
+              "selectedVersion": "3.2",
+              "included": true,
+              "id": "org.objenesis:objenesis:3.2",
+              "parent": "org.mockito:mockito-core:4.5.1",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.mockito",
+          "artifactId": "mockito-junit-jupiter",
+          "version": "4.5.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "fdd50df743086667a835c55d50c92226f2adc06319c865f4d0f3cf96813ad22c",
+          "scope": "test",
+          "selectedVersion": "4.5.1",
+          "included": true,
+          "id": "org.mockito:mockito-junit-jupiter:4.5.1",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "org.junit.jupiter",
+              "artifactId": "junit-jupiter-api",
+              "version": "5.8.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "1808ee87e0f718cd6e25f3b75afc17956ac8a3edc48c7e9bab9f19f9a79e3801",
+              "scope": "test",
+              "selectedVersion": "5.8.2",
+              "included": false,
+              "id": "org.junit.jupiter:junit-jupiter-api:5.8.2",
+              "parent": "org.mockito:mockito-junit-jupiter:4.5.1",
+              "children": []
+            },
+            {
+              "groupId": "org.mockito",
+              "artifactId": "mockito-core",
+              "version": "4.5.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "0b66f11abbb39eaffb05989109892a50fd344d633a3b3587726ef1fe5fc8ab78",
+              "scope": "test",
+              "selectedVersion": "4.5.1",
+              "included": false,
+              "id": "org.mockito:mockito-core:4.5.1",
+              "parent": "org.mockito:mockito-junit-jupiter:4.5.1",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.skyscreamer",
+          "artifactId": "jsonassert",
+          "version": "1.5.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1e9a7c443d0dd579906646d767f3701918a78cb88a93112f528305fc9095d261",
+          "scope": "test",
+          "selectedVersion": "1.5.1",
+          "included": true,
+          "id": "org.skyscreamer:jsonassert:1.5.1",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "com.vaadin.external.google",
+              "artifactId": "android-json",
+              "version": "0.0.20131108.vaadin1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "dfb7bae2f404cfe0b72b4d23944698cb716b7665171812a0a4d0f5926c0fac79",
+              "scope": "test",
+              "selectedVersion": "0.0.20131108.vaadin1",
+              "included": true,
+              "id": "com.vaadin.external.google:android-json:0.0.20131108.vaadin1",
+              "parent": "org.skyscreamer:jsonassert:1.5.1",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-core",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+          "scope": "test",
+          "selectedVersion": "5.3.24",
+          "included": false,
+          "id": "org.springframework:spring-core:5.3.24",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-test",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "fd14a7dba7b150c852cc39d98248edb38d97d3da73bb3df2ecdbf62ea7a2d158",
+          "scope": "test",
+          "selectedVersion": "5.3.24",
+          "included": true,
+          "id": "org.springframework:spring-test:5.3.24",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+              "scope": "test",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-core:5.3.24",
+              "parent": "org.springframework:spring-test:5.3.24",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "bbfad5d367c08e8541ccb33699bce7114b0e7d3f5be895069683e24a05d3bff8",
+          "scope": "test",
+          "selectedVersion": "2.7.6",
+          "included": false,
+          "id": "org.springframework.boot:spring-boot-starter:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-test",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1c010067f8ed8288c96dc7017660cb4383a7fc6a67804881420a4ab7b70de8de",
+          "scope": "test",
+          "selectedVersion": "2.7.6",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-test:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "c05734fa43b0c1148645ae6eb2ea1c452efe7d7d4e006c72aedb3baed0e6aa28",
+              "scope": "test",
+              "selectedVersion": "2.7.6",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-test:2.7.6",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-test-autoconfigure",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "2a975c7f67e2cab1f0d19e07c0175b11e4698276fd6411abfdda49e3d3a9f168",
+          "scope": "test",
+          "selectedVersion": "2.7.6",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-test-autoconfigure:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "c05734fa43b0c1148645ae6eb2ea1c452efe7d7d4e006c72aedb3baed0e6aa28",
+              "scope": "test",
+              "selectedVersion": "2.7.6",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-test-autoconfigure:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot-autoconfigure",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "96898c378f0ef9c52af3e6e1b0686b0782b4752c9fbbb64df457986e1cec4086",
+              "scope": "test",
+              "selectedVersion": "2.7.6",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot-autoconfigure:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-test-autoconfigure:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot-test",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "1c010067f8ed8288c96dc7017660cb4383a7fc6a67804881420a4ab7b70de8de",
+              "scope": "test",
+              "selectedVersion": "2.7.6",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot-test:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-test-autoconfigure:2.7.6",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.xmlunit",
+          "artifactId": "xmlunit-core",
+          "version": "2.9.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1688057e76e3084cd682eae4075a3d9ad9a3ec6e34b36146cca80445dbe58c2c",
+          "scope": "test",
+          "selectedVersion": "2.9.0",
+          "included": true,
+          "id": "org.xmlunit:xmlunit-core:2.9.0",
+          "parent": "org.springframework.boot:spring-boot-starter-test:2.7.6",
+          "children": [
+            {
+              "groupId": "jakarta.xml.bind",
+              "artifactId": "jakarta.xml.bind-api",
+              "version": "2.3.3",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5",
+              "scope": "test",
+              "selectedVersion": "2.3.3",
+              "included": false,
+              "id": "jakarta.xml.bind:jakarta.xml.bind-api:2.3.3",
+              "parent": "org.xmlunit:xmlunit-core:2.9.0",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-validation",
+      "version": "2.7.6",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "13ac82f38c758b498d38c49669f6ed87acf08851f2811debf0a9253586c88d4f",
+      "scope": "compile",
+      "selectedVersion": "2.7.6",
+      "included": true,
+      "id": "org.springframework.boot:spring-boot-starter-validation:2.7.6",
+      "children": [
+        {
+          "groupId": "org.apache.tomcat.embed",
+          "artifactId": "tomcat-embed-el",
+          "version": "9.0.69",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "73918e2ebdd0a7bb59e1a7febdc15ebf9cc4e0daa741ef5e68b0dc6c4156faed",
+          "scope": "compile",
+          "selectedVersion": "9.0.69",
+          "included": true,
+          "id": "org.apache.tomcat.embed:tomcat-embed-el:9.0.69",
+          "parent": "org.springframework.boot:spring-boot-starter-validation:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.hibernate.validator",
+          "artifactId": "hibernate-validator",
+          "version": "6.2.5.Final",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "8d6d89c3204b30a01dc248352f43dba196140bf4adc5f437f63e2ad62a3d2144",
+          "scope": "compile",
+          "selectedVersion": "6.2.5.Final",
+          "included": true,
+          "id": "org.hibernate.validator:hibernate-validator:6.2.5.Final",
+          "parent": "org.springframework.boot:spring-boot-starter-validation:2.7.6",
+          "children": [
+            {
+              "groupId": "com.fasterxml",
+              "artifactId": "classmate",
+              "version": "1.5.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "aab4de3006808c09d25dd4ff4a3611cfb63c95463cfd99e73d2e1680d229a33b",
+              "scope": "compile",
+              "selectedVersion": "1.5.1",
+              "included": true,
+              "id": "com.fasterxml:classmate:1.5.1",
+              "parent": "org.hibernate.validator:hibernate-validator:6.2.5.Final",
+              "children": []
+            },
+            {
+              "groupId": "jakarta.validation",
+              "artifactId": "jakarta.validation-api",
+              "version": "2.0.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b42d42428f3d922c892a909fa043287d577c0c5b165ad9b7d568cebf87fc9ea4",
+              "scope": "compile",
+              "selectedVersion": "2.0.2",
+              "included": true,
+              "id": "jakarta.validation:jakarta.validation-api:2.0.2",
+              "parent": "org.hibernate.validator:hibernate-validator:6.2.5.Final",
+              "children": []
+            },
+            {
+              "groupId": "org.jboss.logging",
+              "artifactId": "jboss-logging",
+              "version": "3.4.3.Final",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "0b324cca4d550060e51e70cc0045a6cce62f264278ec1f5082aafeb670fcac49",
+              "scope": "compile",
+              "selectedVersion": "3.4.3.Final",
+              "included": true,
+              "id": "org.jboss.logging:jboss-logging:3.4.3.Final",
+              "parent": "org.hibernate.validator:hibernate-validator:6.2.5.Final",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "bbfad5d367c08e8541ccb33699bce7114b0e7d3f5be895069683e24a05d3bff8",
+          "scope": "compile",
+          "selectedVersion": "2.7.6",
+          "included": false,
+          "id": "org.springframework.boot:spring-boot-starter:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-validation:2.7.6",
+          "children": []
+        }
+      ]
+    },
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-web",
+      "version": "2.7.6",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "a66e4acdb267b27fd295965340cf55d7da898db2c40bdf5f27297743de954b80",
+      "scope": "compile",
+      "selectedVersion": "2.7.6",
+      "included": true,
+      "id": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+      "children": [
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-web",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d7e9b62ae99354b84e42c0a61efd70e384c6cecd9354408b9c1a3002fed3d5fc",
+          "scope": "compile",
+          "selectedVersion": "5.3.24",
+          "included": true,
+          "id": "org.springframework:spring-web:5.3.24",
+          "parent": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-beans",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "19eb1978cc48c0c36d9902c16dfb608a2fcec9c822889280493a6ebb2ada4114",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-beans:5.3.24",
+              "parent": "org.springframework:spring-web:5.3.24",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-core:5.3.24",
+              "parent": "org.springframework:spring-web:5.3.24",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-webmvc",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "913d82ea870b257a052ed9b88e8d76d2af5d680c7f52264fbbfc6aae86b4e72d",
+          "scope": "compile",
+          "selectedVersion": "5.3.24",
+          "included": true,
+          "id": "org.springframework:spring-webmvc:5.3.24",
+          "parent": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-aop",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "8258621a15613b3a651a8305ddb488848ad502f6b147bc69eed553bb9ebf3426",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": true,
+              "id": "org.springframework:spring-aop:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": [
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-beans",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "19eb1978cc48c0c36d9902c16dfb608a2fcec9c822889280493a6ebb2ada4114",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-beans:5.3.24",
+                  "parent": "org.springframework:spring-aop:5.3.24",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-core",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-core:5.3.24",
+                  "parent": "org.springframework:spring-aop:5.3.24",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-beans",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "19eb1978cc48c0c36d9902c16dfb608a2fcec9c822889280493a6ebb2ada4114",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-beans:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-context",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7e7bdee594a9fc17ccc46c9c584c793a2e1e3de4a819ba007e155a7e0769795e",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": true,
+              "id": "org.springframework:spring-context:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": [
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-aop",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "8258621a15613b3a651a8305ddb488848ad502f6b147bc69eed553bb9ebf3426",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-aop:5.3.24",
+                  "parent": "org.springframework:spring-context:5.3.24",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-beans",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "19eb1978cc48c0c36d9902c16dfb608a2fcec9c822889280493a6ebb2ada4114",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-beans:5.3.24",
+                  "parent": "org.springframework:spring-context:5.3.24",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-core",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-core:5.3.24",
+                  "parent": "org.springframework:spring-context:5.3.24",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-expression",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "05b0117e9bfb269a1803f08020787591930a8c79ec0363e5081a1df8ebe26c7b",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-expression:5.3.24",
+                  "parent": "org.springframework:spring-context:5.3.24",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-core:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-expression",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "05b0117e9bfb269a1803f08020787591930a8c79ec0363e5081a1df8ebe26c7b",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": true,
+              "id": "org.springframework:spring-expression:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": [
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-core",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-core:5.3.24",
+                  "parent": "org.springframework:spring-expression:5.3.24",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-web",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "d7e9b62ae99354b84e42c0a61efd70e384c6cecd9354408b9c1a3002fed3d5fc",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-web:5.3.24",
+              "parent": "org.springframework:spring-webmvc:5.3.24",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "bbfad5d367c08e8541ccb33699bce7114b0e7d3f5be895069683e24a05d3bff8",
+          "scope": "compile",
+          "selectedVersion": "2.7.6",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-starter:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+          "children": [
+            {
+              "groupId": "jakarta.annotation",
+              "artifactId": "jakarta.annotation-api",
+              "version": "1.3.5",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "85fb03fc054cdf4efca8efd9b6712bbb418e1ab98241c4539c8585bbc23e1b8a",
+              "scope": "compile",
+              "selectedVersion": "1.3.5",
+              "included": true,
+              "id": "jakarta.annotation:jakarta.annotation-api:1.3.5",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-core:5.3.24",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "c05734fa43b0c1148645ae6eb2ea1c452efe7d7d4e006c72aedb3baed0e6aa28",
+              "scope": "compile",
+              "selectedVersion": "2.7.6",
+              "included": true,
+              "id": "org.springframework.boot:spring-boot:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": [
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-context",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7e7bdee594a9fc17ccc46c9c584c793a2e1e3de4a819ba007e155a7e0769795e",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-context:5.3.24",
+                  "parent": "org.springframework.boot:spring-boot:2.7.6",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-core",
+                  "version": "5.3.24",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+                  "scope": "compile",
+                  "selectedVersion": "5.3.24",
+                  "included": false,
+                  "id": "org.springframework:spring-core:5.3.24",
+                  "parent": "org.springframework.boot:spring-boot:2.7.6",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot-autoconfigure",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "96898c378f0ef9c52af3e6e1b0686b0782b4752c9fbbb64df457986e1cec4086",
+              "scope": "compile",
+              "selectedVersion": "2.7.6",
+              "included": true,
+              "id": "org.springframework.boot:spring-boot-autoconfigure:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": [
+                {
+                  "groupId": "org.springframework.boot",
+                  "artifactId": "spring-boot",
+                  "version": "2.7.6",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "c05734fa43b0c1148645ae6eb2ea1c452efe7d7d4e006c72aedb3baed0e6aa28",
+                  "scope": "compile",
+                  "selectedVersion": "2.7.6",
+                  "included": false,
+                  "id": "org.springframework.boot:spring-boot:2.7.6",
+                  "parent": "org.springframework.boot:spring-boot-autoconfigure:2.7.6",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot-starter-logging",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "83264e08ae877e9c25ee5a804b683087d2697c825d41e615a5aa151f039c506e",
+              "scope": "compile",
+              "selectedVersion": "2.7.6",
+              "included": true,
+              "id": "org.springframework.boot:spring-boot-starter-logging:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": [
+                {
+                  "groupId": "ch.qos.logback",
+                  "artifactId": "logback-classic",
+                  "version": "1.2.11",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4d8e899621a3006c2f66e19feab002b11e6cfc5cb1854fc41f01532c00deb2aa",
+                  "scope": "compile",
+                  "selectedVersion": "1.2.11",
+                  "included": true,
+                  "id": "ch.qos.logback:logback-classic:1.2.11",
+                  "parent": "org.springframework.boot:spring-boot-starter-logging:2.7.6",
+                  "children": [
+                    {
+                      "groupId": "ch.qos.logback",
+                      "artifactId": "logback-core",
+                      "version": "1.2.11",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "6ce1e9397be8298a2e99029f55f955c6fa3cef255171c554d0b9c201cffd0159",
+                      "scope": "compile",
+                      "selectedVersion": "1.2.11",
+                      "included": true,
+                      "id": "ch.qos.logback:logback-core:1.2.11",
+                      "parent": "ch.qos.logback:logback-classic:1.2.11",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.slf4j",
+                      "artifactId": "slf4j-api",
+                      "version": "1.7.36",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+                      "scope": "compile",
+                      "selectedVersion": "1.7.36",
+                      "included": false,
+                      "id": "org.slf4j:slf4j-api:1.7.36",
+                      "parent": "ch.qos.logback:logback-classic:1.2.11",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.apache.logging.log4j",
+                  "artifactId": "log4j-to-slf4j",
+                  "version": "2.17.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "9bcfa5273527b950d79739d11e8f8080cfc881908fa2a946b4e891c0293094de",
+                  "scope": "compile",
+                  "selectedVersion": "2.17.2",
+                  "included": true,
+                  "id": "org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+                  "parent": "org.springframework.boot:spring-boot-starter-logging:2.7.6",
+                  "children": [
+                    {
+                      "groupId": "org.apache.logging.log4j",
+                      "artifactId": "log4j-api",
+                      "version": "2.17.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "09351b5a03828f369cdcff76f4ed39e6a6fc20f24f046935d0b28ef5152f8ce4",
+                      "scope": "compile",
+                      "selectedVersion": "2.17.2",
+                      "included": true,
+                      "id": "org.apache.logging.log4j:log4j-api:2.17.2",
+                      "parent": "org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.slf4j",
+                      "artifactId": "slf4j-api",
+                      "version": "1.7.36",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+                      "scope": "compile",
+                      "selectedVersion": "1.7.36",
+                      "included": false,
+                      "id": "org.slf4j:slf4j-api:1.7.36",
+                      "parent": "org.apache.logging.log4j:log4j-to-slf4j:2.17.2",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.slf4j",
+                  "artifactId": "jul-to-slf4j",
+                  "version": "1.7.36",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "9e641fb142c5f0b0623d6222c09ea87523a41bf6bed48ac79940724010b989de",
+                  "scope": "compile",
+                  "selectedVersion": "1.7.36",
+                  "included": true,
+                  "id": "org.slf4j:jul-to-slf4j:1.7.36",
+                  "parent": "org.springframework.boot:spring-boot-starter-logging:2.7.6",
+                  "children": [
+                    {
+                      "groupId": "org.slf4j",
+                      "artifactId": "slf4j-api",
+                      "version": "1.7.36",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+                      "scope": "compile",
+                      "selectedVersion": "1.7.36",
+                      "included": false,
+                      "id": "org.slf4j:slf4j-api:1.7.36",
+                      "parent": "org.slf4j:jul-to-slf4j:1.7.36",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "groupId": "org.yaml",
+              "artifactId": "snakeyaml",
+              "version": "1.30",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "f43a4e40a946b8cdfd0321bc1c9a839bc3f119c57e4ca84fb87c367f51c8b2b3",
+              "scope": "compile",
+              "selectedVersion": "1.30",
+              "included": true,
+              "id": "org.yaml:snakeyaml:1.30",
+              "parent": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-json",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "30de6cae5af37ce7d10325857e19f9291deefb997324fd37de8735dfad82d147",
+          "scope": "compile",
+          "selectedVersion": "2.7.6",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+          "children": [
+            {
+              "groupId": "com.fasterxml.jackson.core",
+              "artifactId": "jackson-databind",
+              "version": "2.13.4.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "ba1a368137f9b92f48dd07f299ff7a782a69487b853ef5578215426fcde8f08b",
+              "scope": "compile",
+              "selectedVersion": "2.13.4.2",
+              "included": true,
+              "id": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": [
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-annotations",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ac5b27a634942391ca113850ee7db01df1499a240174021263501c05fc653b44",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": true,
+                  "id": "com.fasterxml.jackson.core:jackson-annotations:2.13.4",
+                  "parent": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+                  "children": []
+                },
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-core",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4c2e043200edd9ee7ba6fc378bd5c17784a5bf2388e152d208068b51fd0839cf",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": true,
+                  "id": "com.fasterxml.jackson.core:jackson-core:2.13.4",
+                  "parent": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "com.fasterxml.jackson.datatype",
+              "artifactId": "jackson-datatype-jdk8",
+              "version": "2.13.4",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "fc568852020844d753d12d93c5ac25ef545792ac4926b3075e81c42ac32e606e",
+              "scope": "compile",
+              "selectedVersion": "2.13.4",
+              "included": true,
+              "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": [
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-core",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4c2e043200edd9ee7ba6fc378bd5c17784a5bf2388e152d208068b51fd0839cf",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-core:2.13.4",
+                  "parent": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4",
+                  "children": []
+                },
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-databind",
+                  "version": "2.13.4.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ba1a368137f9b92f48dd07f299ff7a782a69487b853ef5578215426fcde8f08b",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4.2",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+                  "parent": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.4",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "com.fasterxml.jackson.datatype",
+              "artifactId": "jackson-datatype-jsr310",
+              "version": "2.13.4",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "5ad75d210bacc17271925da28e1f393aaf8c83f6c92fbe5b2ed61954b84decf7",
+              "scope": "compile",
+              "selectedVersion": "2.13.4",
+              "included": true,
+              "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": [
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-annotations",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ac5b27a634942391ca113850ee7db01df1499a240174021263501c05fc653b44",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-annotations:2.13.4",
+                  "parent": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4",
+                  "children": []
+                },
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-core",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4c2e043200edd9ee7ba6fc378bd5c17784a5bf2388e152d208068b51fd0839cf",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-core:2.13.4",
+                  "parent": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4",
+                  "children": []
+                },
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-databind",
+                  "version": "2.13.4.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ba1a368137f9b92f48dd07f299ff7a782a69487b853ef5578215426fcde8f08b",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4.2",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+                  "parent": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.4",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "com.fasterxml.jackson.module",
+              "artifactId": "jackson-module-parameter-names",
+              "version": "2.13.4",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "e67856b02a988768784c5a675c0ad5c17e330cd78375ef39e740cbf04879d363",
+              "scope": "compile",
+              "selectedVersion": "2.13.4",
+              "included": true,
+              "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.4",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": [
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-core",
+                  "version": "2.13.4",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4c2e043200edd9ee7ba6fc378bd5c17784a5bf2388e152d208068b51fd0839cf",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-core:2.13.4",
+                  "parent": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.4",
+                  "children": []
+                },
+                {
+                  "groupId": "com.fasterxml.jackson.core",
+                  "artifactId": "jackson-databind",
+                  "version": "2.13.4.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ba1a368137f9b92f48dd07f299ff7a782a69487b853ef5578215426fcde8f08b",
+                  "scope": "compile",
+                  "selectedVersion": "2.13.4.2",
+                  "included": false,
+                  "id": "com.fasterxml.jackson.core:jackson-databind:2.13.4.2",
+                  "parent": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.4",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-web",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "d7e9b62ae99354b84e42c0a61efd70e384c6cecd9354408b9c1a3002fed3d5fc",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-web:5.3.24",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot-starter",
+              "version": "2.7.6",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "bbfad5d367c08e8541ccb33699bce7114b0e7d3f5be895069683e24a05d3bff8",
+              "scope": "compile",
+              "selectedVersion": "2.7.6",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot-starter:2.7.6",
+              "parent": "org.springframework.boot:spring-boot-starter-json:2.7.6",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-tomcat",
+          "version": "2.7.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "2d799aac977ac127f61f5949c79ce3db4a4d0fa7c12e30af5a48b3da9b30a83f",
+          "scope": "compile",
+          "selectedVersion": "2.7.6",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-starter-tomcat:2.7.6",
+          "parent": "org.springframework.boot:spring-boot-starter-web:2.7.6",
+          "children": [
+            {
+              "groupId": "jakarta.annotation",
+              "artifactId": "jakarta.annotation-api",
+              "version": "1.3.5",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "85fb03fc054cdf4efca8efd9b6712bbb418e1ab98241c4539c8585bbc23e1b8a",
+              "scope": "compile",
+              "selectedVersion": "1.3.5",
+              "included": false,
+              "id": "jakarta.annotation:jakarta.annotation-api:1.3.5",
+              "parent": "org.springframework.boot:spring-boot-starter-tomcat:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.tomcat.embed",
+              "artifactId": "tomcat-embed-core",
+              "version": "9.0.69",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "ddf4d7cd96e409587103849f9e9d3091fab8b0083ad2e525a406a86aab101ea7",
+              "scope": "compile",
+              "selectedVersion": "9.0.69",
+              "included": true,
+              "id": "org.apache.tomcat.embed:tomcat-embed-core:9.0.69",
+              "parent": "org.springframework.boot:spring-boot-starter-tomcat:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.tomcat.embed",
+              "artifactId": "tomcat-embed-el",
+              "version": "9.0.69",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "73918e2ebdd0a7bb59e1a7febdc15ebf9cc4e0daa741ef5e68b0dc6c4156faed",
+              "scope": "compile",
+              "selectedVersion": "9.0.69",
+              "included": false,
+              "id": "org.apache.tomcat.embed:tomcat-embed-el:9.0.69",
+              "parent": "org.springframework.boot:spring-boot-starter-tomcat:2.7.6",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.tomcat.embed",
+              "artifactId": "tomcat-embed-websocket",
+              "version": "9.0.69",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "38faa21939dc0803abe1bd4f46b13784b83be297bab92343151e14b6f42330f5",
+              "scope": "compile",
+              "selectedVersion": "9.0.69",
+              "included": true,
+              "id": "org.apache.tomcat.embed:tomcat-embed-websocket:9.0.69",
+              "parent": "org.springframework.boot:spring-boot-starter-tomcat:2.7.6",
+              "children": [
+                {
+                  "groupId": "org.apache.tomcat.embed",
+                  "artifactId": "tomcat-embed-core",
+                  "version": "9.0.69",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "ddf4d7cd96e409587103849f9e9d3091fab8b0083ad2e525a406a86aab101ea7",
+                  "scope": "compile",
+                  "selectedVersion": "9.0.69",
+                  "included": false,
+                  "id": "org.apache.tomcat.embed:tomcat-embed-core:9.0.69",
+                  "parent": "org.apache.tomcat.embed:tomcat-embed-websocket:9.0.69",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "org.springframework.data",
+      "artifactId": "spring-data-commons",
+      "version": "2.7.6",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "8903f08719c8a220fbbb502ebad23c7f5694ad382493e3ce0e7fcf6bedaccae1",
+      "scope": "compile",
+      "selectedVersion": "2.7.6",
+      "included": true,
+      "id": "org.springframework.data:spring-data-commons:2.7.6",
+      "children": [
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "1.7.36",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+          "scope": "compile",
+          "selectedVersion": "1.7.36",
+          "included": true,
+          "id": "org.slf4j:slf4j-api:1.7.36",
+          "parent": "org.springframework.data:spring-data-commons:2.7.6",
+          "children": []
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-beans",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "19eb1978cc48c0c36d9902c16dfb608a2fcec9c822889280493a6ebb2ada4114",
+          "scope": "compile",
+          "selectedVersion": "5.3.24",
+          "included": true,
+          "id": "org.springframework:spring-beans:5.3.24",
+          "parent": "org.springframework.data:spring-data-commons:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": false,
+              "id": "org.springframework:spring-core:5.3.24",
+              "parent": "org.springframework:spring-beans:5.3.24",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-core",
+          "version": "5.3.24",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "7d513957395e6a354b80e714b31a52b765dd6c771b50a26419d277a06d13ea68",
+          "scope": "compile",
+          "selectedVersion": "5.3.24",
+          "included": true,
+          "id": "org.springframework:spring-core:5.3.24",
+          "parent": "org.springframework.data:spring-data-commons:2.7.6",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-jcl",
+              "version": "5.3.24",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "a62d125552e7c8d438145ea31af6b027be244e631fea5ebb3c62f60147afd7ae",
+              "scope": "compile",
+              "selectedVersion": "5.3.24",
+              "included": true,
+              "id": "org.springframework:spring-jcl:5.3.24",
+              "parent": "org.springframework:spring-core:5.3.24",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "Linux",
+      "mavenVersion": "3.8.3",
+      "javaVersion": "11.0.22"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "reduced": false,
+      "mavenLockfileVersion": "5.0.0",
+      "checksumMode": "maven_local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}
