@@ -24,8 +24,8 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 /**
  * Freeze the dependencies of a project. Every dependency will be locked to a specific version.
- * For this every version in the pom file will be replaced with the version from the lock file.
- * This also adds all dependencies from the lock file that are not in the pom file.
+ * For this every version of direct dependencies in the pom file will be replaced with the version from the lock file.
+ * This also adds all transitive dependencies from the lock file inside the dependencyManagement section.
  * <br>
  * <b> If there exists no lock file, this fails.</b>
  */
