@@ -99,11 +99,20 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     }
 
     @MavenTest
-    public void checkSpringFreeze(MavenExecutionResult result) throws Exception {
+    public void freezeWithoutDepManagement(MavenExecutionResult result) throws Exception {
+        checkFreeze(result);
+    }
+
+    @MavenTest
+    public void freezeWithDepManagement(MavenExecutionResult result) throws Exception {
+        checkFreeze(result);
+    }
+
+    private void checkFreeze(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
 
-        Path pomPath = findFile(result, "pom.xml");
-        Path lockfilePomPath = findFile(result, "pom.lockfile.xml");
+        Path pomPath = findFile(result, "pom.lockfile.xml");
+        Path lockfilePomPath = findFile(result, "pom.lockfile.expected.xml");
 
         Model lockfilePom = readPom(lockfilePomPath);
         Model pom = readPom(pomPath);
@@ -112,6 +121,11 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         List<String> lockfileDepKeys = getDependencyKeys(lockfilePom.getDependencies());
         List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
         assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
+
+        List<String> lockfileDepManKeys = getDependencyKeys(lockfilePom.getDependencyManagement().getDependencies());
+        List<String> pomDepManKeys = getDependencyKeys(pom.getDependencyManagement().getDependencies());
+        assertThat(pomDepManKeys).hasSameSizeAs(lockfileDepManKeys)
+                .containsExactlyInAnyOrderElementsOf(lockfileDepManKeys);
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
