@@ -12,11 +12,14 @@
 
 ![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
 
-This plugin is a state-of-the-art solution that validates the integrity of a maven build.
-It does this by generating a lock file that contains the checksums of all the artifacts in the repository.
+This plugin is a state-of-the-art solution that validates the integrity of a maven build. 
+It does this by generating a lock file that contains the checksums of all the artifacts in the repository. 
 The lock file can then be used to validate the integrity prior to building.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
-We also allow you to rebuild your old versions with the pinned versions from the lockfile with `freeze`. 
+We also allow to rebuild your old versions with the pinned versions from the lockfile.
+We call this `freeze` and replace all versions in the pom with the versions from the lockfile.
+Also, every transitive dependency is pinned to the version from the lockfile.
+We add these dependencies to the pom and due to the transitive dependency resolution of maven, the exact versions are used.
 
 # Features:
 
@@ -54,9 +57,8 @@ If this runs successfully, the repository is valid. All dependencies defined are
 ```
 mvn io.github.chains-project:maven-lockfile:freeze
 ```
-This creates a new pom file with the default name `pom.lockfile.xml`. A custom name can be passed with the flag `pomLockfileName`.
-In the new pom file, every version of direct dependencies in the original pom will be replaced with the versions from the lockfile. Also, every transitive dependency is added to the pom inside the `dependencyManagement` section with the version and scope from the lockfile.
-If you invoke build afterward with the -f flag (`mvn -f pom.lockfile.xml`), the exact versions from the lockfile are used.
+This replaces every version in the pom with the version from the lockfile. Also, every transitive dependency is added to the pom with the version from the lockfile.
+If you invoke build afterward, the exact versions from the lockfile are used.
 
 
 ## Flags
