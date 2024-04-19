@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
@@ -124,7 +123,8 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         // ensure pom.xml is similar to the lockfile pom after applying freeze
         List<String> expectedLockfileDepKeys = getDependencyKeys(expectedLockfilePom.getDependencies());
         List<String> actualLockfileDepKeys = getDependencyKeys(actualLockfilePom.getDependencies());
-        assertThat(actualLockfileDepKeys).hasSameSizeAs(expectedLockfileDepKeys)
+        assertThat(actualLockfileDepKeys)
+                .hasSameSizeAs(expectedLockfileDepKeys)
                 .containsExactlyInAnyOrderElementsOf(expectedLockfileDepKeys);
 
         List<String> expectedLockfileDepManKeys =
@@ -136,8 +136,9 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
                 .containsExactlyInAnyOrderElementsOf(expectedLockfileDepManKeys);
 
         // assert that the original pom file has not changed
-        assertTrue("The original pom file has been changed.", FileUtils.contentEquals(actualPomPath.toFile(),
-                expectedPomPath.toFile()));
+        assertTrue(
+                "The original pom file has been changed.",
+                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()));
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
