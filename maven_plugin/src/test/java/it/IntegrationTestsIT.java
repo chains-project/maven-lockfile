@@ -27,7 +27,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void simpleProject(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
@@ -37,7 +37,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void singleDependency(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
@@ -53,7 +53,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void singleDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
@@ -75,7 +75,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     public void pluginProject(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getMavenPlugins()).isNotEmpty();
@@ -87,12 +87,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     public void freezeJunit(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        var path = Files.find(
-                        result.getMavenProjectResult().getTargetBaseDirectory(),
-                        Integer.MAX_VALUE,
-                        (u, v) -> u.getFileName().toString().contains("pom.xml"))
-                .findAny()
-                .orElseThrow();
+        Path path = findFile(result, "pom.xml");
         var pom = Files.readString(path);
         assertThat(pom).contains("<groupId>org.junit.jupiter</groupId>");
         assertThat(pom).contains("<artifactId>junit-jupiter-api</artifactId>");
@@ -170,7 +165,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     void reduceLog4jAffected(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
@@ -181,21 +176,12 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     void reduceLog4jNotAffected(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
                 .noneMatch(v -> v.getArtifactId().getValue().equals("log4j-core")
                         && v.getVersion().getValue().equals("2.0"));
-    }
-
-    private Path getLockFile(MavenExecutionResult result) throws IOException {
-        return Files.find(
-                        result.getMavenProjectResult().getTargetBaseDirectory(),
-                        Integer.MAX_VALUE,
-                        (v, u) -> v.getFileName().toString().contains("lockfile.json"))
-                .findFirst()
-                .orElseThrow();
     }
 
     public List<DependencyNode> flattenDependencies(DependencyNode node) {
