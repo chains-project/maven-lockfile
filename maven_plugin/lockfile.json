@@ -222,6 +222,17 @@
       ]
     },
     {
+      "groupId": "commons-io",
+      "artifactId": "commons-io",
+      "version": "2.15.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "a58af12ee1b68cfd2ebb0c27caef164f084381a00ec81a48cc275fd7ea54e154",
+      "scope": "test",
+      "selectedVersion": "2.15.1",
+      "id": "commons-io:commons-io:2.15.1",
+      "children": []
+    },
+    {
       "groupId": "org.apache.logging.log4j",
       "artifactId": "log4j-core",
       "version": "2.23.1",
@@ -1464,7 +1475,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "675f60bd11a82d481736591fe4054c66471fa5463d45616652fd71585792ba87",
           "scope": "test",
-          "selectedVersion": "2.2",
+          "selectedVersion": "2.15.1",
           "id": "commons-io:commons-io:2.2",
           "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:3.3.0",
           "children": []
