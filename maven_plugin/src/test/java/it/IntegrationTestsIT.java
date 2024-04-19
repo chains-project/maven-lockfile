@@ -14,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -111,24 +113,31 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     private void checkFreeze(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
 
-        Path pomPath = findFile(result, "pom.lockfile.xml");
-        Path lockfilePomPath = findFile(result, "pom.lockfile.expected.xml");
+        Path actualPomPath = findFile(result, "pom.xml");
+        Path expectedPomPath = findFile(result, "pom.original.xml");
+        Path actualLockfilePomPath = findFile(result, "pom.lockfile.xml");
+        Path expectedLockfilePomPath = findFile(result, "pom.lockfile.expected.xml");
 
-        Model lockfilePom = readPom(lockfilePomPath);
-        Model pom = readPom(pomPath);
+        Model expectedLockfilePom = readPom(expectedLockfilePomPath);
+        Model actualLockfilePom = readPom(actualLockfilePomPath);
 
         // ensure pom.xml is similar to the lockfile pom after applying freeze
-        List<String> lockfileDepKeys = getDependencyKeys(lockfilePom.getDependencies());
-        List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
-        assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
+        List<String> expectedLockfileDepKeys = getDependencyKeys(expectedLockfilePom.getDependencies());
+        List<String> actualLockfileDepKeys = getDependencyKeys(actualLockfilePom.getDependencies());
+        assertThat(actualLockfileDepKeys).hasSameSizeAs(expectedLockfileDepKeys)
+                .containsExactlyInAnyOrderElementsOf(expectedLockfileDepKeys);
 
-        List<String> lockfileDepManKeys =
-                getDependencyKeys(lockfilePom.getDependencyManagement().getDependencies());
-        List<String> pomDepManKeys =
-                getDependencyKeys(pom.getDependencyManagement().getDependencies());
-        assertThat(pomDepManKeys)
-                .hasSameSizeAs(lockfileDepManKeys)
-                .containsExactlyInAnyOrderElementsOf(lockfileDepManKeys);
+        List<String> expectedLockfileDepManKeys =
+                getDependencyKeys(expectedLockfilePom.getDependencyManagement().getDependencies());
+        List<String> actualPomDepManKeys =
+                getDependencyKeys(actualLockfilePom.getDependencyManagement().getDependencies());
+        assertThat(actualPomDepManKeys)
+                .hasSameSizeAs(expectedLockfileDepManKeys)
+                .containsExactlyInAnyOrderElementsOf(expectedLockfileDepManKeys);
+
+        // assert that the original pom file has not changed
+        assertTrue("The original pom file has been changed.", FileUtils.contentEquals(actualPomPath.toFile(),
+                expectedPomPath.toFile()));
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {

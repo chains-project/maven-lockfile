@@ -42,8 +42,8 @@ public class FreezeDependencyMojo extends AbstractMojo {
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession session;
 
-    @Parameter(defaultValue = "pom.lockfile.xml", property = "pomLockfileName")
-    private String pomLockfileName;
+    @Parameter(defaultValue = "pom.lockfile.xml", property = "pomLockfileOutput")
+    private String pomLockfileOutput;
 
     /**
      * Freezes the dependencies of the project. Every dependency will be locked to a specific version.
@@ -52,7 +52,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException {
         File pomFile = project.getFile();
-        File pomLockFile = new File(project.getBasedir(), pomLockfileName);
+        File pomLockFile = new File(project.getBasedir(), pomLockfileOutput);
         try {
             LockFile lockFile = LockFile.readLockFile(LockFileFacade.getLockFilePath(project));
             List<Dependency> filteredDependencies = getNearestVersionDependency(lockFile);

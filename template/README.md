@@ -54,7 +54,7 @@ If this runs successfully, the repository is valid. All dependencies defined are
 ```
 mvn io.github.chains-project:maven-lockfile:freeze
 ```
-This creates a new pom file with the default name `pom.lockfile.xml`. A custom name can be passed with the flag `pomLockfileName`.
+This creates a new pom file with the default name `pom.lockfile.xml`. A custom name can be passed with the flag `pomLockfileOutput`.
 In the new pom file, every version of direct dependencies in the original pom will be replaced with the versions from the lockfile. Also, every transitive dependency is added to the pom inside the `dependencyManagement` section with the version and scope from the lockfile.
 If you invoke build afterward with the -f flag (`mvn -f pom.lockfile.xml`), the exact versions from the lockfile are used.
 
