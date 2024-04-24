@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -26,7 +27,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void simpleProject(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
@@ -36,7 +37,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void singleDependency(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
@@ -52,7 +53,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     public void singleDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
@@ -74,7 +75,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     public void pluginProject(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getMavenPlugins()).isNotEmpty();
@@ -86,12 +87,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     public void freezeJunit(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        var path = Files.find(
-                        result.getMavenProjectResult().getTargetBaseDirectory(),
-                        Integer.MAX_VALUE,
-                        (u, v) -> u.getFileName().toString().contains("pom.xml"))
-                .findAny()
-                .orElseThrow();
+        Path path = findFile(result, "pom.xml");
         var pom = Files.readString(path);
         assertThat(pom).contains("<groupId>org.junit.jupiter</groupId>");
         assertThat(pom).contains("<artifactId>junit-jupiter-api</artifactId>");
@@ -99,19 +95,45 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     }
 
     @MavenTest
-    public void checkSpringFreeze(MavenExecutionResult result) throws Exception {
+    public void freezeWithoutDepManagement(MavenExecutionResult result) throws Exception {
+        checkFreeze(result);
+    }
+
+    @MavenTest
+    public void freezeWithDepManagement(MavenExecutionResult result) throws Exception {
+        checkFreeze(result);
+    }
+
+    private void checkFreeze(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
 
-        Path pomPath = findFile(result, "pom.xml");
-        Path lockfilePomPath = findFile(result, "pom.lockfile.xml");
+        Path actualPomPath = findFile(result, "pom.xml");
+        Path expectedPomPath = findFile(result, "pom.original.xml");
+        Path actualLockfilePomPath = findFile(result, "pom.lockfile.xml");
+        Path expectedLockfilePomPath = findFile(result, "pom.lockfile.expected.xml");
 
-        Model lockfilePom = readPom(lockfilePomPath);
-        Model pom = readPom(pomPath);
+        Model expectedLockfilePom = readPom(expectedLockfilePomPath);
+        Model actualLockfilePom = readPom(actualLockfilePomPath);
 
         // ensure pom.xml is similar to the lockfile pom after applying freeze
-        List<String> lockfileDepKeys = getDependencyKeys(lockfilePom.getDependencies());
-        List<String> pomDepKeys = getDependencyKeys(pom.getDependencies());
-        assertThat(pomDepKeys).hasSameSizeAs(lockfileDepKeys).containsExactlyInAnyOrderElementsOf(lockfileDepKeys);
+        List<String> expectedLockfileDepKeys = getDependencyKeys(expectedLockfilePom.getDependencies());
+        List<String> actualLockfileDepKeys = getDependencyKeys(actualLockfilePom.getDependencies());
+        assertThat(actualLockfileDepKeys)
+                .hasSameSizeAs(expectedLockfileDepKeys)
+                .containsExactlyInAnyOrderElementsOf(expectedLockfileDepKeys);
+
+        List<String> expectedLockfileDepManKeys =
+                getDependencyKeys(expectedLockfilePom.getDependencyManagement().getDependencies());
+        List<String> actualPomDepManKeys =
+                getDependencyKeys(actualLockfilePom.getDependencyManagement().getDependencies());
+        assertThat(actualPomDepManKeys)
+                .hasSameSizeAs(expectedLockfileDepManKeys)
+                .containsExactlyInAnyOrderElementsOf(expectedLockfileDepManKeys);
+
+        // assert that the original pom file has not changed
+        assertTrue(
+                "The original pom file has been changed.",
+                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()));
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
@@ -143,7 +165,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     void reduceLog4jAffected(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
@@ -154,21 +176,12 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
     @MavenTest
     void reduceLog4jNotAffected(MavenExecutionResult result) throws Exception {
         assertThat(result).isSuccessful();
-        Path lockFilePath = getLockFile(result);
+        Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
                 .noneMatch(v -> v.getArtifactId().getValue().equals("log4j-core")
                         && v.getVersion().getValue().equals("2.0"));
-    }
-
-    private Path getLockFile(MavenExecutionResult result) throws IOException {
-        return Files.find(
-                        result.getMavenProjectResult().getTargetBaseDirectory(),
-                        Integer.MAX_VALUE,
-                        (v, u) -> v.getFileName().toString().contains("lockfile.json"))
-                .findFirst()
-                .orElseThrow();
     }
 
     public List<DependencyNode> flattenDependencies(DependencyNode node) {
