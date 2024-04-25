@@ -21,7 +21,7 @@
     the repository.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
   <prerequisites>
-    <maven>${mavenVersion}</maven>
+    <maven>3.2.5</maven>
   </prerequisites>
   <properties>
     <mavenVersion>3.9.6</mavenVersion>
