@@ -2117,13 +2117,6 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-install-plugin",
-      "version": "3.1.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "6bf2f4a06369f599818c5cee1d5ed957b7caf4aa0003b9867ad5525f8bca8086"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-failsafe-plugin",
       "version": "3.2.5",
       "checksumAlgorithm": "SHA-256",
@@ -2149,6 +2142,13 @@
       "version": "3.2.5",
       "checksumAlgorithm": "SHA-256",
       "checksum": "e35a8d2114b4c0166c3bf8e40ac63dd4608734347d7294555b6160a661294a92"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-install-plugin",
+      "version": "3.1.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "3541e043252daf4e73b9e0e8badcc74a89bd6855419622d7739873fc9324feac"
     },
     {
       "groupId": "org.apache.maven.plugins",
