@@ -48,7 +48,7 @@ If the command fails, this means a dependency has changed.
 
 ###  Rebuild old versions with the pinned versions from the lockfile.
 
-Fir create `pom.lockfile.xml`
+First create `pom.lockfile.xml`
 ```
 mvn io.github.chains-project:maven-lockfile:freeze
 ```
