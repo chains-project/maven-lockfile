@@ -7,13 +7,26 @@
     {
       "groupId": "com.google.code.gson",
       "artifactId": "gson",
-      "version": "2.10.1",
+      "version": "2.11.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "4241c14a7727c34feea6507ec801318a3d4a90f070e4525681079fb94ee4c593",
+      "checksum": "57928d6e5a6edeb2abd3770a8f95ba44dce45f3b23b7a9dc2b309c581552a78b",
       "scope": "compile",
-      "selectedVersion": "2.10.1",
-      "id": "com.google.code.gson:gson:2.10.1",
-      "children": []
+      "selectedVersion": "2.11.0",
+      "id": "com.google.code.gson:gson:2.11.0",
+      "children": [
+        {
+          "groupId": "com.google.errorprone",
+          "artifactId": "error_prone_annotations",
+          "version": "2.27.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "24c923372c58e35d0b9f16a028929bb9aedc77521867c274f2bd0735df5ba1f5",
+          "scope": "compile",
+          "selectedVersion": "2.27.0",
+          "id": "com.google.errorprone:error_prone_annotations:2.27.0",
+          "parent": "com.google.code.gson:gson:2.11.0",
+          "children": []
+        }
+      ]
     },
     {
       "groupId": "com.google.guava",
@@ -44,7 +57,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "de25f2d9a2156529bd765f51d8efdfc0dfa7301e04efb9cc75b7f10cf5d0e0fb",
           "scope": "compile",
-          "selectedVersion": "2.26.1",
+          "selectedVersion": "2.27.0",
           "id": "com.google.errorprone:error_prone_annotations:2.26.1",
           "parent": "com.google.guava:guava:33.2.0-jre",
           "children": []
@@ -2204,7 +2217,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.8.2",
-      "javaVersion": "11.0.22"
+      "javaVersion": "11.0.23"
     },
     "config": {
       "includeMavenPlugins": true,
