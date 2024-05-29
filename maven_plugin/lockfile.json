@@ -1197,7 +1197,7 @@
           "version": "1.9.18",
           "checksumAlgorithm": "SHA-256",
           "checksum": "2eb0ea667bc489384478231dda7516407d4b5b22a138077229871de9362a7ae2",
-          "scope": "provided",
+          "scope": "compile",
           "selectedVersion": "1.9.18",
           "id": "org.apache.maven.resolver:maven-resolver-util:1.9.18",
           "parent": "org.apache.maven:maven-core:3.9.6",
@@ -1208,7 +1208,7 @@
               "version": "1.9.18",
               "checksumAlgorithm": "SHA-256",
               "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
-              "scope": "provided",
+              "scope": "compile",
               "selectedVersion": "1.9.20",
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
               "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.18",
@@ -1838,37 +1838,24 @@
     {
       "groupId": "org.apache.maven.shared",
       "artifactId": "maven-dependency-tree",
-      "version": "3.2.1",
+      "version": "3.3.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "482811ea38f339d2b0867a7852a195b56e329fdb37066b2f3035a209c111a2bc",
+      "checksum": "a3353f6a82feb950d5e7e64b0cd4ceadea7eb62112e447172e34974a510316f4",
       "scope": "compile",
-      "selectedVersion": "3.2.1",
-      "id": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
+      "selectedVersion": "3.3.0",
+      "id": "org.apache.maven.shared:maven-dependency-tree:3.3.0",
       "children": [
         {
-          "groupId": "org.eclipse.aether",
-          "artifactId": "aether-util",
-          "version": "1.0.0.v20140518",
+          "groupId": "org.apache.maven.resolver",
+          "artifactId": "maven-resolver-util",
+          "version": "1.4.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "aff0951639837c4e3a4699a421fa79f410032f603f5c6a5bba435e98531f3984",
+          "checksum": "6b2184872fa7cc2ef5a90481b56af9711c15b371e69ab52f0f31bf24e910dd82",
           "scope": "compile",
-          "selectedVersion": "1.0.0.v20140518",
-          "id": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-          "parent": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
-          "children": [
-            {
-              "groupId": "org.eclipse.aether",
-              "artifactId": "aether-api",
-              "version": "1.0.0.v20140518",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "84b98521684ab22f9528470fa6d8ab68a230e1b211623c989ba7016c306eb773",
-              "scope": "compile",
-              "selectedVersion": "1.0.0.v20140518",
-              "id": "org.eclipse.aether:aether-api:1.0.0.v20140518",
-              "parent": "org.eclipse.aether:aether-util:1.0.0.v20140518",
-              "children": []
-            }
-          ]
+          "selectedVersion": "1.9.18",
+          "id": "org.apache.maven.resolver:maven-resolver-util:1.4.1",
+          "parent": "org.apache.maven.shared:maven-dependency-tree:3.3.0",
+          "children": []
         },
         {
           "groupId": "org.slf4j",
@@ -1879,7 +1866,7 @@
           "scope": "compile",
           "selectedVersion": "1.7.36",
           "id": "org.slf4j:slf4j-api:1.7.36",
-          "parent": "org.apache.maven.shared:maven-dependency-tree:3.2.1",
+          "parent": "org.apache.maven.shared:maven-dependency-tree:3.3.0",
           "children": []
         }
       ]
