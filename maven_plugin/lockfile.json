@@ -2081,6 +2081,13 @@
   ],
   "mavenPlugins": [
     {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-plugin-plugin",
+      "version": "3.13.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "68642549d6a65823f680754c2234f07cf68869ba7afd6f4160ac0c08fccd3e74"
+    },
+    {
       "groupId": "com.soebes.itf.jupiter.extension",
       "artifactId": "itf-maven-plugin",
       "version": "0.13.1",
@@ -2156,13 +2163,6 @@
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-plugin-plugin",
-      "version": "3.10.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "a7c4d80639c97df9ee8957b29ec0c6c9fda56861b3bec8016becda0251b543b6"
     },
     {
       "groupId": "org.apache.maven.plugins",
