@@ -5,10 +5,8 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+
+import java.util.*;
 import javax.annotation.Nullable;
 
 /**
@@ -35,7 +33,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     @Expose(serialize = false, deserialize = false)
     private NodeId parent;
 
-    private final List<DependencyNode> children;
+    private final Set<DependencyNode> children;
 
     DependencyNode(
             ArtifactId artifactId,
@@ -49,7 +47,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.version = version;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
-        this.children = new ArrayList<>();
+        this.children = new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum));
         this.id = new NodeId(groupId, artifactId, version);
         this.scope = scope;
     }
@@ -90,7 +88,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
         if (!child.parent.equals(id)) {
             throw new IllegalStateException("Child node has wrong parent");
         }
-        Collections.sort(children);
     }
 
     void setParent(NodeId parent) {
@@ -100,8 +97,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
     /**
      * @return the children
      */
-    public List<DependencyNode> getChildren() {
-        return Collections.unmodifiableList(children);
+    public Set<DependencyNode> getChildren() {
+        return Collections.unmodifiableSet(children);
     }
 
     /**

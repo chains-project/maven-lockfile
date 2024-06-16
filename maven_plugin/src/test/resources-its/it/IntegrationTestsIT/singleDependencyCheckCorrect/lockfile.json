@@ -15,18 +15,6 @@
       "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
       "children": [
         {
-          "groupId": "org.apiguardian",
-          "artifactId": "apiguardian-api",
-          "version": "1.1.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-          "scope": "test",
-          "selectedVersion": "1.1.2",
-          "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "children": []
-        },
-        {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
           "version": "1.9.2",
@@ -60,6 +48,18 @@
           "scope": "test",
           "selectedVersion": "1.2.0",
           "id": "org.opentest4j:opentest4j:1.2.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        },
+        {
+          "groupId": "org.apiguardian",
+          "artifactId": "apiguardian-api",
+          "version": "1.1.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+          "scope": "test",
+          "selectedVersion": "1.1.2",
+          "id": "org.apiguardian:apiguardian-api:1.1.2",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
           "children": []
         }

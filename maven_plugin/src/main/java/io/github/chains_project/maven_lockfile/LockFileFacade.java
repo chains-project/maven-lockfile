@@ -11,8 +11,7 @@ import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
@@ -86,7 +85,7 @@ public class LockFileFacade {
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
         LOGGER.info("Generating lock file for project " + project.getArtifactId());
-        List<MavenPlugin> plugins = new ArrayList<>();
+        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, checksumCalculator);
         }
@@ -97,7 +96,8 @@ public class LockFileFacade {
                 dependencyCollectorBuilder,
                 checksumCalculator,
                 metadata.getConfig().isReduced());
-        var roots = graph.getGraph().stream().filter(v -> v.getParent() == null).collect(Collectors.toList());
+        var roots = graph.getGraph().stream().filter(v -> v.getParent() == null)
+                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getChecksum))));
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -107,9 +107,9 @@ public class LockFileFacade {
                 metadata);
     }
 
-    private static List<MavenPlugin> getAllPlugins(
+    private static Set<MavenPlugin> getAllPlugins(
             MavenProject project, AbstractChecksumCalculator checksumCalculator) {
-        List<MavenPlugin> plugins = new ArrayList<>();
+        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
