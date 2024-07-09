@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.graph;
 
 import com.google.gson.annotations.Expose;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -20,6 +21,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private final GroupId groupId;
     private final ArtifactId artifactId;
     private final VersionNumber version;
+    private final Classifier classifier;
     private final String checksumAlgorithm;
     private final String checksum;
     private final MavenScope scope;
@@ -41,12 +43,14 @@ public class DependencyNode implements Comparable<DependencyNode> {
             ArtifactId artifactId,
             GroupId groupId,
             VersionNumber version,
+            Classifier classifier,
             MavenScope scope,
             String checksumAlgorithm,
             String checksum) {
         this.artifactId = artifactId;
         this.groupId = groupId;
         this.version = version;
+        this.classifier = classifier;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
         this.children = new ArrayList<>();
@@ -76,6 +80,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public VersionNumber getVersion() {
         return version;
+    }
+    /**
+     * @return the classifier or null if not present
+     */
+    public Classifier getClassifier() {
+        return classifier;
     }
     /**
      * @return the scope
@@ -149,6 +159,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 groupId,
                 artifactId,
                 version,
+                classifier,
                 checksumAlgorithm,
                 checksum,
                 scope,
@@ -170,6 +181,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         return Objects.equals(groupId, other.groupId)
                 && Objects.equals(artifactId, other.artifactId)
                 && Objects.equals(version, other.version)
+                && Objects.equals(classifier, other.classifier)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
                 && Objects.equals(checksum, other.checksum)
                 && scope == other.scope
@@ -189,14 +201,27 @@ public class DependencyNode implements Comparable<DependencyNode> {
         if (artifactIdCompare != 0) {
             return artifactIdCompare;
         }
-        return version.compareTo(o.version);
+        int versionCompare = version.compareTo(o.version);
+        if (versionCompare != 0) {
+            return versionCompare;
+        }
+        if (classifier == null) {
+            if (o.classifier == null) {
+                return 0;
+            }
+            return -1;
+        }
+        if (o.classifier == null) {
+            return 1;
+        }
+        return classifier.compareTo(o.classifier);
     }
 
     @Override
     public String toString() {
-        return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version="
-                + version + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
-                + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent="
-                + parent + ", children=" + children + "]";
+        return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version
+                + ", classifier=" + classifier + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
+                + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
+                + ", children=" + children + "]";
     }
 }

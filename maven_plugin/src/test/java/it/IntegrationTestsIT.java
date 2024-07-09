@@ -45,6 +45,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("spoon-core");
         assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("fr.inria.gforge.spoon");
         assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("10.3.0");
+        assertThat(junitDep.getClassifier()).isNull();
         assertThat(junitDep.getChecksum())
                 .isEqualTo("37a43de039cf9a6701777106e3c5921e7131e5417fa707709abf791d3d8d9174");
     }
@@ -61,6 +62,7 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
         assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
         assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitDep.getClassifier()).isNull();
         assertThat(junitDep.getChecksum())
                 .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
     }
@@ -195,5 +197,58 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         for (DependencyNode child : node.getChildren()) {
             flattenDependencies(child, dependencies);
         }
+    }
+
+    @MavenTest
+    void classifierDependency(MavenExecutionResult result) throws Exception {
+        classifier(result);
+    }
+
+    @MavenTest
+    void classifierDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
+        classifier(result);
+    }
+
+    private void classifier(MavenExecutionResult result) throws Exception {
+        // contract: an empty project should generate an empty lock file
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).hasSize(3);
+        var junitDep = lockFile.getDependencies().get(0);
+        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
+        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitDep.getClassifier()).isNull();
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
+
+        var junitJavaDocsDep = lockFile.getDependencies().get(1);
+        assertThat(junitJavaDocsDep.getArtifactId())
+                .extracting(v -> v.getValue())
+                .isEqualTo("junit-jupiter-api");
+        assertThat(junitJavaDocsDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
+        assertThat(junitJavaDocsDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitJavaDocsDep.getClassifier())
+                .extracting(v -> v.getValue())
+                .isEqualTo("javadoc");
+        assertThat(junitJavaDocsDep.getChecksum())
+                .isEqualTo("789224a3a7bff190858307399f64ee7d7e4ab810c7eab12ee107e27765acd8d9");
+
+        var junitSourceDep = lockFile.getDependencies().get(2);
+        assertThat(junitSourceDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
+        assertThat(junitSourceDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
+        assertThat(junitSourceDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitSourceDep.getClassifier()).extracting(v -> v.getValue()).isEqualTo("sources");
+        assertThat(junitSourceDep.getChecksum())
+                .isEqualTo("2b04279c000da27679100d5854d3045a09c2a9a4cda942777f0b0519bb9f295d");
+    }
+
+    @MavenTest
+    public void classifierDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
+        // contract: a changed dependency should fail the build.
+        // we changed the classifier id of "classifier": "sources", to "classifier": "42",
+        assertThat(result).isFailure();
     }
 }
