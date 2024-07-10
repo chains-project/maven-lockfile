@@ -42,13 +42,6 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-clean-plugin",
-      "version": "3.3.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "0c86dc6dc7c3370ebe08b353a02a98fb17d14303036c00eb12f0c8977f264b9f"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
       "version": "3.4.2",
       "checksumAlgorithm": "SHA-256",
@@ -81,6 +74,13 @@
       "version": "2.8.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "6852aa0f4e42a2db745bab80e384951a6a65b9215d041081d675780999027e81"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.4.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "1e00437fc88814a0790dbc45fe8c482a92b077ad12c3890614f9aee9fb194660"
     },
     {
       "groupId": "com.diffplug.spotless",
