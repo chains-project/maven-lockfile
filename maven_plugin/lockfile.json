@@ -2097,9 +2097,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-surefire-plugin",
-      "version": "3.3.0",
+      "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "6ec9e03a89daf5c82928aba4149de015f29fb4414b663ba463d8ea1fd121d04c"
+      "checksum": "004f2abbd1abd4e32476bce6bad9c0b191f6ad4854ea5259d24540116da46fcb"
     },
     {
       "groupId": "org.apache.maven.plugins",
