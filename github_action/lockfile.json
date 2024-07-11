@@ -6178,6 +6178,13 @@
   "mavenPlugins": [
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-failsafe-plugin",
+      "version": "3.3.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "ed0bfadc8609f830d059d9d949f021479ec55d6f7348a18ec1721395c7eb9a9d"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
       "version": "3.5.1",
       "checksumAlgorithm": "SHA-256",
@@ -6186,16 +6193,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-surefire-plugin",
-      "version": "3.3.0",
+      "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "6ec9e03a89daf5c82928aba4149de015f29fb4414b663ba463d8ea1fd121d04c"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-failsafe-plugin",
-      "version": "3.3.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "f98ab0a893b92cda4cf30383e4ce7b976b7014d022407ac957540235c4ded133"
+      "checksum": "004f2abbd1abd4e32476bce6bad9c0b191f6ad4854ea5259d24540116da46fcb"
     },
     {
       "groupId": "org.apache.maven.plugins",
