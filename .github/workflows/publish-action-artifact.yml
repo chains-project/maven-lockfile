@@ -1,8 +1,8 @@
-name: Publish action artifact to GitHub project's Maven repository
+name: Publish action artifact to GitHub Maven package
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches:
       - main
 permissions:
