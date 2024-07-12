@@ -1488,7 +1488,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "bd7fa227591fb8509677d0d1122cf95158f3b8a9f45653f58281d879f6dc48c5",
           "scope": "test",
-          "selectedVersion": "33.2.0-jre",
+          "selectedVersion": "33.2.1-jre",
           "id": "com.google.guava:guava:32.0.1-jre",
           "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-alpha-2",
           "children": []
@@ -1692,7 +1692,7 @@
                   "checksumAlgorithm": "SHA-256",
                   "checksum": "4a5aa70cc968a4d137e599ad37553e5cfeed2265e8c193476d7119036c536fe7",
                   "scope": "test",
-                  "selectedVersion": "33.2.0-jre",
+                  "selectedVersion": "33.2.1-jre",
                   "id": "com.google.guava:guava:27.1-jre",
                   "parent": "com.google.inject:guice:4.2.3",
                   "children": []
