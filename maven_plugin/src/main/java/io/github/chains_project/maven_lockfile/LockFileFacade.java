@@ -96,8 +96,10 @@ public class LockFileFacade {
                 dependencyCollectorBuilder,
                 checksumCalculator,
                 metadata.getConfig().isReduced());
-        var roots = graph.getGraph().stream().filter(v -> v.getParent() == null)
-                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getChecksum))));
+        var roots = graph.getGraph().stream()
+                .filter(v -> v.getParent() == null)
+                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
+                        io.github.chains_project.maven_lockfile.graph.DependencyNode::getChecksum))));
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -107,8 +109,7 @@ public class LockFileFacade {
                 metadata);
     }
 
-    private static Set<MavenPlugin> getAllPlugins(
-            MavenProject project, AbstractChecksumCalculator checksumCalculator) {
+    private static Set<MavenPlugin> getAllPlugins(MavenProject project, AbstractChecksumCalculator checksumCalculator) {
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
             plugins.add(new MavenPlugin(

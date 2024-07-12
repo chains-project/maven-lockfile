@@ -7,7 +7,6 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
@@ -17,7 +16,10 @@ public class DependencyGraph {
     private final Set<DependencyNode> graph;
 
     public Set<DependencyNode> getRoots() {
-        return graph.stream().filter(node -> node.getParent() == null).collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
+        return graph.stream()
+                .filter(node -> node.getParent() == null)
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
     }
 
     private DependencyGraph(Set<DependencyNode> graph) {
@@ -62,8 +64,10 @@ public class DependencyGraph {
             createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
-        Set<DependencyNode> dependencyRoots =
-                nodes.stream().flatMap(v -> v.getChildren().stream()).collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
+        Set<DependencyNode> dependencyRoots = nodes.stream()
+                .flatMap(v -> v.getChildren().stream())
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
         dependencyRoots.forEach(v -> v.setParent(null));
         return new DependencyGraph(dependencyRoots);
     }

@@ -5,7 +5,6 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
-
 import java.util.*;
 import javax.annotation.Nullable;
 
