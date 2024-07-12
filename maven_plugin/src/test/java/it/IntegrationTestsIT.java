@@ -1,6 +1,7 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
@@ -21,11 +22,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 @MavenJupiterExtension
-public class IntegrationTestsIT extends AbstractMojoTestCase {
+public class IntegrationTestsIT {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
@@ -135,8 +135,8 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
 
         // assert that the original pom file has not changed
         assertTrue(
-                "The original pom file has been changed.",
-                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()));
+                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()),
+                "The original pom file has been changed.");
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {
