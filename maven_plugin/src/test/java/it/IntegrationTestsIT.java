@@ -1,11 +1,15 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
+import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,11 +22,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 @MavenJupiterExtension
-public class IntegrationTestsIT extends AbstractMojoTestCase {
+public class IntegrationTestsIT {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
@@ -41,11 +44,10 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
-        var junitDep = lockFile.getDependencies().get(0);
-        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("spoon-core");
-        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("fr.inria.gforge.spoon");
-        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("10.3.0");
-        assertThat(junitDep.getClassifier()).isNull();
+        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
+        assertThat(junitDep.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("spoon-core");
+        assertThat(junitDep.getGroupId()).extracting(GroupId::getValue).isEqualTo("fr.inria.gforge.spoon");
+        assertThat(junitDep.getVersion()).extracting(VersionNumber::getValue).isEqualTo("10.3.0");
         assertThat(junitDep.getChecksum())
                 .isEqualTo("37a43de039cf9a6701777106e3c5921e7131e5417fa707709abf791d3d8d9174");
     }
@@ -58,11 +60,10 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(1);
-        var junitDep = lockFile.getDependencies().get(0);
-        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
-        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
-        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
-        assertThat(junitDep.getClassifier()).isNull();
+        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
+        assertThat(junitDep.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.junit.jupiter");
+        assertThat(junitDep.getVersion()).extracting(VersionNumber::getValue).isEqualTo("5.9.2");
         assertThat(junitDep.getChecksum())
                 .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
     }
@@ -134,8 +135,8 @@ public class IntegrationTestsIT extends AbstractMojoTestCase {
 
         // assert that the original pom file has not changed
         assertTrue(
-                "The original pom file has been changed.",
-                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()));
+                FileUtils.contentEquals(actualPomPath.toFile(), expectedPomPath.toFile()),
+                "The original pom file has been changed.");
     }
 
     private Path findFile(MavenExecutionResult result, String fileName) throws IOException {

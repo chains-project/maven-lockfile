@@ -8,29 +8,29 @@ import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 
 public class DependencyGraph {
 
-    private final List<DependencyNode> graph;
+    private final Set<DependencyNode> graph;
 
-    public List<DependencyNode> getRoots() {
-        return graph.stream().filter(node -> node.getParent() == null).collect(Collectors.toList());
+    public Set<DependencyNode> getRoots() {
+        return graph.stream()
+                .filter(node -> node.getParent() == null)
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
     }
 
-    private DependencyGraph(List<DependencyNode> graph) {
-        this.graph = graph == null ? List.of() : graph;
+    private DependencyGraph(Set<DependencyNode> graph) {
+        this.graph = graph == null ? Set.of() : graph;
     }
 
     /**
      * @return the graph
      */
-    public List<DependencyNode> getGraph() {
+    public Set<DependencyNode> getGraph() {
         return graph;
     }
 
@@ -60,13 +60,15 @@ public class DependencyGraph {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
-        List<DependencyNode> nodes = new ArrayList<>();
+        Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum));
         for (var artifact : roots) {
             createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
-        List<DependencyNode> dependencyRoots =
-                nodes.stream().flatMap(v -> v.getChildren().stream()).collect(Collectors.toList());
+        Set<DependencyNode> dependencyRoots = nodes.stream()
+                .flatMap(v -> v.getChildren().stream())
+                .collect(Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
         dependencyRoots.forEach(v -> v.setParent(null));
         return new DependencyGraph(dependencyRoots);
     }
