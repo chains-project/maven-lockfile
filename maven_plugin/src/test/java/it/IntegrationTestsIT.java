@@ -7,6 +7,7 @@ import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -217,33 +218,42 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(3);
-        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
-        assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
-        assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
-        assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
-        assertThat(junitDep.getClassifier()).isNull();
-        assertThat(junitDep.getChecksum())
-                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
+
+        var junitSourceDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
+        assertThat(junitSourceDep.getArtifactId())
+                .extracting(ArtifactId::getValue)
+                .isEqualTo("junit-jupiter-api");
+        assertThat(junitSourceDep.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.junit.jupiter");
+        assertThat(junitSourceDep.getVersion())
+                .extracting(VersionNumber::getValue)
+                .isEqualTo("5.9.2");
+        assertThat(junitSourceDep.getClassifier())
+                .extracting(Classifier::getValue)
+                .isEqualTo("sources");
+        assertThat(junitSourceDep.getChecksum())
+                .isEqualTo("2b04279c000da27679100d5854d3045a09c2a9a4cda942777f0b0519bb9f295d");
 
         var junitJavaDocsDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[1];
         assertThat(junitJavaDocsDep.getArtifactId())
-                .extracting(v -> v.getValue())
+                .extracting(ArtifactId::getValue)
                 .isEqualTo("junit-jupiter-api");
-        assertThat(junitJavaDocsDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
-        assertThat(junitJavaDocsDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
+        assertThat(junitJavaDocsDep.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.junit.jupiter");
+        assertThat(junitJavaDocsDep.getVersion())
+                .extracting(VersionNumber::getValue)
+                .isEqualTo("5.9.2");
         assertThat(junitJavaDocsDep.getClassifier())
-                .extracting(v -> v.getValue())
+                .extracting(Classifier::getValue)
                 .isEqualTo("javadoc");
         assertThat(junitJavaDocsDep.getChecksum())
                 .isEqualTo("789224a3a7bff190858307399f64ee7d7e4ab810c7eab12ee107e27765acd8d9");
 
-        var junitSourceDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[2];
-        assertThat(junitSourceDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
-        assertThat(junitSourceDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
-        assertThat(junitSourceDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
-        assertThat(junitSourceDep.getClassifier()).extracting(v -> v.getValue()).isEqualTo("sources");
-        assertThat(junitSourceDep.getChecksum())
-                .isEqualTo("2b04279c000da27679100d5854d3045a09c2a9a4cda942777f0b0519bb9f295d");
+        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[2];
+        assertThat(junitDep.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.junit.jupiter");
+        assertThat(junitDep.getVersion()).extracting(VersionNumber::getValue).isEqualTo("5.9.2");
+        assertThat(junitDep.getClassifier()).isNull();
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
     }
 
     @MavenTest
