@@ -6178,10 +6178,24 @@
   "mavenPlugins": [
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-failsafe-plugin",
+      "version": "3.3.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "ed0bfadc8609f830d059d9d949f021479ec55d6f7348a18ec1721395c7eb9a9d"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
       "version": "3.5.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "e4b0a098f12d466bda92b2430169ac713f67499dd1a4c508df3c2983be5a2553"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.3.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "004f2abbd1abd4e32476bce6bad9c0b191f6ad4854ea5259d24540116da46fcb"
     },
     {
       "groupId": "org.apache.maven.plugins",
@@ -6213,31 +6227,10 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-failsafe-plugin",
-      "version": "3.2.5",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "227ed7b4d36eb520a58882339fcd4b46bea0ccb02889de199cb56ff4620341b8"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-clean-plugin",
-      "version": "3.3.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "0c86dc6dc7c3370ebe08b353a02a98fb17d14303036c00eb12f0c8977f264b9f"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
-      "version": "3.4.1",
+      "version": "3.4.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "25e0a5b55b872d95e3a09a5d825bc1061f5ce25ee81f147e623405d8ebedfa5f"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-surefire-plugin",
-      "version": "3.2.5",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "e35a8d2114b4c0166c3bf8e40ac63dd4608734347d7294555b6160a661294a92"
+      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb"
     },
     {
       "groupId": "org.apache.maven.plugins",
@@ -6249,9 +6242,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-enforcer-plugin",
-      "version": "3.4.1",
+      "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "1ff8f0b8ea14aed6a25eaef2046ece07c58841e8a7e87cab3645f1ac5177574e"
+      "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964"
     },
     {
       "groupId": "org.apache.maven.plugins",
@@ -6266,6 +6259,13 @@
       "version": "2.8.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "6852aa0f4e42a2db745bab80e384951a6a65b9215d041081d675780999027e81"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.4.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "1e00437fc88814a0790dbc45fe8c482a92b077ad12c3890614f9aee9fb194660"
     },
     {
       "groupId": "com.diffplug.spotless",

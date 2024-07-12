@@ -18,45 +18,48 @@ The lock file can then be used to validate the integrity prior to building.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
 We also allow you to rebuild your old versions with the pinned versions from the lockfile with `freeze`. 
 
-# Features:
-
-* Generative Maven lockfiles.
-* Rebuild old versions with the pinned versions from the lockfile.
-* Checking Maven lockfiles against the local dependencies.
-* Lockfile format in readable JSON
-* Support for application, test, plugin dependencies
-* One Lockfile per module
-* Usage as Maven plugin and GitHub action
-
-
 ## Installation:
 
 This plugin is available on maven central. See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
 
 ## Usage
-First, generate a lock file by running the following command in the repository that you want to validate:
+
+### Generate a lockfile
+
+To generate a lock file, run the following command:
 
 ```
 mvn io.github.chains-project:maven-lockfile:generate
 ```
-This should generate a lockfile.json file in each module of the repository.
+This generates a lockfile.json file in each module of the repository, in readable JSON.
 This file contains the checksums of all the artifacts in the repository.
-Also, the complete dependency tree is stored in the lock file.
+The complete dependency tree, with transitive dependencies, is stored in the lockfile (akin a sbom).
+For multi-module projects, there is one lockfile per module.
 
-Then run the following command to validate the repository:
+### Checking the local dependencies against Maven lockfile.
+
+Run the following command to validate the repository:
 
 ```
 mvn io.github.chains-project:maven-lockfile:validate
 ```
 If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
+If the command fails, this means a dependency has changed.
 
+###  Rebuild old versions with the pinned versions from the lockfile.
 
+First create `pom.lockfile.xml`
 ```
 mvn io.github.chains-project:maven-lockfile:freeze
 ```
 This creates a new pom file with the default name `pom.lockfile.xml`. A custom name can be passed with the flag `pomLockfileOutput`.
 In the new pom file, every version of direct dependencies in the original pom will be replaced with the versions from the lockfile. Also, every transitive dependency is added to the pom inside the `dependencyManagement` section with the version and scope from the lockfile.
-If you invoke build afterward with the -f flag (`mvn -f pom.lockfile.xml`), the exact versions from the lockfile are used.
+
+Then, invoke maven with the -f flag 
+
+```
+mvn -f pom.lockfile.xml
+```
 
 
 ## Flags

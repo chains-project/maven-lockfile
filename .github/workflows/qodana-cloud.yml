@@ -15,9 +15,9 @@ jobs:
       pull-requests: write
       checks: write
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@0e6bc1dc4748adcfd7dd487675e7ed3a814ce988 # v2024.1.4
+        uses: JetBrains/qodana-action@c96b39a84dea25f2a24b38a3f6e89903306d5e2a # v2024.1.8
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
