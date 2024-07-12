@@ -217,7 +217,7 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).hasSize(3);
-        var junitDep = lockFile.getDependencies().get(0);
+        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
         assertThat(junitDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
         assertThat(junitDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
         assertThat(junitDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");
@@ -225,7 +225,7 @@ public class IntegrationTestsIT {
         assertThat(junitDep.getChecksum())
                 .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
 
-        var junitJavaDocsDep = lockFile.getDependencies().get(1);
+        var junitJavaDocsDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[1];
         assertThat(junitJavaDocsDep.getArtifactId())
                 .extracting(v -> v.getValue())
                 .isEqualTo("junit-jupiter-api");
@@ -237,7 +237,7 @@ public class IntegrationTestsIT {
         assertThat(junitJavaDocsDep.getChecksum())
                 .isEqualTo("789224a3a7bff190858307399f64ee7d7e4ab810c7eab12ee107e27765acd8d9");
 
-        var junitSourceDep = lockFile.getDependencies().get(2);
+        var junitSourceDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[2];
         assertThat(junitSourceDep.getArtifactId()).extracting(v -> v.getValue()).isEqualTo("junit-jupiter-api");
         assertThat(junitSourceDep.getGroupId()).extracting(v -> v.getValue()).isEqualTo("org.junit.jupiter");
         assertThat(junitSourceDep.getVersion()).extracting(v -> v.getValue()).isEqualTo("5.9.2");

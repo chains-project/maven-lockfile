@@ -36,6 +36,18 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     private final Set<DependencyNode> children;
 
+    // kept for backward compability, following https://github.com/chains-project/maven-lockfile/pull/803 
+    DependencyNode(
+            ArtifactId artifactId,
+            GroupId groupId,
+            VersionNumber version,
+            MavenScope scope,
+            String checksumAlgorithm,
+            String checksum) {
+                this(artifactId, groupId,  version,null, scope, checksumAlgorithm, checksum);
+
+    }
+                                            
     DependencyNode(
             ArtifactId artifactId,
             GroupId groupId,
