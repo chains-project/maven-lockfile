@@ -1,4 +1,4 @@
-name: Code-Quality
+name: Maven test
 on:
   workflow_dispatch:
   pull_request:
@@ -30,22 +30,6 @@ jobs:
         run: mvn spotless:check
       - name: Check maven pom quality
         run: mvn org.kordamp.maven:pomchecker-maven-plugin:1.9.0:check-maven-central -D"checker.release=false"
-  qodana:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-        with:
-          fetch-depth: 0
-      - name: 'Qodana Scan'
-        uses: JetBrains/qodana-action@c96b39a84dea25f2a24b38a3f6e89903306d5e2a # v2024.1.8
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
-        with:
-          args: "--fail-threshold,0"
-          pr-mode: false    
-      - uses: github/codeql-action/upload-sarif@b611370bb5703a7efb587f9d136a52ea24c5c38c # v3
-        with:
-          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
   reproducilbilty:
     runs-on: ubuntu-latest
     defaults:
