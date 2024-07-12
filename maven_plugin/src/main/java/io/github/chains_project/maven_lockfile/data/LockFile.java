@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
@@ -35,9 +35,9 @@ public class LockFile {
     @SuppressWarnings("FieldMayBeFinal")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
 
-    private final List<DependencyNode> dependencies;
+    private final Set<DependencyNode> dependencies;
 
-    private final List<MavenPlugin> mavenPlugins;
+    private final Set<MavenPlugin> mavenPlugins;
 
     private final MetaData metaData;
 
@@ -45,14 +45,14 @@ public class LockFile {
             GroupId groupId,
             ArtifactId name,
             VersionNumber versionNumber,
-            List<DependencyNode> dependencies,
-            List<MavenPlugin> mavenPlugins,
+            Set<DependencyNode> dependencies,
+            Set<MavenPlugin> mavenPlugins,
             MetaData metaData) {
-        this.dependencies = dependencies == null ? Collections.emptyList() : dependencies;
+        this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
         this.name = name;
         this.version = versionNumber;
         this.groupId = groupId;
-        this.mavenPlugins = mavenPlugins == null ? Collections.emptyList() : mavenPlugins;
+        this.mavenPlugins = mavenPlugins == null ? Collections.emptySet() : mavenPlugins;
         this.metaData = metaData;
     }
     /**
@@ -69,7 +69,7 @@ public class LockFile {
     /**
      * @return the dependencies
      */
-    public List<DependencyNode> getDependencies() {
+    public Set<DependencyNode> getDependencies() {
         return nullToEmpty(dependencies);
     }
     /**
@@ -93,7 +93,7 @@ public class LockFile {
     /**
      * @return the mavenPlugins
      */
-    public List<MavenPlugin> getMavenPlugins() {
+    public Set<MavenPlugin> getMavenPlugins() {
         return nullToEmpty(mavenPlugins);
     }
     /**
@@ -133,7 +133,7 @@ public class LockFile {
                 && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins));
     }
 
-    private static <T> List<T> nullToEmpty(List<T> list) {
-        return list == null ? Collections.emptyList() : list;
+    private static <T> Set<T> nullToEmpty(Set<T> set) {
+        return set == null ? Collections.emptySet() : set;
     }
 }
