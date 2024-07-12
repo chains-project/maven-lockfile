@@ -3,6 +3,10 @@ package io.github.chains_project.maven_lockfile.data;
 import com.google.common.base.Strings;
 import java.util.Objects;
 
+/**
+ * A Maven artifact classifier is an optional and arbitrary string that gets appended to the generated artifact's name just after its version
+ * see https://www.baeldung.com/maven-artifact-classifiers
+ */
 public class Classifier implements Comparable<Classifier> {
     public static Classifier of(String classifier) {
         if (Strings.isNullOrEmpty(classifier)) {
