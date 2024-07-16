@@ -141,6 +141,9 @@ public class FreezeDependencyMojo extends AbstractMojo {
         mavenDep.setGroupId(dep.getGroupId().getValue());
         mavenDep.setArtifactId(dep.getArtifactId().getValue());
         mavenDep.setVersion(dep.getVersion().getValue());
+        if (dep.getClassifier() != null) {
+            mavenDep.setClassifier(dep.getClassifier().getValue());
+        }
         mavenDep.setScope(dep.getScope().getValue());
         return mavenDep;
     }

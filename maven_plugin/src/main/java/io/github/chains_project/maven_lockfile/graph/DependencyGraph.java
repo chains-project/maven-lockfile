@@ -4,6 +4,7 @@ import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -81,6 +82,7 @@ public class DependencyGraph {
         var groupId = GroupId.of(node.getArtifact().getGroupId());
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());
+        var classifier = Classifier.of(node.getArtifact().getClassifier());
         var checksum = isRoot ? "" : calc.calculateChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
         Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
@@ -90,8 +92,8 @@ public class DependencyGraph {
         if (reduce && !included) {
             return Optional.empty();
         }
-        DependencyNode value =
-                new DependencyNode(artifactId, groupId, version, scope, calc.getChecksumAlgorithm(), checksum);
+        DependencyNode value = new DependencyNode(
+                artifactId, groupId, version, classifier, scope, calc.getChecksumAlgorithm(), checksum);
         value.setSelectedVersion(baseVersion);
         value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
