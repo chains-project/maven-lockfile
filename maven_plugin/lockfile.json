@@ -2106,23 +2106,23 @@
     {
       "groupId": "org.slf4j",
       "artifactId": "log4j-over-slf4j",
-      "version": "2.0.15",
+      "version": "2.0.16",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "7e8a3cb1ccc5f0ab42deca924f6d2ef4fc3afc85329328c4a27928da913e900f",
+      "checksum": "0a4c4314b80d7b0ec733efb3cfbeb9005e7488e64132716396e33ef0ca1ac52d",
       "scope": "compile",
-      "selectedVersion": "2.0.15",
-      "id": "org.slf4j:log4j-over-slf4j:2.0.15",
+      "selectedVersion": "2.0.16",
+      "id": "org.slf4j:log4j-over-slf4j:2.0.16",
       "children": [
         {
           "groupId": "org.slf4j",
           "artifactId": "slf4j-api",
-          "version": "2.0.15",
+          "version": "2.0.16",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "5bfda32d723dde8ccef9db6bdc2537dabdb87321597c7e00e66a73a5777fbb24",
+          "checksum": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
           "scope": "compile",
           "selectedVersion": "1.7.36",
-          "id": "org.slf4j:slf4j-api:2.0.15",
-          "parent": "org.slf4j:log4j-over-slf4j:2.0.15",
+          "id": "org.slf4j:slf4j-api:2.0.16",
+          "parent": "org.slf4j:log4j-over-slf4j:2.0.16",
           "children": []
         }
       ]
