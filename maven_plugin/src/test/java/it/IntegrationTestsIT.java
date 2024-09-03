@@ -275,7 +275,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void withEnvironment(MavenExecutionResult result) throws Exception {
-        // contract: an null environment should be returned if include environment is false
+        // contract: a null environment should be returned if include environment is false
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -286,7 +286,29 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void withoutEnvironment(MavenExecutionResult result) throws Exception {
-        // contract: an null environment should be returned if include environment is false
+        // contract: a not null environment should be returned if include environment is true
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
+        assertThat(lockFile.getEnvironment()).isNull();
+    }
+
+    @MavenTest
+    public void withEnvironmentFromLockfile(MavenExecutionResult result) throws Exception {
+        // contract: a not null environment should be returned if include environment is true
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
+        assertThat(lockFile.getEnvironment()).isNotNull();
+    }
+
+    @MavenTest
+    public void withoutEnvironmentFromLockfile(MavenExecutionResult result) throws Exception {
+        // contract: a null environment should be returned if include environment is false
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
