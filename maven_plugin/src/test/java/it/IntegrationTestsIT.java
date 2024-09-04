@@ -262,4 +262,13 @@ public class IntegrationTestsIT {
         // we changed the classifier id of "classifier": "sources", to "classifier": "42",
         assertThat(result).isFailure();
     }
+
+    @MavenTest
+    public void singleDependencyCheckMustWarn(MavenExecutionResult result) throws Exception {
+        // contract: a changed dependency should generate a warning on the build.
+        // if the allowValidationFailure parameter is true
+        // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
+        assertThat(result).isSuccessful();
+    }
+
 }

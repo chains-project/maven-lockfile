@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 public class Config {
 
     private final boolean includeMavenPlugins;
+    private final boolean allowValidationFailure;
     private final boolean reduced;
     private final String mavenLockfileVersion;
     private final String checksumMode;
@@ -13,11 +14,13 @@ public class Config {
 
     public Config(
             boolean includeMavenPlugins,
+            boolean allowValidationFailure,
             boolean reduced,
             String mavenLockfileVersion,
             String checksumMode,
             String checksumAlgorithm) {
         this.includeMavenPlugins = includeMavenPlugins;
+        this.allowValidationFailure = allowValidationFailure;
         this.reduced = reduced;
         this.mavenLockfileVersion = mavenLockfileVersion;
         this.checksumMode = checksumMode;
@@ -26,6 +29,7 @@ public class Config {
 
     public Config() {
         this.includeMavenPlugins = false;
+        this.allowValidationFailure = false;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
         this.checksumMode = ChecksumModes.MAVEN_LOCAL.name();
@@ -36,6 +40,12 @@ public class Config {
      */
     public boolean isIncludeMavenPlugins() {
         return includeMavenPlugins;
+    }
+    /**
+     * @return the allowValidationFailure
+     */
+    public boolean isAllowValidationFailure() {
+        return allowValidationFailure;
     }
     /**
      * @return the reduced

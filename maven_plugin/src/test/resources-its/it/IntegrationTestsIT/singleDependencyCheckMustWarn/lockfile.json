@@ -1,0 +1,85 @@
+{
+  "artifactID": "my-app",
+  "groupID": "com.mycompany.app",
+  "version": "1",
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "5.9.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5_TEMPER_ATTACK",
+      "scope": "test",
+      "selectedVersion": "5.9.2",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "children": [
+        {
+          "groupId": "org.apiguardian",
+          "artifactId": "apiguardian-api",
+          "version": "1.1.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+          "scope": "test",
+          "selectedVersion": "1.1.2",
+          "id": "org.apiguardian:apiguardian-api:1.1.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        },
+        {
+          "groupId": "org.junit.platform",
+          "artifactId": "junit-platform-commons",
+          "version": "1.9.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+          "scope": "test",
+          "selectedVersion": "1.9.2",
+          "id": "org.junit.platform:junit-platform-commons:1.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": [
+            {
+              "groupId": "org.apiguardian",
+              "artifactId": "apiguardian-api",
+              "version": "1.1.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+              "scope": "test",
+              "selectedVersion": "1.1.2",
+              "id": "org.apiguardian:apiguardian-api:1.1.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.opentest4j",
+          "artifactId": "opentest4j",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+          "scope": "test",
+          "selectedVersion": "1.2.0",
+          "id": "org.opentest4j:opentest4j:1.2.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "Windows 11",
+      "mavenVersion": "3.9.1",
+      "javaVersion": "19.0.2"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": true,
+      "reduced": false,
+      "mavenLockfileVersion": "4.1.1-SNAPSHOT",
+      "checksumMode": "maven_local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}

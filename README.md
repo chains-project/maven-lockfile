@@ -16,7 +16,7 @@ This plugin is a state-of-the-art solution that validates the integrity of a mav
 It does this by generating a lock file that contains the checksums of all the artifacts in the repository.
 The lock file can then be used to validate the integrity prior to building.
 This guards the supply chain against malicious actors that might tamper with the artifacts in the repository.
-We also allow you to rebuild your old versions with the pinned versions from the lockfile with `freeze`. 
+We also allow you to rebuild your old versions with the pinned versions from the lockfile with `freeze`.
 
 ## Installation:
 
@@ -55,7 +55,7 @@ mvn io.github.chains-project:maven-lockfile:freeze
 This creates a new pom file with the default name `pom.lockfile.xml`. A custom name can be passed with the flag `pomLockfileOutput`.
 In the new pom file, every version of direct dependencies in the original pom will be replaced with the versions from the lockfile. Also, every transitive dependency is added to the pom inside the `dependencyManagement` section with the version and scope from the lockfile.
 
-Then, invoke maven with the -f flag 
+Then, invoke maven with the -f flag
 
 ```
 mvn -f pom.lockfile.xml
@@ -66,6 +66,7 @@ mvn -f pom.lockfile.xml
 
 - `reduced` will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
+- `allowValidationFailure` will allow validation failures, printing a warning instead. This is useful if you want to validate the Maven lockfile, but do not fail the build in case the lockfile is not valid.
 - `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
@@ -99,7 +100,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
                "id":"org.apiguardian:apiguardian-api:1.1.2",
                "parent":"org.junit.platform:junit-platform-engine:1.9.2",
                "children":[
-                  
+
                ]
             },
             {
@@ -120,7 +121,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
                      "id":"org.apiguardian:apiguardian-api:1.1.2",
                      "parent":"org.junit.platform:junit-platform-commons:1.9.2",
                      "children":[
-                        
+
                      ]
                   }
                ]
@@ -134,7 +135,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
                "id":"org.opentest4j:opentest4j:1.2.0",
                "parent":"org.junit.platform:junit-platform-engine:1.9.2",
                "children":[
-                  
+
                ]
             }
          ]
