@@ -39,12 +39,12 @@
         <executions>
           <execution>
             <goals>
-              <goal>validate</goal>
+              <goal>generate</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
-          <includeEnvironment>false</includeEnvironment>
+          <includeEnvironment>true</includeEnvironment>
         </configuration>
       </plugin>
     </plugins>

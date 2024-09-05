@@ -45,7 +45,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                     Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
             Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
             Environment environment = null;
-            if(config.isIncludeEnvironment()) {
+            if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();
             }
             MetaData metaData = new MetaData(environment, config);
