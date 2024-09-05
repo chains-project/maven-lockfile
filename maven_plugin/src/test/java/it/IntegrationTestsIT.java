@@ -270,5 +270,4 @@ public class IntegrationTestsIT {
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
         assertThat(result).isSuccessful();
     }
-
 }
