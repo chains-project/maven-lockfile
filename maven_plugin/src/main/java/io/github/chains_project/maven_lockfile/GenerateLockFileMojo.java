@@ -31,6 +31,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
     @Parameter(defaultValue = "true", property = "getConfigFromFile")
     String getConfigFromFile;
+
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException if the lock file could not be written or the generation failed.
@@ -40,10 +41,13 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             getLog().info("Skipping maven-lockfile");
         }
         try {
-            Environment environment = generateMetaInformation();
             LockFile lockFileFromFile =
                     Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
             Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
+            Environment environment = null;
+            if (config.isIncludeEnvironment()) {
+                environment = generateMetaInformation();
+            }
             MetaData metaData = new MetaData(environment, config);
 
             if (lockFileFromFile == null) {

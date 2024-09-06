@@ -67,6 +67,7 @@ mvn -f pom.lockfile.xml
 - `reduced` will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
 - `allowValidationFailure` (default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
+- `includeEnvironment` will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.

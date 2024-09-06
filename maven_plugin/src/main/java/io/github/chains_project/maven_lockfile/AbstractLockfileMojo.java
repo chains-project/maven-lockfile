@@ -38,11 +38,14 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Component
     protected DependencyResolver dependencyResolver;
 
-    @Parameter(property = "includeMavenPlugins")
+    @Parameter(property = "includeMavenPlugins", defaultValue = "false")
     protected String includeMavenPlugins;
 
     @Parameter(property = "allowValidationFailure", defaultValue = "false")
     protected String allowValidationFailure;
+
+    @Parameter(property = "includeEnvironment", defaultValue = "true")
+    protected String includeEnvironment;
 
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
@@ -100,6 +103,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(allowValidationFailure),
+                Boolean.parseBoolean(includeEnvironment),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
                 chosenMode,
