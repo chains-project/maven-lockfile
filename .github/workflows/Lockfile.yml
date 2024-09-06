@@ -21,7 +21,7 @@ jobs:
             include-maven-plugins: true
             commit-lockfile: true
 
-        - name: run maven-lockfile check lockfile
+        - name: run maven-lockfile - verify lockfile
           if: ${{ github.event_name == 'pull_request' }}
           uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
           with:
