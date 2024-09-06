@@ -41,6 +41,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "includeMavenPlugins")
     protected String includeMavenPlugins;
 
+    @Parameter(property = "allowValidationFailure", defaultValue = "false")
+    protected String allowValidationFailure;
+
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
 
@@ -96,6 +99,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         String chosenMode = Strings.isNullOrEmpty(checksumMode) ? "maven_local" : checksumMode;
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
+                Boolean.parseBoolean(allowValidationFailure),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
                 chosenMode,

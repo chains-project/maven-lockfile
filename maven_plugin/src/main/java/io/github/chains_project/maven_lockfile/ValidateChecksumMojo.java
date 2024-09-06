@@ -70,7 +70,11 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + "Missing plugins in project:\n "
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
                         + "\n";
-                throw new MojoExecutionException("Failed verifying lock file" + sb);
+                if (config.isAllowValidationFailure()) {
+                    getLog().warn("Failed verifying lock file" + sb);
+                } else {
+                    throw new MojoExecutionException("Failed verifying lock file" + sb);
+                }
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);

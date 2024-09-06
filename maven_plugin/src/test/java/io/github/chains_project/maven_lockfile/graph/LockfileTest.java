@@ -10,8 +10,8 @@ public class LockfileTest {
 
     @Test
     void shouldLockFilesEqualWhenOrderIsChanged() {
-        var metadata =
-                new MetaData(new Environment("os", "mv", "jv"), new Config(true, false, "1", "maven_local", "sha1"));
+        var metadata = new MetaData(
+                new Environment("os", "mv", "jv"), new Config(true, false, false, "1", "maven_local", "sha1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
