@@ -1,6 +1,9 @@
 name: Lockfile
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -10,8 +13,18 @@ jobs:
           contents: write
         runs-on: ubuntu-latest
         steps:
-        - name: run maven-lockfile
+        - name: run maven-lockfile - commit lockfile
+          if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
+            commit-lockfile: true
+
+        - name: run maven-lockfile check lockfile
+          if: ${{ github.event_name == 'pull_request' }}
+          uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
+            commit-lockfile: false
