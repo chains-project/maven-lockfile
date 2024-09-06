@@ -1,7 +1,6 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
