@@ -1,6 +1,8 @@
 name: Lockfile
 on:
-  pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -15,3 +17,4 @@ jobs:
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
+            commit-lockfile: true
