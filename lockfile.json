@@ -10,7 +10,7 @@
       "artifactId": "maven-artifact-plugin",
       "version": "3.5.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "e4b0a098f12d466bda92b2430169ac713f67499dd1a4c508df3c2983be5a2554"
+      "checksum": "e4b0a098f12d466bda92b2430169ac713f67499dd1a4c508df3c2983be5a2553"
     },
     {
       "groupId": "org.apache.maven.plugins",
