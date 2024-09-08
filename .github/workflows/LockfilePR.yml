@@ -1,4 +1,4 @@
-name: Lockfile
+name: LockfilePR
 on:
   pull_request:
 
@@ -18,7 +18,7 @@ jobs:
             include-maven-plugins: true
             commit-lockfile: true
 
-        - name: run maven-lockfile - verify lockfile
+        - name: run maven-lockfile (fork/external)
           if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
           uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
           with:
