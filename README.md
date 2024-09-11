@@ -173,7 +173,7 @@ jobs:
             include-maven-plugins: true
 
 ```
-If a pom.xml file is changed, this action will add a commit with the updated lockfile to the pull request.
+If a pom.xml or lockfile.json file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is incorrect.
 A lockfile is incorrect if any dependency has changed since the lockfile was generated. This includes versions and checksums.
 
