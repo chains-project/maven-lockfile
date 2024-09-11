@@ -1,0 +1,25 @@
+name: LockfilePR
+on:
+  pull_request:
+
+permissions:
+  contents: read
+jobs:
+  check-lockfile:
+        permissions:
+          contents: write
+        runs-on: ubuntu-latest
+        steps:
+        - name: run maven-lockfile
+          if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
+          with:
+            github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+            include-maven-plugins: true
+
+        - name: run maven-lockfile (fork/external)
+          if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+          uses: chains-project/maven-lockfile@6572b9abec75a66b669cc6d432bdaf0ec25a92e3 # v5.0.0
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
