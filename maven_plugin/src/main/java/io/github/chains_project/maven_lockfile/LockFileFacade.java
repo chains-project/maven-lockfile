@@ -99,7 +99,7 @@ public class LockFileFacade {
         var roots = graph.getGraph().stream()
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
-                        io.github.chains_project.maven_lockfile.graph.DependencyNode::getChecksum))));
+                        io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),

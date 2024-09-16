@@ -20,7 +20,7 @@ public class DependencyGraph {
         return graph.stream()
                 .filter(node -> node.getParent() == null)
                 .collect(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString))));
     }
 
     private DependencyGraph(Set<DependencyNode> graph) {
@@ -60,7 +60,7 @@ public class DependencyGraph {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
-        Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum));
+        Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         for (var artifact : roots) {
             createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
         }
@@ -68,7 +68,7 @@ public class DependencyGraph {
         Set<DependencyNode> dependencyRoots = nodes.stream()
                 .flatMap(v -> v.getChildren().stream())
                 .collect(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum))));
+                        () -> new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString))));
         dependencyRoots.forEach(v -> v.setParent(null));
         return new DependencyGraph(dependencyRoots);
     }

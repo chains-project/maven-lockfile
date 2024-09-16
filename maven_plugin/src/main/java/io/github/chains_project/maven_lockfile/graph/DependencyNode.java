@@ -61,7 +61,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.classifier = classifier;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
-        this.children = new TreeSet<>(Comparator.comparing(DependencyNode::getChecksum));
+        this.children = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         this.id = new NodeId(groupId, artifactId, version);
         this.scope = scope;
     }
@@ -230,5 +230,10 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 + ", classifier=" + classifier + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
                 + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
                 + ", children=" + children + "]";
+    }
+
+    public String getComparatorString() {
+        return this.getGroupId().getValue() + ":" + this.getArtifactId().getValue() + "@"
+                + this.getVersion().getValue() + "-" + this.getChecksum();
     }
 }
