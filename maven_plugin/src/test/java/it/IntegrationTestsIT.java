@@ -3,6 +3,7 @@ package it;
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.google.common.collect.Ordering;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
@@ -314,5 +316,19 @@ public class IntegrationTestsIT {
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
         assertThat(lockFile.getEnvironment()).isNull();
+    }
+
+    @MavenTest
+    public void orderedLockfile(MavenExecutionResult result) throws Exception {
+        // contract: the dependency list should be ordered
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var dependencyList = lockFile.getDependencies().stream()
+                .map(it -> it.getComparatorString())
+                .collect(Collectors.toList());
+        boolean sorted = Ordering.natural().isOrdered(dependencyList);
+        assertThat(sorted).isTrue();
     }
 }
