@@ -331,4 +331,17 @@ public class IntegrationTestsIT {
         boolean sorted = Ordering.natural().isOrdered(dependencyList);
         assertThat(sorted).isTrue();
     }
+
+    @MavenTest
+    public void skipLockfile(MavenExecutionResult result) throws Exception {
+        // contract: the lockfile should not be generated if skip option is true
+        assertThat(result).isSuccessful();
+        var fileExists = Files.find(
+                        result.getMavenProjectResult().getTargetBaseDirectory(),
+                        Integer.MAX_VALUE,
+                        (path, attr) -> path.getFileName().toString().contains("lockfile.json"))
+                .findAny()
+                .isPresent();
+        assertThat(fileExists).isFalse();
+    }
 }
