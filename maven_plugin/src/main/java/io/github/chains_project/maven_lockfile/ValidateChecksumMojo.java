@@ -31,11 +31,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
      */
     public void execute() throws MojoExecutionException {
-        getLog().info("Validating lock file ...");
         if (Boolean.parseBoolean(skip)) {
             getLog().info("Skipping maven-lockfile");
+            return;
         }
         try {
+            getLog().info("Validating lock file ...");
             Environment environment = generateMetaInformation();
 
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project));

@@ -39,6 +39,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
     public void execute() throws MojoExecutionException {
         if (Boolean.parseBoolean(skip)) {
             getLog().info("Skipping maven-lockfile");
+            return;
         }
         try {
             LockFile lockFileFromFile =
