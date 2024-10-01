@@ -233,7 +233,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     }
 
     public String getComparatorString() {
-        return this.getGroupId().getValue() + ":" + this.getArtifactId().getValue() + "@"
-                + this.getVersion().getValue() + "-" + this.getChecksum();
+        return this.getGroupId().getValue() + "#" + this.getArtifactId().getValue() + "#"
+                + this.getVersion().getValue() + "#" + this.getChecksum();
     }
 }
