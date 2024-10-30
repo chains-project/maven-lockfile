@@ -8,12 +8,16 @@ permissions:
   contents: read
 jobs:
   check-lockfile:
-        permissions:
-          contents: write
-        runs-on: ubuntu-latest
-        steps:
-        - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
-          with:
-            github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-            include-maven-plugins: true
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
+
+      - name: run maven-lockfile
+        uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
+        with:
+          github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          include-maven-plugins: true

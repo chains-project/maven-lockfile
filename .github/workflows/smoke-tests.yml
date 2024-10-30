@@ -13,27 +13,42 @@ jobs:
     runs-on: ubuntu-latest
     name: smoke test against different repos
     steps:
-    - name: checkout
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-    - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4
-      with:
-        path: /root/.jbang
-        key: $-jbang-$
-        restore-keys: |
-            $-jbang-
-    - name: Set up JDK 17
-      uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
-      with:
-        maven-version: 3.9.6
-    - name: jbang
-      uses: jbangdev/setup-jbang@2b1b465a7b75f4222b81426f23a01e013aa7b95c # v0.1.1
-      with:
-        version: 0.119.0
-    - name: SmokeTest
-      run: |
-        jbang .github/smoketest/SmokeTest.java
+      - name: Harden Runner
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            objects.githubusercontent.com:443
+            oss.sonatype.org:443
+            raw.githubusercontent.com:443
+            repo.maven.apache.org:443
+            repo1.maven.org:443
+            repository.sonatype.org:443
+            sh.jbang.dev:443
+
+      - name: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4
+        with:
+          path: /root/.jbang
+          key: $-jbang-$
+          restore-keys: |
+              $-jbang-
+      - name: Set up JDK 17
+        uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
+        with:
+          maven-version: 3.9.6
+      - name: jbang
+        uses: jbangdev/setup-jbang@2b1b465a7b75f4222b81426f23a01e013aa7b95c # v0.1.1
+        with:
+          version: 0.119.0
+      - name: SmokeTest
+        run: |
+          jbang .github/smoketest/SmokeTest.java
