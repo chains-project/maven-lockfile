@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up JDK 17
         uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4
@@ -36,6 +40,10 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}/maven_plugin
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up JDK 17
         uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4

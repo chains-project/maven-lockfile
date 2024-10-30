@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     name: smoke test against different repos
     steps:
+      - uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          egress-policy: audit
+
       - name: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4
