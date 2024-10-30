@@ -2413,9 +2413,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
-      "version": "3.5.2",
+      "version": "3.5.3",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f0dbce3d023c43a918a5796e2f21e62976d8eecc39d0e69aa062db1eb8b641ab"
+      "checksum": "f2a94b64ff9368d397a9f986178b1a17e8788726ae683f2c6ef7670a7e2fd552"
     },
     {
       "groupId": "com.soebes.itf.jupiter.extension",
