@@ -11,27 +11,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-      uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
-      with:
-        disable-sudo: true
-        egress-policy: block
-        allowed-endpoints: >
-          github.com:443
-          objects.githubusercontent.com:443
-          raw.githubusercontent.com:443
-          repo.maven.apache.org:443
-          repo1.maven.org:443
-          sh.jbang.dev:443
-    - name: run maven-lockfile
-      if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-      uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
-      with:
-        github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-        include-maven-plugins: true
-  
-    - name: run maven-lockfile (fork/external)
-      if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
-      uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        include-maven-plugins: true
+        uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            objects.githubusercontent.com:443
+            raw.githubusercontent.com:443
+            repo.maven.apache.org:443
+            repo1.maven.org:443
+            sh.jbang.dev:443
+      - name: run maven-lockfile
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
+        with:
+          github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          include-maven-plugins: true
+    
+      - name: run maven-lockfile (fork/external)
+        if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+        uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          include-maven-plugins: true
