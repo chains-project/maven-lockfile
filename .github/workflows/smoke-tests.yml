@@ -27,7 +27,9 @@ jobs:
         restore-keys: |
             $-jbang-
     - name: Set up Maven
-      run: sudo apt install maven
+      uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
+      with:
+        maven-version: 3.9.6
     - name: jbang
       uses: jbangdev/jbang-action@36d4a384d215d91c2c7e74014a486cedfe09d760 # v0.119.0
       with:
