@@ -21,13 +21,19 @@ jobs:
         key: $-jbang-$
         restore-keys: |
             $-jbang-
-    - name: Set up Maven
-      run: sudo apt install maven
-    - name: jbang
-      uses: jbangdev/jbang-action@36d4a384d215d91c2c7e74014a486cedfe09d760 # v0.119.0
+    - name: Set up JDK 17
+      uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4
       with:
-        script: ".github/smoketest/SmokeTest.java"
-      env:
-        JBANG_REPO: /root/.jbang/repository
-        GITHUB_TOKEN: $
-        WORKING_DIRECTORY: ${{ env.working-directory }}
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
+      with:
+        maven-version: 3.9.6
+    - name: jbang
+      uses: jbangdev/setup-jbang@2b1b465a7b75f4222b81426f23a01e013aa7b95c # v0.1.1
+      with:
+        version: 0.119.0
+    - name: SmokeTest
+      run: |
+        jbang .github/smoketest/SmokeTest.java
