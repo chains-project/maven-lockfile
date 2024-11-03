@@ -2321,6 +2321,13 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.5.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "18fb9be8981fe43d3efa1d847955cdfa1a3c64d5fa463d123dee7278afd88c14"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.4.0",
       "checksumAlgorithm": "SHA-256",
@@ -2374,13 +2381,6 @@
       "version": "2.10",
       "checksumAlgorithm": "SHA-256",
       "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-surefire-plugin",
-      "version": "3.5.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "a722d6a6c8c0decd6956a5d035fcb70dd31e965f4bbbef7c965964c985a43ea8"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
