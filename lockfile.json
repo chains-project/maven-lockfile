@@ -108,7 +108,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.8.2",
-      "javaVersion": "11.0.24"
+      "javaVersion": "11.0.25"
     },
     "config": {
       "includeMavenPlugins": true,
