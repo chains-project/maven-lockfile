@@ -8,6 +8,8 @@
     <a href="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml" alt="Lockfile">
         <img src="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg" /></a>
     <a href="https://bestpractices.coreinfrastructure.org/projects/7447"><img src="https://bestpractices.coreinfrastructure.org/projects/7447/badge"></a>
+    <a href="https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/io/github/chains-project/maven-lockfile/README.md" alt="Reproducible Builds">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjvm-repo-rebuild%2Freproducible-central%2Fmaster%2Fcontent%2Fio%2Fgithub%2Fchains-project%2Fmaven-lockfile%2Fbadge.json" /></a>
 </p>
 
 ![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
