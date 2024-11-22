@@ -5,32 +5,6 @@
   "lockFileVersion": 1,
   "dependencies": [
     {
-      "groupId": "org.apache.logging.log4j",
-      "artifactId": "log4j-core",
-      "version": "2.24.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "00bcf388472ca80a687014181763b66d777177f22cbbf179fd60e1b1ac9bc9b0",
-      "scope": "compile",
-      "selectedVersion": "2.24.1",
-      "included": true,
-      "id": "org.apache.logging.log4j:log4j-core:2.24.1",
-      "children": [
-        {
-          "groupId": "org.apache.logging.log4j",
-          "artifactId": "log4j-api",
-          "version": "2.24.1",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "6e77bb229fc8dcaf09038beeb5e9030b22e9e01b51b458b0183ce669ebcc92ef",
-          "scope": "compile",
-          "selectedVersion": "2.24.1",
-          "included": true,
-          "id": "org.apache.logging.log4j:log4j-api:2.24.1",
-          "parent": "org.apache.logging.log4j:log4j-core:2.24.1",
-          "children": []
-        }
-      ]
-    },
-    {
       "groupId": "com.soebes.itf.jupiter.extension",
       "artifactId": "itf-assertj",
       "version": "0.13.1",
@@ -972,6 +946,32 @@
               "children": []
             }
           ]
+        }
+      ]
+    },
+    {
+      "groupId": "org.apache.logging.log4j",
+      "artifactId": "log4j-core",
+      "version": "2.24.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "7a7b90db866c86a1093b3fde758ca28398ebb2a533da0d79a30cc0a78506b9df",
+      "scope": "compile",
+      "selectedVersion": "2.24.2",
+      "included": true,
+      "id": "org.apache.logging.log4j:log4j-core:2.24.2",
+      "children": [
+        {
+          "groupId": "org.apache.logging.log4j",
+          "artifactId": "log4j-api",
+          "version": "2.24.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "0ca3ecbd4c315bdd5f2ef6af127712df718c78334cce5bf6fb7b4aa17fdab126",
+          "scope": "compile",
+          "selectedVersion": "2.24.2",
+          "included": true,
+          "id": "org.apache.logging.log4j:log4j-api:2.24.2",
+          "parent": "org.apache.logging.log4j:log4j-core:2.24.2",
+          "children": []
         }
       ]
     },
