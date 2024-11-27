@@ -34,6 +34,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
+        with:
+          maven-version: 3.9.6
       - name: Set git user
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -120,6 +124,13 @@ jobs:
         run: |
           git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
+      - name: Wait for Checks to pass before merge into protected branch main
+        uses: lewagon/wait-on-check-action@ccfb013c15c8afb7bf2b7c028fb74dc5a068cccc # v1.3.4
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+          running-workflow-name: Release
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
       - name: Merge Fast Forward
         run: |
           git checkout main
