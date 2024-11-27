@@ -1513,3 +1513,21 @@ We'd like to thank the following people for their contributions:
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
 - massimeddu-sj ([@massimeddu-sj](https://github.com/massimeddu-sj))
 - michal.maziarz ()
+
+# 5.2.2
+## Changelog
+
+## 🏁 Release
+- ca368fa 🔖 Releasing version 5.2.2
+
+---
+- ec83e36 chore: update lockfile
+- 9184616 Merge tag 'v5.2.1'
+- 1a86910 🛠️ Do not push lockfile as part of release (#994)
+- f488c7d 🛠️ export cyclonedx output to default folder (#993)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ()
+- github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
