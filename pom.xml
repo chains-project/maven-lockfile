@@ -49,7 +49,7 @@
         <inherited>true</inherited>
         <configuration>
           <includeTestScope>true</includeTestScope>
-          <outputDirectory>${project.build.directory}/staging-deploy/io/github/chains-project/${project.artifactId}/</outputDirectory>
+          <!--<outputDirectory>${project.build.directory}/staging-deploy/io/github/chains-project/${project.artifactId}/</outputDirectory>-->
         </configuration>
         <executions>
           <execution>
