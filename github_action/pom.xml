@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>5.2.1</version>
+    <version>5.2.2-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-github-action</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2-SNAPSHOT</version>
   <name>maven-lockfile-github-action</name>
   <description>This is a github action for maven-lockfile. It allows the integration of maven-lockfile in your github development workflow.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
