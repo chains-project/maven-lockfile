@@ -1513,3 +1513,20 @@ We'd like to thank the following people for their contributions:
 - github-actions ([@github-actions[bot]](https://github.com/apps/github-actions))
 - massimeddu-sj ([@massimeddu-sj](https://github.com/massimeddu-sj))
 - michal.maziarz ()
+
+# 5.2.3
+## Changelog
+
+## 🚀 Added
+- 5e7b966 👷 ci: update jreleaser version to 1.15.0 (push sbom to maven-central) (#996)
+
+## 🏁 Release
+- 60b1049 🔖 Releasing version 5.2.3
+
+---
+- cd7be23 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
