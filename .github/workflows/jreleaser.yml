@@ -67,7 +67,6 @@ jobs:
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
-            commit-lockfile: false
       - name: set branchname to next version
         run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
       - name: Set release version
@@ -90,7 +89,7 @@ jobs:
         uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8
         with:
           setup-java: false
-          version: 1.4.0
+          version: 1.15.0
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
@@ -125,18 +124,27 @@ jobs:
         run: |
           git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
-      - name: Wait for Checks to pass before merge into protected branch main
-        uses: lewagon/wait-on-check-action@ccfb013c15c8afb7bf2b7c028fb74dc5a068cccc # v1.3.4
-        with:
-          ref: ${{ env.BRANCH_NAME }}
-          running-workflow-name: 'Build and release'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
       - name: Merge Fast Forward
         run: |
           git checkout main
           git merge --ff-only ${{ env.BRANCH_NAME }}
-          git push origin main
+      - name: Attempt Push with Retry
+        env:
+          MAX_RETRIES: 60
+          RETRY_INTERVAL: 10
+        run: |
+          START_TIME=$(date +%s)
+          while true; do
+            git push origin main && break
+            ELAPSED_TIME=$(( $(date +%s) - START_TIME ))
+            if [ "$ELAPSED_TIME" -ge 600 ]; then
+              echo "Push failed after $MAX_RETRIES attempts. Exiting..."
+              exit 1
+            fi
+
+            echo "Push failed. Retrying in $RETRY_INTERVAL seconds..."
+            sleep $RETRY_INTERVAL
+          done
 # Log failure:
       - name: JReleaser release output
         if: always()
