@@ -130,9 +130,12 @@ jobs:
           git merge --ff-only ${{ env.BRANCH_NAME }}
       - name: Attempt Push with Retry
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RETRY_MAX_TIME: 600
           RETRY_INTERVAL: 10
         run: |
+          gh pr create --base main --head ${{ env.BRANCH_NAME }} --title "Release ${{ env.BRANCH_NAME }} ff-merge" --body "Release ${{ env.BRANCH_NAME }} ff-merge"
+
           START_TIME=$(date +%s)
           while true; do
             git push origin main && break
