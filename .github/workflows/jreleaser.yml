@@ -130,15 +130,15 @@ jobs:
           git merge --ff-only ${{ env.BRANCH_NAME }}
       - name: Attempt Push with Retry
         env:
-          MAX_RETRIES: 60
+          RETRY_MAX_TIME: 600
           RETRY_INTERVAL: 10
         run: |
           START_TIME=$(date +%s)
           while true; do
             git push origin main && break
             ELAPSED_TIME=$(( $(date +%s) - START_TIME ))
-            if [ "$ELAPSED_TIME" -ge 600 ]; then
-              echo "Push failed after $MAX_RETRIES attempts. Exiting..."
+            if [ "$ELAPSED_TIME" -ge $RETRY_MAX_TIME ]; then
+              echo "Push failed after $RETRY_MAX_TIME seconds. Exiting..."
               exit 1
             fi
 
