@@ -43,9 +43,9 @@
     {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
-      "version": "2.9.0",
+      "version": "2.9.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "67117e03eae4a03ca8bab3add044995f4899aa21798a2510b8265ef8101e90ac"
+      "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249"
     },
     {
       "groupId": "org.apache.maven.plugins",
