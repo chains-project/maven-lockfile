@@ -190,7 +190,7 @@ It still works for pull requests from the same repository. Renovate also works w
 ### Arguments
 
 - `github-token` (required): The GitHub token used to commit the lockfile to the repository.
-- `commit-lockfile` (optional, default=true): Whether to commit the lockfile to the repository. If this is true, the action can be used to update the lockfile in e.g. pull requests (se warning about pull-requests from forks). The action **will not** fail if the lockfile is outdated/invalid but push the correct version. If this is false, the action be used to verify the lockfile is correct. The action **will** fail on an outdated/invalid lockfile.
+- `commit-lockfile` (optional, default=true): Whether to commit an updated lockfile to the repository. The action can be used to update lockfiles automatically in e.g. pull requests (se warning about pull-requests from forks). If this is true and the pom.xml or workflow-file has updated it will create and commit the new lockfile - the action **will not** fail if the lockfile is outdated or invalid and only push the correct version. If this is false or the pom.xml and workflow-file remain unchanged, the action be used to verify the lockfile is correct - the action **will** fail in case of an outdated or invalid lockfile.
 - `commit-message` (optional, default='chore: update lockfile'): The commit message for the lockfile if `commit-lockfile` is true.
 - `commit-author` (optional, default='github\_actions'): The author for the lockfile commit if `commit-lockfile` is true. GitHub provides three values for this field.
   - github\_actor -> `UserName <UserName@users.noreply.github.com>`

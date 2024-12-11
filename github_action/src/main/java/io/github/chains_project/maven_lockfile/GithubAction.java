@@ -25,7 +25,11 @@ public class GithubAction {
     void run(Inputs inputs, Commands commands, Context context) {
 
         boolean includeMavenPlugins = inputs.getBoolean("include-maven-plugins").orElse(false);
-        if (Boolean.parseBoolean(System.getenv("POM_CHANGED"))) {
+
+        boolean pomChanged = Boolean.parseBoolean(System.getenv("POM_CHANGED"));
+        boolean commitUpdatedLockfile = Boolean.parseBoolean(System.getenv("COMMIT_UPDATED_LOCKFILE"));
+
+        if (pomChanged && commitUpdatedLockfile) {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
             commands.endGroup();
