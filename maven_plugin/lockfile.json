@@ -1015,46 +1015,6 @@
       ]
     },
     {
-      "groupId": "org.instancio",
-      "artifactId": "instancio-junit",
-      "version": "5.2.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "8b6da2acb6682b2cb88d3bbf406e94eaec00c04084f786684ee8224d25391977",
-      "scope": "test",
-      "selectedVersion": "5.2.0",
-      "included": true,
-      "id": "org.instancio:instancio-junit:5.2.0",
-      "children": [
-        {
-          "groupId": "org.instancio",
-          "artifactId": "instancio-core",
-          "version": "5.2.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "6fc44a4e499e4b3b866134d823ebd6a2e331974d37defaeccb99f343e31bdead",
-          "scope": "test",
-          "selectedVersion": "5.2.0",
-          "included": true,
-          "id": "org.instancio:instancio-core:5.2.0",
-          "parent": "org.instancio:instancio-junit:5.2.0",
-          "children": [
-            {
-              "groupId": "org.slf4j",
-              "artifactId": "slf4j-api",
-              "version": "2.0.16",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
-              "scope": "test",
-              "selectedVersion": "1.7.36",
-              "included": false,
-              "id": "org.slf4j:slf4j-api:2.0.16",
-              "parent": "org.instancio:instancio-core:5.2.0",
-              "children": []
-            }
-          ]
-        }
-      ]
-    },
-    {
       "groupId": "org.apache.maven.shared",
       "artifactId": "maven-dependency-tree",
       "version": "3.3.0",
@@ -2181,6 +2141,46 @@
               "included": true,
               "id": "net.bytebuddy:byte-buddy-agent:1.12.10",
               "parent": "org.mockito:mockito-core:4.6.1",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "org.instancio",
+      "artifactId": "instancio-junit",
+      "version": "5.2.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d98cf9ca0e0e6a7db80cc9e7ee3541c8fab076f94219dea67743e44b8b3ea973",
+      "scope": "test",
+      "selectedVersion": "5.2.1",
+      "included": true,
+      "id": "org.instancio:instancio-junit:5.2.1",
+      "children": [
+        {
+          "groupId": "org.instancio",
+          "artifactId": "instancio-core",
+          "version": "5.2.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c83e6c78c8832082a745d888d82a3d69c6dd10abc0e7a9d01c1c97a6736be52e",
+          "scope": "test",
+          "selectedVersion": "5.2.1",
+          "included": true,
+          "id": "org.instancio:instancio-core:5.2.1",
+          "parent": "org.instancio:instancio-junit:5.2.1",
+          "children": [
+            {
+              "groupId": "org.slf4j",
+              "artifactId": "slf4j-api",
+              "version": "2.0.16",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
+              "scope": "test",
+              "selectedVersion": "1.7.36",
+              "included": false,
+              "id": "org.slf4j:slf4j-api:2.0.16",
+              "parent": "org.instancio:instancio-core:5.2.1",
               "children": []
             }
           ]
