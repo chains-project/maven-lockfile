@@ -36,3 +36,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true
+          commit-lockfile: false # verify lockfile is up-to-date (not possible to update lockfile in forks)
