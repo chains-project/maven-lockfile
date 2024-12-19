@@ -160,6 +160,7 @@ public class IntegrationTestsIT {
                 .findAny()
                 .isPresent();
     }
+
     private Model readPom(Path pomPath) throws IOException, XmlPullParserException {
         try (Reader reader = Files.newBufferedReader(pomPath)) {
             MavenXpp3Reader pomReader = new MavenXpp3Reader();
@@ -360,19 +361,22 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void differentLockfileNameFreezeShouldSucceed(MavenExecutionResult result) throws Exception {
-        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is provided, freeze should succeed
+        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is
+        // provided, freeze should succeed
         assertThat(result).isSuccessful();
     }
 
     @MavenTest
     public void differentLockfileNameValidateShouldFail(MavenExecutionResult result) throws Exception {
-        // contract: if there exists a lockfile.json but -DlockfileName="different-lockfile-name.json" is provided, validate should fail
+        // contract: if there exists a lockfile.json but -DlockfileName="different-lockfile-name.json" is provided,
+        // validate should fail
         assertThat(result).isFailure();
     }
 
     @MavenTest
     public void differentLockfileNameValidateShouldSucceed(MavenExecutionResult result) throws Exception {
-        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is provided, validate should succeed
+        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is
+        // provided, validate should succeed
         assertThat(result).isSuccessful();
     }
 }
