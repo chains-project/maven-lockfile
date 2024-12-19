@@ -67,6 +67,7 @@ jobs:
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
+            commit-lockfile: false
       - name: set branchname to next version
         run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
       - name: Set release version
