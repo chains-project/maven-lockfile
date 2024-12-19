@@ -152,6 +152,14 @@ public class IntegrationTestsIT {
                 .orElseThrow(FileNotFoundException::new);
     }
 
+    private boolean fileExists(MavenExecutionResult result, String fileName) throws IOException {
+        return Files.find(
+                        result.getMavenProjectResult().getTargetBaseDirectory(),
+                        Integer.MAX_VALUE,
+                        (path, attr) -> path.getFileName().toString().contains(fileName))
+                .findAny()
+                .isPresent();
+    }
     private Model readPom(Path pomPath) throws IOException, XmlPullParserException {
         try (Reader reader = Files.newBufferedReader(pomPath)) {
             MavenXpp3Reader pomReader = new MavenXpp3Reader();
@@ -336,12 +344,35 @@ public class IntegrationTestsIT {
     public void skipLockfile(MavenExecutionResult result) throws Exception {
         // contract: the lockfile should not be generated if skip option is true
         assertThat(result).isSuccessful();
-        var fileExists = Files.find(
-                        result.getMavenProjectResult().getTargetBaseDirectory(),
-                        Integer.MAX_VALUE,
-                        (path, attr) -> path.getFileName().toString().contains("lockfile.json"))
-                .findAny()
-                .isPresent();
+        var fileExists = fileExists(result, "lockfile.json");
         assertThat(fileExists).isFalse();
+    }
+
+    @MavenTest
+    public void differentLockfileName(MavenExecutionResult result) throws Exception {
+        // contract: the lockfile should be generated with a different name
+        assertThat(result).isSuccessful();
+        var lockfileExists = fileExists(result, "lockfile.json");
+        assertThat(lockfileExists).isFalse();
+        var differentLockfileNameExists = fileExists(result, "different-lockfile-name.json");
+        assertThat(differentLockfileNameExists).isTrue();
+    }
+
+    @MavenTest
+    public void differentLockfileNameFreezeShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is provided, freeze should succeed
+        assertThat(result).isSuccessful();
+    }
+
+    @MavenTest
+    public void differentLockfileNameValidateShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: if there exists a lockfile.json but -DlockfileName="different-lockfile-name.json" is provided, validate should fail
+        assertThat(result).isFailure();
+    }
+
+    @MavenTest
+    public void differentLockfileNameValidateShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is provided, validate should succeed
+        assertThat(result).isSuccessful();
     }
 }
