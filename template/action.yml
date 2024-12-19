@@ -47,6 +47,12 @@ runs:
         ref: ${{ github.event.pull_request.head.ref }}
         repository: ${{github.event.pull_request.head.repo.full_name}}
         token: ${{ inputs.github-token }}
+    - name: Setup Java
+      uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
     - name: Set up Maven
       uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
       with:
@@ -54,8 +60,6 @@ runs:
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
-
-
     - name: Get all changed pom.xml and lockfile.json file(s)
       id: changed-files
       uses: tj-actions/changed-files@bab30c2299617f6615ec02a68b9a40d10bd21366 # v45
@@ -75,7 +79,6 @@ runs:
     - name: Set COMMIT_UPDATED_LOCKFILE environment variable
       run: echo "COMMIT_UPDATED_LOCKFILE=${{ inputs.commit-lockfile }}" >> $GITHUB_ENV
       shell: bash
-
     - id: action
       run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:${project.version}
       shell: bash
