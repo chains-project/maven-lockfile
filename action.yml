@@ -79,7 +79,6 @@ runs:
     - name: Set COMMIT_UPDATED_LOCKFILE environment variable
       run: echo "COMMIT_UPDATED_LOCKFILE=${{ inputs.commit-lockfile }}" >> $GITHUB_ENV
       shell: bash
-
     - id: action
       run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.3.1-SNAPSHOT
       shell: bash
