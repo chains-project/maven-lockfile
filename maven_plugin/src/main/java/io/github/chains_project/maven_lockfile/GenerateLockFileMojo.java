@@ -42,8 +42,9 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return;
         }
         try {
-            LockFile lockFileFromFile =
-                    Files.exists(getLockFilePath(project, lockfileName)) ? LockFile.readLockFile(getLockFilePath(project, lockfileName)) : null;
+            LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
+                    ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
+                    : null;
             Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
             Environment environment = null;
             if (config.isIncludeEnvironment()) {
