@@ -65,6 +65,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "skip")
     protected String skip;
 
+    @Parameter(defaultValue = "lockfile.json", property = "lockfileName")
+    protected String lockfileName;
+
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     protected MojoExecution mojo;
 
