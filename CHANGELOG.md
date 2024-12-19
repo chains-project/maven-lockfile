@@ -1530,3 +1530,58 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.3.0
+## Changelog
+
+## 🚀 Added
+- 1549a1d 👷 ci: Allow change of lockfile name in github action (#1030)
+- b497f77 👷 ci: Verify lockfile in case commit-lockfile is false (#1011)
+- 9ab37e1 ✨ feat: Add parameter to change lockfile name (#1026)
+- 7aaeb3c 👷 ci: create PR to trigger required checks before push to main in release action (#997)
+
+## 🐛 Fixed
+- 032b6fa 💚  fix ci: Do not try to commit lockfile to main branch in relesae (#1033)
+- 6cb8080 💚 fix ci: add api.deps.dev to allowlist of endpoint for dependency-review (#1028)
+
+## 📦 Dependencies
+- 136d894 ⬆️ (deps): Update quarkus.platform.version to v3.17.5 (#1031)
+- a8a8bb9 ⬆️ (deps): Update actions/upload-artifact action to v4.5.0 (#1023)
+- ad6531b ⬆️ (deps): Update dependency com.google.guava:guava to v33.4.0-jre (#1021)
+- b78419a ⬆️ (deps): Update junit5 monorepo to v5.11.4 (#1020)
+- 6a6a706 ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v2.5.1 (#1018)
+- cdc91a2 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.5 (#1019)
+- ffe3c20 ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v2.5.0 (#1017)
+- 8235fe7 ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.24.3 (#1016)
+- 701824a ⬆️ (deps): Update github/codeql-action action to v3.27.9 (#1014)
+- c5d68e5 ⬆️ (deps): Update quarkus.platform.version to v3.17.4 (#1012)
+- 1f50704 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v5.2.1 (#1010)
+- 653f114 ⬆️ (deps): Update github/codeql-action action to v3.27.7 (#1008)
+- 9f4a623 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-javadoc-plugin to v3.11.2 (#1005)
+- 78f9554 ⬆️ (deps): Update quarkus.platform.version to v3.17.3 (#1003)
+- 1dc5c24 ⬆️ (deps): Update github/codeql-action action to v3.27.6 (#1002)
+- 2e86a3a ⬆️ (deps): Update dependency org.instancio:instancio-junit to v5.2.0 (#1000)
+- 4fd69bc ⬆️ (deps): Update dependency org.cyclonedx:cyclonedx-maven-plugin to v2.9.1 (#999)
+- 91f8f20 ⬆️ (deps): Update dependency io.quarkus.platform:quarkus-bom to v3.17.2 (#998)
+
+## 🏁 Release
+- 611060d 🔖 Releasing version 5.3.0
+- ee98684 🔖(deps): Update actions/setup-java digest to 7a6d8a8 (#1024)
+- 54ac32b 🔖(deps): Update actions/upload-artifact digest to 6f51ac0 (#1022)
+- 10b0e01 🔖(deps): Update github/codeql-action digest to df409f7 (#1015)
+- c710d18 🔖(deps): Update github/codeql-action digest to 8a93837 (#1013)
+- d3e87e4 🔖(deps): Update actions/setup-go digest to 3041bf5 (#1009)
+- 5276901 🔖(deps): Update github/codeql-action digest to babb554 (#1007)
+- a785a2e 🔖(deps): Update tj-actions/changed-files digest to bab30c2 (#1006)
+- 206b8c7 🔖(deps): Update actions/cache digest to 1bd1e32 (#1004)
+- 20bb8f0 🔖(deps): Update github/codeql-action digest to aa57810 (#1001)
+- 8275b08 🔖 Setting SNAPSHOT version 5.2.4-SNAPSHOT
+
+---
+- 519a992 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
