@@ -1608,3 +1608,18 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.3.2
+## Changelog
+
+## 🐛 Fixed
+- 984e633 💚 fix ci: Use JRELEASER_GITHUB_TOKEN with admin permissions for push (#1038)
+
+## 🏁 Release
+- 90fcf8e 🔖 Releasing version 5.3.2
+- 1cfd96e 🔖 Setting SNAPSHOT version 5.3.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
