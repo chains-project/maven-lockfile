@@ -23,8 +23,8 @@ public class GithubAction {
 
     @Action
     void run(Inputs inputs, Commands commands, Context context) {
-
         boolean includeMavenPlugins = inputs.getBoolean("include-maven-plugins").orElse(false);
+        String lockfileName = inputs.get("lockfileName").orElse("lockfile.json");
 
         boolean pomChanged = Boolean.parseBoolean(System.getenv("POM_CHANGED"));
         boolean commitUpdatedLockfile = Boolean.parseBoolean(System.getenv("COMMIT_UPDATED_LOCKFILE"));
@@ -33,22 +33,25 @@ public class GithubAction {
             commands.group("maven-lockfile");
             commands.notice("Pom file changed, running lockfile generation");
             commands.endGroup();
-            generateLockFile(commands, includeMavenPlugins);
+            generateLockFile(commands, includeMavenPlugins, lockfileName);
         } else {
             commands.group("maven-lockfile");
             commands.notice("Pom file not changed, running lockfile validation");
             commands.endGroup();
-            validateLockFile(commands, includeMavenPlugins);
+            validateLockFile(commands, includeMavenPlugins, lockfileName);
         }
     }
 
-    void generateLockFile(Commands commands, boolean includeMavenPlugins) {
+    void generateLockFile(Commands commands, boolean includeMavenPlugins, String lockfileName) {
         commands.group("maven-lockfile");
         try {
             List<String> arguments = new ArrayList<>();
             arguments.add(String.format(COMMAND_GENERATE, version));
             if (includeMavenPlugins) {
                 arguments.add("-DincludeMavenPlugins=true");
+            }
+            if (!lockfileName.equals("lockfile.json")) {
+                arguments.add("-DlockfileName=\"" + lockfileName + "\"");
             }
             arguments.add("-q");
             var result = new ProcBuilder("mvn")
@@ -78,13 +81,16 @@ public class GithubAction {
         commands.endGroup();
     }
 
-    void validateLockFile(Commands commands, boolean includeMavenPlugins) {
+    void validateLockFile(Commands commands, boolean includeMavenPlugins, String lockfileName) {
         commands.group("maven-lockfile-validation");
         try {
             List<String> arguments = new ArrayList<>();
             arguments.add(String.format(COMMAND_VALIDATE, version));
             if (includeMavenPlugins) {
                 arguments.add("-DincludeMavenPlugins=true");
+            }
+            if (!lockfileName.equals("lockfile.json")) {
+                arguments.add("-DlockfileName=\"" + lockfileName + "\"");
             }
             arguments.add("-q");
             if (new ProcBuilder("mvn")
