@@ -61,8 +61,8 @@ public class LockFileFacade {
      * @param project The project to generate a lock file for.
      * @return A lock file for the project.
      */
-    public static Path getLockFilePath(MavenProject project) {
-        return Path.of(project.getBasedir().getAbsolutePath(), "lockfile.json");
+    public static Path getLockFilePath(MavenProject project, String lockfileName) {
+        return Path.of(project.getBasedir().getAbsolutePath(), lockfileName);
     }
 
     private LockFileFacade() {

@@ -43,7 +43,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         }
         try {
             LockFile lockFileFromFile =
-                    Files.exists(getLockFilePath(project)) ? LockFile.readLockFile(getLockFilePath(project)) : null;
+                    Files.exists(getLockFilePath(project, lockfileName)) ? LockFile.readLockFile(getLockFilePath(project, lockfileName)) : null;
             Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
             Environment environment = null;
             if (config.isIncludeEnvironment()) {
@@ -58,7 +58,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
 
-            Path lockFilePath = LockFileFacade.getLockFilePath(project);
+            Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
         } catch (IOException e) {
