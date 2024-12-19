@@ -8,7 +8,7 @@ inputs:
     description: 'GitHub token'
     required: true
   commit-lockfile: 
-    description: 'Commit the lockfile to the repository'
+    description: 'Commit the lockfile to the repository in case the pom.xml or workflow file has updated. If this is false or the pom.xml and workflow.yml files are unchanged the action will verify the current lockfile.json.'
     required: false
     default: 'true'
   commit-message:
@@ -58,7 +58,6 @@ runs:
       with:
         files: |
               **/pom.xml
-              **/lockfile.json
               **/${{ inputs.workflow-filename}}
     - name: print all changed files
       run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
@@ -68,6 +67,9 @@ runs:
       shell: bash
     - name: print POM-CHANGED
       run: echo "pom changed ${{ env.POM_CHANGED }}"
+      shell: bash
+    - name: Set COMMIT_UPDATED_LOCKFILE environment variable
+      run: echo "COMMIT_UPDATED_LOCKFILE=${{ inputs.commit-lockfile }}" >> $GITHUB_ENV
       shell: bash
 
     - id: action
