@@ -1623,3 +1623,10 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.3.3
+## Changelog
+
+## 🏁 Release
+- b79d7f4 🔖 Releasing version 5.3.3
+- 8dfab42 🔖 Setting SNAPSHOT version 5.3.3-SNAPSHOT
