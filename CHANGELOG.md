@@ -1585,3 +1585,26 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.3.1
+## Changelog
+
+## 🚀 Added
+- 5afa45f 👷 ci: Restore version 5.2.0 in actions to work with Java 11 to pass CI for release, update lockfile in release action, use Java 17 in action.yml (#1036)
+- 99fbd4e 👷 ci: Use latest version of maven-lockfile is CI actions and push release using JRELEASER_GITHUB_TOKEN (#1035)
+
+## 🐛 Fixed
+- c0b0ab8 💚 fix ci: Fix typo (#1037)
+
+## 🏁 Release
+- f748ecb 🔖 Releasing version 5.3.1
+- 7ff0fe0 🔖 Setting SNAPSHOT version 5.3.1-SNAPSHOT
+
+---
+- a2da2c0 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
