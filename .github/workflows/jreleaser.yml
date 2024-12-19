@@ -126,29 +126,13 @@ jobs:
           git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
       - name: Merge Fast Forward
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout main
           git merge --ff-only ${{ env.BRANCH_NAME }}
-      - name: Attempt Push with Retry
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RETRY_MAX_TIME: 600
-          RETRY_INTERVAL: 10
-        run: |
-          gh pr create --base main --head ${{ env.BRANCH_NAME }} --title "Release ${{ env.BRANCH_NAME }} ff-merge" --body "Release ${{ env.BRANCH_NAME }} ff-merge"
-
-          START_TIME=$(date +%s)
-          while true; do
-            git push origin main && break
-            ELAPSED_TIME=$(( $(date +%s) - START_TIME ))
-            if [ "$ELAPSED_TIME" -ge $RETRY_MAX_TIME ]; then
-              echo "Push failed after $RETRY_MAX_TIME seconds. Exiting..."
-              exit 1
-            fi
-
-            echo "Push failed. Retrying in $RETRY_INTERVAL seconds..."
-            sleep $RETRY_INTERVAL
-          done
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git push origin main
 # Log failure:
       - name: JReleaser release output
         if: always()
