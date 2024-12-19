@@ -38,6 +38,9 @@ jobs:
         uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
         with:
           maven-version: 3.9.6
+      - id: install-jbang
+        run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+        shell: bash
       - name: Set git user
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -62,7 +65,7 @@ jobs:
         # semver next for a snapshot only releases the snapshot version, so we need to run it 2 times
         if: ${{ github.event.inputs.version == 'major'  || github.event.inputs.version == 'minor' }}
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
-      - name: run maven-lockfile
+      - name: run maven-lockfile (validate lockfile)
         uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -74,6 +77,12 @@ jobs:
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
+      - name: run maven-lockfile (generate new lockfile for release version)
+        env:
+          POM_CHANGED: true # the version has changed, new lockfile is needed
+          COMMIT_UPDATED_LOCKFILE: true
+        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
+        bash: shell
       - name: commit changes
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
@@ -120,6 +129,12 @@ jobs:
 #1 Readme and action.yml
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources -q
+      - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
+        env:
+          POM_CHANGED: true # the version has changed, new lockfile is needed
+          COMMIT_UPDATED_LOCKFILE: true
+        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
+        bash: shell
 # Commit and push changes
       - name: Commit & Push changes
         run: |
