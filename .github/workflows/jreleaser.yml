@@ -142,7 +142,7 @@ jobs:
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
       - name: Merge Fast Forward
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
         run: |
           git checkout main
           git merge --ff-only ${{ env.BRANCH_NAME }}
