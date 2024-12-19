@@ -29,6 +29,10 @@ inputs:
     description: 'Include Maven plugins in the lockfile'
     required: false
     default: 'false'
+  lockfile-name:
+    description: 'Name of the lockfile (default="lockfile.json")'
+    required: false
+    default: 'lockfile.json'
   workflow-filename:
     description: 'Name of the workflow file'
     required: false

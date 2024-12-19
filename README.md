@@ -197,6 +197,7 @@ It still works for pull requests from the same repository. Renovate also works w
   - user\_info -> `Your Display Name <your-actual@email.com>`
   - github\_actions -> `github-actions <email associated with the github logo>`
 - `include-maven-plugins` (optional, default='false'): Whether to include Maven plugins in the lockfile.
+- `lockfile-name` (optional, default="lockfile.json"): The name of the lockfile to generate/validate.
 - `workflow-filename` (optional, default='Lockfile.yml'): The name of the workflow file, to automatically trigger lockfile generation when the workflow is updated.
 
 ## Related work
