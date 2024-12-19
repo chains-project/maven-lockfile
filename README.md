@@ -73,6 +73,7 @@ mvn -f pom.lockfile.xml
 - `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
+- `lockfileName` (default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
 ## Format
 
