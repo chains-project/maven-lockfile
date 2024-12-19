@@ -82,7 +82,7 @@ jobs:
           POM_CHANGED: true # the version has changed, new lockfile is needed
           COMMIT_UPDATED_LOCKFILE: true
         run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
-        bash: shell
+        shell: bash
       - name: commit changes
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
@@ -134,7 +134,7 @@ jobs:
           POM_CHANGED: true # the version has changed, new lockfile is needed
           COMMIT_UPDATED_LOCKFILE: true
         run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
-        bash: shell
+        shell: bash
 # Commit and push changes
       - name: Commit & Push changes
         run: |
