@@ -146,7 +146,6 @@ jobs:
           git merge --ff-only ${{ env.BRANCH_NAME }}
       - name: Attempt Push with Retry
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RETRY_MAX_TIME: 600
           RETRY_INTERVAL: 10
         run: |
