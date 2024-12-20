@@ -1630,3 +1630,21 @@ We'd like to thank the following people for their contributions:
 ## 🏁 Release
 - b79d7f4 🔖 Releasing version 5.3.3
 - 8dfab42 🔖 Setting SNAPSHOT version 5.3.3-SNAPSHOT
+
+# 5.3.4
+## Changelog
+
+## 🐛 Fixed
+- b1fc2a1 💚 fix ci: Trigger Pull-Request from CURL using JRELEASER_GITHUB_TOKEN (#1039)
+
+## 🎲 Miscellaneous
+- 7711f3b 🔍:mag: test branch protection rule bypass using classic token
+
+## 🏁 Release
+- ced582d 🔖 Releasing version 5.3.4
+- e29ca30 🔖 Setting SNAPSHOT version 5.3.4-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
