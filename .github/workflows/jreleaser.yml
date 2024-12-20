@@ -66,7 +66,7 @@ jobs:
         if: ${{ github.event.inputs.version == 'major'  || github.event.inputs.version == 'minor' }}
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.2.0
+        uses: chains-project/maven-lockfile@bdabb56b82feb242cd543af007b333bd8276e44e # v5.3.5
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -81,7 +81,7 @@ jobs:
         env:
           POM_CHANGED: true # the version has changed, new lockfile is needed
           COMMIT_UPDATED_LOCKFILE: true
-        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
+        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.3.5
         shell: bash
       - name: commit changes
         run: |
@@ -133,7 +133,7 @@ jobs:
         env:
           POM_CHANGED: true # the version has changed, new lockfile is needed
           COMMIT_UPDATED_LOCKFILE: true
-        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.2.0
+        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.3.5
         shell: bash
 # Commit and push changes
       - name: Commit & Push changes
