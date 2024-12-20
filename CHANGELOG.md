@@ -1648,3 +1648,18 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.3.5
+## Changelog
+
+## 🐛 Fixed
+- cda7810 💚 fix ci: Fix erroneous indentation in action.yml (#1041)
+
+## 🏁 Release
+- bdabb56 🔖 Releasing version 5.3.5
+- a5221d0 🔖 Setting SNAPSHOT version 5.3.5-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
