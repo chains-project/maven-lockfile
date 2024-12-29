@@ -170,11 +170,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@526cd67327ab19c7bd95be6d2d16530d80bf3c9e # v5.0.0
+          uses: chains-project/maven-lockfile@bdabb56b82feb242cd543af007b333bd8276e44e # v5.3.5
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
-
 ```
 If a pom.xml or lockfile.json file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is incorrect.
