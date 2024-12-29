@@ -38,9 +38,6 @@ jobs:
         uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
         with:
           maven-version: 3.9.6
-      - id: install-jbang
-        run: curl -Ls https://sh.jbang.dev | bash -s - app setup
-        shell: bash
       - name: Set git user
         run: |
           git config --global user.name "GitHub Actions Bot"
@@ -78,10 +75,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
       - name: run maven-lockfile (generate new lockfile for release version)
-        env:
-          POM_CHANGED: true # the version has changed, new lockfile is needed
-          COMMIT_UPDATED_LOCKFILE: true
-        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.3.5
+        run: mvn io.github.chains-project:maven-lockfile:5.3.5 generate
         shell: bash
       - name: commit changes
         run: |
@@ -130,10 +124,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources -q
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        env:
-          POM_CHANGED: true # the version has changed, new lockfile is needed
-          COMMIT_UPDATED_LOCKFILE: true
-        run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.3.5
+        run: mvn io.github.chains-project:maven-lockfile:5.3.5 generate
         shell: bash
 # Commit and push changes
       - name: Commit & Push changes
