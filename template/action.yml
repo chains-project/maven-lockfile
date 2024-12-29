@@ -37,6 +37,14 @@ inputs:
     description: 'Name of the workflow file'
     required: false
     default: 'Lockfile.yml'
+  ref:
+    description: 'The branch, tag, or SHA to checkout. Defaults to the head ref of the pull request that triggered the workflow.'
+    required: false
+    default: ${{ github.event.pull_request.head.ref }}
+  repository:
+    description: 'The full name of the repository to checkout (in owner/repo format). Defaults to the repository containing the pull request that triggered the workflow.'
+    required: false
+    default: ${{ github.event.pull_request.head.repo.full_name }}
 runs:
   using: "composite"
   steps:
@@ -44,8 +52,8 @@ runs:
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       with:
         fetch-depth: 0
-        ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        ref: ${{ inputs.ref }}
+        repository: ${{ inputs.repository }}
         token: ${{ inputs.github-token }}
     - name: Setup Java
       uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4
