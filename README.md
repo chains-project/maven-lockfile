@@ -206,11 +206,11 @@ If you are setting the `-SNAPSHOT` version in the release action/script as well 
 
 As an example, the steps for the CI in maven-lockfile is:
 * set the version from `X.Y.Z-SNAPSHOT` to `X.Y.Z` in `pom.xml`
-* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile generate`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
 * build and release
 * create `Releasing version X.Y.Z` commit and tag it with `vX.Y.Z`
 * set the version to `X.Y.(Z+1)-SNAPSHOT` in `pom.xml`
-* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile generate`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
 * create `Setting SNAPSHOT version X.Y.(Z+1)-SNAPSHOT` commit
 
 ## Related work
