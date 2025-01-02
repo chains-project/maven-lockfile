@@ -69,18 +69,18 @@
       "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
     },
     {
-      "groupId": "org.codehaus.gmavenplus",
-      "artifactId": "gmavenplus-plugin",
-      "version": "4.0.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "bc69fbf21edb2521ba0bebd5990e305d6809ef6c832837d17fb829f7ff6608c6"
-    },
-    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-enforcer-plugin",
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964"
+    },
+    {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "4.1.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d5017415911babe826936eb4c59dea953798abb43b3457d1fe2d0f95ae14ddb5"
     },
     {
       "groupId": "org.apache.maven.plugins",
