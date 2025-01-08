@@ -45,7 +45,7 @@ runs:
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.ref }}
-        repository: ${{github.event.pull_request.head.repo.full_name}}
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
         token: ${{ inputs.github-token }}
     - name: Setup Java
       uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4

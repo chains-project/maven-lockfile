@@ -199,6 +199,20 @@ It still works for pull requests from the same repository. Renovate also works w
 - `lockfile-name` (optional, default="lockfile.json"): The name of the lockfile to generate/validate.
 - `workflow-filename` (optional, default='Lockfile.yml'): The name of the workflow file, to automatically trigger lockfile generation when the workflow is updated.
 
+### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)
+
+If you are updating your POM.xml during your release (e.g. by using `mvn version:set`) to remove `-SNAPSHOT` suffixes or increase the version during the release process the lockfile will need to be regenerated as well or the commit tagged with the release will contain a lockfile with the wrong version. 
+If you are setting the `-SNAPSHOT` version in the release action/script as well it is a good idea to update the lockfile to avoid a separate `chore: lockfile` commit. 
+
+As an example, the steps for the CI in maven-lockfile is:
+* set the version from `X.Y.Z-SNAPSHOT` to `X.Y.Z` in `pom.xml`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
+* build and release
+* create `Releasing version X.Y.Z` commit and tag it with `vX.Y.Z`
+* set the version to `X.Y.(Z+1)-SNAPSHOT` in `pom.xml`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
+* create `Setting SNAPSHOT version X.Y.(Z+1)-SNAPSHOT` commit
+
 ## Related work
 
 Here we list some related work that we found while researching this topic.
