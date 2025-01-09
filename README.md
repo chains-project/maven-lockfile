@@ -220,3 +220,4 @@ Here we list some related work that we found while researching this topic.
 - Maven: https://github.com/vandmo/dependency-lock-maven-plugin
 - Gradle: For Gradle, there exists a built-in solution: https://docs.gradle.org/current/userguide/dependency_locking.html. This solution only works for Gradle builds and is deeply connected to the Gradle build system. The Gradle ecosystem is fast changing and so is its dependency resolution. Our lockfile is independent of the build system and can be used to validate the integrity of a maven repository.
 - NPM: https://docs.npmjs.com/cli/v9/configuring-npm/package-lock-json
+- Ruby: Bundler has built-in checksum verification since 2.6, see [doc](https://mensfeld.pl/2025/01/the-silent-guardian-why-bundler-checksums-are-a-game-changer-for-your-applications/)
