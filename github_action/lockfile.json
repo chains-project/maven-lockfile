@@ -6931,6 +6931,13 @@
   "mavenPlugins": [
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.6.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "06c6e6415d35767c09c0110938814a124b255303fbc49ac89b628e43cf4d71da"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-install-plugin",
       "version": "3.1.3",
       "checksumAlgorithm": "SHA-256",
@@ -7019,13 +7026,6 @@
       "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-artifact-plugin",
-      "version": "3.5.3",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "f2a94b64ff9368d397a9f986178b1a17e8788726ae683f2c6ef7670a7e2fd552"
     },
     {
       "groupId": "io.quarkus.platform",
