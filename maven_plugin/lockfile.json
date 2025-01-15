@@ -2348,6 +2348,13 @@
       "checksum": "36299120aaf72783c4a90b0b1e09b4a6eda01314dbb02dbf2d3c208d688d2100"
     },
     {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.44.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "44082da1e00ab405e2b5cfc7189efda60e88bf7e7433ef61aa96e6ac7ad521fd"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-plugin-plugin",
       "version": "3.15.1",
@@ -2409,13 +2416,6 @@
       "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7"
-    },
-    {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "2.44.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "f94d17a06c863e05cf6c3abe0bce185a041b2ca52d214e47637d6ad9e691e80f"
     },
     {
       "groupId": "com.soebes.itf.jupiter.extension",
