@@ -1,6 +1,11 @@
 name: Maven test
 on:
   workflow_dispatch:
+    inputs:
+      ignore_cache:
+        description: "Ignore the repository cache for this run"
+        required: false
+        default: "false"
   pull_request:
 
 permissions:
@@ -77,7 +82,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Dirty Waters Analysis
-        uses: chains-project/dirty-waters-action@v1.6
+        uses: chains-project/dirty-waters-action@v1.7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: maven
