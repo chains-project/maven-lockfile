@@ -76,7 +76,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.3.5:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.4.0:generate
         shell: bash
       - name: commit changes
         run: |
@@ -125,7 +125,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources -q
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:5.3.5:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.4.0:generate
         shell: bash
 # Commit and push changes
       - name: Commit & Push changes
