@@ -74,6 +74,14 @@ mvn -f pom.lockfile.xml
 - `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+
+### Flags example
+
+The flags are passed by the maven [`-D` (`--define`)](https://books.sonatype.com/mvnref-book/reference/running-sect-options.html) property. For example, to set the `lockfileName` to `my-lockfile.json` and include maven plugins in the lockfile, you would run the following command:
+```bash
+mvn io.github.chains-project:maven-lockfile:generate -DincludeMavenPlugins=true -DlockfileName=my-lockfile.json
+```
+
 ## Format
 
 An example lockfile is shown below:
