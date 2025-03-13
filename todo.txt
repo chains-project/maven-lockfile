@@ -1,0 +1,2 @@
+remove commit_lockfile: false from .github/workflows/jreleaser.yml
+Fix "wait for checks to pass"
