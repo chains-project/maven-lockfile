@@ -41,14 +41,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
-        with:
-          maven-version: 3.9.6
-      - name: jbang
-        uses: jbangdev/setup-jbang@2b1b465a7b75f4222b81426f23a01e013aa7b95c # v0.1.1
-        with:
-          version: 0.119.0
+      - id: install-jbang
+        run: curl -Ls https://sh.jbang.dev | bash -s - app setup
+        shell: bash
       - name: SmokeTest
         run: |
           jbang .github/smoketest/SmokeTest.java

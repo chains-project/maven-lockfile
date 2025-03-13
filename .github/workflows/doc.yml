@@ -25,10 +25,6 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
-        with:
-          maven-version: 3.9.6
       - name: Generate action.yml
         run: mvn generate-resources resources:copy-resources -q
       - name: Run Maven Spotless
@@ -44,6 +40,6 @@ jobs:
           fi
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
+        uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # 5.1.0
         with:
-          message: "📝 Update Documentation with current version"
+          commit_message: "📝 Update Documentation with current version"

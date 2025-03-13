@@ -15,16 +15,6 @@ inputs:
     description: 'Commit message for the lockfile'
     required: false
     default: 'chore: update lockfile'
-  commit-author:
-    description: |
-        '
-        Author for the lockfile commit. GitHub provides three values for this field.
-        - github_actor -> UserName <UserName@users.noreply.github.com>
-        - user_info -> Your Display Name <your-actual@email.com>
-        - github_actions -> github-actions <email associated with the github logo
-        '
-    required: false
-    default: 'github_actions'
   include-maven-plugins:
     description: 'Include Maven plugins in the lockfile'
     required: false
@@ -53,25 +43,25 @@ runs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@d6af6abeda15e98926a57b5aa970a96bb37f97d1 # v5
-      with:
-        maven-version: 3.8.2
     - id: install-jbang
       run: curl -Ls https://sh.jbang.dev | bash -s - app setup
       shell: bash
-    - name: Get all changed pom.xml and lockfile.json file(s)
-      id: changed-files
-      uses: tj-actions/changed-files@d6e91a2266cdb9d62096cebf1e8546899c6aa18f # v45
-      with:
-        files: |
-              **/pom.xml
-              **/${{ inputs.workflow-filename}}
-    - name: print all changed files
-      run: echo all changed files are ${{ steps.changed-files.outputs.all_changed_files }}
+    - name: Get all changed pom.xml and workflow file(s)
+      id: detect-changes
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- '**/pom.xml' '**/${{ inputs.workflow-filename }}')
+        echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+      shell: bash
+    - name: Print all changed files
+      run: echo "All changed files are $CHANGED_FILES"
       shell: bash
     - name: Set POM_CHANGED environment variable
-      run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
+      run: |
+        if [[ -n "$CHANGED_FILES" ]]; then
+          echo "POM_CHANGED=true" >> $GITHUB_ENV
+        else
+          echo "POM_CHANGED=false" >> $GITHUB_ENV
+        fi
       shell: bash
     - name: print POM-CHANGED
       run: echo "pom changed ${{ env.POM_CHANGED }}"
@@ -87,7 +77,6 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github-token }}
     - id: commit-lockfile
       if: inputs.commit-lockfile == 'true'
-      uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
+      uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # 5.1.0
       with:
-          default_author: ${{ inputs.commit-author }}
-          message: ${{ inputs.commit-message }}
+          commit_message: ${{ inputs.commit-message }}

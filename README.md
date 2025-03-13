@@ -187,16 +187,41 @@ It still works for pull requests from the same repository. Renovate also works w
 
 ### Arguments
 
-- `github-token` (required): The GitHub token used to commit the lockfile to the repository.
-- `commit-lockfile` (optional, default=true): Whether to commit an updated lockfile to the repository. The action can be used to update lockfiles automatically in e.g. pull requests (se warning about pull-requests from forks). If this is true and the pom.xml or workflow-file has updated it will create and commit the new lockfile - the action **will not** fail if the lockfile is outdated or invalid and only push the correct version. If this is false or the pom.xml and workflow-file remain unchanged, the action be used to verify the lockfile is correct - the action **will** fail in case of an outdated or invalid lockfile.
-- `commit-message` (optional, default='chore: update lockfile'): The commit message for the lockfile if `commit-lockfile` is true.
-- `commit-author` (optional, default='github\_actions'): The author for the lockfile commit if `commit-lockfile` is true. GitHub provides three values for this field.
-  - github\_actor -> `UserName <UserName@users.noreply.github.com>`
-  - user\_info -> `Your Display Name <your-actual@email.com>`
-  - github\_actions -> `github-actions <email associated with the github logo>`
-- `include-maven-plugins` (optional, default='false'): Whether to include Maven plugins in the lockfile.
-- `lockfile-name` (optional, default="lockfile.json"): The name of the lockfile to generate/validate.
-- `workflow-filename` (optional, default='Lockfile.yml'): The name of the workflow file, to automatically trigger lockfile generation when the workflow is updated.
+Extended github actions example with all available options:
+
+```yml
+- uses: chains-project/maven-lockfile@bdabb56b82feb242cd543af007b333bd8276e44e # v5.3.5
+  with:
+    # Required. The GitHub token used to commit the updated lockfile to the repository.
+    - github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+
+    # Optional. Whether to commit an updated lockfile to the repository. The action can be used 
+    #  to update lockfiles automatically in e.g. pull requests (se warning about pull-requests 
+    #  from forks). If this is true and the pom.xml or workflow-file has updated it will create 
+    #  and commit the new lockfile - the action **will not** fail if the lockfile is outdated 
+    #  or invalid and only push the correct version. If this is false or the pom.xml and 
+    #  workflow-file remain unchanged, the action be used to verify the lockfile is correct - 
+    #  the action **will** fail in case of an outdated or invalid lockfile.
+    # Defaults to true.
+    - commit-lockfile: true
+
+    # Optional. The commit message for the lockfile if 'commit-lockfile' is true.
+    # Defaults to 'chore: update lockfile'
+    - commit-message: 'chore: update lockfile'
+
+    # Optional. Wether to include Maven plugins in the lockfile.
+    # Defaults to false.
+    - include-maven-plugins: false
+
+    # Optional. The name of the lockfile to generate/validate.
+    # Defaults to 'lockfile.json'.
+    - lockfile-name: 'lockfile.json'
+
+    # Optional. The name of the workflow file, to automatically trigger lockfile generation with 
+    #  the workflow is updated.
+    # Defaults to 'Lockfile.yml'
+    workflow-filename: 'Lockfile.yml'
+```
 
 ### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)
 
