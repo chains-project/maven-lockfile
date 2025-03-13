@@ -169,7 +169,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@bdabb56b82feb242cd543af007b333bd8276e44e # v5.3.5
+          uses: chains-project/maven-lockfile@352fc01e7c64fdd4766d54931b14f03f958c62da # v5.4.1
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -190,7 +190,7 @@ It still works for pull requests from the same repository. Renovate also works w
 Extended github actions example with all available options:
 
 ```yml
-- uses: chains-project/maven-lockfile@bdabb56b82feb242cd543af007b333bd8276e44e # v5.3.5
+- uses: chains-project/maven-lockfile@352fc01e7c64fdd4766d54931b14f03f958c62da # v5.4.1
   with:
     # Required. The GitHub token used to commit the updated lockfile to the repository.
     - github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
@@ -230,11 +230,11 @@ If you are setting the `-SNAPSHOT` version in the release action/script as well 
 
 As an example, the steps for the CI in maven-lockfile is:
 * set the version from `X.Y.Z-SNAPSHOT` to `X.Y.Z` in `pom.xml`
-* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.4.1:generate`
 * build and release
 * create `Releasing version X.Y.Z` commit and tag it with `vX.Y.Z`
 * set the version to `X.Y.(Z+1)-SNAPSHOT` in `pom.xml`
-* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.3.5:generate`
+* run maven-lockfile using `mvn io.github.chains-project:maven-lockfile:5.4.1:generate`
 * create `Setting SNAPSHOT version X.Y.(Z+1)-SNAPSHOT` commit
 
 ## Related work
