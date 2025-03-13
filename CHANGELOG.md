@@ -1663,3 +1663,56 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.4.0
+## Changelog
+
+## 🚀 Added
+- 86385b2 👷 ci: add content write permissions to jreleaser.yml action (#1093)
+- 84d4aa0 👷 ci: update maven-lockfile action to temporarily specify 5.3.5 (#1092)
+- 6d8b811 👷 ci: temporarily specify version 5.3.5 to use snapshot action (#1091)
+- efb83de 👷 ci: Use snapshot action for release (#1090)
+- 7584284 👷 ci: jbang manuall install cleanup (#1087) (#1087)
+- a56c2bf ✅ test: Fix differentLockfileNameValidateShouldSucceed integration test (#1089)
+- 7c30a4c 👷 Remove un-allowlisted actions (#1086)
+- a2cdd6a 👷 ci: Use latest version of maven-lockfile in CI (#1043)
+
+## 📦 Dependencies
+- a949e68 ⬆️ (deps): Update github/codeql-action action to v3.28.2 (#1070)
+- 2efff28 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v5.3.0 (#1068)
+- 10e9d3f ⬆️ (deps): Update step-security/harden-runner action to v2.10.4 (#1066)
+- eaad84e ⬆️ (deps): Update quarkus.platform.version to v3.17.7 (#1065)
+- 3579bec ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.44.2 (#1063)
+- 6075b09 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-artifact-plugin to v3.6.0 (#1062)
+- 2e18552 ⬆️ (deps): Update github/codeql-action action to v3.28.1 (#1061)
+- 86ded26 ⬆️ (deps): Update actions/upload-artifact action to v4.6.0 (#1059)
+- 28df986 ⬆️ (deps): Update step-security/harden-runner action to v2.10.3 (#1057)
+- 593bd3d ⬆️ (deps): Update quarkus.platform.version to v3.17.6 (#1054)
+- d553f0e ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.44.1 (#1052)
+- 6f49437 ⬆️ (deps): Update dependency org.codehaus.gmavenplus:gmavenplus-plugin to v4.1.1 (#1050)
+- 3314dbc ⬆️ (deps): Update github/codeql-action action to v3.28.0 (#1046)
+
+## 📝 Documentation
+- 93d80d1 📝 👷 docs: ci: Document and update syncronizing lockfile with release (#1047)
+- 11c1d60 📝 docs: Update version of action in README.md to 5.3.5 (#1049)
+
+## 🏁 Release
+- 7a33237 🔖 Releasing version 5.4.0
+- 42c33ff 🔖(deps): Update github/codeql-action digest to d68b2d4 (#1069)
+- dc264bb 🔖(deps): Update actions/setup-go digest to f111f33 (#1067)
+- c5298bd 🔖(deps): Update actions/upload-artifact digest to 65c4c4a (#1058)
+- 9e0be18 🔖(deps): Update github/codeql-action digest to b6a472f (#1060)
+- c06c479 🔖(deps): Update tj-actions/changed-files digest to d6e91a2 (#1051)
+- a042269 🔖(deps): Update github/codeql-action digest to 48ab28a (#1045)
+- d0f7427 🔖 Setting SNAPSHOT version 5.3.6-SNAPSHOT
+
+---
+- ebf67cf Improve README.md (#1056)
+- e23e6d8 mention Ruby related work (#1055)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))
