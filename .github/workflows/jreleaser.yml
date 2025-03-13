@@ -16,7 +16,12 @@ on:
 jobs:
   build:
     name: Build and release
+
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
         with:
