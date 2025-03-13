@@ -66,7 +66,7 @@ runs:
       run: echo "COMMIT_UPDATED_LOCKFILE=${{ inputs.commit-lockfile }}" >> $GITHUB_ENV
       shell: bash
     - id: action
-      run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.4.1-SNAPSHOT
+      run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.4.1
       shell: bash
       env:
         JSON_INPUTS: ${{ toJSON(inputs) }}
