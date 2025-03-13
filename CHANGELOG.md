@@ -1716,3 +1716,18 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
 - Martin Monperrus ([@monperrus](https://github.com/monperrus))
+
+# 5.4.1
+## Changelog
+
+## 🚀 Added
+- d881c5c 👷 ci: Use version 5.4.0 with removed non-allowlisted github actions (#1095)
+
+## 🏁 Release
+- 352fc01 🔖 Releasing version 5.4.1
+- 9af76b7 🔖 Setting SNAPSHOT version 5.4.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
