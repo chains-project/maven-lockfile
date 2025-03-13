@@ -1,7 +1,7 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.3.6-SNAPSHOT",
+  "version": "5.4.0",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -2428,8 +2428,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.8.2",
-      "javaVersion": "17.0.13"
+      "mavenVersion": "3.9.9",
+      "javaVersion": "17.0.14"
     },
     "config": {
       "includeMavenPlugins": true,
