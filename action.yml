@@ -58,7 +58,6 @@ runs:
       shell: bash
     - name: Set POM_CHANGED environment variable
       run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
-      run: echo "POM_CHANGED=${{ steps.changed-files.outputs.any_changed}}" >> $GITHUB_ENV
       shell: bash
     - name: print POM-CHANGED
       run: echo "pom changed ${{ env.POM_CHANGED }}"
