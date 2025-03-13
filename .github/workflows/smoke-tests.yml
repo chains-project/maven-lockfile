@@ -46,4 +46,4 @@ jobs:
         shell: bash
       - name: SmokeTest
         run: |
-          jbang .github/smoketest/SmokeTest.java
+          ~/.jbang/bin/jbang .github/smoketest/SmokeTest.java
