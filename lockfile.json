@@ -36,9 +36,9 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
-      "version": "3.1.3",
+      "version": "3.1.4",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "36299120aaf72783c4a90b0b1e09b4a6eda01314dbb02dbf2d3c208d688d2100"
+      "checksum": "3be1d369703884116300b57abda1c46b8c712faf9a3778960d21dd27af73b650"
     },
     {
       "groupId": "org.cyclonedx",
