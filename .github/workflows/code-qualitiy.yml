@@ -72,6 +72,8 @@ jobs:
   dirty-waters:
     runs-on:
         ubuntu-latest
+    permissions:
+      pull-requests: write # To comment on a Pull Request
     steps:
       - uses: actions/checkout@v4
         with:
