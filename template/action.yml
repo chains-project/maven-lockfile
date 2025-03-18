@@ -63,7 +63,7 @@ runs:
             echo "Changed files: $CHANGED_FILES"
 
             # Check if relevant files changed
-            if echo "$CHANGED_FILES" | grep -Eq "^(pom.xml|${{ inputs.workflow-filename }})$"; then
+            if echo "$CHANGED_FILES" | grep -Eq "(pom.xml|${{ inputs.workflow-filename }})"; then
               echo "Relevant files changed."
               echo "POM_CHANGED=true" >> $GITHUB_ENV
             else
