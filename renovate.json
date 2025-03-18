@@ -15,10 +15,7 @@
         "major",
         "minor",
         "patch",
-        "pin",
-        "digest",
-        "fix",
-        "action"
+        "pin"
       ],
       "automerge": true,
       "automergeType": "pr",
