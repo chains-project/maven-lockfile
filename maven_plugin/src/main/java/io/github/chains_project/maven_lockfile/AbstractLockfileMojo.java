@@ -1,6 +1,8 @@
 package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
+
+import io.github.chains_project.LoggingRepositoryListener;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
@@ -18,6 +20,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
 
