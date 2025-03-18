@@ -52,11 +52,10 @@ runs:
           # Get the list of files that were changed between the base branch and the current commit
           CHANGED_FILES=$(git diff --name-only origin/$GITHUB_BASE_REF...HEAD)
           
-          # Check if any files match the app/icons/** pattern
           if echo "$CHANGED_FILES" | grep -Eq "^(pom.xml|${{ inputs.workflow-filename }})$"; then
-            echo "POM_CHANGED=true" >> $GITHUB_OUTPUT
+            echo "POM_CHANGED=true" >> $GITHUB_ENV
           else
-            echo "POM_CHANGED=false" >> $GITHUB_OUTPUT
+            echo "POM_CHANGED=false" >> $GITHUB_ENV
           fi
       shell: bash
     - name: print POM-CHANGED
