@@ -10,7 +10,10 @@ import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
+import org.eclipse.aether.repository.ArtifactRepository;
 
 public class DependencyGraph {
 
@@ -79,6 +82,7 @@ public class DependencyGraph {
             AbstractChecksumCalculator calc,
             boolean isRoot,
             boolean reduce) {
+        System.out.println("CDN");
         var groupId = GroupId.of(node.getArtifact().getGroupId());
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());

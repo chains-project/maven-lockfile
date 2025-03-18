@@ -1,6 +1,8 @@
 package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
+
+import io.github.chains_project.LoggingRepositoryListener;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
@@ -17,6 +19,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
 
@@ -111,5 +115,16 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 mojo.getPlugin().getVersion(),
                 chosenMode,
                 chosenAlgo);
+    }
+
+    private void attachRepositoryListener(ProjectBuildingRequest buildingRequest) {
+        RepositorySystemSession session = buildingRequest.getRepositorySession();
+        if (session instanceof DefaultRepositorySystemSession) {
+            DefaultRepositorySystemSession mavenSession = (DefaultRepositorySystemSession) session;
+            mavenSession.setRepositoryListener(new LoggingRepositoryListener());
+        } else {
+            System.out.println(
+                    "Repository session is not a MavenRepositorySystemSession; cannot attach RepositoryListener.");
+        }
     }
 }
