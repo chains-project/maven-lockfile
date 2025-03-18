@@ -49,13 +49,28 @@ runs:
     - name: Get all changed pom.xml and workflow file(s) and set into POM_CHANGED env variable
       id: changed-files
       run: |
-          # Get the list of files that were changed between the base branch and the current commit
-          CHANGED_FILES=$(git diff --name-only origin/$GITHUB_BASE_REF...HEAD)
-          
-          if echo "$CHANGED_FILES" | grep -Eq "^(pom.xml|${{ inputs.workflow-filename }})$"; then
-            echo "POM_CHANGED=true" >> $GITHUB_ENV
+          # Default to no change
+          echo "POM_CHANGED=false" >> $GITHUB_ENV
+
+          if [ -n "$GITHUB_BASE_REF" ]; then # Comparing against base branch (pull request)
+            BASE_REF="origin/$GITHUB_BASE_REF"
+          else # No base branch, comparing against previous commit
+            BASE_REF="HEAD^"
+          fi
+
+          # Safely attempt diff
+          if CHANGED_FILES=$(git diff --name-only "$BASE_REF"...HEAD 2>/dev/null); then
+            echo "Changed files: $CHANGED_FILES"
+
+            # Check if relevant files changed
+            if echo "$CHANGED_FILES" | grep -Eq "^(pom.xml|${{ inputs.workflow-filename }})$"; then
+              echo "Relevant files changed."
+              echo "POM_CHANGED=true" >> $GITHUB_ENV
+            else
+              echo "No relevant files changed."
+            fi
           else
-            echo "POM_CHANGED=false" >> $GITHUB_ENV
+            echo "Git diff failed, setting POM_CHANGED to false."
           fi
       shell: bash
     - name: print POM-CHANGED
