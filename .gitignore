@@ -19,6 +19,7 @@ buildNumber.properties
 .idea
 .DS_Store
 .vscode/settings.json
+.vim/
 .idea/
 target/
 out/
