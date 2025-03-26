@@ -118,6 +118,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: maven
-          ignore_cache: "true"
           gradual_report: false
 
