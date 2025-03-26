@@ -1731,3 +1731,44 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.4.2
+## Changelog
+
+## 🚀 Added
+- f287e2e 👷 ci: use interim action
+- c9d7656 👷 ci: lock action to 5.4.1 for interim due to release locked behind ci
+- 140cedb 👷 ci: Use version 5.4.1 in action (#1098)
+
+## 🔒️ Security
+- f69ccbb 🔒️ Remove tj-actions/changed-files (#1125)
+
+## 📦 Dependencies
+- 8d03568 ⬆️ (deps): Update dependency org.slf4j:log4j-over-slf4j to v2.0.17 (#1106)
+- 29d8e4d ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-install-plugin to v3.1.4 (#1105)
+- cacb48b ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-deploy-plugin to v3.1.4 (#1104)
+- ff1be0a ⬆️ (deps): Update github/codeql-action action to v3.28.11 (#1073)
+- 1cd7e6d ⬆️ (deps): Update step-security/harden-runner action to v2.11.0 (#1082)
+- 066c6da ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.44.3 (#1102)
+- 34d1d8b ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.26 (#1074)
+- e79ef1e ⬆️ (deps): Update actions/upload-artifact action to v4.6.1 (#1101)
+
+## 🏁 Release
+- dd58d82 🔖 Releasing version 5.4.2
+- 964b103 🔖(deps): Update tj-actions/changed-files digest to 0e58ed8 (#1111)
+- 7c272e0 🔖(deps): Update tj-actions/changed-files digest to 9200e69 (#1078)
+- c795039 🔖(deps): Update github/codeql-action digest to 6bb031a (#1072)
+- 7a617ae 🔖(deps): Update actions/upload-artifact digest to 4cec3d8 (#1100)
+- b2cb45f 🔖(deps): Update actions/setup-java digest to 3a4f6e1 (#1075)
+- 4b9bf83 🔖(deps): Update actions/cache digest to d4323d4 (#1099)
+- 1102e1a 🔖 Setting SNAPSHOT version 5.4.2-SNAPSHOT
+
+---
+- 8da1a90 doc: Add example of using flags in readme (#1096)
+- 3704f37 Revert "🔖(deps): Update tj-actions/changed-files digest to 0e58ed8 (#1111)"
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ()
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))

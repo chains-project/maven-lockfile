@@ -1,7 +1,7 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.4.2-SNAPSHOT",
+  "version": "5.4.3-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -2082,37 +2082,37 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "5.4.0",
+      "version": "5.4.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "aa0d2743c026fc9f2db3933166e9d890e283fa56080e60590bd12b033a34c246",
+      "checksum": "601333bc930fd9f21713f2ae06228c94a1bb0a51a0e8e24f5b8f6dfbbbe7dbe7",
       "scope": "test",
-      "selectedVersion": "5.4.0",
+      "selectedVersion": "5.4.1",
       "included": true,
-      "id": "org.instancio:instancio-junit:5.4.0",
+      "id": "org.instancio:instancio-junit:5.4.1",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "5.4.0",
+          "version": "5.4.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "4049e334156d377f816db4fb74e819fe48c13310e23d6a8b5e74a7d3ac05319d",
+          "checksum": "123630ef45739a20fe2bdd6c81324b430c4752c8cf7166abf9dc31ef6bece7cd",
           "scope": "test",
-          "selectedVersion": "5.4.0",
+          "selectedVersion": "5.4.1",
           "included": true,
-          "id": "org.instancio:instancio-core:5.4.0",
-          "parent": "org.instancio:instancio-junit:5.4.0",
+          "id": "org.instancio:instancio-core:5.4.1",
+          "parent": "org.instancio:instancio-junit:5.4.1",
           "children": [
             {
               "groupId": "org.slf4j",
               "artifactId": "slf4j-api",
-              "version": "2.0.16",
+              "version": "2.0.17",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
+              "checksum": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
               "scope": "test",
               "selectedVersion": "1.7.36",
               "included": false,
-              "id": "org.slf4j:slf4j-api:2.0.16",
-              "parent": "org.instancio:instancio-core:5.4.0",
+              "id": "org.slf4j:slf4j-api:2.0.17",
+              "parent": "org.instancio:instancio-core:5.4.1",
               "children": []
             }
           ]

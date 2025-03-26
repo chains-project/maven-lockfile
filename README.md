@@ -63,17 +63,25 @@ mvn -f pom.lockfile.xml
 ```
 
 
-## Flags
+## Command line Flags
 
-- `reduced` will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
-- `includeMavenPlugins` will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
-- `allowValidationFailure` (default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
-- `includeEnvironment` will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
-- `checksumAlgorithm` will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
+- `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
+- `includeMavenPlugins` (`-DincludeMavenPlugins=true`) will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
+- `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
+- `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
+- `checksumAlgorithm` (`-DchecksumAlgorithm=sha256`) will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
-- `skip` will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
-- `lockfileName` (default="lockfile.json") will set the name of the lockfile file to be generated/read.
+- `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
+- `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+
+### Flags example
+
+The flags are passed by the maven [`-D` (`--define`)](https://books.sonatype.com/mvnref-book/reference/running-sect-options.html) property. For example, to set the `lockfileName` to `my-lockfile.json` and include maven plugins in the lockfile, you would run the following command:
+```bash
+mvn io.github.chains-project:maven-lockfile:generate -DincludeMavenPlugins=true -DlockfileName=my-lockfile.json
+```
+
 ## Format
 
 An example lockfile is shown below:
