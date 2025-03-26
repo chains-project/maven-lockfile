@@ -37,7 +37,13 @@ public class LockfileTest {
 
     private DependencyNode dependencyNodeA(DependencyNode child1, DependencyNode child2) {
         var node = new DependencyNode(
-                ArtifactId.of("A"), GroupId.of("Ag"), VersionNumber.of("1"), MavenScope.RUNTIME, ResolvedUrl.Unresolved(), "sha1", "A");
+                ArtifactId.of("A"),
+                GroupId.of("Ag"),
+                VersionNumber.of("1"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.Unresolved(),
+                "sha1",
+                "A");
 
         node.addChild(child1);
         node.addChild(child2);
@@ -46,17 +52,35 @@ public class LockfileTest {
 
     private DependencyNode dependencyNodeB() {
         return new DependencyNode(
-                ArtifactId.of("B"), GroupId.of("Bg"), VersionNumber.of("1"), MavenScope.RUNTIME, ResolvedUrl.Unresolved(), "sha1", "B");
+                ArtifactId.of("B"),
+                GroupId.of("Bg"),
+                VersionNumber.of("1"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.Unresolved(),
+                "sha1",
+                "B");
     }
 
     private DependencyNode dependencyNodeAChild1() {
         return new DependencyNode(
-                ArtifactId.of("A1"), GroupId.of("Ag1"), VersionNumber.of("1"), MavenScope.RUNTIME, ResolvedUrl.Unresolved(), "sha1", "1");
+                ArtifactId.of("A1"),
+                GroupId.of("Ag1"),
+                VersionNumber.of("1"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.Unresolved(),
+                "sha1",
+                "1");
     }
 
     private DependencyNode dependencyNodeAChild2() {
         return new DependencyNode(
-                ArtifactId.of("A2"), GroupId.of("Ag2"), VersionNumber.of("1"), MavenScope.RUNTIME, ResolvedUrl.Unresolved(), "sha1", "2");
+                ArtifactId.of("A2"),
+                GroupId.of("Ag2"),
+                VersionNumber.of("1"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.Unresolved(),
+                "sha1",
+                "2");
     }
 
     private MavenPlugin pluginA() {

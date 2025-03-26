@@ -4,13 +4,9 @@ import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.*;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
-import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
-import org.eclipse.aether.repository.ArtifactRepository;
 
 public class DependencyGraph {
 

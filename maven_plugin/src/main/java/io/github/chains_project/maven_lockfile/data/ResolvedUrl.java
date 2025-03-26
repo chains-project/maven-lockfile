@@ -1,6 +1,5 @@
 package io.github.chains_project.maven_lockfile.data;
 
-import com.google.common.base.Strings;
 import java.util.Objects;
 
 /**

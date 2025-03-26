@@ -1,14 +1,13 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-
-import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
