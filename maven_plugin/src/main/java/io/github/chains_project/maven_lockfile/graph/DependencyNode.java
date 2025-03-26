@@ -5,8 +5,8 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
 import javax.annotation.Nullable;
 
@@ -108,7 +108,9 @@ public class DependencyNode implements Comparable<DependencyNode> {
     /**
      * @return the resolved url.
      */
-    public ResolvedUrl getResolved() { return resolved; }
+    public ResolvedUrl getResolved() {
+        return resolved;
+    }
 
     void addChild(DependencyNode child) {
         children.add(child);
