@@ -3,11 +3,8 @@ package io.github.chains_project.maven_lockfile.graph;
 import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.Classifier;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.MavenScope;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,14 +79,13 @@ public class DependencyGraph {
             AbstractChecksumCalculator calc,
             boolean isRoot,
             boolean reduce) {
-        System.out.println("CDN");
         var groupId = GroupId.of(node.getArtifact().getGroupId());
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());
         var classifier = Classifier.of(node.getArtifact().getClassifier());
         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
-        var resolved = calc.getResolvedField(node.getArtifact());
+        var resolved = isRoot ? ResolvedUrl.Unresolved() : calc.getResolvedField(node.getArtifact());
         Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
         boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact

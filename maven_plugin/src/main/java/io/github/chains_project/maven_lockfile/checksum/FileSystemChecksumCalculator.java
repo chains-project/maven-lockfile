@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Locale;
@@ -85,10 +86,44 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             return Optional.empty();
         }
         try {
-            System.out.println(artifact.getFile().toPath());
-            return Optional.empty();
+            Path artifactFolderPath = artifact.getFile().toPath().getParent();
+            Path remoteRepositoriesPath = artifactFolderPath.resolve("_remote.repositories");
+            List<String> remoteRepositories = Files.readAllLines(remoteRepositoriesPath);
+
+            String repository = null;
+            String target = artifact.getArtifactId() + "-" + artifact.getVersion() + "." + artifact.getType();
+
+            for (String remoteRepository : remoteRepositories) {
+                if (!remoteRepository.startsWith(target)) {
+                    continue;
+                }
+
+                if (!remoteRepository.contains(">") || !remoteRepository.contains("=")) {
+                    LOGGER.warn("Possible unknown _remote.repositories format");
+                    continue;
+                }
+
+                // Parsing 'repository' from 'artifactId-version.type>repository='
+                int start = remoteRepository.indexOf(">");
+                int end = remoteRepository.indexOf("=");
+                repository = remoteRepository.substring(start + 1, end);
+                break;
+            }
+
+            if (repository == null) {
+                // No repository found, possible locally installed artifact or unknown _remote.repositories format
+                return Optional.empty();
+            }
+
+            // convert repository to url
+            var a = buildingRequest.getRemoteRepositories();
+            for (var remoteRepository : a) {
+                System.out.println(remoteRepository);
+            }
+
+            return Optional.of(ResolvedUrl.of(repository));
         } catch (Exception e) {
-            LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);
+            LOGGER.warn("Could not fetch remote repository for artifact " + artifact, e);
             return Optional.empty();
         }
     }
