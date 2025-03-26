@@ -6,6 +6,8 @@ import java.security.MessageDigest;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
@@ -77,6 +79,20 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
+    private Optional<ResolvedUrl> getResolvedFieldInternal(Artifact artifact) {
+        if (artifact.getFile() == null) {
+            LOGGER.error("Artifact " + artifact + " has no file");
+            return Optional.empty();
+        }
+        try {
+            System.out.println(artifact.getFile().toPath());
+            return Optional.empty();
+        } catch (Exception e) {
+            LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);
+            return Optional.empty();
+        }
+    }
+
     @Override
     public String calculateArtifactChecksum(Artifact artifact) {
         return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest))
@@ -92,5 +108,10 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public String getDefaultChecksumAlgorithm() {
         return "SHA-256";
+    }
+
+    @Override
+    public ResolvedUrl getResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(resolveDependency(artifact)).orElse(ResolvedUrl.of(""));
     }
 }
