@@ -8,6 +8,7 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import java.util.List;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -22,8 +23,6 @@ import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.RepositorySystemSession;
-
-import java.util.List;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
 
