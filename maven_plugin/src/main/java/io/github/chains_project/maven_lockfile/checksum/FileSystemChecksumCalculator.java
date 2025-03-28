@@ -21,8 +21,10 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     private final ProjectBuildingRequest pluginBuildingRequest;
 
     public FileSystemChecksumCalculator(
-            DependencyResolver resolver, ProjectBuildingRequest artifactBuildingRequest,
-            ProjectBuildingRequest pluginBuildingRequest, String checksumAlgorithm) {
+            DependencyResolver resolver,
+            ProjectBuildingRequest artifactBuildingRequest,
+            ProjectBuildingRequest pluginBuildingRequest,
+            String checksumAlgorithm) {
         super(checksumAlgorithm);
         this.resolver = resolver;
         this.artifactBuildingRequest = artifactBuildingRequest;

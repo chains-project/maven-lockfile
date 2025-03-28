@@ -80,7 +80,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
         if (checksumMode.equals("maven_local")) {
-            return new FileSystemChecksumCalculator(dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
+            return new FileSystemChecksumCalculator(
+                    dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
         } else if (checksumMode.equals("maven_central")) {
             return new RemoteChecksumCalculator(checksumAlgorithm);
         } else {
@@ -94,7 +95,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         switch (config.getChecksumMode()) {
             case "maven_local":
                 return new FileSystemChecksumCalculator(
-                        dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, config.getChecksumAlgorithm());
+                        dependencyResolver,
+                        artifactBuildingRequest,
+                        pluginBuildingRequest,
+                        config.getChecksumAlgorithm());
             case "maven_central":
                 return new RemoteChecksumCalculator(config.getChecksumAlgorithm());
             default:
