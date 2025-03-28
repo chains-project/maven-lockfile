@@ -19,8 +19,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
-    @Override
-    public String calculateChecksum(Artifact artifact) {
+    private String calculateChecksumInternal(Artifact artifact) {
         try {
 
             String groupId = artifact.getGroupId().replace(".", "/");
@@ -38,6 +37,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
             throw new RuntimeException("Could not resolve artifact: " + artifact.getArtifactId(), e);
         }
+    }
+
+    @Override
+    public String calculateArtifactChecksum(Artifact artifact) {
+        return calculateChecksumInternal(artifact);
+    }
+
+    @Override
+    public String calculatePluginChecksum(Artifact artifact) {
+        return calculateChecksumInternal(artifact);
     }
 
     @Override

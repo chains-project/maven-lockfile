@@ -21,7 +21,9 @@ public abstract class AbstractChecksumCalculator {
         return checksumAlgorithm;
     }
 
-    public abstract String calculateChecksum(Artifact artifact);
+    public abstract String calculateArtifactChecksum(Artifact artifact);
+
+    public abstract String calculatePluginChecksum(Artifact artifact);
 
     public abstract String getDefaultChecksumAlgorithm();
 }

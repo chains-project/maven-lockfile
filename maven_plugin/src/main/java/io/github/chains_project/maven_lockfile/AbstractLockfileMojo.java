@@ -77,9 +77,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
-        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
+        ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
         if (checksumMode.equals("maven_local")) {
-            return new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
+            return new FileSystemChecksumCalculator(dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
         } else if (checksumMode.equals("maven_central")) {
             return new RemoteChecksumCalculator(checksumAlgorithm);
         } else {
@@ -88,11 +89,12 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
-        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
+        ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
         switch (config.getChecksumMode()) {
             case "maven_local":
                 return new FileSystemChecksumCalculator(
-                        dependencyResolver, buildingRequest, config.getChecksumAlgorithm());
+                        dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, config.getChecksumAlgorithm());
             case "maven_central":
                 return new RemoteChecksumCalculator(config.getChecksumAlgorithm());
             default:
@@ -111,5 +113,17 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 mojo.getPlugin().getVersion(),
                 chosenMode,
                 chosenAlgo);
+    }
+
+    protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
+        return buildingRequest;
+    }
+
+    protected ProjectBuildingRequest newResolvePluginProjectBuildingRequest() throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
+        return buildingRequest;
     }
 }
