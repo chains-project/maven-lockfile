@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
@@ -20,6 +21,8 @@ import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.RepositorySystemSession;
+
+import java.util.List;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
 
@@ -81,6 +84,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
         if (checksumMode.equals("maven_local")) {
             return new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
         } else if (checksumMode.equals("maven_central")) {
@@ -92,6 +96,12 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
+
+        List<org.apache.maven.artifact.repository.ArtifactRepository> l = project.getRemoteArtifactRepositories();
+        for (ArtifactRepository repo : l) {
+            System.out.println(repo);
+        }
         switch (config.getChecksumMode()) {
             case "maven_local":
                 return new FileSystemChecksumCalculator(
