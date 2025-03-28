@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>5.4.2-SNAPSHOT</version>
+    <version>5.4.3-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-github-action</artifactId>
-  <version>5.4.2-SNAPSHOT</version>
+  <version>5.4.3-SNAPSHOT</version>
   <name>maven-lockfile-github-action</name>
   <description>This is a github action for maven-lockfile. It allows the integration of maven-lockfile in your github development workflow.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
@@ -21,13 +21,13 @@
     </repository>
   </distributionManagement>
   <properties>
-    <compiler-plugin.version>3.13.0</compiler-plugin.version>
+    <compiler-plugin.version>3.14.0</compiler-plugin.version>
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>3.17.7</quarkus.platform.version>
+    <quarkus.platform.version>3.21.0</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.5.2</surefire-plugin.version>
     <quarkus.package.type>uber-jar</quarkus.package.type>

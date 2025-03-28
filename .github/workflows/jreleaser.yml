@@ -44,7 +44,7 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
       - name: install go
-        uses: actions/setup-go@f111f3307d8850f501ac008e886eec1fd1932a34 # v5.3.0
+        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
       - name: install semversion
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
 # Get current version from pom and remove snapshot if present.
@@ -64,7 +64,7 @@ jobs:
         if: ${{ github.event.inputs.version == 'major'  || github.event.inputs.version == 'minor' }}
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@352fc01e7c64fdd4766d54931b14f03f958c62da # v5.4.1
+        uses: chains-project/maven-lockfile@dd58d822ff049b321fc93bfc3902780c7257e680 # v5.4.2
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -163,7 +163,7 @@ jobs:
 # Log failure:
       - name: JReleaser release output
         if: always()
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: jreleaser-release
           path: |

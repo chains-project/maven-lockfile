@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile-parent</artifactId>
-  <version>5.4.2-SNAPSHOT</version>
+  <version>5.4.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>maven-lockfile-parent</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
@@ -38,7 +38,7 @@
     <url>https://github.com/chains-project/maven-lockfile.git</url>
   </scm>
   <properties>
-    <project.build.outputTimestamp>2025-03-13T16:54:34Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2025-03-24T17:54:47Z</project.build.outputTimestamp>
   </properties>
   <build>
     <plugins>
@@ -150,7 +150,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.14.0</version>
         <configuration></configuration>
       </plugin>
       <plugin>
@@ -172,7 +172,6 @@
                   <banSnapshots>true</banSnapshots>
                   <phases>clean,deploy,site</phases>
                   <additionalPlugins>
-                    <additionalPlugin>org.apache.maven.plugins:maven-eclipse-plugin</additionalPlugin>
                     <additionalPlugin>org.apache.maven.plugins:maven-reactor-plugin</additionalPlugin>
                   </additionalPlugins>
                   <unCheckedPluginList>org.apache.maven.plugins:maven-enforcer-plugin,org.apache.maven.plugins:maven-idea-plugin,org.apache.maven.plugins:maven-reactor-plugin</unCheckedPluginList>
@@ -184,18 +183,13 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>2.10</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.21.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.4.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
