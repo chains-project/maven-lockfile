@@ -52,6 +52,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     private Artifact resolveDependency(Artifact artifact, ProjectBuildingRequest buildingRequest) {
         try {
+            ProjectBuildingRequest buildingRequest = isPlugin ? pluginBuildingRequest : artifactBuildingRequest;
             return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
                     .iterator()
                     .next()
