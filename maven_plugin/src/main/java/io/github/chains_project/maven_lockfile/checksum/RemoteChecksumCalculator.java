@@ -1,5 +1,6 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -22,7 +23,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public String calculateChecksum(Artifact artifact) {
         try {
-
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
@@ -43,5 +43,15 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public String getDefaultChecksumAlgorithm() {
         return "sha1";
+    }
+
+    @Override
+    public ResolvedUrl getResolvedField(Artifact artifact) {
+        String groupId = artifact.getGroupId().replace(".", "/");
+        String artifactId = artifact.getArtifactId();
+        String version = artifact.getVersion();
+        String extension = artifact.getType();
+        String filename = artifactId + "-" + version + "." + extension;
+        return ResolvedUrl.of(CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename);
     }
 }
