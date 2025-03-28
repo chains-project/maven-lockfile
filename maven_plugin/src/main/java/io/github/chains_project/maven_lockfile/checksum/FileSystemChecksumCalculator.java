@@ -117,7 +117,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             // convert repository to url
             var a = buildingRequest.getRemoteRepositories();
             for (var remoteRepository : a) {
-                System.out.println(remoteRepository);
+                //System.out.println(remoteRepository);
             }
 
             return Optional.of(ResolvedUrl.of(repository));
