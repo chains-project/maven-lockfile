@@ -29,12 +29,12 @@ jobs:
 
 # Setups the environment
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
       - name: Set up JDK 17
-        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -44,7 +44,7 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
       - name: install go
-        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5
+        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
       - name: install semversion
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
 # Get current version from pom and remove snapshot if present.
@@ -163,7 +163,7 @@ jobs:
 # Log failure:
       - name: JReleaser release output
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: jreleaser-release
           path: |
