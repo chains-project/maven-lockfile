@@ -56,13 +56,6 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-eclipse-plugin",
-      "version": "2.10",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "9ae0b3478344d335d42580f9aa18aa8c3778ada3b53b7448b382dc92b3ae79ab"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.4.1",
       "checksumAlgorithm": "SHA-256",
