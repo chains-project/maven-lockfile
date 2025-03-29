@@ -79,12 +79,14 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public String calculateArtifactChecksum(Artifact artifact) {
-        return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest)).orElse("");
+        return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest))
+                .orElse("");
     }
 
     @Override
     public String calculatePluginChecksum(Artifact artifact) {
-        return calculateChecksumInternal(resolveDependency(artifact, pluginBuildingRequest)).orElse("");
+        return calculateChecksumInternal(resolveDependency(artifact, pluginBuildingRequest))
+                .orElse("");
     }
 
     @Override
