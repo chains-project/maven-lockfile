@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.eclipse.aether.repository.RemoteRepository;
 
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
@@ -40,13 +39,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String filename = artifactId + "-" + version + "." + extension;
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
-                String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId
-                        + "/" + version + "/" + filename + "." + checksumAlgorithm;
+                String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
+                        + "/" + filename + "." + checksumAlgorithm;
 
                 LOGGER.debug("Checking: " + url);
 
-                HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.ALWAYS).build();
-                HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+                HttpClient client = HttpClient.newBuilder()
+                        .followRedirects(HttpClient.Redirect.ALWAYS)
+                        .build();
+                HttpRequest request =
+                        HttpRequest.newBuilder().uri(URI.create(url)).build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
@@ -56,8 +58,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
             LOGGER.warn("Artifact checksum `" + groupId + "." + artifactId + "." + version + "." + filename + "."
                     + checksumAlgorithm + "` not found among remote repositories.");
-            throw new RuntimeException("Artifact checksum `" + groupId + "." + artifactId + "." + version + "." + filename + "."
-                    + checksumAlgorithm + "` not found among remote repositories.");
+            throw new RuntimeException("Artifact checksum `" + groupId + "." + artifactId + "." + version + "."
+                    + filename + "." + checksumAlgorithm + "` not found among remote repositories.");
         } catch (Exception e) {
             LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
             throw new RuntimeException("Could not resolve artifact: " + artifact.getArtifactId(), e);
