@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
@@ -56,7 +57,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
-    @Parameter(defaultValue = "maven_local", property = "checksumMode")
+    @Parameter(defaultValue = "local", property = "checksumMode")
     protected String checksumMode;
 
     @Parameter(property = "reduced")
@@ -79,10 +80,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
-        if (checksumMode.equals("maven_local")) {
+        if (checksumMode.equals(ChecksumModes.LOCAL.name())) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
-        } else if (checksumMode.equals("maven_central")) {
+        } else if (checksumMode.equals(ChecksumModes.REMOTE.name())) {
             return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
@@ -92,24 +93,23 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
-        switch (config.getChecksumMode()) {
-            case "maven_local":
-                return new FileSystemChecksumCalculator(
-                        dependencyResolver,
-                        artifactBuildingRequest,
-                        pluginBuildingRequest,
-                        config.getChecksumAlgorithm());
-            case "maven_central":
-                return new RemoteChecksumCalculator(
-                        config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
-            default:
-                throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
+        if (config.getChecksumMode().equals(ChecksumModes.LOCAL.name())) {
+            return new FileSystemChecksumCalculator(
+                    dependencyResolver,
+                    artifactBuildingRequest,
+                    pluginBuildingRequest,
+                    config.getChecksumAlgorithm());
+        } else if (config.getChecksumMode().equals(ChecksumModes.REMOTE.name())) {
+            return new RemoteChecksumCalculator(
+                    config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
+        } else {
+            throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
         }
     }
 
     protected Config getConfig() {
         String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? "maven_local" : checksumMode;
+        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL.name() : checksumMode;
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(allowValidationFailure),
