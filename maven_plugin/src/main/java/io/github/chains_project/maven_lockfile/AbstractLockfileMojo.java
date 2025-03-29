@@ -80,10 +80,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
-        if (checksumMode.equals(ChecksumModes.LOCAL.name())) {
+        if (checksumMode.equals("local")) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
-        } else if (checksumMode.equals(ChecksumModes.REMOTE.name())) {
+        } else if (checksumMode.equals("remote")) {
             return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
@@ -93,14 +93,18 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
-        if (config.getChecksumMode().equals(ChecksumModes.LOCAL.name())) {
-            return new FileSystemChecksumCalculator(
-                    dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, config.getChecksumAlgorithm());
-        } else if (config.getChecksumMode().equals(ChecksumModes.REMOTE.name())) {
-            return new RemoteChecksumCalculator(
-                    config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
-        } else {
-            throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
+        switch (config.getChecksumMode()) {
+            case "local":
+                return new FileSystemChecksumCalculator(
+                        dependencyResolver,
+                        artifactBuildingRequest,
+                        pluginBuildingRequest,
+                        config.getChecksumAlgorithm());
+            case "remote":
+                return new RemoteChecksumCalculator(
+                        config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
+            default:
+                throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
         }
     }
 
