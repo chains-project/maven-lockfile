@@ -552,7 +552,7 @@
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.2.4-SNAPSHOT",
-      "checksumMode": "maven_local",
+      "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
   }

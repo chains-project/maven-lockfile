@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
@@ -56,7 +57,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
-    @Parameter(defaultValue = "maven_local", property = "checksumMode")
+    @Parameter(defaultValue = "local", property = "checksumMode")
     protected String checksumMode;
 
     @Parameter(property = "reduced")
@@ -77,24 +78,31 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
-        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-        if (checksumMode.equals("maven_local")) {
-            return new FileSystemChecksumCalculator(dependencyResolver, buildingRequest, checksumAlgorithm);
-        } else if (checksumMode.equals("maven_central")) {
-            return new RemoteChecksumCalculator(checksumAlgorithm);
+        ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
+        ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
+        if (checksumMode.equals("local")) {
+            return new FileSystemChecksumCalculator(
+                    dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
+        } else if (checksumMode.equals("remote")) {
+            return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
         }
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
-        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
+        ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
         switch (config.getChecksumMode()) {
-            case "maven_local":
+            case "local":
                 return new FileSystemChecksumCalculator(
-                        dependencyResolver, buildingRequest, config.getChecksumAlgorithm());
-            case "maven_central":
-                return new RemoteChecksumCalculator(config.getChecksumAlgorithm());
+                        dependencyResolver,
+                        artifactBuildingRequest,
+                        pluginBuildingRequest,
+                        config.getChecksumAlgorithm());
+            case "remote":
+                return new RemoteChecksumCalculator(
+                        config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
             default:
                 throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
         }
@@ -102,7 +110,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     protected Config getConfig() {
         String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? "maven_local" : checksumMode;
+        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL.name() : checksumMode;
         return new Config(
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(allowValidationFailure),
@@ -111,5 +119,17 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 mojo.getPlugin().getVersion(),
                 chosenMode,
                 chosenAlgo);
+    }
+
+    protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
+        return buildingRequest;
+    }
+
+    protected ProjectBuildingRequest newResolvePluginProjectBuildingRequest() throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+        buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
+        return buildingRequest;
     }
 }
