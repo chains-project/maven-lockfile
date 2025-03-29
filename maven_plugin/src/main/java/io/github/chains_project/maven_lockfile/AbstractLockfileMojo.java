@@ -95,10 +95,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
         if (config.getChecksumMode().equals(ChecksumModes.LOCAL.name())) {
             return new FileSystemChecksumCalculator(
-                    dependencyResolver,
-                    artifactBuildingRequest,
-                    pluginBuildingRequest,
-                    config.getChecksumAlgorithm());
+                    dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, config.getChecksumAlgorithm());
         } else if (config.getChecksumMode().equals(ChecksumModes.REMOTE.name())) {
             return new RemoteChecksumCalculator(
                     config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
