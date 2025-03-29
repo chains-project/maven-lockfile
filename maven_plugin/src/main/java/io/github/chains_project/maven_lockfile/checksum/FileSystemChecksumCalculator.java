@@ -48,9 +48,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         return dependency;
     }
 
-    private Artifact resolveDependency(Artifact artifact, boolean isPlugin) {
+    private Artifact resolveDependency(Artifact artifact, ProjectBuildingRequest buildingRequest) {
         try {
-            ProjectBuildingRequest buildingRequest = isPlugin ? pluginBuildingRequest : artifactBuildingRequest;
             return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
                     .iterator()
                     .next()
@@ -80,12 +79,12 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public String calculateArtifactChecksum(Artifact artifact) {
-        return calculateChecksumInternal(resolveDependency(artifact, false)).orElse("");
+        return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest)).orElse("");
     }
 
     @Override
     public String calculatePluginChecksum(Artifact artifact) {
-        return calculateChecksumInternal(resolveDependency(artifact, true)).orElse("");
+        return calculateChecksumInternal(resolveDependency(artifact, pluginBuildingRequest)).orElse("");
     }
 
     @Override
