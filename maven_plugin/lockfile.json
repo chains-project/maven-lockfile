@@ -1595,25 +1595,25 @@
     {
       "groupId": "org.apache.maven.plugin-testing",
       "artifactId": "maven-plugin-testing-harness",
-      "version": "4.0.0-beta-3",
+      "version": "4.0.0-beta-4",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "5e7f689aa8073c0e954e77b7cb7c489d6059c8589d746b4bbe027cbd3ea3d6af",
+      "checksum": "6a240b223da1eb4b0f4bd399ea3480229d7683a1759c023e698339318208e851",
       "scope": "test",
-      "selectedVersion": "4.0.0-beta-3",
+      "selectedVersion": "4.0.0-beta-4",
       "included": true,
-      "id": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+      "id": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
       "children": [
         {
           "groupId": "org.apache.maven",
           "artifactId": "maven-xml",
-          "version": "4.0.0-rc-2",
+          "version": "4.0.0-rc-3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "37df63d117f374fd00b82db030c4f27787d44c829f0b98fa163808bfc73c8149",
+          "checksum": "063c424cb47f75164125d5eea25167b931dd694e34268d50247374e74211dd19",
           "scope": "test",
-          "selectedVersion": "4.0.0-rc-2",
+          "selectedVersion": "4.0.0-rc-3",
           "included": true,
-          "id": "org.apache.maven:maven-xml:4.0.0-rc-2",
-          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+          "id": "org.apache.maven:maven-xml:4.0.0-rc-3",
+          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": [
             {
               "groupId": "com.fasterxml.woodstox",
@@ -1625,7 +1625,7 @@
               "selectedVersion": "7.1.0",
               "included": true,
               "id": "com.fasterxml.woodstox:woodstox-core:7.1.0",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-2",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
               "children": [
                 {
                   "groupId": "org.codehaus.woodstox",
@@ -1645,26 +1645,26 @@
             {
               "groupId": "org.apache.maven",
               "artifactId": "maven-api-xml",
-              "version": "4.0.0-rc-2",
+              "version": "4.0.0-rc-3",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "4aae69949b6c2c9151900ccf7614fe6b11e33af2f40154ebd6c88e577b4c03e5",
+              "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
               "scope": "test",
-              "selectedVersion": "4.0.0-rc-2",
+              "selectedVersion": "4.0.0-rc-3",
               "included": true,
-              "id": "org.apache.maven:maven-api-xml:4.0.0-rc-2",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-2",
+              "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
               "children": [
                 {
                   "groupId": "org.apache.maven",
                   "artifactId": "maven-api-annotations",
-                  "version": "4.0.0-rc-2",
+                  "version": "4.0.0-rc-3",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "dc61f601ad6b4dcc7bcb688b712eeb8e6cf22d36994d2d7851f7f1ab5fc152b2",
+                  "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
                   "scope": "test",
-                  "selectedVersion": "4.0.0-rc-2",
+                  "selectedVersion": "4.0.0-rc-3",
                   "included": true,
-                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-2",
-                  "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-2",
+                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
                   "children": []
                 }
               ]
@@ -1679,7 +1679,7 @@
               "selectedVersion": "4.2.2",
               "included": true,
               "id": "org.codehaus.woodstox:stax2-api:4.2.2",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-2",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
               "children": []
             }
           ]
@@ -1694,7 +1694,7 @@
           "selectedVersion": "3.5.1",
           "included": false,
           "id": "org.codehaus.plexus:plexus-utils:4.0.2",
-          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": []
         },
         {
@@ -1707,20 +1707,20 @@
           "selectedVersion": "0.9.0.M2",
           "included": false,
           "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M3",
-          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": []
         },
         {
           "groupId": "org.mockito",
           "artifactId": "mockito-core",
-          "version": "5.15.2",
+          "version": "5.16.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "bf48b7372d9491d5ec8aebb4cdd187d15663931599c0fbe7410166ce0e1e58ff",
+          "checksum": "d72bf7d23ec19d0513c680bc7ebbaccef0c643af22c82c5ecfd999b2109fc797",
           "scope": "test",
-          "selectedVersion": "5.15.2",
+          "selectedVersion": "5.16.1",
           "included": true,
-          "id": "org.mockito:mockito-core:5.15.2",
-          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+          "id": "org.mockito:mockito-core:5.16.1",
+          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": [
             {
               "groupId": "net.bytebuddy",
@@ -1732,7 +1732,7 @@
               "selectedVersion": "1.15.11",
               "included": true,
               "id": "net.bytebuddy:byte-buddy:1.15.11",
-              "parent": "org.mockito:mockito-core:5.15.2",
+              "parent": "org.mockito:mockito-core:5.16.1",
               "children": []
             },
             {
@@ -1745,7 +1745,7 @@
               "selectedVersion": "1.15.11",
               "included": true,
               "id": "net.bytebuddy:byte-buddy-agent:1.15.11",
-              "parent": "org.mockito:mockito-core:5.15.2",
+              "parent": "org.mockito:mockito-core:5.16.1",
               "children": []
             },
             {
@@ -1758,7 +1758,7 @@
               "selectedVersion": "3.3",
               "included": true,
               "id": "org.objenesis:objenesis:3.3",
-              "parent": "org.mockito:mockito-core:5.15.2",
+              "parent": "org.mockito:mockito-core:5.16.1",
               "children": []
             }
           ]
@@ -1766,14 +1766,14 @@
         {
           "groupId": "org.slf4j",
           "artifactId": "slf4j-api",
-          "version": "2.0.16",
+          "version": "2.0.17",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
+          "checksum": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
           "scope": "test",
           "selectedVersion": "1.7.36",
           "included": false,
-          "id": "org.slf4j:slf4j-api:2.0.16",
-          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-3",
+          "id": "org.slf4j:slf4j-api:2.0.17",
+          "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": []
         }
       ]
