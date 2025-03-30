@@ -119,4 +119,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: maven
           gradual_report: false
+          debug: true
 
