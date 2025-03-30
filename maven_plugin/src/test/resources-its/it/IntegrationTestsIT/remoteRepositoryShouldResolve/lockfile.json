@@ -1,0 +1,571 @@
+{
+  "artifactId": "my-app",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "atlassian-bandana",
+      "artifactId": "atlassian-bandana",
+      "version": "0.2.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "12357e6d5c5eb6b5ed80bbb98f4ef7b70fcb08520a9f306c4af086c37d6ebc11",
+      "scope": "compile",
+      "selectedVersion": "0.2.0",
+      "included": true,
+      "id": "atlassian-bandana:atlassian-bandana:0.2.0",
+      "children": []
+    },
+    {
+      "groupId": "fr.inria.gforge.spoon",
+      "artifactId": "spoon-core",
+      "version": "10.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "37a43de039cf9a6701777106e3c5921e7131e5417fa707709abf791d3d8d9174",
+      "scope": "compile",
+      "selectedVersion": "10.3.0",
+      "included": true,
+      "id": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+      "children": [
+        {
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.14.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "501d3abce4d18dcc381058ec593c5b94477906bba6efbac14dae40a642f77424",
+          "scope": "compile",
+          "selectedVersion": "2.14.2",
+          "included": true,
+          "id": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": [
+            {
+              "groupId": "com.fasterxml.jackson.core",
+              "artifactId": "jackson-annotations",
+              "version": "2.14.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "2c6869d505cf60dc066734b7d50339f975bd3adc635e26a78abb71acb4473c0d",
+              "scope": "compile",
+              "selectedVersion": "2.14.2",
+              "included": true,
+              "id": "com.fasterxml.jackson.core:jackson-annotations:2.14.2",
+              "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+              "children": []
+            },
+            {
+              "groupId": "com.fasterxml.jackson.core",
+              "artifactId": "jackson-core",
+              "version": "2.14.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b5d37a77c88277b97e3593c8740925216c06df8e4172bbde058528df04ad3e7a",
+              "scope": "compile",
+              "selectedVersion": "2.14.2",
+              "included": true,
+              "id": "com.fasterxml.jackson.core:jackson-core:2.14.2",
+              "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "com.martiansoftware",
+          "artifactId": "jsap",
+          "version": "2.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "331746fa62cfbc3368260c5a2e660936ad11be612308c120a044e120361d474e",
+          "scope": "compile",
+          "selectedVersion": "2.1",
+          "included": true,
+          "id": "com.martiansoftware:jsap:2.1",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        },
+        {
+          "groupId": "commons-io",
+          "artifactId": "commons-io",
+          "version": "2.11.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "961b2f6d87dbacc5d54abf45ab7a6e2495f89b75598962d8c723cea9bc210908",
+          "scope": "compile",
+          "selectedVersion": "2.11.0",
+          "included": true,
+          "id": "commons-io:commons-io:2.11.0",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-compress",
+          "version": "1.22",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "53d04a0efc7223baecaa303bd5d298eb0600e6b82b4076f9cecd558b97ba760b",
+          "scope": "compile",
+          "selectedVersion": "1.22",
+          "included": true,
+          "id": "org.apache.commons:commons-compress:1.22",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.commons",
+          "artifactId": "commons-lang3",
+          "version": "3.12.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d919d904486c037f8d193412da0c92e22a9fa24230b9d67a57855c5c31c7e94e",
+          "scope": "compile",
+          "selectedVersion": "3.12.0",
+          "included": true,
+          "id": "org.apache.commons:commons-lang3:3.12.0",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-model",
+          "version": "4.0.0-rc-3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "5414a8b23f5932bd4b2ea4b5d2e188620ff60bf3fd5b2bb16a7d4d63d39e6248",
+          "scope": "compile",
+          "selectedVersion": "4.0.0-rc-3",
+          "included": true,
+          "id": "org.apache.maven:maven-model:4.0.0-rc-3",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": [
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-api-annotations",
+              "version": "4.0.0-rc-3",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+              "scope": "compile",
+              "selectedVersion": "4.0.0-rc-3",
+              "included": true,
+              "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+              "parent": "org.apache.maven:maven-model:4.0.0-rc-3",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-api-model",
+              "version": "4.0.0-rc-3",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7208a02aeca7534e361d5e16aa71fd53cd7bfe8f8acaf51d4610f312794691c8",
+              "scope": "compile",
+              "selectedVersion": "4.0.0-rc-3",
+              "included": true,
+              "id": "org.apache.maven:maven-api-model:4.0.0-rc-3",
+              "parent": "org.apache.maven:maven-model:4.0.0-rc-3",
+              "children": [
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-annotations",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": false,
+                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-api-model:4.0.0-rc-3",
+                  "children": []
+                },
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-xml",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": false,
+                  "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-api-model:4.0.0-rc-3",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-api-xml",
+              "version": "4.0.0-rc-3",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
+              "scope": "compile",
+              "selectedVersion": "4.0.0-rc-3",
+              "included": true,
+              "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+              "parent": "org.apache.maven:maven-model:4.0.0-rc-3",
+              "children": [
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-annotations",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": false,
+                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-support",
+              "version": "4.0.0-rc-3",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "d0e7c70887c09c2039c224d9c47489c6ac93bef27b3d387e862da9e06681d45c",
+              "scope": "compile",
+              "selectedVersion": "4.0.0-rc-3",
+              "included": true,
+              "id": "org.apache.maven:maven-support:4.0.0-rc-3",
+              "parent": "org.apache.maven:maven-model:4.0.0-rc-3",
+              "children": [
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-metadata",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "dd346dde9f11ea854c2519e40aaaab375559a60a43e3b1e6463b805bb88ce2d9",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": true,
+                  "id": "org.apache.maven:maven-api-metadata:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-support:4.0.0-rc-3",
+                  "children": [
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-annotations",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-api-metadata:4.0.0-rc-3",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-model",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "7208a02aeca7534e361d5e16aa71fd53cd7bfe8f8acaf51d4610f312794691c8",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": false,
+                  "id": "org.apache.maven:maven-api-model:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-support:4.0.0-rc-3",
+                  "children": []
+                },
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-settings",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "4f5e43e45efd4c92d6cef4f8f64171ac62298b612ea39d086dff82f468f67bfd",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": true,
+                  "id": "org.apache.maven:maven-api-settings:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-support:4.0.0-rc-3",
+                  "children": [
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-annotations",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-api-settings:4.0.0-rc-3",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-xml",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-api-settings:4.0.0-rc-3",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-toolchain",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "0faebfcd9142c4fadf47a9024ca5bec52a693c298cfdf2e24f3749af163bae09",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": true,
+                  "id": "org.apache.maven:maven-api-toolchain:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-support:4.0.0-rc-3",
+                  "children": [
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-annotations",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-api-toolchain:4.0.0-rc-3",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-xml",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-api-toolchain:4.0.0-rc-3",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-xml",
+                  "version": "4.0.0-rc-3",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "063c424cb47f75164125d5eea25167b931dd694e34268d50247374e74211dd19",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-rc-3",
+                  "included": true,
+                  "id": "org.apache.maven:maven-xml:4.0.0-rc-3",
+                  "parent": "org.apache.maven:maven-support:4.0.0-rc-3",
+                  "children": [
+                    {
+                      "groupId": "com.fasterxml.woodstox",
+                      "artifactId": "woodstox-core",
+                      "version": "7.1.0",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "81266920a1cdc47306a8a2b4726c99ec89b3fbf31c2470e4f5e477d9d857ca9f",
+                      "scope": "compile",
+                      "selectedVersion": "7.1.0",
+                      "included": true,
+                      "id": "com.fasterxml.woodstox:woodstox-core:7.1.0",
+                      "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
+                      "children": [
+                        {
+                          "groupId": "org.codehaus.woodstox",
+                          "artifactId": "stax2-api",
+                          "version": "4.2.2",
+                          "checksumAlgorithm": "SHA-256",
+                          "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
+                          "scope": "compile",
+                          "selectedVersion": "4.2.2",
+                          "included": false,
+                          "id": "org.codehaus.woodstox:stax2-api:4.2.2",
+                          "parent": "com.fasterxml.woodstox:woodstox-core:7.1.0",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-xml",
+                      "version": "4.0.0-rc-3",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
+                      "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.codehaus.woodstox",
+                      "artifactId": "stax2-api",
+                      "version": "4.2.2",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
+                      "scope": "compile",
+                      "selectedVersion": "4.2.2",
+                      "included": true,
+                      "id": "org.codehaus.woodstox:stax2-api:4.2.2",
+                      "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "groupId": "org.codehaus.plexus",
+              "artifactId": "plexus-xml",
+              "version": "4.0.4",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "069e78b537108dc6124a67073fc998264791f6b6499e955a38e72bb3e4fe1adf",
+              "scope": "compile",
+              "selectedVersion": "4.0.4",
+              "included": true,
+              "id": "org.codehaus.plexus:plexus-xml:4.0.4",
+              "parent": "org.apache.maven:maven-model:4.0.0-rc-3",
+              "children": [
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-xml-impl",
+                  "version": "4.0.0-alpha-9",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "26e702b881d57ae4ee88d02c00940ba64063705ee69205ae8958bf839a8b06b1",
+                  "scope": "compile",
+                  "selectedVersion": "4.0.0-alpha-9",
+                  "included": true,
+                  "id": "org.apache.maven:maven-xml-impl:4.0.0-alpha-9",
+                  "parent": "org.codehaus.plexus:plexus-xml:4.0.4",
+                  "children": [
+                    {
+                      "groupId": "com.fasterxml.woodstox",
+                      "artifactId": "woodstox-core",
+                      "version": "6.5.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "c928d60665c6415fb1c39775cf95cfc44f7f4580cf5ab01b1c380ebffd76887f",
+                      "scope": "compile",
+                      "selectedVersion": "7.1.0",
+                      "included": false,
+                      "id": "com.fasterxml.woodstox:woodstox-core:6.5.1",
+                      "parent": "org.apache.maven:maven-xml-impl:4.0.0-alpha-9",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.apache.maven",
+                      "artifactId": "maven-api-xml",
+                      "version": "4.0.0-alpha-9",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "29b2628d0f028119715916849c19eed45b32cdc67eb13551798c73afa4aa23d6",
+                      "scope": "compile",
+                      "selectedVersion": "4.0.0-rc-3",
+                      "included": false,
+                      "id": "org.apache.maven:maven-api-xml:4.0.0-alpha-9",
+                      "parent": "org.apache.maven:maven-xml-impl:4.0.0-alpha-9",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "groupId": "org.apache.maven.shared",
+          "artifactId": "maven-invoker",
+          "version": "3.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "51cdc34d2092a47f394b31e0545858c022030b47fcf30de16389c15ce7afd17c",
+          "scope": "compile",
+          "selectedVersion": "3.2.0",
+          "included": true,
+          "id": "org.apache.maven.shared:maven-invoker:3.2.0",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": [
+            {
+              "groupId": "javax.inject",
+              "artifactId": "javax.inject",
+              "version": "1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+              "scope": "compile",
+              "selectedVersion": "1",
+              "included": true,
+              "id": "javax.inject:javax.inject:1",
+              "parent": "org.apache.maven.shared:maven-invoker:3.2.0",
+              "children": []
+            },
+            {
+              "groupId": "org.apache.maven.shared",
+              "artifactId": "maven-shared-utils",
+              "version": "3.3.4",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "7925d9c5a0e2040d24b8fae3f612eb399cbffe5838b33ba368777dc7bddf6dda",
+              "scope": "compile",
+              "selectedVersion": "3.3.4",
+              "included": true,
+              "id": "org.apache.maven.shared:maven-shared-utils:3.3.4",
+              "parent": "org.apache.maven.shared:maven-invoker:3.2.0",
+              "children": [
+                {
+                  "groupId": "commons-io",
+                  "artifactId": "commons-io",
+                  "version": "2.6",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "f877d304660ac2a142f3865badfc971dec7ed73c747c7f8d5d2f5139ca736513",
+                  "scope": "compile",
+                  "selectedVersion": "2.11.0",
+                  "included": false,
+                  "id": "commons-io:commons-io:2.6",
+                  "parent": "org.apache.maven.shared:maven-shared-utils:3.3.4",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "groupId": "org.eclipse.jdt",
+          "artifactId": "org.eclipse.jdt.core",
+          "version": "3.32.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "cd396e4368b025f8f898ea7b7693fe5b9b1f6981c365c3857420d178132ef945",
+          "scope": "compile",
+          "selectedVersion": "3.32.0",
+          "included": true,
+          "id": "org.eclipse.jdt:org.eclipse.jdt.core:3.32.0",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        },
+        {
+          "groupId": "org.slf4j",
+          "artifactId": "slf4j-api",
+          "version": "1.7.36",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d3ef575e3e4979678dc01bf1dcce51021493b4d11fb7f1be8ad982877c16a1c0",
+          "scope": "compile",
+          "selectedVersion": "1.7.36",
+          "included": true,
+          "id": "org.slf4j:slf4j-api:1.7.36",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "Mac OS X",
+      "mavenVersion": "3.8.2",
+      "javaVersion": "21.0.5"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}

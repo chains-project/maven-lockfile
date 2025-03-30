@@ -379,4 +379,10 @@ public class IntegrationTestsIT {
         // provided, validate should succeed
         assertThat(result).isSuccessful();
     }
+
+    @MavenTest
+    public void remoteRepositoryShouldResolve(MavenExecutionResult result) throws Exception {
+        // contract: if the pom contains a remote repository other that maven_central, the artifact should resolve
+        assertThat(result).isSuccessful();
+    }
 }
