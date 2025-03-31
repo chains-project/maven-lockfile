@@ -2328,13 +2328,6 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-failsafe-plugin",
-      "version": "3.5.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "31d859fa8c1679d71e821eaffe14608dea0fa1f3caba6c0d5ee8867f0d17c1a9"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
       "version": "3.1.4",
       "checksumAlgorithm": "SHA-256",
@@ -2381,6 +2374,13 @@
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-failsafe-plugin",
+      "version": "3.5.3",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "c40da66d3db0548cb675f47279651f67b6e1f69c11bb4ecbe2ce7bcc82a6222c"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
