@@ -82,11 +82,11 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
         if (checksumMode.equals("maven_local")) {
-            getLog().warn("Option 'maven_local' is Depricated. Use 'maven_local' instead.");
+            getLog().warn("Option 'checksumMode=maven_local' is Depricated. Use 'checksumMode=local' instead.");
             checksumMode = "local";
         }
         if (checksumMode.equals("maven_central")) {
-            getLog().warn("Option 'maven_central' is Depricated. Use 'remote' instead.");
+            getLog().warn("Option 'checksumMode=maven_central' is Depricated. Use 'checksumMode=remote' instead.");
             checksumMode = "remote";
         }
 
@@ -106,11 +106,11 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
         String checksumMode = config.getChecksumMode();
         if (checksumMode.equals("maven_local")) {
-            getLog().warn("Option 'maven_local' is Depricated. Use 'maven_local' instead.");
+            getLog().warn("Option 'checksumMode=maven_local' is Depricated. Use 'checksumMode=local' instead.");
             checksumMode = "local";
         }
         if (checksumMode.equals("maven_central")) {
-            getLog().warn("Option 'maven_central' is Depricated. Use 'remote' instead.");
+            getLog().warn("Option 'checksumMode=maven_central' is Depricated. Use 'checksumMode=remote' instead.");
             checksumMode = "remote";
         }
 
