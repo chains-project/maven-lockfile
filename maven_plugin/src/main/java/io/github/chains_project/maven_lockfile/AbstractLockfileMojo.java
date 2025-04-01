@@ -81,7 +81,15 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        checksumMode = checksumModeDeprication(checksumMode);
+        if (checksumMode.equals("maven_local")) {
+            getLog().warn("Option 'checksumMode=maven_local' is Depricated. Use 'checksumMode=local' instead.");
+            checksumMode = "local";
+        }
+        if (checksumMode.equals("maven_central")) {
+            getLog().warn("Option 'checksumMode=maven_central' is Depricated. Use 'checksumMode=remote' instead.");
+            checksumMode = "remote";
+        }
+
         if (checksumMode.equals("local")) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
@@ -96,7 +104,17 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        switch (checksumModeDeprication(config.getChecksumMode())) {
+        String checksumMode = config.getChecksumMode();
+        if (checksumMode.equals("maven_local")) {
+            getLog().warn("Option 'checksumMode=maven_local' is Depricated. Use 'checksumMode=local' instead.");
+            checksumMode = "local";
+        }
+        if (checksumMode.equals("maven_central")) {
+            getLog().warn("Option 'checksumMode=maven_central' is Depricated. Use 'checksumMode=remote' instead.");
+            checksumMode = "remote";
+        }
+
+        switch (checksumMode) {
             case "local":
                 return new FileSystemChecksumCalculator(
                         dependencyResolver,
@@ -134,18 +152,5 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
         return buildingRequest;
-    }
-
-    private String checksumModeDeprication(String checksumMode) {
-        if (checksumMode.equals("maven_local")) {
-            getLog().warn("Option 'checksumMode=maven_local' is depricated. Use 'checksumMode=local' instead.");
-            return "local";
-        }
-        if (checksumMode.equals("maven_central")) {
-            getLog().warn("Option 'checksumMode=maven_central' is depricated. Use 'checksumMode=remote' instead.");
-            return "remote";
-        }
-
-        return checksumMode;
     }
 }
