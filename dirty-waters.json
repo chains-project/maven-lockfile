@@ -1,0 +1,12 @@
+{
+    "ignore": {
+        "org.sonatype.plexus:plexus-sec-dispatcher@1.3": "provenance",
+        "org.sonatype.plexus:plexus-cipher@1.4": "provenance",
+        "commons-beanutils:commons-beanutils@1.7.0": "provenance",
+        "dom4j:dom4j@1.1": "provenance",
+        "oro:oro@2.0.8": "provenance",
+        "org.iq80.snappy:snappy@0.4": "provenance"
+    }
+}
+
+
