@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
-import io.github.chains_project.LoggingRepositoryListener;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
