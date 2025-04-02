@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
     "helpers:pinGitHubActionDigests"
@@ -7,6 +8,9 @@
     "41898282+github-actions[bot]@users.noreply.github.com",
     "github-actions[bot]@users.noreply.github.com"
   ],
+  "digest": {
+    "enabled": false
+  },
   "semanticCommitType": ":arrow_up:",
   "semanticCommits": true,
   "packageRules": [
@@ -15,10 +19,7 @@
         "major",
         "minor",
         "patch",
-        "pin",
-        "digest",
-        "fix",
-        "action"
+        "pin"
       ],
       "automerge": true,
       "automergeType": "pr",
@@ -44,7 +45,6 @@
     },
     {
       "updateTypes": [
-        "digest",
         "bump"
       ],
       "semanticCommitType": ":bookmark:",
