@@ -117,7 +117,6 @@ jobs:
         uses: chains-project/dirty-waters-action@v1.11.35
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          version_old: ${{ github.event.pull_request.head.ref }}
           package_manager: maven
           gradual_report: false
           debug: true
