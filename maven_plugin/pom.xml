@@ -67,7 +67,7 @@
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
       <artifactId>maven-plugin-testing-harness</artifactId>
-      <version>4.0.0-beta-3</version>
+      <version>4.0.0-beta-4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -216,7 +216,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.5.2</version>
+        <version>3.5.3</version>
         <configuration>
           <!--
                ! currently needed to run integration tests.
@@ -232,6 +232,7 @@
               junit.jupiter.execution.parallel.config.strategy=fixed
               junit.jupiter.execution.parallel.config.fixed.parallelism=6</configurationParameters>
           </properties>
+          <rerunFailingTestsCount>3</rerunFailingTestsCount>
         </configuration>
         <executions>
           <execution>

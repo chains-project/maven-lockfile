@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mycompany.app</groupId>
-  <artifactId>different-lockfile-name-validate-should-fail</artifactId>
+  <artifactId>remote-repository-should-resolve</artifactId>
   <packaging>jar</packaging>
   <version>1</version>
   <properties>
@@ -10,11 +10,33 @@
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <repositories>
+    <repository>
+        <id>maven-atlassian-all</id>
+        <url>https://packages.atlassian.com/maven-public/</url>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+        </snapshots>
+        <releases>
+            <enabled>true</enabled>
+            <checksumPolicy>warn</checksumPolicy>
+        </releases>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>fr.inria.gforge.spoon</groupId>
       <artifactId>spoon-core</artifactId>
       <version>10.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>atlassian-bandana</groupId>
+      <artifactId>atlassian-bandana</artifactId>
+      <version>0.2.0</version>
+      <type>jar</type>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>
@@ -32,9 +54,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <lockfileName>different-lockfile-name.json</lockfileName>
-        </configuration>
       </plugin>
     </plugins>
   </build>
