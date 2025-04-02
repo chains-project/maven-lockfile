@@ -1,11 +1,11 @@
 {
     "ignore": {
-        "org.sonatype.plexus:plexus-sec-dispatcher@1.3": "provenance",
-        "org.sonatype.plexus:plexus-cipher@1.4": "provenance",
-        "commons-beanutils:commons-beanutils@1.7.0": "provenance",
-        "dom4j:dom4j@1.1": "provenance",
-        "oro:oro@2.0.8": "provenance",
-        "org.iq80.snappy:snappy@0.4": "provenance"
+        "org.sonatype.plexus:plexus-sec-dispatcher@1.3": ["source_code"],
+        "org.sonatype.plexus:plexus-cipher@1.4": ["source_code"],
+        "commons-beanutils:commons-beanutils@1.7.0": ["source_code"],
+        "dom4j:dom4j@1.1": ["source_code"],
+        "oro:oro@2.0.8": ["source_code"],
+        "org.iq80.snappy:snappy@0.4": ["source_code_sha"]
     }
 }
 
