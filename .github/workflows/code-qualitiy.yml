@@ -120,5 +120,5 @@ jobs:
           package_manager: maven
           gradual_report: false
           debug: true
-          config: dirty-waters.json
+          config: chains-project/maven-lockfile/dirty-waters.json
 
