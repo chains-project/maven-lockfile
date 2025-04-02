@@ -81,7 +81,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        checksumMode = checksumModeDeprication(checksumMode);
+        checksumMode = checksumModeDeprecation(checksumMode);
         if (checksumMode.equals("local")) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
@@ -96,7 +96,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        switch (checksumModeDeprication(config.getChecksumMode())) {
+        switch (checksumModeDeprecation(config.getChecksumMode())) {
             case "local":
                 return new FileSystemChecksumCalculator(
                         dependencyResolver,
@@ -136,13 +136,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         return buildingRequest;
     }
 
-    private String checksumModeDeprication(String checksumMode) {
+    private String checksumModeDeprecation(String checksumMode) {
         if (checksumMode.equals("maven_local")) {
-            getLog().warn("Option 'checksumMode=maven_local' is depricated. Use 'checksumMode=local' instead.");
+            getLog().warn("Option 'checksumMode=maven_local' is deprecated. Use 'checksumMode=local' instead.");
             return "local";
         }
         if (checksumMode.equals("maven_central")) {
-            getLog().warn("Option 'checksumMode=maven_central' is depricated. Use 'checksumMode=remote' instead.");
+            getLog().warn("Option 'checksumMode=maven_central' is deprecated. Use 'checksumMode=remote' instead.");
             return "remote";
         }
 
