@@ -17,7 +17,7 @@
         "aopalliance:aopalliance@1.0": ["code_signature"],
         "org.aesh:readline@2.6": ["code_signature"],
         "org.aesh:aesh@2.8.2": ["code_signature", "source_code_sha"],
-        "org.wildfly.common:wildfly-common@2.0.1": "[code_signature]",
+        "org.wildfly.common:wildfly-common@2.0.1": ["code_signature"],
         "org.jboss.logging:jboss-logging-annotations@3.0.4.Final": ["code_signature"],
         "org.jboss.threads:jboss-threads@3.8.0.Final": ["code_signature"],
         "org.jboss.slf4j:slf4j-jboss-logmanager@2.0.0.Final": ["code_signature", "source_code_sha"],
