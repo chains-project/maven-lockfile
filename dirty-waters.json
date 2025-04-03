@@ -2,10 +2,25 @@
     "ignore": {
         "org.sonatype.plexus:plexus-sec-dispatcher@1.3": ["source_code"],
         "org.sonatype.plexus:plexus-cipher@1.4": ["source_code"],
-        "commons-beanutils:commons-beanutils@1.7.0": ["source_code"],
-        "dom4j:dom4j@1.1": ["source_code"],
-        "oro:oro@2.0.8": ["source_code"],
-        "org.iq80.snappy:snappy@0.4": ["source_code"]
+        "commons-beanutils:commons-beanutils@1.7.0": ["source_code", "code_signature"],
+        "dom4j:dom4j@1.1": ["source_code", "code_signature"],
+        "oro:oro@2.0.8": ["source_code", "code_signature"],
+        "org.iq80.snappy:snappy@0.4": ["source_code"],
+        "javax.inject:javax.inject@1": ["code_signature"],
+        "com.google.collections:google-collections@1.0": ["code_signature"],
+        "org.codehaus.plexus:plexus-i18n@1.0-beta-10": ["code_signature"],
+        "commons-digester:commons-digester@1.8": ["code_signature"],
+        "commons-chain:commons-chain@1.1": ["code_signature"],
+        "org.jboss.logging:commons-logging-jboss-logging@1.0.0.Final": ["code_signature"],
+        "org.jboss.logmanager:jboss-logmanager@3.1.2.Final": ["code_signature"],
+        "org.jboss.logging:jboss-logging@3.6.1.Final": ["code_signature"],
+        "aopalliance:aopalliance@1.0": ["code_signature"],
+        "org.aesh:readline@2.6": ["code_signature"],
+        "org.aesh:aesh@2.8.2": ["code_signature"],
+        "org.wildfly.common:wildfly-common@2.0.1": "[code_signature]",
+        "org.jboss.logging:jboss-logging-annotations@3.0.4.Final": ["code_signature"],
+        "org.jboss.threads:jboss-threads@3.8.0.Final": ["code_signature"],
+        "org.jboss.slf4j:slf4j-jboss-logmanager@2.0.0.Final": ["code_signature"]
     },
     "ignore-if-parent": {
         "com.diffplug.spotless:spotless-maven-plugin@2.44.3": ["source_code_sha"],
@@ -13,3 +28,6 @@
         "org.apache.maven.plugins:maven-site-plugin@3.21.0": ["source_code_sha"]
     }
 }
+
+
+
