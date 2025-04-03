@@ -6,5 +6,10 @@
         "dom4j:dom4j@1.1": ["source_code"],
         "oro:oro@2.0.8": ["source_code"],
         "org.iq80.snappy:snappy@0.4": ["source_code"]
+    },
+    "ignore-if-parent": {
+        "com.diffplug.spotless:spotless-maven-plugin@2.44.3": ["source_code_sha"],
+        "org.apache.maven.plugins:maven-artifact-plugin@3.6.0": ["source_code_sha"],
+        "org.apache.maven.plugins:maven-site-plugin@3.21.0": ["source_code_sha"]
     }
 }
