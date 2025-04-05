@@ -84,10 +84,12 @@ public class LockfileTest {
     }
 
     private MavenPlugin pluginA() {
-        return new MavenPlugin(GroupId.of("PgA"), ArtifactId.of("PA"), VersionNumber.of("1"), "sha1", "PA", ResolvedUrl.Unresolved());
+        return new MavenPlugin(
+                GroupId.of("PgA"), ArtifactId.of("PA"), VersionNumber.of("1"), "sha1", "PA", ResolvedUrl.Unresolved());
     }
 
     private MavenPlugin pluginB() {
-        return new MavenPlugin(GroupId.of("PgB"), ArtifactId.of("PB"), VersionNumber.of("1"), "sha1", "PB", ResolvedUrl.Unresolved());
+        return new MavenPlugin(
+                GroupId.of("PgB"), ArtifactId.of("PB"), VersionNumber.of("1"), "sha1", "PB", ResolvedUrl.Unresolved());
     }
 }

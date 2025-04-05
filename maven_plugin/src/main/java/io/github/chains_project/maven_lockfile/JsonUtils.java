@@ -31,12 +31,12 @@ public class JsonUtils {
                         (it, type, ignore) -> new JsonPrimitive(it.getValue()))
                 .registerTypeAdapter(Classifier.class, (JsonDeserializer<Classifier>)
                         (it, type, ignore) -> Classifier.of(it.getAsString()))
-                .registerTypeAdapter(GroupId.class, (JsonSerializer<GroupId>)
-                        (it, type, ignore) -> new JsonPrimitive(it.getValue()))
-                .registerTypeAdapter(GroupId.class, (JsonDeserializer<GroupId>)
-                        (it, type, ignore) -> GroupId.of(it.getAsString()))
-                .registerTypeAdapter(NodeId.class, (JsonSerializer<NodeId>)
-                        (it, type, ignore) -> new JsonPrimitive(it.toString()))
+                .registerTypeAdapter(
+                        GroupId.class, (JsonSerializer<GroupId>) (it, type, ignore) -> new JsonPrimitive(it.getValue()))
+                .registerTypeAdapter(
+                        GroupId.class, (JsonDeserializer<GroupId>) (it, type, ignore) -> GroupId.of(it.getAsString()))
+                .registerTypeAdapter(
+                        NodeId.class, (JsonSerializer<NodeId>) (it, type, ignore) -> new JsonPrimitive(it.toString()))
                 .registerTypeAdapter(NodeId.class, (JsonDeserializer<NodeId>)
                         (it, type, ignore) -> NodeId.fromValue(it.getAsString()))
                 .registerTypeAdapter(MavenScope.class, (JsonSerializer<MavenScope>)
