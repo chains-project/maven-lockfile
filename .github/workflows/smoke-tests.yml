@@ -29,6 +29,7 @@ jobs:
             repository.sonatype.org:443
             sh.jbang.dev:443
             tuf-repo-cdn.sigstore.dev:443
+            fulcio.sigstore.dev:443
 
       - name: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
