@@ -28,5 +28,7 @@ public abstract class AbstractChecksumCalculator {
 
     public abstract String getDefaultChecksumAlgorithm();
 
-    public abstract ResolvedUrl getResolvedField(Artifact artifact);
+    public abstract ResolvedUrl getArtifactResolvedField(Artifact artifact);
+
+    public abstract ResolvedUrl getPluginResolvedField(Artifact artifact);
 }
