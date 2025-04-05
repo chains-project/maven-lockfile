@@ -4,6 +4,7 @@ on:
 env:
   working-directory: ./
 permissions:
+  id-token: write
   contents: read
 jobs:
   jbang:
