@@ -66,6 +66,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
+    private ResolvedUrl getResolvedFieldInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+        String groupId = artifact.getGroupId().replace(".", "/");
+        String artifactId = artifact.getArtifactId();
+        String version = artifact.getVersion();
+        String extension = artifact.getType();
+        String filename = artifactId + "-" + version + "." + extension;
+        //return ResolvedUrl.of(CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename);
+        return ResolvedUrl.Unresolved();
+    }
+
     @Override
     public String calculateArtifactChecksum(Artifact artifact) {
         return calculateChecksumInternal(artifact, artifactBuildingRequest);
@@ -82,12 +92,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     @Override
-    public ResolvedUrl getResolvedField(Artifact artifact) {
-        String groupId = artifact.getGroupId().replace(".", "/");
-        String artifactId = artifact.getArtifactId();
-        String version = artifact.getVersion();
-        String extension = artifact.getType();
-        String filename = artifactId + "-" + version + "." + extension;
-        return ResolvedUrl.of(CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename);
+    public ResolvedUrl getArtifactResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(artifact, artifactBuildingRequest);
+    }
+
+    @Override
+    public ResolvedUrl getPluginResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(artifact, pluginBuildingRequest);
     }
 }

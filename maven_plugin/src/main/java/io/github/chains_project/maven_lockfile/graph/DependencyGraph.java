@@ -81,7 +81,7 @@ public class DependencyGraph {
         var classifier = Classifier.of(node.getArtifact().getClassifier());
         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
-        var resolved = isRoot ? ResolvedUrl.Unresolved() : calc.getResolvedField(node.getArtifact());
+        var resolved = isRoot ? ResolvedUrl.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
         Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
         boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
