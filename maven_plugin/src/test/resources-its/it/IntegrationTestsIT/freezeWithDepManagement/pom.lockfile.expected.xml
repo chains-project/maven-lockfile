@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mycompany.app</groupId>
-    <artifactId>my-app</artifactId>
+    <artifactId>freeze-with-dep-management</artifactId>
     <version>1</version>
     <properties>
         <maven.compiler.target>11</maven.compiler.target>

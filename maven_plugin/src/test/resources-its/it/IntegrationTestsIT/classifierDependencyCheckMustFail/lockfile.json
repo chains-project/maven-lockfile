@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "classifier-dependency-check-must-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,

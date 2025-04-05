@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "remote-repository-should-resolve",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,

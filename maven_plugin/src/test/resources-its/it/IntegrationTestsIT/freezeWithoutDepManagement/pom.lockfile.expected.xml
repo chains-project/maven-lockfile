@@ -9,7 +9,7 @@
         <relativePath></relativePath>
     </parent>
     <groupId>com.mycompany.app</groupId>
-    <artifactId>my-app</artifactId>
+    <artifactId>freeze-without-dep-management</artifactId>
     <version>1</version>
     <properties>
         <maven.compiler.target>11</maven.compiler.target>

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
+  <artifactId>remote-repository-should-resolve</artifactId>
   <packaging>jar</packaging>
   <version>1</version>
   <properties>
