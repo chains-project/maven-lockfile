@@ -53,7 +53,8 @@
         "io.vertx:vertx-uri-template@4.5.13": ["source_code_sha"],
         "io.vertx:vertx-web-common@4.5.13": ["source_code_sha"],
         "io.vertx:vertx-auth-common@4.5.13": ["source_code_sha"],
-        "org.jboss.marshalling:jboss-marshalling@2.2.2.Final": ["source_code_sha"]
+        "org.jboss.marshalling:jboss-marshalling@2.2.2.Final": ["source_code_sha"],
+        "om.kohlschutter.junixsocket:junixsocket-core@2.10.1": ["code_signature"]
     },
     "ignore-if-parent": {
         "com.diffplug.spotless:spotless-maven-plugin@2.44.3": ["source_code_sha"],
