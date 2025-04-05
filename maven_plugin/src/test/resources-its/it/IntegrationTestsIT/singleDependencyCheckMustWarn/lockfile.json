@@ -1,5 +1,5 @@
 {
-  "artifactID": "my-app",
+  "artifactID": "single-dependency-check-must-warn",
   "groupID": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,

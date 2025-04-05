@@ -7,13 +7,13 @@
 <!-- ====================================================================== -->
 <!-- ====================================================================== -->
 <!--                                                                        -->
-<!-- Effective POM for project 'com.mycompany.app:my-app:jar:1'             -->
+<!-- Effective POM for project 'com.mycompany.app:simple-project:jar:1'     -->
 <!--                                                                        -->
 <!-- ====================================================================== -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mycompany.app</groupId>
-  <artifactId>my-app</artifactId>
+  <artifactId>simple-project</artifactId>
   <version>1</version>
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
@@ -60,7 +60,7 @@
       </testResource>
     </testResources>
     <directory>/home/massimeddu/src/maven-lockfile/maven_plugin/src/test/resources-its/it/IntegrationTestsIT/simpleProject/target</directory>
-    <finalName>my-app-1</finalName>
+    <finalName>simple-project-1</finalName>
     <pluginManagement>
       <plugins>
         <plugin>

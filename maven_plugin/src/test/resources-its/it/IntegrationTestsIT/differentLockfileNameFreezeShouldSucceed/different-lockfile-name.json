@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "different-lockfile-name-freeze-sould-succeed",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,
