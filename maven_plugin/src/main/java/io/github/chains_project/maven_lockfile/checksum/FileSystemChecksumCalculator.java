@@ -17,13 +17,18 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     private static final Logger LOGGER = Logger.getLogger(FileSystemChecksumCalculator.class);
 
     private final DependencyResolver resolver;
-    private final ProjectBuildingRequest buildingRequest;
+    private final ProjectBuildingRequest artifactBuildingRequest;
+    private final ProjectBuildingRequest pluginBuildingRequest;
 
     public FileSystemChecksumCalculator(
-            DependencyResolver resolver, ProjectBuildingRequest buildingRequest, String checksumAlgorithm) {
+            DependencyResolver resolver,
+            ProjectBuildingRequest artifactBuildingRequest,
+            ProjectBuildingRequest pluginBuildingRequest,
+            String checksumAlgorithm) {
         super(checksumAlgorithm);
         this.resolver = resolver;
-        this.buildingRequest = buildingRequest;
+        this.artifactBuildingRequest = artifactBuildingRequest;
+        this.pluginBuildingRequest = pluginBuildingRequest;
     }
 
     /**
@@ -43,7 +48,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         return dependency;
     }
 
-    private Artifact resolveDependency(Artifact artifact) {
+    private Artifact resolveDependency(Artifact artifact, ProjectBuildingRequest buildingRequest) {
         try {
             return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
                     .iterator()
@@ -73,8 +78,15 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     @Override
-    public String calculateChecksum(Artifact artifact) {
-        return calculateChecksumInternal(resolveDependency(artifact)).orElse("");
+    public String calculateArtifactChecksum(Artifact artifact) {
+        return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest))
+                .orElse("");
+    }
+
+    @Override
+    public String calculatePluginChecksum(Artifact artifact) {
+        return calculateChecksumInternal(resolveDependency(artifact, pluginBuildingRequest))
+                .orElse("");
     }
 
     @Override

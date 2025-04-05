@@ -188,7 +188,7 @@
       "includeMavenPlugins": false,
       "reduced": false,
       "mavenLockfileVersion": "5.1.1-SNAPSHOT",
-      "checksumMode": "maven_local",
+      "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
   }

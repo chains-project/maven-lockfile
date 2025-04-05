@@ -19,6 +19,8 @@ jobs:
           allowed-endpoints: >
             github.com:443
             oss.sonatype.org:443
+            maven.artifacts.atlassian.com:443
+            packages.atlassian.com:443
             repo.maven.apache.org:443
             repo.spring.io:443
             tuf-repo-cdn.sigstore.dev:443
@@ -55,6 +57,8 @@ jobs:
           allowed-endpoints: >
             github.com:443
             oss.sonatype.org:443
+            maven.artifacts.atlassian.com:443
+            packages.atlassian.com:443
             repo.maven.apache.org:443
             repo.spring.io:443
             tuf-repo-cdn.sigstore.dev:443

@@ -379,4 +379,18 @@ public class IntegrationTestsIT {
         // provided, validate should succeed
         assertThat(result).isSuccessful();
     }
+
+    @MavenTest
+    public void remoteRepositoryShouldResolve(MavenExecutionResult result) throws Exception {
+        // contract: if the pom contains a remote repository other that maven_central, the artifact should resolve
+        assertThat(result).isSuccessful();
+    }
+
+    @MavenTest
+    public void checksumModeRemote(MavenExecutionResult result) throws Exception {
+        // contract: if checksum mode is remote, maven_lockfile should be able to download .
+        assertThat(result).isSuccessful();
+        var lockfileExists = fileExists(result, "lockfile.json");
+        assertThat(lockfileExists).isTrue();
+    }
 }
