@@ -16,7 +16,12 @@ public class MavenPlugin {
     private final ResolvedUrl resolvedUrl;
 
     public MavenPlugin(
-            GroupId groupId, ArtifactId artifactId, VersionNumber version, String checksumAlgorithm, String checksum, ResolvedUrl resolvedUrl) {
+            GroupId groupId,
+            ArtifactId artifactId,
+            VersionNumber version,
+            String checksumAlgorithm,
+            String checksum,
+            ResolvedUrl resolvedUrl) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;

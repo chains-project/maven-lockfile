@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -90,9 +89,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             Path remoteRepositoriesPath = artifactFolderPath.resolve("_remote.repositories");
             List<String> locallySavedRemoteRepositories = Files.readAllLines(remoteRepositoriesPath);
 
-            Set<String> remoteRepositoriesSet = buildingRequest
-                    .getRemoteRepositories()
-                    .stream()
+            Set<String> remoteRepositoriesSet = buildingRequest.getRemoteRepositories().stream()
                     .map(ArtifactRepository::getId)
                     .collect(Collectors.toSet());
 
@@ -134,12 +131,9 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
             // Convert repository to url
             final String finalRepository = repository;
-            Optional<ArtifactRepository> remoteRepository = buildingRequest
-                    .getRemoteRepositories()
-                    .stream()
-                    .filter(
-                            repo -> (repo.getId().equals(finalRepository))
-                    ).findFirst();
+            Optional<ArtifactRepository> remoteRepository = buildingRequest.getRemoteRepositories().stream()
+                    .filter(repo -> (repo.getId().equals(finalRepository)))
+                    .findFirst();
 
             if (remoteRepository.isEmpty()) {
                 LOGGER.warn("Could not find repository '" + finalRepository + "' in building request.");
@@ -180,15 +174,13 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public ResolvedUrl getArtifactResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(
-                resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
+        return getResolvedFieldInternal(resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
                 .orElse(ResolvedUrl.of(""));
     }
 
     @Override
     public ResolvedUrl getPluginResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(
-                resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
+        return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
                 .orElse(ResolvedUrl.of(""));
     }
 }

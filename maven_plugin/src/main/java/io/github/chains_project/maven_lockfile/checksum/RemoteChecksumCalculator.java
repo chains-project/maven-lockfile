@@ -72,7 +72,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         String version = artifact.getVersion();
         String extension = artifact.getType();
         String filename = artifactId + "-" + version + "." + extension;
-        //return ResolvedUrl.of(CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename);
+        // return ResolvedUrl.of(CENTRAL_URL + "/" + groupId + "/" + artifactId + "/" + version + "/" + filename);
         return ResolvedUrl.Unresolved();
     }
 
