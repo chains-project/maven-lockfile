@@ -4,6 +4,7 @@ on:
 env:
   working-directory: ./
 permissions:
+  id-token: write
   contents: read
 jobs:
   jbang:
@@ -27,6 +28,9 @@ jobs:
             repo1.maven.org:443
             repository.sonatype.org:443
             sh.jbang.dev:443
+            tuf-repo-cdn.sigstore.dev:443
+            fulcio.sigstore.dev:443
+            rekor.sigstore.dev:443
 
       - name: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
