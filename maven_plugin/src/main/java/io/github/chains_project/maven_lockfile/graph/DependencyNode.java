@@ -180,7 +180,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 checksumAlgorithm,
                 checksum,
                 scope,
-                resolved,
                 selectedVersion,
                 id,
                 parent,
@@ -203,7 +202,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
                 && Objects.equals(checksum, other.checksum)
                 && Objects.equals(scope, other.scope)
-                && Objects.equals(resolved, other.resolved)
                 && Objects.equals(selectedVersion, other.selectedVersion)
                 && Objects.equals(id, other.id)
                 && Objects.equals(parent, other.parent)
