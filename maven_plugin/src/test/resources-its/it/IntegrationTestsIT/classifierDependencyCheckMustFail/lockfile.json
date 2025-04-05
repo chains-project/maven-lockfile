@@ -8,7 +8,7 @@
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
       "version": "5.9.2",
-      "classifier": "sources",
+      "classifier": "42_instead_of_sources",
       "checksumAlgorithm": "SHA-256",
       "checksum": "2b04279c000da27679100d5854d3045a09c2a9a4cda942777f0b0519bb9f295d",
       "scope": "compile",
