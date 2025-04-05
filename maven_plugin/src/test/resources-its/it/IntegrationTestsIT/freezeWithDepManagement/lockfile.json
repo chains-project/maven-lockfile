@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "freeze-with-dep-management",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,

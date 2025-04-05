@@ -83,13 +83,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+              "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-core:3.21.0",
+              "id": "io.quarkus:quarkus-core:3.21.1",
               "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
               "children": []
             },
@@ -243,13 +243,13 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+              "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-arc:3.21.0",
+              "id": "io.quarkus:quarkus-arc:3.21.1",
               "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.2",
               "children": []
             }
@@ -258,26 +258,26 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-arc",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+          "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": false,
-          "id": "io.quarkus:quarkus-arc:3.21.0",
+          "id": "io.quarkus:quarkus-arc:3.21.1",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-jackson",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a5168cda757723cd3ae842f7d8c8966bd5a1bf267fcb03b388841d68cc63d7b7",
+          "checksum": "61beb74c09c5efe3438fb3bcef9adfcb909326215fa554f0d57a0fc8145c4218",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-jackson:3.21.0",
+          "id": "io.quarkus:quarkus-jackson:3.21.1",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
           "children": [
             {
@@ -290,7 +290,7 @@
               "selectedVersion": "2.18.2",
               "included": true,
               "id": "com.fasterxml.jackson.core:jackson-databind:2.18.2",
-              "parent": "io.quarkus:quarkus-jackson:3.21.0",
+              "parent": "io.quarkus:quarkus-jackson:3.21.1",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -330,7 +330,7 @@
               "selectedVersion": "2.18.2",
               "included": true,
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2",
-              "parent": "io.quarkus:quarkus-jackson:3.21.0",
+              "parent": "io.quarkus:quarkus-jackson:3.21.1",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -370,7 +370,7 @@
               "selectedVersion": "2.18.2",
               "included": true,
               "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2",
-              "parent": "io.quarkus:quarkus-jackson:3.21.0",
+              "parent": "io.quarkus:quarkus-jackson:3.21.1",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -423,7 +423,7 @@
               "selectedVersion": "2.18.2",
               "included": true,
               "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:2.18.2",
-              "parent": "io.quarkus:quarkus-jackson:3.21.0",
+              "parent": "io.quarkus:quarkus-jackson:3.21.1",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -456,14 +456,14 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+              "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-arc:3.21.0",
-              "parent": "io.quarkus:quarkus-jackson:3.21.0",
+              "id": "io.quarkus:quarkus-arc:3.21.1",
+              "parent": "io.quarkus:quarkus-jackson:3.21.1",
               "children": []
             }
           ]
@@ -471,102 +471,102 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-smallrye-graphql-client",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6fea2b62e3a77c32cf2ea91438495860d42fdcc210cf1660fedcd10764680be7",
+          "checksum": "2961bc2394c81dec47f05d24b30bd5636d72104c611d0179aeb8ef5df9b936ea",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+          "id": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+              "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-arc:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-arc:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+              "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-core:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-core:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-jsonb",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "2989a3d9b463c5d44bd831de19992ec2d1808d5b9fd405cf0609d9c8adcbc70c",
+              "checksum": "5eb19b974be64110ecf04cc53c16bfc3789f4328da5e277413ccb4e77f3ef294",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-jsonb:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-jsonb:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                  "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-arc:3.21.0",
-                  "parent": "io.quarkus:quarkus-jsonb:3.21.0",
+                  "id": "io.quarkus:quarkus-arc:3.21.1",
+                  "parent": "io.quarkus:quarkus-jsonb:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                  "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-jsonb:3.21.0",
+                  "id": "io.quarkus:quarkus-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-jsonb:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-jsonp",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "fbbe263857a443f07a3099ea65dafcf6d82d01037d2aa1b2d442b637677332e0",
+                  "checksum": "f7bf01aef4a19db66ee32f9fdbf4df1facfa28fa4aebe28113a30b677b757271",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-jsonp:3.21.0",
-                  "parent": "io.quarkus:quarkus-jsonb:3.21.0",
+                  "id": "io.quarkus:quarkus-jsonp:3.21.1",
+                  "parent": "io.quarkus:quarkus-jsonb:3.21.1",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                      "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-core:3.21.0",
-                      "parent": "io.quarkus:quarkus-jsonp:3.21.0",
+                      "id": "io.quarkus:quarkus-core:3.21.1",
+                      "parent": "io.quarkus:quarkus-jsonp:3.21.1",
                       "children": []
                     },
                     {
@@ -579,7 +579,7 @@
                       "selectedVersion": "1.1.7",
                       "included": false,
                       "id": "org.eclipse.parsson:parsson:1.1.7",
-                      "parent": "io.quarkus:quarkus-jsonp:3.21.0",
+                      "parent": "io.quarkus:quarkus-jsonp:3.21.1",
                       "children": []
                     }
                   ]
@@ -594,7 +594,7 @@
                   "selectedVersion": "3.0.4",
                   "included": true,
                   "id": "org.eclipse:yasson:3.0.4",
-                  "parent": "io.quarkus:quarkus-jsonb:3.21.0",
+                  "parent": "io.quarkus:quarkus-jsonb:3.21.1",
                   "children": [
                     {
                       "groupId": "jakarta.json",
@@ -642,52 +642,52 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-smallrye-stork",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ff22b4cde0c50cf17e1a2afc4cd2c21377cc1807e4add64763b10734eebcb874",
+              "checksum": "9b80591459546a6ed4a7ea8358ab725c3fa49ba2849e236aae75461c1db23d5c",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-smallrye-stork:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-smallrye-stork:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                  "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-arc:3.21.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.0",
+                  "id": "io.quarkus:quarkus-arc:3.21.1",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                  "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.0",
+                  "id": "io.quarkus:quarkus-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-vertx",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "4a2ff5724b323f193ba247477dd9ee7ddf6f46b58142a0227661a395f456144e",
+                  "checksum": "d22438aa9133678768c079f10798de21878060482e9b8c3af6d7fca02ef4599e",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-vertx:3.21.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.0",
+                  "id": "io.quarkus:quarkus-vertx:3.21.1",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.1",
                   "children": []
                 },
                 {
@@ -700,7 +700,7 @@
                   "selectedVersion": "2.7.0",
                   "included": true,
                   "id": "io.smallrye.stork:stork-api:2.7.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.0",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye.reactive",
@@ -727,7 +727,7 @@
                   "selectedVersion": "2.7.0",
                   "included": true,
                   "id": "io.smallrye.stork:stork-core:2.7.0",
-                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.0",
+                  "parent": "io.quarkus:quarkus-smallrye-stork:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye.stork",
@@ -775,51 +775,51 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-tls-registry",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "7dd599d196d493cd4155baedff343bc1490e1a26001cdd855010a598f0600d72",
+              "checksum": "140201f8b74a15430c49f85fdf88add64354e04b55e358d6c1cb408bfe7b0aaf",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-tls-registry:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-tls-registry:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                  "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-arc:3.21.0",
-                  "parent": "io.quarkus:quarkus-tls-registry:3.21.0",
+                  "id": "io.quarkus:quarkus-arc:3.21.1",
+                  "parent": "io.quarkus:quarkus-tls-registry:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-credentials",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "f1047e49c18ae1df0d443bc9af4fa8ed8688147ce8efcee7a3767b3bcdbc5e15",
+                  "checksum": "5fb8c95369294d2782b5bac921c499833e256d3af06de6e3f26ecc03fd9972df",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-credentials:3.21.0",
-                  "parent": "io.quarkus:quarkus-tls-registry:3.21.0",
+                  "id": "io.quarkus:quarkus-credentials:3.21.1",
+                  "parent": "io.quarkus:quarkus-tls-registry:3.21.1",
                   "children": [
                     {
                       "groupId": "io.quarkus.arc",
                       "artifactId": "arc",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "2ab7adf26ff466f4380240c5e2d44046e21111fe9f875358da01f562275fb141",
+                      "checksum": "e6cdd4df7618013f11a9859ac833ef9c77063e7dc935a1b872179f12b3bbfe28",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus.arc:arc:3.21.0",
-                      "parent": "io.quarkus:quarkus-credentials:3.21.0",
+                      "id": "io.quarkus.arc:arc:3.21.1",
+                      "parent": "io.quarkus:quarkus-credentials:3.21.1",
                       "children": []
                     }
                   ]
@@ -827,52 +827,52 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-tls-registry-spi",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "cdd53cd5bf7415b359240e83661ad2bb1aa9f5f7138aa989bf04d6b5b7dffb99",
+                  "checksum": "1390fb90d4e3eb021cad9c73e799ca6646ea640f86180c7bb6448400f08bd639",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-tls-registry-spi:3.21.0",
-                  "parent": "io.quarkus:quarkus-tls-registry:3.21.0",
+                  "id": "io.quarkus:quarkus-tls-registry-spi:3.21.1",
+                  "parent": "io.quarkus:quarkus-tls-registry:3.21.1",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                      "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-core:3.21.0",
-                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.0",
+                      "id": "io.quarkus:quarkus-core:3.21.1",
+                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.1",
                       "children": []
                     },
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-vertx",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "4a2ff5724b323f193ba247477dd9ee7ddf6f46b58142a0227661a395f456144e",
+                      "checksum": "d22438aa9133678768c079f10798de21878060482e9b8c3af6d7fca02ef4599e",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-vertx:3.21.0",
-                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.0",
+                      "id": "io.quarkus:quarkus-vertx:3.21.1",
+                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.1",
                       "children": []
                     },
                     {
                       "groupId": "io.quarkus.arc",
                       "artifactId": "arc",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "2ab7adf26ff466f4380240c5e2d44046e21111fe9f875358da01f562275fb141",
+                      "checksum": "e6cdd4df7618013f11a9859ac833ef9c77063e7dc935a1b872179f12b3bbfe28",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus.arc:arc:3.21.0",
-                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.0",
+                      "id": "io.quarkus.arc:arc:3.21.1",
+                      "parent": "io.quarkus:quarkus-tls-registry-spi:3.21.1",
                       "children": []
                     }
                   ]
@@ -887,7 +887,7 @@
                   "selectedVersion": "0.9.2",
                   "included": true,
                   "id": "io.smallrye.certs:smallrye-private-key-pem-parser:0.9.2",
-                  "parent": "io.quarkus:quarkus-tls-registry:3.21.0",
+                  "parent": "io.quarkus:quarkus-tls-registry:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye.common",
@@ -922,51 +922,51 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "4a2ff5724b323f193ba247477dd9ee7ddf6f46b58142a0227661a395f456144e",
+              "checksum": "d22438aa9133678768c079f10798de21878060482e9b8c3af6d7fca02ef4599e",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-vertx:3.21.0",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.quarkus:quarkus-vertx:3.21.1",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": []
             },
             {
               "groupId": "io.smallrye",
               "artifactId": "smallrye-graphql-client-implementation-vertx",
-              "version": "2.12.1",
+              "version": "2.12.2",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "0dfe5d82c039ef807c3e8f591ed4f9ea123f2f61f9b20804bf1bc23eef4fa28c",
+              "checksum": "df352ef796f4c8c1e418f5f59ebbacc50a00a4f61483e84924efc73ba1e61d76",
               "scope": "compile",
-              "selectedVersion": "2.12.1",
+              "selectedVersion": "2.12.2",
               "included": true,
-              "id": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye",
                   "artifactId": "smallrye-graphql-client",
-                  "version": "2.12.1",
+                  "version": "2.12.2",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "561137b23ef9e8b017c348c848cd4fa0a8c1e43ada8304d7fe9c3b4a9cff2f50",
+                  "checksum": "6800fada260c1a9f9c681b290c916c1a43b4813a3f632e3a438c7d3970d53800",
                   "scope": "compile",
-                  "selectedVersion": "2.12.1",
+                  "selectedVersion": "2.12.2",
                   "included": true,
-                  "id": "io.smallrye:smallrye-graphql-client:2.12.1",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "id": "io.smallrye:smallrye-graphql-client:2.12.2",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": [
                     {
                       "groupId": "io.smallrye",
                       "artifactId": "smallrye-graphql-api",
-                      "version": "2.12.1",
+                      "version": "2.12.2",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "2877147c616545dde7233ecdc5b265d488c1efcd294a8bca8d6c3a01390d79e0",
+                      "checksum": "2910adbf479ff90da848f23cac50d95a91b23fc90a227ccd39363e1458dad8ce",
                       "scope": "compile",
-                      "selectedVersion": "2.12.1",
+                      "selectedVersion": "2.12.2",
                       "included": true,
-                      "id": "io.smallrye:smallrye-graphql-api:2.12.1",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "id": "io.smallrye:smallrye-graphql-api:2.12.2",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": [
                         {
                           "groupId": "io.smallrye.common",
@@ -978,7 +978,7 @@
                           "selectedVersion": "2.10.0",
                           "included": false,
                           "id": "io.smallrye.common:smallrye-common-annotation:2.10.0",
-                          "parent": "io.smallrye:smallrye-graphql-api:2.12.1",
+                          "parent": "io.smallrye:smallrye-graphql-api:2.12.2",
                           "children": []
                         },
                         {
@@ -991,7 +991,7 @@
                           "selectedVersion": "2.0",
                           "included": false,
                           "id": "org.eclipse.microprofile.graphql:microprofile-graphql-api:2.0",
-                          "parent": "io.smallrye:smallrye-graphql-api:2.12.1",
+                          "parent": "io.smallrye:smallrye-graphql-api:2.12.2",
                           "children": []
                         }
                       ]
@@ -999,27 +999,27 @@
                     {
                       "groupId": "io.smallrye",
                       "artifactId": "smallrye-graphql-client-api",
-                      "version": "2.12.1",
+                      "version": "2.12.2",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "939e7ff112607910d037f4fd0d3f3443aac861c2c5ab7749d333e32af244bdda",
+                      "checksum": "a266f1146115a98b6ce5a2e26194710898e0d282e339e7bb0e8a5688132166d8",
                       "scope": "compile",
-                      "selectedVersion": "2.12.1",
+                      "selectedVersion": "2.12.2",
                       "included": true,
-                      "id": "io.smallrye:smallrye-graphql-client-api:2.12.1",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "id": "io.smallrye:smallrye-graphql-client-api:2.12.2",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     },
                     {
                       "groupId": "io.smallrye",
                       "artifactId": "smallrye-graphql-client-model",
-                      "version": "2.12.1",
+                      "version": "2.12.2",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "d75b0c2dba9324097ed7f009490fde4413eb07318a8fc108726cc60b985c7b8a",
+                      "checksum": "a201a89b156a0d224e0b03ff0636982372f18d99eeb00ffba1a479318afadd29",
                       "scope": "compile",
-                      "selectedVersion": "2.12.1",
+                      "selectedVersion": "2.12.2",
                       "included": false,
-                      "id": "io.smallrye:smallrye-graphql-client-model:2.12.1",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "id": "io.smallrye:smallrye-graphql-client-model:2.12.2",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     },
                     {
@@ -1032,7 +1032,7 @@
                       "selectedVersion": "2.8.0",
                       "included": false,
                       "id": "io.smallrye.reactive:mutiny:2.8.0",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     },
                     {
@@ -1045,7 +1045,7 @@
                       "selectedVersion": "4.1.0",
                       "included": false,
                       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.1.0",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     },
                     {
@@ -1058,7 +1058,7 @@
                       "selectedVersion": "2.0",
                       "included": true,
                       "id": "org.eclipse.microprofile.graphql:microprofile-graphql-api:2.0",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     },
                     {
@@ -1071,7 +1071,7 @@
                       "selectedVersion": "3.6.1.Final",
                       "included": false,
                       "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                      "parent": "io.smallrye:smallrye-graphql-client:2.12.1",
+                      "parent": "io.smallrye:smallrye-graphql-client:2.12.2",
                       "children": []
                     }
                   ]
@@ -1079,27 +1079,27 @@
                 {
                   "groupId": "io.smallrye",
                   "artifactId": "smallrye-graphql-client-model",
-                  "version": "2.12.1",
+                  "version": "2.12.2",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "d75b0c2dba9324097ed7f009490fde4413eb07318a8fc108726cc60b985c7b8a",
+                  "checksum": "a201a89b156a0d224e0b03ff0636982372f18d99eeb00ffba1a479318afadd29",
                   "scope": "compile",
-                  "selectedVersion": "2.12.1",
+                  "selectedVersion": "2.12.2",
                   "included": false,
-                  "id": "io.smallrye:smallrye-graphql-client-model:2.12.1",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "id": "io.smallrye:smallrye-graphql-client-model:2.12.2",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 },
                 {
                   "groupId": "io.smallrye.config",
                   "artifactId": "smallrye-config",
-                  "version": "3.12.3",
+                  "version": "3.12.4",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b8cc9d8cef8ce45b53db9814c5f25d6527459c9cfc2db758314b4b8582a18fd4",
+                  "checksum": "2d125cb28802d45e3201342b7829fe63fcbe8f4333cec6d8db93579362cfa4ce",
                   "scope": "compile",
-                  "selectedVersion": "3.12.3",
+                  "selectedVersion": "3.12.4",
                   "included": false,
-                  "id": "io.smallrye.config:smallrye-config:3.12.3",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "id": "io.smallrye.config:smallrye-config:3.12.4",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 },
                 {
@@ -1112,7 +1112,7 @@
                   "selectedVersion": "4.5.13",
                   "included": true,
                   "id": "io.vertx:vertx-web-client:4.5.13",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": [
                     {
                       "groupId": "io.vertx",
@@ -1220,7 +1220,7 @@
                   "selectedVersion": "2.1.3",
                   "included": true,
                   "id": "jakarta.json:jakarta.json-api:2.1.3",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 },
                 {
@@ -1233,7 +1233,7 @@
                   "selectedVersion": "3.0.1",
                   "included": true,
                   "id": "jakarta.json.bind:jakarta.json.bind-api:3.0.1",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 },
                 {
@@ -1246,7 +1246,7 @@
                   "selectedVersion": "3.0.4",
                   "included": false,
                   "id": "org.eclipse:yasson:3.0.4",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 },
                 {
@@ -1259,7 +1259,7 @@
                   "selectedVersion": "3.1",
                   "included": true,
                   "id": "org.eclipse.microprofile.config:microprofile-config-api:3.1",
-                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.1",
+                  "parent": "io.smallrye:smallrye-graphql-client-implementation-vertx:2.12.2",
                   "children": []
                 }
               ]
@@ -1267,14 +1267,14 @@
             {
               "groupId": "io.smallrye",
               "artifactId": "smallrye-graphql-client-model",
-              "version": "2.12.1",
+              "version": "2.12.2",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "d75b0c2dba9324097ed7f009490fde4413eb07318a8fc108726cc60b985c7b8a",
+              "checksum": "a201a89b156a0d224e0b03ff0636982372f18d99eeb00ffba1a479318afadd29",
               "scope": "compile",
-              "selectedVersion": "2.12.1",
+              "selectedVersion": "2.12.2",
               "included": true,
-              "id": "io.smallrye:smallrye-graphql-client-model:2.12.1",
-              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.0",
+              "id": "io.smallrye:smallrye-graphql-client-model:2.12.2",
+              "parent": "io.quarkus:quarkus-smallrye-graphql-client:3.21.1",
               "children": []
             }
           ]
@@ -1282,13 +1282,13 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-vertx",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "4a2ff5724b323f193ba247477dd9ee7ddf6f46b58142a0227661a395f456144e",
+          "checksum": "d22438aa9133678768c079f10798de21878060482e9b8c3af6d7fca02ef4599e",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-vertx:3.21.0",
+          "id": "io.quarkus:quarkus-vertx:3.21.1",
           "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
           "children": [
             {
@@ -1301,7 +1301,7 @@
               "selectedVersion": "4.1.118.Final",
               "included": true,
               "id": "io.netty:netty-codec-haproxy:4.1.118.Final",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.netty",
@@ -1401,77 +1401,77 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-arc",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+              "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-arc:3.21.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "id": "io.quarkus:quarkus-arc:3.21.1",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-mutiny",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c68ef6565f0bdce4d2acc51938b56d6cb142a85213788e7f8a36421109673930",
+              "checksum": "a991ab290f4c429afe4a0e9d8bbc3ea86acb570118bbcb0bca8a2bd0b24262fe",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-mutiny:3.21.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "id": "io.quarkus:quarkus-mutiny:3.21.1",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                  "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-mutiny:3.21.0",
+                  "id": "io.quarkus:quarkus-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-mutiny:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-smallrye-context-propagation",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "50a85e9de44a9cf535fe62f4428618e8e245d3492b811ef0855e6d7656aefe4e",
+                  "checksum": "286f1d3c486068b95025f337c99d7802b139a84aaa3642ced504edd93fd73dc1",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.21.0",
-                  "parent": "io.quarkus:quarkus-mutiny:3.21.0",
+                  "id": "io.quarkus:quarkus-smallrye-context-propagation:3.21.1",
+                  "parent": "io.quarkus:quarkus-mutiny:3.21.1",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-arc",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                      "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-arc:3.21.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.0",
+                      "id": "io.quarkus:quarkus-arc:3.21.1",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.1",
                       "children": []
                     },
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-core",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                      "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                       "scope": "compile",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-core:3.21.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.0",
+                      "id": "io.quarkus:quarkus-core:3.21.1",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.1",
                       "children": []
                     },
                     {
@@ -1484,7 +1484,7 @@
                       "selectedVersion": "2.2.0",
                       "included": true,
                       "id": "io.smallrye:smallrye-context-propagation:2.2.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.0",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.1",
                       "children": [
                         {
                           "groupId": "io.smallrye",
@@ -1577,7 +1577,7 @@
                       "selectedVersion": "4.1.0",
                       "included": false,
                       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.1.0",
-                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.0",
+                      "parent": "io.quarkus:quarkus-smallrye-context-propagation:3.21.1",
                       "children": []
                     }
                   ]
@@ -1592,7 +1592,7 @@
                   "selectedVersion": "2.8.0",
                   "included": false,
                   "id": "io.smallrye.reactive:mutiny:2.8.0",
-                  "parent": "io.quarkus:quarkus-mutiny:3.21.0",
+                  "parent": "io.quarkus:quarkus-mutiny:3.21.1",
                   "children": []
                 },
                 {
@@ -1605,7 +1605,7 @@
                   "selectedVersion": "2.8.0",
                   "included": true,
                   "id": "io.smallrye.reactive:mutiny-smallrye-context-propagation:2.8.0",
-                  "parent": "io.quarkus:quarkus-mutiny:3.21.0",
+                  "parent": "io.quarkus:quarkus-mutiny:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -1653,14 +1653,14 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-netty",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "0e32736f7f1d0410748a903610ef3f286703a5b031b0af84a81b963a0eef5543",
+              "checksum": "6f83583000d8ac5a4a5b1f6f89b6df3c367c998ea28b177cb9af0f7c1f0bcbe9",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-netty:3.21.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "id": "io.quarkus:quarkus-netty:3.21.1",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.netty",
@@ -1672,7 +1672,7 @@
                   "selectedVersion": "4.1.118.Final",
                   "included": true,
                   "id": "io.netty:netty-codec:4.1.118.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1725,7 +1725,7 @@
                   "selectedVersion": "4.1.118.Final",
                   "included": true,
                   "id": "io.netty:netty-codec-http:4.1.118.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1804,7 +1804,7 @@
                   "selectedVersion": "4.1.118.Final",
                   "included": true,
                   "id": "io.netty:netty-codec-http2:4.1.118.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -1896,7 +1896,7 @@
                   "selectedVersion": "4.1.118.Final",
                   "included": true,
                   "id": "io.netty:netty-handler:4.1.118.Final",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": [
                     {
                       "groupId": "io.netty",
@@ -2035,14 +2035,14 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                  "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-arc:3.21.0",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "id": "io.quarkus:quarkus-arc:3.21.1",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": []
                 },
                 {
@@ -2055,7 +2055,7 @@
                   "selectedVersion": "4.1.0",
                   "included": false,
                   "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.1.0",
-                  "parent": "io.quarkus:quarkus-netty:3.21.0",
+                  "parent": "io.quarkus:quarkus-netty:3.21.1",
                   "children": []
                 }
               ]
@@ -2063,14 +2063,14 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-vertx-latebound-mdc-provider",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "2524f49d925b6d7736e410a154ab815af36108fe968fd30abd0f11505c0f8b89",
+              "checksum": "ab94847fac358f1916225624b6ea42f2d2fbf68398941d0021a6592879e453d9",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.21.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.21.1",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "org.jboss.logmanager",
@@ -2082,7 +2082,7 @@
                   "selectedVersion": "3.1.2.Final",
                   "included": false,
                   "id": "org.jboss.logmanager:jboss-logmanager:3.1.2.Final",
-                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.21.0",
+                  "parent": "io.quarkus:quarkus-vertx-latebound-mdc-provider:3.21.1",
                   "children": []
                 }
               ]
@@ -2090,39 +2090,39 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-virtual-threads",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "5d311502a089347430e365f6db6cc2349ed8d4dbf2b816f5f2555df65513451c",
+              "checksum": "ccf01007d63833a408b02cb978fca2802fb3fb0052d411d6447dc41493cce30a",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-virtual-threads:3.21.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "id": "io.quarkus:quarkus-virtual-threads:3.21.1",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-arc",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+                  "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-arc:3.21.0",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.0",
+                  "id": "io.quarkus:quarkus-arc:3.21.1",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                  "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.0",
+                  "id": "io.quarkus:quarkus-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.1",
                   "children": []
                 },
                 {
@@ -2135,7 +2135,7 @@
                   "selectedVersion": "4.5.13",
                   "included": false,
                   "id": "io.vertx:vertx-core:4.5.13",
-                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.0",
+                  "parent": "io.quarkus:quarkus-virtual-threads:3.21.1",
                   "children": []
                 }
               ]
@@ -2150,7 +2150,7 @@
               "selectedVersion": "6.9.0",
               "included": true,
               "id": "io.smallrye:smallrye-fault-tolerance-vertx:6.9.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": []
             },
             {
@@ -2163,7 +2163,7 @@
               "selectedVersion": "2.10.0",
               "included": true,
               "id": "io.smallrye.common:smallrye-common-annotation:2.10.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": []
             },
             {
@@ -2176,7 +2176,7 @@
               "selectedVersion": "2.10.0",
               "included": true,
               "id": "io.smallrye.common:smallrye-common-vertx-context:2.10.0",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -2638,7 +2638,7 @@
               "selectedVersion": "3.18.1",
               "included": true,
               "id": "io.smallrye.reactive:smallrye-mutiny-vertx-core:3.18.1",
-              "parent": "io.quarkus:quarkus-vertx:3.21.0",
+              "parent": "io.quarkus:quarkus-vertx:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.reactive",
@@ -2782,37 +2782,37 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-arc",
-      "version": "3.21.0",
+      "version": "3.21.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "30440244fd999695378850ca76f619f43e910194a49325e0ea8987c0cb42138c",
+      "checksum": "239d5a798698534821329db878c1e8ad822472bcd872db79e4606a89d82b459f",
       "scope": "compile",
-      "selectedVersion": "3.21.0",
+      "selectedVersion": "3.21.1",
       "included": true,
-      "id": "io.quarkus:quarkus-arc:3.21.0",
+      "id": "io.quarkus:quarkus-arc:3.21.1",
       "children": [
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+          "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-core:3.21.0",
-          "parent": "io.quarkus:quarkus-arc:3.21.0",
+          "id": "io.quarkus:quarkus-core:3.21.1",
+          "parent": "io.quarkus:quarkus-arc:3.21.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-runner",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "f1832ef40d3294d82c7101db1d8907dbf4bcc8d7027719b5942c8238d5c6e108",
+              "checksum": "20f5f8849748957c286b33e92d357a677a9b78e7e30ca7c582ac31f2f1e4958d",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "id": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.github.crac",
@@ -2824,20 +2824,20 @@
                   "selectedVersion": "0.1.3",
                   "included": true,
                   "id": "io.github.crac:org-crac:0.1.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-classloader-commons",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "e46deca6720d39f02d8a6875c67a03517f690731a50c5a982052e25fe6e8df43",
+                  "checksum": "83927fb3a4aaa45d2881212f6ca208417d7895b368e544b55fe35751663dccb7",
                   "scope": "compile",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-classloader-commons:3.21.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
+                  "id": "io.quarkus:quarkus-classloader-commons:3.21.1",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
                   "children": []
                 },
                 {
@@ -2850,7 +2850,7 @@
                   "selectedVersion": "2.10.0",
                   "included": false,
                   "id": "io.smallrye.common:smallrye-common-io:2.10.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
                   "children": []
                 },
                 {
@@ -2863,7 +2863,7 @@
                   "selectedVersion": "3.6.1.Final",
                   "included": false,
                   "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
                   "children": []
                 },
                 {
@@ -2876,7 +2876,7 @@
                   "selectedVersion": "3.1.2.Final",
                   "included": false,
                   "id": "org.jboss.logmanager:jboss-logmanager:3.1.2.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-runner:3.21.1",
                   "children": []
                 }
               ]
@@ -2884,14 +2884,14 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-development-mode-spi",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "67f25d8d27c98ca38362a35e96db9887a16f50395c6b8824d7795f377b88132d",
+              "checksum": "d625ee4af3e8836403b3fbfaebbc6f4b0cb61619bb23f4a99128139c2e077b0c",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-development-mode-spi:3.21.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "id": "io.quarkus:quarkus-development-mode-spi:3.21.1",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -2904,20 +2904,20 @@
               "selectedVersion": "0.0.10",
               "included": true,
               "id": "io.quarkus:quarkus-fs-util:0.0.10",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-ide-launcher",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "e2c0329bf1235e628e075d1be7ae0e4d4bbfb643581aad80dd3535aa07beff4b",
+              "checksum": "24d7e5e3d8dab244f30647855d1a6e614976fb78b306d70698033300f02ab658",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-ide-launcher:3.21.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "id": "io.quarkus:quarkus-ide-launcher:3.21.1",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -2930,32 +2930,32 @@
               "selectedVersion": "2.10.0",
               "included": true,
               "id": "io.smallrye.common:smallrye-common-os:2.10.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
               "groupId": "io.smallrye.config",
               "artifactId": "smallrye-config",
-              "version": "3.12.3",
+              "version": "3.12.4",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "b8cc9d8cef8ce45b53db9814c5f25d6527459c9cfc2db758314b4b8582a18fd4",
+              "checksum": "2d125cb28802d45e3201342b7829fe63fcbe8f4333cec6d8db93579362cfa4ce",
               "scope": "compile",
-              "selectedVersion": "3.12.3",
+              "selectedVersion": "3.12.4",
               "included": true,
-              "id": "io.smallrye.config:smallrye-config:3.12.3",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "id": "io.smallrye.config:smallrye-config:3.12.4",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.config",
                   "artifactId": "smallrye-config-core",
-                  "version": "3.12.3",
+                  "version": "3.12.4",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "5661fb7ae2e97e7971f170ae2d2bdd9db0819b16117ef5bc9e01a7fa036f5373",
+                  "checksum": "572fb1d6bd3ba1db381ef6011717dc20e70998a3e14e4e444eeabdeb6d3ac80e",
                   "scope": "compile",
-                  "selectedVersion": "3.12.3",
+                  "selectedVersion": "3.12.4",
                   "included": true,
-                  "id": "io.smallrye.config:smallrye-config-core:3.12.3",
-                  "parent": "io.smallrye.config:smallrye-config:3.12.3",
+                  "id": "io.smallrye.config:smallrye-config-core:3.12.4",
+                  "parent": "io.smallrye.config:smallrye-config:3.12.4",
                   "children": [
                     {
                       "groupId": "io.smallrye.common",
@@ -2967,7 +2967,7 @@
                       "selectedVersion": "2.10.0",
                       "included": false,
                       "id": "io.smallrye.common:smallrye-common-annotation:2.10.0",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
@@ -2980,7 +2980,7 @@
                       "selectedVersion": "2.10.0",
                       "included": true,
                       "id": "io.smallrye.common:smallrye-common-classloader:2.10.0",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
@@ -2993,7 +2993,7 @@
                       "selectedVersion": "2.10.0",
                       "included": false,
                       "id": "io.smallrye.common:smallrye-common-constraint:2.10.0",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
@@ -3006,20 +3006,20 @@
                       "selectedVersion": "2.10.0",
                       "included": false,
                       "id": "io.smallrye.common:smallrye-common-expression:2.10.0",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
                       "groupId": "io.smallrye.config",
                       "artifactId": "smallrye-config-common",
-                      "version": "3.12.3",
+                      "version": "3.12.4",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "5298f1a49ac70b9ce2b00f178217853e5074da579f28c915eb2e44db03ed4c50",
+                      "checksum": "cf36f5ab467e28233ef99229a9557c6650a9471e94c33ec8c279b510a297b2eb",
                       "scope": "compile",
-                      "selectedVersion": "3.12.3",
+                      "selectedVersion": "3.12.4",
                       "included": true,
-                      "id": "io.smallrye.config:smallrye-config-common:3.12.3",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "id": "io.smallrye.config:smallrye-config-common:3.12.4",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": [
                         {
                           "groupId": "io.smallrye.common",
@@ -3031,7 +3031,7 @@
                           "selectedVersion": "2.10.0",
                           "included": false,
                           "id": "io.smallrye.common:smallrye-common-classloader:2.10.0",
-                          "parent": "io.smallrye.config:smallrye-config-common:3.12.3",
+                          "parent": "io.smallrye.config:smallrye-config-common:3.12.4",
                           "children": []
                         },
                         {
@@ -3044,7 +3044,7 @@
                           "selectedVersion": "3.1",
                           "included": false,
                           "id": "org.eclipse.microprofile.config:microprofile-config-api:3.1",
-                          "parent": "io.smallrye.config:smallrye-config-common:3.12.3",
+                          "parent": "io.smallrye.config:smallrye-config-common:3.12.4",
                           "children": []
                         },
                         {
@@ -3057,7 +3057,7 @@
                           "selectedVersion": "3.6.1.Final",
                           "included": false,
                           "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                          "parent": "io.smallrye.config:smallrye-config-common:3.12.3",
+                          "parent": "io.smallrye.config:smallrye-config-common:3.12.4",
                           "children": []
                         }
                       ]
@@ -3072,7 +3072,7 @@
                       "selectedVersion": "3.0.0",
                       "included": false,
                       "id": "jakarta.annotation:jakarta.annotation-api:3.0.0",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
@@ -3085,7 +3085,7 @@
                       "selectedVersion": "3.1",
                       "included": false,
                       "id": "org.eclipse.microprofile.config:microprofile-config-api:3.1",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     },
                     {
@@ -3098,7 +3098,7 @@
                       "selectedVersion": "3.6.1.Final",
                       "included": false,
                       "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                      "parent": "io.smallrye.config:smallrye-config-core:3.12.3",
+                      "parent": "io.smallrye.config:smallrye-config-core:3.12.4",
                       "children": []
                     }
                   ]
@@ -3113,7 +3113,7 @@
                   "selectedVersion": "3.6.1.Final",
                   "included": false,
                   "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                  "parent": "io.smallrye.config:smallrye-config:3.12.3",
+                  "parent": "io.smallrye.config:smallrye-config:3.12.4",
                   "children": []
                 }
               ]
@@ -3128,7 +3128,7 @@
               "selectedVersion": "3.0.0",
               "included": false,
               "id": "jakarta.annotation:jakarta.annotation-api:3.0.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3141,7 +3141,7 @@
               "selectedVersion": "4.1.0",
               "included": false,
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.1.0",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3154,7 +3154,7 @@
               "selectedVersion": "2.0.1",
               "included": true,
               "id": "jakarta.inject:jakarta.inject-api:2.0.1",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3167,7 +3167,7 @@
               "selectedVersion": "3.6.1.Final",
               "included": false,
               "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3180,7 +3180,7 @@
               "selectedVersion": "3.0.4.Final",
               "included": true,
               "id": "org.jboss.logging:jboss-logging-annotations:3.0.4.Final",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -3207,7 +3207,7 @@
               "selectedVersion": "3.1.2.Final",
               "included": true,
               "id": "org.jboss.logmanager:jboss-logmanager:3.1.2.Final",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -3420,7 +3420,7 @@
               "selectedVersion": "2.0.0.Final",
               "included": true,
               "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3433,7 +3433,7 @@
               "selectedVersion": "3.8.0.Final",
               "included": true,
               "id": "org.jboss.threads:jboss-threads:3.8.0.Final",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -3552,7 +3552,7 @@
               "selectedVersion": "2.0.6",
               "included": true,
               "id": "org.slf4j:slf4j-api:2.0.6",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": []
             },
             {
@@ -3565,7 +3565,7 @@
               "selectedVersion": "2.0.1",
               "included": true,
               "id": "org.wildfly.common:wildfly-common:2.0.1",
-              "parent": "io.quarkus:quarkus-core:3.21.0",
+              "parent": "io.quarkus:quarkus-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -3639,14 +3639,14 @@
         {
           "groupId": "io.quarkus.arc",
           "artifactId": "arc",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "2ab7adf26ff466f4380240c5e2d44046e21111fe9f875358da01f562275fb141",
+          "checksum": "e6cdd4df7618013f11a9859ac833ef9c77063e7dc935a1b872179f12b3bbfe28",
           "scope": "compile",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus.arc:arc:3.21.0",
-          "parent": "io.quarkus:quarkus-arc:3.21.0",
+          "id": "io.quarkus.arc:arc:3.21.1",
+          "parent": "io.quarkus:quarkus-arc:3.21.1",
           "children": [
             {
               "groupId": "io.smallrye.reactive",
@@ -3658,7 +3658,7 @@
               "selectedVersion": "2.8.0",
               "included": true,
               "id": "io.smallrye.reactive:mutiny:2.8.0",
-              "parent": "io.quarkus.arc:arc:3.21.0",
+              "parent": "io.quarkus.arc:arc:3.21.1",
               "children": [
                 {
                   "groupId": "io.smallrye.common",
@@ -3698,7 +3698,7 @@
               "selectedVersion": "3.0.0",
               "included": true,
               "id": "jakarta.annotation:jakarta.annotation-api:3.0.0",
-              "parent": "io.quarkus.arc:arc:3.21.0",
+              "parent": "io.quarkus.arc:arc:3.21.1",
               "children": []
             },
             {
@@ -3711,7 +3711,7 @@
               "selectedVersion": "4.1.0",
               "included": true,
               "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:4.1.0",
-              "parent": "io.quarkus.arc:arc:3.21.0",
+              "parent": "io.quarkus.arc:arc:3.21.1",
               "children": [
                 {
                   "groupId": "jakarta.annotation",
@@ -3790,7 +3790,7 @@
               "selectedVersion": "2.0.1",
               "included": true,
               "id": "jakarta.transaction:jakarta.transaction-api:2.0.1",
-              "parent": "io.quarkus.arc:arc:3.21.0",
+              "parent": "io.quarkus.arc:arc:3.21.1",
               "children": []
             },
             {
@@ -3803,7 +3803,7 @@
               "selectedVersion": "3.6.1.Final",
               "included": true,
               "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-              "parent": "io.quarkus.arc:arc:3.21.0",
+              "parent": "io.quarkus.arc:arc:3.21.1",
               "children": []
             }
           ]
@@ -3818,7 +3818,7 @@
           "selectedVersion": "1.3",
           "included": true,
           "id": "org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api:1.3",
-          "parent": "io.quarkus:quarkus-arc:3.21.0",
+          "parent": "io.quarkus:quarkus-arc:3.21.1",
           "children": []
         }
       ]
@@ -3826,37 +3826,37 @@
     {
       "groupId": "io.quarkus",
       "artifactId": "quarkus-junit5",
-      "version": "3.21.0",
+      "version": "3.21.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "41de748e986feaa86302f534457a651bf12c7c10ff35805ef20a9610a756941d",
+      "checksum": "cefe33167b0f01b367512247f214b3a4af4bf18828b1f60b718cf3b869ee1752",
       "scope": "test",
-      "selectedVersion": "3.21.0",
+      "selectedVersion": "3.21.1",
       "included": true,
-      "id": "io.quarkus:quarkus-junit5:3.21.0",
+      "id": "io.quarkus:quarkus-junit5:3.21.1",
       "children": [
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-bootstrap-core",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "c82ad41e9fb94a6abb7c63653729aff98b4a96224c0d7f554344f8c2f6c74ce8",
+          "checksum": "94c9ee9a7eabe6e6d4906deddcf3b45a8f755c18fb04bc8040fe020a5256908f",
           "scope": "test",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-bootstrap-core:3.21.0",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "id": "io.quarkus:quarkus-bootstrap-core:3.21.1",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-app-model",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "b8cf726eecfe3146edcaab05583bf37f412161fa0eb0b4e84b6b46a22a1a7a29",
+              "checksum": "439cce360d4887be5b6589c4d30c3287985d2ce523b253fc873fc7f7fceed9ac",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.0",
+              "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
@@ -3868,7 +3868,7 @@
                   "selectedVersion": "0.0.10",
                   "included": false,
                   "id": "io.quarkus:quarkus-fs-util:0.0.10",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
                   "children": []
                 },
                 {
@@ -3881,7 +3881,7 @@
                   "selectedVersion": "1.0.0.Final",
                   "included": false,
                   "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
                   "children": []
                 },
                 {
@@ -3894,7 +3894,7 @@
                   "selectedVersion": "3.6.1.Final",
                   "included": false,
                   "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
                   "children": []
                 }
               ]
@@ -3902,14 +3902,14 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-classloader-commons",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "e46deca6720d39f02d8a6875c67a03517f690731a50c5a982052e25fe6e8df43",
+              "checksum": "83927fb3a4aaa45d2881212f6ca208417d7895b368e544b55fe35751663dccb7",
               "scope": "compile",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-classloader-commons:3.21.0",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.0",
+              "id": "io.quarkus:quarkus-classloader-commons:3.21.1",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.1",
               "children": []
             },
             {
@@ -3922,7 +3922,7 @@
               "selectedVersion": "2.10.0",
               "included": true,
               "id": "io.smallrye.common:smallrye-common-io:2.10.0",
-              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.0",
+              "parent": "io.quarkus:quarkus-bootstrap-core:3.21.1",
               "children": []
             }
           ]
@@ -3930,65 +3930,65 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-core",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+          "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
           "scope": "test",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": false,
-          "id": "io.quarkus:quarkus-core:3.21.0",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "id": "io.quarkus:quarkus-core:3.21.1",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": []
         },
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-junit5-config",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "f908fe4052ea4dabdab6d1d84ac53daa8f7bc3fc51561e93820ec41d0cb0cd30",
+          "checksum": "556a003f338ae69fb4b9c9088aa6159f31e55f5bb11104216680c3ddac414e7f",
           "scope": "test",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-junit5-config:3.21.0",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "id": "io.quarkus:quarkus-junit5-config:3.21.1",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": [
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+              "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-core:3.21.0",
-              "parent": "io.quarkus:quarkus-junit5-config:3.21.0",
+              "id": "io.quarkus:quarkus-core:3.21.1",
+              "parent": "io.quarkus:quarkus-junit5-config:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core-deployment",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "96f8d3ca040edfe4e7ccac0c72be64c5843d02614eabe49e6230135aba1b301f",
+              "checksum": "a59b1a521c2507a70e39a155ea82225cb4f84343b762e4179d04cfa7504e970d",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": false,
-              "id": "io.quarkus:quarkus-core-deployment:3.21.0",
-              "parent": "io.quarkus:quarkus-junit5-config:3.21.0",
+              "id": "io.quarkus:quarkus-core-deployment:3.21.1",
+              "parent": "io.quarkus:quarkus-junit5-config:3.21.1",
               "children": []
             },
             {
               "groupId": "io.smallrye.config",
               "artifactId": "smallrye-config",
-              "version": "3.12.3",
+              "version": "3.12.4",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "b8cc9d8cef8ce45b53db9814c5f25d6527459c9cfc2db758314b4b8582a18fd4",
+              "checksum": "2d125cb28802d45e3201342b7829fe63fcbe8f4333cec6d8db93579362cfa4ce",
               "scope": "test",
-              "selectedVersion": "3.12.3",
+              "selectedVersion": "3.12.4",
               "included": false,
-              "id": "io.smallrye.config:smallrye-config:3.12.3",
-              "parent": "io.quarkus:quarkus-junit5-config:3.21.0",
+              "id": "io.smallrye.config:smallrye-config:3.12.4",
+              "parent": "io.quarkus:quarkus-junit5-config:3.21.1",
               "children": []
             },
             {
@@ -4001,7 +4001,7 @@
               "selectedVersion": "5.10.5",
               "included": true,
               "id": "org.junit.jupiter:junit-jupiter-api:5.10.5",
-              "parent": "io.quarkus:quarkus-junit5-config:3.21.0",
+              "parent": "io.quarkus:quarkus-junit5-config:3.21.1",
               "children": [
                 {
                   "groupId": "org.apiguardian",
@@ -4063,14 +4063,14 @@
         {
           "groupId": "io.quarkus",
           "artifactId": "quarkus-test-common",
-          "version": "3.21.0",
+          "version": "3.21.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "e32cc2bfa1b6bf25bcd7a8f2fc6364710f45fc18f971875d23fe44804cdf6bf4",
+          "checksum": "3f3249cb40f08aa4af4108dde9a0dd8b0cf2d96463070d222c6a7fe3fa14b149",
           "scope": "test",
-          "selectedVersion": "3.21.0",
+          "selectedVersion": "3.21.1",
           "included": true,
-          "id": "io.quarkus:quarkus-test-common:3.21.0",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "id": "io.quarkus:quarkus-test-common:3.21.1",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": [
             {
               "groupId": "commons-io",
@@ -4082,32 +4082,32 @@
               "selectedVersion": "2.18.0",
               "included": true,
               "id": "commons-io:commons-io:2.18.0",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": []
             },
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-gradle-resolver",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c8b39fe678fe57054cec0d32f8c1f45c09e62ef7e3f4c02de83214c2836e17d9",
+              "checksum": "f099150d48bc5cbc3f9611357669dd227323ee893a14d14de3c7dc48d9728954",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.0",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.1",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b8cf726eecfe3146edcaab05583bf37f412161fa0eb0b4e84b6b46a22a1a7a29",
+                  "checksum": "439cce360d4887be5b6589c4d30c3287985d2ce523b253fc873fc7f7fceed9ac",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.0",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -4120,7 +4120,7 @@
                   "selectedVersion": "3.6.1.Final",
                   "included": false,
                   "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -4133,7 +4133,7 @@
                   "selectedVersion": "2.0.0.Final",
                   "included": false,
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-gradle-resolver:3.21.1",
                   "children": []
                 }
               ]
@@ -4141,39 +4141,39 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-bootstrap-maven-resolver",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6406312805d728b7b96134c5e7945419945a8f6a486f4150a2ea5c9750559ece",
+              "checksum": "619c570c15696d4bab783d90df8439aa326d19b534ca1fb331b5784eadeaa2b3",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "id": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-app-model",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "b8cf726eecfe3146edcaab05583bf37f412161fa0eb0b4e84b6b46a22a1a7a29",
+                  "checksum": "439cce360d4887be5b6589c4d30c3287985d2ce523b253fc873fc7f7fceed9ac",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "id": "io.quarkus:quarkus-bootstrap-app-model:3.21.1",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-classloader-commons",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "e46deca6720d39f02d8a6875c67a03517f690731a50c5a982052e25fe6e8df43",
+                  "checksum": "83927fb3a4aaa45d2881212f6ca208417d7895b368e544b55fe35751663dccb7",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-classloader-commons:3.21.0",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "id": "io.quarkus:quarkus-classloader-commons:3.21.1",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -4186,7 +4186,7 @@
                   "selectedVersion": "0.0.10",
                   "included": false,
                   "id": "io.quarkus:quarkus-fs-util:0.0.10",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -4199,7 +4199,7 @@
                   "selectedVersion": "1.5.2",
                   "included": true,
                   "id": "io.smallrye.beanbag:smallrye-beanbag-maven:1.5.2",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "commons-codec",
@@ -5247,7 +5247,7 @@
                   "selectedVersion": "3.9.9",
                   "included": true,
                   "id": "org.apache.maven:maven-embedder:3.9.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "com.google.guava",
@@ -5265,15 +5265,29 @@
                     {
                       "groupId": "com.google.guava",
                       "artifactId": "guava",
-                      "version": "33.4.0-jre",
+                      "version": "33.4.6-jre",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "b918c98a7e44dbe94ebd9fe3e40cddaadb5a93e6a78eb6008b42df237241e538",
+                      "checksum": "958a035b74ff6c7d0cdff9c384524b645eb618f7117b60e1ee915f9cffd0e716",
                       "scope": "test",
-                      "selectedVersion": "33.4.0-jre",
+                      "selectedVersion": "33.4.6-jre",
                       "included": true,
-                      "id": "com.google.guava:guava:33.4.0-jre",
+                      "id": "com.google.guava:guava:33.4.6-jre",
                       "parent": "org.apache.maven:maven-embedder:3.9.9",
-                      "children": []
+                      "children": [
+                        {
+                          "groupId": "org.jspecify",
+                          "artifactId": "jspecify",
+                          "version": "1.0.0",
+                          "checksumAlgorithm": "SHA-256",
+                          "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+                          "scope": "test",
+                          "selectedVersion": "1.0.0",
+                          "included": true,
+                          "id": "org.jspecify:jspecify:1.0.0",
+                          "parent": "com.google.guava:guava:33.4.6-jre",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "groupId": "com.google.inject",
@@ -5395,13 +5409,13 @@
                         {
                           "groupId": "com.google.guava",
                           "artifactId": "guava",
-                          "version": "33.4.0-jre",
+                          "version": "33.4.6-jre",
                           "checksumAlgorithm": "SHA-256",
-                          "checksum": "b918c98a7e44dbe94ebd9fe3e40cddaadb5a93e6a78eb6008b42df237241e538",
+                          "checksum": "958a035b74ff6c7d0cdff9c384524b645eb618f7117b60e1ee915f9cffd0e716",
                           "scope": "test",
-                          "selectedVersion": "33.4.0-jre",
+                          "selectedVersion": "33.4.6-jre",
                           "included": false,
-                          "id": "com.google.guava:guava:33.4.0-jre",
+                          "id": "com.google.guava:guava:33.4.6-jre",
                           "parent": "org.apache.maven:maven-core:3.9.9",
                           "children": []
                         },
@@ -5914,7 +5928,7 @@
                   "selectedVersion": "3.9.9",
                   "included": true,
                   "id": "org.apache.maven:maven-resolver-provider:3.9.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -6045,7 +6059,7 @@
                   "selectedVersion": "3.9.9",
                   "included": true,
                   "id": "org.apache.maven:maven-settings-builder:3.9.9",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "javax.inject",
@@ -6124,7 +6138,7 @@
                   "selectedVersion": "1.9.22",
                   "included": true,
                   "id": "org.apache.maven.resolver:maven-resolver-connector-basic:1.9.22",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
@@ -6177,7 +6191,7 @@
                   "selectedVersion": "1.9.22",
                   "included": true,
                   "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:1.9.22",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "org.apache.maven.resolver",
@@ -6230,7 +6244,7 @@
                   "selectedVersion": "3.5.3",
                   "included": true,
                   "id": "org.apache.maven.wagon:wagon-file:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "org.apache.maven.wagon",
@@ -6257,7 +6271,7 @@
                   "selectedVersion": "3.5.3",
                   "included": true,
                   "id": "org.apache.maven.wagon:wagon-http:3.5.3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": [
                     {
                       "groupId": "org.apache.httpcomponents",
@@ -6310,7 +6324,7 @@
                   "selectedVersion": "0.9.0.M3",
                   "included": true,
                   "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M3",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -6323,7 +6337,7 @@
                   "selectedVersion": "3.6.1.Final",
                   "included": false,
                   "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -6336,7 +6350,7 @@
                   "selectedVersion": "3.1.2.Final",
                   "included": false,
                   "id": "org.jboss.logmanager:jboss-logmanager:3.1.2.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -6349,7 +6363,7 @@
                   "selectedVersion": "2.0.0.Final",
                   "included": false,
                   "id": "org.jboss.slf4j:slf4j-jboss-logmanager:2.0.0.Final",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 },
                 {
@@ -6362,7 +6376,7 @@
                   "selectedVersion": "2.0.6",
                   "included": false,
                   "id": "org.slf4j:slf4j-api:2.0.6",
-                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.0",
+                  "parent": "io.quarkus:quarkus-bootstrap-maven-resolver:3.21.1",
                   "children": []
                 }
               ]
@@ -6370,39 +6384,39 @@
             {
               "groupId": "io.quarkus",
               "artifactId": "quarkus-core-deployment",
-              "version": "3.21.0",
+              "version": "3.21.1",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "96f8d3ca040edfe4e7ccac0c72be64c5843d02614eabe49e6230135aba1b301f",
+              "checksum": "a59b1a521c2507a70e39a155ea82225cb4f84343b762e4179d04cfa7504e970d",
               "scope": "test",
-              "selectedVersion": "3.21.0",
+              "selectedVersion": "3.21.1",
               "included": true,
-              "id": "io.quarkus:quarkus-core-deployment:3.21.0",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "id": "io.quarkus:quarkus-core-deployment:3.21.1",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": [
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-bootstrap-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c82ad41e9fb94a6abb7c63653729aff98b4a96224c0d7f554344f8c2f6c74ce8",
+                  "checksum": "94c9ee9a7eabe6e6d4906deddcf3b45a8f755c18fb04bc8040fe020a5256908f",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-bootstrap-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-bootstrap-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-builder",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "ec560225d57cb4117460cba7024b0f9d7522f92cc3ec81691e7ded1d1e052ad0",
+                  "checksum": "135d83b092c20701b90133777cddff3fc87385121d24493d8b1af65af4deb308",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-builder:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-builder:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye.common",
@@ -6414,7 +6428,7 @@
                       "selectedVersion": "2.10.0",
                       "included": false,
                       "id": "io.smallrye.common:smallrye-common-constraint:2.10.0",
-                      "parent": "io.quarkus:quarkus-builder:3.21.0",
+                      "parent": "io.quarkus:quarkus-builder:3.21.1",
                       "children": []
                     },
                     {
@@ -6427,7 +6441,7 @@
                       "selectedVersion": "3.6.1.Final",
                       "included": false,
                       "id": "org.jboss.logging:jboss-logging:3.6.1.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.21.0",
+                      "parent": "io.quarkus:quarkus-builder:3.21.1",
                       "children": []
                     },
                     {
@@ -6440,7 +6454,7 @@
                       "selectedVersion": "3.8.0.Final",
                       "included": false,
                       "id": "org.jboss.threads:jboss-threads:3.8.0.Final",
-                      "parent": "io.quarkus:quarkus-builder:3.21.0",
+                      "parent": "io.quarkus:quarkus-builder:3.21.1",
                       "children": []
                     },
                     {
@@ -6453,7 +6467,7 @@
                       "selectedVersion": "2.0.1",
                       "included": false,
                       "id": "org.wildfly.common:wildfly-common:2.0.1",
-                      "parent": "io.quarkus:quarkus-builder:3.21.0",
+                      "parent": "io.quarkus:quarkus-builder:3.21.1",
                       "children": []
                     }
                   ]
@@ -6461,91 +6475,91 @@
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-class-change-agent",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "aab5bba8f94d1f4678b8dce2e7cd8dc99eafd37e7a6e5d9e9944cb0c97c742eb",
+                  "checksum": "9a47e489e6397eabf30d7d4b79db80179fb56aca54d8d79686a9d4993879946b",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-class-change-agent:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-class-change-agent:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-classloader-commons",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "e46deca6720d39f02d8a6875c67a03517f690731a50c5a982052e25fe6e8df43",
+                  "checksum": "83927fb3a4aaa45d2881212f6ca208417d7895b368e544b55fe35751663dccb7",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-classloader-commons:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-classloader-commons:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-core",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "c71a61c561bc20e6e475964ccd6e8536003bd11338851ed61526dec1683b5c77",
+                  "checksum": "add4ba1e2f5ef94b8dabbe1ede78d425b2aa112bfb467879650366fd24974cc6",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-core:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-core:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-development-mode-spi",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "67f25d8d27c98ca38362a35e96db9887a16f50395c6b8824d7795f377b88132d",
+                  "checksum": "d625ee4af3e8836403b3fbfaebbc6f4b0cb61619bb23f4a99128139c2e077b0c",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": false,
-                  "id": "io.quarkus:quarkus-development-mode-spi:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-development-mode-spi:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-devtools-utilities",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "cf899d331d03c1be3afc655baaddf2714a26b1df63b56c1b5c75650ee886be94",
+                  "checksum": "8817489ef5e800d62a8dd074fd673ea1f7fbb4ce5bbaa6ee4a6df85b69c67db7",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-devtools-utilities:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-devtools-utilities:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
                   "groupId": "io.quarkus",
                   "artifactId": "quarkus-hibernate-validator-spi",
-                  "version": "3.21.0",
+                  "version": "3.21.1",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "8d7a9cb60162e0f95fd41a0f4e3e20f0f1bfa53cc16acc537ed94328cb941051",
+                  "checksum": "40490b4849b0b01e53e4bd86f2cd203fce1e46e1723dc9b3afdeb197e273f8ee",
                   "scope": "test",
-                  "selectedVersion": "3.21.0",
+                  "selectedVersion": "3.21.1",
                   "included": true,
-                  "id": "io.quarkus:quarkus-hibernate-validator-spi:3.21.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "id": "io.quarkus:quarkus-hibernate-validator-spi:3.21.1",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "io.quarkus",
                       "artifactId": "quarkus-builder",
-                      "version": "3.21.0",
+                      "version": "3.21.1",
                       "checksumAlgorithm": "SHA-256",
-                      "checksum": "ec560225d57cb4117460cba7024b0f9d7522f92cc3ec81691e7ded1d1e052ad0",
+                      "checksum": "135d83b092c20701b90133777cddff3fc87385121d24493d8b1af65af4deb308",
                       "scope": "test",
-                      "selectedVersion": "3.21.0",
+                      "selectedVersion": "3.21.1",
                       "included": false,
-                      "id": "io.quarkus:quarkus-builder:3.21.0",
-                      "parent": "io.quarkus:quarkus-hibernate-validator-spi:3.21.0",
+                      "id": "io.quarkus:quarkus-builder:3.21.1",
+                      "parent": "io.quarkus:quarkus-hibernate-validator-spi:3.21.1",
                       "children": []
                     },
                     {
@@ -6558,7 +6572,7 @@
                       "selectedVersion": "3.2.7",
                       "included": false,
                       "id": "io.smallrye:jandex:3.2.7",
-                      "parent": "io.quarkus:quarkus-hibernate-validator-spi:3.21.0",
+                      "parent": "io.quarkus:quarkus-hibernate-validator-spi:3.21.1",
                       "children": []
                     }
                   ]
@@ -6573,7 +6587,7 @@
                   "selectedVersion": "1.9.0",
                   "included": true,
                   "id": "io.quarkus.gizmo:gizmo:1.9.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "io.smallrye",
@@ -6680,7 +6694,7 @@
                   "selectedVersion": "3.2.7",
                   "included": false,
                   "id": "io.smallrye:jandex:3.2.7",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6693,7 +6707,7 @@
                   "selectedVersion": "2.8.2",
                   "included": true,
                   "id": "org.aesh:aesh:2.8.2",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "org.aesh",
@@ -6720,7 +6734,7 @@
                   "selectedVersion": "2.6",
                   "included": true,
                   "id": "org.aesh:readline:2.6",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "org.fusesource.jansi",
@@ -6747,7 +6761,7 @@
                   "selectedVersion": "3.17.0",
                   "included": false,
                   "id": "org.apache.commons:commons-lang3:3.17.0",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6760,7 +6774,7 @@
                   "selectedVersion": "0.9.0.M3",
                   "included": false,
                   "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M3",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6773,7 +6787,7 @@
                   "selectedVersion": "23.1.2",
                   "included": false,
                   "id": "org.graalvm.sdk:nativeimage:23.1.2",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6786,7 +6800,7 @@
                   "selectedVersion": "5.10.5",
                   "included": false,
                   "id": "org.junit.jupiter:junit-jupiter:5.10.5",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6799,7 +6813,7 @@
                   "selectedVersion": "1.10.5",
                   "included": true,
                   "id": "org.junit.platform:junit-platform-launcher:1.10.5",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "org.apiguardian",
@@ -6839,7 +6853,7 @@
                   "selectedVersion": "9.7.1",
                   "included": true,
                   "id": "org.ow2.asm:asm:9.7.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 },
                 {
@@ -6852,7 +6866,7 @@
                   "selectedVersion": "9.7.1",
                   "included": true,
                   "id": "org.ow2.asm:asm-commons:9.7.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": [
                     {
                       "groupId": "org.ow2.asm",
@@ -6906,7 +6920,7 @@
                   "selectedVersion": "2.0.1",
                   "included": false,
                   "id": "org.wildfly.common:wildfly-common:2.0.1",
-                  "parent": "io.quarkus:quarkus-core-deployment:3.21.0",
+                  "parent": "io.quarkus:quarkus-core-deployment:3.21.1",
                   "children": []
                 }
               ]
@@ -6921,7 +6935,7 @@
               "selectedVersion": "3.2.7",
               "included": true,
               "id": "io.smallrye:jandex:3.2.7",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": []
             },
             {
@@ -6934,7 +6948,7 @@
               "selectedVersion": "1.0.0.Final",
               "included": true,
               "id": "org.jboss.logging:commons-logging-jboss-logging:1.0.0.Final",
-              "parent": "io.quarkus:quarkus-test-common:3.21.0",
+              "parent": "io.quarkus:quarkus-test-common:3.21.1",
               "children": [
                 {
                   "groupId": "org.jboss.logging",
@@ -6963,7 +6977,7 @@
           "selectedVersion": "0.9.0.M3",
           "included": true,
           "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M3",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": []
         },
         {
@@ -6976,7 +6990,7 @@
           "selectedVersion": "2.2.2.Final",
           "included": true,
           "id": "org.jboss.marshalling:jboss-marshalling:2.2.2.Final",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": []
         },
         {
@@ -6989,7 +7003,7 @@
           "selectedVersion": "5.10.5",
           "included": true,
           "id": "org.junit.jupiter:junit-jupiter:5.10.5",
-          "parent": "io.quarkus:quarkus-junit5:3.21.0",
+          "parent": "io.quarkus:quarkus-junit5:3.21.1",
           "children": [
             {
               "groupId": "org.junit.jupiter",
@@ -7170,6 +7184,13 @@
       "checksum": "130c4b4ab3c81c5c2f6d0307091bcd363c1a266c4b20dd01c808ff2c15cb8350"
     },
     {
+      "groupId": "dev.sigstore",
+      "artifactId": "sigstore-maven-plugin",
+      "version": "1.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "173f142d8e421867b8941801014ce448f69f3704a33f4487ce7cf80e9730d5f9"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
       "version": "3.1.4",
@@ -7198,18 +7219,18 @@
       "checksum": "7b0e58afc5741b29c6dbbb1fab2f878149e63842bedb58ca839145c545951a7e"
     },
     {
-      "groupId": "io.quarkus.platform",
-      "artifactId": "quarkus-maven-plugin",
-      "version": "3.21.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "8b3ac579ddcb9577be060fabad8446688a7b41aa7d37ae5a5b73b2d97a889983"
-    },
-    {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
       "version": "2.44.3",
       "checksumAlgorithm": "SHA-256",
       "checksum": "9206918dfa2e6674ca81def57a32a682705089b52d3863353ebc2b171f32a1ea"
+    },
+    {
+      "groupId": "io.quarkus.platform",
+      "artifactId": "quarkus-maven-plugin",
+      "version": "3.21.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "a79d7fa69ab006c19703b43abeec4d38e7820d2ae13f102e7793a86806f020b4"
     },
     {
       "groupId": "org.apache.maven.plugins",

@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "with-environment-from-lockfile",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,

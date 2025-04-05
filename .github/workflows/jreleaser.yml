@@ -18,6 +18,7 @@ jobs:
     name: Build and release
 
     permissions:
+      id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
       contents: write
 
     runs-on: ubuntu-latest

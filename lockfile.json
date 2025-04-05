@@ -20,6 +20,13 @@
       "checksum": "130c4b4ab3c81c5c2f6d0307091bcd363c1a266c4b20dd01c808ff2c15cb8350"
     },
     {
+      "groupId": "dev.sigstore",
+      "artifactId": "sigstore-maven-plugin",
+      "version": "1.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "173f142d8e421867b8941801014ce448f69f3704a33f4487ce7cf80e9730d5f9"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
       "version": "3.1.4",
