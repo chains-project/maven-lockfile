@@ -3,11 +3,7 @@ package io.github.chains_project.maven_lockfile.graph;
 import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.Classifier;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.MavenScope;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
@@ -85,6 +81,7 @@ public class DependencyGraph {
         var classifier = Classifier.of(node.getArtifact().getClassifier());
         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
+        var resolved = isRoot ? ResolvedUrl.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
         Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
         boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
@@ -93,7 +90,7 @@ public class DependencyGraph {
             return Optional.empty();
         }
         DependencyNode value = new DependencyNode(
-                artifactId, groupId, version, classifier, scope, calc.getChecksumAlgorithm(), checksum);
+                artifactId, groupId, version, classifier, scope, resolved, calc.getChecksumAlgorithm(), checksum);
         value.setSelectedVersion(baseVersion);
         value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
