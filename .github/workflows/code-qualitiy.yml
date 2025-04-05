@@ -4,6 +4,7 @@ on:
   pull_request:
 
 permissions:
+  id-token: write
   contents: read
 jobs:
   maven-quality:
@@ -20,6 +21,9 @@ jobs:
             oss.sonatype.org:443
             repo.maven.apache.org:443
             repo.spring.io:443
+            tuf-repo-cdn.sigstore.dev:443
+            fulcio.sigstore.dev:443
+            rekor.sigstore.dev:443
 
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up JDK 17
@@ -53,6 +57,9 @@ jobs:
             oss.sonatype.org:443
             repo.maven.apache.org:443
             repo.spring.io:443
+            tuf-repo-cdn.sigstore.dev:443
+            fulcio.sigstore.dev:443
+            rekor.sigstore.dev:443
 
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set up JDK 17
