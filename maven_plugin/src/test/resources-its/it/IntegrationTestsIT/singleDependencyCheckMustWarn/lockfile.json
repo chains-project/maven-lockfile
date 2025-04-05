@@ -1,5 +1,5 @@
 {
-  "artifactID": "my-app",
+  "artifactID": "single-dependency-check-must-warn",
   "groupID": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,
@@ -78,7 +78,7 @@
       "allowValidationFailure": true,
       "reduced": false,
       "mavenLockfileVersion": "4.1.1-SNAPSHOT",
-      "checksumMode": "maven_local",
+      "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
   }

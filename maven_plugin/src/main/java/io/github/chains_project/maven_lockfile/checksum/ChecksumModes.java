@@ -8,11 +8,11 @@ public enum ChecksumModes {
     /**
      * Downloads the checksum from the maven repository.
      */
-    MAVEN_CENTRAL("maven_central"),
+    REMOTE("remote"),
     /**
      * Calculates the checksum from the downloaded artifact.
      */
-    MAVEN_LOCAL("maven_local");
+    LOCAL("local");
 
     /**
      * The name of the checksum mode.

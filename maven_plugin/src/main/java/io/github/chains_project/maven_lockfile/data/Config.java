@@ -36,8 +36,8 @@ public class Config {
         this.includeEnvironment = true;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
-        this.checksumMode = ChecksumModes.MAVEN_LOCAL.name();
-        this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null).getDefaultChecksumAlgorithm();
+        this.checksumMode = ChecksumModes.LOCAL.name();
+        this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
     }
     /**
      * @return the includeMavenPlugins

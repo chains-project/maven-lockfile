@@ -117,7 +117,7 @@ public class LockFileFacade {
                     ArtifactId.of(pluginArtifact.getArtifactId()),
                     VersionNumber.of(pluginArtifact.getVersion()),
                     checksumCalculator.getChecksumAlgorithm(),
-                    checksumCalculator.calculateChecksum(pluginArtifact)));
+                    checksumCalculator.calculatePluginChecksum(pluginArtifact)));
         }
         return plugins;
     }

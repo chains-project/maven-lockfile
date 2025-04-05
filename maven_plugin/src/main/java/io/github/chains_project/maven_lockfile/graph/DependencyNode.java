@@ -26,7 +26,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
     @Nullable
     private String selectedVersion;
 
-    @Nullable
     private boolean included;
 
     NodeId id;

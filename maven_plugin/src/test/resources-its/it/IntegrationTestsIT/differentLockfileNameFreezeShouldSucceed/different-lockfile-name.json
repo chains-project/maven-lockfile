@@ -1,5 +1,5 @@
 {
-  "artifactId": "my-app",
+  "artifactId": "different-lockfile-name-freeze-sould-succeed",
   "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,
@@ -1068,7 +1068,7 @@
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.2.4-SNAPSHOT",
-      "checksumMode": "maven_local",
+      "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
   }
