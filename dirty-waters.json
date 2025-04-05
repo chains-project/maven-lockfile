@@ -62,7 +62,3 @@
         "org.apache.maven.plugins:maven-site-plugin@3.21.0": ["source_code_sha"]
     }
 }
-
-
-
-
