@@ -50,9 +50,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpClient client = HttpClient.newBuilder()
                         .followRedirects(HttpClient.Redirect.ALWAYS)
                         .build();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(url))
-                        .build();
+                HttpRequest request =
+                        HttpRequest.newBuilder().uri(URI.create(url)).build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {

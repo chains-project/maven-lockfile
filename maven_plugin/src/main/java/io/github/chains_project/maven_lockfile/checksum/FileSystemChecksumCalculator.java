@@ -144,8 +144,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
 
-            String url = remoteRepository.get().getUrl().replaceAll("/$", "") + "/"
-                    + groupId + "/" + artifactId + "/" + version + "/" + target;
+            String url = remoteRepository.get().getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
+                    + version + "/" + target;
 
             return Optional.of(ResolvedUrl.of(url));
         } catch (Exception e) {
