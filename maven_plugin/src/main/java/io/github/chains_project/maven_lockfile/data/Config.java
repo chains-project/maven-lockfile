@@ -1,5 +1,6 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.DeprecationUtils;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 
@@ -26,7 +27,7 @@ public class Config {
         this.includeEnvironment = includeEnvironment;
         this.reduced = reduced;
         this.mavenLockfileVersion = mavenLockfileVersion;
-        this.checksumMode = checksumMode;
+        this.checksumMode = DeprecationUtils.ChecksumModeDeprecation(checksumMode);
         this.checksumAlgorithm = checksumAlgorithm;
     }
 
