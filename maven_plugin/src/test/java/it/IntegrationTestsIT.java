@@ -392,7 +392,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void resolvedFieldShouldResolve(MavenExecutionResult result) throws Exception {
-        // contract: resolved field should correctly resolve with
+        // contract: resolved field should find correctly url for projects with multiple repositories
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
