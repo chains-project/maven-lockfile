@@ -81,7 +81,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        checksumMode = DeprecationUtils.ChecksumModeDeprecation(checksumMode, getLog());
+        checksumMode = checksumModeDeprecation(checksumMode);
         if (checksumMode.equals("local")) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
@@ -96,7 +96,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        switch (DeprecationUtils.ChecksumModeDeprecation(config.getChecksumMode(), getLog())) {
+        switch (checksumModeDeprecation(config.getChecksumMode())) {
             case "local":
                 return new FileSystemChecksumCalculator(
                         dependencyResolver,
@@ -120,7 +120,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.parseBoolean(includeEnvironment),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
-                DeprecationUtils.ChecksumModeDeprecation(chosenMode, getLog()),
+                checksumModeDeprecation(chosenMode),
                 chosenAlgo);
     }
 
@@ -134,5 +134,18 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
         return buildingRequest;
+    }
+
+    private String checksumModeDeprecation(String checksumMode) {
+        if (checksumMode.equals("maven_local")) {
+            getLog().warn("Option 'checksumMode=maven_local' is deprecated. Use 'checksumMode=local' instead.");
+            return "local";
+        }
+        if (checksumMode.equals("maven_central")) {
+            getLog().warn("Option 'checksumMode=maven_central' is deprecated. Use 'checksumMode=remote' instead.");
+            return "remote";
+        }
+
+        return checksumMode;
     }
 }
