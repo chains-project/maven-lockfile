@@ -7,49 +7,20 @@ import java.util.Objects;
  * The resolved url points to where the artifact was downloaded from.
  * It is a string that is not null or empty. It is immutable.
  */
-public class ResolvedUrl implements Comparable<ResolvedUrl> {
+public record ResolvedUrl(String resolvedUrl) {
+    public ResolvedUrl {
+        Objects.requireNonNull(resolvedUrl, "resolvedUrl cannot be null");
+    }
+
     public static ResolvedUrl of(String resolvedUrl) {
-        // ResolvedUrl must be non-null.
-        String checked = Objects.requireNonNull(resolvedUrl, "resolvedUrl cannot be null");
-        return new ResolvedUrl(checked);
+        return new ResolvedUrl(resolvedUrl);
     }
 
     public static ResolvedUrl Unresolved() {
         return new ResolvedUrl("");
     }
 
-    private final String value;
-
-    public ResolvedUrl(String resolvedUrl) {
-        this.value = Objects.requireNonNull(resolvedUrl);
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    @Override
     public String toString() {
-        return "{" + " ResolvedUrl='" + getValue() + "'" + "}";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof ResolvedUrl)) {
-            return false;
-        }
-        ResolvedUrl resolvedUrl = (ResolvedUrl) o;
-        return Objects.equals(value, resolvedUrl.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(value);
-    }
-
-    @Override
-    public int compareTo(ResolvedUrl o) {
-        return this.value.compareTo(o.value);
+        return "{" + " ResolvedUrl='" + resolvedUrl + "'" + "}";
     }
 }
