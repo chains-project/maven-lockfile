@@ -1,6 +1,6 @@
 {
-  "artifactID": "single-dependency-check-must-fail",
-  "groupID": "com.mycompany.app",
+  "artifactId": "single-dependency-check-must-fail",
+  "groupId": "com.mycompany.app",
   "version": "1",
   "lockFileVersion": 1,
   "dependencies": [
@@ -11,7 +11,9 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5_TEMPER_ATTACK",
       "scope": "test",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
       "selectedVersion": "5.9.2",
+      "included": true,
       "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
       "children": [
         {
@@ -21,7 +23,9 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
           "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
           "selectedVersion": "1.1.2",
+          "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
           "children": []
@@ -33,7 +37,9 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
           "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar",
           "selectedVersion": "1.9.2",
+          "included": true,
           "id": "org.junit.platform:junit-platform-commons:1.9.2",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
           "children": [
@@ -44,7 +50,9 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
               "scope": "test",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
               "selectedVersion": "1.1.2",
+              "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
               "parent": "org.junit.platform:junit-platform-commons:1.9.2",
               "children": []
@@ -58,7 +66,9 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
           "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
           "selectedVersion": "1.2.0",
+          "included": true,
           "id": "org.opentest4j:opentest4j:1.2.0",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
           "children": []
@@ -69,14 +79,16 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Windows 11",
-      "mavenVersion": "3.9.1",
-      "javaVersion": "19.0.2"
+      "osName": "Mac OS X",
+      "mavenVersion": "3.8.2",
+      "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "4.1.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
