@@ -7,25 +7,25 @@
     {
       "groupId": "com.google.code.gson",
       "artifactId": "gson",
-      "version": "2.12.1",
+      "version": "2.13.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ebee13d5fb7477cd7f1cc010e0c356df8ca80709715248da97f79e35ccb4fbec",
+      "checksum": "8c6a742b74f869a79f39f5c78cc09999f99f3b6aff6304fcedd6f543e27efa78",
       "scope": "compile",
-      "selectedVersion": "2.12.1",
+      "selectedVersion": "2.13.0",
       "included": true,
-      "id": "com.google.code.gson:gson:2.12.1",
+      "id": "com.google.code.gson:gson:2.13.0",
       "children": [
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
-          "version": "2.36.0",
+          "version": "2.37.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
+          "checksum": "d29a6263b48d46d4c7c28b64717a6d105b3e2a3e64256092f845e8e774fca6ba",
           "scope": "compile",
-          "selectedVersion": "2.36.0",
+          "selectedVersion": "2.37.0",
           "included": true,
-          "id": "com.google.errorprone:error_prone_annotations:2.36.0",
-          "parent": "com.google.code.gson:gson:2.12.1",
+          "id": "com.google.errorprone:error_prone_annotations:2.37.0",
+          "parent": "com.google.code.gson:gson:2.13.0",
           "children": []
         }
       ]
@@ -61,7 +61,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
           "scope": "compile",
-          "selectedVersion": "2.36.0",
+          "selectedVersion": "2.37.0",
           "included": false,
           "id": "com.google.errorprone:error_prone_annotations:2.36.0",
           "parent": "com.google.guava:guava:33.4.0-jre",
