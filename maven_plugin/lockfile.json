@@ -256,13 +256,13 @@
     {
       "groupId": "commons-io",
       "artifactId": "commons-io",
-      "version": "2.18.0",
+      "version": "2.19.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f3ca0f8d63c40e23a56d54101c60d5edee136b42d84bfb85bc7963093109cf8b",
+      "checksum": "824268919b4b62f9f40f08c54381de5993b078f58667e332d17348ae019d72b9",
       "scope": "test",
-      "selectedVersion": "2.18.0",
+      "selectedVersion": "2.19.0",
       "included": true,
-      "id": "commons-io:commons-io:2.18.0",
+      "id": "commons-io:commons-io:2.19.0",
       "children": []
     },
     {
