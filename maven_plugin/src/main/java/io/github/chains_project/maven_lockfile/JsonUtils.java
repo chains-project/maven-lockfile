@@ -9,6 +9,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.NodeId;
 
@@ -40,9 +41,12 @@ public class JsonUtils {
                         (it, type, ignore) -> NodeId.fromValue(it.getAsString()))
                 .registerTypeAdapter(MavenScope.class, (JsonSerializer<MavenScope>)
                         (it, type, ignore) -> new JsonPrimitive(it.getValue()))
-                .registerTypeAdapter(MavenScope.class, (JsonDeserializer<MavenScope>) (it, type, ignore) -> {
-                    return MavenScope.fromString(it.getAsString());
-                })
+                .registerTypeAdapter(MavenScope.class, (JsonDeserializer<MavenScope>)
+                        (it, type, ignore) -> MavenScope.fromString(it.getAsString()))
+                .registerTypeAdapter(ResolvedUrl.class, (JsonSerializer<ResolvedUrl>)
+                        (it, type, ignore) -> new JsonPrimitive(it.getValue()))
+                .registerTypeAdapter(ResolvedUrl.class, (JsonDeserializer<ResolvedUrl>)
+                        (it, type, ignore) -> ResolvedUrl.of(it.getAsString()))
                 .setLenient()
                 // .registerTypeAdapter(LockFileDependency.class, new LockFileDependencyAdapter())
                 .create();

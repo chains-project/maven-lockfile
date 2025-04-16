@@ -5,6 +5,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
 
@@ -21,6 +22,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private final String checksumAlgorithm;
     private final String checksum;
     private final MavenScope scope;
+    private final ResolvedUrl resolved;
 
     private String selectedVersion;
 
@@ -39,9 +41,10 @@ public class DependencyNode implements Comparable<DependencyNode> {
             GroupId groupId,
             VersionNumber version,
             MavenScope scope,
+            ResolvedUrl resolved,
             String checksumAlgorithm,
             String checksum) {
-        this(artifactId, groupId, version, null, scope, checksumAlgorithm, checksum);
+        this(artifactId, groupId, version, null, scope, resolved, checksumAlgorithm, checksum);
     }
 
     DependencyNode(
@@ -50,6 +53,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
             VersionNumber version,
             Classifier classifier,
             MavenScope scope,
+            ResolvedUrl resolved,
             String checksumAlgorithm,
             String checksum) {
         this.artifactId = artifactId;
@@ -61,6 +65,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.children = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         this.id = new NodeId(groupId, artifactId, version);
         this.scope = scope;
+        this.resolved = resolved;
     }
     /**
      * @return the artifactId
@@ -97,6 +102,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public MavenScope getScope() {
         return scope;
+    }
+    /**
+     * @return the resolved url.
+     */
+    public ResolvedUrl getResolved() {
+        return resolved;
     }
 
     void addChild(DependencyNode child) {
@@ -188,7 +199,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(classifier, other.classifier)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
                 && Objects.equals(checksum, other.checksum)
-                && scope == other.scope
+                && Objects.equals(scope, other.scope)
                 && Objects.equals(selectedVersion, other.selectedVersion)
                 && Objects.equals(id, other.id)
                 && Objects.equals(parent, other.parent)
@@ -225,8 +236,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
     public String toString() {
         return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version
                 + ", classifier=" + classifier + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
-                + ", scope=" + scope + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
-                + ", children=" + children + "]";
+                + ", scope=" + scope + ", resolved=" + resolved + ", selectedVersion=" + selectedVersion + ", id=" + id
+                + ", parent=" + parent + ", children=" + children + "]";
     }
 
     public String getComparatorString() {

@@ -7,11 +7,7 @@ import com.google.common.collect.Ordering;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.Classifier;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -392,5 +388,32 @@ public class IntegrationTestsIT {
         assertThat(result).isSuccessful();
         var lockfileExists = fileExists(result, "lockfile.json");
         assertThat(lockfileExists).isTrue();
+    }
+
+    @MavenTest
+    public void resolvedFieldShouldResolve(MavenExecutionResult result) throws Exception {
+        // contract: resolved field should find correctly url for projects with multiple repositories
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var atlassinResolved = lockFile.getDependencies().stream()
+                .filter(
+                        dependency -> dependency
+                                .getResolved()
+                                .equals(
+                                        ResolvedUrl.of(
+                                                "https://packages.atlassian.com/maven-public/atlassian-bandana/atlassian-bandana/0.2.0/atlassian-bandana-0.2.0.jar")))
+                .findAny();
+        var mavenCentralResolved = lockFile.getDependencies().stream()
+                .filter(
+                        dependency -> dependency
+                                .getResolved()
+                                .equals(
+                                        ResolvedUrl.of(
+                                                "https://repo.maven.apache.org/maven2/fr/inria/gforge/spoon/spoon-core/10.3.0/spoon-core-10.3.0.jar")))
+                .findAny();
+        assertThat(atlassinResolved).isNotNull();
+        assertThat(mavenCentralResolved).isNotNull();
     }
 }
