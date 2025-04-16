@@ -42,6 +42,6 @@ jobs:
       - name: Build and publish action to Maven repository
         shell: bash
         run: |
-          cd github_action && mvn -B clean deploy -Dquarkus.package.type=uber-jar --update-snapshots -Dquarkus.package.add-runner-suffix=false
+          cd github_action && mvn -B clean deploy -Dquarkus.package.type=uber-jar --update-snapshots -Dquarkus.package.add-runner-suffix=false -Dsigstore.skip=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

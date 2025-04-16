@@ -86,7 +86,7 @@ jobs:
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 # Now we can run the release
       - name: Stage release
-        run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy
+        run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
       - name: Print next version
