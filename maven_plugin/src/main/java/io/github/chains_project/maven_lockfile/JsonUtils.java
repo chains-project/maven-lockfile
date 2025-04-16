@@ -44,7 +44,7 @@ public class JsonUtils {
                 .registerTypeAdapter(MavenScope.class, (JsonDeserializer<MavenScope>)
                         (it, type, ignore) -> MavenScope.fromString(it.getAsString()))
                 .registerTypeAdapter(ResolvedUrl.class, (JsonSerializer<ResolvedUrl>)
-                        (it, type, ignore) -> new JsonPrimitive(it.resolvedUrl()))
+                        (it, type, ignore) -> new JsonPrimitive(it.getValue()))
                 .registerTypeAdapter(ResolvedUrl.class, (JsonDeserializer<ResolvedUrl>)
                         (it, type, ignore) -> ResolvedUrl.of(it.getAsString()))
                 .setLenient()
