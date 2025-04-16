@@ -8,7 +8,6 @@ import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
-import javax.annotation.Nullable;
 
 /**
  * This class represents a node in the dependency graph. It contains the artifactId, groupId and version  of the dependency.
@@ -25,7 +24,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private final MavenScope scope;
     private final ResolvedUrl resolved;
 
-    @Nullable
     private String selectedVersion;
 
     private boolean included;
