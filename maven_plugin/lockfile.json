@@ -7,25 +7,25 @@
     {
       "groupId": "com.google.code.gson",
       "artifactId": "gson",
-      "version": "2.12.1",
+      "version": "2.13.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "ebee13d5fb7477cd7f1cc010e0c356df8ca80709715248da97f79e35ccb4fbec",
+      "checksum": "8c6a742b74f869a79f39f5c78cc09999f99f3b6aff6304fcedd6f543e27efa78",
       "scope": "compile",
-      "selectedVersion": "2.12.1",
+      "selectedVersion": "2.13.0",
       "included": true,
-      "id": "com.google.code.gson:gson:2.12.1",
+      "id": "com.google.code.gson:gson:2.13.0",
       "children": [
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
-          "version": "2.36.0",
+          "version": "2.37.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
+          "checksum": "d29a6263b48d46d4c7c28b64717a6d105b3e2a3e64256092f845e8e774fca6ba",
           "scope": "compile",
-          "selectedVersion": "2.36.0",
+          "selectedVersion": "2.37.0",
           "included": true,
-          "id": "com.google.errorprone:error_prone_annotations:2.36.0",
-          "parent": "com.google.code.gson:gson:2.12.1",
+          "id": "com.google.errorprone:error_prone_annotations:2.37.0",
+          "parent": "com.google.code.gson:gson:2.13.0",
           "children": []
         }
       ]
@@ -33,27 +33,14 @@
     {
       "groupId": "com.google.guava",
       "artifactId": "guava",
-      "version": "33.4.0-jre",
+      "version": "33.4.8-jre",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b918c98a7e44dbe94ebd9fe3e40cddaadb5a93e6a78eb6008b42df237241e538",
+      "checksum": "f3d7f57f67fd622f4d468dfdd692b3a5e3909246c28017ac3263405f0fe617ed",
       "scope": "compile",
-      "selectedVersion": "33.4.0-jre",
+      "selectedVersion": "33.4.8-jre",
       "included": true,
-      "id": "com.google.guava:guava:33.4.0-jre",
+      "id": "com.google.guava:guava:33.4.8-jre",
       "children": [
-        {
-          "groupId": "com.google.code.findbugs",
-          "artifactId": "jsr305",
-          "version": "3.0.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
-          "scope": "compile",
-          "selectedVersion": "3.0.2",
-          "included": true,
-          "id": "com.google.code.findbugs:jsr305:3.0.2",
-          "parent": "com.google.guava:guava:33.4.0-jre",
-          "children": []
-        },
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
@@ -61,23 +48,23 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
           "scope": "compile",
-          "selectedVersion": "2.36.0",
+          "selectedVersion": "2.37.0",
           "included": false,
           "id": "com.google.errorprone:error_prone_annotations:2.36.0",
-          "parent": "com.google.guava:guava:33.4.0-jre",
+          "parent": "com.google.guava:guava:33.4.8-jre",
           "children": []
         },
         {
           "groupId": "com.google.guava",
           "artifactId": "failureaccess",
-          "version": "1.0.2",
+          "version": "1.0.3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "8a8f81cf9b359e3f6dfa691a1e776985c061ef2f223c9b2c80753e1b458e8064",
+          "checksum": "cbfc3906b19b8f55dd7cfd6dfe0aa4532e834250d7f080bd8d211a3e246b59cb",
           "scope": "compile",
           "selectedVersion": "1.0.1",
           "included": false,
-          "id": "com.google.guava:failureaccess:1.0.2",
-          "parent": "com.google.guava:guava:33.4.0-jre",
+          "id": "com.google.guava:failureaccess:1.0.3",
+          "parent": "com.google.guava:guava:33.4.8-jre",
           "children": []
         },
         {
@@ -90,7 +77,7 @@
           "selectedVersion": "9999.0-empty-to-avoid-conflict-with-guava",
           "included": true,
           "id": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
-          "parent": "com.google.guava:guava:33.4.0-jre",
+          "parent": "com.google.guava:guava:33.4.8-jre",
           "children": []
         },
         {
@@ -103,20 +90,20 @@
           "selectedVersion": "3.0.0",
           "included": true,
           "id": "com.google.j2objc:j2objc-annotations:3.0.0",
-          "parent": "com.google.guava:guava:33.4.0-jre",
+          "parent": "com.google.guava:guava:33.4.8-jre",
           "children": []
         },
         {
-          "groupId": "org.checkerframework",
-          "artifactId": "checker-qual",
-          "version": "3.43.0",
+          "groupId": "org.jspecify",
+          "artifactId": "jspecify",
+          "version": "1.0.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "3fbc2e98f05854c3df16df9abaa955b91b15b3ecac33623208ed6424640ef0f6",
+          "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
           "scope": "compile",
-          "selectedVersion": "3.43.0",
+          "selectedVersion": "1.0.0",
           "included": true,
-          "id": "org.checkerframework:checker-qual:3.43.0",
-          "parent": "com.google.guava:guava:33.4.0-jre",
+          "id": "org.jspecify:jspecify:1.0.0",
+          "parent": "com.google.guava:guava:33.4.8-jre",
           "children": []
         }
       ]
@@ -245,7 +232,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "60d5c398c32dc7039b99282514ad6064061d8417cf959a1f6bd2038cc907c913",
           "scope": "test",
-          "selectedVersion": "5.12.1",
+          "selectedVersion": "5.12.2",
           "included": false,
           "id": "org.junit.jupiter:junit-jupiter-api:5.10.1",
           "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
@@ -256,13 +243,13 @@
     {
       "groupId": "commons-io",
       "artifactId": "commons-io",
-      "version": "2.18.0",
+      "version": "2.19.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f3ca0f8d63c40e23a56d54101c60d5edee136b42d84bfb85bc7963093109cf8b",
+      "checksum": "824268919b4b62f9f40f08c54381de5993b078f58667e332d17348ae019d72b9",
       "scope": "test",
-      "selectedVersion": "2.18.0",
+      "selectedVersion": "2.19.0",
       "included": true,
-      "id": "commons-io:commons-io:2.18.0",
+      "id": "commons-io:commons-io:2.19.0",
       "children": []
     },
     {
@@ -452,7 +439,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
           "scope": "test",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "2.0.8",
           "included": false,
           "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
           "parent": "org.apache.maven:maven-compat:3.9.6",
@@ -596,7 +583,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "bd7fa227591fb8509677d0d1122cf95158f3b8a9f45653f58281d879f6dc48c5",
           "scope": "provided",
-          "selectedVersion": "33.4.0-jre",
+          "selectedVersion": "33.4.8-jre",
           "included": false,
           "id": "com.google.guava:guava:32.0.1-jre",
           "parent": "org.apache.maven:maven-core:3.9.6",
@@ -923,7 +910,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
               "scope": "provided",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.8",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
               "parent": "org.apache.maven:maven-resolver-provider:3.9.6",
@@ -1163,7 +1150,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
           "scope": "provided",
-          "selectedVersion": "2.0.7",
+          "selectedVersion": "2.0.8",
           "included": false,
           "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
           "parent": "org.apache.maven:maven-core:3.9.6",
@@ -1188,7 +1175,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
               "scope": "provided",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.8",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
               "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.18",
@@ -1281,7 +1268,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
               "scope": "provided",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.8",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
               "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.18",
@@ -1308,7 +1295,7 @@
               "checksumAlgorithm": "SHA-256",
               "checksum": "ebfb9e1dfeea3c2017905184581e007874b4eaac9d28bfffcfe5133d70ac6339",
               "scope": "compile",
-              "selectedVersion": "2.0.7",
+              "selectedVersion": "2.0.8",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
               "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.18",
@@ -1793,13 +1780,13 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "2.0.7",
+      "version": "2.0.8",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "1cc517753bd14e94b77c16a8258963f12a5a50907b778e60bb2c8e3ac4c4f8b7",
+      "checksum": "54dc43371a397d5eaa0f847c9a6b16d57fb189c87834a2b7ec19d6e30899e747",
       "scope": "compile",
-      "selectedVersion": "2.0.7",
+      "selectedVersion": "2.0.8",
       "included": true,
-      "id": "org.apache.maven.resolver:maven-resolver-api:2.0.7",
+      "id": "org.apache.maven.resolver:maven-resolver-api:2.0.8",
       "children": []
     },
     {
@@ -2122,13 +2109,13 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.12.1",
+      "version": "5.12.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "a401e0b60373edf7df0962c25eb3213e451a4778792d33a76876c3b8a5bb209b",
+      "checksum": "0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092",
       "scope": "test",
-      "selectedVersion": "5.12.1",
+      "selectedVersion": "5.12.2",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-api:5.12.1",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.12.2",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2140,20 +2127,20 @@
           "selectedVersion": "1.1.2",
           "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.1",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.12.1",
+          "version": "1.12.2",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "c316163581aaa5649280122b12ea36fe4e9c202a1a2267753fea7c9e1df055eb",
+          "checksum": "e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18",
           "scope": "test",
-          "selectedVersion": "1.12.1",
+          "selectedVersion": "1.12.2",
           "included": true,
-          "id": "org.junit.platform:junit-platform-commons:1.12.1",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.1",
+          "id": "org.junit.platform:junit-platform-commons:1.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2165,7 +2152,7 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.12.1",
+              "parent": "org.junit.platform:junit-platform-commons:1.12.2",
               "children": []
             }
           ]
@@ -2180,7 +2167,7 @@
           "selectedVersion": "1.3.0",
           "included": true,
           "id": "org.opentest4j:opentest4j:1.3.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.1",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
           "children": []
         }
       ]
@@ -2188,13 +2175,13 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-engine",
-      "version": "5.12.1",
+      "version": "5.12.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "0e7f2dbeb91bfaeb0d4cb33a487351baf0e5a6ed72906154d8fd9975d329c592",
+      "checksum": "f576c06b8accde9985063b8bc80526cb980eec24dee0b7221fc8ddd7ace65800",
       "scope": "test",
-      "selectedVersion": "5.12.1",
+      "selectedVersion": "5.12.2",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-engine:5.12.1",
+      "id": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2206,33 +2193,33 @@
           "selectedVersion": "1.1.2",
           "included": false,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.1",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
           "children": []
         },
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
-          "version": "5.12.1",
+          "version": "5.12.2",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a401e0b60373edf7df0962c25eb3213e451a4778792d33a76876c3b8a5bb209b",
+          "checksum": "0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092",
           "scope": "test",
-          "selectedVersion": "5.12.1",
+          "selectedVersion": "5.12.2",
           "included": false,
-          "id": "org.junit.jupiter:junit-jupiter-api:5.12.1",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.1",
+          "id": "org.junit.jupiter:junit-jupiter-api:5.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-engine",
-          "version": "1.12.1",
+          "version": "1.12.2",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "7fedff93fd92aec7d29fc60dc01fa027246b36b8088423a5efc4949e5f6affa4",
+          "checksum": "cef0efcb5bd2e05e2b808d38bab5c655089c0c3001527376e74cb606a7911ec8",
           "scope": "test",
-          "selectedVersion": "1.12.1",
+          "selectedVersion": "1.12.2",
           "included": true,
-          "id": "org.junit.platform:junit-platform-engine:1.12.1",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.1",
+          "id": "org.junit.platform:junit-platform-engine:1.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2244,20 +2231,20 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.1",
+              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.12.1",
+              "version": "1.12.2",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "c316163581aaa5649280122b12ea36fe4e9c202a1a2267753fea7c9e1df055eb",
+              "checksum": "e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18",
               "scope": "test",
-              "selectedVersion": "1.12.1",
+              "selectedVersion": "1.12.2",
               "included": false,
-              "id": "org.junit.platform:junit-platform-commons:1.12.1",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.1",
+              "id": "org.junit.platform:junit-platform-commons:1.12.2",
+              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
               "children": []
             },
             {
@@ -2270,7 +2257,7 @@
               "selectedVersion": "1.3.0",
               "included": false,
               "id": "org.opentest4j:opentest4j:1.3.0",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.1",
+              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
               "children": []
             }
           ]
@@ -2362,13 +2349,6 @@
       "checksum": "7b0e58afc5741b29c6dbbb1fab2f878149e63842bedb58ca839145c545951a7e"
     },
     {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "2.44.3",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "9206918dfa2e6674ca81def57a32a682705089b52d3863353ebc2b171f32a1ea"
-    },
-    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.4.1",
@@ -2388,6 +2368,13 @@
       "version": "3.5.3",
       "checksumAlgorithm": "SHA-256",
       "checksum": "c40da66d3db0548cb675f47279651f67b6e1f69c11bb4ecbe2ce7bcc82a6222c"
+    },
+    {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.44.4",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d340152841ae41bba6c66d33c4dfafcbb3ac3ed920cceec87fd5f20d382215f4"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
