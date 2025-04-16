@@ -39,6 +39,7 @@
   </scm>
   <properties>
     <project.build.outputTimestamp>2025-03-24T17:54:47Z</project.build.outputTimestamp>
+    <sigstore.skip>true</sigstore.skip>
   </properties>
   <build>
     <plugins>
@@ -64,6 +65,9 @@
         <groupId>dev.sigstore</groupId>
         <artifactId>sigstore-maven-plugin</artifactId>
         <version>1.3.0</version>
+        <configuration>
+          <skip>${sigstore.skip}</skip>
+        </configuration>
         <executions>
           <execution>
             <id>sign</id>
