@@ -186,8 +186,13 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
 ```
 This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the `groupId` field.
+
+In case the artifact url cannot be resolved or the checksum cannot be calculated or downloaded (depending on `checksumMode`) an empty string will be recorded in the respective `resolved` or `checksum` field.
+
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
+
+
 ## GithubAction
 
 We have created a GithubAction that can be used to validate the integrity of your `maven` repository.
