@@ -7,13 +7,13 @@
     {
       "groupId": "io.quarkiverse.githubaction",
       "artifactId": "quarkus-github-action",
-      "version": "2.5.1",
+      "version": "2.6.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f693e9f1cbc35063a1f7faedb54c1b5a310ee57e30337cfc9b3f5227ff7466a1",
+      "checksum": "c555e5bdea7645919e8e0652ce08256528bc5671d6d4ca1b0c9e9d0d73b354f5",
       "scope": "compile",
-      "selectedVersion": "2.5.1",
+      "selectedVersion": "2.6.0",
       "included": true,
-      "id": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+      "id": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
       "children": [
         {
           "groupId": "com.fasterxml.jackson.dataformat",
@@ -25,7 +25,7 @@
           "selectedVersion": "2.18.2",
           "included": true,
           "id": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "com.fasterxml.jackson.core",
@@ -71,14 +71,14 @@
         {
           "groupId": "io.quarkiverse.githubapi",
           "artifactId": "quarkus-github-api",
-          "version": "1.322.0",
+          "version": "1.326.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "25ee66352a4b57b1a3f7b64e633c1d6166d6e2010085532fcfbb5b8529c6d80f",
+          "checksum": "ed5e2936d8e7b41cc172885047071c592ca48a83cae20ab80ef8bdbeef9406e2",
           "scope": "compile",
-          "selectedVersion": "1.322.0",
+          "selectedVersion": "1.326.0",
           "included": true,
-          "id": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "id": "io.quarkiverse.githubapi:quarkus-github-api:1.326.0",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "io.quarkus",
@@ -90,61 +90,21 @@
               "selectedVersion": "3.21.3",
               "included": false,
               "id": "io.quarkus:quarkus-core:3.21.3",
-              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.326.0",
               "children": []
             },
             {
               "groupId": "org.graalvm.sdk",
-              "artifactId": "graal-sdk",
+              "artifactId": "nativeimage",
               "version": "23.1.2",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "a0dd3d7cfdee5dd069487d1f89e3fe985d06e362bf8abda1315a5b2bdc4d3ba0",
+              "checksum": "b20c00823c194cadcafc8e853b96a5754e641b467dc56634e738d756b308ad9a",
               "scope": "compile",
               "selectedVersion": "23.1.2",
               "included": true,
-              "id": "org.graalvm.sdk:graal-sdk:23.1.2",
-              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
+              "id": "org.graalvm.sdk:nativeimage:23.1.2",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.326.0",
               "children": [
-                {
-                  "groupId": "org.graalvm.sdk",
-                  "artifactId": "collections",
-                  "version": "23.1.2",
-                  "checksumAlgorithm": "SHA-256",
-                  "checksum": "851a4052aaf916372c4fde2762c031446cd54fbf62ce7382a2ce08ab47fe33a8",
-                  "scope": "compile",
-                  "selectedVersion": "23.1.2",
-                  "included": true,
-                  "id": "org.graalvm.sdk:collections:23.1.2",
-                  "parent": "org.graalvm.sdk:graal-sdk:23.1.2",
-                  "children": []
-                },
-                {
-                  "groupId": "org.graalvm.sdk",
-                  "artifactId": "nativeimage",
-                  "version": "23.1.2",
-                  "checksumAlgorithm": "SHA-256",
-                  "checksum": "b20c00823c194cadcafc8e853b96a5754e641b467dc56634e738d756b308ad9a",
-                  "scope": "compile",
-                  "selectedVersion": "23.1.2",
-                  "included": true,
-                  "id": "org.graalvm.sdk:nativeimage:23.1.2",
-                  "parent": "org.graalvm.sdk:graal-sdk:23.1.2",
-                  "children": [
-                    {
-                      "groupId": "org.graalvm.sdk",
-                      "artifactId": "word",
-                      "version": "23.1.2",
-                      "checksumAlgorithm": "SHA-256",
-                      "checksum": "2ae7a71ff3f53f61d1d7360a6152f67ce3902ae86ca22b30b70208dc0cf4e039",
-                      "scope": "compile",
-                      "selectedVersion": "23.1.2",
-                      "included": false,
-                      "id": "org.graalvm.sdk:word:23.1.2",
-                      "parent": "org.graalvm.sdk:nativeimage:23.1.2",
-                      "children": []
-                    }
-                  ]
-                },
                 {
                   "groupId": "org.graalvm.sdk",
                   "artifactId": "word",
@@ -155,7 +115,7 @@
                   "selectedVersion": "23.1.2",
                   "included": true,
                   "id": "org.graalvm.sdk:word:23.1.2",
-                  "parent": "org.graalvm.sdk:graal-sdk:23.1.2",
+                  "parent": "org.graalvm.sdk:nativeimage:23.1.2",
                   "children": []
                 }
               ]
@@ -163,14 +123,14 @@
             {
               "groupId": "org.kohsuke",
               "artifactId": "github-api",
-              "version": "1.322",
+              "version": "1.326",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "4820fb0573967d1c8412dd958fa119a84c996f6b071793269914ff788972148a",
+              "checksum": "52d3cdb2dda01647f12c84c09bea384edc1f6919bb56be23f80a0d2e5cf06fd6",
               "scope": "compile",
-              "selectedVersion": "1.322",
+              "selectedVersion": "1.326",
               "included": true,
-              "id": "org.kohsuke:github-api:1.322",
-              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
+              "id": "org.kohsuke:github-api:1.326",
+              "parent": "io.quarkiverse.githubapi:quarkus-github-api:1.326.0",
               "children": [
                 {
                   "groupId": "com.fasterxml.jackson.core",
@@ -182,7 +142,7 @@
                   "selectedVersion": "2.18.2",
                   "included": false,
                   "id": "com.fasterxml.jackson.core:jackson-databind:2.18.2",
-                  "parent": "org.kohsuke:github-api:1.322",
+                  "parent": "org.kohsuke:github-api:1.326",
                   "children": []
                 },
                 {
@@ -195,7 +155,7 @@
                   "selectedVersion": "2.18.0",
                   "included": false,
                   "id": "commons-io:commons-io:2.18.0",
-                  "parent": "org.kohsuke:github-api:1.322",
+                  "parent": "org.kohsuke:github-api:1.326",
                   "children": []
                 },
                 {
@@ -208,7 +168,7 @@
                   "selectedVersion": "3.17.0",
                   "included": true,
                   "id": "org.apache.commons:commons-lang3:3.17.0",
-                  "parent": "org.kohsuke:github-api:1.322",
+                  "parent": "org.kohsuke:github-api:1.326",
                   "children": []
                 }
               ]
@@ -218,26 +178,26 @@
         {
           "groupId": "io.quarkiverse.githubapp",
           "artifactId": "quarkus-github-app-events",
-          "version": "2.8.2",
+          "version": "2.8.5",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "416ba0eb0a43b3b93d0e81566df0a9d71b4c031e242de5c33f774ec7c9ab394a",
+          "checksum": "0f06e15dc6e74b49c6c488af92a04c8ca130674d1638f480bf538c08eaa7e7d9",
           "scope": "compile",
-          "selectedVersion": "2.8.2",
+          "selectedVersion": "2.8.5",
           "included": true,
-          "id": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.2",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "id": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.5",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "io.quarkiverse.githubapi",
               "artifactId": "quarkus-github-api",
-              "version": "1.322.0",
+              "version": "1.326.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "25ee66352a4b57b1a3f7b64e633c1d6166d6e2010085532fcfbb5b8529c6d80f",
+              "checksum": "ed5e2936d8e7b41cc172885047071c592ca48a83cae20ab80ef8bdbeef9406e2",
               "scope": "compile",
-              "selectedVersion": "1.322.0",
+              "selectedVersion": "1.326.0",
               "included": false,
-              "id": "io.quarkiverse.githubapi:quarkus-github-api:1.322.0",
-              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.2",
+              "id": "io.quarkiverse.githubapi:quarkus-github-api:1.326.0",
+              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.5",
               "children": []
             },
             {
@@ -250,7 +210,7 @@
               "selectedVersion": "3.21.3",
               "included": false,
               "id": "io.quarkus:quarkus-arc:3.21.3",
-              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.2",
+              "parent": "io.quarkiverse.githubapp:quarkus-github-app-events:2.8.5",
               "children": []
             }
           ]
@@ -265,7 +225,7 @@
           "selectedVersion": "3.21.3",
           "included": false,
           "id": "io.quarkus:quarkus-arc:3.21.3",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": []
         },
         {
@@ -278,7 +238,7 @@
           "selectedVersion": "3.21.3",
           "included": true,
           "id": "io.quarkus:quarkus-jackson:3.21.3",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "com.fasterxml.jackson.core",
@@ -478,7 +438,7 @@
           "selectedVersion": "3.21.3",
           "included": true,
           "id": "io.quarkus:quarkus-smallrye-graphql-client:3.21.3",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "io.quarkus",
@@ -1289,7 +1249,7 @@
           "selectedVersion": "3.21.3",
           "included": true,
           "id": "io.quarkus:quarkus-vertx:3.21.3",
-          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.5.1",
+          "parent": "io.quarkiverse.githubaction:quarkus-github-action:2.6.0",
           "children": [
             {
               "groupId": "io.netty",
