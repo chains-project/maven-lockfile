@@ -88,76 +88,111 @@ An example lockfile is shown below:
 For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in this repository.
 ```json
 {
-   "artifactID":"my-app",
-   "groupID":"com.mycompany.app",
-   "version":"1",
-   "lockFileVersion":1,
-   "dependencies":[
-      {
-         "groupId":"org.junit.platform",
-         "artifactId":"junit-platform-engine",
-         "version":"1.9.2",
-         "checksumAlgorithm":"SHA-256",
-         "checksum":"25f23dc535a091e9dc80c008faf29dcb92be902e6911f77a736fbaf019908367",
-         "id":"org.junit.platform:junit-platform-engine:1.9.2",
-         "parent":"org.junit.jupiter:junit-jupiter-engine:5.9.2",
-         "children":[
+  "artifactId": "single-dependency-example",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "5.9.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+      "scope": "test",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
+      "selectedVersion": "5.9.2",
+      "included": true,
+      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "children": [
+        {
+          "groupId": "org.apiguardian",
+          "artifactId": "apiguardian-api",
+          "version": "1.1.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+          "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+          "selectedVersion": "1.1.2",
+          "included": true,
+          "id": "org.apiguardian:apiguardian-api:1.1.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        },
+        {
+          "groupId": "org.junit.platform",
+          "artifactId": "junit-platform-commons",
+          "version": "1.9.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
+          "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar",
+          "selectedVersion": "1.9.2",
+          "included": true,
+          "id": "org.junit.platform:junit-platform-commons:1.9.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": [
             {
-               "groupId":"org.apiguardian",
-               "artifactId":"apiguardian-api",
-               "version":"1.1.2",
-               "checksumAlgorithm":"SHA-256",
-               "checksum":"b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-               "id":"org.apiguardian:apiguardian-api:1.1.2",
-               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
-               "children":[
-
-               ]
-            },
-            {
-               "groupId":"org.junit.platform",
-               "artifactId":"junit-platform-commons",
-               "version":"1.9.2",
-               "checksumAlgorithm":"SHA-256",
-               "checksum":"624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-               "id":"org.junit.platform:junit-platform-commons:1.9.2",
-               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
-               "children":[
-                  {
-                     "groupId":"org.apiguardian",
-                     "artifactId":"apiguardian-api",
-                     "version":"1.1.2",
-                     "checksumAlgorithm":"SHA-256",
-                     "checksum":"b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-                     "id":"org.apiguardian:apiguardian-api:1.1.2",
-                     "parent":"org.junit.platform:junit-platform-commons:1.9.2",
-                     "children":[
-
-                     ]
-                  }
-               ]
-            },
-            {
-               "groupId":"org.opentest4j",
-               "artifactId":"opentest4j",
-               "version":"1.2.0",
-               "checksumAlgorithm":"SHA-256",
-               "checksum":"58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-               "id":"org.opentest4j:opentest4j:1.2.0",
-               "parent":"org.junit.platform:junit-platform-engine:1.9.2",
-               "children":[
-
-               ]
+              "groupId": "org.apiguardian",
+              "artifactId": "apiguardian-api",
+              "version": "1.1.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
+              "scope": "test",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+              "selectedVersion": "1.1.2",
+              "included": false,
+              "id": "org.apiguardian:apiguardian-api:1.1.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "children": []
             }
-         ]
-      }
-   ]
+          ]
+        },
+        {
+          "groupId": "org.opentest4j",
+          "artifactId": "opentest4j",
+          "version": "1.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
+          "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
+          "selectedVersion": "1.2.0",
+          "included": true,
+          "id": "org.opentest4j:opentest4j:1.2.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "Mac OS X",
+      "mavenVersion": "3.8.2",
+      "javaVersion": "21.0.5"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
 }
 ```
 This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the `groupId` field.
+
+In case the artifact url cannot be resolved or the checksum cannot be calculated or downloaded (depending on `checksumMode`) an empty string will be recorded in the respective `resolved` or `checksum` field.
+
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
+
+
 ## GithubAction
 
 We have created a GithubAction that can be used to validate the integrity of your `maven` repository.

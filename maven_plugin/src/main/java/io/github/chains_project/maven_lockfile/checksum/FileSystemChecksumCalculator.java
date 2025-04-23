@@ -1,13 +1,15 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
@@ -77,6 +79,81 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
+    private Optional<ResolvedUrl> getResolvedFieldInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+        if (artifact.getFile() == null) {
+            LOGGER.error("Artifact " + artifact + " has no file");
+            return Optional.empty();
+        }
+        try {
+            Path artifactFolderPath = artifact.getFile().toPath().getParent();
+            Path remoteRepositoriesPath = artifactFolderPath.resolve("_remote.repositories");
+            List<String> locallySavedRemoteRepositories = Files.readAllLines(remoteRepositoriesPath);
+
+            Set<String> remoteRepositoriesSet = buildingRequest.getRemoteRepositories().stream()
+                    .map(ArtifactRepository::getId)
+                    .collect(Collectors.toSet());
+
+            String repository = null;
+
+            String type = artifact.getType();
+            if (type.equals("maven-plugin")) {
+                type = "jar";
+            }
+
+            String target = artifact.getArtifactId() + "-" + artifact.getVersion() + "." + type;
+
+            for (String remoteRepository : locallySavedRemoteRepositories) {
+                if (!remoteRepository.startsWith(target)) {
+                    continue;
+                }
+
+                // Parsing 'repository' from 'artifactId-version.type>repository='
+                int start = remoteRepository.indexOf(">");
+                int end = remoteRepository.indexOf("=");
+
+                if (start == -1 || end == -1) {
+                    LOGGER.warn("Possible unknown _remote.repositories format");
+                    continue;
+                }
+
+                repository = remoteRepository.substring(start + 1, end);
+                if (!remoteRepositoriesSet.contains(repository)) {
+                    continue;
+                }
+
+                break;
+            }
+
+            if (repository == null) {
+                // No repository found, possible locally installed artifact or unknown _remote.repositories format
+                return Optional.empty();
+            }
+
+            // Convert repository to url
+            final String finalRepository = repository;
+            Optional<ArtifactRepository> remoteRepository = buildingRequest.getRemoteRepositories().stream()
+                    .filter(repo -> (repo.getId().equals(finalRepository)))
+                    .findFirst();
+
+            if (remoteRepository.isEmpty()) {
+                LOGGER.warn("Could not find repository '" + finalRepository + "' in building request.");
+                return Optional.empty();
+            }
+
+            String groupId = artifact.getGroupId().replace(".", "/");
+            String artifactId = artifact.getArtifactId();
+            String version = artifact.getVersion();
+
+            String url = remoteRepository.get().getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
+                    + version + "/" + target;
+
+            return Optional.of(ResolvedUrl.of(url));
+        } catch (Exception e) {
+            LOGGER.warn("Could not fetch remote repository for artifact " + artifact, e);
+            return Optional.empty();
+        }
+    }
+
     @Override
     public String calculateArtifactChecksum(Artifact artifact) {
         return calculateChecksumInternal(resolveDependency(artifact, artifactBuildingRequest))
@@ -92,5 +169,17 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public String getDefaultChecksumAlgorithm() {
         return "SHA-256";
+    }
+
+    @Override
+    public ResolvedUrl getArtifactResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
+                .orElse(ResolvedUrl.of(""));
+    }
+
+    @Override
+    public ResolvedUrl getPluginResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
+                .orElse(ResolvedUrl.of(""));
     }
 }

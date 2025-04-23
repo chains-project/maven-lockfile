@@ -120,7 +120,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.parseBoolean(includeEnvironment),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),
-                chosenMode,
+                checksumModeDeprecation(chosenMode),
                 chosenAlgo);
     }
 
