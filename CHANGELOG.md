@@ -1772,3 +1772,81 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ()
 - Martin Monperrus ([@monperrus](https://github.com/monperrus))
+
+# 5.5.0
+## Changelog
+
+## 🚀 Added
+- 82dc650 👷 ci: Run release action in environment release (#1182)
+- c73c947 ✨ feat: Add resolved field (#1148)
+- 13286ac ✅ test: Rename artifact ids to match testcase (#1153)
+- 1c9164c ✨ feat: Resolve dependencies from other repositories than maven central (#1151)
+- a7580b2 👷 (CD) build: Grant id-token permission for build-and-push-action job (#1162)
+- 4f05138 👷 ci: Specify specific version in tag comment on github actions (#1133)
+- 310ec8e 👷 ci: Reset action to current version and use release 5.4.2 (#1140)
+
+## 🗑 Removed
+- b0828a8 ➖ (deps): Remove maven-eclipse-plugin (#1146)
+
+## 📦 Dependencies
+- 874e14e ⬆️ (deps): Update github/codeql-action action to v3.28.16 (#1181)
+- f67b0ec ⬆️ (deps): Update step-security/harden-runner action to v2.12.0 (#1179)
+- 367297c ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v5.2.0 (#1178)
+- cf6dd8d ⬆️ (deps): Update dependency io.quarkiverse.githubaction:quarkus-github-action to v2.6.0 (#1177)
+- 1602e8f ⬆️ (deps): Update quarkus.platform.version to v3.21.3 (#1176)
+- e437240 ⬆️ (deps): Update dependency com.google.guava:guava to v33.4.8-jre (#1144)
+- 53b5b78 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.8 (#1174)
+- 8a8f8e8 ⬆️ (deps): Update dependency commons-io:commons-io to v2.19.0 (#1173)
+- 4258fe1 ⬆️ (deps): Update dependency com.google.code.gson:gson to v2.13.0 (#1172)
+- 80f5f68 ⬆️ (deps): Update junit5 monorepo to v5.12.2 (#1171)
+- 1ac3851 ⬆️ (deps): Update quarkus.platform.version to v3.21.2 (#1170)
+- a91ea81 ⬆️ (deps): Update actions/setup-java action to v4.7.1 (#1169)
+- f0e0773 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.44.4 (#1166)
+- bef02bd ⬆️ (deps): Update github/codeql-action action to v3.28.15 (#1165)
+- 9cb9fc5 ⬆️ (deps): Update github/codeql-action action to v3.28.14 (#1164)
+- ca12a09 ⬆️ (deps): Update quarkus.platform.version to v3.21.1 (#1160)
+- 4a89f26 ⬆️ (deps): Update step-security/harden-runner action to v2.11.1 (#1159)
+- 52e9ded ⬆️ (deps): Update actions/dependency-review-action action to v4.6.0 (#1158)
+- 42c5732 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-surefire-plugin to v3.5.3 (#1156)
+- 88aa381 ⬆️ (deps): Update surefire-plugin.version to v3.5.3 (#1157)
+- e7365bb ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.5.3 (#1155)
+- 4445428 ⬆️ (deps): Update dependency org.apache.maven.plugin-testing:maven-plugin-testing-harness to v4.0.0-beta-4 (#1154)
+- 17e3ff2 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.14.0 (#1124)
+- ba750a3 ⬆️ (deps): Update dependency com.google.code.gson:gson to v2.12.1 (#1123)
+- 869bb60 ⬆️ (deps): Update quarkus.platform.version to v3.21.0 (#1147)
+- 75de1e9 ⬆️ (deps): Update dependency org.instancio:instancio-junit to v5.4.1 (#1127)
+- 0ce672e ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.7 (#1119)
+- 94a4cdb ⬆️ (deps): Update ossf/scorecard-action action to v2.4.1 (#1120)
+- ab8149d ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.14.0 (#1126)
+- c6ef95d ⬆️ (deps): Update junit5 monorepo to v5.12.1 (#1130)
+- 84d98e6 ⬆️ (deps): Update dependency org.apache.maven.plugin-testing:maven-plugin-testing-harness to v4.0.0-beta-3 (#1116)
+- fa38721 ⬆️ (deps): Update github/codeql-action action to v3.28.13 (#1145)
+- c84dfd7 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-clean-plugin to v3.4.1 (#1117)
+- 4129f6b ⬆️ (deps): Update actions/upload-artifact action to v4.6.2 (#1143)
+- bc2a889 ⬆️ (deps): Update quarkus.platform.version to v3.19.4 (#1131)
+
+## 📝 Documentation
+- 57f08f6 📝 New Banner image (#1180)
+
+## 🏁 Release
+- 3e6d390 🔖 Releasing version 5.5.0
+- 357d14a 🚀 build (CD): Default to only sign sigstore during CD (#1175)
+- a093cbc 🚀 build: Remove comment in maven.config for older maven versions (#1163)
+- 04a9d4e 🚀  (CD) build: Sign with sigstore when publishing to maven central (#1161)
+- 18e0f9f 🔖(deps): Update github/codeql-action digest to 1b549b9 (#1142)
+- 8b8b020 🔖(deps): Update actions/upload-artifact digest to ea165f8 (#1139)
+- 6d3c565 🔖(deps): Update actions/setup-go digest to 0aaccfd (#1137)
+- bd1c055 🔖 Setting SNAPSHOT version 5.4.3-SNAPSHOT
+- db73334 🔖(deps): Update actions/cache digest to 5a3ec84 (#1135)
+
+---
+- 889fa03 :broom: chore: remove digest updates as tags are mutable (#1121)
+- 24cef9b Ignore .vim folder
+- 66a48fd Merge remote-tracking branch 'origin/release/5.4.2'
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
