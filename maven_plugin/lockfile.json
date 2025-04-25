@@ -2377,13 +2377,6 @@
       "checksum": "d340152841ae41bba6c66d33c4dfafcbb3ac3ed920cceec87fd5f20d382215f4"
     },
     {
-      "groupId": "org.codehaus.gmavenplus",
-      "artifactId": "gmavenplus-plugin",
-      "version": "4.1.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "d5017415911babe826936eb4c59dea953798abb43b3457d1fe2d0f95ae14ddb5"
-    },
-    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
       "version": "3.4.2",
@@ -2403,6 +2396,13 @@
       "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7"
+    },
+    {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "4.2.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "fd779dd78621bc388ee0e7bf33548f09188e51beebe906bb5c056d5eb5b90bcc"
     },
     {
       "groupId": "com.soebes.itf.jupiter.extension",
