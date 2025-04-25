@@ -13,6 +13,12 @@
   <name>maven-lockfile-github-action</name>
   <description>This is a github action for maven-lockfile. It allows the integration of maven-lockfile in your github development workflow.</description>
   <url>https://github.com/chains-project/maven-lockfile</url>
+  <scm>
+    <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
+    <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
+    <tag>v${project.version}</tag>
+    <url>https://github.com/chains-project/maven-lockfile/tree/${project.scm.tag}/github_action</url>
+  </scm>
   <distributionManagement>
     <repository>
       <id>github</id>
