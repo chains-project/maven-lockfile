@@ -12,7 +12,7 @@
         <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjvm-repo-rebuild%2Freproducible-central%2Fmaster%2Fcontent%2Fio%2Fgithub%2Fchains-project%2Fmaven-lockfile%2Fbadge.json" /></a>
 </p>
 
-![My new creation-min](https://user-images.githubusercontent.com/25300639/229370974-7071d818-e094-4959-8b2f-e2050368ee1c.png)
+![Mavenlockfile Banner](https://github.com/user-attachments/assets/87b2e254-1c16-4995-8f4a-f80da93bfbc7)
 
 This plugin is a state-of-the-art solution for validating the integrity of a maven build and guarding the build against malicious actors that might tamper with the artifacts. Features:
 * generating a lock file that contains the checksums of all the artifacts and dependencies.
