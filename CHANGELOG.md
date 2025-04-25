@@ -1850,3 +1850,22 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ()
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.5.1
+## Changelog
+
+## 🔄️ Changed
+- 88f34bd 🔧 Specify view SCM url with tag of release (#1187)
+
+## 📦 Dependencies
+- 7ac6373 ⬆️ (deps): Update dependency io.quarkus.platform:quarkus-maven-plugin to v3.21.4 (#1184)
+- 8a88390 ⬆️ (deps): Update dependency com.google.code.gson:gson to v2.13.1 (#1185)
+
+## 🏁 Release
+- 8ddaeae 🔖 Releasing version 5.5.1
+- 19f9ae5 🔖 Setting SNAPSHOT version 5.5.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
