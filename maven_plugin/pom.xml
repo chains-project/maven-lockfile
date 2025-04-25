@@ -29,6 +29,12 @@
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <scm>
+    <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
+    <developerConnection>scm:git:https://github.com/chains-project/maven-lockfile.git</developerConnection>
+    <tag>v${project.version}</tag>
+    <url>https://github.com/chains-project/maven-lockfile/tree/${project.scm.tag}/maven_plugin</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
