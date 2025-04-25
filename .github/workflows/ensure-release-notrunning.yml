@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  ensure_notrunning_release:
+  ensure_release_notrunning:
     name: Ensure release action is not running
 
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          CURRENTLY_RUNNING=$(gh run list -w code-quality.yml --json status --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "requested" or .status == "waiting" or .status == "pending" or .status == "action_required")][0]')
+          CURRENTLY_RUNNING=$(gh run list -w code-qualitiy.yml --json status --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "requested" or .status == "waiting" or .status == "pending" or .status == "action_required")][0]')
           if [[ "$CURRENTLY_RUNNING" == *"status"* ]]; then
             echo "❌ Release workflow is currently running. Please wait for it to finish then rerun this workflow to proceed."
             exit 1
