@@ -57,7 +57,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
-    @Parameter(defaultValue = "local", property = "checksumMode")
+    @Parameter(defaultValue = "remote", property = "checksumMode")
     protected String checksumMode;
 
     @Parameter(property = "reduced")
