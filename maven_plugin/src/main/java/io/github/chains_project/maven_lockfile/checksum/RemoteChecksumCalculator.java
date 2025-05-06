@@ -6,7 +6,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.Optional;
@@ -27,8 +26,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             ProjectBuildingRequest artifactBuildingRequest,
             ProjectBuildingRequest pluginBuildingRequest) {
         super(checksumAlgorithm);
-        if (!(checksumAlgorithm.equals("md5") || checksumAlgorithm.equals("sha1") || checksumAlgorithm.equals("sha256") || checksumAlgorithm.equals("sha512"))) {
-            throw new IllegalArgumentException("Invalid checksum algorithm maven central only supports md5, sha1, sha256 or sha512.");
+        if (!(checksumAlgorithm.equals("md5")
+                || checksumAlgorithm.equals("sha1")
+                || checksumAlgorithm.equals("sha256")
+                || checksumAlgorithm.equals("sha512"))) {
+            throw new IllegalArgumentException(
+                    "Invalid checksum algorithm maven central only supports md5, sha1, sha256 or sha512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
@@ -52,35 +55,45 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     .build();
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
-                String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
-                        + "/" + filename;
+                String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
+                        + version + "/" + filename;
                 String checksumUrl = artifactUrl + "." + checksumAlgorithm;
 
                 LOGGER.debug("Checking: " + checksumUrl);
 
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
-                HttpResponse<String> checksumResponse = client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> checksumResponse =
+                        client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
                     return Optional.of(checksumResponse.body().strip());
                 }
 
                 if (checksumResponse.statusCode() == 404) {
-                    HttpRequest artifactRequest = HttpRequest.newBuilder().uri(URI.create(artifactUrl)).build();
-                    HttpResponse<byte[]> artifactResponse = client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
+                    HttpRequest artifactRequest = HttpRequest.newBuilder()
+                            .uri(URI.create(artifactUrl))
+                            .build();
+                    HttpResponse<byte[]> artifactResponse =
+                            client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
 
                     if (artifactResponse.statusCode() < 200 || artifactResponse.statusCode() >= 300) {
                         continue;
                     }
 
                     // Fallback to and verify downloaded artifact with sha1
-                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder().uri(URI.create(artifactUrl + ".sha1")).build();
-                    HttpResponse<String> artifactVerificationResponse = client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
+                            .uri(URI.create(artifactUrl + ".sha1"))
+                            .build();
+                    HttpResponse<String> artifactVerificationResponse =
+                            client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
-                    if (artifactVerificationResponse.statusCode() >= 200 && artifactVerificationResponse.statusCode() < 300) {
+                    if (artifactVerificationResponse.statusCode() >= 200
+                            && artifactVerificationResponse.statusCode() < 300) {
                         MessageDigest verificationMessageDigest = MessageDigest.getInstance("sha1");
-                        String sha1 = baseEncoding.encode(verificationMessageDigest.digest(artifactResponse.body())).toLowerCase(Locale.ROOT);
+                        String sha1 = baseEncoding
+                                .encode(verificationMessageDigest.digest(artifactResponse.body()))
+                                .toLowerCase(Locale.ROOT);
 
                         if (!sha1.equals(artifactVerificationResponse.body().strip())) {
                             LOGGER.error("Invalid sha1 checksum for download of: " + artifactUrl);
@@ -91,7 +104,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     }
 
                     MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
-                    String checksum = baseEncoding.encode(messageDigest.digest(artifactResponse.body())).toLowerCase(Locale.ROOT);
+                    String checksum = baseEncoding
+                            .encode(messageDigest.digest(artifactResponse.body()))
+                            .toLowerCase(Locale.ROOT);
                     return Optional.of(checksum);
                 }
             }
