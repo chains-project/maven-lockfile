@@ -81,7 +81,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
-                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":" + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
+                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":"
+                            + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
 
                     // Fallback to and verify downloaded artifact with sha1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()

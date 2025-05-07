@@ -384,10 +384,39 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void checksumModeRemote(MavenExecutionResult result) throws Exception {
-        // contract: if checksum mode is remote, maven_lockfile should be able to download .
+        // contract: if checksum mode is remote, maven-lockfile should be able to download and verify sha256 from maven
+        // central and if sha256 is not available, it should be able to .
         assertThat(result).isSuccessful();
-        var lockfileExists = fileExists(result, "lockfile.json");
-        assertThat(lockfileExists).isTrue();
+        var lockfilePath = findFile(result, "lockfile.json");
+        assertThat(lockfilePath).exists();
+        var lockfile = LockFile.readLockFile(lockfilePath);
+
+        // Verify: atlassian-bandana:0.2.0 is hosted on packages.atlassian.com which doesn't provide sha256, sha256 has
+        // to be calculated
+        var dep1Checksum = lockfile.getDependencies().stream()
+                .filter(dependency -> dependency
+                        .getChecksum()
+                        .equals("12357e6d5c5eb6b5ed80bbb98f4ef7b70fcb08520a9f306c4af086c37d6ebc11"))
+                .findAny();
+        assertThat(dep1Checksum).isNotNull();
+        result.getMavenLog();
+
+        // Verify: jsap:2.1 is hosted on repo.maven.apache.org which doesn't provide sha256, and who's sha1 has a
+        // different format and will fail validation.
+        var dep2Checksum = lockfile.getDependencies().stream()
+                .filter(dependency -> dependency
+                        .getChecksum()
+                        .equals("331746fa62cfbc3368260c5a2e660936ad11be612308c120a044e120361d474e"))
+                .findAny();
+        assertThat(dep2Checksum).isNotNull();
+
+        // Verify: spoon-core:11.1.0 is hosted on maven central and directly provides sha256 checksums
+        var dep3Checksum = lockfile.getDependencies().stream()
+                .filter(dependency -> dependency
+                        .getChecksum()
+                        .equals("a8ae41ae0a1578a7ef9ce4f8d562813a99e6cc015e8cb3b0482b5470d53f1c6b"))
+                .findAny();
+        assertThat(dep3Checksum).isNotNull();
     }
 
     @MavenTest
@@ -397,7 +426,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        var atlassinResolved = lockFile.getDependencies().stream()
+        var atlassianResolved = lockFile.getDependencies().stream()
                 .filter(
                         dependency -> dependency
                                 .getResolved()
@@ -413,7 +442,7 @@ public class IntegrationTestsIT {
                                         ResolvedUrl.of(
                                                 "https://repo.maven.apache.org/maven2/fr/inria/gforge/spoon/spoon-core/10.3.0/spoon-core-10.3.0.jar")))
                 .findAny();
-        assertThat(atlassinResolved).isNotNull();
+        assertThat(atlassianResolved).isNotNull();
         assertThat(mavenCentralResolved).isNotNull();
     }
 }
