@@ -1,7 +1,7 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.5.2-SNAPSHOT",
+  "version": "5.5.3-SNAPSHOT",
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [
@@ -10,98 +10,112 @@
       "artifactId": "maven-artifact-plugin",
       "version": "3.6.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "06c6e6415d35767c09c0110938814a124b255303fbc49ac89b628e43cf4d71da"
+      "checksum": "06c6e6415d35767c09c0110938814a124b255303fbc49ac89b628e43cf4d71da",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.0/maven-artifact-plugin-3.6.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-install-plugin",
       "version": "3.1.4",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "130c4b4ab3c81c5c2f6d0307091bcd363c1a266c4b20dd01c808ff2c15cb8350"
+      "checksum": "130c4b4ab3c81c5c2f6d0307091bcd363c1a266c4b20dd01c808ff2c15cb8350",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/3.1.4/maven-install-plugin-3.1.4.jar"
     },
     {
       "groupId": "dev.sigstore",
       "artifactId": "sigstore-maven-plugin",
       "version": "1.3.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "173f142d8e421867b8941801014ce448f69f3704a33f4487ce7cf80e9730d5f9"
+      "checksum": "173f142d8e421867b8941801014ce448f69f3704a33f4487ce7cf80e9730d5f9",
+      "resolved": "https://repo.maven.apache.org/maven2/dev/sigstore/sigstore-maven-plugin/1.3.0/sigstore-maven-plugin-1.3.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
       "version": "3.1.4",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "3be1d369703884116300b57abda1c46b8c712faf9a3778960d21dd27af73b650"
+      "checksum": "3be1d369703884116300b57abda1c46b8c712faf9a3778960d21dd27af73b650",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/3.1.4/maven-deploy-plugin-3.1.4.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-surefire-plugin",
       "version": "3.5.3",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "5b5b35523b04916eee85ad6d898b0353dd2ac00793b90d9e7befb79197873d9d"
+      "checksum": "5b5b35523b04916eee85ad6d898b0353dd2ac00793b90d9e7befb79197873d9d",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/3.5.3/maven-surefire-plugin-3.5.3.jar"
     },
     {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
       "version": "2.9.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249"
+      "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249",
+      "resolved": "https://repo.maven.apache.org/maven2/org/cyclonedx/cyclonedx-maven-plugin/2.9.1/cyclonedx-maven-plugin-2.9.1.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-site-plugin",
       "version": "3.21.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "7b0e58afc5741b29c6dbbb1fab2f878149e63842bedb58ca839145c545951a7e"
+      "checksum": "7b0e58afc5741b29c6dbbb1fab2f878149e63842bedb58ca839145c545951a7e",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-site-plugin/3.21.0/maven-site-plugin-3.21.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.4.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b7c7b853422e73236af7744c04cdc05e2c34045b07a02747fbd89796054f0c59"
+      "checksum": "b7c7b853422e73236af7744c04cdc05e2c34045b07a02747fbd89796054f0c59",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-enforcer-plugin",
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964"
+      "checksum": "be757f04f006348df247dcf235ca45a292fe4472b969fddf38ec2c6a70c4d964",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.jar"
     },
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
       "version": "2.44.4",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "d340152841ae41bba6c66d33c4dfafcbb3ac3ed920cceec87fd5f20d382215f4"
+      "checksum": "d340152841ae41bba6c66d33c4dfafcbb3ac3ed920cceec87fd5f20d382215f4",
+      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/2.44.4/spotless-maven-plugin-2.44.4.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
       "version": "3.4.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb"
+      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-compiler-plugin",
       "version": "3.14.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "e55fe35b95cf499e5092f146c6613984cff896a8947c2f347ab88270f11acb76"
+      "checksum": "e55fe35b95cf499e5092f146c6613984cff896a8947c2f347ab88270f11acb76",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.14.0/maven-compiler-plugin-3.14.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-resources-plugin",
       "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7"
+      "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar"
     },
     {
       "groupId": "org.codehaus.gmavenplus",
       "artifactId": "gmavenplus-plugin",
       "version": "4.2.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "fd779dd78621bc388ee0e7bf33548f09188e51beebe906bb5c056d5eb5b90bcc"
+      "checksum": "fd779dd78621bc388ee0e7bf33548f09188e51beebe906bb5c056d5eb5b90bcc",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/4.2.0/gmavenplus-plugin-4.2.0.jar"
     }
   ],
   "metaData": {
@@ -115,8 +129,8 @@
       "allowValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.0.0",
-      "checksumMode": "maven_local",
+      "mavenLockfileVersion": "5.5.2",
+      "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
   }
