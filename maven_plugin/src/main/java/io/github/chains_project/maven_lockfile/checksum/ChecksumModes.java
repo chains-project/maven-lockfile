@@ -6,11 +6,11 @@ package io.github.chains_project.maven_lockfile.checksum;
  */
 public enum ChecksumModes {
     /**
-     * Downloads the checksum from the maven repository.
+     * Downloads the checksum from the maven repository. Supports md5, sha1, sha256 and sha512. If the requested checksum is not found in remote repository, the artifact will be downloaded and checksum will be calculated on the downloaded artifact. The download will be verified with the sha1 checksum if it available in the remote repository.
      */
     REMOTE("remote"),
     /**
-     * Calculates the checksum from the downloaded artifact.
+     * Calculates the checksum from the downloaded artifact in the local m2 folder.
      */
     LOCAL("local");
 
