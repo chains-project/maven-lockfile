@@ -43,9 +43,6 @@ runs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - id: install-jbang
-      run: curl -Ls https://sh.jbang.dev | bash -s - app setup
-      shell: bash
     - name: Get all changed pom.xml and workflow file(s) and set into POM_CHANGED env variable
       id: changed-files
       run: |
@@ -79,12 +76,88 @@ runs:
     - name: Set COMMIT_UPDATED_LOCKFILE environment variable
       run: echo "COMMIT_UPDATED_LOCKFILE=${{ inputs.commit-lockfile }}" >> $GITHUB_ENV
       shell: bash
-    - id: action
-      run: ~/.jbang/bin/jbang --repos 'mavencentral' io.github.chains-project:maven-lockfile-github-action:5.5.2-SNAPSHOT
+    - name: Maven Lockfile Action
+      id: maven-lockfile
+      run: |
+        #!/bin/bash
+        set -e
+        
+        # -------- Begin Maven Lockfile Action --------
+        echo "::group::maven-lockfile"
+        
+        # Configuration from inputs
+        INCLUDE_MAVEN_PLUGINS="${{ inputs.include-maven-plugins }}"
+        LOCKFILE_NAME="${{ inputs.lockfile-name }}"
+        POM_CHANGED="${POM_CHANGED}"
+        COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
+        
+        # Convert to Maven plugin args
+        PLUGIN_VERSION="5.5.2-SNAPSHOT"
+        MAVEN_ARGS=""
+        
+        if [ "$INCLUDE_MAVEN_PLUGINS" == "true" ]; then
+          MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=true"
+        fi
+        
+        if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
+          MAVEN_ARGS="$MAVEN_ARGS -DlockfileName=$LOCKFILE_NAME"
+        fi
+        
+        # Function to execute Maven plugin and handle errors
+        function execute_maven_command() {
+          local COMMAND=$1
+          local SUMMARY_TITLE=$2
+          local SUCCESS_MESSAGE=$3
+          local FAILURE_MESSAGE=$4
+        
+          echo "Executing: mvn $COMMAND $MAVEN_ARGS -q"
+        
+          if mvn $COMMAND $MAVEN_ARGS -q; then
+            # Success
+            echo "::notice::$SUCCESS_MESSAGE"
+            echo "# Maven Lockfile" >> $GITHUB_STEP_SUMMARY
+            echo "✅**Success** $SUCCESS_MESSAGE" >> $GITHUB_STEP_SUMMARY
+            if [ -n "$5" ]; then
+              echo "$5" >> $GITHUB_STEP_SUMMARY
+            fi
+            return 0
+          else
+            # Failure
+            echo "::error::$FAILURE_MESSAGE"
+            echo "# Maven Lockfile" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️**Warning** $FAILURE_MESSAGE" >> $GITHUB_STEP_SUMMARY
+            if [ -n "$6" ]; then
+              echo "$6" >> $GITHUB_STEP_SUMMARY
+            fi
+            return 1
+          fi
+        }
+        
+        # Determine whether to generate or validate
+        if [ "$POM_CHANGED" == "true" ] && [ "$COMMIT_UPDATED_LOCKFILE" == "true" ]; then
+          echo "::notice::Pom file changed, running lockfile generation"
+        
+          GENERATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:generate"
+        
+          if ! execute_maven_command "$GENERATE_COMMAND" "Lockfile Generation" "Lockfile generation succeeded" "Lockfile generation failed"; then
+            echo "::endgroup::"
+            exit 1
+          fi
+        else
+          echo "::notice::Pom file not changed, running lockfile validation"
+        
+          VALIDATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:validate"
+          ADDITIONAL_FAILURE_MESSAGE="The lockfile is not up to date with the pom file. Please run io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:generate to update the lockfile. For your convenience, you can also download the generated lockfile from the artifacts of this check run."
+          ADDITIONAL_SUCCESS_MESSAGE="The lockfile is up to date with the pom files."
+        
+          if ! execute_maven_command "$VALIDATE_COMMAND" "Integrity Check" "Integrity check passed" "Integrity check failed" "$ADDITIONAL_SUCCESS_MESSAGE" "$ADDITIONAL_FAILURE_MESSAGE"; then
+            echo "::endgroup::"
+            exit 1
+          fi
+        fi
+        
+        echo "::endgroup::"
       shell: bash
-      env:
-        JSON_INPUTS: ${{ toJSON(inputs) }}
-        GITHUB_TOKEN: ${{ inputs.github-token }}
     - id: commit-lockfile
       if: inputs.commit-lockfile == 'true'
       uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # 5.2.0

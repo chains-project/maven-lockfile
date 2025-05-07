@@ -30,7 +30,6 @@
   </developers>
   <modules>
     <module>maven_plugin</module>
-    <module>github_action</module>
   </modules>
   <scm>
     <connection>scm:git:https://github.com/chains-project/maven-lockfile</connection>
