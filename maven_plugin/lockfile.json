@@ -2423,8 +2423,8 @@
       "allowValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.0.0",
-      "checksumMode": "maven_local",
+      "mavenLockfileVersion": "5.5.2",
+      "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256"
     }
   }
