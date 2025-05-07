@@ -1869,3 +1869,24 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.5.2
+## Changelog
+
+## 🚀 Added
+- 1288296 👷 ci: Move GithubAction into action.yml (#1191)
+- 0bc0411 👷 ci: Ensure relase is not running when merging PRs (#1190)
+
+## 📦 Dependencies
+- 32bbb53 ⬆️ (deps): Update github/codeql-action action to v3.28.17 (#1198)
+- 937b1cf ⬆️ (deps): Update quarkus.platform.version to v3.22.1 (#1197)
+- c5a0248 ⬆️ (deps): Update dependency org.codehaus.gmavenplus:gmavenplus-plugin to v4.2.0 (#1196)
+
+## 🏁 Release
+- dbd9538 🔖 Releasing version 5.5.2
+- ecca88b 🔖 Setting SNAPSHOT version 5.5.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
