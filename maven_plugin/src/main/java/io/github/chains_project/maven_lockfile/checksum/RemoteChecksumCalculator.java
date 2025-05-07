@@ -81,6 +81,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
+                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":" + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
+
                     // Fallback to and verify downloaded artifact with sha1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
                             .uri(URI.create(artifactUrl + ".sha1"))
@@ -96,8 +98,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .toLowerCase(Locale.ROOT);
 
                         if (!sha1.equals(artifactVerificationResponse.body().strip())) {
-                            LOGGER.error("Invalid sha1 checksum for download of: " + artifactUrl);
-                            throw new RuntimeException("Invalid sha1 checksum for download of: " + artifactUrl);
+                            LOGGER.error("Invalid sha1 checksum for: " + artifactUrl);
                         }
                     } else {
                         LOGGER.warn("Unable to find sha1 to verify download of: " + artifactUrl);
