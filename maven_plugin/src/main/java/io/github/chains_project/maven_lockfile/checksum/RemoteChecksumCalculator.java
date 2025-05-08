@@ -91,6 +91,14 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     HttpResponse<String> artifactVerificationResponse =
                             client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
+                    // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
+                    // For example provided by:
+                    //     https://repo.maven.apache.org/maven2/com/martiansoftware/jsap/2.1/jsap-2.1.jar.sha1
+                    //     https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar.sha1
+                    String artifactVerification = artifactVerificationResponse.body().strip();
+                    int spaceIndex = artifactVerification.indexOf(" ");
+                    artifactVerification = spaceIndex == -1 ? artifactVerification : artifactVerification.substring(0, spaceIndex);
+
                     if (artifactVerificationResponse.statusCode() >= 200
                             && artifactVerificationResponse.statusCode() < 300) {
                         MessageDigest verificationMessageDigest = MessageDigest.getInstance("sha1");
@@ -98,7 +106,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .encode(verificationMessageDigest.digest(artifactResponse.body()))
                                 .toLowerCase(Locale.ROOT);
 
-                        if (!sha1.equals(artifactVerificationResponse.body().strip())) {
+                        if (!sha1.equals(artifactVerification)) {
                             LOGGER.error("Invalid sha1 checksum for: " + artifactUrl);
                         }
                     } else {
