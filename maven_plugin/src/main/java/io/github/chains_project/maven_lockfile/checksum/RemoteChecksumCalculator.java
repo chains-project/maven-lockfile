@@ -110,6 +110,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                         if (!sha1.equals(artifactVerification)) {
                             LOGGER.error("Invalid sha1 checksum for: " + artifactUrl);
+                            throw new RuntimeException("Invalid sha1 checksum for '" + artifact.getGroupId() + ":"
+                                    + artifactId + ":" + version + "'. Checksum found at '" + artifactUrl
+                                    + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
+                                    + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
                     } else {
                         LOGGER.warn("Unable to find sha1 to verify download of: " + artifactUrl);
