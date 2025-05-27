@@ -3,6 +3,7 @@
         "aopalliance:aopalliance@1.0": ["code_signature"],
         "com.google.collections:google-collections@1.0": ["code_signature"],
         "com.google.guava:guava@33.4.0-jre": ["source_code_sha"],
+        "com.kohlschutter.junixsocket:junixsocket-core@2.10.1": ["code_signature"],
         "commons-beanutils:commons-beanutils@1.7.0": ["source_code", "code_signature"],
         "commons-chain:commons-chain@1.1": ["code_signature"],
         "commons-cli:commons-cli@1.8.0": ["source_code_sha"],
