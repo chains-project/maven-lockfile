@@ -23,6 +23,27 @@ jobs:
             repo1.maven.org:443
             sh.jbang.dev:443
 
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Verify action checksums
+        env:
+          VERSION: v0.5.1
+          CHECKSUM: 57270991fee8c7e0f00f5d27c36f514c1743621f11bd53685c3153477a4929de2851f2fb7d4a3f5b2a68c85203b35759d580a023544665b466a3298047034c64
+          GH_TOKEN: ${{ github.token }}
+          JOB: ${{ github.job }}
+          WORKFLOW: ${{ github.workflow_ref }}
+        run: |
+          # Download the ghasum CLI
+          ARTIFACT="ghasum_linux_amd64.tar.gz"
+          gh release download "${VERSION}" --repo chains-project/ghasum --pattern "${ARTIFACT}"
+          echo "${CHECKSUM}  ${ARTIFACT}" | shasum -a 512 -c -
+          tar -xf "${ARTIFACT}"
+
+          # Verify the action checksums
+          WORKFLOW=$(echo "${WORKFLOW}" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
+          ./ghasum verify -cache /home/runner/work/_actions -no-evict -offline "${WORKFLOW}:${JOB}"
+
       - name: run maven-lockfile
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
