@@ -75,6 +75,9 @@ mvn -f pom.lockfile.xml
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
 
+For `:freeze` target:
+- `exactVersionStrings` (`-DexactVersionStrings=false`, default=true) provide version string as exact parameter `[1.0.0]`, instead of soft requirement `1.0.0`.
+
 ### Flags example
 
 The flags are passed by the maven [`-D` (`--define`)](https://books.sonatype.com/mvnref-book/reference/running-sect-options.html) property. For example, to set the `lockfileName` to `my-lockfile.json` and include maven plugins in the lockfile, you would run the following command:
