@@ -23,6 +23,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Verify action checksums
+        uses: ./.github/actions/ghasum
+
       - name: Check for running release action
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

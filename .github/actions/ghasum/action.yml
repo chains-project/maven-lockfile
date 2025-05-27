@@ -1,12 +1,5 @@
 name: ghasum
 description: Verify checksums of actions
-inputs:
-  job:
-    description: Job name
-    required: true
-  workflow:
-    description: Workflow name
-    required: true
 
 runs:
   using: composite

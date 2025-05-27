@@ -30,9 +30,6 @@ jobs:
 
       - name: Verify action checksums
         uses: ./.github/actions/ghasum
-        with:
-          job: ${{ github.job }}
-          workflow: ${{ github.workflow_ref }}
 
       - name: Generate action.yml
         run: mvn generate-resources resources:copy-resources -q
