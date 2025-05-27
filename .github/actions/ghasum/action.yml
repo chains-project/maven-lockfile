@@ -16,8 +16,8 @@ runs:
         VERSION: v0.5.1
         CHECKSUM: 57270991fee8c7e0f00f5d27c36f514c1743621f11bd53685c3153477a4929de2851f2fb7d4a3f5b2a68c85203b35759d580a023544665b466a3298047034c64
         GH_TOKEN: ${{ github.token }}
-        JOB: ${{ inputs.job }}
-        WORKFLOW: ${{ inputs.workflow }}
+        JOB: ${{ github.job }}
+        WORKFLOW: ${{ github.workflow_ref }}
       run: |
         # Download the ghasum CLI
         ARTIFACT="ghasum_linux_amd64.tar.gz"
