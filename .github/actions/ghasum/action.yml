@@ -28,3 +28,4 @@ runs:
         # Verify the action checksums
         WORKFLOW=$(echo "${WORKFLOW}" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
         ./ghasum verify -cache /home/runner/work/_actions -no-evict -offline "${WORKFLOW}:${JOB}"
+      shell: bash
