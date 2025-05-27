@@ -212,7 +212,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@352fc01e7c64fdd4766d54931b14f03f958c62da # v5.4.1
+          uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -233,7 +233,7 @@ It still works for pull requests from the same repository. Renovate also works w
 Extended github actions example with all available options:
 
 ```yml
-- uses: chains-project/maven-lockfile@352fc01e7c64fdd4766d54931b14f03f958c62da # v5.4.1
+- uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
   with:
     # Required. The GitHub token used to commit the updated lockfile to the repository.
     - github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
