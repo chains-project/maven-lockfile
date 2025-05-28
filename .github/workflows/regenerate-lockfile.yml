@@ -31,6 +31,6 @@ jobs:
         uses: ./.github/actions/ghasum
 
       - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
+        uses: chains-project/maven-lockfile@v5.5.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
