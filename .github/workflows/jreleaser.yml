@@ -79,7 +79,7 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
 
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@v5.5.2
+        uses: .
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
