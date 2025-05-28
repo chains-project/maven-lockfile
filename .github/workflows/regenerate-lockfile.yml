@@ -31,6 +31,6 @@ jobs:
         uses: ./.github/actions/ghasum
 
       - name: run maven-lockfile
-        uses: .
+        uses: ./
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
