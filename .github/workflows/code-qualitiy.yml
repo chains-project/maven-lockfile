@@ -40,16 +40,22 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: mvn clean verify
         run: mvn clean verify
+
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean package
+
       - name: Run doc check
         run: mvn org.apache.maven.plugins:maven-javadoc-plugin:3.5.0:jar
+
       - name: Run spotless check
         run: mvn spotless:check
+
       - name: Check maven pom quality
         run: mvn org.kordamp.maven:pomchecker-maven-plugin:1.9.0:check-maven-central -D"checker.release=false"
+
   reproducilbilty:
     runs-on: ubuntu-latest
     defaults:
@@ -86,7 +92,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots clean install
+
       - name: Run reproducibility check
         run: mvn clean install

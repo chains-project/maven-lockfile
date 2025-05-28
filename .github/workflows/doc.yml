@@ -33,8 +33,10 @@ jobs:
 
       - name: Generate action.yml
         run: mvn generate-resources resources:copy-resources -q
+
       - name: Run Maven Spotless
         run: mvn spotless:apply
+
       - name: Check for changes
         id: check_changes
         run: |
@@ -44,6 +46,7 @@ jobs:
           else
             echo "::set-output name=changes::true"
           fi
+
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5.2.0

@@ -45,6 +45,7 @@ jobs:
           key: $-jbang-$
           restore-keys: |
               $-jbang-
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4.7.1
         with:
@@ -53,6 +54,7 @@ jobs:
       - id: install-jbang
         run: curl -Ls https://sh.jbang.dev | bash -s - app setup
         shell: bash
+
       - name: SmokeTest
         run: |
           ~/.jbang/bin/jbang .github/smoketest/SmokeTest.java

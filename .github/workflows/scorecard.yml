@@ -58,7 +58,7 @@ jobs:
       - name: Verify action checksums
         uses: ./.github/actions/ghasum
 
-      - name: "Run analysis"
+      - name: Run analysis
         uses: ossf/scorecard-action@v2.4.1
         with:
           results_file: results.sarif
@@ -80,7 +80,7 @@ jobs:
 
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
-      - name: "Upload artifact"
+      - name: Upload artifact
         uses: actions/upload-artifact@v4.6.2
         with:
           name: SARIF file
@@ -88,7 +88,7 @@ jobs:
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard.
-      - name: "Upload to code-scanning"
+      - name: Upload to code-scanning
         uses: github/codeql-action/upload-sarif@v3.28.18
         with:
           sarif_file: results.sarif
