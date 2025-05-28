@@ -20,6 +20,7 @@ jobs:
           disable-sudo: true
           egress-policy: block
           allowed-endpoints: >
+            api.github.com:443
             github.com:443
             objects.githubusercontent.com:443
             oss.sonatype.org:443
@@ -32,22 +33,28 @@ jobs:
             fulcio.sigstore.dev:443
             rekor.sigstore.dev:443
 
-      - name: checkout
+      - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+
+      - name: Verify action checksums
+        uses: ./.github/actions/ghasum
+
+      - uses: actions/cache@v4.2.3
         with:
           path: /root/.jbang
           key: $-jbang-$
           restore-keys: |
               $-jbang-
+
       - name: Set up JDK 17
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        uses: actions/setup-java@v4.7.1
         with:
           java-version: '17'
           distribution: 'temurin'
       - id: install-jbang
         run: curl -Ls https://sh.jbang.dev | bash -s - app setup
         shell: bash
+
       - name: SmokeTest
         run: |
           ~/.jbang/bin/jbang .github/smoketest/SmokeTest.java
