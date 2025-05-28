@@ -38,11 +38,18 @@ signing:
   armored: true
 deploy:
   maven:
+    mavenCentral:
+      release-deloy:
+        active: RELEASE
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories:
+          - target/staging-deploy
     nexus2:
-      maven-central:
-        active: ALWAYS
-        url: https://s01.oss.sonatype.org/service/local
-        snapshotUrl: https://s01.oss.sonatype.org/content/repositories/snapshots/
+      snapshot-deploy:
+        active: SNAPSHOT
+        snapshotUrl: https://central.sonatype.com/repository/maven-snapshots
+        applyMavenCentralRules: true
+        snapshotSupported: true
         closeRepository: true
         releaseRepository: true
         stagingRepositories:
