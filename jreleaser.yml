@@ -11,9 +11,9 @@ project:
   links:
     homepage: https://github.com/chains-project/maven-lockfile
   languages:
-    - java:
-        groupId: io.github.chains-project
-        version: "11"
+    java:
+      groupId: io.github.chains-project
+      version: "11"
   inceptionYear: "2023"
 
 release:
