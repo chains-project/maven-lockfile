@@ -97,7 +97,7 @@ jobs:
         uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8
         with:
           setup-java: false
-          version: 1.15.0
+          version: 1.18.0
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
