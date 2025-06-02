@@ -10,9 +10,10 @@ project:
   license: MIT
   links:
     homepage: https://github.com/chains-project/maven-lockfile
-  java:
-    groupId: io.github.chains-project
-    version: "11"
+  languages:
+    - java:
+        groupId: io.github.chains-project
+        version: "11"
   inceptionYear: "2023"
 
 release:
