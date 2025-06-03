@@ -38,6 +38,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Get version with snapshot
         run: |
           echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
