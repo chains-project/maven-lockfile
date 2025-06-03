@@ -28,8 +28,7 @@
     {
       "updateTypes": [
         "lockFileMaintenance",
-        "pin",
-        "pinDigest"
+        "pin"
       ],
       "semanticCommitType": ":pushpin:",
       "automerge": true,
