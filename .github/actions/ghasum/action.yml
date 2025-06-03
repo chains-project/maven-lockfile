@@ -1,5 +1,10 @@
 name: ghasum
 description: Verify checksums of actions
+inputs:
+  mode: # "update" or "verify"
+    description: Update or verify checksums. Valid options are "update" and "verify".
+    required: false
+    default: "verify"
 
 runs:
   using: composite
@@ -19,6 +24,7 @@ runs:
       shell: bash
 
     - name: Verifying action checksums
+      if: inputs.mode == 'verify'
       env:
         JOB: ${{ github.job }}
         WORKFLOW: ${{ github.workflow_ref }}
@@ -26,4 +32,11 @@ runs:
         # Verify the action checksums
         WORKFLOW=$(echo "${WORKFLOW}" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
         ./ghasum verify -cache /home/runner/work/_actions -no-evict -offline "${WORKFLOW}:${JOB}"
+      shell: bash
+
+    - name: Updating action checksums
+      if: inputs.mode == 'update'
+      run: |
+        # Update the action checksums
+        ./ghasum update -force
       shell: bash
