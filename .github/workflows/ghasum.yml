@@ -1,0 +1,31 @@
+name: ghasum
+on:
+  push:
+    branches:
+    - renovate/github-**
+
+permissions: read-all
+
+jobs:
+  update:
+    name: Update gha.sum
+    runs-on: ubuntu-24.04
+    if: ${{ github.actor == 'renovate[bot]' }}
+    permissions:
+      contents: write # To push a commit
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+
+      - name: Update gha.sum
+        uses: ./.github/actions/ghasum
+        with:
+          mode: update
+
+      - name: Commit gha.sum
+        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        with:
+          commit_message: "chore: update ghasum checksums"
+          file_pattern: .github/workflows/gha.sum
