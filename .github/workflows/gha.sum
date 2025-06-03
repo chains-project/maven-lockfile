@@ -9,6 +9,6 @@ actions/setup-java@v4.7.1 cKZQn6p38RgADB4MCMpbFp94sScgm/u3B7rEDB9QS5I=
 actions/upload-artifact@v4.6.2 kZHHfo2NsxevBRTKrZnUpDu0Cxgtj5Vooe4x4rylvg8=
 github/codeql-action@v3.28.18 4gaEho7CgRQ2agaVQ08Rey3Nb10JTZZSIlyaTIuWFp0=
 jreleaser/release-action@2.4.2 Ixc/05XDYYHGUvtC6Jt9gB/mpHPIwBX7PR8At1yEWSs=
-ossf/scorecard-action@v2.4.1 gqAJN+sqOCOdnjCsAADQsUnz9oWnGsQ7HxuKrk5Ek4U=
+ossf/scorecard-action@v2.4.2 NlVzVIaycy3fhYp7tgiwvpWvzSsPa48uTVejF6tHEog=
 stefanzweifel/git-auto-commit-action@v5.2.0 n9EaBzCcmLizV1ET0gheXnemmtcZgEvXYpZ3X2Lg7so=
 step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 nNlOSHE3ozt23Wu9iovaeOgHnTwwx/tIwccWM/cHJmI=
