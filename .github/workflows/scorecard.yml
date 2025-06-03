@@ -46,15 +46,16 @@ jobs:
             oss-fuzz-build-logs.storage.googleapis.com:443
             rekor.sigstore.dev:443
             repo.maven.apache.org:443
+            repo.spring.io:443
             tuf-repo-cdn.sigstore.dev:443
             www.bestpractices.dev:443
 
-      - name: "Checkout code"
+      - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
 
-      - name: "Run analysis"
+      - name: Run analysis
         uses: ossf/scorecard-action@05b42c624433fc40578a4040d5cf5e36ddca8cde # v2.4.2
         with:
           results_file: results.sarif
@@ -76,7 +77,7 @@ jobs:
 
       # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
       # format to the repository Actions tab.
-      - name: "Upload artifact"
+      - name: Upload artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: SARIF file
@@ -84,7 +85,7 @@ jobs:
           retention-days: 5
 
       # Upload the results to GitHub's code scanning dashboard.
-      - name: "Upload to code-scanning"
-        uses: github/codeql-action/upload-sarif@ff0a06e83cb2de871e5a09832bc6a81e7276941f # v3.28.18
+      - name: Upload to code-scanning
+        uses: github/codeql-action/upload-sarif@fca7ace96b7d713c7035871441bd52efbe39e27e # v3.28.19
         with:
           sarif_file: results.sarif
