@@ -35,7 +35,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Get version with snapshot
-        run: echo "CURRENT_VERSION_WITH_SNAPSHOT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+        run: |
+          echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
+          echo "CURRENT_VERSION_WITH_SNAPSHOT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: Abort if version is not snapshot
         if: ${{ env.CURRENT_VERSION_WITH_SNAPSHOT == env.CURRENT_VERSION }}
         run: echo "Version is not a snapshot. Aborting..." && exit 1
