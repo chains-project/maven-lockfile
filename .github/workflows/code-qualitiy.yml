@@ -85,7 +85,6 @@ jobs:
 
       - name: Verify action checksums
         uses: ./.github/actions/ghasum
-        working-directory: ${{ github.workspace }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4.7.1
