@@ -16,7 +16,9 @@ jobs:
           disable-sudo: true
           egress-policy: block
           allowed-endpoints: >
+            api.github.com:443
             github.com:443
+            objects.githubusercontent.com:443
             repo.maven.apache.org:443
 
       - name: Checkout repository
@@ -25,10 +27,16 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify action checksums
+        uses: ./.github/actions/ghasum
+
       - name: Generate action.yml
         run: mvn generate-resources resources:copy-resources -q
+
       - name: Run Maven Spotless
         run: mvn spotless:apply
+
       - name: Check for changes
         id: check_changes
         run: |
@@ -38,8 +46,9 @@ jobs:
           else
             echo "::set-output name=changes::true"
           fi
+
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403 # 5.2.0
+        uses: stefanzweifel/git-auto-commit-action@v5.2.0
         with:
           commit_message: "📝 Update Documentation with current version"

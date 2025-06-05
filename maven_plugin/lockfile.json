@@ -250,7 +250,7 @@
           "checksum": "60d5c398c32dc7039b99282514ad6064061d8417cf959a1f6bd2038cc907c913",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar",
-          "selectedVersion": "5.12.2",
+          "selectedVersion": "5.13.0",
           "included": false,
           "id": "org.junit.jupiter:junit-jupiter-api:5.10.1",
           "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
@@ -2269,14 +2269,14 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.12.2",
+      "version": "5.13.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092",
+      "checksum": "3a458f41fde4a16d08b2cc09965039174aedf52f5c172966221f03e8c7e6863c",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar",
-      "selectedVersion": "5.12.2",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.13.0/junit-jupiter-api-5.13.0.jar",
+      "selectedVersion": "5.13.0",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-api:5.12.2",
+      "id": "org.junit.jupiter:junit-jupiter-api:5.13.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2289,21 +2289,21 @@
           "selectedVersion": "1.1.2",
           "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.12.2",
+          "version": "1.13.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18",
+          "checksum": "ec451e45ae8a6c41f12bc56f6b2ed5dd74349ef5eb86e818c6ccebb97753b7da",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar",
-          "selectedVersion": "1.12.2",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.13.0/junit-platform-commons-1.13.0.jar",
+          "selectedVersion": "1.13.0",
           "included": true,
-          "id": "org.junit.platform:junit-platform-commons:1.12.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
+          "id": "org.junit.platform:junit-platform-commons:1.13.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2316,7 +2316,7 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.12.2",
+              "parent": "org.junit.platform:junit-platform-commons:1.13.0",
               "children": []
             }
           ]
@@ -2332,7 +2332,7 @@
           "selectedVersion": "1.3.0",
           "included": true,
           "id": "org.opentest4j:opentest4j:1.3.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.0",
           "children": []
         }
       ]
@@ -2340,14 +2340,14 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-engine",
-      "version": "5.12.2",
+      "version": "5.13.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f576c06b8accde9985063b8bc80526cb980eec24dee0b7221fc8ddd7ace65800",
+      "checksum": "d84907d545df83d2dbe6e0c55a16e9699861ac87d160a6c1dddb3137cbf566ac",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.12.2/junit-jupiter-engine-5.12.2.jar",
-      "selectedVersion": "5.12.2",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.13.0/junit-jupiter-engine-5.13.0.jar",
+      "selectedVersion": "5.13.0",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
+      "id": "org.junit.jupiter:junit-jupiter-engine:5.13.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2360,35 +2360,35 @@
           "selectedVersion": "1.1.2",
           "included": false,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.0",
           "children": []
         },
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
-          "version": "5.12.2",
+          "version": "5.13.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "0b9ca728e4bcd9adc57f29deb9556ff9ed5e08b4e8843b875aba4e4e3e04f092",
+          "checksum": "3a458f41fde4a16d08b2cc09965039174aedf52f5c172966221f03e8c7e6863c",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.12.2/junit-jupiter-api-5.12.2.jar",
-          "selectedVersion": "5.12.2",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.13.0/junit-jupiter-api-5.13.0.jar",
+          "selectedVersion": "5.13.0",
           "included": false,
-          "id": "org.junit.jupiter:junit-jupiter-api:5.12.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
+          "id": "org.junit.jupiter:junit-jupiter-api:5.13.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-engine",
-          "version": "1.12.2",
+          "version": "1.13.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "cef0efcb5bd2e05e2b808d38bab5c655089c0c3001527376e74cb606a7911ec8",
+          "checksum": "315bac90a2bd70767810e3017bdb10e698f8f1c4f5e770a669dd2e1225e2c858",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar",
-          "selectedVersion": "1.12.2",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.13.0/junit-platform-engine-1.13.0.jar",
+          "selectedVersion": "1.13.0",
           "included": true,
-          "id": "org.junit.platform:junit-platform-engine:1.12.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.12.2",
+          "id": "org.junit.platform:junit-platform-engine:1.13.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2401,21 +2401,21 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
+              "parent": "org.junit.platform:junit-platform-engine:1.13.0",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.12.2",
+              "version": "1.13.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "e683a01e85dfabea520c056ac6015a6162756e602ec653c0da85e233f0afbc18",
+              "checksum": "ec451e45ae8a6c41f12bc56f6b2ed5dd74349ef5eb86e818c6ccebb97753b7da",
               "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar",
-              "selectedVersion": "1.12.2",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.13.0/junit-platform-commons-1.13.0.jar",
+              "selectedVersion": "1.13.0",
               "included": false,
-              "id": "org.junit.platform:junit-platform-commons:1.12.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
+              "id": "org.junit.platform:junit-platform-commons:1.13.0",
+              "parent": "org.junit.platform:junit-platform-engine:1.13.0",
               "children": []
             },
             {
@@ -2429,7 +2429,7 @@
               "selectedVersion": "1.3.0",
               "included": false,
               "id": "org.opentest4j:opentest4j:1.3.0",
-              "parent": "org.junit.platform:junit-platform-engine:1.12.2",
+              "parent": "org.junit.platform:junit-platform-engine:1.13.0",
               "children": []
             }
           ]
@@ -2531,20 +2531,20 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-site-plugin/3.21.0/maven-site-plugin-3.21.0.jar"
     },
     {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "a15977e3457ff8cd803c1a37e1e53aad76e4609cd23bbca8e8f783e5c78e5fa8",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar"
+    },
+    {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
       "version": "2.44.5",
       "checksumAlgorithm": "SHA-256",
       "checksum": "b19f1dd70dc594494150776ac1ae7f19ed65671009b0be8b5a048809fb0873dd",
       "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/2.44.5/spotless-maven-plugin-2.44.5.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-clean-plugin",
-      "version": "3.4.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "b7c7b853422e73236af7744c04cdc05e2c34045b07a02747fbd89796054f0c59",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",

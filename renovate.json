@@ -1,8 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "config:recommended"
   ],
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com",
@@ -12,7 +11,8 @@
     "enabled": false
   },
   "semanticCommitType": ":arrow_up:",
-  "semanticCommits": true,
+  "semanticCommits": "enabled",
+  "minimumReleaseAge": "1d",
   "packageRules": [
     {
       "matchUpdateTypes": [
@@ -26,17 +26,16 @@
       "semanticCommitType": ":arrow_up:"
     },
     {
-      "updateTypes": [
+      "matchUpdateTypes": [
         "lockFileMaintenance",
-        "pin",
-        "pinDigest"
+        "pin"
       ],
       "semanticCommitType": ":pushpin:",
       "automerge": true,
       "automergeType": "pr"
     },
     {
-      "updateTypes": [
+      "matchUpdateTypes": [
         "rollback"
       ],
       "semanticCommitType": ":arrow_down:",
@@ -44,7 +43,7 @@
       "automergeType": "pr"
     },
     {
-      "updateTypes": [
+      "matchUpdateTypes": [
         "bump"
       ],
       "semanticCommitType": ":bookmark:",
@@ -52,10 +51,10 @@
       "automergeType": "pr"
     },
     {
-      "matchPackagePatterns": [
-        "org.apache.maven:"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/org.apache.maven:/"
+      ]
     }
   ]
 }
