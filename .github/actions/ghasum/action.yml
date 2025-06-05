@@ -1,0 +1,42 @@
+name: ghasum
+description: Verify checksums of actions
+inputs:
+  mode: # "update" or "verify"
+    description: Update or verify checksums. Valid options are "update" and "verify".
+    required: false
+    default: "verify"
+
+runs:
+  using: composite
+  steps:
+    - name: Downloading ghasum
+      env:
+        VERSION: v0.5.1
+        CHECKSUM: 57270991fee8c7e0f00f5d27c36f514c1743621f11bd53685c3153477a4929de2851f2fb7d4a3f5b2a68c85203b35759d580a023544665b466a3298047034c64
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        # Download the ghasum CLI
+        ARTIFACT="ghasum_linux_amd64.tar.gz"
+        gh release download "${VERSION}" --repo chains-project/ghasum --pattern "${ARTIFACT}"
+        echo "${CHECKSUM}  ${ARTIFACT}" | shasum -a 512 -c -
+        tar -xf "${ARTIFACT}"
+
+      shell: bash
+
+    - name: Verifying action checksums
+      if: inputs.mode == 'verify'
+      env:
+        JOB: ${{ github.job }}
+        WORKFLOW: ${{ github.workflow_ref }}
+      run: |
+        # Verify the action checksums
+        WORKFLOW=$(echo "${WORKFLOW}" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
+        ./ghasum verify -cache /home/runner/work/_actions -no-evict -offline "${WORKFLOW}:${JOB}"
+      shell: bash
+
+    - name: Updating action checksums
+      if: inputs.mode == 'update'
+      run: |
+        # Update the action checksums
+        ./ghasum update -force
+      shell: bash
