@@ -1,8 +1,8 @@
 name: ghasum
 on:
-  push:
+  pull_request:
     branches:
-    - renovate/github-**
+      - renovate/github-**
 
 permissions: read-all
 
@@ -10,7 +10,6 @@ jobs:
   update:
     name: Update gha.sum
     runs-on: ubuntu-24.04
-    if: ${{ github.actor == 'renovate[bot]' }}
     permissions:
       contents: write # To push a commit
     steps:
