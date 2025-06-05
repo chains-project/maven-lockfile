@@ -106,20 +106,25 @@ jobs:
       pull-requests: write # To comment on a Pull Request
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@c6295a65d1254861815972266d5933fd6e532bdf # v2.11.1
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
         with:
           egress-policy: audit
 
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           submodules: true
+
+      - name: Verify action checksums
+        uses: ./.github/actions/ghasum
+
       - name: Setup JDK17
-        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+        uses: actions/setup-java@v4.7.1
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Dirty Waters Analysis
-        uses: chains-project/dirty-waters-action@57e2b7be964e687bdab629460efb274053fe3b28 # v1.11.45
+        uses: chains-project/dirty-waters-action@v1.11.48
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: maven
