@@ -38,6 +38,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Get version with snapshot
         run: |
           echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
@@ -55,7 +56,7 @@ jobs:
         with:
           setup-java: false
           version: 1.18.0
-          arguments: full-release 
+          arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.CURRENT_VERSION_WITH_SNAPSHOT }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
