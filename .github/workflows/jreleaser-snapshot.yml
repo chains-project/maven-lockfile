@@ -28,8 +28,12 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+
+      - name: Verify action checksums
+        uses: ./.github/actions/ghasum
+
       - name: Set up JDK 17
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        uses: actions/setup-java@v4.7.1
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -47,7 +51,7 @@ jobs:
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
       - name: Run JReleaser
-        uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8
+        uses: jreleaser/release-action@2.4.2
         with:
           setup-java: false
           version: 1.18.0
@@ -63,7 +67,7 @@ jobs:
 # Log failure:
       - name: JReleaser release output
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: jreleaser-release
           path: |
