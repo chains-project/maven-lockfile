@@ -117,7 +117,7 @@ jobs:
         uses: jreleaser/release-action@2.4.2
         with:
           setup-java: false
-          version: 1.15.0
+          version: 1.18.0
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
@@ -125,8 +125,8 @@ jobs:
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
           JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
-          JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME }}
-          JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN }}
 
       - name: Append changelog from out/jreleaser/CHANGELOG.md to CHANGELOG.md with version as header
         run: |

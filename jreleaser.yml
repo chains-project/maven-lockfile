@@ -10,13 +10,15 @@ project:
   license: MIT
   links:
     homepage: https://github.com/chains-project/maven-lockfile
-  java:
-    groupId: io.github.chains-project
-    version: "11"
+  languages:
+    java:
+      groupId: io.github.chains-project
+      version: "11"
   inceptionYear: "2023"
 
 release:
   github:
+    active: RELEASE
     owner: chains-project
     changelog:
       formatted: ALWAYS
@@ -38,12 +40,9 @@ signing:
   armored: true
 deploy:
   maven:
-    nexus2:
+    mavenCentral:
       maven-central:
         active: ALWAYS
-        url: https://s01.oss.sonatype.org/service/local
-        snapshotUrl: https://s01.oss.sonatype.org/content/repositories/snapshots/
-        closeRepository: true
-        releaseRepository: true
+        url: https://central.sonatype.com/api/v1/publisher
         stagingRepositories:
           - target/staging-deploy
