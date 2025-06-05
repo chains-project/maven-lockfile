@@ -12,6 +12,7 @@
   },
   "semanticCommitType": ":arrow_up:",
   "semanticCommits": "enabled",
+  "minimumReleaseAge": "1d",
   "packageRules": [
     {
       "matchUpdateTypes": [
