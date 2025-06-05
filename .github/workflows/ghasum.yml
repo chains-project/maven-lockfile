@@ -1,6 +1,8 @@
 name: ghasum
 on:
   pull_request:
+    branches:
+      - renovate/**
 
 permissions: read-all
 
