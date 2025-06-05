@@ -33,7 +33,7 @@ jobs:
           mode: update
 
       - name: Commit gha.sum
-        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        uses: stefanzweifel/git-auto-commit-action@v5.2.0
         with:
           commit_message: "chore: update ghasum checksums"
           file_pattern: .github/workflows/gha.sum
