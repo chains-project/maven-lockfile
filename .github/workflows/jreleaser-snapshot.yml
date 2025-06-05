@@ -56,7 +56,7 @@ jobs:
         with:
           setup-java: false
           version: 1.18.0
-          arguments: full-release 
+          arguments: deploy
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.CURRENT_VERSION_WITH_SNAPSHOT }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}

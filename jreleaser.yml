@@ -18,7 +18,6 @@ project:
 
 release:
   github:
-    active: RELEASE
     owner: chains-project
     changelog:
       formatted: ALWAYS
