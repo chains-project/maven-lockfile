@@ -55,7 +55,7 @@
                 <groupId>io.github.chains-project</groupId>
                 <artifactId>
                     maven-lockfile</artifactId>
-                <version>@project.version@</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <goals>
