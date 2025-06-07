@@ -402,7 +402,7 @@ public class IntegrationTestsIT {
         result.getMavenLog();
 
         // Verify: jsap:2.1 is hosted on repo.maven.apache.org which doesn't provide sha256, and who's sha1 has a
-        // different format (providing `checksum path` instead of `checksum`). Sha1 should still succeed as the 
+        // different format (providing `checksum path` instead of `checksum`). Sha1 should still succeed as the
         // `checksum` is verified aganist up until the first space, thus excluding the path of the file when the
         // sha1 was generated. Sha256 has to be calculated.
         var dep2Checksum = lockfile.getDependencies().stream()
