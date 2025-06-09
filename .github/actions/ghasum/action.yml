@@ -40,3 +40,8 @@ runs:
         # Update the action checksums
         ./ghasum update -force
       shell: bash
+
+    - name: Remove ghasum binary
+      run: |
+        rm ghasum ghasum_linux_amd64.tar.gz
+      shell: bash
