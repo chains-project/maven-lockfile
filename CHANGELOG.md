@@ -1890,3 +1890,50 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.5.3
+## Changelog
+
+## 🚀 Added
+- 737536f 👷 cd: Remove CD and verify OSSRH migration (#1240)
+- 8085f2a 👷 cd: Only deploy snapshots (#1239)
+- 6767d46 👷 cd: Migration to Maven Central Publisher API and CD (#1217)
+- 49b9f6c 👷 ci: Add minimum release age of 1d to renovate (#1238)
+- 0108499 👷 ci: Trigger ghasum update action for renovate PRs (#1237)
+- 54d8ead 👷 ci: Trigger ghasum on PR from renovate instead of branches (#1236)
+- a686b04 👷 ci: Automatically update gha.sum on Renovate PR (#1233)
+- 167ad68 👷 ci: Remove renovate pinGitHubActionDigests helper (#1232)
+- 8ad77c7 👷 ci: Update gha.sum for #1227 (#1229)
+- 1f23a67 👷 ci: Reset ossf/scorecard to without ghasum to only include allowlisted steps (#1227)
+- 158aa00 👷 ci: Add repo.spring.io to allowlisted endpoints for ossf/scorecard (#1224)
+- ef8a587 👷 ci: Remove pinDigest update from Renovate (#1221)
+- fb0b6cd 👷 ci: Add ghasum to github workflows (#1211)
+- 994e796 👷 ci: Use latest maven lockfile action (v5.5.2) (#1202)
+
+## 📦 Dependencies
+- 8b77244 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v5.2.0 (#1234)
+- b55ba83 ⬆️ (deps): Update github/codeql-action action to v3.28.19 (#1222)
+- 040f6bb ⬆️ (config): migrate renovate config (#1228)
+- 9474a05 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-clean-plugin to v3.5.0 (#1216)
+- 8ce4b28 ⬆️ (deps): Update ossf/scorecard-action action to v2.4.2 (#1215)
+- 65490ae ⬆️ (deps): Update junit5 monorepo to v5.13.0 (#1214)
+- 09fb977 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.44.5 (#1212)
+- 8e0a5e9 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.27 (#1210)
+- d563a05 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.9 (#1209)
+- c9dbc9f ⬆️ (deps): Update github/codeql-action action to v3.28.18 (#1208)
+- edf641b ⬆️ (deps): Update actions/dependency-review-action action to v4.7.1 (#1207)
+- 6ad9a16 ⬆️ (deps): Update actions/dependency-review-action action to v4.7.0 (#1206)
+- 783131a ⬆️ (deps): Update actions/setup-go action to v5.5.0 (#1205)
+
+## 📝 Documentation
+- 32637d1 📝 docs: Use latest version of lockfile in README (#1203)
+
+## 🏁 Release
+- 849caed 🔖 Releasing version 5.5.3
+- a862ba3 🔖 Setting SNAPSHOT version 5.5.3-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
