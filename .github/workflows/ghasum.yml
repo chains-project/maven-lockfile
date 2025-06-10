@@ -7,7 +7,6 @@ permissions: read-all
 jobs:
   update:
     name: Update gha.sum
-    if: startsWith(github.head_ref, 'renovate/')
     runs-on: ubuntu-24.04
     permissions:
       contents: write # To push a commit
