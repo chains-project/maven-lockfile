@@ -29,7 +29,7 @@
     <dependency>
       <groupId>fr.inria.gforge.spoon</groupId>
       <artifactId>spoon-core</artifactId>
-      <version>10.3.0</version>
+      <version>11.1.0</version>
     </dependency>
     <dependency>
       <groupId>atlassian-bandana</groupId>
@@ -56,7 +56,7 @@
         </executions>
         <configuration>
           <checksumMode>remote</checksumMode>
-          <checksumAlgorithm>sha1</checksumAlgorithm>
+          <checksumAlgorithm>sha256</checksumAlgorithm>
         </configuration>
       </plugin>
     </plugins>

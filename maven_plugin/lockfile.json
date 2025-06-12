@@ -2606,7 +2606,7 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.9",
+      "mavenVersion": "3.9.10",
       "javaVersion": "17.0.15"
     },
     "config": {

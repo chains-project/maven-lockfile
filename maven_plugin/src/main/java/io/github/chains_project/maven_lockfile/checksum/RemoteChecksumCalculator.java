@@ -1,10 +1,13 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
+import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.MessageDigest;
+import java.util.Locale;
 import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
@@ -23,8 +26,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             ProjectBuildingRequest artifactBuildingRequest,
             ProjectBuildingRequest pluginBuildingRequest) {
         super(checksumAlgorithm);
-        if (!(checksumAlgorithm.equals("sha1") || checksumAlgorithm.equals("md5"))) {
-            throw new IllegalArgumentException("Invalid checksum algorithm maven central only supports sha1 or md5");
+        if (!(checksumAlgorithm.equals("md5")
+                || checksumAlgorithm.equals("sha1")
+                || checksumAlgorithm.equals("sha256")
+                || checksumAlgorithm.equals("sha512"))) {
+            throw new IllegalArgumentException(
+                    "Invalid checksum algorithm maven central only supports md5, sha1, sha256 or sha512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
@@ -42,21 +49,81 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             }
             String filename = artifactId + "-" + version + "." + extension;
 
+            BaseEncoding baseEncoding = BaseEncoding.base16();
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
-                String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
-                        + "/" + filename + "." + checksumAlgorithm;
+                String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
+                        + version + "/" + filename;
+                String checksumUrl = artifactUrl + "." + checksumAlgorithm;
 
-                LOGGER.debug("Checking: " + url);
+                LOGGER.debug("Checking: " + checksumUrl);
 
-                HttpClient client = HttpClient.newBuilder()
-                        .followRedirects(HttpClient.Redirect.ALWAYS)
-                        .build();
-                HttpRequest request =
-                        HttpRequest.newBuilder().uri(URI.create(url)).build();
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                HttpRequest checksumRequest =
+                        HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
+                HttpResponse<String> checksumResponse =
+                        client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
-                if (response.statusCode() >= 200 && response.statusCode() < 300) {
-                    return Optional.of(response.body().strip());
+                if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
+                    return Optional.of(checksumResponse.body().strip());
+                }
+
+                if (checksumResponse.statusCode() == 404) {
+                    HttpRequest artifactRequest = HttpRequest.newBuilder()
+                            .uri(URI.create(artifactUrl))
+                            .build();
+                    HttpResponse<byte[]> artifactResponse =
+                            client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
+
+                    if (artifactResponse.statusCode() < 200 || artifactResponse.statusCode() >= 300) {
+                        continue;
+                    }
+
+                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":"
+                            + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
+
+                    // Fallback to and verify downloaded artifact with sha1
+                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
+                            .uri(URI.create(artifactUrl + ".sha1"))
+                            .build();
+                    HttpResponse<String> artifactVerificationResponse =
+                            client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+
+                    // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
+                    // For example provided by:
+                    //     https://repo.maven.apache.org/maven2/com/martiansoftware/jsap/2.1/jsap-2.1.jar.sha1
+                    //     https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar.sha1
+                    String artifactVerification =
+                            artifactVerificationResponse.body().strip();
+                    int spaceIndex = artifactVerification.indexOf(" ");
+                    artifactVerification =
+                            spaceIndex == -1 ? artifactVerification : artifactVerification.substring(0, spaceIndex);
+
+                    if (artifactVerificationResponse.statusCode() >= 200
+                            && artifactVerificationResponse.statusCode() < 300) {
+                        MessageDigest verificationMessageDigest = MessageDigest.getInstance("sha1");
+                        String sha1 = baseEncoding
+                                .encode(verificationMessageDigest.digest(artifactResponse.body()))
+                                .toLowerCase(Locale.ROOT);
+
+                        if (!sha1.equals(artifactVerification)) {
+                            LOGGER.error("Invalid sha1 checksum for: " + artifactUrl);
+                            throw new RuntimeException("Invalid sha1 checksum for '" + artifact.getGroupId() + ":"
+                                    + artifactId + ":" + version + "'. Checksum found at '" + artifactUrl
+                                    + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
+                                    + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
+                        }
+                    } else {
+                        LOGGER.warn("Unable to find sha1 to verify download of: " + artifactUrl);
+                    }
+
+                    MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
+                    String checksum = baseEncoding
+                            .encode(messageDigest.digest(artifactResponse.body()))
+                            .toLowerCase(Locale.ROOT);
+                    return Optional.of(checksum);
                 }
             }
 
@@ -80,15 +147,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             }
             String filename = artifactId + "-" + version + "." + extension;
 
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
                         + "/" + filename;
 
                 LOGGER.debug("Checking: " + url);
 
-                HttpClient client = HttpClient.newBuilder()
-                        .followRedirects(HttpClient.Redirect.ALWAYS)
-                        .build();
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
                         .method("HEAD", HttpRequest.BodyPublishers.noBody())
@@ -121,7 +189,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public String getDefaultChecksumAlgorithm() {
-        return "sha1";
+        return "SHA-256";
     }
 
     @Override
