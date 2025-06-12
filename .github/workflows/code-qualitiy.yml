@@ -23,6 +23,7 @@ jobs:
             oss.sonatype.org:443
             maven.artifacts.atlassian.com:443
             packages.atlassian.com:443
+            release-assets.githubusercontent.com:443
             repo.maven.apache.org:443
             repo.spring.io:443
             tuf-repo-cdn.sigstore.dev:443
@@ -69,16 +70,17 @@ jobs:
           egress-policy: block
           allowed-endpoints: >
             api.github.com:443
+            fulcio.sigstore.dev:443
             github.com:443
+            maven.artifacts.atlassian.com:443
             objects.githubusercontent.com:443
             oss.sonatype.org:443
-            maven.artifacts.atlassian.com:443
             packages.atlassian.com:443
+            rekor.sigstore.dev:443
+            release-assets.githubusercontent.com:443
             repo.maven.apache.org:443
             repo.spring.io:443
             tuf-repo-cdn.sigstore.dev:443
-            fulcio.sigstore.dev:443
-            rekor.sigstore.dev:443
 
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2

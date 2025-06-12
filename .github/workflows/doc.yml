@@ -19,6 +19,7 @@ jobs:
             api.github.com:443
             github.com:443
             objects.githubusercontent.com:443
+            release-assets.githubusercontent.com:443
             repo.maven.apache.org:443
 
       - name: Checkout repository
@@ -49,6 +50,6 @@ jobs:
 
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v6.0.0
+        uses: stefanzweifel/git-auto-commit-action@v6.0.1
         with:
           commit_message: "📝 Update Documentation with current version"
