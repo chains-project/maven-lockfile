@@ -48,6 +48,9 @@ public class FreezeDependencyMojo extends AbstractMojo {
     @Parameter(defaultValue = "lockfile.json", property = "lockfileName")
     private String lockfileName;
 
+    @Parameter(defaultValue = "true", property = "exactVersionStrings")
+    private String exactVersionStrings;
+
     /**
      * Freezes the dependencies of the project. Every dependency will be locked to a specific version.
      *
@@ -143,11 +146,26 @@ public class FreezeDependencyMojo extends AbstractMojo {
         Dependency mavenDep = new Dependency();
         mavenDep.setGroupId(dep.getGroupId().getValue());
         mavenDep.setArtifactId(dep.getArtifactId().getValue());
-        mavenDep.setVersion(dep.getVersion().getValue());
+        String version = dep.getVersion().getValue();
+        if (exactVersionStrings.equals("true")) {
+            version = convertSoftToExactVersionString(version);
+        }
+        mavenDep.setVersion(version);
         if (dep.getClassifier() != null) {
             mavenDep.setClassifier(dep.getClassifier().getValue());
         }
         mavenDep.setScope(dep.getScope().getValue());
         return mavenDep;
+    }
+
+    /**
+     * Transform a soft version requirement into an exact one by wrapping it in a range which only includes .
+     */
+    private String convertSoftToExactVersionString(String version) {
+        if (version.startsWith("[") || version.startsWith("(")) {
+            getLog().warn("Version is already a range, '" + version + "'. Cannot reliably make exact for freeze pom.");
+            return version;
+        }
+        return "[" + version + "]";
     }
 }

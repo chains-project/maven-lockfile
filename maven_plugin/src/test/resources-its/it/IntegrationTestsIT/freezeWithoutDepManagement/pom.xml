@@ -63,6 +63,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <exactVersionStrings>false</exactVersionStrings>
+                </configuration>
             </plugin>
         </plugins>
     </build>
