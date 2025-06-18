@@ -69,11 +69,14 @@ mvn -f pom.lockfile.xml
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`) will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
 - `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
-- `checksumAlgorithm` (`-DchecksumAlgorithm=sha256`) will set the checksum algorithm used to generate the lockfile. The default depends on your checksum mode.
+- `checksumAlgorithm` (`-DchecksumAlgorithm=sha256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+
+For `:freeze` target:
+- `exactVersionStrings` (`-DexactVersionStrings=false`, default=true) provide version string as exact parameter `[1.0.0]`, instead of soft requirement `1.0.0`.
 
 ### Flags example
 

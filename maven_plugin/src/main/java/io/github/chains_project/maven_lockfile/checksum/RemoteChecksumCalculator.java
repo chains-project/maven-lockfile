@@ -173,7 +173,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public String getDefaultChecksumAlgorithm() {
-        return "sha1";
+        return "SHA-256";
     }
 
     @Override
