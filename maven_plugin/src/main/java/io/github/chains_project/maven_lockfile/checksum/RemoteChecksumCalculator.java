@@ -31,7 +31,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 || checksumAlgorithm.equals("sha256")
                 || checksumAlgorithm.equals("sha512"))) {
             throw new IllegalArgumentException(
-                    "Invalid checksum algorithm maven central only supports md5, sha1, sha256 or sha512.");
+                    "Invalid checksum algorithm '" + checksumAlgorithm + "', remote repositories only supports md5, sha1, sha256 or sha512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
