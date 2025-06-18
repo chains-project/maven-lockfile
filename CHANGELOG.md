@@ -1937,3 +1937,36 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.6.0
+## Changelog
+
+## 🚀 Added
+- 03b1003 ✨ feat: Add exactVersionString to freeze target (#1204)
+- ce475db ✨ feat: Add `sha256` and `sha512` checksums to remote mode (#1200)
+- 2f5bf2c 👷 ci: Add githubusercontent release-assets to harden runner allowlists (#1252)
+- de9b046 👷 ci: Update gha.sum in CI for all PRs (#1245)
+- 40211d8 👷 ci: Remove ghasum binary after checksum verification (#1244)
+
+## 🔄️ Changed
+- d98e4c9 🚸 feat: Change default checksumMode from local to remote (#1199)
+- ed338e7 💬 format: Format all checksums with capital letters (#1255)
+
+## 📦 Dependencies
+- 40d9be9 ⬆️ (deps): Update step-security/harden-runner action to v2.12.1 (#1247)
+- 6bd867d ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.0 (#1253)
+- 9fcb067 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v6.0.1 (#1250)
+- 7fd5c73 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v6 (#1249)
+- 79960ef ⬆️ (deps): Update github/codeql-action action to v3.29.0 (#1248)
+- 45f0ddd ⬆️ (deps): Update junit5 monorepo to v5.13.1 (#1242)
+
+## 🏁 Release
+- 0df0638 🔖 Releasing version 5.6.0
+- 9851c72 🔖 Setting SNAPSHOT version 5.5.4-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
