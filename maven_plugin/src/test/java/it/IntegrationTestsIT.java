@@ -384,14 +384,14 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void checksumModeRemote(MavenExecutionResult result) throws Exception {
-        // contract: if checksum mode is remote, maven-lockfile should be able to download and verify sha256 from maven
-        // central and if sha256 is not available, it should be able to .
+        // contract: if checksum mode is remote, maven-lockfile should be able to download and verify SHA-256 from maven
+        // central and if SHA-256 is not available, it should be able to .
         assertThat(result).isSuccessful();
         var lockfilePath = findFile(result, "lockfile.json");
         assertThat(lockfilePath).exists();
         var lockfile = LockFile.readLockFile(lockfilePath);
 
-        // Verify: atlassian-bandana:0.2.0 is hosted on packages.atlassian.com which doesn't provide sha256, sha256 has
+        // Verify: atlassian-bandana:0.2.0 is hosted on packages.atlassian.com which doesn't provide SHA-256, SHA-256 has
         // to be calculated
         var dep1Checksum = lockfile.getDependencies().stream()
                 .filter(dependency -> dependency
@@ -401,10 +401,10 @@ public class IntegrationTestsIT {
         assertThat(dep1Checksum).isNotNull();
         result.getMavenLog();
 
-        // Verify: jsap:2.1 is hosted on repo.maven.apache.org which doesn't provide sha256, and who's sha1 has a
-        // different format (providing `checksum path` instead of `checksum`). Sha1 should still succeed as the
+        // Verify: jsap:2.1 is hosted on repo.maven.apache.org which doesn't provide SHA-256, and who's SHA-1 has a
+        // different format (providing `checksum path` instead of `checksum`). SHA-1 should still succeed as the
         // `checksum` is verified aganist up until the first space, thus excluding the path of the file when the
-        // sha1 was generated. Sha256 has to be calculated.
+        // SHA-1 was generated. SHA-256 has to be calculated.
         var dep2Checksum = lockfile.getDependencies().stream()
                 .filter(dependency -> dependency
                         .getChecksum()
@@ -412,7 +412,7 @@ public class IntegrationTestsIT {
                 .findAny();
         assertThat(dep2Checksum).isNotNull();
 
-        // Verify: spoon-core:11.1.0 is hosted on maven central and directly provides sha256 checksums
+        // Verify: spoon-core:11.1.0 is hosted on maven central and directly provides SHA-256 checksums
         var dep3Checksum = lockfile.getDependencies().stream()
                 .filter(dependency -> dependency
                         .getChecksum()

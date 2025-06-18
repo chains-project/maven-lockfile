@@ -26,12 +26,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             ProjectBuildingRequest artifactBuildingRequest,
             ProjectBuildingRequest pluginBuildingRequest) {
         super(checksumAlgorithm);
-        if (!(checksumAlgorithm.equals("md5")
-                || checksumAlgorithm.equals("sha1")
-                || checksumAlgorithm.equals("sha256")
-                || checksumAlgorithm.equals("sha512"))) {
+        if (!(checksumAlgorithm.equals("MD5")
+                || checksumAlgorithm.equals("SHA-1")
+                || checksumAlgorithm.equals("SHA-256")
+                || checksumAlgorithm.equals("SHA-512"))) {
             throw new IllegalArgumentException(
-                    "Invalid checksum algorithm maven central only supports md5, sha1, sha256 or sha512.");
+                    "Invalid checksum algorithm '" + checksumAlgorithm + "', remote repositories only supports MD5, SHA-1, SHA-256 or SHA-512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
@@ -57,7 +57,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
                         + version + "/" + filename;
-                String checksumUrl = artifactUrl + "." + checksumAlgorithm;
+                String checksumUrl = artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
 
                 LOGGER.debug("Checking: " + checksumUrl);
 
@@ -84,7 +84,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":"
                             + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
 
-                    // Fallback to and verify downloaded artifact with sha1
+                    // Fallback to and verify downloaded artifact with SHA-1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
                             .uri(URI.create(artifactUrl + ".sha1"))
                             .build();
@@ -103,20 +103,20 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                     if (artifactVerificationResponse.statusCode() >= 200
                             && artifactVerificationResponse.statusCode() < 300) {
-                        MessageDigest verificationMessageDigest = MessageDigest.getInstance("sha1");
+                        MessageDigest verificationMessageDigest = MessageDigest.getInstance("SHA-1");
                         String sha1 = baseEncoding
                                 .encode(verificationMessageDigest.digest(artifactResponse.body()))
                                 .toLowerCase(Locale.ROOT);
 
                         if (!sha1.equals(artifactVerification)) {
-                            LOGGER.error("Invalid sha1 checksum for: " + artifactUrl);
-                            throw new RuntimeException("Invalid sha1 checksum for '" + artifact.getGroupId() + ":"
+                            LOGGER.error("Invalid SHA-1 checksum for: " + artifactUrl);
+                            throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact.getGroupId() + ":"
                                     + artifactId + ":" + version + "'. Checksum found at '" + artifactUrl
                                     + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
                                     + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
                     } else {
-                        LOGGER.warn("Unable to find sha1 to verify download of: " + artifactUrl);
+                        LOGGER.warn("Unable to find SHA-1 to verify download of: " + artifactUrl);
                     }
 
                     MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
