@@ -30,8 +30,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 || checksumAlgorithm.equals("sha1")
                 || checksumAlgorithm.equals("sha256")
                 || checksumAlgorithm.equals("sha512"))) {
-            throw new IllegalArgumentException(
-                    "Invalid checksum algorithm '" + checksumAlgorithm + "', remote repositories only supports md5, sha1, sha256 or sha512.");
+            throw new IllegalArgumentException("Invalid checksum algorithm '" + checksumAlgorithm
+                    + "', remote repositories only supports md5, sha1, sha256 or sha512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
