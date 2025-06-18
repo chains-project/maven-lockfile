@@ -56,7 +56,7 @@
         </executions>
         <configuration>
           <checksumMode>remote</checksumMode>
-          <checksumAlgorithm>sha256</checksumAlgorithm>
+          <checksumAlgorithm>SHA-256</checksumAlgorithm>
         </configuration>
       </plugin>
     </plugins>
