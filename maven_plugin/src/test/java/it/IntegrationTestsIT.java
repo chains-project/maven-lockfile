@@ -391,7 +391,8 @@ public class IntegrationTestsIT {
         assertThat(lockfilePath).exists();
         var lockfile = LockFile.readLockFile(lockfilePath);
 
-        // Verify: atlassian-bandana:0.2.0 is hosted on packages.atlassian.com which doesn't provide SHA-256, SHA-256 has
+        // Verify: atlassian-bandana:0.2.0 is hosted on packages.atlassian.com which doesn't provide SHA-256, SHA-256
+        // has
         // to be calculated
         var dep1Checksum = lockfile.getDependencies().stream()
                 .filter(dependency -> dependency

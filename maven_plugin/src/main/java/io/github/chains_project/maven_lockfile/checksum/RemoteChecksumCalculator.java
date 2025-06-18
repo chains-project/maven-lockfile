@@ -30,8 +30,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 || checksumAlgorithm.equals("SHA-1")
                 || checksumAlgorithm.equals("SHA-256")
                 || checksumAlgorithm.equals("SHA-512"))) {
-            throw new IllegalArgumentException(
-                    "Invalid checksum algorithm '" + checksumAlgorithm + "', remote repositories only supports MD5, SHA-1, SHA-256 or SHA-512.");
+            throw new IllegalArgumentException("Invalid checksum algorithm '" + checksumAlgorithm
+                    + "', remote repositories only supports MD5, SHA-1, SHA-256 or SHA-512.");
         }
 
         this.artifactBuildingRequest = artifactBuildingRequest;
@@ -57,7 +57,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
                         + version + "/" + filename;
-                String checksumUrl = artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
+                String checksumUrl =
+                        artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
 
                 LOGGER.debug("Checking: " + checksumUrl);
 
