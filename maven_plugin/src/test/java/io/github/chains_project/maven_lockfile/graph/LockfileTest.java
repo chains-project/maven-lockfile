@@ -11,7 +11,7 @@ public class LockfileTest {
     @Test
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
-                new Environment("os", "mv", "jv"), new Config(true, false, true, false, "1", "local", "sha1"));
+                new Environment("os", "mv", "jv"), new Config(true, false, true, false, "1", "local", "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
@@ -42,7 +42,7 @@ public class LockfileTest {
                 VersionNumber.of("1"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                "sha1",
+                "SHA-1",
                 "A");
 
         node.addChild(child1);
@@ -57,7 +57,7 @@ public class LockfileTest {
                 VersionNumber.of("1"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                "sha1",
+                "SHA-1",
                 "B");
     }
 
@@ -68,7 +68,7 @@ public class LockfileTest {
                 VersionNumber.of("1"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                "sha1",
+                "SHA-1",
                 "1");
     }
 
@@ -79,17 +79,17 @@ public class LockfileTest {
                 VersionNumber.of("1"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                "sha1",
+                "SHA-1",
                 "2");
     }
 
     private MavenPlugin pluginA() {
         return new MavenPlugin(
-                GroupId.of("PgA"), ArtifactId.of("PA"), VersionNumber.of("1"), "sha1", "PA", ResolvedUrl.Unresolved());
+                GroupId.of("PgA"), ArtifactId.of("PA"), VersionNumber.of("1"), "SHA-1", "PA", ResolvedUrl.Unresolved());
     }
 
     private MavenPlugin pluginB() {
         return new MavenPlugin(
-                GroupId.of("PgB"), ArtifactId.of("PB"), VersionNumber.of("1"), "sha1", "PB", ResolvedUrl.Unresolved());
+                GroupId.of("PgB"), ArtifactId.of("PB"), VersionNumber.of("1"), "SHA-1", "PB", ResolvedUrl.Unresolved());
     }
 }
