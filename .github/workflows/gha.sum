@@ -8,8 +8,8 @@ actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 XE1eqHfEOlHsHx+3cUQA
 actions/setup-java@v4.7.1 cKZQn6p38RgADB4MCMpbFp94sScgm/u3B7rEDB9QS5I=
 actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 kZHHfo2NsxevBRTKrZnUpDu0Cxgtj5Vooe4x4rylvg8=
 actions/upload-artifact@v4.6.2 kZHHfo2NsxevBRTKrZnUpDu0Cxgtj5Vooe4x4rylvg8=
-github/codeql-action@39edc492dbe16b1465b0cafca41432d857bdb31a 567EO29Bkny2lga/LnAvdro1IGWIFOnbfQPZg8lRnaE=
-github/codeql-action@v3.29.1 567EO29Bkny2lga/LnAvdro1IGWIFOnbfQPZg8lRnaE=
+github/codeql-action@181d5eefc20863364f96762470ba6f862bdef56b x5anxGHQcfTpFImUYCNskW7rSLE/BVvPoYu0lWFHJ+A=
+github/codeql-action@v3.29.2 x5anxGHQcfTpFImUYCNskW7rSLE/BVvPoYu0lWFHJ+A=
 jreleaser/release-action@2.4.2 Ixc/05XDYYHGUvtC6Jt9gB/mpHPIwBX7PR8At1yEWSs=
 ossf/scorecard-action@05b42c624433fc40578a4040d5cf5e36ddca8cde NlVzVIaycy3fhYp7tgiwvpWvzSsPa48uTVejF6tHEog=
 stefanzweifel/git-auto-commit-action@v6.0.1 5+Y5J+dG+VvtR13IIYuBHcAdJAcnDBQU/U0sRO3YZZw=
