@@ -70,6 +70,14 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-site-plugin/3.21.0/maven-site-plugin-3.21.0.jar"
     },
     {
+      "groupId": "org.codehaus.gmavenplus",
+      "artifactId": "gmavenplus-plugin",
+      "version": "4.2.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "85c43706d58864b7786a8a7fd5274e8301a0ce64adb9d78f782153a9934cdddf",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/4.2.1/gmavenplus-plugin-4.2.1.jar"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.5.0",
@@ -108,14 +116,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar"
-    },
-    {
-      "groupId": "org.codehaus.gmavenplus",
-      "artifactId": "gmavenplus-plugin",
-      "version": "4.2.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "fd779dd78621bc388ee0e7bf33548f09188e51beebe906bb5c056d5eb5b90bcc",
-      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/4.2.0/gmavenplus-plugin-4.2.0.jar"
     }
   ],
   "metaData": {
