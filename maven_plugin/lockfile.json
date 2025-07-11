@@ -274,27 +274,27 @@
     {
       "groupId": "org.apache.logging.log4j",
       "artifactId": "log4j-core",
-      "version": "2.25.0",
+      "version": "2.25.1",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "05d3eecb9e509fd47117c0fb43c7b4b2989b28ecd5543ad5feff2e4903d3c921",
+      "checksum": "78c232747855464b182f0abf78a99a22c88d4d270ff585343dab55576d7420e2",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.25.0/log4j-core-2.25.0.jar",
-      "selectedVersion": "2.25.0",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.25.1/log4j-core-2.25.1.jar",
+      "selectedVersion": "2.25.1",
       "included": true,
-      "id": "org.apache.logging.log4j:log4j-core:2.25.0",
+      "id": "org.apache.logging.log4j:log4j-core:2.25.1",
       "children": [
         {
           "groupId": "org.apache.logging.log4j",
           "artifactId": "log4j-api",
-          "version": "2.25.0",
+          "version": "2.25.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "0393e32167240eb56597a2016446928755729f1a181046cab5d42a81d0e3d909",
+          "checksum": "20b9c77c0a9e54d1063a39e551dcaf98c7d8e7a4994648f84d0b9e14c71f7215",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.25.0/log4j-api-2.25.0.jar",
-          "selectedVersion": "2.25.0",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.25.1/log4j-api-2.25.1.jar",
+          "selectedVersion": "2.25.1",
           "included": true,
-          "id": "org.apache.logging.log4j:log4j-api:2.25.0",
-          "parent": "org.apache.logging.log4j:log4j-core:2.25.0",
+          "id": "org.apache.logging.log4j:log4j-api:2.25.1",
+          "parent": "org.apache.logging.log4j:log4j-core:2.25.1",
           "children": []
         }
       ]
