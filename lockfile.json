@@ -7,6 +7,14 @@
   "mavenPlugins": [
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.6.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "01bd31b7d51dfcbe635e4bdd89cf185ce4023caa876ed821970f039985b9148d",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.1/maven-enforcer-plugin-3.6.1.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
       "version": "3.6.0",
       "checksumAlgorithm": "SHA-256",
@@ -36,14 +44,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "3be1d369703884116300b57abda1c46b8c712faf9a3778960d21dd27af73b650",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/3.1.4/maven-deploy-plugin-3.1.4.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-enforcer-plugin",
-      "version": "3.6.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "40cdcb2773ab368bc1234848c52f2275e7994da72697b6fb5a5072d7f5017c82",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.0/maven-enforcer-plugin-3.6.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
