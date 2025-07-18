@@ -261,14 +261,14 @@
     {
       "groupId": "commons-io",
       "artifactId": "commons-io",
-      "version": "2.19.0",
+      "version": "2.20.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "824268919b4b62f9f40f08c54381de5993b078f58667e332d17348ae019d72b9",
+      "checksum": "df90bba0fe3cb586b7f164e78fe8f8f4da3f2dd5c27fa645f888100ccc25dd72",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.19.0/commons-io-2.19.0.jar",
-      "selectedVersion": "2.19.0",
+      "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar",
+      "selectedVersion": "2.20.0",
       "included": true,
-      "id": "commons-io:commons-io:2.19.0",
+      "id": "commons-io:commons-io:2.20.0",
       "children": []
     },
     {
