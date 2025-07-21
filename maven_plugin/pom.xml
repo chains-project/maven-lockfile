@@ -186,7 +186,7 @@
           <execution>
             <configuration>
               <scripts>
-                <script></script>
+                <script/>
               </scripts>
             </configuration>
           </execution>

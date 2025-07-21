@@ -92,8 +92,8 @@
               <includes>
                 <include>.gitignore</include>
               </includes>
-              <trimTrailingWhitespace></trimTrailingWhitespace>
-              <endWithNewline></endWithNewline>
+              <trimTrailingWhitespace/>
+              <endWithNewline/>
               <indent>
                 <tabs>false</tabs>
                 <spaces>true</spaces>
@@ -102,13 +102,13 @@
             </format>
           </formats>
           <java>
-            <palantirJavaFormat></palantirJavaFormat>
+            <palantirJavaFormat/>
           </java>
           <pom>
             <includes>
               <include>pom.xml</include>
             </includes>
-            <sortPom></sortPom>
+            <sortPom/>
           </pom>
         </configuration>
       </plugin>
@@ -168,7 +168,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.14.0</version>
-        <configuration></configuration>
+        <configuration/>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
