@@ -2507,6 +2507,14 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/3.1.4/maven-deploy-plugin-3.1.4.jar"
     },
     {
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "2.45.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "3de0d35f213ae98b8b9a2ca8ad9ad2215e20d5f715fdb0c3397c6c482d3e345e",
+      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/2.45.0/spotless-maven-plugin-2.45.0.jar"
+    },
+    {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-plugin-plugin",
       "version": "3.15.1",
@@ -2553,14 +2561,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "a15977e3457ff8cd803c1a37e1e53aad76e4609cd23bbca8e8f783e5c78e5fa8",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar"
-    },
-    {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "2.44.5",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "b19f1dd70dc594494150776ac1ae7f19ed65671009b0be8b5a048809fb0873dd",
-      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/2.44.5/spotless-maven-plugin-2.44.5.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
