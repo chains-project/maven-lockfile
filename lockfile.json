@@ -121,8 +121,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.10",
-      "javaVersion": "17.0.15"
+      "mavenVersion": "3.9.11",
+      "javaVersion": "17.0.16"
     },
     "config": {
       "includeMavenPlugins": true,
