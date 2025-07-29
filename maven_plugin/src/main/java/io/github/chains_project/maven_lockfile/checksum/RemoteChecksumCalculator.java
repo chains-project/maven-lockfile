@@ -2,7 +2,6 @@ package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

@@ -10,9 +10,13 @@ public class Pom implements Comparable<Pom> {
     private final String checksum;
 
     public Pom(MavenProject project, AbstractChecksumCalculator checksumCalculator) {
-        this.path = project.getBasedir().toPath().relativize(project.getFile().toPath()).toString();
+        this.path = project.getBasedir()
+                .toPath()
+                .relativize(project.getFile().toPath())
+                .toString();
         this.checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
-        this.checksum = checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+        this.checksum =
+                checksumCalculator.calculatePomChecksum(project.getFile().toPath());
     }
 
     public Pom(String path, String checksumAlgorithm, String checksum) {
@@ -59,8 +63,8 @@ public class Pom implements Comparable<Pom> {
             return false;
         }
         Pom other = (Pom) obj;
-        return this.path.equals(other.path) &&
-                this.checksumAlgorithm.equals(other.checksumAlgorithm) &&
-                this.checksum.equals(other.checksum);
+        return this.path.equals(other.path)
+                && this.checksumAlgorithm.equals(other.checksumAlgorithm)
+                && this.checksum.equals(other.checksum);
     }
 }
