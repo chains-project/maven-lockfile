@@ -100,10 +100,12 @@ public class LockFileFacade {
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
+        var pom = new Pom(project, checksumCalculator);
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
                 VersionNumber.of(project.getVersion()),
+                pom,
                 roots,
                 plugins,
                 metadata);
