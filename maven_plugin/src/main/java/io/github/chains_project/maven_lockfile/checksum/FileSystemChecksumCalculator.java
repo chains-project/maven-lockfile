@@ -182,4 +182,18 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
                 .orElse(ResolvedUrl.of(""));
     }
+
+    @Override
+    public String calculatePomChecksum(Path path) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
+            byte[] fileBuffer = Files.readAllBytes(path);
+            byte[] artifactHash = messageDigest.digest(fileBuffer);
+            BaseEncoding baseEncoding = BaseEncoding.base16();
+            return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
+        } catch (Exception e) {
+            LOGGER.warn("Could not calculate checksum for pom " + path, e);
+            return "";
+        }
+    }
 }
