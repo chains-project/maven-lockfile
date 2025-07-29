@@ -7,6 +7,7 @@ public class Config {
 
     private final boolean includeMavenPlugins;
     private final boolean allowValidationFailure;
+    private final boolean failValidateOnPomChecksumMismatch;
     private final boolean includeEnvironment;
     private final boolean reduced;
     private final String mavenLockfileVersion;
@@ -16,6 +17,7 @@ public class Config {
     public Config(
             boolean includeMavenPlugins,
             boolean allowValidationFailure,
+            boolean failValidateOnPomChecksumMismatch,
             boolean includeEnvironment,
             boolean reduced,
             String mavenLockfileVersion,
@@ -23,6 +25,7 @@ public class Config {
             String checksumAlgorithm) {
         this.includeMavenPlugins = includeMavenPlugins;
         this.allowValidationFailure = allowValidationFailure;
+        this.failValidateOnPomChecksumMismatch = failValidateOnPomChecksumMismatch;
         this.includeEnvironment = includeEnvironment;
         this.reduced = reduced;
         this.mavenLockfileVersion = mavenLockfileVersion;
@@ -33,6 +36,7 @@ public class Config {
     public Config() {
         this.includeMavenPlugins = false;
         this.allowValidationFailure = false;
+        this.failValidateOnPomChecksumMismatch = false;
         this.includeEnvironment = true;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
@@ -50,6 +54,12 @@ public class Config {
      */
     public boolean isAllowValidationFailure() {
         return allowValidationFailure;
+    }
+    /**
+     * @return the failValidateOnPomChecksumMismatch
+     */
+    public boolean isFailValidateOnPomChecksumMismatch() {
+        return failValidateOnPomChecksumMismatch;
     }
     /**
      * @return the includeEnvironment
