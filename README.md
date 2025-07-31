@@ -3,8 +3,8 @@
 <p align="left">
     <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt="SemVersion">
         <img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-    <a href="https://maven-badges.sml.io/sonatype-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt="Maven-Central">
-        <img src="https://maven-badges.sml.io/sonatype-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
+    <a href="https://maven-badges.sml.io/sonatype-central/io.github.chains-project/maven-lockfile/badge.png?gav=false" alt="Maven-Central">
+        <img src="https://maven-badges.sml.io/sonatype-central/io.github.chains-project/maven-lockfile/badge.png?gav=false" /></a>
     <a href="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml" alt="Lockfile">
         <img src="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg" /></a>
     <a href="https://bestpractices.coreinfrastructure.org/projects/7447"><img src="https://bestpractices.coreinfrastructure.org/projects/7447/badge"></a>
