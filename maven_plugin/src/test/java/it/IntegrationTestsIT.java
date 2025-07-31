@@ -456,7 +456,7 @@ public class IntegrationTestsIT {
     public void pomCheckShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
         assertThat(result).isFailure();
-        String stderr = Files.readString(result.getMavenLog().getStderr());
-        assertThat(stderr.contains("Pom checksum mismatch.")).isTrue();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
     }
 }
