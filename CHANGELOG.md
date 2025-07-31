@@ -1970,3 +1970,49 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ()
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.6.1
+## Changelog
+
+## 🐛 Fixed
+- 3965f12 💚 ci: Fix SmokeTest by clone smoketest repos to subfolder (#1284)
+
+## 📦 Dependencies
+- aecba02 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.46.1 (#1286)
+- fd0e03b ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v2.45.0 (#1267)
+- e49d38d ⬆️ (deps): Update dependency org.instancio:instancio-junit to v5.5.0 (#1278)
+- dd1901d ⬆️ (deps): Update github/codeql-action action to v3.29.5 (#1277)
+- badc783 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v4.0.28 (#1276)
+- 3a95d4b ⬆️ (deps): Update github/codeql-action action to v3.29.3 (#1274)
+- dc55297 ⬆️ (deps): Update junit-framework monorepo to v5.13.4 (#1275)
+- cff57cd ⬆️ (deps): Update dependencies in integration test lockfiles (#1271)
+- cb27c41 ⬆️ (deps): Update dependency commons-io:commons-io to v2.20.0 (#1273)
+- dfed863 ⬆️ (deps): Update step-security/harden-runner action to v2.13.0 (#1272)
+- 39c7ec9 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.6.1 (#1270)
+- 569ab1f ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.10 (#1262)
+- 7799ca0 ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.1 (#1268)
+- 603c509 ⬆️ (deps): Update dependency org.codehaus.gmavenplus:gmavenplus-plugin to v4.2.1 (#1266)
+- 411aeff ⬆️ (deps): Update junit-framework monorepo to v5.13.3 (#1265)
+- 30b4828 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.6.0 (#1264)
+- e48ba15 ⬆️ (deps): Update github/codeql-action action to v3.29.2 (#1263)
+- f9319a0 ⬆️ (deps): Update step-security/harden-runner action to v2.12.2 (#1261)
+- 66631bf ⬆️ (deps): Update github/codeql-action action to v3.29.1 (#1260)
+- fda8744 ⬆️ (deps): Update dependency org.junit.jupiter:junit-jupiter-engine to v5.13.2 (#1259)
+- 7e36a85 ⬆️ (deps): Update dependency org.junit.jupiter:junit-jupiter-api to v5.13.2 (#1258)
+
+## 📝 Documentation
+- 2da285a 📝 Update badges to md format and maven central search (#1287)
+
+## 🏁 Release
+- 7a05656 🔖 Releasing version 5.6.1
+- 397964f 🔖 Setting SNAPSHOT version 5.6.1-SNAPSHOT
+
+---
+- 77a798f chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
