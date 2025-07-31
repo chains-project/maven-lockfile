@@ -59,10 +59,10 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + lockFileFromProject.getPom().getPath()
                         + " " + lockFileFromProject.getPom().getChecksum() + "\n";
 
-                if (config.isFailValidateOnPomChecksumMismatch()) {
-                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
-                } else {
+                if (config.isAllowPomValidationFailure()) {
                     getLog().warn(sb);
+                } else {
+                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
