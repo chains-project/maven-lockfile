@@ -2,6 +2,11 @@
   "artifactId": "remote-repository-should-resolve",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "ba56eb66051bce3676a634bd33db6bbf8fea7fc186cf1c8c148c176ebf95c569"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -9,7 +14,7 @@
       "artifactId": "atlassian-bandana",
       "version": "0.2.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "12357e6d5c5eb6b5ed80bbb98f4ef7b70fcb08520a9f306c4af086c37d6ebc11",
+      "checksum": "0098dfae1cefbcfb3125ac170a9eea4f63a271e7797c49e8b11c39f76fd74791",
       "scope": "compile",
       "resolved": "https://packages.atlassian.com/maven-public/atlassian-bandana/atlassian-bandana/0.2.0/atlassian-bandana-0.2.0.jar",
       "selectedVersion": "0.2.0",
@@ -609,13 +614,14 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Linux",
-      "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.7"
+      "osName": "Mac OS X",
+      "mavenVersion": "3.8.2",
+      "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
