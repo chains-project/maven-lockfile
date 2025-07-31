@@ -1,16 +1,11 @@
 
 # Maven Lockfile
-<p align="left">
-    <a href="https://img.shields.io/badge/semver-2.0.0-blue" alt="SemVersion">
-        <img src="https://img.shields.io/badge/semver-2.0.0-blue" /></a>
-    <a href="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" alt="Maven-Central">
-        <img src="https://maven-badges.herokuapp.com/maven-central/io.github.chains-project/maven-lockfile/badge.png?gav=true" /></a>
-    <a href="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml" alt="Lockfile">
-        <img src="https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg" /></a>
-    <a href="https://bestpractices.coreinfrastructure.org/projects/7447"><img src="https://bestpractices.coreinfrastructure.org/projects/7447/badge"></a>
-    <a href="https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/io/github/chains-project/maven-lockfile/README.md" alt="Reproducible Builds">
-        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjvm-repo-rebuild%2Freproducible-central%2Fmaster%2Fcontent%2Fio%2Fgithub%2Fchains-project%2Fmaven-lockfile%2Fbadge.json" /></a>
-</p>
+
+[![SemVersion](https://img.shields.io/badge/semver-2.0.0-blue)](https://img.shields.io/badge/semver-2.0.0-blue)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.chains-project/maven-lockfile.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.github.chains-project%22%20AND%20a%3A%22maven-lockfile%22)
+[![Lockfile](https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg)](https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/7447/badge)](https://bestpractices.coreinfrastructure.org/projects/7447)
+[![Reproducible Builds](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjvm-repo-rebuild%2Freproducible-central%2Fmaster%2Fcontent%2Fio%2Fgithub%2Fchains-project%2Fmaven-lockfile%2Fbadge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/io/github/chains-project/maven-lockfile/README.md)
 
 ![Mavenlockfile Banner](https://github.com/user-attachments/assets/87b2e254-1c16-4995-8f4a-f80da93bfbc7)
 
