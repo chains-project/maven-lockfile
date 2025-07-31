@@ -91,7 +91,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": true,
-      "allowPomValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
