@@ -2,6 +2,11 @@
   "artifactId": "freeze-with-dep-management",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "aad917744a16306f27b5faffc227baf908ab5f3c8ef8835f455b32a1720808af"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -128,6 +133,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
