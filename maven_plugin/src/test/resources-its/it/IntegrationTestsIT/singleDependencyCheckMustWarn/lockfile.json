@@ -2,6 +2,11 @@
   "artifactId": "single-dependency-check-must-warn",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "b70de058252a15068676fc0c59550426d5f9d1a707e1938fc214fb05ce2d947c"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -86,6 +91,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": true,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

@@ -2,6 +2,11 @@
   "artifactId": "with-environment-from-lockfile",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "fb69ca1e4d2c0ee9b6035d15e224705b4a14813ff4f82dd40225ea7449ad5325"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -200,6 +205,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

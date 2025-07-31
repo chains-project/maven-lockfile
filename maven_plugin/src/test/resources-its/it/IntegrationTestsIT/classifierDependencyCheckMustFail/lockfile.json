@@ -2,6 +2,11 @@
   "artifactId": "classifier-dependency-check-must-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "77c61398a23564d4d08709eb9c33bd4d0f47bbc0f307732380251dd387a88b1a"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -200,6 +205,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
