@@ -52,6 +52,8 @@ public class SmokeTest {
                 new ProcBuilder("../../maven_plugin/mvnw", command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
+                    .withOutputStream(System.out)
+                    .withErrorStream(System.err)
                     .run();
                 LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
                 new ProcBuilder("../../maven_plugin/mvnw", mavenGraph)
