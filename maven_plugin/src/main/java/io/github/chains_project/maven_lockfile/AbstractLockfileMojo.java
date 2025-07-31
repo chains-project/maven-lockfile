@@ -93,10 +93,19 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
+        return getChecksumCalculator(config, false);
+    }
+
+    protected AbstractChecksumCalculator getChecksumCalculator(Config config, boolean forceLocalChecksumMode) throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        switch (checksumModeDeprecation(config.getChecksumMode())) {
+        String checksumMode = checksumModeDeprecation(config.getChecksumMode());
+        if (forceLocalChecksumMode) {
+            checksumMode = "local";
+        }
+
+        switch (checksumMode) {
             case "local":
                 return new FileSystemChecksumCalculator(
                         dependencyResolver,
@@ -107,7 +116,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 return new RemoteChecksumCalculator(
                         config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
             default:
-                throw new MojoExecutionException("Invalid checksum mode: " + config.getChecksumMode());
+                throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
         }
     }
 
