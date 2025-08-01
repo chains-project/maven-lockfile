@@ -6,8 +6,10 @@ actions/dependency-review-action@v4.7.1 hJDiqW4455iVs8gVcWjiEbjhuvh0oXQKy9fN/BGF
 actions/setup-go@v5.5.0 vSiNC7HetrtPF3QhZDzPHWyJ1e8pFltzruLjcw65Sok=
 actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 XE1eqHfEOlHsHx+3cUQA1OGC3jxGBnmx7eTIdEzwSoI=
 actions/setup-java@v4.7.1 cKZQn6p38RgADB4MCMpbFp94sScgm/u3B7rEDB9QS5I=
+actions/setup-python@v5.6.0 MTHBGEHwb+MeIw3xRLiVuM/uyRfuK8hlVXL+Z/yEA8c=
 actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 kZHHfo2NsxevBRTKrZnUpDu0Cxgtj5Vooe4x4rylvg8=
 actions/upload-artifact@v4.6.2 kZHHfo2NsxevBRTKrZnUpDu0Cxgtj5Vooe4x4rylvg8=
+chains-project/dirty-waters-action@v1.11.52 JTXn8ep3K5YnkSpNVyVVe85RAxg2eQ2X+TKP5A6JgyA=
 github/codeql-action@51f77329afa6477de8c49fc9c7046c15b9a4e79d rTbCdqFnyGfvHQ2lm7GsGQdZMcFZ6fFkaW/+6s1LjG4=
 github/codeql-action@v3.29.5 rTbCdqFnyGfvHQ2lm7GsGQdZMcFZ6fFkaW/+6s1LjG4=
 jreleaser/release-action@2.4.2 Ixc/05XDYYHGUvtC6Jt9gB/mpHPIwBX7PR8At1yEWSs=
