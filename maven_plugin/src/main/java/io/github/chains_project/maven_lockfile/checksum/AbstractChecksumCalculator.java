@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import java.nio.file.Path;
 import org.apache.maven.artifact.Artifact;
 
 public abstract class AbstractChecksumCalculator {
@@ -31,4 +32,6 @@ public abstract class AbstractChecksumCalculator {
     public abstract ResolvedUrl getArtifactResolvedField(Artifact artifact);
 
     public abstract ResolvedUrl getPluginResolvedField(Artifact artifact);
+
+    public abstract String calculatePomChecksum(Path path);
 }

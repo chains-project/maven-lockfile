@@ -6,6 +6,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.Optional;
@@ -201,5 +203,19 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public ResolvedUrl getPluginResolvedField(Artifact artifact) {
         return getResolvedFieldInternal(artifact, pluginBuildingRequest).orElse(ResolvedUrl.Unresolved());
+    }
+
+    @Override
+    public String calculatePomChecksum(Path path) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
+            byte[] fileBuffer = Files.readAllBytes(path);
+            byte[] artifactHash = messageDigest.digest(fileBuffer);
+            BaseEncoding baseEncoding = BaseEncoding.base16();
+            return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
+        } catch (Exception e) {
+            LOGGER.warn("Could not calculate checksum for pom " + path, e);
+            return "";
+        }
     }
 }
