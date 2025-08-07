@@ -27,6 +27,7 @@ jobs:
         uses: ./.github/actions/ghasum
 
       - name: Check for running release action
+        if: ${{ !startsWith(github.head_ref, 'release/') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -37,4 +38,10 @@ jobs:
           else
             echo "✅ No running release workflows detected."
           fi
+        shell: bash
+
+      - name: Skip check for release branch
+        if: ${{ startsWith(github.head_ref, 'release/') }}
+        run: |
+          echo "✅ Skipping release workflow check for release branch: ${{ github.head_ref }}"
         shell: bash
