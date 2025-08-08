@@ -2,6 +2,11 @@
   "artifactId": "freeze-junit",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "e34f723bf7609475b04afb5ab4c9a7a5a8b7a63111340b895402d0a29acb9de2"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -79,13 +84,14 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Mac OS X",
-      "mavenVersion": "3.8.2",
+      "osName": "Linux",
+      "mavenVersion": "3.9.9",
       "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
