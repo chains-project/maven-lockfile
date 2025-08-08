@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mycompany.app</groupId>
-  <artifactId>different-lockfile-name</artifactId>
+  <artifactId>pom-check-should-fail</artifactId>
   <packaging>jar</packaging>
   <version>1</version>
   <properties>
@@ -22,14 +22,12 @@
         <executions>
           <execution>
             <goals>
-              <goal>
-                generate</goal>
+              <goal>validate</goal>
             </goals>
           </execution>
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
-          <lockfileName>different-lockfile-name.json</lockfileName>
         </configuration>
       </plugin>
     </plugins>
