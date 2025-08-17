@@ -28,6 +28,7 @@ jobs:
             raw.githubusercontent.com:443
             rekor.sigstore.dev:443
             release-assets.githubusercontent.com:443
+            repo.eclipse.org:443
             repo.maven.apache.org:443
             repo1.maven.org:443
             repository.sonatype.org:443
