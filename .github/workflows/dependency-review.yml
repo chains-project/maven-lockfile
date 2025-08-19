@@ -34,4 +34,4 @@ jobs:
         uses: ./.github/actions/ghasum
 
       - name: Dependency review
-        uses: actions/dependency-review-action@v4.7.1
+        uses: actions/dependency-review-action@v4.7.2
