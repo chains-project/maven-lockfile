@@ -1,11 +1,11 @@
 {
-  "artifactId": "different-lockfile-name-validate-should-succeed",
+  "artifactId": "pom-check-should-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "068a60c7fc3632c57adea4c6087dffa6f3f613dedf250f3d3f96af192956551f"
+    "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -19,7 +19,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
-      "allowPomValidationFailure": true,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
