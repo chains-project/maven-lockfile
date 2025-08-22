@@ -114,7 +114,7 @@ jobs:
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
       - name: Run JReleaser
-        uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8 # 2.4.2
+        uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
         with:
           setup-java: false
           version: 1.18.0
