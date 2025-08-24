@@ -11,7 +11,7 @@ public class LockfileTest {
     @Test
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
-                new Environment("os", "mv", "jv"), new Config(true, false, true, false, "1", "local", "SHA-1"));
+                new Environment("os", "mv", "jv"), new Config(true, false, false, true, false, "1", "local", "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
@@ -20,6 +20,7 @@ public class LockfileTest {
                 groupId,
                 artifactId,
                 version,
+                new Pom("pom.xml", "SHA-256", "POM-CHECKSUM"),
                 Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
                 Set.of(pluginA(), pluginB()),
                 metadata);
@@ -28,6 +29,7 @@ public class LockfileTest {
                 groupId,
                 artifactId,
                 version,
+                new Pom("pom.xml", "SHA-256", "POM-CHECKSUM"),
                 Set.of(dependencyNodeB(), dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2())),
                 Set.of(pluginB(), pluginA()),
                 metadata);
