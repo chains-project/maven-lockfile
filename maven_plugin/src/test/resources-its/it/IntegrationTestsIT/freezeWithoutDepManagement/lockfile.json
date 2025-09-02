@@ -1699,8 +1699,8 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Mac OS X",
-      "mavenVersion": "3.8.2",
+      "osName": "Linux",
+      "mavenVersion": "3.9.9",
       "javaVersion": "21.0.5"
     },
     "config": {
