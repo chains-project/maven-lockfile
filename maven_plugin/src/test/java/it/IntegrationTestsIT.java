@@ -282,7 +282,8 @@ public class IntegrationTestsIT {
         assertThat(result).isSuccessful();
 
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout.contains("[WARNING] Failed verifying lock file. Lock file validation failed.")).isTrue();
+        assertThat(stdout.contains("[WARNING] Failed verifying lock file. Lock file validation failed."))
+                .isTrue();
     }
 
     @MavenTest
