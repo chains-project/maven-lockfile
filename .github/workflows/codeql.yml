@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Verify action checksums
-        uses: ./.github/actions/ghasum
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
 
       - name: Set up JDK 17
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
