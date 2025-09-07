@@ -598,7 +598,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.7"
+      "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
