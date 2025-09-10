@@ -39,10 +39,10 @@ jobs:
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: ./.github/actions/ghasum
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
 
       - name: Set up JDK 17
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -54,7 +54,7 @@ jobs:
           git config --global user.email "<>"
 
       - name: install go
-        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
 
       - name: install semversion
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
@@ -79,7 +79,7 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
 
       - name: run maven-lockfile (validate lockfile)
-        uses: ./
+        uses: chains-project/maven-lockfile@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -114,7 +114,7 @@ jobs:
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
       - name: Run JReleaser
-        uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8 # 2.4.2
+        uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
         with:
           setup-java: false
           version: 1.18.0

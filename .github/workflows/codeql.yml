@@ -63,17 +63,17 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Verify action checksums
-        uses: ./.github/actions/ghasum
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
 
       - name: Set up JDK 17
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
           java-version: '17'
           distribution: 'temurin'
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@96f518a34f7a870018057716cc4d7a5c014bd61c # v3.29.10
+        uses: github/codeql-action/init@f1f6e5f6af878fb37288ce1c627459e94dbf7d01 # v3.30.1
         with:
           languages: ${{ matrix.language }}
           # If you wish to specify custom queries, you can do so here or in a config file.
@@ -87,6 +87,6 @@ jobs:
         run: mvn -B  clean package
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@96f518a34f7a870018057716cc4d7a5c014bd61c # v3.29.10
+        uses: github/codeql-action/analyze@f1f6e5f6af878fb37288ce1c627459e94dbf7d01 # v3.30.1
         with:
           category: "/language:${{matrix.language}}"
