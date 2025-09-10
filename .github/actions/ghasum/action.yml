@@ -5,43 +5,204 @@ inputs:
     description: Update or verify checksums. Valid options are "update" and "verify".
     required: false
     default: "verify"
+  checksum:
+    description: The checksum of the ghasum checksums file
+    required: false
+    default: 4c3610665f3e9ccd84f8529810f40ac9ef2cc0ca3508e3a1bc51dda8d1f8624f836f3fc776ce68bc4bbbb0a6b0b4e7f2bf841f84eb695cc0ded1285c242d801b # Set the 'checksums-sha512.txt' file's checksum.
+  version:
+    description: The version of ghasum to use
+    required: false
+    default: v0.6.1         # Set the ghasum version.
 
 runs:
   using: composite
   steps:
-    - name: Downloading ghasum
-      env:
-        VERSION: v0.5.1
-        CHECKSUM: 57270991fee8c7e0f00f5d27c36f514c1743621f11bd53685c3153477a4929de2851f2fb7d4a3f5b2a68c85203b35759d580a023544665b466a3298047034c64
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        # Download the ghasum CLI
-        ARTIFACT="ghasum_linux_amd64.tar.gz"
-        gh release download "${VERSION}" --repo chains-project/ghasum --pattern "${ARTIFACT}"
-        echo "${CHECKSUM}  ${ARTIFACT}" | shasum -a 512 -c -
-        tar -xf "${ARTIFACT}"
-
+    # Unix download
+    - name: Initialize ghasum directory
+      if: runner.os == 'macOS' || runner.os == 'Linux'
       shell: bash
+      run: mkdir -p /tmp/ghasum
+    - name: Download ghasum checksums
+      if: runner.os == 'macOS' || runner.os == 'Linux'
+      shell: bash
+      working-directory: /tmp/ghasum
+      env:
+        CHECKSUM: ${{ inputs.checksum }}
+        GH_TOKEN: ${{ github.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        ARTIFACT='checksums-sha512.txt'
+        gh release download "$VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
+        echo "$CHECKSUM  $ARTIFACT" | shasum -a 256 -c -
 
-    - name: Verifying action checksums
-      if: inputs.mode == 'verify'
+    # Windows download
+    - name: Initialize ghasum directory
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: mkdir C:\ghasum
+    - name: Download ghasum checksums
+      if: runner.os == 'Windows'
+      shell: pwsh
+      working-directory: C:\ghasum
+      env:
+        CHECKSUM: ${{ inputs.checksum }}
+        GH_TOKEN: ${{ github.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        $ARTIFACT = "checksums-sha512.txt"
+        gh release download "$env:VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
+        if ((Get-FileHash -Algorithm SHA256 "$ARTIFACT").Hash -ne "$env:CHECKSUM") {
+          Write-Error 'Checksum mismatch!'
+          exit 1
+        } else {
+          Write-Host 'Checksum match'
+        }
+
+    # macOS
+    - name: Pick the ghasum CLI (amd64)
+      if: runner.os == 'macOS' && runner.arch == 'X64'
+      id: pick-macos-amd64
+      shell: bash
+      run: echo 'artifact=ghasum_darwin_amd64.tar.gz' >>"$GITHUB_OUTPUT"
+    - name: Pick the ghasum CLI (arm64)
+      if: runner.os == 'macOS' && runner.arch == 'ARM64'
+      id: pick-macos-arm64
+      shell: bash
+      run: echo 'artifact=ghasum_darwin_arm64.tar.gz' >>"$GITHUB_OUTPUT"
+    - name: Download the ghasum CLI
+      if: runner.os == 'macOS'
+      shell: bash
+      working-directory: /tmp/ghasum
+      env:
+        ARTIFACT: ${{ steps.pick-macos-amd64.outputs.artifact || steps.pick-macos-arm64.outputs.artifact }}
+        GH_TOKEN: ${{ github.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        gh release download "$VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
+        shasum --check --ignore-missing checksums-sha512.txt
+        tar -xf "$ARTIFACT"
+    - name: Verify the action checksums
+      if: runner.os == 'macOS' && inputs.mode == 'verify'
+      shell: bash
       env:
         JOB: ${{ github.job }}
         WORKFLOW: ${{ github.workflow_ref }}
       run: |
-        # Verify the action checksums
-        WORKFLOW=$(echo "${WORKFLOW}" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
-        ./ghasum verify -cache /home/runner/work/_actions -no-evict -offline "${WORKFLOW}:${JOB}"
-      shell: bash
-
+        WORKFLOW=$(echo "$WORKFLOW" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
+        /tmp/ghasum/ghasum verify -cache /Users/runner/work/_actions -no-evict -offline "$WORKFLOW:$JOB"
     - name: Updating action checksums
-      if: inputs.mode == 'update'
-      run: |
-        # Update the action checksums
-        ./ghasum update -force
+      if: runner.os == 'macOS' && inputs.mode == 'update'
       shell: bash
+      run: |
+        /tmp/ghasum/ghasum update -force
 
-    - name: Remove ghasum binary
-      run: |
-        rm -f ghasum ghasum_linux_amd64.tar.gz
+    # Linux
+    - name: Pick the ghasum CLI (amd64)
+      if: runner.os == 'Linux' && runner.arch == 'X64'
+      id: pick-linux-amd64
       shell: bash
+      run: echo 'artifact=ghasum_linux_amd64.tar.gz' >>"$GITHUB_OUTPUT"
+    - name: Pick the ghasum CLI (arm64)
+      if: runner.os == 'Linux' && runner.arch == 'ARM64'
+      id: pick-linux-arm64
+      shell: bash
+      run: echo 'artifact=ghasum_linux_arm64.tar.gz' >>"$GITHUB_OUTPUT"
+    - name: Download the ghasum CLI
+      if: runner.os == 'Linux'
+      shell: bash
+      working-directory: /tmp/ghasum
+      env:
+        ARTIFACT: ${{ steps.pick-linux-amd64.outputs.artifact || steps.pick-linux-arm64.outputs.artifact }}
+        GH_TOKEN: ${{ github.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        gh release download "$VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
+        shasum --check --ignore-missing checksums-sha512.txt
+        tar -xf "$ARTIFACT"
+    - name: Verify the action checksums
+      if: runner.os == 'Linux' && inputs.mode == 'verify'
+      shell: bash
+      env:
+        JOB: ${{ github.job }}
+        WORKFLOW: ${{ github.workflow_ref }}
+      run: |
+        WORKFLOW=$(echo "$WORKFLOW" | cut -d '@' -f 1 | cut -d '/' -f 3-5)
+        /tmp/ghasum/ghasum verify -cache /home/runner/work/_actions -no-evict -offline "$WORKFLOW:$JOB"
+    - name: Updating action checksums
+      if: runner.os == 'Linux' && inputs.mode == 'update'
+      shell: bash
+      run: |
+        /tmp/ghasum/ghasum update -force
+
+    # Windows
+    - name: Pick the ghasum CLI (amd64)
+      if: runner.os == 'Windows' && runner.arch == 'X64'
+      id: pick-windows-amd64
+      shell: pwsh
+      run: |
+        'artifact=ghasum_windows_amd64.zip' >>"$env:GITHUB_OUTPUT"
+    - name: Pick the ghasum CLI (arm64)
+      if: runner.os == 'Windows' && runner.arch == 'ARM64'
+      id: pick-windows-arm64
+      shell: pwsh
+      run: |
+        'artifact=ghasum_windows_arm64.zip' >>"$env:GITHUB_OUTPUT"
+    - name: Download the ghasum CLI
+      if: runner.os == 'Windows'
+      shell: pwsh
+      working-directory: C:\ghasum
+      env:
+        ARTIFACT: ${{ steps.pick-windows-amd64.outputs.artifact || steps.pick-windows-arm64.outputs.artifact }}
+        GH_TOKEN: ${{ github.token }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        gh release download "$env:VERSION" --repo chains-project/ghasum --pattern "$env:ARTIFACT"
+        $line = Get-Content checksums-sha512.txt | Where-Object { $_ -match "\b$env:ARTIFACT$" }
+        if (-not $line) {
+          Write-Error 'Checksum missing'
+          exit 2
+        } else {
+          if ($line -match "^([a-fA-F0-9]+)  $env:ARTIFACT$") {
+            $want = $matches[1]
+            $got = (Get-FileHash -Path $env:ARTIFACT -Algorithm SHA512).Hash
+            if ($got.ToLower() -ne $want.ToLower()) {
+              Write-Error 'Checksum mismatch'
+              exit 1
+            } else {
+              Write-Host 'Checksum match'
+              Expand-Archive -Path "$env:ARTIFACT" -DestinationPath .
+            }
+          } else {
+            Write-Error 'Checksums malformed'
+            exit 2
+          }
+        }
+    - name: Verify the action checksums
+      if: runner.os == 'Windows' && inputs.mode == 'verify'
+      shell: pwsh
+      env:
+        JOB: ${{ github.job }}
+        WORKFLOW: ${{ github.workflow_ref }}
+      run: |
+        $WorkflowParts = $env:WORKFLOW -split '@'
+        $WorkflowPath = ($WorkflowParts[0] -split '/')[2..4] -join '/'
+        if (Test-Path -Path 'C:\a\_actions') {
+          C:\ghasum\ghasum.exe verify -cache C:\a\_actions -no-evict -offline "${WorkflowPath}:$env:JOB"
+        } else {
+          C:\ghasum\ghasum.exe verify -cache D:\a\_actions -no-evict -offline "${WorkflowPath}:$env:JOB"
+        }
+    - name: Update the action checksums
+      if: runner.os == 'Windows' && inputs.mode == 'update'
+      shell: pwsh
+      run: |
+        C:\ghasum\ghasum.exe update -force
+
+    # Cleanup
+    - name: Cleanup (Unix)
+      if: runner.os == 'macOS' || runner.os == 'Linux'
+      shell: bash
+      run: rm -rf /tmp/ghasum
+    - name: Cleanup (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      run: Remove-Item -Recurse -Force -Path C:\ghasum
