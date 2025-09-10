@@ -8,6 +8,7 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
@@ -100,10 +101,12 @@ public class LockFileFacade {
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
+        var pom = new Pom(project, checksumCalculator);
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
                 VersionNumber.of(project.getVersion()),
+                pom,
                 roots,
                 plugins,
                 metadata);

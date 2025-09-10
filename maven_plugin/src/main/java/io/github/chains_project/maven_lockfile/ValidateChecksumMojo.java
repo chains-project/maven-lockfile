@@ -52,6 +52,19 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                 getLog().warn(
                                 "Lock file environment does not match project environment. This could be due to a change in the environment.");
             }
+            if (!Objects.equals(lockFileFromFile.getPom(), lockFileFromProject.getPom())) {
+                String sb = "Pom checksum mismatch. Differences:" + "\n" + "Your lockfile pom path and checksum:\n"
+                        + lockFileFromFile.getPom().getPath()
+                        + " " + lockFileFromFile.getPom().getChecksum() + "\n" + "Your project pom path and checksum:\n"
+                        + lockFileFromProject.getPom().getPath()
+                        + " " + lockFileFromProject.getPom().getChecksum() + "\n";
+
+                if (config.isAllowPomValidationFailure()) {
+                    getLog().warn(sb);
+                } else {
+                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
+                }
+            }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
                 String sb = "Lock file validation failed. Differences:" + "\n"
@@ -74,9 +87,9 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
                         + "\n";
                 if (config.isAllowValidationFailure()) {
-                    getLog().warn("Failed verifying lock file" + sb);
+                    getLog().warn("Failed verifying lock file. " + sb);
                 } else {
-                    throw new MojoExecutionException("Failed verifying lock file" + sb);
+                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
         } catch (IOException e) {

@@ -2,6 +2,11 @@
   "artifactId": "different-lockfile-name-validate-should-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "a058c63f23adafe1caeda9bceaa19d143d92bc09cdbaa240d2007ffbc5cbd8c7"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -603,6 +608,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

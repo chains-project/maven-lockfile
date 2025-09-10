@@ -280,6 +280,10 @@ public class IntegrationTestsIT {
         // if the allowValidationFailure parameter is true
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
         assertThat(result).isSuccessful();
+
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("[WARNING] Failed verifying lock file. Lock file validation failed."))
+                .isTrue();
     }
 
     @MavenTest
@@ -450,5 +454,13 @@ public class IntegrationTestsIT {
                 .findAny();
         assertThat(atlassianResolved).isNotNull();
         assertThat(mavenCentralResolved).isNotNull();
+    }
+
+    @MavenTest
+    public void pomCheckShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
     }
 }

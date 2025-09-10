@@ -2,6 +2,11 @@
   "artifactId": "remote-repository-should-resolve",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "ba56eb66051bce3676a634bd33db6bbf8fea7fc186cf1c8c148c176ebf95c569"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -616,6 +621,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

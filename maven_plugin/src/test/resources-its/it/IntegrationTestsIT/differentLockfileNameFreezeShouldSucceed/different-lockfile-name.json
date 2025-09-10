@@ -2,6 +2,11 @@
   "artifactId": "different-lockfile-name-freeze-should-succeed",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "beeb2cf48b5914ff6be04952321cac5cef34af9746a046b3318060d5ab851438"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -603,6 +608,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
