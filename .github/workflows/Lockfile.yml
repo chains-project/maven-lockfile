@@ -31,10 +31,10 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
+        uses: ${{ github.repository }}/.github/actions/ghasum@${{ github.sha }}
 
       - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
+        uses: ${{ github.repository }}@${{ github.sha }}
         with:
           github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           include-maven-plugins: true
