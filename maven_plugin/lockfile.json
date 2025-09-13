@@ -2508,6 +2508,14 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-failsafe-plugin",
+      "version": "3.5.4",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "2dc83b91e8531820c04c3beed6d4a0939ee5c501d8373a2a8521a884f6a1fd0d",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.4/maven-failsafe-plugin-3.5.4.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-deploy-plugin",
       "version": "3.1.4",
       "checksumAlgorithm": "SHA-256",
@@ -2561,14 +2569,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "a15977e3457ff8cd803c1a37e1e53aad76e4609cd23bbca8e8f783e5c78e5fa8",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-failsafe-plugin",
-      "version": "3.5.3",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "c40da66d3db0548cb675f47279651f67b6e1f69c11bb4ecbe2ce7bcc82a6222c",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
