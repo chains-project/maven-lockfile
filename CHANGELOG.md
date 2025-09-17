@@ -2016,3 +2016,33 @@ We'd like to thank the following people for their contributions:
 - Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.7.0
+## Changelog
+
+## 🚀 Added
+- 6c1a7a4 ✅ tests: Reduce CI test time (#1291)
+- c1110b3 ✨ feat: add support for recording pom checksum (#1280)
+
+## 📦 Dependencies
+- 2eef2b2 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-surefire-plugin to v3.5.4 (#1326)
+- e2602b4 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.5.4 (#1325)
+- c763d44 ⬆️ (deps): Update dependency com.google.code.gson:gson to v2.13.2 (#1324)
+- a96528c ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.11 (#1322)
+- fbbc9d8 ⬆️ (deps): Update github/codeql-action action to v3.30.3 (#1323)
+- 5f7a410 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.1 (#1321)
+- cd5bf12 ⬆️ (deps): Update step-security/harden-runner action to v2.13.1 (#1320)
+- b34052c ⬆️ (deps): Update github/codeql-action action to v3.30.2 (#1319)
+
+## 🏁 Release
+- 7a4ecb5 🔖 Releasing version 5.7.0
+- e997690 🔖 Setting SNAPSHOT version 5.6.3-SNAPSHOT
+
+---
+- ce169f4 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
