@@ -1,7 +1,7 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.6.2",
+  "version": "5.7.0",
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -2531,14 +2531,6 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugin-plugin/3.15.1/maven-plugin-plugin-3.15.1.jar"
     },
     {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-surefire-plugin",
-      "version": "3.5.3",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "5b5b35523b04916eee85ad6d898b0353dd2ac00793b90d9e7befb79197873d9d",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/3.5.3/maven-surefire-plugin-3.5.3.jar"
-    },
-    {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
       "version": "2.9.1",
@@ -2569,6 +2561,14 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "a15977e3457ff8cd803c1a37e1e53aad76e4609cd23bbca8e8f783e5c78e5fa8",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.5.0/maven-clean-plugin-3.5.0.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-surefire-plugin",
+      "version": "3.5.4",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d25d73f73b70bfc85dcf949c9c58eaa9ecf79709dd8be19d6f92d72b8720dd61",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/3.5.4/maven-surefire-plugin-3.5.4.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
