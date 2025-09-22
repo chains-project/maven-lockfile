@@ -70,6 +70,14 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-site-plugin/3.21.0/maven-site-plugin-3.21.0.jar"
     },
     {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-compiler-plugin",
+      "version": "3.14.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "85bc857c3bf91c87b65dfc15235154eb83b8f4539f0afbc7e6c93eb4a0bcdd38",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.14.1/maven-compiler-plugin-3.14.1.jar"
+    },
+    {
       "groupId": "org.codehaus.gmavenplus",
       "artifactId": "gmavenplus-plugin",
       "version": "4.2.1",
@@ -100,14 +108,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-compiler-plugin",
-      "version": "3.14.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "e55fe35b95cf499e5092f146c6613984cff896a8947c2f347ab88270f11acb76",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.14.0/maven-compiler-plugin-3.14.0.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
