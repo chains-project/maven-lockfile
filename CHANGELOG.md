@@ -2046,3 +2046,25 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.7.1
+## Changelog
+
+## 🚀 Added
+- 7361d14 👷 ci: Update ghasum version and action template (#1317)
+
+## 📦 Dependencies
+- 68dc96b ⬆️ (deps): Update dependency com.google.guava:guava to v33.5.0-jre (#1329)
+- 993f2bf ⬆️  (deps): Update mavenVersion to 3.9.11 (#1334)
+- 49656fa ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.2 (#1332)
+- d1b1834 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.14.1 (#1331)
+- 57eef61 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-javadoc-plugin to v3.12.0 (#1330)
+
+## 🏁 Release
+- e003ec2 🔖 Releasing version 5.7.1
+- 949975e 🔖 Setting SNAPSHOT version 5.7.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
