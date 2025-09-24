@@ -30,7 +30,7 @@
     <url>https://github.com/chains-project/maven-lockfile/tree/${project.scm.tag}/maven_plugin</url>
   </scm>
   <properties>
-    <mavenVersion>3.9.6</mavenVersion>
+    <mavenVersion>3.9.11</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
