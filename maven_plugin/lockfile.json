@@ -35,27 +35,27 @@
     {
       "groupId": "com.google.guava",
       "artifactId": "guava",
-      "version": "33.4.8-jre",
+      "version": "33.5.0-jre",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f3d7f57f67fd622f4d468dfdd692b3a5e3909246c28017ac3263405f0fe617ed",
+      "checksum": "1e301f0c52ac248b0b14fdc3d12283c77252d4d6f48521d572e7d8c4c2cc4ac7",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.4.8-jre/guava-33.4.8-jre.jar",
-      "selectedVersion": "33.4.8-jre",
+      "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.5.0-jre/guava-33.5.0-jre.jar",
+      "selectedVersion": "33.5.0-jre",
       "included": true,
-      "id": "com.google.guava:guava:33.4.8-jre",
+      "id": "com.google.guava:guava:33.5.0-jre",
       "children": [
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
-          "version": "2.36.0",
+          "version": "2.41.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "77440e270b0bc9a249903c5a076c36a722c4886ca4f42675f2903a1c53ed61a5",
+          "checksum": "a56e782b5b50811ac204073a355a21d915a2107fce13ec711331ad036f660fcc",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar",
           "selectedVersion": "2.41.0",
           "included": false,
-          "id": "com.google.errorprone:error_prone_annotations:2.36.0",
-          "parent": "com.google.guava:guava:33.4.8-jre",
+          "id": "com.google.errorprone:error_prone_annotations:2.41.0",
+          "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
         },
         {
@@ -69,7 +69,7 @@
           "selectedVersion": "1.0.3",
           "included": false,
           "id": "com.google.guava:failureaccess:1.0.3",
-          "parent": "com.google.guava:guava:33.4.8-jre",
+          "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
         },
         {
@@ -83,21 +83,21 @@
           "selectedVersion": "9999.0-empty-to-avoid-conflict-with-guava",
           "included": true,
           "id": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
-          "parent": "com.google.guava:guava:33.4.8-jre",
+          "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
         },
         {
           "groupId": "com.google.j2objc",
           "artifactId": "j2objc-annotations",
-          "version": "3.0.0",
+          "version": "3.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "88241573467ddca44ffd4d74aa04c2bbfd11bf7c17e0c342c94c9de7a70a7c64",
+          "checksum": "84d3a150518485f8140ea99b8a985656749629f6433c92b80c75b36aba3b099b",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.jar",
-          "selectedVersion": "3.0.0",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/j2objc/j2objc-annotations/3.1/j2objc-annotations-3.1.jar",
+          "selectedVersion": "3.1",
           "included": true,
-          "id": "com.google.j2objc:j2objc-annotations:3.0.0",
-          "parent": "com.google.guava:guava:33.4.8-jre",
+          "id": "com.google.j2objc:j2objc-annotations:3.1",
+          "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
         },
         {
@@ -111,7 +111,7 @@
           "selectedVersion": "1.0.0",
           "included": true,
           "id": "org.jspecify:jspecify:1.0.0",
-          "parent": "com.google.guava:guava:33.4.8-jre",
+          "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
         }
       ]
@@ -614,7 +614,7 @@
           "checksum": "f3d7f57f67fd622f4d468dfdd692b3a5e3909246c28017ac3263405f0fe617ed",
           "scope": "provided",
           "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.4.8-jre/guava-33.4.8-jre.jar",
-          "selectedVersion": "33.4.8-jre",
+          "selectedVersion": "33.5.0-jre",
           "included": false,
           "id": "com.google.guava:guava:33.4.8-jre",
           "parent": "org.apache.maven:maven-core:3.9.11",
