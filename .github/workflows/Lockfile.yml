@@ -34,7 +34,7 @@ jobs:
         uses: chains-project/maven-lockfile/.github/actions/ghasum@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
 
       - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@7a05656a5fd15ba8db78d7a8753142ac4117e6e3 # 5.6.1
+        uses: chains-project/maven-lockfile@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
         with:
           github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           include-maven-plugins: true
