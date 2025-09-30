@@ -2,6 +2,11 @@
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
   "version": "5.7.2-SNAPSHOT",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "e428238970bb86f66c506588c2b910adbba01c92de8b2a01fd4fe55124c47a78"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -9,7 +14,7 @@
       "artifactId": "gson",
       "version": "2.13.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "dd0ce1b55a3ed2080cb70f9c655850cda86c206862310009dcb5e5c95265a5e0",
+      "checksum": "59e83422cbe6fae2baea55977075c517d970c19c70050c53aa3609da016e7dbf",
       "scope": "compile",
       "resolved": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar",
       "selectedVersion": "2.13.2",
@@ -2601,9 +2606,10 @@
     "config": {
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.5.2",
+      "mavenLockfileVersion": "5.7.1",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
