@@ -34,9 +34,6 @@ jobs:
     - name: Verify action checksums
       uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
 
-    - name: Scan with OSV-Scanner
-      uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@90b209d0ea55cea1da9fc0c4e65782cc6acb6e2e" # v2.2.2
-
     - name: "Checkout target branch"
       run: |
         git checkout $GITHUB_BASE_REF
