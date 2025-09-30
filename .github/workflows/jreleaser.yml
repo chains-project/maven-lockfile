@@ -89,13 +89,15 @@ jobs:
         run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
 
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+        run: |
+          mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+          mvn --no-transfer-progress --batch-mode versions:set-property -Dproperty=released.version -DnewVersion=$NEXT_VERSION
 
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.5.2:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.7.1:generate
         shell: bash
 
       - name: commit changes
