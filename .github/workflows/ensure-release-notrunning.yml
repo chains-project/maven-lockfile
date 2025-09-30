@@ -43,5 +43,5 @@ jobs:
       - name: Skip check for release branch
         if: ${{ startsWith(github.head_ref, 'release/') }}
         run: |
-          echo "✅ Skipping release workflow check for release branch: ${{ github.head_ref }}"
+          echo "✅ Skipping release workflow check for release branch"
         shell: bash
