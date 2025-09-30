@@ -2068,3 +2068,28 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.0
+## Changelog
+
+## 🚀 Added
+- 1a8dc2a ✨ feat: Update config when regenerating lockfile (#1346)
+- a38ceb4 👷: Automatic updating of action.yml (#1345)
+- f3681d7 👷 ci: Use new version of ghasum (#1341)
+
+## 📦 Dependencies
+- 33060f7 ⬆️ (deps): Update actions/dependency-review-action action to v4.8.0 (#1344)
+- 75bdbde ⬆️ (deps): Update github/codeql-action action to v3.30.5 (#1343)
+- f8c0632 ⬆️ (deps): Update github/codeql-action action to v3.30.4 (#1342)
+- d0424b5 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3 (#1340)
+- 54b8d58 ⬆️ (deps): Update dependency maven-wrapper to v3.3.4 (#1338)
+- 7cee997 ⬆️ (deps): Update actions/cache action to v4.3.0 (#1339)
+
+## 🏁 Release
+- 4f87d2d 🔖 Releasing version 5.8.0
+- ac51ab6 🔖 Setting SNAPSHOT version 5.7.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
