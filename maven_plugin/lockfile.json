@@ -2603,7 +2603,7 @@
       "allowValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.7.1",
+      "mavenLockfileVersion": "5.5.2",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
