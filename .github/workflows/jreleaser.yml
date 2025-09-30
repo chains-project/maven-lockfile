@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
 
       - name: Set up JDK 17
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
@@ -79,7 +79,7 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
 
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
+        uses: chains-project/maven-lockfile@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -97,7 +97,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources
 
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.7.1:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.8.0:generate
         shell: bash
 
       - name: commit changes
@@ -152,7 +152,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources -q
 
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:5.5.2:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.8.0:generate
         shell: bash
 
       - name: Commit & Push changes
