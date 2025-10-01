@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "33f552c18f6fc3b7a95e3fbdc624d8d98b92010c5e4775dc6a95da0359daf891"
+    "checksum": "fb039cf041dff6e674c8c049475a2094cf746423d21f9278039f279ce1035001"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -114,7 +114,7 @@
           "scope": "compile",
           "resolved": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
           "selectedVersion": "1.0.0",
-          "included": true,
+          "included": false,
           "id": "org.jspecify:jspecify:1.0.0",
           "parent": "com.google.guava:guava:33.5.0-jre",
           "children": []
@@ -255,7 +255,7 @@
           "checksum": "60d5c398c32dc7039b99282514ad6064061d8417cf959a1f6bd2038cc907c913",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar",
-          "selectedVersion": "5.13.4",
+          "selectedVersion": "6.0.0",
           "included": false,
           "id": "org.junit.jupiter:junit-jupiter-api:5.10.1",
           "parent": "com.soebes.itf.jupiter.extension:itf-jupiter-extension:0.13.1",
@@ -2263,14 +2263,14 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-api",
-      "version": "5.13.4",
+      "version": "6.0.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "d1bb81abfd9e03418306b4e6a3390c8db52c58372e749c2980ac29f0c08278f1",
+      "checksum": "88d690d2d373cd66170770c317977196ce9e465f2388930f4bc9665e887385f6",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.13.4/junit-jupiter-api-5.13.4.jar",
-      "selectedVersion": "5.13.4",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/6.0.0/junit-jupiter-api-6.0.0.jar",
+      "selectedVersion": "6.0.0",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-api:5.13.4",
+      "id": "org.junit.jupiter:junit-jupiter-api:6.0.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2283,21 +2283,35 @@
           "selectedVersion": "1.1.2",
           "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.4",
+          "parent": "org.junit.jupiter:junit-jupiter-api:6.0.0",
+          "children": []
+        },
+        {
+          "groupId": "org.jspecify",
+          "artifactId": "jspecify",
+          "version": "1.0.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+          "selectedVersion": "1.0.0",
+          "included": true,
+          "id": "org.jspecify:jspecify:1.0.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:6.0.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-commons",
-          "version": "1.13.4",
+          "version": "6.0.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "1c25ca641ebaae44ff3ad21ca1b2ef68d0dd84bfeb07c4805ba7840899b77408",
+          "checksum": "86e8faf87f3151a3d545850852a0f2cc55ea8a2434eee9e08f83881c52d55992",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.13.4/junit-platform-commons-1.13.4.jar",
-          "selectedVersion": "1.13.4",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/6.0.0/junit-platform-commons-6.0.0.jar",
+          "selectedVersion": "6.0.0",
           "included": true,
-          "id": "org.junit.platform:junit-platform-commons:1.13.4",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.4",
+          "id": "org.junit.platform:junit-platform-commons:6.0.0",
+          "parent": "org.junit.jupiter:junit-jupiter-api:6.0.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2310,7 +2324,21 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.13.4",
+              "parent": "org.junit.platform:junit-platform-commons:6.0.0",
+              "children": []
+            },
+            {
+              "groupId": "org.jspecify",
+              "artifactId": "jspecify",
+              "version": "1.0.0",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+              "scope": "test",
+              "resolved": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+              "selectedVersion": "1.0.0",
+              "included": false,
+              "id": "org.jspecify:jspecify:1.0.0",
+              "parent": "org.junit.platform:junit-platform-commons:6.0.0",
               "children": []
             }
           ]
@@ -2326,7 +2354,7 @@
           "selectedVersion": "1.3.0",
           "included": true,
           "id": "org.opentest4j:opentest4j:1.3.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.13.4",
+          "parent": "org.junit.jupiter:junit-jupiter-api:6.0.0",
           "children": []
         }
       ]
@@ -2334,14 +2362,14 @@
     {
       "groupId": "org.junit.jupiter",
       "artifactId": "junit-jupiter-engine",
-      "version": "5.13.4",
+      "version": "6.0.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "027404a92fe618b72465792a257951495c503a7d5751e2791e0f51c87f67f5bc",
+      "checksum": "8fa1d6c37db29a6ef47183b49851ee7676f08fd7b1c27b68ccf3a4e57ce02f48",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/5.13.4/junit-jupiter-engine-5.13.4.jar",
-      "selectedVersion": "5.13.4",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-engine/6.0.0/junit-jupiter-engine-6.0.0.jar",
+      "selectedVersion": "6.0.0",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-engine:5.13.4",
+      "id": "org.junit.jupiter:junit-jupiter-engine:6.0.0",
       "children": [
         {
           "groupId": "org.apiguardian",
@@ -2354,35 +2382,49 @@
           "selectedVersion": "1.1.2",
           "included": false,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.4",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:6.0.0",
+          "children": []
+        },
+        {
+          "groupId": "org.jspecify",
+          "artifactId": "jspecify",
+          "version": "1.0.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+          "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+          "selectedVersion": "1.0.0",
+          "included": false,
+          "id": "org.jspecify:jspecify:1.0.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:6.0.0",
           "children": []
         },
         {
           "groupId": "org.junit.jupiter",
           "artifactId": "junit-jupiter-api",
-          "version": "5.13.4",
+          "version": "6.0.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "d1bb81abfd9e03418306b4e6a3390c8db52c58372e749c2980ac29f0c08278f1",
+          "checksum": "88d690d2d373cd66170770c317977196ce9e465f2388930f4bc9665e887385f6",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.13.4/junit-jupiter-api-5.13.4.jar",
-          "selectedVersion": "5.13.4",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/6.0.0/junit-jupiter-api-6.0.0.jar",
+          "selectedVersion": "6.0.0",
           "included": false,
-          "id": "org.junit.jupiter:junit-jupiter-api:5.13.4",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.4",
+          "id": "org.junit.jupiter:junit-jupiter-api:6.0.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:6.0.0",
           "children": []
         },
         {
           "groupId": "org.junit.platform",
           "artifactId": "junit-platform-engine",
-          "version": "1.13.4",
+          "version": "6.0.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "390c5f77b84283a64b644f88251b397e0b0debb80bdcc50f899881aecff43a5a",
+          "checksum": "6f81842e9c13e997cac66b44614522f3639419e2388ae2d000c4bc0a6b92d93f",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.13.4/junit-platform-engine-1.13.4.jar",
-          "selectedVersion": "1.13.4",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/6.0.0/junit-platform-engine-6.0.0.jar",
+          "selectedVersion": "6.0.0",
           "included": true,
-          "id": "org.junit.platform:junit-platform-engine:1.13.4",
-          "parent": "org.junit.jupiter:junit-jupiter-engine:5.13.4",
+          "id": "org.junit.platform:junit-platform-engine:6.0.0",
+          "parent": "org.junit.jupiter:junit-jupiter-engine:6.0.0",
           "children": [
             {
               "groupId": "org.apiguardian",
@@ -2395,21 +2437,35 @@
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-engine:1.13.4",
+              "parent": "org.junit.platform:junit-platform-engine:6.0.0",
+              "children": []
+            },
+            {
+              "groupId": "org.jspecify",
+              "artifactId": "jspecify",
+              "version": "1.0.0",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "1fad6e6be7557781e4d33729d49ae1cdc8fdda6fe477bb0cc68ce351eafdfbab",
+              "scope": "test",
+              "resolved": "https://repo.maven.apache.org/maven2/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar",
+              "selectedVersion": "1.0.0",
+              "included": false,
+              "id": "org.jspecify:jspecify:1.0.0",
+              "parent": "org.junit.platform:junit-platform-engine:6.0.0",
               "children": []
             },
             {
               "groupId": "org.junit.platform",
               "artifactId": "junit-platform-commons",
-              "version": "1.13.4",
+              "version": "6.0.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "1c25ca641ebaae44ff3ad21ca1b2ef68d0dd84bfeb07c4805ba7840899b77408",
+              "checksum": "86e8faf87f3151a3d545850852a0f2cc55ea8a2434eee9e08f83881c52d55992",
               "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.13.4/junit-platform-commons-1.13.4.jar",
-              "selectedVersion": "1.13.4",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/6.0.0/junit-platform-commons-6.0.0.jar",
+              "selectedVersion": "6.0.0",
               "included": false,
-              "id": "org.junit.platform:junit-platform-commons:1.13.4",
-              "parent": "org.junit.platform:junit-platform-engine:1.13.4",
+              "id": "org.junit.platform:junit-platform-commons:6.0.0",
+              "parent": "org.junit.platform:junit-platform-engine:6.0.0",
               "children": []
             },
             {
@@ -2423,7 +2479,7 @@
               "selectedVersion": "1.3.0",
               "included": false,
               "id": "org.opentest4j:opentest4j:1.3.0",
-              "parent": "org.junit.platform:junit-platform-engine:1.13.4",
+              "parent": "org.junit.platform:junit-platform-engine:6.0.0",
               "children": []
             }
           ]
