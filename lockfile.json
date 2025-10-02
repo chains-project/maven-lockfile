@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "a85d226f0402215d4c9da76e86b746112bbce507aefa8735c1fd2b2a3748efc7"
+    "checksum": "62cbe7f3760b659f14d71db07f37bd91d31233f36fa580db556b452cdff8e43a"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -17,14 +17,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "01bd31b7d51dfcbe635e4bdd89cf185ce4023caa876ed821970f039985b9148d",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.1/maven-enforcer-plugin-3.6.1.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-artifact-plugin",
-      "version": "3.6.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "06c6e6415d35767c09c0110938814a124b255303fbc49ac89b628e43cf4d71da",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.0/maven-artifact-plugin-3.6.0.jar"
     },
     {
       "groupId": "com.diffplug.spotless",
@@ -113,6 +105,14 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.6.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e94e4d21eb073567e33e701b4680691e5a316d9beaa2dc05159c52dc9ea378f2",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.1/maven-artifact-plugin-3.6.1.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
