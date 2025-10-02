@@ -5,19 +5,11 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "62cbe7f3760b659f14d71db07f37bd91d31233f36fa580db556b452cdff8e43a"
+    "checksum": "3e1890e2e0bd023d8cfe00d079afb66cf46284b56852ae6427f2a25c8334515c"
   },
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-enforcer-plugin",
-      "version": "3.6.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "01bd31b7d51dfcbe635e4bdd89cf185ce4023caa876ed821970f039985b9148d",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.1/maven-enforcer-plugin-3.6.1.jar"
-    },
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
@@ -81,6 +73,14 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "85c43706d58864b7786a8a7fd5274e8301a0ce64adb9d78f782153a9934cdddf",
       "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/4.2.1/gmavenplus-plugin-4.2.1.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.6.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "88189ac3d0d2049ce9efabaf9895aee074f4eddb0f224defeb48c34ffe9d6fd8",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.2/maven-enforcer-plugin-3.6.2.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
