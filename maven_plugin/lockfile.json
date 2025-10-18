@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "bfc7069938a3de2ea42520a147a735e748080bf1463cff25adfd423cdc0aa9e4"
+    "checksum": "2db781d25d3adcb7fd3360edf87b4ea5e9b319a88cf942decfb0ea64754d91cd"
   },
   "lockFileVersion": 1,
   "dependencies": [
