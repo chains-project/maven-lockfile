@@ -42,13 +42,13 @@ jobs:
 
     - name: Run scanner
       uses: google/osv-scanner-action/osv-scanner-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
+      continue-on-error: true
       with:
         scan-args: |-
           --output=results.json
           --format=json
-          -r
-          ./
-      continue-on-error: true
+          ./pom.xml
+          ./maven_plugin/pom.xml
 
     - name: "Run osv-scanner-reporter"
       uses: google/osv-scanner-action/osv-reporter-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
