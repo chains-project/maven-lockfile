@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "2db781d25d3adcb7fd3360edf87b4ea5e9b319a88cf942decfb0ea64754d91cd"
+    "checksum": "e5d954405560c71f3a097659261ba867fa5a789100132b413a20481f330dce94"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -1896,14 +1896,14 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.15.1",
+      "version": "3.15.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b58bcb3a1f362f6e1efa2772064026bb3d4ad92e6f43a1812d8d2886489912f5",
+      "checksum": "979d3cf8f4ac804cc27d2f8a6db07f2149d58ccd59bb3d589cc46bb9a44c0b4b",
       "scope": "provided",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.15.1/maven-plugin-annotations-3.15.1.jar",
-      "selectedVersion": "3.15.1",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.15.2/maven-plugin-annotations-3.15.2.jar",
+      "selectedVersion": "3.15.2",
       "included": true,
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.15.1",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.15.2",
       "children": []
     },
     {
