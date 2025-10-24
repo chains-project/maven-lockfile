@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "e5d954405560c71f3a097659261ba867fa5a789100132b413a20481f330dce94"
+    "checksum": "a23935a975d1a79373d8b57bf46e5f5fe073b0368b0be05cd46d6bbbd20efa06"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -633,7 +633,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "142ad4475e19524d2fe3ac995b3f7cbc962fc726f2edb9dbdccc61feab9b2bf9",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar",
+          "resolved": "",
           "selectedVersion": "5.1.0",
           "included": true,
           "id": "com.google.inject:guice:5.1.0",
@@ -2557,20 +2557,20 @@
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-deploy-plugin/3.1.4/maven-deploy-plugin-3.1.4.jar"
     },
     {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-plugin-plugin",
-      "version": "3.15.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "536e0173b329d275427b6964f26f740ced4c5c70e7d3c7a98d43c06f70f8cec0",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugin-plugin/3.15.1/maven-plugin-plugin-3.15.1.jar"
-    },
-    {
       "groupId": "org.cyclonedx",
       "artifactId": "cyclonedx-maven-plugin",
       "version": "2.9.1",
       "checksumAlgorithm": "SHA-256",
       "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249",
       "resolved": "https://repo.maven.apache.org/maven2/org/cyclonedx/cyclonedx-maven-plugin/2.9.1/cyclonedx-maven-plugin-2.9.1.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-plugin-plugin",
+      "version": "3.15.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "70a7217d1329d0697693724edd71ee20ff430eebcd98aa58ac7192d04aa0405b",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugin-plugin/3.15.2/maven-plugin-plugin-3.15.2.jar"
     },
     {
       "groupId": "org.apache.maven.plugins",
