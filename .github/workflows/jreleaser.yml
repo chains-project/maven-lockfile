@@ -118,7 +118,7 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
-      - name: Remove beta tags for changelog
+      - name: Remove beta tags for changelog to be from previous non-beta release
         run: git tag | grep beta | xargs -n 1 git tag -d
 
       - name: Run JReleaser
