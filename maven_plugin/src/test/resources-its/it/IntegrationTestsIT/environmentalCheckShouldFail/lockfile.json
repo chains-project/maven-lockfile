@@ -1,23 +1,27 @@
 {
-  "artifactId": "without-environment-from-lockfile",
+  "artifactId": "pom-check-should-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "b06b0c2feadd5ac0b59f281af47595f67606bbf991b66c9a552a5a3322999fcb"
+    "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
   },
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [],
   "metaData": {
-    "environment": null,
+    "environment": {
+      "osName": "TamperedOS",
+      "mavenVersion": "3.9.9",
+      "javaVersion": "21.0.5"
+    },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
       "allowPomValidationFailure": true,
-      "allowEnvironmentalValidationFailure": true,
-      "includeEnvironment": false,
+      "allowEnvironmentalValidationFailure": false,
+      "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
       "checksumMode": "local",
