@@ -1,11 +1,11 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.8.1-SNAPSHOT",
+  "version": "5.8.1-beta-1",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "a23935a975d1a79373d8b57bf46e5f5fe073b0368b0be05cd46d6bbbd20efa06"
+    "checksum": "783beeaec5bc2598c62e89e1c2c1df02c0fdf977bca3b06c57e671e72e4439f2"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -633,7 +633,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "142ad4475e19524d2fe3ac995b3f7cbc962fc726f2edb9dbdccc61feab9b2bf9",
           "scope": "provided",
-          "resolved": "",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar",
           "selectedVersion": "5.1.0",
           "included": true,
           "id": "com.google.inject:guice:5.1.0",
