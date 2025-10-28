@@ -118,6 +118,9 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
+      - name: Remove beta tags for changelog
+        run: git tag | grep beta | xargs -n 1 git tag -d
+
       - name: Run JReleaser
         uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
         with:
@@ -125,7 +128,6 @@ jobs:
           version: 1.18.0
           arguments: full-release 
         env:
-          JRELEASER_PREVIOUS_TAG_NAME: v${{ env.CURRENT_VERSION }}
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
