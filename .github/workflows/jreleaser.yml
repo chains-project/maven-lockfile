@@ -125,6 +125,7 @@ jobs:
           version: 1.18.0
           arguments: full-release 
         env:
+          JRELEASER_PREVIOUS_TAG_NAME: v${{ env.CURRENT_VERSION }}
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
