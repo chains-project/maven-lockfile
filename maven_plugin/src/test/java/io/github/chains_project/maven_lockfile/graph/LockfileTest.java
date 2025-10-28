@@ -12,16 +12,7 @@ public class LockfileTest {
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
                 new Environment("os", "mv", "jv"),
-                new Config(
-                        true,
-                        false,
-                        false,
-                        false,
-                        true,
-                        false,
-                        "1",
-                        "local",
-                        "SHA-1"));
+                new Config(true, false, false, false, true, false, "1", "local", "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
