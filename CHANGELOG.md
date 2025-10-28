@@ -2093,3 +2093,9 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.1
+## Changelog
+
+## 🏁 Release
+- 05aeab3 🔖 Releasing version 5.8.1
