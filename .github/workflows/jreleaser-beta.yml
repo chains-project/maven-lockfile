@@ -1,0 +1,145 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0' # Sundays at 00:00 (https://crontab.guru/#0_0_*_*_0)
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and release
+
+    permissions:
+      id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    environment: release
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+        with:
+          egress-policy: audit
+
+      # Setups the environment
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+
+      - name: Verify action checksums
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set git user
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "<>"
+
+      - name: install go
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+
+      - name: install semversion
+        run: go install github.com/ffurrer2/semver/cmd/semver@latest
+
+      - name: Get current version from pom and remove snapshot if present.
+        run: echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
+
+      - name: Get next beta version
+        run: |
+          # Compute next beta number
+          set -euo pipefail
+          LAST_BETA_NUMBER="$(curl -L "https://central.sonatype.com/solrsearch/select?q=a:maven-lockfile+g:chains-project.github.io" | jq -r ".response.docs | map(.latestVersion) | map((match(\"$CURRENT_VERSION-beta-(.*)\") | .captures[0].string) // \"0\") | .[0]")"
+          echo "LAST_BETA_NUMBER $LAST_BETA_NUMBER"
+
+          NEW_BETA_NUMBER=$((LAST_BETA_NUMBER + 1))
+          echo "NEW_BETA_NUMBER $NEW_BETA_NUMBER"
+          echo "NEXT_BETA_VERSION=$CURRENT_VERSION-beta-$NEW_BETA_NUMBER" >> $GITHUB_ENV
+        shell: bash
+
+      - name: run maven-lockfile (validate lockfile)
+        uses: chains-project/maven-lockfile@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
+            commit-lockfile: false
+
+      - name: set branchname to next version
+        run: echo "BRANCH_NAME=beta-release/$NEXT_BETA_VERSION" >> $GITHUB_ENV
+
+      - name: Set release version
+        run: |
+          mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_BETA_VERSION -DprocessAllModules
+          mvn --no-transfer-progress --batch-mode versions:set-property -Dproperty=released.version -DnewVersion=$NEXT_BETA_VERSION
+
+      - name: Generate Readme
+        run : mvn generate-resources resources:copy-resources
+
+      - name: run maven-lockfile (generate new lockfile for release version)
+        run: mvn io.github.chains-project:maven-lockfile:5.8.0:generate
+        shell: bash
+
+      - name: commit changes
+        run: |
+          git checkout -b ${{ env.BRANCH_NAME }}
+          git commit -am "🔖 Releasing version ${{ env.NEXT_BETA_VERSION }}"
+          git push --set-upstream origin ${{ env.BRANCH_NAME }}
+
+      - name: Stage release
+        run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
+
+      - name: generate buildinfo file
+        run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
+
+      - name: Print next version
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
+
+      - name: Run JReleaser
+        uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
+        with:
+          setup-java: false
+          version: 1.18.0
+          arguments: full-release 
+        env:
+          JRELEASER_PROJECT_VERSION: ${{ env.NEXT_BETA_VERSION }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN }}
+
+      - name: Append changelog from out/jreleaser/CHANGELOG.md to CHANGELOG.md with version as header
+        run: |
+          echo "" >> CHANGELOG.md
+          echo -n "# ${{ env.NEXT_BETA_VERSION }}" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          cat out/jreleaser/release/CHANGELOG.md >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+
+      - name: Commit & Push changes
+        run: |
+          git commit -am ":memo: Appending CHANGELOG for ${{ env.NEXT_BETA_VERSION }}"
+          git push --set-upstream origin ${{ env.BRANCH_NAME }}
+
+      # Log failure:
+      - name: JReleaser release output
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: jreleaser-release
+          path: |
+            out/jreleaser/trace.log
+            out/jreleaser/output.properties
