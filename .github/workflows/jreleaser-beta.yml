@@ -48,12 +48,6 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "<>"
 
-      - name: install go
-        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
-
-      - name: install semversion
-        run: go install github.com/ffurrer2/semver/cmd/semver@latest
-
       - name: Get current version from pom and remove snapshot if present.
         run: echo "CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//')" >> $GITHUB_ENV
 
@@ -61,7 +55,12 @@ jobs:
         run: |
           # Compute next beta number
           set -euo pipefail
+
           LAST_BETA_NUMBER="$(curl -L "https://central.sonatype.com/solrsearch/select?q=a:maven-lockfile+g:chains-project.github.io" | jq -r ".response.docs | map(.latestVersion) | map((match(\"$CURRENT_VERSION-beta-(.*)\") | .captures[0].string) // \"0\") | .[0]")"
+
+          if [[ -z "${LAST_BETA_NUMBER:-}" || "$LAST_BETA_NUMBER" == "null" ]]; then
+            LAST_BETA_NUMBER=0
+          fi
           echo "LAST_BETA_NUMBER $LAST_BETA_NUMBER"
 
           NEW_BETA_NUMBER=$((LAST_BETA_NUMBER + 1))
