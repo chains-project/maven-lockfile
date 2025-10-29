@@ -13,7 +13,15 @@ public class LockfileTest {
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
                 new Environment("os", "mv", "jv"),
-                new Config(Config.IncludeMavenPlugins.Include, Config.ValidationFailure.Error, Config.PomValidationFailure.Error, Config.IncludeEnvironment.Include, Config.Reduced.NonReduced, "1", ChecksumModes.LOCAL, "SHA-1"));
+                new Config(
+                        Config.IncludeMavenPlugins.Include,
+                        Config.ValidationFailure.Error,
+                        Config.PomValidationFailure.Error,
+                        Config.IncludeEnvironment.Include,
+                        Config.Reduced.NonReduced,
+                        "1",
+                        ChecksumModes.LOCAL,
+                        "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");

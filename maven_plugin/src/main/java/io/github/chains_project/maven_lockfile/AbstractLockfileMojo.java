@@ -117,11 +117,20 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     protected Config getConfig() {
         String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        ChecksumModes chosenModeEnum = Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
-        Config.IncludeMavenPlugins includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins) ? Config.IncludeMavenPlugins.Include : Config.IncludeMavenPlugins.Exclude;
-        Config.ValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure) ? Config.ValidationFailure.Warn : Config.ValidationFailure.Error;
-        Config.PomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure) ? Config.PomValidationFailure.Warn : Config.PomValidationFailure.Error;
-        Config.IncludeEnvironment includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment) ? Config.IncludeEnvironment.Include : Config.IncludeEnvironment.Exclude;
+        ChecksumModes chosenModeEnum =
+                Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
+        Config.IncludeMavenPlugins includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins)
+                ? Config.IncludeMavenPlugins.Include
+                : Config.IncludeMavenPlugins.Exclude;
+        Config.ValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure)
+                ? Config.ValidationFailure.Warn
+                : Config.ValidationFailure.Error;
+        Config.PomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure)
+                ? Config.PomValidationFailure.Warn
+                : Config.PomValidationFailure.Error;
+        Config.IncludeEnvironment includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment)
+                ? Config.IncludeEnvironment.Include
+                : Config.IncludeEnvironment.Exclude;
         Config.Reduced reducedEnum = Boolean.parseBoolean(reduced) ? Config.Reduced.Reduced : Config.Reduced.NonReduced;
 
         return new Config(
