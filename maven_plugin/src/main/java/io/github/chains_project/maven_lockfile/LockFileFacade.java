@@ -3,13 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.MavenPlugin;
-import io.github.chains_project.maven_lockfile.data.MetaData;
-import io.github.chains_project.maven_lockfile.data.Pom;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
 import java.util.*;
@@ -96,7 +90,7 @@ public class LockFileFacade {
                 project,
                 dependencyCollectorBuilder,
                 checksumCalculator,
-                metadata.getConfig().isReduced());
+                metadata.getConfig().getReduced());
         var roots = graph.getGraph().stream()
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
@@ -131,7 +125,7 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            boolean reduced) {
+            Config.Reduced reduced) {
         try {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());

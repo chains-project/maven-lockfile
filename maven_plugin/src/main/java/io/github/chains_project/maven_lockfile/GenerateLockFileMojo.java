@@ -75,11 +75,11 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         Config config = lockFileFromFile.getConfig();
 
         return new Config(
-                config.isIncludeMavenPlugins(),
-                config.isAllowValidationFailure(),
-                config.isAllowPomValidationFailure(),
-                config.isIncludeEnvironment(),
-                config.isReduced(),
+                config.getIncludeMavenPlugins(),
+                config.getAllowValidationFailure(),
+                config.getAllowPomValidationFailure(),
+                config.getIncludeEnvironment(),
+                config.getReduced(),
                 mojo.getPlugin().getVersion(),
                 config.getChecksumMode(),
                 config.getChecksumAlgorithm());

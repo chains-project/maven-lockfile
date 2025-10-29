@@ -84,11 +84,12 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        checksumMode = checksumModeDeprecation(checksumMode);
-        if (checksumMode.equals("local")) {
+        ChecksumModes checksumModeEnum = ChecksumModes.fromName(checksumMode);
+
+        if (checksumModeEnum.equals(ChecksumModes.LOCAL)) {
             return new FileSystemChecksumCalculator(
                     dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
-        } else if (checksumMode.equals("remote")) {
+        } else if (checksumModeEnum.equals(ChecksumModes.REMOTE)) {
             return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
         } else {
             throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
@@ -99,14 +100,14 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
-        switch (checksumModeDeprecation(config.getChecksumMode())) {
-            case "local":
+        switch (config.getChecksumMode()) {
+            case LOCAL:
                 return new FileSystemChecksumCalculator(
                         dependencyResolver,
                         artifactBuildingRequest,
                         pluginBuildingRequest,
                         config.getChecksumAlgorithm());
-            case "remote":
+            case REMOTE:
                 return new RemoteChecksumCalculator(
                         config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
             default:
@@ -116,15 +117,21 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     protected Config getConfig() {
         String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        String chosenMode = Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL.name() : checksumMode;
+        ChecksumModes chosenModeEnum = Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
+        Config.IncludeMavenPlugins includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins) ? Config.IncludeMavenPlugins.Include : Config.IncludeMavenPlugins.Exclude;
+        Config.ValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure) ? Config.ValidationFailure.Warn : Config.ValidationFailure.Error;
+        Config.PomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure) ? Config.PomValidationFailure.Warn : Config.PomValidationFailure.Error;
+        Config.IncludeEnvironment includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment) ? Config.IncludeEnvironment.Include : Config.IncludeEnvironment.Exclude;
+        Config.Reduced reducedEnum = Boolean.parseBoolean(reduced) ? Config.Reduced.Reduced : Config.Reduced.NonReduced;
+
         return new Config(
-                Boolean.parseBoolean(includeMavenPlugins),
-                Boolean.parseBoolean(allowValidationFailure),
-                Boolean.parseBoolean(allowPomValidationFailure),
-                Boolean.parseBoolean(includeEnvironment),
-                Boolean.parseBoolean(reduced),
+                includeMavenPluginsEnum,
+                validationFailureEnum,
+                pomValidationFailureEnum,
+                includeEnvironmentEnum,
+                reducedEnum,
                 mojo.getPlugin().getVersion(),
-                checksumModeDeprecation(chosenMode),
+                chosenModeEnum,
                 chosenAlgo);
     }
 
@@ -138,18 +145,5 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
         return buildingRequest;
-    }
-
-    private String checksumModeDeprecation(String checksumMode) {
-        if (checksumMode.equals("maven_local")) {
-            getLog().warn("Option 'checksumMode=maven_local' is deprecated. Use 'checksumMode=local' instead.");
-            return "local";
-        }
-        if (checksumMode.equals("maven_central")) {
-            getLog().warn("Option 'checksumMode=maven_central' is deprecated. Use 'checksumMode=remote' instead.");
-            return "remote";
-        }
-
-        return checksumMode;
     }
 }
