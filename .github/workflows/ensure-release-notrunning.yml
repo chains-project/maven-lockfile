@@ -24,15 +24,16 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
 
       - name: Check for running release action
-        if: ${{ !startsWith(github.head_ref, 'release/') }}
+        if: ${{ !startsWith(github.head_ref, 'release/') && !startsWith(github.head_ref, 'beta-release/') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          CURRENTLY_RUNNING=$(gh run list -w jreleaser.yml --json status --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "requested" or .status == "waiting" or .status == "pending" or .status == "action_required")][0]')
-          if [[ "$CURRENTLY_RUNNING" == *"status"* ]]; then
+          CURRENTLY_RUNNING_RELEASE=$(gh run list -w jreleaser.yml --json status --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "requested" or .status == "waiting" or .status == "pending" or .status == "action_required")][0]')
+          CURRENTLY_RUNNING_BETA_RELASE=$(gh run list -w jreleaser-beta.yml --json status --jq '[.[] | select(.status == "queued" or .status == "in_progress" or .status == "requested" or .status == "waiting" or .status == "pending" or .status == "action_required")][0]')
+          if [[ "$CURRENTLY_RUNNING_RELEASE" == *"status"* || "$CURRENTLY_RUNNING_BETA_RELASE" == *"status"* ]]; then
             echo "❌ Release workflow is currently running. Please wait for it to finish then rerun this workflow to proceed."
             exit 1
           else
@@ -41,7 +42,7 @@ jobs:
         shell: bash
 
       - name: Skip check for release branch
-        if: ${{ startsWith(github.head_ref, 'release/') }}
+        if: ${{ startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'beta-release/') }}
         run: |
-          echo "✅ Skipping release workflow check for release branch: ${{ github.head_ref }}"
+          echo "✅ Skipping release workflow check for release branch"
         shell: bash

@@ -1,26 +1,15 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.7.2-SNAPSHOT",
+  "version": "5.8.3-SNAPSHOT",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "4d1b9522bfc5512cbd81ae6f08582122d8e75cd695b6fc0b6d142e6fc7db299f"
+  },
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-enforcer-plugin",
-      "version": "3.6.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "01bd31b7d51dfcbe635e4bdd89cf185ce4023caa876ed821970f039985b9148d",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.1/maven-enforcer-plugin-3.6.1.jar"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-artifact-plugin",
-      "version": "3.6.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "06c6e6415d35767c09c0110938814a124b255303fbc49ac89b628e43cf4d71da",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.0/maven-artifact-plugin-3.6.0.jar"
-    },
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
@@ -87,6 +76,14 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-enforcer-plugin",
+      "version": "3.6.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "88189ac3d0d2049ce9efabaf9895aee074f4eddb0f224defeb48c34ffe9d6fd8",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.6.2/maven-enforcer-plugin-3.6.2.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-clean-plugin",
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
@@ -111,6 +108,14 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.6.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e94e4d21eb073567e33e701b4680691e5a316d9beaa2dc05159c52dc9ea378f2",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.1/maven-artifact-plugin-3.6.1.jar"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-resources-plugin",
       "version": "3.3.1",
       "checksumAlgorithm": "SHA-256",
@@ -127,9 +132,10 @@
     "config": {
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.5.2",
+      "mavenLockfileVersion": "5.8.0",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }

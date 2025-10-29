@@ -30,7 +30,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@e003ec25035a32f5a6f9f695981977de21df0dcf # 5.7.1
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
 
       - name: Generate action.yml
         run: mvn generate-resources resources:copy-resources -q
@@ -50,6 +50,6 @@ jobs:
 
       - name: Commit changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: stefanzweifel/git-auto-commit-action@778341af668090896ca464160c2def5d1d1a3eb0 # v6.0.1
+        uses: stefanzweifel/git-auto-commit-action@28e16e81777b558cc906c8750092100bbb34c5e3 # v7.0.0
         with:
           commit_message: "📝 Update Documentation with current version"

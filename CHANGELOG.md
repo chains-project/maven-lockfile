@@ -2068,3 +2068,94 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.0
+## Changelog
+
+## 🚀 Added
+- 1a8dc2a ✨ feat: Update config when regenerating lockfile (#1346)
+- a38ceb4 👷: Automatic updating of action.yml (#1345)
+- f3681d7 👷 ci: Use new version of ghasum (#1341)
+
+## 📦 Dependencies
+- 33060f7 ⬆️ (deps): Update actions/dependency-review-action action to v4.8.0 (#1344)
+- 75bdbde ⬆️ (deps): Update github/codeql-action action to v3.30.5 (#1343)
+- f8c0632 ⬆️ (deps): Update github/codeql-action action to v3.30.4 (#1342)
+- d0424b5 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3 (#1340)
+- 54b8d58 ⬆️ (deps): Update dependency maven-wrapper to v3.3.4 (#1338)
+- 7cee997 ⬆️ (deps): Update actions/cache action to v4.3.0 (#1339)
+
+## 🏁 Release
+- 4f87d2d 🔖 Releasing version 5.8.0
+- ac51ab6 🔖 Setting SNAPSHOT version 5.7.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.1
+## Changelog
+## 🚀 Added
+- 545f63d 👷 cd: Fix beta release script (#1378)
+- b5bf4d0 👷 cd: Release weekly beta releases (#1376)
+- 03060c0 👷 ci: Only scan main pom.xml:s in OSV Scanner, ignore integration tests poms (#1371)
+- 201bbd5 👷 ci: Add osv scanner (#1351)
+
+## 🔒️ Security
+- 86cdef5 🔒️ [StepSecurity] ci: Harden GitHub Actions (#1353)
+- 27bb0f6 🔒️ security: Remove github.head_ref from echo of ensure-release-action-is-not-running (#1352)
+
+## 📦 Dependencies
+- dabe27d ⬆️ (deps): Update actions/upload-artifact action to v5 (#1375)
+- 97ae4d1 ⬆️ (deps): Update github/codeql-action action to v4.31.0 (#1374)
+- 5c2d230 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.15.2 (#1373)
+- 31d9cc9 ⬆️ (deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.15.2 (#1372)
+- bebe3c0 ⬆️ (deps): Update github/codeql-action action to v4.30.9 (#1369)
+- 57a6001 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.2 (#1368)
+- 94ed511 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v7 (#1367)
+- 9660bac ⬆️ (deps): Update actions/dependency-review-action action to v4.8.1 (#1366)
+- f632466 ⬆️ (deps): Update github/codeql-action action to v4.30.8 (#1365)
+- dfbb5c8 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.13 (#1364)
+- cb5048b ⬆️ (deps): Update github/codeql-action action to v4 (#1363)
+- 9218587 ⬆️ (deps): Update github/codeql-action action to v3.30.7 (#1362)
+- 5042140 ⬆️ (deps): Update github/codeql-action action to v3.30.6 (#1361)
+- 5f4af8b ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.6.2 (#1360)
+- 1cfd036 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-artifact-plugin to v3.6.1 (#1359)
+- 83121f7 ⬆️ (deps): Update google/osv-scanner-action action to v2.2.3 (#1358)
+- 3909f1e ⬆️ (deps): Update ossf/scorecard-action action to v2.4.3 (#1357)
+- e8df8f5 ⬆️ (deps): Update github/codeql-action action to v3.30.5 (#1354)
+- 33ef91c ⬆️ (deps): Update junit-framework monorepo to v6 (major) (#1356)
+- f1b1525 ⬆️  ci: Use maven-lockfile 5.8.0 in actions (#1349)
+
+## 🏁 Release
+- affb05a 🔖 Releasing version 5.8.1-beta-1
+- 89fb58e 🔖 Setting SNAPSHOT version 5.8.1-SNAPSHOT
+- 05aeab3 🔖 Releasing version 5.8.1
+
+---
+- aa9ce6a chore: update lockfile
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- StepSecurity Bot ([@step-security-bot](https://github.com/step-security-bot))
+
+# 5.8.2
+## Changelog
+
+## 🚀 Added
+- 21e5f09 👷 cd: Specify previous tag to base changelog on (#1382)
+
+## 📝 Documentation
+- 7da04c6 📝 Add commits from 5.8.1-beta-1 to changelog (#1381)
+
+## 🏁 Release
+- fb77c39 🔖 Releasing version 5.8.2
+- 233adb4 🔖 Setting SNAPSHOT version 5.8.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))

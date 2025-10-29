@@ -1,0 +1,90 @@
+name: OSV-Scanner Scheduled Scan
+
+on:
+  schedule:
+    - cron: "30 12 * * 1"
+  push:
+    branches: [main]
+
+permissions:
+  # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
+  actions: read
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Only need to read contents
+  contents: read
+
+jobs:
+  scan-scheduled:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      with:
+        egress-policy: block
+        allowed-endpoints: >
+          api.deps.dev:443
+          api.github.com:443
+          api.osv.dev:443
+          github.com:443
+          release-assets.githubusercontent.com:443
+          repo.maven.apache.org:443
+          repo.spring.io:443
+
+    # Setups the environment
+    - name: Checkout repository
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        persist-credentials: false
+
+    - name: Verify action checksums
+      uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+
+    - name: Run scanner
+      uses: google/osv-scanner-action/osv-scanner-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
+      continue-on-error: true
+      with:
+        scan-args: |-
+          --output=results.json
+          --format=json
+          ./pom.xml
+          ./maven_plugin/pom.xml
+
+    - name: "Run osv-scanner-reporter"
+      uses: google/osv-scanner-action/osv-reporter-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
+      with:
+        scan-args: |-
+          --output=results.sarif
+          --new=results.json
+          --gh-annotations=false
+          --fail-on-vuln=true
+
+    # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
+    # format to the repository Actions tab.
+    - name: "Upload artifact"
+      id: "upload_artifact"
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      with:
+        name: SARIF file
+        path: results.sarif
+        retention-days: 5
+
+    # Upload the results to GitHub's code scanning dashboard.
+    - name: "Upload to code-scanning"
+      if: "${{ !cancelled() && inputs.upload-sarif == true }}"
+      uses: github/codeql-action/upload-sarif@4e94bd11f71e507f7f87df81788dff88d1dacbfb # v4.31.0
+      with:
+        sarif_file: results.sarif
+
+    - name: "Print Code Scanning URL"
+      if: "${{ !cancelled() }}"
+      run: |
+        echo "View the OSV-Scanner results in the 'Security' tab, using the following link:"
+        echo "${{ github.server_url }}/${{ github.repository }}/security/code-scanning?query=is%3Aopen+branch%3A${{ github.ref_name }}+tool%3Aosv-scanner"
+
+    - name: "Error troubleshooter"
+      if: ${{ always() && steps.upload_artifact.outcome == 'failure' }}
+      run: |
+        echo "::error::Artifact upload failed. This is most likely caused by a error during scanning earlier in the workflow."
+        exit 1
