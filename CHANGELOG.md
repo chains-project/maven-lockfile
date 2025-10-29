@@ -2141,3 +2141,21 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
 - StepSecurity Bot ([@step-security-bot](https://github.com/step-security-bot))
+
+# 5.8.2
+## Changelog
+
+## 🚀 Added
+- 21e5f09 👷 cd: Specify previous tag to base changelog on (#1382)
+
+## 📝 Documentation
+- 7da04c6 📝 Add commits from 5.8.1-beta-1 to changelog (#1381)
+
+## 🏁 Release
+- fb77c39 🔖 Releasing version 5.8.2
+- 233adb4 🔖 Setting SNAPSHOT version 5.8.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))

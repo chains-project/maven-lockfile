@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>5.8.2</version>
+    <version>5.8.3-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>5.8.2</version>
+  <version>5.8.3-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile-plugin</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
