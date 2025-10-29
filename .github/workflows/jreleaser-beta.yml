@@ -56,7 +56,7 @@ jobs:
           # Compute next beta number
           set -euo pipefail
 
-          LAST_BETA_NUMBER="$(curl -L "https://central.sonatype.com/solrsearch/select?q=a:maven-lockfile+g:chains-project.github.io" | jq -r ".response.docs | map(.latestVersion) | map((match(\"$CURRENT_VERSION-beta-(.*)\") | .captures[0].string) // \"0\") | .[0]")"
+          LAST_BETA_NUMBER="$(curl -L "https://central.sonatype.com/solrsearch/select?q=a:maven-lockfile+g:io.github.chains-project" | jq -r ".response.docs | map(.latestVersion) | map((match(\"$CURRENT_VERSION-beta-(.*)\") | .captures[0].string) // \"0\") | .[0]")"
 
           if [[ -z "${LAST_BETA_NUMBER:-}" || "$LAST_BETA_NUMBER" == "null" ]]; then
             LAST_BETA_NUMBER=0
