@@ -19,9 +19,9 @@ This plugin is a state-of-the-art solution for validating the integrity of a mav
   <b>Video Demo</b>
 </summary>
 
-Video Demo available in higher quality on [YouTube](https://youtu.be/eGgR3toBgxU) or compressed below:
+Video Demo available in full quality on [YouTube](https://youtu.be/eGgR3toBgxU) or compressed below:
 
-https://github.com/user-attachments/assets/e4985fb7-5616-4f4e-813a-73e00320fc3a
+https://github.com/user-attachments/assets/4fac8229-d80b-4832-93c1-8cc8bf83e72b
 </details>
 
 ## Installation:
