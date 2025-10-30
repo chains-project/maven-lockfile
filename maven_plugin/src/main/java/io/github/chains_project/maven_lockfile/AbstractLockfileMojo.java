@@ -132,7 +132,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.EnvironmentInclusion includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment)
                 ? Config.EnvironmentInclusion.Include
                 : Config.EnvironmentInclusion.Exclude;
-        Config.ReductionState reducedEnum = Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+        Config.ReductionState reducedEnum =
+                Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
 
         return new Config(
                 includeMavenPluginsEnum,
