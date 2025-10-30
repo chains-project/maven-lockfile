@@ -29,18 +29,18 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@fb77c395be8048ecc1029d64913b786b7c95292c # 5.8.2
 
       - name: run maven-lockfile
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: chains-project/maven-lockfile@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        uses: chains-project/maven-lockfile@fb77c395be8048ecc1029d64913b786b7c95292c # 5.8.2
         with:
           github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
           include-maven-plugins: true
     
       - name: run maven-lockfile (fork/external)
         if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
-        uses: chains-project/maven-lockfile@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        uses: chains-project/maven-lockfile@fb77c395be8048ecc1029d64913b786b7c95292c # 5.8.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true

@@ -14,6 +14,16 @@ This plugin is a state-of-the-art solution for validating the integrity of a mav
 * validate the integrity of a build environment prior to building.
 * rebuild old versions with the pinned versions from the lockfile 
 
+<details>
+<summary>
+  <b>Video Demo</b>
+</summary>
+
+Video Demo available in full quality on [YouTube](https://youtu.be/eGgR3toBgxU) or compressed below:
+
+https://github.com/user-attachments/assets/4fac8229-d80b-4832-93c1-8cc8bf83e72b
+</details>
+
 ## Installation:
 
 This plugin is available on maven central. See https://search.maven.org/artifact/io.github.chains-project/maven-lockfile for the latest version.
