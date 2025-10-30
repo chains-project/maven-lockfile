@@ -52,7 +52,7 @@ public class DependencyGraph {
     public static DependencyGraph of(
             MutableGraph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
-            Config.Reduced reduced) {
+            boolean reduced) {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class DependencyGraph {
             Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
             boolean isRoot,
-            Config.Reduced reduce) {
+            boolean reduce) {
         var groupId = GroupId.of(node.getArtifact().getGroupId());
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());
@@ -86,7 +86,7 @@ public class DependencyGraph {
         boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
         String baseVersion = included ? node.getArtifact().getVersion() : winnerVersion.get();
-        if (reduce.equals(Config.Reduced.Reduced) && !included) {
+        if (reduce && !included) {
             return Optional.empty();
         }
         DependencyNode value = new DependencyNode(

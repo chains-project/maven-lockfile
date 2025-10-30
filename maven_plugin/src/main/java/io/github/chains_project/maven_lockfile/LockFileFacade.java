@@ -90,7 +90,7 @@ public class LockFileFacade {
                 project,
                 dependencyCollectorBuilder,
                 checksumCalculator,
-                metadata.getConfig().getReduced());
+                metadata.getConfig().isReduced());
         var roots = graph.getGraph().stream()
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
@@ -125,7 +125,7 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            Config.Reduced reduced) {
+            boolean reduced) {
         try {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());

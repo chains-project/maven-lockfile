@@ -86,13 +86,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
         ChecksumModes checksumModeEnum = ChecksumModes.fromName(checksumMode);
 
-        if (checksumModeEnum.equals(ChecksumModes.LOCAL)) {
-            return new FileSystemChecksumCalculator(
-                    dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
-        } else if (checksumModeEnum.equals(ChecksumModes.REMOTE)) {
-            return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
-        } else {
-            throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
+        switch (checksumModeEnum) {
+            case LOCAL:
+                return new FileSystemChecksumCalculator(dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
+            case REMOTE:
+                return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
+            default:
+                throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
         }
     }
 
