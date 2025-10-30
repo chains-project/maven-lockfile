@@ -293,7 +293,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isEqualTo(Config.IncludeEnvironment.Include);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
         assertThat(lockFile.getEnvironment()).isNotNull();
     }
 
@@ -304,7 +304,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isEqualTo(Config.IncludeEnvironment.Exclude);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
         assertThat(lockFile.getEnvironment()).isNull();
     }
 
@@ -315,7 +315,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isEqualTo(Config.IncludeEnvironment.Include);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
         assertThat(lockFile.getEnvironment()).isNotNull();
     }
 
@@ -326,7 +326,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isEqualTo(Config.IncludeEnvironment.Exclude);
+        assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
         assertThat(lockFile.getEnvironment()).isNull();
     }
 
