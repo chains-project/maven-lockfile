@@ -42,7 +42,7 @@ jobs:
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@05aeab3f62ea2a58fe670f64317d2f24546cc4ac # 5.8.1
 
       - name: Set up JDK 17
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
@@ -82,7 +82,7 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
 
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@4f87d2df69f7567b2de1edff73def60a79372755 # 5.8.0
+        uses: chains-project/maven-lockfile@05aeab3f62ea2a58fe670f64317d2f24546cc4ac # 5.8.1
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
