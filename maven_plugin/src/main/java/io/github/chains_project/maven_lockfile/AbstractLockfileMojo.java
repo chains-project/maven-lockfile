@@ -120,19 +120,19 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
         ChecksumModes chosenModeEnum =
                 Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
-        Config.IncludeMavenPlugins includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins)
-                ? Config.IncludeMavenPlugins.Include
-                : Config.IncludeMavenPlugins.Exclude;
-        Config.ValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure)
-                ? Config.ValidationFailure.Warn
-                : Config.ValidationFailure.Error;
-        Config.PomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure)
-                ? Config.PomValidationFailure.Warn
-                : Config.PomValidationFailure.Error;
-        Config.IncludeEnvironment includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment)
-                ? Config.IncludeEnvironment.Include
-                : Config.IncludeEnvironment.Exclude;
-        Config.Reduced reducedEnum = Boolean.parseBoolean(reduced) ? Config.Reduced.Reduced : Config.Reduced.NonReduced;
+        Config.MavenPluginsInclusion includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins)
+                ? Config.MavenPluginsInclusion.Include
+                : Config.MavenPluginsInclusion.Exclude;
+        Config.OnValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure)
+                ? Config.OnValidationFailure.Warn
+                : Config.OnValidationFailure.Error;
+        Config.OnPomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure)
+                ? Config.OnPomValidationFailure.Warn
+                : Config.OnPomValidationFailure.Error;
+        Config.EnvironmentInclusion includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment)
+                ? Config.EnvironmentInclusion.Include
+                : Config.EnvironmentInclusion.Exclude;
+        Config.ReductionState reducedEnum = Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
 
         return new Config(
                 includeMavenPluginsEnum,

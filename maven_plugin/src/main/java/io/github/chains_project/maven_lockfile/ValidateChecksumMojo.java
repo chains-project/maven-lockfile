@@ -59,7 +59,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + lockFileFromProject.getPom().getPath()
                         + " " + lockFileFromProject.getPom().getChecksum() + "\n";
 
-                switch (config.getAllowPomValidationFailure()) {
+                switch (config.getOnPomValidationFailure()) {
                     case Warn:
                         getLog().warn(sb);
                         break;
@@ -88,7 +88,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + "Missing plugins in project:\n "
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
                         + "\n";
-                switch (config.getAllowValidationFailure()) {
+                switch (config.getOnValidationFailure()) {
                     case Warn:
                         getLog().warn("Failed verifying lock file. " + sb);
                         break;

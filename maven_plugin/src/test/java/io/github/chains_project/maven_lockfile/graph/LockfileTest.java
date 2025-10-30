@@ -14,11 +14,11 @@ public class LockfileTest {
         var metadata = new MetaData(
                 new Environment("os", "mv", "jv"),
                 new Config(
-                        Config.IncludeMavenPlugins.Include,
-                        Config.ValidationFailure.Error,
-                        Config.PomValidationFailure.Error,
-                        Config.IncludeEnvironment.Include,
-                        Config.Reduced.NonReduced,
+                        Config.MavenPluginsInclusion.Include,
+                        Config.OnValidationFailure.Error,
+                        Config.OnPomValidationFailure.Error,
+                        Config.EnvironmentInclusion.Include,
+                        Config.ReductionState.NonReduced,
                         "1",
                         ChecksumModes.LOCAL,
                         "SHA-1"));

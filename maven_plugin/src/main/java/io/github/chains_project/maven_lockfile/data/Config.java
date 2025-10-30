@@ -15,19 +15,19 @@ public class Config {
     private final String checksumAlgorithm;
 
     public Config(
-            IncludeMavenPlugins includeMavenPlugins,
-            ValidationFailure allowValidationFailure,
-            PomValidationFailure allowPomValidationFailure,
-            IncludeEnvironment includeEnvironment,
-            Reduced reduced,
+            MavenPluginsInclusion includeMavenPlugins,
+            OnValidationFailure allowValidationFailure,
+            OnPomValidationFailure allowPomValidationFailure,
+            EnvironmentInclusion includeEnvironment,
+            ReductionState reduced,
             String mavenLockfileVersion,
             ChecksumModes checksumMode,
             String checksumAlgorithm) {
-        this.includeMavenPlugins = includeMavenPlugins.equals(IncludeMavenPlugins.Include);
-        this.allowValidationFailure = allowValidationFailure.equals(ValidationFailure.Warn);
-        this.allowPomValidationFailure = allowPomValidationFailure.equals(PomValidationFailure.Warn);
-        this.includeEnvironment = includeEnvironment.equals(IncludeEnvironment.Include);
-        this.reduced = reduced.equals(Reduced.Reduced);
+        this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
+        this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
+        this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
+        this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
+        this.reduced = reduced.equals(ReductionState.Reduced);
         this.mavenLockfileVersion = mavenLockfileVersion;
         this.checksumMode = checksumMode;
         this.checksumAlgorithm = checksumAlgorithm;
@@ -52,8 +52,8 @@ public class Config {
     /**
      * @return the includeMavenPlugins enum
      */
-    public IncludeMavenPlugins getIncludeMavenPlugins() {
-        return includeMavenPlugins ? IncludeMavenPlugins.Include : IncludeMavenPlugins.Exclude;
+    public MavenPluginsInclusion getMavenPluginsInclusion() {
+        return includeMavenPlugins ? MavenPluginsInclusion.Include : MavenPluginsInclusion.Exclude;
     }
     /**
      * @return the allowValidationFailure
@@ -64,8 +64,8 @@ public class Config {
     /**
      * @return the allowValidationFailure enum
      */
-    public ValidationFailure getAllowValidationFailure() {
-        return allowValidationFailure ? ValidationFailure.Warn : ValidationFailure.Error;
+    public OnValidationFailure getOnValidationFailure() {
+        return allowValidationFailure ? OnValidationFailure.Warn : OnValidationFailure.Error;
     }
     /**
      * @return the allowPomValidationFailure
@@ -76,8 +76,8 @@ public class Config {
     /**
      * @return the allowPomValidationFailure enum
      */
-    public PomValidationFailure getAllowPomValidationFailure() {
-        return allowPomValidationFailure ? PomValidationFailure.Warn : PomValidationFailure.Error;
+    public OnPomValidationFailure getOnPomValidationFailure() {
+        return allowPomValidationFailure ? OnPomValidationFailure.Warn : OnPomValidationFailure.Error;
     }
     /**
      * @return the includeEnvironment
@@ -88,8 +88,8 @@ public class Config {
     /**
      * @return the includeEnvironment enum
      */
-    public IncludeEnvironment getIncludeEnvironment() {
-        return includeEnvironment ? IncludeEnvironment.Include : IncludeEnvironment.Exclude;
+    public EnvironmentInclusion getEnvironmentInclusion() {
+        return includeEnvironment ? EnvironmentInclusion.Include : EnvironmentInclusion.Exclude;
     }
     /**
      * @return the reduced
@@ -100,8 +100,8 @@ public class Config {
     /**
      * @return the reduced enum
      */
-    public Reduced getReduced() {
-        return reduced ? Reduced.Reduced : Reduced.NonReduced;
+    public ReductionState getReductionState() {
+        return reduced ? ReductionState.Reduced : ReductionState.NonReduced;
     }
     /**
      * @return the mavenLockfileVersion
@@ -122,27 +122,27 @@ public class Config {
         return checksumAlgorithm;
     }
 
-    public enum IncludeMavenPlugins {
+    public enum MavenPluginsInclusion {
         Include,
         Exclude
     }
 
-    public enum ValidationFailure {
+    public enum OnValidationFailure {
         Warn,
         Error
     }
 
-    public enum PomValidationFailure {
+    public enum OnPomValidationFailure {
         Warn,
         Error
     }
 
-    public enum IncludeEnvironment {
+    public enum EnvironmentInclusion {
         Include,
         Exclude
     }
 
-    public enum Reduced {
+    public enum ReductionState {
         Reduced,
         NonReduced;
     }
