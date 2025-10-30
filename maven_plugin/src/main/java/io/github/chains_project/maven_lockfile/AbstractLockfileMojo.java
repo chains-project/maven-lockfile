@@ -88,7 +88,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
         switch (checksumModeEnum) {
             case LOCAL:
-                return new FileSystemChecksumCalculator(dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
+                return new FileSystemChecksumCalculator(
+                        dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
             case REMOTE:
                 return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
             default:
