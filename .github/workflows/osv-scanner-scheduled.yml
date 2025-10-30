@@ -41,7 +41,7 @@ jobs:
       uses: chains-project/maven-lockfile/.github/actions/ghasum@05aeab3f62ea2a58fe670f64317d2f24546cc4ac # 5.8.1
 
     - name: Run scanner
-      uses: google/osv-scanner-action/osv-scanner-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
+      uses: google/osv-scanner-action/osv-scanner-action@9bb69575e74019c2ad085a1860787043adf47ccb # v2.2.4
       continue-on-error: true
       with:
         scan-args: |-
@@ -51,7 +51,7 @@ jobs:
           ./maven_plugin/pom.xml
 
     - name: "Run osv-scanner-reporter"
-      uses: google/osv-scanner-action/osv-reporter-action@e92b5d07338d4f0ba0981dffed17c48976ca4730 # v2.2.3
+      uses: google/osv-scanner-action/osv-reporter-action@9bb69575e74019c2ad085a1860787043adf47ccb # v2.2.4
       with:
         scan-args: |-
           --output=results.sarif
