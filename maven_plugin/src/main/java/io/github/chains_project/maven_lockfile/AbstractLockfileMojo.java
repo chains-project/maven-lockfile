@@ -117,33 +117,33 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     protected Config getConfig() {
-        String chosenAlgo = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        ChecksumModes chosenModeEnum =
+        String chosenChecksumAlgorithm = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
+        ChecksumModes chosenChecksumMode =
                 Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
-        Config.MavenPluginsInclusion includeMavenPluginsEnum = Boolean.parseBoolean(includeMavenPlugins)
+        Config.MavenPluginsInclusion mavenPluginsInclusion = Boolean.parseBoolean(includeMavenPlugins)
                 ? Config.MavenPluginsInclusion.Include
                 : Config.MavenPluginsInclusion.Exclude;
-        Config.OnValidationFailure validationFailureEnum = Boolean.parseBoolean(allowValidationFailure)
+        Config.OnValidationFailure onValidationFailure = Boolean.parseBoolean(allowValidationFailure)
                 ? Config.OnValidationFailure.Warn
                 : Config.OnValidationFailure.Error;
-        Config.OnPomValidationFailure pomValidationFailureEnum = Boolean.parseBoolean(allowPomValidationFailure)
+        Config.OnPomValidationFailure onPomValidationFailure = Boolean.parseBoolean(allowPomValidationFailure)
                 ? Config.OnPomValidationFailure.Warn
                 : Config.OnPomValidationFailure.Error;
-        Config.EnvironmentInclusion includeEnvironmentEnum = Boolean.parseBoolean(includeEnvironment)
+        Config.EnvironmentInclusion environmentInclusion = Boolean.parseBoolean(includeEnvironment)
                 ? Config.EnvironmentInclusion.Include
                 : Config.EnvironmentInclusion.Exclude;
-        Config.ReductionState reducedEnum =
+        Config.ReductionState reductionState =
                 Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
 
         return new Config(
-                includeMavenPluginsEnum,
-                validationFailureEnum,
-                pomValidationFailureEnum,
-                includeEnvironmentEnum,
-                reducedEnum,
+                mavenPluginsInclusion,
+                onValidationFailure,
+                onPomValidationFailure,
+                environmentInclusion,
+                reductionState,
                 mojo.getPlugin().getVersion(),
-                chosenModeEnum,
-                chosenAlgo);
+                chosenChecksumMode,
+                chosenChecksumAlgorithm);
     }
 
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
