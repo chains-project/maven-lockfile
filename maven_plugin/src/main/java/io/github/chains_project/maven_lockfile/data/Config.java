@@ -144,6 +144,6 @@ public class Config {
 
     public enum ReductionState {
         Reduced,
-        NonReduced;
+        NonReduced
     }
 }
