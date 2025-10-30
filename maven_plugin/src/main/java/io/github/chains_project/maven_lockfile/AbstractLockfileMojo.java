@@ -48,6 +48,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowPomValidationFailure", defaultValue = "false")
     protected String allowPomValidationFailure;
 
+    @Parameter(property = "allowEnvironmentalValidationFailure", defaultValue = "false")
+    protected String allowEnvironmentalValidationFailure;
+
     @Parameter(property = "includeEnvironment", defaultValue = "true")
     protected String includeEnvironment;
 
@@ -121,6 +124,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.parseBoolean(includeMavenPlugins),
                 Boolean.parseBoolean(allowValidationFailure),
                 Boolean.parseBoolean(allowPomValidationFailure),
+                Boolean.parseBoolean(allowEnvironmentalValidationFailure),
                 Boolean.parseBoolean(includeEnvironment),
                 Boolean.parseBoolean(reduced),
                 mojo.getPlugin().getVersion(),

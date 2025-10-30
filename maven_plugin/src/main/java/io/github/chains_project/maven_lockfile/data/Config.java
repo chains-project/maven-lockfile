@@ -8,6 +8,7 @@ public class Config {
     private final boolean includeMavenPlugins;
     private final boolean allowValidationFailure;
     private final boolean allowPomValidationFailure;
+    private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
     private final String mavenLockfileVersion;
@@ -18,6 +19,7 @@ public class Config {
             boolean includeMavenPlugins,
             boolean allowValidationFailure,
             boolean allowPomValidationFailure,
+            boolean allowEnvironmentalValidationFailure,
             boolean includeEnvironment,
             boolean reduced,
             String mavenLockfileVersion,
@@ -26,6 +28,7 @@ public class Config {
         this.includeMavenPlugins = includeMavenPlugins;
         this.allowValidationFailure = allowValidationFailure;
         this.allowPomValidationFailure = allowPomValidationFailure;
+        this.allowEnvironmentalValidationFailure = allowEnvironmentalValidationFailure;
         this.includeEnvironment = includeEnvironment;
         this.reduced = reduced;
         this.mavenLockfileVersion = mavenLockfileVersion;
@@ -37,6 +40,7 @@ public class Config {
         this.includeMavenPlugins = false;
         this.allowValidationFailure = false;
         this.allowPomValidationFailure = false;
+        this.allowEnvironmentalValidationFailure = false;
         this.includeEnvironment = true;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
@@ -60,6 +64,12 @@ public class Config {
      */
     public boolean isAllowPomValidationFailure() {
         return allowPomValidationFailure;
+    }
+    /**
+     * @return the allowPomValidationFailure
+     */
+    public boolean isAllowEnvironmentalValidationFailure() {
+        return allowEnvironmentalValidationFailure;
     }
     /**
      * @return the includeEnvironment
