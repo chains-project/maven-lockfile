@@ -135,7 +135,7 @@
       "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.8.1",
+      "mavenLockfileVersion": "5.8.2",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
