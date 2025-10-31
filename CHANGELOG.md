@@ -2159,3 +2159,28 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.3-beta-1
+## Changelog
+
+## 🚀 Added
+- 12ed159 👷 cd: Enable immutable releases with jreleaser (#1393)
+- 90a755d 👷 cd: Fix group identifier order when getting next beta number (#1385)
+
+## 📦 Dependencies
+- 8cf977c ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.2 (#1390)
+- 0a18975 ⬆️ (deps): Update google/osv-scanner-action action to v2.2.4 (#1391)
+- c7b5688 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.1 (#1389)
+
+## 📝 Documentation
+- a2f0c59 📝 Add video demo to README (#1388)
+
+## 🏁 Release
+- 236d51a 🔖 Releasing version 5.8.3-beta-1
+- b813b34 🔖 Setting SNAPSHOT version 5.8.3-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
