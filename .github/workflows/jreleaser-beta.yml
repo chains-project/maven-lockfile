@@ -109,7 +109,7 @@ jobs:
         uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
         with:
           setup-java: false
-          version: 1.18.0
+          version: 1.21.0
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_BETA_VERSION }}
