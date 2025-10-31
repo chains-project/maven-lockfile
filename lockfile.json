@@ -1,11 +1,11 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.8.3-SNAPSHOT",
+  "version": "5.8.3-beta-1",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "4d1b9522bfc5512cbd81ae6f08582122d8e75cd695b6fc0b6d142e6fc7db299f"
+    "checksum": "65e1710fbf6abc0cf6cd527cac9bebd0a74bd63da99208698eada8a3b3cb9a01"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -127,7 +127,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.11",
-      "javaVersion": "17.0.16"
+      "javaVersion": "17.0.17"
     },
     "config": {
       "includeMavenPlugins": true,
