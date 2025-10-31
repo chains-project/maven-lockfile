@@ -19,6 +19,7 @@ project:
 release:
   github:
     owner: chains-project
+    immutableRelease: true
     prerelease:
       pattern: .*beta.*
     changelog:
