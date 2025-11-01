@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "f97e0883a4cf53b3e3937704370f4c579b70ca56fd5f465bff7cb3da8e7c4f16"
+    "checksum": "02c7fb584dc18232cf686e22d836af84cf119398188b08414baeb457a2c07d96"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -2483,34 +2483,6 @@
               "children": []
             }
           ]
-        }
-      ]
-    },
-    {
-      "groupId": "org.slf4j",
-      "artifactId": "log4j-over-slf4j",
-      "version": "2.0.17",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "cbf30eaf95357ab7babf9be123da9cc702f0fe83b23392b7a62589d60b5862d1",
-      "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/log4j-over-slf4j/2.0.17/log4j-over-slf4j-2.0.17.jar",
-      "selectedVersion": "2.0.17",
-      "included": true,
-      "id": "org.slf4j:log4j-over-slf4j:2.0.17",
-      "children": [
-        {
-          "groupId": "org.slf4j",
-          "artifactId": "slf4j-api",
-          "version": "2.0.17",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
-          "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
-          "selectedVersion": "1.7.36",
-          "included": false,
-          "id": "org.slf4j:slf4j-api:2.0.17",
-          "parent": "org.slf4j:log4j-over-slf4j:2.0.17",
-          "children": []
         }
       ]
     }
