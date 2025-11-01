@@ -6,12 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Locale;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 
 public abstract class AbstractChecksumCalculator {
 
-    private static final Logger LOGGER = Logger.getLogger(AbstractChecksumCalculator.class);
+    private static final Logger LOGGER = LogManager.getLogger(AbstractChecksumCalculator.class);
 
     protected String checksumAlgorithm;
 

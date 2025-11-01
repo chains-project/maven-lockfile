@@ -9,14 +9,15 @@ import java.net.http.HttpResponse;
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.Optional;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
 
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
-    private static final Logger LOGGER = Logger.getLogger(RemoteChecksumCalculator.class);
+    private static final Logger LOGGER = LogManager.getLogger(RemoteChecksumCalculator.class);
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;

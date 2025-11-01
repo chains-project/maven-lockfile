@@ -2,12 +2,13 @@ package org.apache.maven.shared.dependency.graph.internal;
 
 import java.lang.reflect.Field;
 import java.util.Optional;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 public class SpyingDependencyNodeUtils {
 
-    private static final Logger LOGGER = Logger.getLogger(SpyingDependencyNodeUtils.class);
+    private static final Logger LOGGER = LogManager.getLogger(SpyingDependencyNodeUtils.class);
     /**
      * Resolves the conflict data from a dependency node. This is a hack, because the conflict data is not exposed by the API.
      * The winner version is used to determine the version of a dependency.

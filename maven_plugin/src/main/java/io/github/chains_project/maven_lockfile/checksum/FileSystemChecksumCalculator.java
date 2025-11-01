@@ -7,7 +7,8 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -16,7 +17,7 @@ import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
-    private static final Logger LOGGER = Logger.getLogger(FileSystemChecksumCalculator.class);
+    private static final Logger LOGGER = LogManager.getLogger(FileSystemChecksumCalculator.class);
 
     private final DependencyResolver resolver;
     private final ProjectBuildingRequest artifactBuildingRequest;
