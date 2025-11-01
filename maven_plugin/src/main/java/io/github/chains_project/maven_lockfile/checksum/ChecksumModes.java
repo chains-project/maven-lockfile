@@ -1,5 +1,7 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The checksum modes that are supported by the plugin.
  * A checksum mode is a way to calculate the checksum of a dependency.
@@ -11,10 +13,12 @@ public enum ChecksumModes {
      * on the downloaded artifact. The download will be verified with the SHA-1 checksum if it available in the remote
      * repository.
      */
+    @SerializedName("remote")
     REMOTE("remote"),
     /**
      * Calculates the checksum from the downloaded artifact in the local m2 folder.
      */
+    @SerializedName("local")
     LOCAL("local");
 
     /**
