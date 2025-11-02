@@ -2159,3 +2159,19 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.3-beta-2
+## Changelog
+
+## 📦 Dependencies
+- 658a47d ⬆️ (deps): Update junit-framework monorepo to v6.0.1 (#1397)
+- daf03ec ⬆️ (deps): Update github/codeql-action action to v4.31.2 (#1396)
+- 96070cd ⬆️ (deps): Update github/codeql-action action to v4.31.1 (#1394)
+
+## 🏁 Release
+- 40c77b7 🔖 Releasing version 5.8.3-beta-2
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
