@@ -87,7 +87,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources
 
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.8.2:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.9.0:generate
         shell: bash
 
       - name: commit changes
