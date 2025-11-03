@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -145,7 +146,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
-    private Optional<ResolvedUrl> getResolvedFieldInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+    private Optional<RepositoryInformation> getResolvedFieldInternal(
+            Artifact artifact, ProjectBuildingRequest buildingRequest) {
         try {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
@@ -179,7 +181,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
-                    return Optional.of(ResolvedUrl.of(url));
+                    return Optional.of(
+                            new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId())));
                 }
             }
 
@@ -207,12 +210,14 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     @Override
-    public ResolvedUrl getArtifactResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(artifact, artifactBuildingRequest).orElse(ResolvedUrl.Unresolved());
+    public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(artifact, artifactBuildingRequest)
+                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.Default()));
     }
 
     @Override
-    public ResolvedUrl getPluginResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(artifact, pluginBuildingRequest).orElse(ResolvedUrl.Unresolved());
+    public RepositoryInformation getPluginResolvedField(Artifact artifact) {
+        return getResolvedFieldInternal(artifact, pluginBuildingRequest)
+                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.Default()));
     }
 }
