@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "02c7fb584dc18232cf686e22d836af84cf119398188b08414baeb457a2c07d96"
+    "checksum": "c50c49ce4ac1a5f36c899fe533941ea202dd86b81bec9b5d5b19001400bcc861"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -633,7 +633,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "142ad4475e19524d2fe3ac995b3f7cbc962fc726f2edb9dbdccc61feab9b2bf9",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar",
+          "resolved": "",
           "selectedVersion": "5.1.0",
           "included": true,
           "id": "com.google.inject:guice:5.1.0",
