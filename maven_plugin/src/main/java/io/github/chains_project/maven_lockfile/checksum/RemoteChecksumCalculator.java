@@ -43,11 +43,17 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String classifier = artifact.getClassifier();
+            if (classifier == null) {
+                classifier = "";
+            } else {
+                classifier = "-" + classifier;
+            }
             String extension = artifact.getType();
             if (extension.equals("maven-plugin")) {
                 extension = "jar";
             }
-            String filename = artifactId + "-" + version + "." + extension;
+            String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
             HttpClient client = HttpClient.newBuilder()
@@ -142,11 +148,17 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String classifier = artifact.getClassifier();
+            if (classifier == null) {
+                classifier = "";
+            } else {
+                classifier = "-" + classifier;
+            }
             String extension = artifact.getType();
             if (extension.equals("maven-plugin")) {
                 extension = "jar";
             }
-            String filename = artifactId + "-" + version + "." + extension;
+            String filename = artifactId + "-" + version + classifier + "." + extension;
 
             HttpClient client = HttpClient.newBuilder()
                     .followRedirects(HttpClient.Redirect.ALWAYS)
