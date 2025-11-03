@@ -86,7 +86,7 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
-        LOGGER.info("Generating lock file for project " + project.getArtifactId());
+        LOGGER.info("Generating lock file for project {}", project.getArtifactId());
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, checksumCalculator);

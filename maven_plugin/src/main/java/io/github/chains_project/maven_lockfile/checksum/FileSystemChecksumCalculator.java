@@ -58,14 +58,15 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .next()
                     .getArtifact();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
+            LOGGER.warn("Could not resolve artifact: {}", artifact.getArtifactId(), e);
             return artifact;
         }
     }
 
     private Optional<String> calculateChecksumInternal(Artifact artifact) {
         if (artifact.getFile() == null) {
-            LOGGER.error("Artifact " + artifact + " has no file");
+            LOGGER.warn("Artifact {} has no file", artifact);
+            LOGGER.error("Artifact has no file");
             return Optional.empty();
         }
         try {
@@ -75,14 +76,15 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return Optional.of(baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT));
         } catch (Exception e) {
-            LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);
+            LOGGER.warn("Could not calculate checksum for artifact {}", artifact, e);
             return Optional.empty();
         }
     }
 
     private Optional<ResolvedUrl> getResolvedFieldInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
         if (artifact.getFile() == null) {
-            LOGGER.error("Artifact " + artifact + " has no file");
+            LOGGER.warn("Artifact {} has no file", artifact);
+            LOGGER.error("Artifact has no file");
             return Optional.empty();
         }
         try {
@@ -144,7 +146,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .findFirst();
 
             if (remoteRepository.isEmpty()) {
-                LOGGER.warn("Could not find repository '" + finalRepository + "' in building request.");
+                LOGGER.warn("Could not find repository '{}' in building request.", finalRepository);
                 return Optional.empty();
             }
 
@@ -157,7 +159,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
             return Optional.of(ResolvedUrl.of(url));
         } catch (Exception e) {
-            LOGGER.warn("Could not fetch remote repository for artifact " + artifact, e);
+            LOGGER.warn("Could not fetch remote repository for artifact {}", artifact, e);
             return Optional.empty();
         }
     }

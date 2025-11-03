@@ -67,7 +67,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 String checksumUrl =
                         artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
 
-                LOGGER.debug("Checking: " + checksumUrl);
+                LOGGER.debug("Checking: {}", checksumUrl);
 
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
@@ -89,8 +89,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
-                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact
-                            + " on remote. Downloading and calculating locally.");
+                    LOGGER.info("Unable to find {} checksum for {} on remote. Downloading and calculating locally.", checksumAlgorithm, artifact);
 
                     // Fallback to and verify downloaded artifact with SHA-1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
@@ -117,14 +116,14 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .toLowerCase(Locale.ROOT);
 
                         if (!sha1.equals(artifactVerification)) {
-                            LOGGER.error("Invalid SHA-1 checksum for: " + artifactUrl);
+                            LOGGER.error("Invalid SHA-1 checksum for: {}", artifactUrl);
                             throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
                                     + "'. Checksum found at '" + artifactUrl
                                     + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
                                     + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
                     } else {
-                        LOGGER.warn("Unable to find SHA-1 to verify download of: " + artifactUrl);
+                        LOGGER.warn("Unable to find SHA-1 to verify download of: {}", artifactUrl);
                     }
 
                     MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
@@ -135,11 +134,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact checksum `" + artifact + "." + checksumAlgorithm
-                    + "` not found among remote repositories.");
+            LOGGER.warn("Artifact checksum `{}.{}` not found among remote repositories.", artifact, checksumAlgorithm);
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
+            LOGGER.warn("Could not resolve artifact: {}", artifact.getArtifactId(), e);
             return Optional.empty();
         }
     }
@@ -169,7 +167,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
                         + "/" + filename;
 
-                LOGGER.debug("Checking: " + url);
+                LOGGER.debug("Checking: {}", url);
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
@@ -182,10 +180,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact resolved url `" + artifact + "` not found.");
+            LOGGER.warn("Artifact resolved url `{}` not found.", artifact);
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve url for artifact: " + artifact.getArtifactId(), e);
+            LOGGER.warn("Could not resolve url for artifact: {}", artifact.getArtifactId(), e);
             return Optional.empty();
         }
     }

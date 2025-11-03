@@ -49,7 +49,7 @@ public abstract class AbstractChecksumCalculator {
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
         } catch (Exception e) {
-            LOGGER.warn("Could not calculate checksum for pom " + path, e);
+            LOGGER.warn("Could not calculate checksum for pom {}", path, e);
             return "";
         }
     }
