@@ -27,16 +27,16 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>fr.inria.gforge.spoon</groupId>
-      <artifactId>spoon-core</artifactId>
-      <version>10.3.0</version>
-    </dependency>
-    <dependency>
       <groupId>atlassian-bandana</groupId>
       <artifactId>atlassian-bandana</artifactId>
       <version>0.2.0</version>
       <type>jar</type>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-bean</artifactId>
+      <version>1.4.2</version>
     </dependency>
   </dependencies>
   <build>
