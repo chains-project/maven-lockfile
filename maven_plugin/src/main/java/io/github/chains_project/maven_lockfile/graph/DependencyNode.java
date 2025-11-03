@@ -229,8 +229,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
         return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version
                 + ", classifier=" + classifier + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
                 + ", scope=" + scope + ", resolved=" + resolved + ", repositoryId=" + repositoryId
-                + ", selectedVersion=" + selectedVersion + ", id=" + id
-                + ", parent=" + parent + ", children=" + children + "]";
+                + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent + ", children="
+                + children + "]";
     }
 
     public String getComparatorString() {
