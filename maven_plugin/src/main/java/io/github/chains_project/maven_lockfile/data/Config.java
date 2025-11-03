@@ -28,7 +28,8 @@ public class Config {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
-        this.allowEnvironmentalValidationFailure = allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
+        this.allowEnvironmentalValidationFailure =
+                allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
         this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
         this.reduced = reduced.equals(ReductionState.Reduced);
         this.mavenLockfileVersion = mavenLockfileVersion;
@@ -93,7 +94,9 @@ public class Config {
      * @return the onEnvironmentalValidationFailure enum
      */
     public OnEnvironmentalValidationFailure getOnEnvironmentalValidationFailure() {
-        return allowEnvironmentalValidationFailure ? OnEnvironmentalValidationFailure.Warn : OnEnvironmentalValidationFailure.Error;
+        return allowEnvironmentalValidationFailure
+                ? OnEnvironmentalValidationFailure.Warn
+                : OnEnvironmentalValidationFailure.Error;
     }
     /**
      * @return the includeEnvironment

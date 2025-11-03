@@ -142,7 +142,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.OnPomValidationFailure onPomValidationFailure = Boolean.parseBoolean(allowPomValidationFailure)
                 ? Config.OnPomValidationFailure.Warn
                 : Config.OnPomValidationFailure.Error;
-        Config.OnEnvironmentalValidationFailure onEnvironmentalValidationFailure = Boolean.parseBoolean(allowEnvironmentalValidationFailure) ? Config.OnEnvironmentalValidationFailure.Warn : Config.OnEnvironmentalValidationFailure.Error;
+        Config.OnEnvironmentalValidationFailure onEnvironmentalValidationFailure =
+                Boolean.parseBoolean(allowEnvironmentalValidationFailure)
+                        ? Config.OnEnvironmentalValidationFailure.Warn
+                        : Config.OnEnvironmentalValidationFailure.Error;
         Config.EnvironmentInclusion environmentInclusion = Boolean.parseBoolean(includeEnvironment)
                 ? Config.EnvironmentInclusion.Include
                 : Config.EnvironmentInclusion.Exclude;
