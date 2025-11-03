@@ -633,7 +633,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "142ad4475e19524d2fe3ac995b3f7cbc962fc726f2edb9dbdccc61feab9b2bf9",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0-classes.jar",
           "selectedVersion": "5.1.0",
           "included": true,
           "id": "com.google.inject:guice:5.1.0",
