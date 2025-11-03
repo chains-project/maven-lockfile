@@ -2159,3 +2159,46 @@ We'd like to thank the following people for their contributions:
 ## Contributors
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.9.0
+## Changelog
+
+## 🚀 Added
+- 5ff3d29 ✅ Add dependency with classifier to resolved url test (#1403)
+- 18417f5 🔊  Update log4j to major version 2 (#1398)
+- 12ed159 👷 cd: Enable immutable releases with jreleaser (#1393)
+- 90a755d 👷 cd: Fix group identifier order when getting next beta number (#1385)
+
+## 🔄️ Changed
+- 5dfb3be 🚨 Use systemPropertyVariables instead of systemProperties in pom (#1405)
+- db0d192 🎨 Improve Config constructor with enums (#1392)
+- 8ee2d4f 🎨 Rename github actions workflows (#1401)
+
+## 🐛 Fixed
+- 93f33b8 🐛 Handle classifier in RemoteChecksumCalculator and Resolved field (#1400)
+
+## 📦 Dependencies
+- 658a47d ⬆️ (deps): Update junit-framework monorepo to v6.0.1 (#1397)
+- daf03ec ⬆️ (deps): Update github/codeql-action action to v4.31.2 (#1396)
+- 96070cd ⬆️ (deps): Update github/codeql-action action to v4.31.1 (#1394)
+- 8cf977c ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.2 (#1390)
+- 0a18975 ⬆️ (deps): Update google/osv-scanner-action action to v2.2.4 (#1391)
+- c7b5688 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.1 (#1389)
+
+## 📝 Documentation
+- a2f0c59 📝 Add video demo to README (#1388)
+
+## 🏁 Release
+- 723132d 🔖 Releasing version 5.9.0
+- b813b34 🔖 Setting SNAPSHOT version 5.8.3-SNAPSHOT
+
+---
+- 15984d8 chore: update lockfile
+- 0f98687 🦺 fix: Force local checksum mode on validate (#1282)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))

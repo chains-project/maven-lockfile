@@ -444,16 +444,27 @@ public class IntegrationTestsIT {
                                         ResolvedUrl.of(
                                                 "https://packages.atlassian.com/maven-public/atlassian-bandana/atlassian-bandana/0.2.0/atlassian-bandana-0.2.0.jar")))
                 .findAny();
+        assertThat(atlassianResolved).isNotNull();
         var mavenCentralResolved = lockFile.getDependencies().stream()
                 .filter(
                         dependency -> dependency
                                 .getResolved()
                                 .equals(
                                         ResolvedUrl.of(
-                                                "https://repo.maven.apache.org/maven2/fr/inria/gforge/spoon/spoon-core/10.3.0/spoon-core-10.3.0.jar")))
+                                                "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar")))
                 .findAny();
-        assertThat(atlassianResolved).isNotNull();
         assertThat(mavenCentralResolved).isNotNull();
+        // Ensure dependencies with classifiers have correctly resolved urls.
+        // sisu-guice with classifier noaop is a direct dependency of org.sonatype.sisu:sisu-inject-bean.
+        var dependencyWithClassifierResolved = lockFile.getDependencies().stream()
+                .filter(
+                        dependency -> dependency
+                                .getResolved()
+                                .equals(
+                                        ResolvedUrl.of(
+                                                "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar")))
+                .findAny();
+        assertThat(dependencyWithClassifierResolved).isNotNull();
     }
 
     @MavenTest

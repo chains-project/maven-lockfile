@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>5.8.3-SNAPSHOT</version>
+    <version>5.9.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>5.8.3-SNAPSHOT</version>
+  <version>5.9.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile-plugin</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
@@ -222,10 +222,10 @@
           <!--
                ! currently needed to run integration tests.
               -->
-          <systemProperties>
+          <systemPropertyVariables>
             <maven.version>${maven.version}</maven.version>
             <maven.home>${maven.home}</maven.home>
-          </systemProperties>
+          </systemPropertyVariables>
           <properties>
             <configurationParameters>junit.jupiter.execution.parallel.enabled=true
               junit.jupiter.execution.parallel.mode.default=concurrent

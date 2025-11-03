@@ -1,11 +1,11 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.8.3-SNAPSHOT",
+  "version": "5.9.1-SNAPSHOT",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "02c7fb584dc18232cf686e22d836af84cf119398188b08414baeb457a2c07d96"
+    "checksum": "12435b3da972b26ca79ab9f4c0e8c2a2bcff25b746aebb0973c9fb41ea6b16ed"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -633,7 +633,7 @@
           "checksumAlgorithm": "SHA-256",
           "checksum": "142ad4475e19524d2fe3ac995b3f7cbc962fc726f2edb9dbdccc61feab9b2bf9",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/inject/guice/5.1.0/guice-5.1.0-classes.jar",
           "selectedVersion": "5.1.0",
           "included": true,
           "id": "com.google.inject:guice:5.1.0",
@@ -2118,7 +2118,7 @@
                       "checksumAlgorithm": "SHA-256",
                       "checksum": "240113a2f22fd1f0b182b32baecf0e7876b3a8e41f3c4da3335eeb9ffb24b9f4",
                       "scope": "compile",
-                      "resolved": "",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar",
                       "selectedVersion": "2.1.7",
                       "included": true,
                       "id": "org.sonatype.sisu:sisu-guice:2.1.7",
@@ -2637,7 +2637,7 @@
       "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.8.2",
+      "mavenLockfileVersion": "5.9.0",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
