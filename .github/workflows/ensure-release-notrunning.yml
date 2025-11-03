@@ -1,4 +1,4 @@
-name: Ensure release action is currently not running
+name: Release Merge Blocker
 
 on:
   pull_request:
