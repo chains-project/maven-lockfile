@@ -103,7 +103,14 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                 type = "jar";
             }
 
-            String target = artifact.getArtifactId() + "-" + artifact.getVersion() + "." + type;
+            String classifier = artifact.getClassifier();
+            if (classifier == null) {
+                classifier = "";
+            } else {
+                classifier = "-" + classifier;
+            }
+
+            String target = artifact.getArtifactId() + "-" + artifact.getVersion() + classifier + "." + type;
 
             for (String remoteRepository : locallySavedRemoteRepositories) {
                 if (!remoteRepository.startsWith(target)) {

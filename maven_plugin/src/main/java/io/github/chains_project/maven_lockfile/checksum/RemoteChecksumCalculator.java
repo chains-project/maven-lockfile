@@ -43,11 +43,17 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String classifier = artifact.getClassifier();
+            if (classifier == null) {
+                classifier = "";
+            } else {
+                classifier = "-" + classifier;
+            }
             String extension = artifact.getType();
             if (extension.equals("maven-plugin")) {
                 extension = "jar";
             }
-            String filename = artifactId + "-" + version + "." + extension;
+            String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
             HttpClient client = HttpClient.newBuilder()
@@ -82,8 +88,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
-                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact.getGroupId() + ":"
-                            + artifactId + ":" + version + " on remote. Downloading and calculating locally.");
+                    LOGGER.info("Unable to find " + checksumAlgorithm + " checksum for " + artifact
+                            + " on remote. Downloading and calculating locally.");
 
                     // Fallback to and verify downloaded artifact with SHA-1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
@@ -111,8 +117,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                         if (!sha1.equals(artifactVerification)) {
                             LOGGER.error("Invalid SHA-1 checksum for: " + artifactUrl);
-                            throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact.getGroupId() + ":"
-                                    + artifactId + ":" + version + "'. Checksum found at '" + artifactUrl
+                            throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
+                                    + "'. Checksum found at '" + artifactUrl
                                     + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
                                     + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
@@ -129,8 +135,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact checksum `" + groupId + "." + artifactId + "." + version + "." + filename + "."
-                    + checksumAlgorithm + "` not found among remote repositories.");
+            LOGGER.warn("Artifact checksum `" + artifact + "." + checksumAlgorithm
+                    + "` not found among remote repositories.");
             return Optional.empty();
         } catch (Exception e) {
             LOGGER.warn("Could not resolve artifact: " + artifact.getArtifactId(), e);
@@ -143,11 +149,17 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String classifier = artifact.getClassifier();
+            if (classifier == null) {
+                classifier = "";
+            } else {
+                classifier = "-" + classifier;
+            }
             String extension = artifact.getType();
             if (extension.equals("maven-plugin")) {
                 extension = "jar";
             }
-            String filename = artifactId + "-" + version + "." + extension;
+            String filename = artifactId + "-" + version + classifier + "." + extension;
 
             LOGGER.debug("filename: " + filename);
 
@@ -173,8 +185,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact checksum `" + groupId + "." + artifactId + "." + version + "." + filename
-                    + "` not found among remote repositories.");
+            LOGGER.warn("Artifact resolved url `" + artifact + "` not found.");
             return Optional.empty();
         } catch (Exception e) {
             LOGGER.warn("Could not resolve url for artifact: " + artifact.getArtifactId(), e);
