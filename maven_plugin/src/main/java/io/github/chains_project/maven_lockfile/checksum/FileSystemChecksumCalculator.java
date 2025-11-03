@@ -72,6 +72,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             byte[] fileBuffer = Files.readAllBytes(artifact.getFile().toPath());
             byte[] artifactHash = messageDigest.digest(fileBuffer);
             BaseEncoding baseEncoding = BaseEncoding.base16();
+            LOGGER.debug("artifact: " + artifact + ", filename:" + artifact.getFile().toPath() + ", artifactHash: " + baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT));
             return Optional.of(baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT));
         } catch (Exception e) {
             LOGGER.warn("Could not calculate checksum for artifact " + artifact, e);

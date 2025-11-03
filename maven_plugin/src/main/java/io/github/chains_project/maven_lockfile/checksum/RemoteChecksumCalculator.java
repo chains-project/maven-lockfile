@@ -124,6 +124,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     String checksum = baseEncoding
                             .encode(messageDigest.digest(artifactResponse.body()))
                             .toLowerCase(Locale.ROOT);
+                    LOGGER.debug("filename:" + filename + ", checksum: " + checksum);
                     return Optional.of(checksum);
                 }
             }
@@ -148,6 +149,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             }
             String filename = artifactId + "-" + version + "." + extension;
 
+            LOGGER.debug("filename: " + filename);
+
             HttpClient client = HttpClient.newBuilder()
                     .followRedirects(HttpClient.Redirect.ALWAYS)
                     .build();
@@ -165,6 +168,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
+                    LOGGER.debug("Found url: " + url);
                     return Optional.of(ResolvedUrl.of(url));
                 }
             }
