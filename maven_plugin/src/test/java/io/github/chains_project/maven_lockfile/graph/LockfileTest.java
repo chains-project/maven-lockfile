@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.graph;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.*;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,16 @@ public class LockfileTest {
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
                 new Environment("os", "mv", "jv"),
-                new Config(true, false, false, false, true, false, "1", "local", "SHA-1"));
+                new Config(
+                        Config.MavenPluginsInclusion.Include,
+                        Config.OnValidationFailure.Error,
+                        Config.OnPomValidationFailure.Error,
+                        Config.OnEnvironmentalValidationFailure.Error,
+                        Config.EnvironmentInclusion.Include,
+                        Config.ReductionState.NonReduced,
+                        "1",
+                        ChecksumModes.LOCAL,
+                        "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
