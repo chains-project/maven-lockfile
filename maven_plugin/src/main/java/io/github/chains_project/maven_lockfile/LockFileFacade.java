@@ -14,7 +14,8 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
@@ -30,7 +31,7 @@ import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
  */
 public class LockFileFacade {
 
-    private static final Logger LOGGER = Logger.getLogger(LockFileFacade.class);
+    private static final Logger LOGGER = LogManager.getLogger(LockFileFacade.class);
 
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
@@ -85,7 +86,7 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
-        LOGGER.info("Generating lock file for project " + project.getArtifactId());
+        LOGGER.info("Generating lock file for project {}", project.getArtifactId());
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, checksumCalculator);
