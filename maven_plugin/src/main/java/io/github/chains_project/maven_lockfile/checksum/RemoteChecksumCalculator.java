@@ -177,7 +177,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
-                    LOGGER.debug("Found url: " + url);
                     return Optional.of(ResolvedUrl.of(url));
                 }
             }
