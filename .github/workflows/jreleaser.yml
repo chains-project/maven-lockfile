@@ -13,6 +13,9 @@ on:
           - minor
           - patch
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build and release
@@ -27,7 +30,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
         with:
           egress-policy: audit
 
@@ -39,10 +42,10 @@ jobs:
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: ./.github/actions/ghasum
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@723132de2c6095048129f6eaf5e6b30f13c5b2ca # 5.9.0
 
       - name: Set up JDK 17
-        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
         with:
           java-version: '17'
           distribution: 'temurin'
@@ -54,7 +57,7 @@ jobs:
           git config --global user.email "<>"
 
       - name: install go
-        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
 
       - name: install semversion
         run: go install github.com/ffurrer2/semver/cmd/semver@latest
@@ -79,7 +82,7 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
 
       - name: run maven-lockfile (validate lockfile)
-        uses: ./
+        uses: chains-project/maven-lockfile@723132de2c6095048129f6eaf5e6b30f13c5b2ca # 5.9.0
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -89,13 +92,15 @@ jobs:
         run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
 
       - name: Set release version
-        run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+        run: |
+          mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
+          mvn --no-transfer-progress --batch-mode versions:set-property -Dproperty=released.version -DnewVersion=$NEXT_VERSION
 
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.5.2:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.9.0:generate
         shell: bash
 
       - name: commit changes
@@ -113,11 +118,14 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
+      - name: Remove beta tags for changelog to be from previous non-beta release
+        run: git tag | grep beta | xargs -n 1 git tag -d
+
       - name: Run JReleaser
-        uses: jreleaser/release-action@f69e545b05f149483cecb2fb81866247992694b8 # 2.4.2
+        uses: jreleaser/release-action@ad73772277e63d9f2bbf4f24a7bb1300388334d7 # 2.4.3
         with:
           setup-java: false
-          version: 1.18.0
+          version: 1.21.0
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
@@ -150,7 +158,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources -q
 
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:5.5.2:generate
+        run: mvn io.github.chains-project:maven-lockfile:5.9.0:generate
         shell: bash
 
       - name: Commit & Push changes
@@ -165,7 +173,7 @@ jobs:
 
       - name: Attempt Push with Retry
         env:
-          RETRY_MAX_TIME: 600
+          RETRY_MAX_TIME: 1200
           RETRY_INTERVAL: 10
         run: |
           curl -L \
@@ -191,7 +199,7 @@ jobs:
       # Log failure:
       - name: JReleaser release output
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
           name: jreleaser-release
           path: |

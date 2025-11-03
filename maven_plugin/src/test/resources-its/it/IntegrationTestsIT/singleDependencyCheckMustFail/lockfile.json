@@ -2,6 +2,11 @@
   "artifactId": "single-dependency-check-must-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "dbca7670efd471b998878e36702373d5f45d1772a29f2d24dbe3c9a3933826f7"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -9,7 +14,7 @@
       "artifactId": "junit-jupiter-api",
       "version": "5.9.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5_TEMPER_ATTACK",
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5_TAMPER_ATTACK",
       "scope": "test",
       "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
       "selectedVersion": "5.9.2",
@@ -79,13 +84,14 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Mac OS X",
-      "mavenVersion": "3.8.2",
+      "osName": "Linux",
+      "mavenVersion": "3.9.9",
       "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

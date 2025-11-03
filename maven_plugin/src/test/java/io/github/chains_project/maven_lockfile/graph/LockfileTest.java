@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.graph;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.*;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,16 @@ public class LockfileTest {
     @Test
     void shouldLockFilesEqualWhenOrderIsChanged() {
         var metadata = new MetaData(
-                new Environment("os", "mv", "jv"), new Config(true, false, true, false, "1", "local", "SHA-1"));
+                new Environment("os", "mv", "jv"),
+                new Config(
+                        Config.MavenPluginsInclusion.Include,
+                        Config.OnValidationFailure.Error,
+                        Config.OnPomValidationFailure.Error,
+                        Config.EnvironmentInclusion.Include,
+                        Config.ReductionState.NonReduced,
+                        "1",
+                        ChecksumModes.LOCAL,
+                        "SHA-1"));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");
@@ -20,6 +30,7 @@ public class LockfileTest {
                 groupId,
                 artifactId,
                 version,
+                new Pom("pom.xml", "SHA-256", "POM-CHECKSUM"),
                 Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
                 Set.of(pluginA(), pluginB()),
                 metadata);
@@ -28,6 +39,7 @@ public class LockfileTest {
                 groupId,
                 artifactId,
                 version,
+                new Pom("pom.xml", "SHA-256", "POM-CHECKSUM"),
                 Set.of(dependencyNodeB(), dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2())),
                 Set.of(pluginB(), pluginA()),
                 metadata);

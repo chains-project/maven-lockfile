@@ -2,6 +2,11 @@
   "artifactId": "classifier-dependency-check-correct",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "ffb0ec623d40e3b9655330aa563e8c17ca14b4e33bf3f1ac3803c6a02fdd3dee"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -193,13 +198,14 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Mac OS X",
-      "mavenVersion": "3.8.2",
+      "osName": "Linux",
+      "mavenVersion": "3.9.9",
       "javaVersion": "21.0.5"
     },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",

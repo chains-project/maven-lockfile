@@ -30,6 +30,9 @@ public class LockFile {
     @SerializedName("version")
     private final VersionNumber version;
 
+    @SerializedName("pom")
+    private final Pom pom;
+
     @SerializedName("lockFileVersion")
     @SuppressWarnings("FieldMayBeFinal")
     private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
@@ -44,13 +47,15 @@ public class LockFile {
             GroupId groupId,
             ArtifactId name,
             VersionNumber versionNumber,
+            Pom pom,
             Set<DependencyNode> dependencies,
             Set<MavenPlugin> mavenPlugins,
             MetaData metaData) {
-        this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
+        this.groupId = groupId;
         this.name = name;
         this.version = versionNumber;
-        this.groupId = groupId;
+        this.pom = pom;
+        this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
         this.mavenPlugins = mavenPlugins == null ? Collections.emptySet() : mavenPlugins;
         this.metaData = metaData;
     }
@@ -89,6 +94,14 @@ public class LockFile {
     public VersionNumber getVersion() {
         return version;
     }
+
+    /**
+     * @return the link to pom file and checksum
+     */
+    public Pom getPom() {
+        return pom;
+    }
+
     /**
      * @return the mavenPlugins
      */
@@ -111,7 +124,7 @@ public class LockFile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, groupId, version, lockfileVersion, dependencies, nullToEmpty(mavenPlugins));
+        return Objects.hash(name, groupId, version, lockfileVersion, pom, dependencies, nullToEmpty(mavenPlugins));
     }
 
     @Override

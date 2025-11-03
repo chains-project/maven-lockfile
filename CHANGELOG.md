@@ -2016,3 +2016,189 @@ We'd like to thank the following people for their contributions:
 - Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.7.0
+## Changelog
+
+## 🚀 Added
+- 6c1a7a4 ✅ tests: Reduce CI test time (#1291)
+- c1110b3 ✨ feat: add support for recording pom checksum (#1280)
+
+## 📦 Dependencies
+- 2eef2b2 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-surefire-plugin to v3.5.4 (#1326)
+- e2602b4 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.5.4 (#1325)
+- c763d44 ⬆️ (deps): Update dependency com.google.code.gson:gson to v2.13.2 (#1324)
+- a96528c ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.11 (#1322)
+- fbbc9d8 ⬆️ (deps): Update github/codeql-action action to v3.30.3 (#1323)
+- 5f7a410 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.1 (#1321)
+- cd5bf12 ⬆️ (deps): Update step-security/harden-runner action to v2.13.1 (#1320)
+- b34052c ⬆️ (deps): Update github/codeql-action action to v3.30.2 (#1319)
+
+## 🏁 Release
+- 7a4ecb5 🔖 Releasing version 5.7.0
+- e997690 🔖 Setting SNAPSHOT version 5.6.3-SNAPSHOT
+
+---
+- ce169f4 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.7.1
+## Changelog
+
+## 🚀 Added
+- 7361d14 👷 ci: Update ghasum version and action template (#1317)
+
+## 📦 Dependencies
+- 68dc96b ⬆️ (deps): Update dependency com.google.guava:guava to v33.5.0-jre (#1329)
+- 993f2bf ⬆️  (deps): Update mavenVersion to 3.9.11 (#1334)
+- 49656fa ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.2 (#1332)
+- d1b1834 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.14.1 (#1331)
+- 57eef61 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-javadoc-plugin to v3.12.0 (#1330)
+
+## 🏁 Release
+- e003ec2 🔖 Releasing version 5.7.1
+- 949975e 🔖 Setting SNAPSHOT version 5.7.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.0
+## Changelog
+
+## 🚀 Added
+- 1a8dc2a ✨ feat: Update config when regenerating lockfile (#1346)
+- a38ceb4 👷: Automatic updating of action.yml (#1345)
+- f3681d7 👷 ci: Use new version of ghasum (#1341)
+
+## 📦 Dependencies
+- 33060f7 ⬆️ (deps): Update actions/dependency-review-action action to v4.8.0 (#1344)
+- 75bdbde ⬆️ (deps): Update github/codeql-action action to v3.30.5 (#1343)
+- f8c0632 ⬆️ (deps): Update github/codeql-action action to v3.30.4 (#1342)
+- d0424b5 ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3 (#1340)
+- 54b8d58 ⬆️ (deps): Update dependency maven-wrapper to v3.3.4 (#1338)
+- 7cee997 ⬆️ (deps): Update actions/cache action to v4.3.0 (#1339)
+
+## 🏁 Release
+- 4f87d2d 🔖 Releasing version 5.8.0
+- ac51ab6 🔖 Setting SNAPSHOT version 5.7.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.8.1
+## Changelog
+## 🚀 Added
+- 545f63d 👷 cd: Fix beta release script (#1378)
+- b5bf4d0 👷 cd: Release weekly beta releases (#1376)
+- 03060c0 👷 ci: Only scan main pom.xml:s in OSV Scanner, ignore integration tests poms (#1371)
+- 201bbd5 👷 ci: Add osv scanner (#1351)
+
+## 🔒️ Security
+- 86cdef5 🔒️ [StepSecurity] ci: Harden GitHub Actions (#1353)
+- 27bb0f6 🔒️ security: Remove github.head_ref from echo of ensure-release-action-is-not-running (#1352)
+
+## 📦 Dependencies
+- dabe27d ⬆️ (deps): Update actions/upload-artifact action to v5 (#1375)
+- 97ae4d1 ⬆️ (deps): Update github/codeql-action action to v4.31.0 (#1374)
+- 5c2d230 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.15.2 (#1373)
+- 31d9cc9 ⬆️ (deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.15.2 (#1372)
+- bebe3c0 ⬆️ (deps): Update github/codeql-action action to v4.30.9 (#1369)
+- 57a6001 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.2 (#1368)
+- 94ed511 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v7 (#1367)
+- 9660bac ⬆️ (deps): Update actions/dependency-review-action action to v4.8.1 (#1366)
+- f632466 ⬆️ (deps): Update github/codeql-action action to v4.30.8 (#1365)
+- dfbb5c8 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.13 (#1364)
+- cb5048b ⬆️ (deps): Update github/codeql-action action to v4 (#1363)
+- 9218587 ⬆️ (deps): Update github/codeql-action action to v3.30.7 (#1362)
+- 5042140 ⬆️ (deps): Update github/codeql-action action to v3.30.6 (#1361)
+- 5f4af8b ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.6.2 (#1360)
+- 1cfd036 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-artifact-plugin to v3.6.1 (#1359)
+- 83121f7 ⬆️ (deps): Update google/osv-scanner-action action to v2.2.3 (#1358)
+- 3909f1e ⬆️ (deps): Update ossf/scorecard-action action to v2.4.3 (#1357)
+- e8df8f5 ⬆️ (deps): Update github/codeql-action action to v3.30.5 (#1354)
+- 33ef91c ⬆️ (deps): Update junit-framework monorepo to v6 (major) (#1356)
+- f1b1525 ⬆️  ci: Use maven-lockfile 5.8.0 in actions (#1349)
+
+## 🏁 Release
+- affb05a 🔖 Releasing version 5.8.1-beta-1
+- 89fb58e 🔖 Setting SNAPSHOT version 5.8.1-SNAPSHOT
+- 05aeab3 🔖 Releasing version 5.8.1
+
+---
+- aa9ce6a chore: update lockfile
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- StepSecurity Bot ([@step-security-bot](https://github.com/step-security-bot))
+
+# 5.8.2
+## Changelog
+
+## 🚀 Added
+- 21e5f09 👷 cd: Specify previous tag to base changelog on (#1382)
+
+## 📝 Documentation
+- 7da04c6 📝 Add commits from 5.8.1-beta-1 to changelog (#1381)
+
+## 🏁 Release
+- fb77c39 🔖 Releasing version 5.8.2
+- 233adb4 🔖 Setting SNAPSHOT version 5.8.2-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+
+# 5.9.0
+## Changelog
+
+## 🚀 Added
+- 5ff3d29 ✅ Add dependency with classifier to resolved url test (#1403)
+- 18417f5 🔊  Update log4j to major version 2 (#1398)
+- 12ed159 👷 cd: Enable immutable releases with jreleaser (#1393)
+- 90a755d 👷 cd: Fix group identifier order when getting next beta number (#1385)
+
+## 🔄️ Changed
+- 5dfb3be 🚨 Use systemPropertyVariables instead of systemProperties in pom (#1405)
+- db0d192 🎨 Improve Config constructor with enums (#1392)
+- 8ee2d4f 🎨 Rename github actions workflows (#1401)
+
+## 🐛 Fixed
+- 93f33b8 🐛 Handle classifier in RemoteChecksumCalculator and Resolved field (#1400)
+
+## 📦 Dependencies
+- 658a47d ⬆️ (deps): Update junit-framework monorepo to v6.0.1 (#1397)
+- daf03ec ⬆️ (deps): Update github/codeql-action action to v4.31.2 (#1396)
+- 96070cd ⬆️ (deps): Update github/codeql-action action to v4.31.1 (#1394)
+- 8cf977c ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.2 (#1390)
+- 0a18975 ⬆️ (deps): Update google/osv-scanner-action action to v2.2.4 (#1391)
+- c7b5688 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.8.1 (#1389)
+
+## 📝 Documentation
+- a2f0c59 📝 Add video demo to README (#1388)
+
+## 🏁 Release
+- 723132d 🔖 Releasing version 5.9.0
+- b813b34 🔖 Setting SNAPSHOT version 5.8.3-SNAPSHOT
+
+---
+- 15984d8 chore: update lockfile
+- 0f98687 🦺 fix: Force local checksum mode on validate (#1282)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))

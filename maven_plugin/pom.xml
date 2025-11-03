@@ -4,12 +4,12 @@
   <parent>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile-parent</artifactId>
-    <version>5.6.2-SNAPSHOT</version>
+    <version>5.9.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>5.6.2-SNAPSHOT</version>
+  <version>5.9.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile-plugin</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
@@ -30,7 +30,7 @@
     <url>https://github.com/chains-project/maven-lockfile/tree/${project.scm.tag}/maven_plugin</url>
   </scm>
   <properties>
-    <mavenVersion>3.9.6</mavenVersion>
+    <mavenVersion>3.9.11</mavenVersion>
     <maven.compiler.target>11</maven.compiler.target>
     <maven.compiler.source>11</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,13 +45,13 @@
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.15.1</version>
+      <version>3.15.2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.13.4</version>
+      <version>6.0.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -63,12 +63,12 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.13.1</version>
+      <version>2.13.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
       <artifactId>maven-resolver-api</artifactId>
-      <version>2.0.10</version>
+      <version>2.0.13</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
@@ -85,18 +85,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.13.4</version>
+      <version>6.0.1</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>log4j-over-slf4j</artifactId>
-      <version>2.0.17</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.25.1</version>
+      <version>2.25.2</version>
     </dependency>
     <dependency>
       <groupId>com.soebes.itf.jupiter.extension</groupId>
@@ -119,7 +114,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.4.8-jre</version>
+      <version>33.5.0-jre</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
@@ -155,7 +150,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.15.1</version>
+        <version>3.15.2</version>
         <configuration>
           <!-- see https://issues.apache.org/jira/browse/MNG-5346 -->
           <goalPrefix>configurator</goalPrefix>
@@ -178,7 +173,7 @@
           <dependency>
             <groupId>org.apache.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>4.0.28</version>
+            <version>5.0.2</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
@@ -222,15 +217,15 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.5.3</version>
+        <version>3.5.4</version>
         <configuration>
           <!--
                ! currently needed to run integration tests.
               -->
-          <systemProperties>
+          <systemPropertyVariables>
             <maven.version>${maven.version}</maven.version>
             <maven.home>${maven.home}</maven.home>
-          </systemProperties>
+          </systemPropertyVariables>
           <properties>
             <configurationParameters>junit.jupiter.execution.parallel.enabled=true
               junit.jupiter.execution.parallel.mode.default=concurrent
@@ -238,7 +233,7 @@
               junit.jupiter.execution.parallel.config.strategy=fixed
               junit.jupiter.execution.parallel.config.fixed.parallelism=6</configurationParameters>
           </properties>
-          <rerunFailingTestsCount>3</rerunFailingTestsCount>
+          <rerunFailingTestsCount>2</rerunFailingTestsCount>
         </configuration>
         <executions>
           <execution>
@@ -259,7 +254,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.11.3</version>
+            <version>3.12.0</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>

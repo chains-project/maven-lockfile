@@ -1,0 +1,128 @@
+# Expanded on https://github.com/google/osv-scanner-action/blob/main/.github/workflows/osv-scanner-reusable-pr.yml
+# Copyright 2023 Google LLC
+# Licenced under Apache 2.0
+name: OSV-Scanner PR Scan
+
+on:
+  pull_request:
+    branches: [main]
+  merge_group:
+    branches: [main]
+
+permissions:
+  # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
+  actions: read
+  # Require writing security events to upload SARIF file to security tab
+  security-events: write
+  # Only need to read contents
+  contents: read
+
+jobs:
+  scan-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a # v2.13.1
+      with:
+        egress-policy: block
+        allowed-endpoints: >
+          api.deps.dev:443
+          api.github.com:443
+          api.osv.dev:443
+          github.com:443
+          release-assets.githubusercontent.com:443
+          repo.maven.apache.org:443
+          repo.spring.io:443
+
+    - name: Checkout repository
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        fetch-depth: 0
+
+    - name: Verify action checksums
+      uses: chains-project/maven-lockfile/.github/actions/ghasum@723132de2c6095048129f6eaf5e6b30f13c5b2ca # 5.9.0
+
+    - name: "Checkout target branch"
+      run: |
+        git checkout $GITHUB_BASE_REF
+        git submodule update --recursive
+
+    - name: "Run scanner on existing code"
+      uses: google/osv-scanner-action/osv-scanner-action@9bb69575e74019c2ad085a1860787043adf47ccb # v2.2.4
+      continue-on-error: true
+      with:
+        scan-args: |-
+          --format=json
+          --output=old-results.json
+          ./pom.xml
+          ./maven_plugin/pom.xml
+
+    - name: "Checkout current branch"
+      # Use -f in case any changes were made by osv-scanner (there should be no changes)
+      run: |
+        git checkout -f $GITHUB_SHA
+        git submodule update --recursive
+
+    - name: "Run scanner on new code"
+      uses: google/osv-scanner-action/osv-scanner-action@9bb69575e74019c2ad085a1860787043adf47ccb # v2.2.4
+      with:
+        scan-args: |-
+          --format=json
+          --output=new-results.json
+          ${{ inputs.scan-args }}
+      continue-on-error: true
+
+    - name: "Run osv-scanner-reporter"
+      uses: google/osv-scanner-action/osv-reporter-action@9bb69575e74019c2ad085a1860787043adf47ccb # v2.2.4
+      with:
+        scan-args: |-
+          --output=results.sarif
+          --old=old-results.json
+          --new=new-results.json
+          --gh-annotations=true
+          --fail-on-vuln=true
+
+    # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
+    # format to the repository Actions tab.
+    - name: "Upload artifact"
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      with:
+        name: SARIF file
+        path: results.sarif
+        retention-days: 5
+
+    - name: "Upload old scan json results"
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      with:
+        name: old-json-results
+        path: old-results.json
+        retention-days: 5
+
+    - name: "Upload new scan json results"
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+      with:
+        name: new-json-results
+        path: new-results.json
+        retention-days: 5
+
+    # Upload the results to GitHub's code scanning dashboard.
+    - name: "Upload to code-scanning"
+      id: "upload_artifact"
+      if: ${{ !cancelled() }}
+      uses: github/codeql-action/upload-sarif@0499de31b99561a6d14a36a5f662c2a54f91beee # v4.31.2
+      with:
+        sarif_file: results.sarif
+
+    - name: "Print Code Scanning PR URL"
+      if: "${{ !cancelled() }}"
+      run: |
+        echo "View the OSV-Scanner results for this PR in the 'Security' tab, using the following link:"
+        echo "${{ github.server_url }}/${{ github.repository }}/security/code-scanning?query=pr%3A${{ github.event.pull_request.number }}"
+
+    - name: "Error troubleshooter"
+      if: ${{ always() && steps.upload_artifact.outcome == 'failure' }}
+      run: |
+        echo "::error::Artifact upload failed. This is most likely caused by a error during scanning earlier in the workflow."

@@ -19,6 +19,9 @@ project:
 release:
   github:
     owner: chains-project
+    immutableRelease: true
+    prerelease:
+      pattern: .*beta.*
     changelog:
       formatted: ALWAYS
       preset: 'gitmoji'
