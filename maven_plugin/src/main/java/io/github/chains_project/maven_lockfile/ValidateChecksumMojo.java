@@ -49,8 +49,8 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
             if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
-                getLog().warn(
-                                "Lock file environment does not match project environment. This could be due to a change in the environment.");
+                getLog().warn("Lock file environment does not match project environment."
+                        + " This could be due to a change in the environment.");
             }
             if (!Objects.equals(lockFileFromFile.getPom(), lockFileFromProject.getPom())) {
                 String sb = "Pom checksum mismatch. Differences:" + "\n" + "Your lockfile pom path and checksum:\n"
@@ -59,10 +59,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + lockFileFromProject.getPom().getPath()
                         + " " + lockFileFromProject.getPom().getChecksum() + "\n";
 
-                if (config.isAllowPomValidationFailure()) {
-                    getLog().warn(sb);
-                } else {
-                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
+                switch (config.getOnPomValidationFailure()) {
+                    case Warn:
+                        getLog().warn(sb);
+                        break;
+                    case Error:
+                        throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
             if (!lockFileFromFile.equals(lockFileFromProject)) {
@@ -86,10 +88,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + "Missing plugins in project:\n "
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
                         + "\n";
-                if (config.isAllowValidationFailure()) {
-                    getLog().warn("Failed verifying lock file. " + sb);
-                } else {
-                    throw new MojoExecutionException("Failed verifying lock file. " + sb);
+                switch (config.getOnValidationFailure()) {
+                    case Warn:
+                        getLog().warn("Failed verifying lock file. " + sb);
+                        break;
+                    case Error:
+                        throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
         } catch (IOException e) {
