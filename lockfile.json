@@ -127,7 +127,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.11",
-      "javaVersion": "17.0.16"
+      "javaVersion": "17.0.17"
     },
     "config": {
       "includeMavenPlugins": true,
@@ -135,7 +135,7 @@
       "allowPomValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.8.0",
+      "mavenLockfileVersion": "5.8.2",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
