@@ -1,3 +1,5 @@
+name: Smoke Tests
+
 on:
   workflow_dispatch:
   pull_request:
