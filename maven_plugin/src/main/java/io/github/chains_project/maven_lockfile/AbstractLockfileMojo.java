@@ -101,7 +101,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         return getChecksumCalculator(config, false);
     }
 
-    protected AbstractChecksumCalculator getChecksumCalculator(Config config, boolean forceLocalChecksumMode) throws MojoExecutionException {
+    protected AbstractChecksumCalculator getChecksumCalculator(Config config, boolean forceLocalChecksumMode)
+            throws MojoExecutionException {
         ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
         ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
 
