@@ -20,17 +20,17 @@ public class MavenPlugin {
             GroupId groupId,
             ArtifactId artifactId,
             VersionNumber version,
-            String checksumAlgorithm,
-            String checksum,
             ResolvedUrl resolvedUrl,
-            RepositoryId repositoryId) {
+            RepositoryId repositoryId,
+            String checksumAlgorithm,
+            String checksum) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
-        this.checksumAlgorithm = checksumAlgorithm;
-        this.checksum = checksum;
         this.resolved = resolvedUrl;
         this.repositoryId = repositoryId;
+        this.checksumAlgorithm = checksumAlgorithm;
+        this.checksum = checksum;
     }
 
     public GroupId getGroupId() {

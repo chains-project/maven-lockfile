@@ -116,10 +116,10 @@ public class LockFileFacade {
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
                     VersionNumber.of(pluginArtifact.getVersion()),
-                    checksumCalculator.getChecksumAlgorithm(),
-                    checksumCalculator.calculatePluginChecksum(pluginArtifact),
                     repositoryInformation.resolvedUrl,
-                    repositoryInformation.repositoryId));
+                    repositoryInformation.repositoryId,
+                    checksumCalculator.getChecksumAlgorithm(),
+                    checksumCalculator.calculatePluginChecksum(pluginArtifact)));
         }
         return plugins;
     }

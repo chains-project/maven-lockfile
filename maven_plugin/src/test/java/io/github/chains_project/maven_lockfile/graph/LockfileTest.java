@@ -108,10 +108,10 @@ public class LockfileTest {
                 GroupId.of("PgA"),
                 ArtifactId.of("PA"),
                 VersionNumber.of("1"),
-                "SHA-1",
-                "PA",
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default());
+                RepositoryId.Default(),
+                "SHA-1",
+                "PA");
     }
 
     private MavenPlugin pluginB() {
@@ -119,9 +119,9 @@ public class LockfileTest {
                 GroupId.of("PgB"),
                 ArtifactId.of("PB"),
                 VersionNumber.of("1"),
-                "SHA-1",
-                "PB",
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default());
+                RepositoryId.Default(),
+                "SHA-1",
+                "PB");
     }
 }
