@@ -451,7 +451,7 @@ public class IntegrationTestsIT {
                                 .getResolved()
                                 .equals(
                                         ResolvedUrl.of(
-                                                "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar")))
+                                                "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/1.4.2/sisu-inject-bean-1.4.2.jar")))
                 .findAny();
         assertThat(mavenCentralResolved).isNotNull();
         // Ensure dependencies with classifiers have correctly resolved urls.
