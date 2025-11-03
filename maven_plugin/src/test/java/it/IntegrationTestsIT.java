@@ -454,7 +454,7 @@ public class IntegrationTestsIT {
                                                 "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar")))
                 .findAny();
         assertThat(mavenCentralResolved).isNotNull();
-        // Ensure dependencies with classifiers have correctly resolved urls
+        // Ensure dependencies with classifiers have correctly resolved urls. (Direct dependency of org.sonatype.sisu:sisu-inject-bean).
         var dependencyWithClassifierResolved = lockFile.getDependencies().stream()
                 .filter(
                         dependency -> dependency
