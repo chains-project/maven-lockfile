@@ -1,11 +1,11 @@
 {
-  "artifactId": "pom-check-should-fail",
+  "artifactId": "environmental-check-should-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
+    "checksum": "92f717596d6b518dcd79e5fa730fa2b72c81daaaa8d3246e049808bdc830d31f"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -13,8 +13,8 @@
   "metaData": {
     "environment": {
       "osName": "TamperedOS",
-      "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.5"
+      "mavenVersion": "3.9.11",
+      "javaVersion": "21.0.8"
     },
     "config": {
       "includeMavenPlugins": false,
@@ -23,7 +23,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "mavenLockfileVersion": "5.9.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
