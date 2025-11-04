@@ -173,7 +173,7 @@ jobs:
 
       - name: Attempt Push with Retry
         env:
-          RETRY_MAX_TIME: 600
+          RETRY_MAX_TIME: 1200
           RETRY_INTERVAL: 10
         run: |
           curl -L \
