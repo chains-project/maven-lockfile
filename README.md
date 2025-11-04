@@ -185,6 +185,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.4.3-SNAPSHOT",
