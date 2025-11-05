@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
-import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -37,9 +36,9 @@ public abstract class AbstractChecksumCalculator {
 
     public abstract String getDefaultChecksumAlgorithm();
 
-    public abstract ResolvedUrl getArtifactResolvedField(Artifact artifact);
+    public abstract RepositoryInformation getArtifactResolvedField(Artifact artifact);
 
-    public abstract ResolvedUrl getPluginResolvedField(Artifact artifact);
+    public abstract RepositoryInformation getPluginResolvedField(Artifact artifact);
 
     public String calculatePomChecksum(Path path) {
         try {

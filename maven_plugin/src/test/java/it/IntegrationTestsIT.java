@@ -7,7 +7,13 @@ import com.google.common.collect.Ordering;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
-import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Classifier;
+import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -465,6 +471,15 @@ public class IntegrationTestsIT {
                                                 "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar")))
                 .findAny();
         assertThat(dependencyWithClassifierResolved).isNotNull();
+        // Ensure repository ids are resolved.
+        var atlassianRepositoryId = lockFile.getDependencies().stream()
+                .filter(dependency -> dependency.getRepositoryId().equals(RepositoryId.of("maven-atlassian-all")))
+                .findAny();
+        assertThat(atlassianRepositoryId).isNotNull();
+        var mavenCentralRepositoryId = lockFile.getDependencies().stream()
+                .filter(dependency -> dependency.getRepositoryId().equals(RepositoryId.of("central")))
+                .findAny();
+        assertThat(mavenCentralRepositoryId).isNotNull();
     }
 
     @MavenTest

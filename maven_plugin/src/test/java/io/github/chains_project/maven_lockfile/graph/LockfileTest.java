@@ -3,7 +3,18 @@ package io.github.chains_project.maven_lockfile.graph;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
-import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Config;
+import io.github.chains_project.maven_lockfile.data.Environment;
+import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.MavenPlugin;
+import io.github.chains_project.maven_lockfile.data.MavenScope;
+import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.data.Pom;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -52,8 +63,10 @@ public class LockfileTest {
                 ArtifactId.of("A"),
                 GroupId.of("Ag"),
                 VersionNumber.of("1"),
+                null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
                 "SHA-1",
                 "A");
 
@@ -67,8 +80,10 @@ public class LockfileTest {
                 ArtifactId.of("B"),
                 GroupId.of("Bg"),
                 VersionNumber.of("1"),
+                null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
                 "SHA-1",
                 "B");
     }
@@ -78,8 +93,10 @@ public class LockfileTest {
                 ArtifactId.of("A1"),
                 GroupId.of("Ag1"),
                 VersionNumber.of("1"),
+                null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
                 "SHA-1",
                 "1");
     }
@@ -89,19 +106,33 @@ public class LockfileTest {
                 ArtifactId.of("A2"),
                 GroupId.of("Ag2"),
                 VersionNumber.of("1"),
+                null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
                 "SHA-1",
                 "2");
     }
 
     private MavenPlugin pluginA() {
         return new MavenPlugin(
-                GroupId.of("PgA"), ArtifactId.of("PA"), VersionNumber.of("1"), "SHA-1", "PA", ResolvedUrl.Unresolved());
+                GroupId.of("PgA"),
+                ArtifactId.of("PA"),
+                VersionNumber.of("1"),
+                ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
+                "SHA-1",
+                "PA");
     }
 
     private MavenPlugin pluginB() {
         return new MavenPlugin(
-                GroupId.of("PgB"), ArtifactId.of("PB"), VersionNumber.of("1"), "SHA-1", "PB", ResolvedUrl.Unresolved());
+                GroupId.of("PgB"),
+                ArtifactId.of("PB"),
+                VersionNumber.of("1"),
+                ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
+                "SHA-1",
+                "PB");
     }
 }
