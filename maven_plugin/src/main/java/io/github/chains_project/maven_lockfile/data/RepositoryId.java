@@ -10,7 +10,7 @@ import java.util.Objects;
 public class RepositoryId implements Comparable<RepositoryId> {
     public static RepositoryId of(String repositoryId) {
         // RepositoryId must be non-null.
-        String checked = Objects.requireNonNull(repositoryId, "resolvedUrl cannot be null");
+        String checked = Objects.requireNonNull(repositoryId, "repositoryId cannot be null");
         return new RepositoryId(checked);
     }
 
