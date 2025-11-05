@@ -14,20 +14,23 @@ public class MavenPlugin {
     private final String checksumAlgorithm;
     private final String checksum;
     private final ResolvedUrl resolved;
+    private final RepositoryId repositoryId;
 
     public MavenPlugin(
             GroupId groupId,
             ArtifactId artifactId,
             VersionNumber version,
+            ResolvedUrl resolvedUrl,
+            RepositoryId repositoryId,
             String checksumAlgorithm,
-            String checksum,
-            ResolvedUrl resolvedUrl) {
+            String checksum) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
+        this.resolved = resolvedUrl;
+        this.repositoryId = repositoryId;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
-        this.resolved = resolvedUrl;
     }
 
     public GroupId getGroupId() {
@@ -54,9 +57,13 @@ public class MavenPlugin {
         return resolved;
     }
 
+    public RepositoryId getRepositoryId() {
+        return repositoryId;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum, resolved);
+        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum);
     }
 
     @Override
@@ -72,7 +79,6 @@ public class MavenPlugin {
                 && Objects.equals(artifactId, other.artifactId)
                 && Objects.equals(version, other.version)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
-                && Objects.equals(checksum, other.checksum)
-                && Objects.equals(resolved, other.resolved);
+                && Objects.equals(checksum, other.checksum);
     }
 }

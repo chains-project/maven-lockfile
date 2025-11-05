@@ -98,9 +98,14 @@ An example lockfile is shown below:
 For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in this repository.
 ```json
 {
-  "artifactId": "single-dependency-example",
+  "artifactId": "single-dependency",
   "groupId": "com.mycompany.app",
   "version": "1",
+  "pom": {
+    "path": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "769c9ca78c22cd41728e76bf04377d1362da16063bd225c8ba8593ee28382507"
+  },
   "lockFileVersion": 1,
   "dependencies": [
     {
@@ -111,6 +116,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
       "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
       "scope": "test",
       "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
+      "repositoryId": "central",
       "selectedVersion": "5.9.2",
       "included": true,
       "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
@@ -123,6 +129,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
           "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+          "repositoryId": "central",
           "selectedVersion": "1.1.2",
           "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
@@ -137,6 +144,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
           "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar",
+          "repositoryId": "central",
           "selectedVersion": "1.9.2",
           "included": true,
           "id": "org.junit.platform:junit-platform-commons:1.9.2",
@@ -150,6 +158,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
               "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
               "scope": "test",
               "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+              "repositoryId": "central",
               "selectedVersion": "1.1.2",
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
@@ -166,6 +175,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
           "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
+          "repositoryId": "central",
           "selectedVersion": "1.2.0",
           "included": true,
           "id": "org.opentest4j:opentest4j:1.2.0",
@@ -179,16 +189,17 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
   "metaData": {
     "environment": {
       "osName": "Mac OS X",
-      "mavenVersion": "3.8.2",
-      "javaVersion": "21.0.5"
+      "mavenVersion": "3.9.11",
+      "javaVersion": "21.0.8"
     },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "mavenLockfileVersion": "5.9.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }

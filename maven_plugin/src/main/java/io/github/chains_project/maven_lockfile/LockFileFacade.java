@@ -3,7 +3,14 @@ package io.github.chains_project.maven_lockfile;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
+import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.GroupId;
+import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.MavenPlugin;
+import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.data.Pom;
+import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import java.nio.file.Path;
 import java.util.*;
@@ -110,13 +117,15 @@ public class LockFileFacade {
     private static Set<MavenPlugin> getAllPlugins(MavenProject project, AbstractChecksumCalculator checksumCalculator) {
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
+            RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
                     VersionNumber.of(pluginArtifact.getVersion()),
+                    repositoryInformation.getResolvedUrl(),
+                    repositoryInformation.getRepositoryId(),
                     checksumCalculator.getChecksumAlgorithm(),
-                    checksumCalculator.calculatePluginChecksum(pluginArtifact),
-                    checksumCalculator.getPluginResolvedField(pluginArtifact)));
+                    checksumCalculator.calculatePluginChecksum(pluginArtifact)));
         }
         return plugins;
     }

@@ -5,6 +5,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
@@ -23,6 +24,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private final String checksum;
     private final MavenScope scope;
     private final ResolvedUrl resolved;
+    private final RepositoryId repositoryId;
 
     private String selectedVersion;
 
@@ -35,18 +37,6 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     private final Set<DependencyNode> children;
 
-    // kept for backward compability, following https://github.com/chains-project/maven-lockfile/pull/803
-    DependencyNode(
-            ArtifactId artifactId,
-            GroupId groupId,
-            VersionNumber version,
-            MavenScope scope,
-            ResolvedUrl resolved,
-            String checksumAlgorithm,
-            String checksum) {
-        this(artifactId, groupId, version, null, scope, resolved, checksumAlgorithm, checksum);
-    }
-
     DependencyNode(
             ArtifactId artifactId,
             GroupId groupId,
@@ -54,6 +44,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
             Classifier classifier,
             MavenScope scope,
             ResolvedUrl resolved,
+            RepositoryId repositoryId,
             String checksumAlgorithm,
             String checksum) {
         this.artifactId = artifactId;
@@ -66,6 +57,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.id = new NodeId(groupId, artifactId, version);
         this.scope = scope;
         this.resolved = resolved;
+        this.repositoryId = repositoryId;
     }
     /**
      * @return the artifactId
@@ -108,6 +100,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public ResolvedUrl getResolved() {
         return resolved;
+    }
+    /**
+     * @return the repository id.
+     */
+    public RepositoryId getRepositoryId() {
+        return repositoryId;
     }
 
     void addChild(DependencyNode child) {
@@ -236,8 +234,9 @@ public class DependencyNode implements Comparable<DependencyNode> {
     public String toString() {
         return "DependencyNode [groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version
                 + ", classifier=" + classifier + ", checksumAlgorithm=" + checksumAlgorithm + ", checksum=" + checksum
-                + ", scope=" + scope + ", resolved=" + resolved + ", selectedVersion=" + selectedVersion + ", id=" + id
-                + ", parent=" + parent + ", children=" + children + "]";
+                + ", scope=" + scope + ", resolved=" + resolved + ", repositoryId=" + repositoryId
+                + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent + ", children="
+                + children + "]";
     }
 
     public String getComparatorString() {
