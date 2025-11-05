@@ -186,12 +186,12 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
         return getResolvedFieldInternal(resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
-                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.None()));
+                .orElse(RepositoryInformation.Unresolved());
     }
 
     @Override
     public RepositoryInformation getPluginResolvedField(Artifact artifact) {
         return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
-                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.None()));
+                .orElse(RepositoryInformation.Unresolved());
     }
 }
