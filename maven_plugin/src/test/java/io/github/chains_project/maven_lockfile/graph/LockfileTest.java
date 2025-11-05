@@ -55,7 +55,7 @@ public class LockfileTest {
                 null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "A");
 
@@ -72,7 +72,7 @@ public class LockfileTest {
                 null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "B");
     }
@@ -85,7 +85,7 @@ public class LockfileTest {
                 null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "1");
     }
@@ -98,7 +98,7 @@ public class LockfileTest {
                 null,
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "2");
     }
@@ -109,7 +109,7 @@ public class LockfileTest {
                 ArtifactId.of("PA"),
                 VersionNumber.of("1"),
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "PA");
     }
@@ -120,7 +120,7 @@ public class LockfileTest {
                 ArtifactId.of("PB"),
                 VersionNumber.of("1"),
                 ResolvedUrl.Unresolved(),
-                RepositoryId.Default(),
+                RepositoryId.None(),
                 "SHA-1",
                 "PB");
     }

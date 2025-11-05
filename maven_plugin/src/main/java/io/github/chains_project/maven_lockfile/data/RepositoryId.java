@@ -14,8 +14,8 @@ public class RepositoryId implements Comparable<RepositoryId> {
         return new RepositoryId(checked);
     }
 
-    public static RepositoryId Default() {
-        return new RepositoryId("central");
+    public static RepositoryId None() {
+        return new RepositoryId("");
     }
 
     private final String value;

@@ -212,12 +212,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     @Override
     public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
         return getResolvedFieldInternal(artifact, artifactBuildingRequest)
-                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.Default()));
+                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.None()));
     }
 
     @Override
     public RepositoryInformation getPluginResolvedField(Artifact artifact) {
         return getResolvedFieldInternal(artifact, pluginBuildingRequest)
-                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.Default()));
+                .orElse(new RepositoryInformation(ResolvedUrl.Unresolved(), RepositoryId.None()));
     }
 }
