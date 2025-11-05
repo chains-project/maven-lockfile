@@ -471,6 +471,15 @@ public class IntegrationTestsIT {
                                                 "https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guice/2.1.7/sisu-guice-2.1.7-noaop.jar")))
                 .findAny();
         assertThat(dependencyWithClassifierResolved).isNotNull();
+        // Ensure repository ids are resolved.
+        var atlassianRepositoryId = lockFile.getDependencies().stream()
+                .filter(dependency -> dependency.getRepositoryId().equals(RepositoryId.of("maven-atlassian-all")))
+                .findAny();
+        assertThat(atlassianRepositoryId).isNotNull();
+        var mavenCentralRepositoryId = lockFile.getDependencies().stream()
+                .filter(dependency -> dependency.getRepositoryId().equals(RepositoryId.of("central")))
+                .findAny();
+        assertThat(mavenCentralRepositoryId).isNotNull();
     }
 
     @MavenTest
