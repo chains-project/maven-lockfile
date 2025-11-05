@@ -63,7 +63,7 @@ public class MavenPlugin {
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum, resolved);
+        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum);
     }
 
     @Override
