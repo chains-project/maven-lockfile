@@ -1,11 +1,11 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.10.0",
+  "version": "5.10.1-SNAPSHOT",
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "bf7a0b65bd72c5d25b3479b5e025e7eb010a1e3fb03dcceb2af45e0d4b38eb50"
+    "checksum": "8b2c5963cc7ee51b35a703abf785a2d1e000aeb80f3c703b6057454dff3408a3"
   },
   "lockFileVersion": 1,
   "dependencies": [],
