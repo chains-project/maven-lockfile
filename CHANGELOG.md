@@ -2227,3 +2227,19 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.10.1-beta-1
+## Changelog
+
+## 📦 Dependencies
+- 7632123 ⬆️ (deps): Update dependency commons-io:commons-io to v2.21.0 (#1415)
+- ddad7e9 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.10.0 (#1414)
+
+## 🏁 Release
+- 7ca7ed6 🔖 Releasing version 5.10.1-beta-1
+- a4dd85e 🔖 Setting SNAPSHOT version 5.10.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
