@@ -28,6 +28,7 @@ public class LockfileTest {
                         Config.MavenPluginsInclusion.Include,
                         Config.OnValidationFailure.Error,
                         Config.OnPomValidationFailure.Error,
+                        Config.OnEnvironmentalValidationFailure.Error,
                         Config.EnvironmentInclusion.Include,
                         Config.ReductionState.NonReduced,
                         "1",

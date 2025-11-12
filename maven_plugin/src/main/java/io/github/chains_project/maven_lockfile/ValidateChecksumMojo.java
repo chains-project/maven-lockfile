@@ -49,8 +49,17 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
             if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
-                getLog().warn("Lock file environment does not match project environment."
-                        + " This could be due to a change in the environment.");
+                String sb = "Lock file environment does not match project environment.\n"
+                        + "Lockfile environment: " + lockFileFromFile.getEnvironment() + "\n"
+                        + "Project environment:  " + lockFileFromProject.getEnvironment() + "\n";
+
+                switch (config.getOnEnvironmentalValidationFailure()) {
+                    case Warn:
+                        getLog().warn(sb);
+                        break;
+                    case Error:
+                        throw new MojoExecutionException("Failed verifying environment. " + sb);
+                }
             }
             if (!Objects.equals(lockFileFromFile.getPom(), lockFileFromProject.getPom())) {
                 String sb = "Pom checksum mismatch. Differences:" + "\n" + "Your lockfile pom path and checksum:\n"

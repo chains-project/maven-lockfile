@@ -489,4 +489,12 @@ public class IntegrationTestsIT {
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
     }
+
+    @MavenTest
+    public void environmentalCheckShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Failed verifying environment.")).isTrue();
+    }
 }

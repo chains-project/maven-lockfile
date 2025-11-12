@@ -8,6 +8,7 @@ public class Config {
     private final boolean includeMavenPlugins;
     private final boolean allowValidationFailure;
     private final boolean allowPomValidationFailure;
+    private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
     private final String mavenLockfileVersion;
@@ -18,6 +19,7 @@ public class Config {
             MavenPluginsInclusion includeMavenPlugins,
             OnValidationFailure allowValidationFailure,
             OnPomValidationFailure allowPomValidationFailure,
+            OnEnvironmentalValidationFailure allowEnvironmentalValidationFailure,
             EnvironmentInclusion includeEnvironment,
             ReductionState reduced,
             String mavenLockfileVersion,
@@ -26,6 +28,8 @@ public class Config {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
+        this.allowEnvironmentalValidationFailure =
+                allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
         this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
         this.reduced = reduced.equals(ReductionState.Reduced);
         this.mavenLockfileVersion = mavenLockfileVersion;
@@ -37,6 +41,7 @@ public class Config {
         this.includeMavenPlugins = false;
         this.allowValidationFailure = false;
         this.allowPomValidationFailure = false;
+        this.allowEnvironmentalValidationFailure = false;
         this.includeEnvironment = true;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
@@ -50,7 +55,7 @@ public class Config {
         return includeMavenPlugins;
     }
     /**
-     * @return the includeMavenPlugins enum
+     * @return the mavenPluginsInclusion enum
      */
     public MavenPluginsInclusion getMavenPluginsInclusion() {
         return includeMavenPlugins ? MavenPluginsInclusion.Include : MavenPluginsInclusion.Exclude;
@@ -62,7 +67,7 @@ public class Config {
         return allowValidationFailure;
     }
     /**
-     * @return the allowValidationFailure enum
+     * @return the onValidationFailure enum
      */
     public OnValidationFailure getOnValidationFailure() {
         return allowValidationFailure ? OnValidationFailure.Warn : OnValidationFailure.Error;
@@ -74,10 +79,24 @@ public class Config {
         return allowPomValidationFailure;
     }
     /**
-     * @return the allowPomValidationFailure enum
+     * @return the onPomValidationFailure enum
      */
     public OnPomValidationFailure getOnPomValidationFailure() {
         return allowPomValidationFailure ? OnPomValidationFailure.Warn : OnPomValidationFailure.Error;
+    }
+    /**
+     * @return the allowEnvironmentalValidationFailure
+     */
+    public boolean isAllowEnvironmentalValidationFailure() {
+        return allowEnvironmentalValidationFailure;
+    }
+    /**
+     * @return the onEnvironmentalValidationFailure enum
+     */
+    public OnEnvironmentalValidationFailure getOnEnvironmentalValidationFailure() {
+        return allowEnvironmentalValidationFailure
+                ? OnEnvironmentalValidationFailure.Warn
+                : OnEnvironmentalValidationFailure.Error;
     }
     /**
      * @return the includeEnvironment
@@ -86,7 +105,7 @@ public class Config {
         return includeEnvironment;
     }
     /**
-     * @return the includeEnvironment enum
+     * @return the environmentInclusion enum
      */
     public EnvironmentInclusion getEnvironmentInclusion() {
         return includeEnvironment ? EnvironmentInclusion.Include : EnvironmentInclusion.Exclude;
@@ -133,6 +152,11 @@ public class Config {
     }
 
     public enum OnPomValidationFailure {
+        Warn,
+        Error
+    }
+
+    public enum OnEnvironmentalValidationFailure {
         Warn,
         Error
     }
