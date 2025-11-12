@@ -2202,3 +2202,28 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
 - Martin Monperrus ([@monperrus](https://github.com/monperrus))
+
+# 5.10.0
+## Changelog
+
+## 🚀 Added
+- b472cfc ✨ feat: Add Repository Id to lockfile (#1410)
+- 5c51ecd 👷 cd: Increase release script attempt merge time (#1409)
+
+## 📦 Dependencies
+- 7c797e1 ⬆️ (deps): Update step-security/harden-runner action to v2.13.2 (#1412)
+- b69ac31 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.9.0 (#1407)
+
+## 🏁 Release
+- 219e4f3 🔖 Releasing version 5.10.0
+- bd795de 🔖 Setting SNAPSHOT version 5.9.1-SNAPSHOT
+
+---
+- 851eacd chore: update lockfile
+- 874dbb2 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
