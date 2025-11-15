@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "e1ae6a04f35d1c18e013d19c09ee6c13062f315d3842dc83edd15c1783a2e14b"
+    "checksum": "3fff62e90fe9f65301668e648ad417373b121851cb41aa5279b82c1294fc2295"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -2728,6 +2728,15 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "7562657fc3492649dee836ffdda07990aaf46f4133cad048c4dcd7330bfd3917",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.0/maven-jar-plugin-3.5.0.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-site-plugin",
       "version": "3.21.0",
       "checksumAlgorithm": "SHA-256",
@@ -2778,15 +2787,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "d25d73f73b70bfc85dcf949c9c58eaa9ecf79709dd8be19d6f92d72b8720dd61",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/3.5.4/maven-surefire-plugin-3.5.4.jar",
-      "repositoryId": "central"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-jar-plugin",
-      "version": "3.4.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar",
       "repositoryId": "central"
     },
     {
