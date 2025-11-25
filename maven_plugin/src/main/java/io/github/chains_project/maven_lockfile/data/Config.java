@@ -50,7 +50,7 @@ public class Config {
         return includeMavenPlugins;
     }
     /**
-     * @return the includeMavenPlugins enum
+     * @return the mavenPluginsInclusion enum
      */
     public MavenPluginsInclusion getMavenPluginsInclusion() {
         return includeMavenPlugins ? MavenPluginsInclusion.Include : MavenPluginsInclusion.Exclude;
@@ -62,7 +62,7 @@ public class Config {
         return allowValidationFailure;
     }
     /**
-     * @return the allowValidationFailure enum
+     * @return the onValidationFailure enum
      */
     public OnValidationFailure getOnValidationFailure() {
         return allowValidationFailure ? OnValidationFailure.Warn : OnValidationFailure.Error;
@@ -74,7 +74,7 @@ public class Config {
         return allowPomValidationFailure;
     }
     /**
-     * @return the allowPomValidationFailure enum
+     * @return the onPomValidationFailure enum
      */
     public OnPomValidationFailure getOnPomValidationFailure() {
         return allowPomValidationFailure ? OnPomValidationFailure.Warn : OnPomValidationFailure.Error;
@@ -86,7 +86,7 @@ public class Config {
         return includeEnvironment;
     }
     /**
-     * @return the includeEnvironment enum
+     * @return the environmentInclusion enum
      */
     public EnvironmentInclusion getEnvironmentInclusion() {
         return includeEnvironment ? EnvironmentInclusion.Include : EnvironmentInclusion.Exclude;
