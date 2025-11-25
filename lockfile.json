@@ -5,20 +5,11 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "8b2c5963cc7ee51b35a703abf785a2d1e000aeb80f3c703b6057454dff3408a3"
+    "checksum": "125fca63855eaafa861ef9a9ee1f18058a11006d83e0e9a529fa3fc86e9ae90c"
   },
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [
-    {
-      "groupId": "com.diffplug.spotless",
-      "artifactId": "spotless-maven-plugin",
-      "version": "3.0.0",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "0eb19593ca3b24ba2d40de265dd9c1a679a715bc46f1f7647ecf267026b22e56",
-      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.0.0/spotless-maven-plugin-3.0.0.jar",
-      "repositoryId": "central"
-    },
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-install-plugin",
@@ -29,12 +20,12 @@
       "repositoryId": "central"
     },
     {
-      "groupId": "dev.sigstore",
-      "artifactId": "sigstore-maven-plugin",
-      "version": "1.3.0",
+      "groupId": "com.diffplug.spotless",
+      "artifactId": "spotless-maven-plugin",
+      "version": "3.1.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "173f142d8e421867b8941801014ce448f69f3704a33f4487ce7cf80e9730d5f9",
-      "resolved": "https://repo.maven.apache.org/maven2/dev/sigstore/sigstore-maven-plugin/1.3.0/sigstore-maven-plugin-1.3.0.jar",
+      "checksum": "1b0afe01920d8018b4396148df357915b1b95aeee82486debd51379b50683b8a",
+      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.1.0/spotless-maven-plugin-3.1.0.jar",
       "repositoryId": "central"
     },
     {
@@ -53,6 +44,15 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249",
       "resolved": "https://repo.maven.apache.org/maven2/org/cyclonedx/cyclonedx-maven-plugin/2.9.1/cyclonedx-maven-plugin-2.9.1.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "7562657fc3492649dee836ffdda07990aaf46f4133cad048c4dcd7330bfd3917",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.0/maven-jar-plugin-3.5.0.jar",
       "repositoryId": "central"
     },
     {
@@ -111,15 +111,6 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-jar-plugin",
-      "version": "3.4.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar",
-      "repositoryId": "central"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-artifact-plugin",
       "version": "3.6.1",
       "checksumAlgorithm": "SHA-256",
@@ -134,6 +125,15 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "dev.sigstore",
+      "artifactId": "sigstore-maven-plugin",
+      "version": "2.0.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "f5578d8c6784707366c0c7704d22395a43f1f59439d3a5beea3e5fbfba3046d8",
+      "resolved": "https://repo.maven.apache.org/maven2/dev/sigstore/sigstore-maven-plugin/2.0.0/sigstore-maven-plugin-2.0.0.jar",
       "repositoryId": "central"
     }
   ],
