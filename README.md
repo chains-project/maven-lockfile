@@ -76,6 +76,7 @@ mvn -f pom.lockfile.xml
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`) will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
 - `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow validation failure of the pom specifically, dependency validation still occurs (assuming `allowValidationFailure` is `false`). In case of checksum mismatch of pom prints a warning instead of default exception.
+- `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
@@ -198,6 +199,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.9.1-SNAPSHOT",
@@ -286,7 +288,7 @@ Extended github actions example with all available options:
     # Optional. The name of the workflow file, to automatically trigger lockfile generation with 
     #  the workflow is updated.
     # Defaults to 'Lockfile.yml'
-    workflow-filename: 'Lockfile.yml'
+    - workflow-filename: 'Lockfile.yml'
 ```
 
 ### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)
