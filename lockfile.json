@@ -11,15 +11,6 @@
   "dependencies": [],
   "mavenPlugins": [
     {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-artifact-plugin",
-      "version": "3.6.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "",
-      "resolved": "",
-      "repositoryId": ""
-    },
-    {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
       "version": "3.0.0",
@@ -125,6 +116,15 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-artifact-plugin",
+      "version": "3.6.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e94e4d21eb073567e33e701b4680691e5a316d9beaa2dc05159c52dc9ea378f2",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.1/maven-artifact-plugin-3.6.1.jar",
       "repositoryId": "central"
     },
     {
