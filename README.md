@@ -85,6 +85,7 @@ mvn -f pom.lockfile.xml
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
 
 For `:freeze` target:
+-`pomLockfileOutput` (`-DpomLockfileOutput=pom.xml`, default=pom.lockfile.xml) sets the name of the generated flattened pom file. Default is to create a new file with the name `pom.lockfile.xml`, but you can also set it to `pom.xml` to overwrite the original pom file.
 - `exactVersionStrings` (`-DexactVersionStrings=false`, default=true) provide version string as exact parameter `[1.0.0]`, instead of soft requirement `1.0.0`.
 
 ### Flags example
