@@ -2227,3 +2227,38 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.10.1-beta-2
+## Changelog
+
+## 🚀 Added
+- e1fe008 ✨ feat: Fail on environment validation fail (#1377)
+- 82768e0 ✅ it: Update lockfiles in integration tests to maven 4 rc-5 (#1429)
+
+## 📦 Dependencies
+- 335bc77 ⬆️ (deps): Update actions/checkout action to v5.0.1 (#1431)
+- 3426335 ⬆️ (deps): Update google/osv-scanner-action action to v2.3.0 (#1422)
+- 94a6867 ⬆️ (deps): Update github/codeql-action action to v4.31.5 (#1418)
+- 548e822 ⬆️ (deps): Update dependency dev.sigstore:sigstore-maven-plugin to v2 (#1425)
+- 8dc4e6f ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3.1.0 (#1421)
+- aac2fa4 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-jar-plugin to v3.5.0 (#1419)
+- 1f9d21a ⬆️ (deps): Update actions/setup-go action to v6.1.0 (#1423)
+- 372a884 ⬆️ (deps): Update actions/dependency-review-action action to v4.8.2 (#1417)
+
+## 📝 Documentation
+- 19177ed 📝 docs: Adding missing space (#1430)
+- 3a0ee82 📝 docs: Document pomLockfileOutput param for freeze target (#1427)
+- 40aa63a 📝 Update javadoc comments (#1428)
+
+## 🏁 Release
+- e61a1b5 🔖 Releasing version 5.10.1-beta-2
+
+---
+- 45c75a7 Add reference to Maven-Lockfile technical report (#1416)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- Larissa Schmid ()
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
