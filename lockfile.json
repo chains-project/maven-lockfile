@@ -5,7 +5,7 @@
   "pom": {
     "path": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "8b2c5963cc7ee51b35a703abf785a2d1e000aeb80f3c703b6057454dff3408a3"
+    "checksum": "88acbcd6f5dc2f4dd4c72b81cff2a70f06248be9d84640e4c0ea00a7067a77cb"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -53,6 +53,15 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "698e0f37184a5b28c245c4065fd036dfce253b52f82fbb7113d81d36326cc249",
       "resolved": "https://repo.maven.apache.org/maven2/org/cyclonedx/cyclonedx-maven-plugin/2.9.1/cyclonedx-maven-plugin-2.9.1.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-jar-plugin",
+      "version": "3.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "7562657fc3492649dee836ffdda07990aaf46f4133cad048c4dcd7330bfd3917",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.0/maven-jar-plugin-3.5.0.jar",
       "repositoryId": "central"
     },
     {
@@ -107,15 +116,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "d25d73f73b70bfc85dcf949c9c58eaa9ecf79709dd8be19d6f92d72b8720dd61",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/3.5.4/maven-surefire-plugin-3.5.4.jar",
-      "repositoryId": "central"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-jar-plugin",
-      "version": "3.4.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "e02b19fb8e7ea10baed4878a8c51e4ea21f16ef927efcfb2681a8faea86c7abb",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.4.2/maven-jar-plugin-3.4.2.jar",
       "repositoryId": "central"
     },
     {
