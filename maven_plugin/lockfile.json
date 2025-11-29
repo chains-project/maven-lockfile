@@ -2719,6 +2719,15 @@
     },
     {
       "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-resources-plugin",
+      "version": "3.4.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "72c7d66ea49256ea64a82b28a15df69177d13066d12afeb4a1ee0616da4648f1",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.4.0/maven-resources-plugin-3.4.0.jar",
+      "repositoryId": "central"
+    },
+    {
+      "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
       "version": "3.5.0",
       "checksumAlgorithm": "SHA-256",
@@ -2787,15 +2796,6 @@
       "checksumAlgorithm": "SHA-256",
       "checksum": "e94e4d21eb073567e33e701b4680691e5a316d9beaa2dc05159c52dc9ea378f2",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-artifact-plugin/3.6.1/maven-artifact-plugin-3.6.1.jar",
-      "repositoryId": "central"
-    },
-    {
-      "groupId": "org.apache.maven.plugins",
-      "artifactId": "maven-resources-plugin",
-      "version": "3.3.1",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "eb4069c7fe50a313b3f5295ccd214f30402f63971c26f443f7f3e798be8cc2a7",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar",
       "repositoryId": "central"
     },
     {
