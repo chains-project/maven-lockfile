@@ -2227,3 +2227,14 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.10.1-beta-3
+## Changelog
+
+## 📦 Dependencies
+- 6ddf8c6 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-source-plugin to v3.4.0 (#1433)
+- d7f0b91 ⬆️ (deps): Update jreleaser/release-action action to v2.5.0 (#1434)
+- 6e681b0 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-resources-plugin to v3.4.0 (#1432)
+
+## 🏁 Release
+- c7557f4 🔖 Releasing version 5.10.1-beta-3
