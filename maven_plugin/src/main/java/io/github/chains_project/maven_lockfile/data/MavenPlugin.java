@@ -1,6 +1,9 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class represents a maven plugin. It contains a group id, an artifact id, and a version number. A plugin is uniquely identified by its group id, artifact id, and version number.
@@ -15,6 +18,7 @@ public class MavenPlugin {
     private final String checksum;
     private final ResolvedUrl resolved;
     private final RepositoryId repositoryId;
+    private final Set<DependencyNode> dependencies;
 
     public MavenPlugin(
             GroupId groupId,
@@ -24,6 +28,18 @@ public class MavenPlugin {
             RepositoryId repositoryId,
             String checksumAlgorithm,
             String checksum) {
+        this(groupId, artifactId, version, resolvedUrl, repositoryId, checksumAlgorithm, checksum, null);
+    }
+
+    public MavenPlugin(
+            GroupId groupId,
+            ArtifactId artifactId,
+            VersionNumber version,
+            ResolvedUrl resolvedUrl,
+            RepositoryId repositoryId,
+            String checksumAlgorithm,
+            String checksum,
+            Set<DependencyNode> dependencies) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
@@ -31,6 +47,7 @@ public class MavenPlugin {
         this.repositoryId = repositoryId;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
+        this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
     }
 
     public GroupId getGroupId() {
@@ -61,9 +78,16 @@ public class MavenPlugin {
         return repositoryId;
     }
 
+    /**
+     * @return the dependencies of this plugin
+     */
+    public Set<DependencyNode> getDependencies() {
+        return dependencies;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum);
+        return Objects.hash(groupId, artifactId, version, checksumAlgorithm, checksum, dependencies);
     }
 
     @Override
@@ -79,6 +103,13 @@ public class MavenPlugin {
                 && Objects.equals(artifactId, other.artifactId)
                 && Objects.equals(version, other.version)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
-                && Objects.equals(checksum, other.checksum);
+                && Objects.equals(checksum, other.checksum)
+                && Objects.equals(dependencies, other.dependencies);
+    }
+
+    @Override
+    public String toString() {
+        // only show the group id, artifact id, and version - this is sufficient for debugging purposes
+        return "MavenPlugin [groupId=" + groupId + ", artifactId=" + artifactId + ", version=" + version + "]";
     }
 }
