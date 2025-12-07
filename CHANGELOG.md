@@ -2227,3 +2227,16 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.10.1-beta-4
+## Changelog
+
+## 📦 Dependencies
+- 96d4767 ⬆️ (deps): Update github/codeql-action action to v4.31.7 (#1442)
+- dc78d85 ⬆️ (deps): Update actions/setup-java action to v5.1.0 (#1441)
+- d3787c8 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.3 (#1440)
+- 2bc852e ⬆️ (deps): Update step-security/harden-runner action to v2.13.3 (#1438)
+- a5ef4b0 ⬆️ (deps): Update github/codeql-action action to v4.31.6 (#1435)
+
+## 🏁 Release
+- 53c4edb 🔖 Releasing version 5.10.1-beta-4
