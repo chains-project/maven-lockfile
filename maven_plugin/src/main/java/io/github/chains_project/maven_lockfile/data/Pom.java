@@ -1,9 +1,8 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import org.apache.maven.project.MavenProject;
-
 import java.util.ArrayList;
+import org.apache.maven.project.MavenProject;
 
 public class Pom implements Comparable<Pom> {
 
@@ -68,13 +67,19 @@ public class Pom implements Comparable<Pom> {
         ArrayList<MavenProject> recursiveProjects = new ArrayList<MavenProject>();
         recursiveProjects.add(initalProject);
         while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
-            recursiveProjects.add(recursiveProjects.get(recursiveProjects.size() - 1).getParent());
+            recursiveProjects.add(
+                    recursiveProjects.get(recursiveProjects.size() - 1).getParent());
         }
 
         Pom lastPom = null;
         for (MavenProject project : recursiveProjects.reversed()) {
-            String path = initalProject.getBasedir().toPath().relativize(project.getFile().toPath()).toString();
-            String checksum = checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+            String path = initalProject
+                    .getBasedir()
+                    .toPath()
+                    .relativize(project.getFile().toPath())
+                    .toString();
+            String checksum =
+                    checksumCalculator.calculatePomChecksum(project.getFile().toPath());
             lastPom = new Pom(path, checksumAlgorithm, checksum, lastPom);
         }
 
