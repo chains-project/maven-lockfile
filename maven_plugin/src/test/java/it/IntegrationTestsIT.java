@@ -84,7 +84,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void pluginProject(MavenExecutionResult result) throws Exception {
         // contract: if including maven plugins the lockfile should contain these and be able to calculate checksums for
-        // them.
+        // them. Plugin dependencies should also be resolved and recorded.
         // Note that remote does not work as the maven-lockfile plugin with SNAPSHOT version is not available on remote.
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -94,6 +94,12 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getMavenPlugins())
                 .allMatch(v -> !v.getChecksum().isBlank()
                         && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+
+        // This uses the Maven lockfile plugin itself as a plugin in the test project's build lifecycle.
+        // All dependencies of this plugin should be recorded.
+        assertThat(lockFile.getMavenPlugins())
+                .allMatch(
+                        p -> p.getDependencies() != null && !p.getDependencies().isEmpty());
     }
 
     @MavenTest
