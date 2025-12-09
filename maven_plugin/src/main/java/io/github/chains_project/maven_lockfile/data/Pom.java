@@ -61,11 +61,11 @@ public class Pom implements Comparable<Pom> {
                 && this.checksum.equals(other.checksum);
     }
 
-    public static Pom ConstructRecursivePom(MavenProject initalProject, AbstractChecksumCalculator checksumCalculator) {
+    public static Pom ConstructRecursivePom(MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
 
         ArrayList<MavenProject> recursiveProjects = new ArrayList<MavenProject>();
-        recursiveProjects.add(initalProject);
+        recursiveProjects.add(initialProject);
         while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
             recursiveProjects.add(
                     recursiveProjects.get(recursiveProjects.size() - 1).getParent());
@@ -73,7 +73,7 @@ public class Pom implements Comparable<Pom> {
 
         Pom lastPom = null;
         for (MavenProject project : recursiveProjects.reversed()) {
-            String path = initalProject
+            String path = initialProject
                     .getBasedir()
                     .toPath()
                     .relativize(project.getFile().toPath())
