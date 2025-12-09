@@ -2227,3 +2227,51 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.0
+## Changelog
+
+## 🚀 Added
+- b08a4e1 ✨ feat: Generate Dependencies of Plugins (#1437)
+- e1fe008 ✨ feat: Fail on environment validation fail (#1377)
+- 82768e0 ✅ it: Update lockfiles in integration tests to maven 4 rc-5 (#1429)
+
+## 📦 Dependencies
+- 96d4767 ⬆️ (deps): Update github/codeql-action action to v4.31.7 (#1442)
+- dc78d85 ⬆️ (deps): Update actions/setup-java action to v5.1.0 (#1441)
+- d3787c8 ⬆️ (deps): Update dependency org.apache.groovy:groovy to v5.0.3 (#1440)
+- 2bc852e ⬆️ (deps): Update step-security/harden-runner action to v2.13.3 (#1438)
+- a5ef4b0 ⬆️ (deps): Update github/codeql-action action to v4.31.6 (#1435)
+- 6ddf8c6 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-source-plugin to v3.4.0 (#1433)
+- d7f0b91 ⬆️ (deps): Update jreleaser/release-action action to v2.5.0 (#1434)
+- 6e681b0 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-resources-plugin to v3.4.0 (#1432)
+- 335bc77 ⬆️ (deps): Update actions/checkout action to v5.0.1 (#1431)
+- 3426335 ⬆️ (deps): Update google/osv-scanner-action action to v2.3.0 (#1422)
+- 94a6867 ⬆️ (deps): Update github/codeql-action action to v4.31.5 (#1418)
+- 548e822 ⬆️ (deps): Update dependency dev.sigstore:sigstore-maven-plugin to v2 (#1425)
+- 8dc4e6f ⬆️ (deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3.1.0 (#1421)
+- aac2fa4 ⬆️ (deps): Update dependency org.apache.maven.plugins:maven-jar-plugin to v3.5.0 (#1419)
+- 1f9d21a ⬆️ (deps): Update actions/setup-go action to v6.1.0 (#1423)
+- 372a884 ⬆️ (deps): Update actions/dependency-review-action action to v4.8.2 (#1417)
+- 7632123 ⬆️ (deps): Update dependency commons-io:commons-io to v2.21.0 (#1415)
+- ddad7e9 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.10.0 (#1414)
+
+## 📝 Documentation
+- 19177ed 📝 docs: Adding missing space (#1430)
+- 3a0ee82 📝 docs: Document pomLockfileOutput param for freeze target (#1427)
+- 40aa63a 📝 Update javadoc comments (#1428)
+
+## 🏁 Release
+- 5222660 🔖 Releasing version 5.11.0
+- a4dd85e 🔖 Setting SNAPSHOT version 5.10.1-SNAPSHOT
+
+---
+- 45c75a7 Add reference to Maven-Lockfile technical report (#1416)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- Larissa Schmid ()
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
