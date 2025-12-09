@@ -343,7 +343,7 @@ public class LockFileFacade {
             MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
 
-        ArrayList<MavenProject> recursiveProjects = new ArrayList<>();
+        List<MavenProject> recursiveProjects = new ArrayList<>();
         recursiveProjects.add(initialProject);
         while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
             recursiveProjects.add(
@@ -351,7 +351,8 @@ public class LockFileFacade {
         }
 
         Pom lastPom = null;
-        for (MavenProject project : recursiveProjects.reversed()) {
+        Collections.reverse(recursiveProjects);
+        for (MavenProject project : recursiveProjects) {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
