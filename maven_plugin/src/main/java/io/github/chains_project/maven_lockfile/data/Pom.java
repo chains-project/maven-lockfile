@@ -1,25 +1,46 @@
 package io.github.chains_project.maven_lockfile.data;
 
-import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
-import java.util.ArrayList;
-import org.apache.maven.project.MavenProject;
-
 public class Pom implements Comparable<Pom> {
 
-    private final String path;
+    private final GroupId groupId;
+    private final ArtifactId artifactId;
+    private final VersionNumber version;
+    private final String relativePath;
     private final String checksumAlgorithm;
     private final String checksum;
     private final Pom parent;
 
-    public Pom(String path, String checksumAlgorithm, String checksum, Pom parent) {
-        this.path = path;
+    public Pom(
+            GroupId groupId,
+            ArtifactId artifactId,
+            VersionNumber version,
+            String relativePath,
+            String checksumAlgorithm,
+            String checksum,
+            Pom parent) {
+        this.groupId = groupId;
+        this.artifactId = artifactId;
+        this.version = version;
+        this.relativePath = relativePath;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
         this.parent = parent;
     }
 
-    public String getPath() {
-        return path;
+    public GroupId getGroupId() {
+        return groupId;
+    }
+
+    public ArtifactId getArtifactId() {
+        return artifactId;
+    }
+
+    public VersionNumber getVersion() {
+        return version;
+    }
+
+    public String getRelativePath() {
+        return relativePath;
     }
 
     public String getChecksumAlgorithm() {
@@ -30,10 +51,26 @@ public class Pom implements Comparable<Pom> {
         return checksum;
     }
 
+    public Pom getParent() {
+        return parent;
+    }
+
     @Override
     public int compareTo(Pom o) {
-        if (this.path.compareTo(o.path) != 0) {
-            return this.path.compareTo(o.path);
+        if (this.groupId.compareTo(o.groupId) != 0) {
+            return this.groupId.compareTo(o.groupId);
+        }
+
+        if (this.artifactId.compareTo(o.artifactId) != 0) {
+            return this.artifactId.compareTo(o.artifactId);
+        }
+
+        if (this.version.compareTo(o.version) != 0) {
+            return this.version.compareTo(o.version);
+        }
+
+        if (this.relativePath.compareTo(o.relativePath) != 0) {
+            return this.relativePath.compareTo(o.relativePath);
         }
 
         if (this.checksumAlgorithm.compareTo(o.checksumAlgorithm) != 0) {
@@ -56,33 +93,11 @@ public class Pom implements Comparable<Pom> {
             return false;
         }
         Pom other = (Pom) obj;
-        return this.path.equals(other.path)
+        return this.groupId.equals(other.groupId)
+                && this.artifactId.equals(other.artifactId)
+                && this.version.equals(other.version)
+                && this.relativePath.equals(other.relativePath)
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
                 && this.checksum.equals(other.checksum);
-    }
-
-    public static Pom ConstructRecursivePom(MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
-        String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
-
-        ArrayList<MavenProject> recursiveProjects = new ArrayList<MavenProject>();
-        recursiveProjects.add(initialProject);
-        while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
-            recursiveProjects.add(
-                    recursiveProjects.get(recursiveProjects.size() - 1).getParent());
-        }
-
-        Pom lastPom = null;
-        for (MavenProject project : recursiveProjects.reversed()) {
-            String path = initialProject
-                    .getBasedir()
-                    .toPath()
-                    .relativize(project.getFile().toPath())
-                    .toString();
-            String checksum =
-                    checksumCalculator.calculatePomChecksum(project.getFile().toPath());
-            lastPom = new Pom(path, checksumAlgorithm, checksum, lastPom);
-        }
-
-        return lastPom;
     }
 }

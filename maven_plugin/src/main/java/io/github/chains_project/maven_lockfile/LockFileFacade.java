@@ -108,7 +108,7 @@ public class LockFileFacade {
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
-        var pom = Pom.ConstructRecursivePom(project, checksumCalculator);
+        var pom = constructRecursivePom(project, checksumCalculator);
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -337,5 +337,41 @@ public class LockFileFacade {
             PluginLogManager.getLog().warn("Could not generate graph", e);
             return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
         }
+    }
+
+    private static Pom constructRecursivePom(
+            MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
+        String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
+
+        ArrayList<MavenProject> recursiveProjects = new ArrayList<>();
+        recursiveProjects.add(initialProject);
+        while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
+            recursiveProjects.add(
+                    recursiveProjects.get(recursiveProjects.size() - 1).getParent());
+        }
+
+        Pom lastPom = null;
+        for (MavenProject project : recursiveProjects.reversed()) {
+            String relativePath = project.getFile() == null
+                    ? null
+                    : initialProject
+                            .getBasedir()
+                            .toPath()
+                            .relativize(project.getFile().toPath())
+                            .toString();
+            String checksum = project.getFile() == null
+                    ? null
+                    : checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+            lastPom = new Pom(
+                    GroupId.of(project.getGroupId()),
+                    ArtifactId.of(project.getArtifactId()),
+                    VersionNumber.of(project.getVersion()),
+                    relativePath,
+                    checksumAlgorithm,
+                    checksum,
+                    lastPom);
+        }
+
+        return lastPom;
     }
 }

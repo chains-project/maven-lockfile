@@ -65,9 +65,9 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             }
             if (!Objects.equals(lockFileFromFile.getPom(), lockFileFromProject.getPom())) {
                 String sb = "Pom checksum mismatch. Differences:" + "\n" + "Your lockfile pom path and checksum:\n"
-                        + lockFileFromFile.getPom().getPath()
+                        + lockFileFromFile.getPom().getRelativePath()
                         + " " + lockFileFromFile.getPom().getChecksum() + "\n" + "Your project pom path and checksum:\n"
-                        + lockFileFromProject.getPom().getPath()
+                        + lockFileFromProject.getPom().getRelativePath()
                         + " " + lockFileFromProject.getPom().getChecksum() + "\n";
 
                 switch (config.getOnPomValidationFailure()) {
