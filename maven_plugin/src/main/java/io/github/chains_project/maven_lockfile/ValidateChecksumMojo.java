@@ -8,6 +8,7 @@ import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.util.Objects;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -35,6 +36,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             getLog().info("Skipping maven-lockfile");
             return;
         }
+        PluginLogManager.setLog(getLog());
         try {
             getLog().info("Validating lock file ...");
             Environment environment = generateMetaInformation();

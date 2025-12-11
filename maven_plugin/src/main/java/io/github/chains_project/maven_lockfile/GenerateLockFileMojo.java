@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,6 +42,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             getLog().info("Skipping maven-lockfile");
             return;
         }
+        PluginLogManager.setLog(getLog());
         try {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))

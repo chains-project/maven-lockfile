@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -57,6 +58,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
      */
     public void execute() throws MojoExecutionException {
+        PluginLogManager.setLog(getLog());
         File pomFile = project.getFile();
         File pomLockFile = new File(project.getBasedir(), pomLockfileOutput);
         try {
