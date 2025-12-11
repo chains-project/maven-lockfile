@@ -34,6 +34,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
+        System.out.println("Running 'simpleProject' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -44,6 +45,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void singleDependency(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
+        System.out.println("Running 'singleDependency' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -61,6 +63,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void singleDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
         // contract: an empty project should generate an empty lock file
+        System.out.println("Running 'singleDependencyCheckCorrect' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -78,6 +81,7 @@ public class IntegrationTestsIT {
     public void singleDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
         // contract: a changed dependency should fail the build.
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
+        System.out.println("Running 'singleDependencyCheckMustFail' integration test.");
         assertThat(result).isFailure();
     }
 
@@ -86,6 +90,7 @@ public class IntegrationTestsIT {
         // contract: if including maven plugins the lockfile should contain these and be able to calculate checksums for
         // them. Plugin dependencies should also be resolved and recorded.
         // Note that remote does not work as the maven-lockfile plugin with SNAPSHOT version is not available on remote.
+        System.out.println("Running 'pluginProject' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -104,6 +109,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void freezeJunit(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'freezeJunit' integration test.");
         assertThat(result).isSuccessful();
         Path path = findFile(result, "pom.xml");
         var pom = Files.readString(path);
@@ -114,11 +120,13 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void freezeWithoutDepManagement(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'freezeWithoutDepManagement' integration test.");
         checkFreeze(result);
     }
 
     @MavenTest
     public void freezeWithDepManagement(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'freezeWithDepManagement' integration test.");
         checkFreeze(result);
     }
 
@@ -191,6 +199,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     void reduceLog4jAffected(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'reduceLog4jAffected' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -202,6 +211,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     void reduceLog4jNotAffected(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'reduceLog4jNotAffected' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -226,11 +236,13 @@ public class IntegrationTestsIT {
 
     @MavenTest
     void classifierDependency(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'classifierDependency' integration test.");
         classifier(result);
     }
 
     @MavenTest
     void classifierDependencyCheckCorrect(MavenExecutionResult result) throws Exception {
+        System.out.println("Running 'classifierDependencyCheckCorrect' integration test.");
         classifier(result);
     }
 
@@ -283,6 +295,7 @@ public class IntegrationTestsIT {
     public void classifierDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
         // contract: a changed dependency should fail the build.
         // we changed the classifier id of "classifier": "sources", to "classifier": "42",
+        System.out.print("Running 'classifierDependencyCheckMustFail' integration test.");
         assertThat(result).isFailure();
     }
 
@@ -291,6 +304,7 @@ public class IntegrationTestsIT {
         // contract: a changed dependency should generate a warning on the build.
         // if the allowValidationFailure parameter is true
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
+        System.out.print("Running 'singleDependencyCheckMustWarn' integration test.");
         assertThat(result).isSuccessful();
 
         String stdout = Files.readString(result.getMavenLog().getStdout());
@@ -301,6 +315,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void withEnvironment(MavenExecutionResult result) throws Exception {
         // contract: a null environment should be returned if include environment is false
+        System.out.println("Running 'withEnvironment' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -312,6 +327,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void withoutEnvironment(MavenExecutionResult result) throws Exception {
         // contract: a not null environment should be returned if include environment is true
+        System.out.println("Running 'withoutEnvironment' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -323,6 +339,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void withEnvironmentFromLockfile(MavenExecutionResult result) throws Exception {
         // contract: a not null environment should be returned if include environment is true
+        System.out.println("Running 'withEnvironmentFromLockfile' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -334,6 +351,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void withoutEnvironmentFromLockfile(MavenExecutionResult result) throws Exception {
         // contract: a null environment should be returned if include environment is false
+        System.out.println("Running 'withoutEnvironmentFromLockfile' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -345,6 +363,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void orderedLockfile(MavenExecutionResult result) throws Exception {
         // contract: the dependency list should be ordered
+        System.out.println("Running 'orderedLockfile' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -359,6 +378,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void skipLockfile(MavenExecutionResult result) throws Exception {
         // contract: the lockfile should not be generated if skip option is true
+        System.out.println("Running 'skipLockfile' integration test.");
         assertThat(result).isSuccessful();
         var fileExists = fileExists(result, "lockfile.json");
         assertThat(fileExists).isFalse();
@@ -367,6 +387,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void differentLockfileName(MavenExecutionResult result) throws Exception {
         // contract: the lockfile should be generated with a different name
+        System.out.println("Running 'differentLockfileName' integration test.");
         assertThat(result).isSuccessful();
         var lockfileExists = fileExists(result, "lockfile.json");
         assertThat(lockfileExists).isFalse();
@@ -378,6 +399,7 @@ public class IntegrationTestsIT {
     public void differentLockfileNameFreezeShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is
         // provided, freeze should succeed
+        System.out.println("Running 'differentLockfileNameFreeze' integration test.");
         assertThat(result).isSuccessful();
     }
 
@@ -385,6 +407,7 @@ public class IntegrationTestsIT {
     public void differentLockfileNameValidateShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if there exists a lockfile.json but -DlockfileName="different-lockfile-name.json" is provided,
         // validate should fail
+        System.out.println("Running 'differentLockfileNameValidate' integration test.");
         assertThat(result).isFailure();
     }
 
@@ -392,12 +415,14 @@ public class IntegrationTestsIT {
     public void differentLockfileNameValidateShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: if there exists a different-name-lockfile.json and -DlockfileName="different-lockfile-name.json" is
         // provided, validate should succeed
+        System.out.println("Running 'differentLockfileNameValidate' integration test.");
         assertThat(result).isSuccessful();
     }
 
     @MavenTest
     public void remoteRepositoryShouldResolve(MavenExecutionResult result) throws Exception {
         // contract: if the pom contains a remote repository other that maven_central, the artifact should resolve
+        System.out.println("Running 'remoteRepository' integration test.");
         assertThat(result).isSuccessful();
     }
 
@@ -405,6 +430,7 @@ public class IntegrationTestsIT {
     public void checksumModeRemote(MavenExecutionResult result) throws Exception {
         // contract: if checksum mode is remote, maven-lockfile should be able to download and verify SHA-256 from maven
         // central and if SHA-256 is not available, it should be able to .
+        System.out.println("Running 'checksumModeRemote' integration test.");
         assertThat(result).isSuccessful();
         var lockfilePath = findFile(result, "lockfile.json");
         assertThat(lockfilePath).exists();
@@ -444,6 +470,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void resolvedFieldShouldResolve(MavenExecutionResult result) throws Exception {
         // contract: resolved field should find correctly url for projects with multiple repositories
+        System.out.println("Running 'resolvedField' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
@@ -491,6 +518,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void pomCheckShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
+        System.out.println("Running 'pomCheckShouldFail' integration test.");
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
@@ -499,6 +527,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void environmentalCheckShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
+        System.out.println("Running 'environmentalCheckShouldFail' integration test.");
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Failed verifying environment.")).isTrue();
