@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
@@ -360,9 +361,22 @@ public class LockFileFacade {
                             .toPath()
                             .relativize(project.getFile().toPath())
                             .toString();
-            String checksum = project.getFile() == null
-                    ? null
-                    : checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+            String checksum = null;
+            if (project.getFile() == null) {
+                Artifact artifact = project.getArtifact();
+                Artifact pomArtifact = new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getVersion(),
+                        artifact.getScope(),
+                        "pom",
+                        artifact.getClassifier(),
+                        artifact.getArtifactHandler());
+                checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
+            } else {
+                checksum = checksumCalculator.calculatePomChecksum(
+                        project.getFile().toPath());
+            }
             lastPom = new Pom(
                     GroupId.of(project.getGroupId()),
                     ArtifactId.of(project.getArtifactId()),
