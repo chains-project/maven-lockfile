@@ -9,10 +9,9 @@ import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 
 public class DependencyGraph {
@@ -82,7 +81,8 @@ public class DependencyGraph {
             AbstractChecksumCalculator calc,
             boolean isRoot,
             boolean reduce) {
-        PluginLogManager.getLog().debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
+        PluginLogManager.getLog()
+                .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
         var groupId = GroupId.of(node.getArtifact().getGroupId());
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());
