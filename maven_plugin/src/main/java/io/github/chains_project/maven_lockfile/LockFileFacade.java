@@ -382,10 +382,18 @@ public class LockFileFacade {
             String checksum = null;
             if (project.getFile() == null) {
                 Artifact artifact = project.getArtifact();
-                Artifact pomArtifact = new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion(), artifact.getScope(), "pom", artifact.getClassifier(), artifact.getArtifactHandler());
+                Artifact pomArtifact = new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getVersion(),
+                        artifact.getScope(),
+                        "pom",
+                        artifact.getClassifier(),
+                        artifact.getArtifactHandler());
                 checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
             } else {
-                checksum = checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+                checksum = checksumCalculator.calculatePomChecksum(
+                        project.getFile().toPath());
             }
             lastPom = new Pom(
                     GroupId.of(project.getGroupId()),
