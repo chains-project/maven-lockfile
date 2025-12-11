@@ -85,7 +85,7 @@ public class Pom implements Comparable<Pom> {
         }
 
         if (this.parent == null && o.parent != null) {
-                return -1;
+            return -1;
         }
 
         if (this.parent != null && o.parent == null) {
