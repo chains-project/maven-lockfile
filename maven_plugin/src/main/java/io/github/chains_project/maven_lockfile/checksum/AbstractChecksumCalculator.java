@@ -1,17 +1,14 @@
 package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Locale;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 
 public abstract class AbstractChecksumCalculator {
-
-    private static final Logger LOGGER = LogManager.getLogger(AbstractChecksumCalculator.class);
 
     protected String checksumAlgorithm;
 
@@ -48,7 +45,7 @@ public abstract class AbstractChecksumCalculator {
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
         } catch (Exception e) {
-            LOGGER.warn("Could not calculate checksum for pom {}", path, e);
+            PluginLogManager.getLog().warn("Could not calculate checksum for pom " + path, e);
             return "";
         }
     }

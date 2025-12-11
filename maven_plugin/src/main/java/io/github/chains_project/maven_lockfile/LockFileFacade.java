@@ -12,14 +12,13 @@ import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.execution.MavenSession;
@@ -39,8 +38,6 @@ import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
  *
  */
 public class LockFileFacade {
-
-    private static final Logger LOGGER = LogManager.getLogger(LockFileFacade.class);
 
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
@@ -95,7 +92,7 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
-        LOGGER.info("Generating lock file for project {}", project.getArtifactId());
+        PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
@@ -162,10 +159,10 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
-        LOGGER.info(
-                "Attempting to resolve dependencies for plugin {}:{}",
-                pluginArtifact.getGroupId(),
-                pluginArtifact.getArtifactId());
+        PluginLogManager.getLog()
+                .debug(String.format(
+                        "Attempting to resolve dependencies for plugin %s",
+                        pluginArtifact));
         try {
             // Resolve the plugin's POM artifact
             File pluginPomFile = null;
@@ -228,27 +225,26 @@ public class LockFileFacade {
                         }
                     }
                 } catch (Exception e) {
-                    LOGGER.debug(
-                            "Could not resolve POM artifact for plugin {}:{}: {}",
-                            pluginArtifact.getGroupId(),
-                            pluginArtifact.getArtifactId(),
-                            e.getMessage());
+                    PluginLogManager.getLog()
+                            .debug(String.format(
+                                    "Could not resolve POM artifact for plugin %s: %s",
+                                    pluginArtifact, e.getMessage()));
                 }
             }
 
             if (pluginPomFile == null || !pluginPomFile.exists()) {
-                LOGGER.warn(
-                        "Could not find POM file for plugin {}:{}, skipping dependency resolution",
-                        pluginArtifact.getGroupId(),
-                        pluginArtifact.getArtifactId());
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Could not find POM file for plugin %s, skipping dependency resolution",
+                                pluginArtifact));
                 return Collections.emptySet();
             }
 
-            LOGGER.debug(
-                    "Resolving dependencies for plugin {}:{} using POM: {}",
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId(),
-                    pluginPomFile.getAbsolutePath());
+            PluginLogManager.getLog()
+                    .debug(String.format(
+                            "Resolving dependencies for plugin %s using POM: %s",
+                            pluginArtifact,
+                            pluginPomFile.getAbsolutePath()));
 
             // Build MavenProject from plugin POM
             ProjectBuildingRequest buildingRequest =
@@ -263,30 +259,28 @@ public class LockFileFacade {
             ProjectBuildingResult result = projectBuilder.build(pluginPomFile, buildingRequest);
 
             if (result.getProblems() != null && !result.getProblems().isEmpty()) {
-                LOGGER.warn(
-                        "Problems building plugin project for {}:{}: {}",
-                        pluginArtifact.getGroupId(),
-                        pluginArtifact.getArtifactId(),
-                        result.getProblems());
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Problems building plugin project for %s: %s",
+                                pluginArtifact, result.getProblems()));
             }
 
             MavenProject pluginProject = result.getProject();
             if (pluginProject == null) {
-                LOGGER.warn(
-                        "Could not build project for plugin {}:{}",
-                        pluginArtifact.getGroupId(),
-                        pluginArtifact.getArtifactId());
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Could not build project for plugin %s",
+                                pluginArtifact));
                 return Collections.emptySet();
             }
 
             int declaredDeps = pluginProject.getDependencies() != null
                     ? pluginProject.getDependencies().size()
                     : 0;
-            LOGGER.info(
-                    "Built plugin project {}:{} with {} declared dependencies",
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId(),
-                    declaredDeps);
+            PluginLogManager.getLog()
+                    .debug(String.format(
+                            "Built plugin project %s with %d declared dependencies",
+                            pluginArtifact, declaredDeps));
 
             // Resolve dependencies using DependencyCollectorBuilder
             ProjectBuildingRequest dependencyBuildingRequest =
@@ -298,39 +292,37 @@ public class LockFileFacade {
 
             int rootChildren =
                     rootNode.getChildren() != null ? rootNode.getChildren().size() : 0;
-            LOGGER.info(
-                    "Collected dependency graph for plugin {}:{}, root node has {} children",
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId(),
-                    rootChildren);
+            PluginLogManager.getLog()
+                    .debug(String.format(
+                            "Collected dependency graph for plugin %s, root node has %d children",
+                            pluginArtifact, rootChildren));
 
             // Convert to DependencyGraph and extract root nodes
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph));
 
-            LOGGER.debug(
-                    "Built graph with {} nodes for plugin {}:{}",
-                    graph.nodes().size(),
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId());
+            PluginLogManager.getLog()
+                    .debug(String.format(
+                            "Built graph with %d nodes for plugin %s",
+                            graph.nodes().size(), pluginArtifact));
 
             DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator, false);
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
-            LOGGER.info(
-                    "Resolved {} dependencies for plugin {}:{}",
-                    roots.size(),
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId());
+            PluginLogManager.getLog()
+                    .info(String.format(
+                            "Resolved %4d dependencies for plugin %s",
+                            roots.size(), pluginArtifact));
             return roots;
 
         } catch (Exception e) {
-            LOGGER.warn(
-                    "Could not resolve dependencies for plugin {}:{}",
-                    pluginArtifact.getGroupId(),
-                    pluginArtifact.getArtifactId(),
-                    e);
+            PluginLogManager.getLog()
+                    .warn(
+                            String.format(
+                                    "Could not resolve dependencies for plugin %s",
+                                    pluginArtifact),
+                            e);
             return Collections.emptySet();
         }
     }
@@ -350,9 +342,10 @@ public class LockFileFacade {
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph));
+            PluginLogManager.getLog().info(String.format("Resolved %4d dependencies for project %s", graph.nodes().size(), project));
             return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (Exception e) {
-            LOGGER.warn("Could not generate graph", e);
+            PluginLogManager.getLog().warn("Could not generate graph", e);
             return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
         }
     }
