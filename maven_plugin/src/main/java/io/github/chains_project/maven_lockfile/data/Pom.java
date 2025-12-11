@@ -92,10 +92,8 @@ public class Pom implements Comparable<Pom> {
             return 1;
         }
 
-        if (this.parent != null && o.parent != null) {
-            if (this.parent.compareTo(o.parent) != 0) {
-                return this.parent.compareTo(o.parent);
-            }
+        if (this.parent != null && o.parent != null && this.parent.compareTo(o.parent) != 0) {
+            return this.parent.compareTo(o.parent);
         }
 
         return 0;
@@ -110,13 +108,18 @@ public class Pom implements Comparable<Pom> {
             return false;
         }
         Pom other = (Pom) obj;
+        String pathCmp = this.relativePath == null ? "" : this.relativePath;
+        String otherPathCmp = other.relativePath == null ? "" : other.relativePath;
+
+        boolean parentEqual = (this.parent == null && other.parent == null)
+                || (this.parent != null && other.parent != null && this.parent.equals(other.parent));
+
         return this.groupId.equals(other.groupId)
                 && this.artifactId.equals(other.artifactId)
                 && this.version.equals(other.version)
-                && ((this.relativePath == null && other.relativePath == null)
-                        || this.relativePath.equals(other.relativePath))
+                && pathCmp.equals(otherPathCmp)
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
                 && this.checksum.equals(other.checksum)
-                && ((this.parent == null && other.parent == null) || this.parent.equals(other.parent));
+                && parentEqual;
     }
 }
