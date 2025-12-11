@@ -81,6 +81,10 @@ public class Pom implements Comparable<Pom> {
             return this.checksum.compareTo(o.checksum);
         }
 
+        if (this.parent.compareTo(o.parent) != 0) {
+            return this.parent.compareTo(o.parent);
+        }
+
         return 0;
     }
 
@@ -98,6 +102,7 @@ public class Pom implements Comparable<Pom> {
                 && this.version.equals(other.version)
                 && this.relativePath.equals(other.relativePath)
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
-                && this.checksum.equals(other.checksum);
+                && this.checksum.equals(other.checksum)
+                && this.parent.equals(other.parent);
     }
 }
