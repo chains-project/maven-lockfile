@@ -3,13 +3,12 @@ package io.github.chains_project.maven_lockfile.checksum;
 import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -17,8 +16,6 @@ import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
-
-    private static final Logger LOGGER = LogManager.getLogger(FileSystemChecksumCalculator.class);
 
     private final DependencyResolver resolver;
     private final ProjectBuildingRequest artifactBuildingRequest;
@@ -59,15 +56,16 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .next()
                     .getArtifact();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve artifact: {}", artifact.getArtifactId(), e);
+            PluginLogManager.getLog()
+                    .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
             return artifact;
         }
     }
 
     private Optional<String> calculateChecksumInternal(Artifact artifact) {
         if (artifact.getFile() == null) {
-            LOGGER.warn("Artifact {} has no file", artifact);
-            LOGGER.error("Artifact has no file");
+            PluginLogManager.getLog().warn(String.format("Artifact %s has no file", artifact));
+            PluginLogManager.getLog().error("Artifact has no file");
             return Optional.empty();
         }
         try {
@@ -77,7 +75,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return Optional.of(baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT));
         } catch (Exception e) {
-            LOGGER.warn("Could not calculate checksum for artifact {}", artifact, e);
+            PluginLogManager.getLog().warn(String.format("Could not calculate checksum for artifact %s", artifact), e);
             return Optional.empty();
         }
     }
@@ -85,8 +83,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     private Optional<RepositoryInformation> getResolvedFieldInternal(
             Artifact artifact, ProjectBuildingRequest buildingRequest) {
         if (artifact.getFile() == null) {
-            LOGGER.warn("Artifact {} has no file", artifact);
-            LOGGER.error("Artifact has no file");
+            PluginLogManager.getLog().warn(String.format("Artifact %s has no file", artifact));
+            PluginLogManager.getLog().error("Artifact has no file");
             return Optional.empty();
         }
         try {
@@ -124,7 +122,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                 int end = remoteRepository.indexOf("=");
 
                 if (start == -1 || end == -1) {
-                    LOGGER.warn("Possible unknown _remote.repositories format");
+                    PluginLogManager.getLog().warn("Possible unknown _remote.repositories format");
                     continue;
                 }
 
@@ -148,7 +146,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .findFirst();
 
             if (remoteRepository.isEmpty()) {
-                LOGGER.warn("Could not find repository '{}' in building request.", finalRepository);
+                PluginLogManager.getLog()
+                        .warn(String.format("Could not find repository '%s' in building request.", finalRepository));
                 return Optional.empty();
             }
 
@@ -161,7 +160,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
             return Optional.of(new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository)));
         } catch (Exception e) {
-            LOGGER.warn("Could not fetch remote repository for artifact {}", artifact, e);
+            PluginLogManager.getLog()
+                    .warn(String.format("Could not fetch remote repository for artifact %s", artifact), e);
             return Optional.empty();
         }
     }

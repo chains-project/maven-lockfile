@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile.checksum;
 import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -10,15 +11,11 @@ import java.net.http.HttpResponse;
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
 
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
-
-    private static final Logger LOGGER = LogManager.getLogger(RemoteChecksumCalculator.class);
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
@@ -68,7 +65,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 String checksumUrl =
                         artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
 
-                LOGGER.debug("Checking: {}", checksumUrl);
+                PluginLogManager.getLog().debug(String.format("Checking: %s", checksumUrl));
 
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
@@ -90,10 +87,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
-                    LOGGER.info(
-                            "Unable to find {} checksum for {} on remote. Downloading and calculating locally.",
-                            checksumAlgorithm,
-                            artifact);
+                    PluginLogManager.getLog()
+                            .info(String.format(
+                                    "Unable to find %s checksum for %s on remote. Downloading and calculating locally.",
+                                    checksumAlgorithm, artifact));
 
                     // Fallback to and verify downloaded artifact with SHA-1
                     HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
@@ -120,14 +117,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .toLowerCase(Locale.ROOT);
 
                         if (!sha1.equals(artifactVerification)) {
-                            LOGGER.error("Invalid SHA-1 checksum for: {}", artifactUrl);
+                            PluginLogManager.getLog()
+                                    .error(String.format("Invalid SHA-1 checksum for: %s", artifactUrl));
                             throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
                                     + "'. Checksum found at '" + artifactUrl
                                     + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
                                     + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
                     } else {
-                        LOGGER.warn("Unable to find SHA-1 to verify download of: {}", artifactUrl);
+                        PluginLogManager.getLog()
+                                .warn(String.format("Unable to find SHA-1 to verify download of: %s", artifactUrl));
                     }
 
                     MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
@@ -138,10 +137,14 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact checksum `{}.{}` not found among remote repositories.", artifact, checksumAlgorithm);
+            PluginLogManager.getLog()
+                    .warn(String.format(
+                            "Artifact checksum `%s.%s` not found among remote repositories.",
+                            artifact, checksumAlgorithm));
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve artifact: {}", artifact.getArtifactId(), e);
+            PluginLogManager.getLog()
+                    .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
             return Optional.empty();
         }
     }
@@ -172,7 +175,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
                         + "/" + filename;
 
-                LOGGER.debug("Checking: {}", url);
+                PluginLogManager.getLog().debug(String.format("Checking: %s", url));
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
@@ -186,10 +189,11 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
             }
 
-            LOGGER.warn("Artifact resolved url `{}` not found.", artifact);
+            PluginLogManager.getLog().warn(String.format("Artifact resolved url `%s` not found.", artifact));
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.warn("Could not resolve url for artifact: {}", artifact.getArtifactId(), e);
+            PluginLogManager.getLog()
+                    .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
             return Optional.empty();
         }
     }
