@@ -160,9 +160,7 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
         PluginLogManager.getLog()
-                .debug(String.format(
-                        "Attempting to resolve dependencies for plugin %s",
-                        pluginArtifact));
+                .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
             // Resolve the plugin's POM artifact
             File pluginPomFile = null;
@@ -243,8 +241,7 @@ public class LockFileFacade {
             PluginLogManager.getLog()
                     .debug(String.format(
                             "Resolving dependencies for plugin %s using POM: %s",
-                            pluginArtifact,
-                            pluginPomFile.getAbsolutePath()));
+                            pluginArtifact, pluginPomFile.getAbsolutePath()));
 
             // Build MavenProject from plugin POM
             ProjectBuildingRequest buildingRequest =
@@ -261,16 +258,12 @@ public class LockFileFacade {
             if (result.getProblems() != null && !result.getProblems().isEmpty()) {
                 PluginLogManager.getLog()
                         .warn(String.format(
-                                "Problems building plugin project for %s: %s",
-                                pluginArtifact, result.getProblems()));
+                                "Problems building plugin project for %s: %s", pluginArtifact, result.getProblems()));
             }
 
             MavenProject pluginProject = result.getProject();
             if (pluginProject == null) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Could not build project for plugin %s",
-                                pluginArtifact));
+                PluginLogManager.getLog().warn(String.format("Could not build project for plugin %s", pluginArtifact));
                 return Collections.emptySet();
             }
 
@@ -279,8 +272,7 @@ public class LockFileFacade {
                     : 0;
             PluginLogManager.getLog()
                     .debug(String.format(
-                            "Built plugin project %s with %d declared dependencies",
-                            pluginArtifact, declaredDeps));
+                            "Built plugin project %s with %d declared dependencies", pluginArtifact, declaredDeps));
 
             // Resolve dependencies using DependencyCollectorBuilder
             ProjectBuildingRequest dependencyBuildingRequest =
@@ -311,18 +303,12 @@ public class LockFileFacade {
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
             PluginLogManager.getLog()
-                    .info(String.format(
-                            "Resolved %4d dependencies for plugin %s",
-                            roots.size(), pluginArtifact));
+                    .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginArtifact));
             return roots;
 
         } catch (Exception e) {
             PluginLogManager.getLog()
-                    .warn(
-                            String.format(
-                                    "Could not resolve dependencies for plugin %s",
-                                    pluginArtifact),
-                            e);
+                    .warn(String.format("Could not resolve dependencies for plugin %s", pluginArtifact), e);
             return Collections.emptySet();
         }
     }
@@ -342,7 +328,10 @@ public class LockFileFacade {
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph));
-            PluginLogManager.getLog().info(String.format("Resolved %4d dependencies for project %s", graph.nodes().size(), project));
+            PluginLogManager.getLog()
+                    .info(String.format(
+                            "Resolved %4d dependencies for project %s",
+                            graph.nodes().size(), project));
             return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (Exception e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
