@@ -3,7 +3,10 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "path": "pom.xml",
+    "groupId": "com.mycompany.app",
+    "artifactId": "remote-repository-should-resolve",
+    "version": "1",
+    "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
     "checksum": "ba56eb66051bce3676a634bd33db6bbf8fea7fc186cf1c8c148c176ebf95c569"
   },
@@ -667,7 +670,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.10.1-beta-1",
+      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
