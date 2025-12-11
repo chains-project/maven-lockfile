@@ -498,10 +498,12 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void pomParentCheckShouldFail(MavenExecutionResult result) throws Exception {
-        // contract: if the pom checksum of a parent of the pom does not match is should fail with reason being pom didn't match.
+        // contract: if the pom checksum of a parent of the pom does not match is should fail with reason being pom
+        // didn't match.
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout.contains("42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK")).isTrue();
+        assertThat(stdout.contains("42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK"))
+                .isTrue();
     }
 
     @MavenTest
