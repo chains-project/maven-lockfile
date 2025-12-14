@@ -2275,3 +2275,25 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Larissa Schmid ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.1-beta-1
+## Changelog
+
+## 📦 Dependencies
+- cfd7f70 ⬆️ (deps): Update actions/upload-artifact action to v6 (#1455)
+- 1ac5200 ⬆️ (deps): Update actions/cache action to v5.0.1 (#1454)
+- 6da0857 ⬆️ (deps): Update github/codeql-action action to v4.31.8 (#1453)
+- aa40ddf ⬆️ (deps): Update actions/cache action to v5 (#1452)
+- 4ea2f58 ⬆️ (deps): Update google/osv-scanner-action action to v2.3.1 (#1451)
+- 5267973 ⬆️ (deps): Update step-security/harden-runner action to v2.14.0 (#1447)
+- 6caa175 ⬆️ (deps): Update actions/checkout action to v6 (#1424)
+- 649e91c ⬆️ (deps): Update chains-project/maven-lockfile action to v5.11.0 (#1446)
+
+## 🏁 Release
+- 9fb092e 🔖 Releasing version 5.11.1-beta-1
+- d33b1d8 🔖 Setting SNAPSHOT version 5.11.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
