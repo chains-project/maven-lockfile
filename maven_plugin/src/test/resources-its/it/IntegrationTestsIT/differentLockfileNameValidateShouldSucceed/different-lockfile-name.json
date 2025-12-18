@@ -3,7 +3,10 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "path": "pom.xml",
+    "groupId": "com.mycompany.app",
+    "artifactId": "different-lockfile-name-validate-should-succeed",
+    "version": "1",
+    "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
     "checksum": "068a60c7fc3632c57adea4c6087dffa6f3f613dedf250f3d3f96af192956551f"
   },
@@ -23,7 +26,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }

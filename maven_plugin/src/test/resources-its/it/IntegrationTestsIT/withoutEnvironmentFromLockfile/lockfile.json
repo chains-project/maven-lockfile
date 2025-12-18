@@ -3,7 +3,10 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "path": "pom.xml",
+    "groupId": "com.mycompany.app",
+    "artifactId": "without-environment-from-lockfile",
+    "version": "1",
+    "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
     "checksum": "b06b0c2feadd5ac0b59f281af47595f67606bbf991b66c9a552a5a3322999fcb"
   },
@@ -11,7 +14,6 @@
   "dependencies": [],
   "mavenPlugins": [],
   "metaData": {
-    "environment": null,
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
@@ -19,7 +21,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": false,
       "reduced": false,
-      "mavenLockfileVersion": "5.4.3-SNAPSHOT",
+      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
