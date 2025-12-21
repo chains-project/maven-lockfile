@@ -2275,3 +2275,14 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Larissa Schmid ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.1-beta-2
+## Changelog
+
+## 📦 Dependencies
+- d550130 ⬆️ (deps): Update github/codeql-action action to v4.31.9 (#1458)
+- dfecc31 ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.3 (#1457)
+- 410abd4 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.14 (#1456)
+
+## 🏁 Release
+- 1c0b7dd 🔖 Releasing version 5.11.1-beta-2
