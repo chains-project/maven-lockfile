@@ -2275,3 +2275,9 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Larissa Schmid ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.1-beta-3
+## Changelog
+
+## 🏁 Release
+- 7f167b6 🔖 Releasing version 5.11.1-beta-3
