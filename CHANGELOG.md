@@ -2275,3 +2275,12 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Larissa Schmid ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.1-beta-4
+## Changelog
+
+## 📦 Dependencies
+- 0e5fb37 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v7.1.0 (#1460)
+
+## 🏁 Release
+- 2ff5d66 🔖 Releasing version 5.11.1-beta-4
