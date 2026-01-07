@@ -1,14 +1,12 @@
 package org.apache.maven.shared.dependency.graph.internal;
 
+import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.lang.reflect.Field;
 import java.util.Optional;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 public class SpyingDependencyNodeUtils {
 
-    private static final Logger LOGGER = LogManager.getLogger(SpyingDependencyNodeUtils.class);
     /**
      * Resolves the conflict data from a dependency node. This is a hack, because the conflict data is not exposed by the API.
      * The winner version is used to determine the version of a dependency.
@@ -25,7 +23,7 @@ public class SpyingDependencyNodeUtils {
                 data.getWinnerVersion();
                 return Optional.ofNullable(data.getWinnerVersion());
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-                LOGGER.warn("Could not get winner dependency version.", e);
+                PluginLogManager.getLog().warn("Could not get winner dependency version.", e);
             }
         }
         return Optional.empty();
