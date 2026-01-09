@@ -230,7 +230,13 @@ public class FreezeDependencyMojo extends AbstractMojo {
                 while (!depQueue.isEmpty()) {
                     DependencyNode depNode = depQueue.poll();
                     if (depNode.isIncluded()) {
-                        dependencies.add(toMavenDependency(depNode));
+                        Dependency dep = toMavenDependency(depNode);
+                        String scope = dep.getScope() != null ? dep.getScope() : "compile";
+
+                        // Plugin dependencies can only have scope: compile, runtime, or system
+                        if (scope.equals("compile") || scope.equals("runtime") || scope.equals("system")) {
+                            dependencies.add(dep);
+                        }
                     }
                     depQueue.addAll(depNode.getChildren());
                 }
