@@ -221,13 +221,6 @@ public class FreezeDependencyMojo extends AbstractMojo {
                 plugins.add(plugin);
             }
 
-            // Update plugin version
-            String version = mavenPlugin.getVersion().getValue();
-            if (exactVersionStrings.equals("true")) {
-                version = convertSoftToExactVersionString(version);
-            }
-            plugin.setVersion(version);
-
             // Add plugin dependencies if they exist
             Set<DependencyNode> pluginDependencies = mavenPlugin.getDependencies();
             if (pluginDependencies != null && !pluginDependencies.isEmpty()) {
