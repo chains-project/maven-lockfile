@@ -349,8 +349,8 @@ public class LockFileFacade {
                     String scope = dep.getScope().getValue();
                     return scope.equals("compile") || scope.equals("runtime") || scope.equals("system");
                 })
-                .collect(Collectors.toCollection(() -> new TreeSet<>(
-                        Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
+                .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
+                        io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
     }
 
     private static DependencyGraph graph(
