@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -125,11 +126,25 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
         Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
+        Map<String, Plugin> pluginConfigMap = new HashMap<>();
+        if (project.getBuild() != null && project.getBuild().getPlugins() != null) {
+            pluginConfigMap = project.getBuild().getPlugins().stream()
+                    .collect(Collectors.toMap(p -> p.getGroupId() + ":" + p.getArtifactId(), p -> p));
+        }
+
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
+            String key = pluginArtifact.getGroupId() + ":" + pluginArtifact.getArtifactId();
+            Plugin pluginConfig = pluginConfigMap.get(key);
+
             RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
                     resolvePluginDependencies(
-                            pluginArtifact, session, project, dependencyCollectorBuilder, checksumCalculator);
+                            pluginArtifact,
+                            pluginConfig,
+                            session,
+                            project,
+                            dependencyCollectorBuilder,
+                            checksumCalculator);
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
@@ -147,6 +162,7 @@ public class LockFileFacade {
      * Resolve the dependencies of a Maven plugin.
      *
      * @param pluginArtifact The plugin artifact to resolve dependencies for
+     * @param pluginConfig The plugin configuration from the project POM (may be null)
      * @param session The Maven session
      * @param project The current Maven project (for repository configuration)
      * @param dependencyCollectorBuilder The dependency collector builder
@@ -155,6 +171,7 @@ public class LockFileFacade {
      */
     private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolvePluginDependencies(
             Artifact pluginArtifact,
+            Plugin pluginConfig,
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
@@ -267,6 +284,13 @@ public class LockFileFacade {
                 return Collections.emptySet();
             }
 
+            // Use plugin dependencies from project POM if declared
+            if (pluginConfig != null
+                    && pluginConfig.getDependencies() != null
+                    && !pluginConfig.getDependencies().isEmpty()) {
+                pluginProject.setDependencies(pluginConfig.getDependencies());
+            }
+
             int declaredDeps = pluginProject.getDependencies() != null
                     ? pluginProject.getDependencies().size()
                     : 0;
@@ -302,6 +326,8 @@ public class LockFileFacade {
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
+            roots = filterPluginDependencyScopes(roots);
+
             PluginLogManager.getLog()
                     .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginArtifact));
             return roots;
@@ -311,6 +337,20 @@ public class LockFileFacade {
                     .warn(String.format("Could not resolve dependencies for plugin %s", pluginArtifact), e);
             return Collections.emptySet();
         }
+    }
+
+    /**
+     * Filters plugin dependencies to only include valid scopes (compile, runtime, system).
+     */
+    private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> filterPluginDependencyScopes(
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> dependencies) {
+        return dependencies.stream()
+                .filter(dep -> {
+                    String scope = dep.getScope().getValue();
+                    return scope.equals("compile") || scope.equals("runtime") || scope.equals("system");
+                })
+                .collect(Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
     }
 
     private static DependencyGraph graph(
