@@ -209,7 +209,8 @@ public class FreezeDependencyMojo extends AbstractMojo {
 
         // Process each plugin from the lock file
         for (MavenPlugin mavenPlugin : mavenPlugins) {
-            String key = mavenPlugin.getGroupId().getValue() + ":" + mavenPlugin.getArtifactId().getValue();
+            String key = mavenPlugin.getGroupId().getValue() + ":"
+                    + mavenPlugin.getArtifactId().getValue();
             Plugin plugin = existingPluginsMap.get(key);
 
             if (plugin == null) {
