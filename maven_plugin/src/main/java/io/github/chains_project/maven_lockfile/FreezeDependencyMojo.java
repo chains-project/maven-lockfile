@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.File;
@@ -9,9 +10,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.apache.maven.plugin.AbstractMojo;
@@ -66,6 +69,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
             List<Dependency> filteredDependencies = getNearestVersionDependency(lockFile);
             Model pomModel = readPomFile(pomFile);
             updateDependencies(pomModel, filteredDependencies);
+            updatePlugins(pomModel, lockFile.getMavenPlugins());
             writePomLockFile(pomModel, pomLockFile);
         } catch (IOException | XmlPullParserException e) {
             throw new MojoExecutionException("Could not freeze versions", e);
@@ -172,5 +176,73 @@ public class FreezeDependencyMojo extends AbstractMojo {
             return version;
         }
         return "[" + version + "]";
+    }
+
+    /**
+     * Updates the plugins in the POM model with plugin dependencies from the lock file.
+     *
+     * @param pomModel the POM model to update
+     * @param mavenPlugins the set of Maven plugins from the lock file
+     */
+    private void updatePlugins(Model pomModel, Set<MavenPlugin> mavenPlugins) {
+        if (mavenPlugins == null || mavenPlugins.isEmpty()) {
+            return;
+        }
+
+        Build build = pomModel.getBuild();
+        if (build == null) {
+            build = new Build();
+            pomModel.setBuild(build);
+        }
+
+        List<Plugin> plugins = build.getPlugins();
+        if (plugins == null) {
+            plugins = new ArrayList<>();
+            build.setPlugins(plugins);
+        }
+
+        Map<String, Plugin> existingPluginsMap = new HashMap<>();
+        for (Plugin plugin : plugins) {
+            String key = plugin.getGroupId() + ":" + plugin.getArtifactId();
+            existingPluginsMap.put(key, plugin);
+        }
+
+        // Process each plugin from the lock file
+        for (MavenPlugin mavenPlugin : mavenPlugins) {
+            String key = mavenPlugin.getGroupId().getValue() + ":" + mavenPlugin.getArtifactId().getValue();
+            Plugin plugin = existingPluginsMap.get(key);
+
+            if (plugin == null) {
+                // Plugin doesn't exist in the POM, create it
+                plugin = new Plugin();
+                plugin.setGroupId(mavenPlugin.getGroupId().getValue());
+                plugin.setArtifactId(mavenPlugin.getArtifactId().getValue());
+                plugins.add(plugin);
+            }
+
+            // Update plugin version
+            String version = mavenPlugin.getVersion().getValue();
+            if (exactVersionStrings.equals("true")) {
+                version = convertSoftToExactVersionString(version);
+            }
+            plugin.setVersion(version);
+
+            // Add plugin dependencies if they exist
+            Set<DependencyNode> pluginDependencies = mavenPlugin.getDependencies();
+            if (pluginDependencies != null && !pluginDependencies.isEmpty()) {
+                List<Dependency> dependencies = new ArrayList<>();
+                Queue<DependencyNode> depQueue = new ArrayDeque<>(pluginDependencies);
+
+                while (!depQueue.isEmpty()) {
+                    DependencyNode depNode = depQueue.poll();
+                    if (depNode.isIncluded()) {
+                        dependencies.add(toMavenDependency(depNode));
+                    }
+                    depQueue.addAll(depNode.getChildren());
+                }
+
+                plugin.setDependencies(dependencies);
+            }
+        }
     }
 }
