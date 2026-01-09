@@ -2275,3 +2275,38 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Larissa Schmid ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.1
+## Changelog
+
+## 🚀 Added
+- 2a90559 ✨ feat: Add logging when starting integration tests (#1450)
+
+## 🐛 Fixed
+- ca99ed8 🐛 fix: Use maven logging throughout plugin (#1448)
+
+## 📦 Dependencies
+- a9eeb0f ⬆️  (lockfile): Update to maven version 3.9.12 in environment (#1462)
+- 92db201 ⬆️ (deps): Update junit-framework monorepo to v6.0.2 (#1461)
+- 0e5fb37 ⬆️ (deps): Update stefanzweifel/git-auto-commit-action action to v7.1.0 (#1460)
+- d550130 ⬆️ (deps): Update github/codeql-action action to v4.31.9 (#1458)
+- dfecc31 ⬆️ (deps): Update dependency org.apache.logging.log4j:log4j-core to v2.25.3 (#1457)
+- 410abd4 ⬆️ (deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.14 (#1456)
+- cfd7f70 ⬆️ (deps): Update actions/upload-artifact action to v6 (#1455)
+- 1ac5200 ⬆️ (deps): Update actions/cache action to v5.0.1 (#1454)
+- 6da0857 ⬆️ (deps): Update github/codeql-action action to v4.31.8 (#1453)
+- aa40ddf ⬆️ (deps): Update actions/cache action to v5 (#1452)
+- 4ea2f58 ⬆️ (deps): Update google/osv-scanner-action action to v2.3.1 (#1451)
+- 5267973 ⬆️ (deps): Update step-security/harden-runner action to v2.14.0 (#1447)
+- 6caa175 ⬆️ (deps): Update actions/checkout action to v6 (#1424)
+- 649e91c ⬆️ (deps): Update chains-project/maven-lockfile action to v5.11.0 (#1446)
+
+## 🏁 Release
+- 846693e 🔖 Releasing version 5.11.1
+- d33b1d8 🔖 Setting SNAPSHOT version 5.11.1-SNAPSHOT
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
