@@ -340,6 +340,10 @@ public class LockFileFacade {
         }
     }
 
+    /**
+     * Construct a Pom object containing a full tree of its parent POM references. These parent
+     * POMs may be relative to the project being built, or are specified from an external POM.
+    */
     private static Pom constructRecursivePom(
             MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
