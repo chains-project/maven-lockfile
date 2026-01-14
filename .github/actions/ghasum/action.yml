@@ -8,11 +8,11 @@ inputs:
   checksum:
     description: The checksum of the ghasum checksums file
     required: false
-    default: 4c3610665f3e9ccd84f8529810f40ac9ef2cc0ca3508e3a1bc51dda8d1f8624f836f3fc776ce68bc4bbbb0a6b0b4e7f2bf841f84eb695cc0ded1285c242d801b # Set the 'checksums-sha512.txt' file's checksum.
+    default: sha256:ea8d55ff6d1a0a733a499f52594e25841038e65de1f45986cb0eea3ecd011c34
   version:
     description: The version of ghasum to use
     required: false
-    default: v0.6.1         # Set the ghasum version.
+    default: v0.6.3         # Set the ghasum version.
 
 runs:
   using: composite
@@ -33,7 +33,7 @@ runs:
       run: |
         ARTIFACT='checksums-sha512.txt'
         gh release download "$VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
-        echo "$CHECKSUM  $ARTIFACT" | shasum -a 256 -c -
+        echo "${CHECKSUM#sha256:}  $ARTIFACT" | shasum -a 256 -c -
 
     # Windows download
     - name: Initialize ghasum directory
@@ -51,7 +51,7 @@ runs:
       run: |
         $ARTIFACT = "checksums-sha512.txt"
         gh release download "$env:VERSION" --repo chains-project/ghasum --pattern "$ARTIFACT"
-        if ((Get-FileHash -Algorithm SHA256 "$ARTIFACT").Hash -ne "$env:CHECKSUM") {
+        if ((Get-FileHash -Algorithm SHA256 "$ARTIFACT").Hash -ne ($env:CHECKSUM -replace '^sha256:', '')) {
           Write-Error 'Checksum mismatch!'
           exit 1
         } else {
@@ -196,6 +196,25 @@ runs:
       shell: pwsh
       run: |
         C:\ghasum\ghasum.exe update -force
+
+    # Invalidate actions
+    - name: Remove actions
+      if: failure() && runner.os == 'Linux'
+      shell: bash
+      run: rm -rf /home/runner/work/_actions
+    - name: Remove actions
+      if: failure() && runner.os == 'macOS'
+      shell: bash
+      run: rm -rf /Users/runner/work/_actions
+    - name: Remove actions
+      if: failure() && runner.os == 'Windows'
+      shell: pwsh
+      run: |
+        if (Test-Path -Path 'C:\a\_actions') {
+          Remove-Item -Recurse -Force -Path C:\a\_actions
+        } else {
+          Remove-Item -Recurse -Force -Path D:\a\_actions
+        }
 
     # Cleanup
     - name: Cleanup (Unix)
