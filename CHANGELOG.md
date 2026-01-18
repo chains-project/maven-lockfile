@@ -2310,3 +2310,17 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.11.2-beta-2
+## Changelog
+
+## 🏁 Release
+- af7aed7 🔖 Releasing version 5.11.2-beta-2
+
+---
+- 7618508 ci: bump `ghasum` from v0.6.1 to v0.6.3 (#1468)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Eric Cornelissen ([@ericcornelissen](https://github.com/ericcornelissen))
