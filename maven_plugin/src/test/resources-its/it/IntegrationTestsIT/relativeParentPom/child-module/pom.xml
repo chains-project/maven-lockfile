@@ -1,0 +1,32 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>relative-parent-pom-parent-project</artifactId>
+    <version>1</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>relative-parent-pom-child-module</artifactId>
+  <packaging>jar</packaging>
+  <dependencies>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <checksumMode>local</checksumMode>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
