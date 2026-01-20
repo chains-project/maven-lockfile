@@ -121,6 +121,10 @@ public class MavenPlugin implements Comparable<MavenPlugin> {
         if (versionCompare != 0) {
             return versionCompare;
         }
+        int checksumAlgorithmCompare = checksumAlgorithm.compareTo(o.checksumAlgorithm);
+        if (checksumAlgorithmCompare != 0) {
+            return checksumAlgorithmCompare;
+        }
         return checksum.compareTo(o.checksum);
     }
 
