@@ -11,7 +11,6 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -565,9 +564,7 @@ public class IntegrationTestsIT {
         var parentPom = pom.getParent();
         assertThat(parentPom).isNotNull();
         assertThat(parentPom.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.springframework.boot");
-        assertThat(parentPom.getArtifactId())
-                .extracting(ArtifactId::getValue)
-                .isEqualTo("spring-boot-starter-parent");
+        assertThat(parentPom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("spring-boot-starter-parent");
         assertThat(parentPom.getChecksum()).isNotBlank();
         // External pom should not have a relativePath
         assertThat(parentPom.getRelativePath()).isNull();
@@ -604,7 +601,9 @@ public class IntegrationTestsIT {
         var parentPom = pom.getParent();
         assertThat(parentPom).isNotNull();
         assertThat(parentPom.getGroupId()).extracting(GroupId::getValue).isEqualTo("com.mycompany.app");
-        assertThat(parentPom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("relative-parent-pom-parent-project");
+        assertThat(parentPom.getArtifactId())
+                .extracting(ArtifactId::getValue)
+                .isEqualTo("relative-parent-pom-parent-project");
         assertThat(parentPom.getChecksum()).isNotBlank();
         assertThat(parentPom.getRelativePath()).isEqualTo("../pom.xml");
     }
