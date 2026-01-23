@@ -3,7 +3,10 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "path": "pom.xml",
+    "groupId": "com.mycompany.app",
+    "artifactId": "different-lockfile-name-freeze-should-succeed",
+    "version": "1",
+    "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
     "checksum": "beeb2cf48b5914ff6be04952321cac5cef34af9746a046b3318060d5ab851438"
   },
@@ -653,7 +656,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.10.1-beta-1",
+      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }

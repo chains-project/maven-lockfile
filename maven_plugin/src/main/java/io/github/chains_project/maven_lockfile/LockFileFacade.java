@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
@@ -108,7 +109,7 @@ public class LockFileFacade {
                 .filter(v -> v.getParent() == null)
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
-        var pom = new Pom(project, checksumCalculator);
+        var pom = constructRecursivePom(project, checksumCalculator);
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -337,5 +338,59 @@ public class LockFileFacade {
             PluginLogManager.getLog().warn("Could not generate graph", e);
             return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
         }
+    }
+
+    /**
+     * Construct a Pom object containing a full tree of its parent POM references. These parent
+     * POMs may be relative to the project being built, or are specified from an external POM.
+     */
+    private static Pom constructRecursivePom(
+            MavenProject initialProject, AbstractChecksumCalculator checksumCalculator) {
+        String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
+
+        List<MavenProject> recursiveProjects = new ArrayList<>();
+        recursiveProjects.add(initialProject);
+        while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
+            recursiveProjects.add(
+                    recursiveProjects.get(recursiveProjects.size() - 1).getParent());
+        }
+
+        Pom lastPom = null;
+        Collections.reverse(recursiveProjects);
+        for (MavenProject project : recursiveProjects) {
+            String relativePath = project.getFile() == null
+                    ? null
+                    : initialProject
+                            .getBasedir()
+                            .toPath()
+                            .relativize(project.getFile().toPath())
+                            .toString();
+            String checksum = null;
+            if (project.getFile() == null) {
+                Artifact artifact = project.getArtifact();
+                Artifact pomArtifact = new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getVersion(),
+                        artifact.getScope(),
+                        "pom",
+                        artifact.getClassifier(),
+                        artifact.getArtifactHandler());
+                checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
+            } else {
+                checksum = checksumCalculator.calculatePomChecksum(
+                        project.getFile().toPath());
+            }
+            lastPom = new Pom(
+                    GroupId.of(project.getGroupId()),
+                    ArtifactId.of(project.getArtifactId()),
+                    VersionNumber.of(project.getVersion()),
+                    relativePath,
+                    checksumAlgorithm,
+                    checksum,
+                    lastPom);
+        }
+
+        return lastPom;
     }
 }

@@ -1,14 +1,28 @@
 {
-  "artifactId": "pom-check-should-fail",
+  "artifactId": "pom-parent-check-should-fail",
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
     "groupId": "com.mycompany.app",
-    "artifactId": "pom-check-should-fail",
+    "artifactId": "pom-parent-check-should-fail",
     "version": "1",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
+    "checksum": "a2eca5aecc849600701b3642372b19fbb77a94487cd2824c55eb7a3ddda1b06c",
+    "parent": {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-parent",
+      "version": "3.3.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9686e13ceaf6e58175afb27da5e8ab032cfc93e34ace74756f6bcf79555c8054",
+      "parent": {
+        "groupId": "org.springframework.boot",
+        "artifactId": "spring-boot-dependencies",
+        "version": "3.3.2",
+        "checksumAlgorithm": "SHA-256",
+        "checksum": "42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK"
+      }
+    }
   },
   "lockFileVersion": 1,
   "dependencies": [],

@@ -525,11 +525,86 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void pomParentCheckShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: if the pom checksum of a parent of the pom does not match is should fail with reason being pom
+        // didn't match.
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK"))
+                .isTrue();
+    }
+
+    @MavenTest
     public void environmentalCheckShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if the pom checksum does not match is should fail with reason being pom didn't match.
         System.out.println("Running 'environmentalCheckShouldFail' integration test.");
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Failed verifying environment.")).isTrue();
+    }
+
+    @MavenTest
+    public void externalParentPom(MavenExecutionResult result) throws Exception {
+        // contract: a project with an external parent POM (e.g., Spring Boot) should generate
+        // a lockfile containing the full parent pom hierarchy with checksums
+        System.out.println("Running 'externalParentPom' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        // Verify pom is present
+        var pom = lockFile.getPom();
+        assertThat(pom).isNotNull();
+        assertThat(pom.getGroupId()).extracting(GroupId::getValue).isEqualTo("com.mycompany.app");
+        assertThat(pom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("external-parent-pom");
+        assertThat(pom.getChecksum()).isNotBlank();
+
+        // Verify external parent pom is present (Spring Boot starter parent)
+        var parentPom = pom.getParent();
+        assertThat(parentPom).isNotNull();
+        assertThat(parentPom.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.springframework.boot");
+        assertThat(parentPom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("spring-boot-starter-parent");
+        assertThat(parentPom.getChecksum()).isNotBlank();
+        // External pom should not have a relativePath
+        assertThat(parentPom.getRelativePath()).isNull();
+
+        // Verify grandparent pom is present (Spring Boot dependencies)
+        var grandparentPom = parentPom.getParent();
+        assertThat(grandparentPom).isNotNull();
+        assertThat(grandparentPom.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.springframework.boot");
+        assertThat(grandparentPom.getArtifactId())
+                .extracting(ArtifactId::getValue)
+                .isEqualTo("spring-boot-dependencies");
+        assertThat(grandparentPom.getChecksum()).isNotBlank();
+    }
+
+    @MavenTest
+    public void relativeParentPom(MavenExecutionResult result) throws Exception {
+        // contract: a project with a relative parent POM (multi-module project) should generate
+        // a lockfile containing the parent pom with relativePath and checksums
+        System.out.println("Running 'relativeParentPom' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        // Verify pom is present
+        var pom = lockFile.getPom();
+        assertThat(pom).isNotNull();
+        assertThat(pom.getGroupId()).extracting(GroupId::getValue).isEqualTo("com.mycompany.app");
+        assertThat(pom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("relative-parent-pom-child-module");
+        assertThat(pom.getChecksum()).isNotBlank();
+        assertThat(pom.getRelativePath()).isEqualTo("pom.xml");
+
+        // Verify parent pom is present with relativePath
+        var parentPom = pom.getParent();
+        assertThat(parentPom).isNotNull();
+        assertThat(parentPom.getGroupId()).extracting(GroupId::getValue).isEqualTo("com.mycompany.app");
+        assertThat(parentPom.getArtifactId())
+                .extracting(ArtifactId::getValue)
+                .isEqualTo("relative-parent-pom-parent-project");
+        assertThat(parentPom.getChecksum()).isNotBlank();
+        assertThat(parentPom.getRelativePath()).isEqualTo("../pom.xml");
     }
 }
