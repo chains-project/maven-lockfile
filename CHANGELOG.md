@@ -2337,3 +2337,20 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Eric Cornelissen ([@ericcornelissen](https://github.com/ericcornelissen))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.12.1
+## Changelog
+
+## 🏁 Release
+- 0e86b9d 🔖 Releasing version 5.12.1
+- 3350be2 🔖 Setting SNAPSHOT version 5.12.1-SNAPSHOT
+
+---
+- 2c820bf chore(cd): Use newest version of maven lockfile in release script (#1472)
+- ab92ea4 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
