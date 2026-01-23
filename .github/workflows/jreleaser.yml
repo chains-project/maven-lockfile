@@ -159,7 +159,7 @@ jobs:
         run : mvn generate-resources resources:copy-resources -q
 
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:5.9.0:generate
+        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate
         shell: bash
 
       - name: Commit & Push changes
