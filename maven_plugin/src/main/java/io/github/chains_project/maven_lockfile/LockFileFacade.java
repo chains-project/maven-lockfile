@@ -349,10 +349,11 @@ public class LockFileFacade {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
 
         List<MavenProject> recursiveProjects = new ArrayList<>();
-        recursiveProjects.add(initialProject);
-        while (recursiveProjects.get(recursiveProjects.size() - 1).hasParent()) {
-            recursiveProjects.add(
-                    recursiveProjects.get(recursiveProjects.size() - 1).getParent());
+        MavenProject currentProject = initialProject;
+        recursiveProjects.add(currentProject);
+        while (currentProject.hasParent()) {
+            currentProject = currentProject.getParent();
+            recursiveProjects.add(currentProject);
         }
 
         Pom lastPom = null;
