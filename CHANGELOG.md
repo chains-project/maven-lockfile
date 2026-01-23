@@ -2310,3 +2310,30 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.12.0
+## Changelog
+
+## 🚀 Added
+- 9511597 ✨ feat: Include parent poms (recursively) in lockfile (#1444)
+
+## 📦 Dependencies
+- 6f63b9b ⬆️ (deps): Update chains-project/maven-lockfile action to v5.11.1 (#1469)
+
+## 🏁 Release
+- 71aeb70 🔖 Releasing version 5.12.0
+- c8fa853 🔖 Setting SNAPSHOT version 5.11.2-SNAPSHOT
+
+---
+- 43f5828 refactor: Use temp variable to store lastest pom (#1470)
+- 7618508 ci: bump `ghasum` from v0.6.1 to v0.6.3 (#1468)
+- 46ed487 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- Eric Cornelissen ([@ericcornelissen](https://github.com/ericcornelissen))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
