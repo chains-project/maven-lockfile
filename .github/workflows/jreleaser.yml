@@ -99,8 +99,11 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
+      - name: Stage release
+        run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
+
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:5.9.0:generate
+        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate
         shell: bash
 
       - name: commit changes
@@ -109,8 +112,6 @@ jobs:
           git commit -am "🔖 Releasing version ${{ env.NEXT_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
-      - name: Stage release
-        run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
 
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
