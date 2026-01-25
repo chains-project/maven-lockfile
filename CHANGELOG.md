@@ -2337,3 +2337,9 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - Eric Cornelissen ([@ericcornelissen](https://github.com/ericcornelissen))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.12.1-beta-1
+## Changelog
+
+## 🏁 Release
+- 4b4a4f2 🔖 Releasing version 5.12.1-beta-1
