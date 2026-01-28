@@ -69,6 +69,23 @@ Then, invoke maven with the -f flag
 mvn -f pom.lockfile.xml
 ```
 
+## Performance
+
+### Parallel Artifact Downloads
+
+The plugin automatically uses parallel processing when generating lockfiles in **remote mode** (the default mode). This significantly improves performance for projects with many dependencies by downloading and verifying checksums concurrently.
+
+**Key Features:**
+- Automatic parallelization: No configuration needed - parallel processing is enabled by default
+- Intelligent thread pool sizing: Uses 2-8 threads based on available CPU cores (suitable for I/O-bound operations)
+- Smart fallback: Automatically falls back to sequential processing for single dependencies
+- Thread-safe HTTP client: Uses a shared, thread-safe HTTP client for all network requests
+
+**Performance Improvements:**
+For large projects with many dependencies (e.g., 100+ dependencies), parallel processing can reduce lockfile generation time from ~20 minutes to just a few minutes, depending on network conditions and the number of dependencies.
+
+**Note:** Local mode (`-DchecksumMode=local`) does not benefit from parallelization as it reads from the local Maven repository, which is already fast.
+
 
 ## Command line Flags
 

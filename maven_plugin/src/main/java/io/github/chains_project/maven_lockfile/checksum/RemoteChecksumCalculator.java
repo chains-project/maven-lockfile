@@ -19,6 +19,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
+    // Shared HttpClient instance for thread-safe concurrent requests
+    private final HttpClient sharedHttpClient;
 
     public RemoteChecksumCalculator(
             String checksumAlgorithm,
@@ -35,6 +37,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
+        // Create a shared HttpClient that can be used concurrently
+        this.sharedHttpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.ALWAYS)
+                .build();
     }
 
     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
@@ -55,9 +61,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
@@ -70,7 +73,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
                 HttpResponse<String> checksumResponse =
-                        client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
+                        sharedHttpClient.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
                     return Optional.of(checksumResponse.body().strip());
@@ -81,7 +84,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl))
                             .build();
                     HttpResponse<byte[]> artifactResponse =
-                            client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
+                            sharedHttpClient.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
 
                     if (artifactResponse.statusCode() < 200 || artifactResponse.statusCode() >= 300) {
                         continue;
@@ -97,7 +100,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl + ".sha1"))
                             .build();
                     HttpResponse<String> artifactVerificationResponse =
-                            client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+                            sharedHttpClient.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
                     // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
                     // For example provided by:
@@ -167,9 +170,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             }
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
+            HttpClient client = sharedHttpClient;
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version

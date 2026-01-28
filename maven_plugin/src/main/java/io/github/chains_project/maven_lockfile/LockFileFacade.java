@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
@@ -125,23 +126,81 @@ public class LockFileFacade {
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
-        Set<MavenPlugin> plugins = new TreeSet<>();
-        for (Artifact pluginArtifact : project.getPluginArtifacts()) {
-            RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
-            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
-                    resolvePluginDependencies(
-                            pluginArtifact, session, project, dependencyCollectorBuilder, checksumCalculator);
-            plugins.add(new MavenPlugin(
-                    GroupId.of(pluginArtifact.getGroupId()),
-                    ArtifactId.of(pluginArtifact.getArtifactId()),
-                    VersionNumber.of(pluginArtifact.getVersion()),
-                    repositoryInformation.getResolvedUrl(),
-                    repositoryInformation.getRepositoryId(),
-                    checksumCalculator.getChecksumAlgorithm(),
-                    checksumCalculator.calculatePluginChecksum(pluginArtifact),
-                    pluginDependencies));
+        Set<Artifact> pluginArtifacts = project.getPluginArtifacts();
+        
+        if (pluginArtifacts.isEmpty()) {
+            return new TreeSet<>();
         }
-        return plugins;
+        
+        // Use parallel processing for multiple plugins
+        if (pluginArtifacts.size() > 1) {
+            ExecutorService executor = Executors.newFixedThreadPool(
+                    Math.min(8, Math.max(2, Runtime.getRuntime().availableProcessors())));
+            try {
+                List<Future<MavenPlugin>> futures = new ArrayList<>();
+                for (Artifact pluginArtifact : pluginArtifacts) {
+                    futures.add(executor.submit(() -> {
+                        RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
+                        Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
+                                resolvePluginDependencies(
+                                        pluginArtifact, session, project, dependencyCollectorBuilder, checksumCalculator);
+                        return new MavenPlugin(
+                                GroupId.of(pluginArtifact.getGroupId()),
+                                ArtifactId.of(pluginArtifact.getArtifactId()),
+                                VersionNumber.of(pluginArtifact.getVersion()),
+                                repositoryInformation.getResolvedUrl(),
+                                repositoryInformation.getRepositoryId(),
+                                checksumCalculator.getChecksumAlgorithm(),
+                                checksumCalculator.calculatePluginChecksum(pluginArtifact),
+                                pluginDependencies);
+                    }));
+                }
+                
+                Set<MavenPlugin> plugins = new TreeSet<>();
+                for (Future<MavenPlugin> future : futures) {
+                    try {
+                        plugins.add(future.get());
+                    } catch (InterruptedException e) {
+                        PluginLogManager.getLog().warn("Interrupted while processing plugin in parallel", e);
+                        Thread.currentThread().interrupt();
+                        break; // Stop processing remaining futures after interrupt
+                    } catch (ExecutionException e) {
+                        PluginLogManager.getLog().warn("Error processing plugin in parallel", e);
+                    }
+                }
+                return plugins;
+            } finally {
+                executor.shutdown();
+                try {
+                    // Wait up to 2 minutes for all plugin processing to complete
+                    if (!executor.awaitTermination(120, TimeUnit.SECONDS)) {
+                        executor.shutdownNow();
+                    }
+                } catch (InterruptedException e) {
+                    executor.shutdownNow();
+                    Thread.currentThread().interrupt();
+                }
+            }
+        } else {
+            // Sequential processing for single plugin
+            Set<MavenPlugin> plugins = new TreeSet<>();
+            for (Artifact pluginArtifact : pluginArtifacts) {
+                RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
+                Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
+                        resolvePluginDependencies(
+                                pluginArtifact, session, project, dependencyCollectorBuilder, checksumCalculator);
+                plugins.add(new MavenPlugin(
+                        GroupId.of(pluginArtifact.getGroupId()),
+                        ArtifactId.of(pluginArtifact.getArtifactId()),
+                        VersionNumber.of(pluginArtifact.getVersion()),
+                        repositoryInformation.getResolvedUrl(),
+                        repositoryInformation.getRepositoryId(),
+                        checksumCalculator.getChecksumAlgorithm(),
+                        checksumCalculator.calculatePluginChecksum(pluginArtifact),
+                        pluginDependencies));
+            }
+            return plugins;
+        }
     }
 
     /**
