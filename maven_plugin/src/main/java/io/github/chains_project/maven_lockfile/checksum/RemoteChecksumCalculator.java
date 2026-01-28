@@ -10,7 +10,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.MessageDigest;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -19,6 +21,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
+    private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
+    private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
 
     public RemoteChecksumCalculator(
             String checksumAlgorithm,
@@ -37,7 +41,18 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         this.pluginBuildingRequest = pluginBuildingRequest;
     }
 
+    private String getCacheKey(Artifact artifact) {
+        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":"
+                + artifact.getClassifier() + ":" + artifact.getType();
+    }
+
     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+        String cacheKey = getCacheKey(artifact) + ":" + checksumAlgorithm;
+        String cached = checksumCache.get(cacheKey);
+        if (cached != null) {
+            return cached.isEmpty() ? Optional.empty() : Optional.of(cached);
+        }
+
         try {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
@@ -73,7 +88,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
-                    return Optional.of(checksumResponse.body().strip());
+                    String checksum = checksumResponse.body().strip();
+                    checksumCache.put(cacheKey, checksum);
+                    return Optional.of(checksum);
                 }
 
                 if (checksumResponse.statusCode() == 404) {
@@ -133,6 +150,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     String checksum = baseEncoding
                             .encode(messageDigest.digest(artifactResponse.body()))
                             .toLowerCase(Locale.ROOT);
+                    checksumCache.put(cacheKey, checksum);
                     return Optional.of(checksum);
                 }
             }
@@ -141,16 +159,24 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     .warn(String.format(
                             "Artifact checksum `%s.%s` not found among remote repositories.",
                             artifact, checksumAlgorithm));
+            checksumCache.put(cacheKey, "");
             return Optional.empty();
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
+            checksumCache.put(cacheKey, "");
             return Optional.empty();
         }
     }
 
     private Optional<RepositoryInformation> getResolvedFieldInternal(
             Artifact artifact, ProjectBuildingRequest buildingRequest) {
+        String cacheKey = getCacheKey(artifact);
+        RepositoryInformation cached = resolvedCache.get(cacheKey);
+        if (cached != null) {
+            return cached.equals(RepositoryInformation.Unresolved()) ? Optional.empty() : Optional.of(cached);
+        }
+
         try {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
@@ -184,16 +210,20 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
-                    return Optional.of(
-                            new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId())));
+                    RepositoryInformation result =
+                            new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId()));
+                    resolvedCache.put(cacheKey, result);
+                    return Optional.of(result);
                 }
             }
 
             PluginLogManager.getLog().warn(String.format("Artifact resolved url `%s` not found.", artifact));
+            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
+            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
         }
     }
