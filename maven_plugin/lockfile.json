@@ -8,7 +8,7 @@
     "version": "5.12.2-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "3f32c2ad121602278cee735c39a3573d3c472d6dd022fb7c3e119ad6a9b97e1e",
+    "checksum": "f18a3b8ef415102d0530855ccdc5293337f2417ccb1590d5094d863a7c034b7f",
     "parent": {
       "groupId": "io.github.chains-project",
       "artifactId": "maven-lockfile-parent",
@@ -177,27 +177,11 @@
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.24.2/assertj-core-3.24.2.jar",
           "repositoryId": "central",
-          "selectedVersion": "3.24.2",
-          "included": true,
+          "selectedVersion": "3.27.7",
+          "included": false,
           "id": "org.assertj:assertj-core:3.24.2",
           "parent": "com.soebes.itf.jupiter.extension:itf-assertj:0.13.1",
-          "children": [
-            {
-              "groupId": "net.bytebuddy",
-              "artifactId": "byte-buddy",
-              "version": "1.12.21",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "f6f45c2237a7f132c16745ad2a52c4cdde58028b11ee80b09f0d422f4930d685",
-              "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.12.21/byte-buddy-1.12.21.jar",
-              "repositoryId": "central",
-              "selectedVersion": "1.15.11",
-              "included": false,
-              "id": "net.bytebuddy:byte-buddy:1.12.21",
-              "parent": "org.assertj:assertj-core:3.24.2",
-              "children": []
-            }
-          ]
+          "children": []
         }
       ]
     },
@@ -1982,8 +1966,8 @@
               "scope": "test",
               "resolved": "https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar",
               "repositoryId": "central",
-              "selectedVersion": "1.15.11",
-              "included": true,
+              "selectedVersion": "1.18.3",
+              "included": false,
               "id": "net.bytebuddy:byte-buddy:1.15.11",
               "parent": "org.mockito:mockito-core:5.16.1",
               "children": []
@@ -2380,6 +2364,36 @@
           "included": false,
           "id": "org.slf4j:slf4j-api:1.7.36",
           "parent": "org.apache.maven.shared:maven-dependency-tree:3.3.0",
+          "children": []
+        }
+      ]
+    },
+    {
+      "groupId": "org.assertj",
+      "artifactId": "assertj-core",
+      "version": "3.27.7",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "c4a445426c3c2861666863b842cc4ec7bbb1c4226fefd370b6d2fe83d6c4ff0f",
+      "scope": "test",
+      "resolved": "https://repo.maven.apache.org/maven2/org/assertj/assertj-core/3.27.7/assertj-core-3.27.7.jar",
+      "repositoryId": "central",
+      "selectedVersion": "3.27.7",
+      "included": true,
+      "id": "org.assertj:assertj-core:3.27.7",
+      "children": [
+        {
+          "groupId": "net.bytebuddy",
+          "artifactId": "byte-buddy",
+          "version": "1.18.3",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "d78396e3c5bce3f2865c9186647481e5589d34cacc632484715b686108d17c66",
+          "scope": "test",
+          "resolved": "https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.18.3/byte-buddy-1.18.3.jar",
+          "repositoryId": "central",
+          "selectedVersion": "1.18.3",
+          "included": true,
+          "id": "net.bytebuddy:byte-buddy:1.18.3",
+          "parent": "org.assertj:assertj-core:3.27.7",
           "children": []
         }
       ]
