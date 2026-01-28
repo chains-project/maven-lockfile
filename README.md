@@ -77,9 +77,9 @@ The plugin automatically uses parallel processing when generating lockfiles in *
 
 **Key Features:**
 - Automatic parallelization: No configuration needed - parallel processing is enabled by default
-- Intelligent thread pool sizing: Uses 2-8 threads based on available CPU cores
+- Intelligent thread pool sizing: Uses 2-8 threads based on available CPU cores (suitable for I/O-bound operations)
 - Smart fallback: Automatically falls back to sequential processing for single dependencies
-- Thread-safe: All operations are thread-safe and use a shared HTTP client for efficiency
+- Thread-safe HTTP client: Uses a shared, thread-safe HTTP client for all network requests
 
 **Performance Improvements:**
 For large projects with many dependencies (e.g., 100+ dependencies), parallel processing can reduce lockfile generation time from ~20 minutes to just a few minutes, depending on network conditions and the number of dependencies.

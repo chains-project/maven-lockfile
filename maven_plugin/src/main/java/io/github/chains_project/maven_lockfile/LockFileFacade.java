@@ -160,16 +160,20 @@ public class LockFileFacade {
                 for (Future<MavenPlugin> future : futures) {
                     try {
                         plugins.add(future.get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        PluginLogManager.getLog().warn("Error processing plugin in parallel", e);
+                    } catch (InterruptedException e) {
+                        PluginLogManager.getLog().warn("Interrupted while processing plugin in parallel", e);
                         Thread.currentThread().interrupt();
+                        break; // Stop processing remaining futures after interrupt
+                    } catch (ExecutionException e) {
+                        PluginLogManager.getLog().warn("Error processing plugin in parallel", e);
                     }
                 }
                 return plugins;
             } finally {
                 executor.shutdown();
                 try {
-                    if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                    // Wait up to 2 minutes for all plugin processing to complete
+                    if (!executor.awaitTermination(120, TimeUnit.SECONDS)) {
                         executor.shutdownNow();
                     }
                 } catch (InterruptedException e) {

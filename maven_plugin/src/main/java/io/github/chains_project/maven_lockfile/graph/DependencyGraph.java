@@ -77,20 +77,24 @@ public class DependencyGraph {
         if (parallel && roots.size() > 1) {
             // Use parallel processing for multiple root nodes
             // Create a shared thread pool for all dependency processing
+            // Thread pool size: 2-8 threads (suitable for I/O-bound HTTP operations)
             int poolSize = Math.min(8, Math.max(2, Runtime.getRuntime().availableProcessors()));
             ExecutorService executor = Executors.newFixedThreadPool(poolSize);
             try {
                 List<Future<Optional<DependencyNode>>> futures = new ArrayList<>();
                 for (var artifact : roots) {
                     futures.add(executor.submit(() -> 
-                        createDependencyNode(artifact, graph, calc, true, reduced, executor)));
+                        createDependencyNode(artifact, graph, calc, true, reduced)));
                 }
                 for (Future<Optional<DependencyNode>> future : futures) {
                     try {
                         future.get().ifPresent(nodes::add);
-                    } catch (InterruptedException | ExecutionException e) {
-                        PluginLogManager.getLog().warn("Error processing dependency node in parallel", e);
+                    } catch (InterruptedException e) {
+                        PluginLogManager.getLog().warn("Interrupted while processing dependency node in parallel", e);
                         Thread.currentThread().interrupt();
+                        break; // Stop processing remaining futures after interrupt
+                    } catch (ExecutionException e) {
+                        PluginLogManager.getLog().warn("Error processing dependency node in parallel", e);
                     }
                 }
             } finally {
@@ -107,7 +111,7 @@ public class DependencyGraph {
         } else {
             // Sequential processing for single root or when parallel is disabled
             for (var artifact : roots) {
-                createDependencyNode(artifact, graph, calc, true, reduced, null).ifPresent(nodes::add);
+                createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
             }
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
@@ -124,8 +128,7 @@ public class DependencyGraph {
             Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
             boolean isRoot,
-            boolean reduce,
-            ExecutorService sharedExecutor) {
+            boolean reduce) {
         PluginLogManager.getLog()
                 .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
         var groupId = GroupId.of(node.getArtifact().getGroupId());
@@ -158,28 +161,10 @@ public class DependencyGraph {
         value.setSelectedVersion(baseVersion);
         value.setIncluded(included);
         
-        // Process children - use shared executor if available and there are multiple children
-        Set<org.apache.maven.shared.dependency.graph.DependencyNode> successors = graph.successors(node);
-        if (sharedExecutor != null && successors.size() > 1) {
-            // Parallel processing for multiple children using shared executor
-            List<Future<Optional<DependencyNode>>> futures = new ArrayList<>();
-            for (var artifact : successors) {
-                futures.add(sharedExecutor.submit(() -> 
-                    createDependencyNode(artifact, graph, calc, false, reduce, sharedExecutor)));
-            }
-            for (Future<Optional<DependencyNode>> future : futures) {
-                try {
-                    future.get().ifPresent(value::addChild);
-                } catch (InterruptedException | ExecutionException e) {
-                    PluginLogManager.getLog().warn("Error processing child dependency node in parallel", e);
-                    Thread.currentThread().interrupt();
-                }
-            }
-        } else {
-            // Sequential processing for single child, no children, or when no executor provided
-            for (var artifact : successors) {
-                createDependencyNode(artifact, graph, calc, false, reduce, sharedExecutor).ifPresent(value::addChild);
-            }
+        // Process children sequentially (each node processes its own children)
+        // This avoids thread-safety issues with the addChild method
+        for (var artifact : graph.successors(node)) {
+            createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
         }
         return Optional.of(value);
     }
