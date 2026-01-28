@@ -9,7 +9,7 @@ import java.util.Set;
  * This class represents a maven plugin. It contains a group id, an artifact id, and a version number. A plugin is uniquely identified by its group id, artifact id, and version number.
  * A maven plugin is a dependency that is used to build a project. It is not a dependency of the project itself.
  */
-public class MavenPlugin {
+public class MavenPlugin implements Comparable<MavenPlugin> {
 
     private final GroupId groupId;
     private final ArtifactId artifactId;
@@ -105,6 +105,27 @@ public class MavenPlugin {
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
                 && Objects.equals(checksum, other.checksum)
                 && Objects.equals(dependencies, other.dependencies);
+    }
+
+    @Override
+    public int compareTo(MavenPlugin o) {
+        int groupIdCompare = groupId.compareTo(o.groupId);
+        if (groupIdCompare != 0) {
+            return groupIdCompare;
+        }
+        int artifactIdCompare = artifactId.compareTo(o.artifactId);
+        if (artifactIdCompare != 0) {
+            return artifactIdCompare;
+        }
+        int versionCompare = version.compareTo(o.version);
+        if (versionCompare != 0) {
+            return versionCompare;
+        }
+        int checksumAlgorithmCompare = checksumAlgorithm.compareTo(o.checksumAlgorithm);
+        if (checksumAlgorithmCompare != 0) {
+            return checksumAlgorithmCompare;
+        }
+        return checksum.compareTo(o.checksum);
     }
 
     @Override
