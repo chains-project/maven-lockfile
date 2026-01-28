@@ -42,8 +42,12 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     private String getCacheKey(Artifact artifact) {
-        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":"
-                + artifact.getClassifier() + ":" + artifact.getType();
+        String classifier = artifact.getClassifier();
+        if (classifier == null) {
+            classifier = "";
+        }
+        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":" + classifier
+                + ":" + artifact.getType();
     }
 
     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
