@@ -6,6 +6,8 @@ public class Pom implements Comparable<Pom> {
     private final ArtifactId artifactId;
     private final VersionNumber version;
     private final String relativePath;
+    private final ResolvedUrl resolved;
+    private final RepositoryId repositoryId;
     private final String checksumAlgorithm;
     private final String checksum;
     private final Pom parent;
@@ -15,6 +17,8 @@ public class Pom implements Comparable<Pom> {
             ArtifactId artifactId,
             VersionNumber version,
             String relativePath,
+            ResolvedUrl resolved,
+            RepositoryId repositoryId,
             String checksumAlgorithm,
             String checksum,
             Pom parent) {
@@ -22,6 +26,8 @@ public class Pom implements Comparable<Pom> {
         this.artifactId = artifactId;
         this.version = version;
         this.relativePath = relativePath;
+        this.resolved = resolved;
+        this.repositoryId = repositoryId;
         this.checksumAlgorithm = checksumAlgorithm;
         this.checksum = checksum;
         this.parent = parent;
@@ -41,6 +47,14 @@ public class Pom implements Comparable<Pom> {
 
     public String getRelativePath() {
         return relativePath;
+    }
+
+    public ResolvedUrl getResolved() {
+        return resolved;
+    }
+
+    public RepositoryId getRepositoryId() {
+        return repositoryId;
     }
 
     public String getChecksumAlgorithm() {
@@ -74,6 +88,20 @@ public class Pom implements Comparable<Pom> {
 
         if (pathCmp.compareTo(oPathCmp) != 0) {
             return pathCmp.compareTo(oPathCmp);
+        }
+
+        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
+        ResolvedUrl oResolvedCmp = o.resolved == null ? ResolvedUrl.Unresolved() : o.resolved;
+
+        if (resolvedCmp.compareTo(oResolvedCmp) != 0) {
+            return resolvedCmp.compareTo(oResolvedCmp);
+        }
+
+        RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
+        RepositoryId oRepoIdCmp = o.repositoryId == null ? RepositoryId.None() : o.repositoryId;
+
+        if (repoIdCmp.compareTo(oRepoIdCmp) != 0) {
+            return repoIdCmp.compareTo(oRepoIdCmp);
         }
 
         if (this.checksumAlgorithm.compareTo(o.checksumAlgorithm) != 0) {
@@ -111,6 +139,12 @@ public class Pom implements Comparable<Pom> {
         String pathCmp = this.relativePath == null ? "" : this.relativePath;
         String otherPathCmp = other.relativePath == null ? "" : other.relativePath;
 
+        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
+        ResolvedUrl otherResolvedCmp = other.resolved == null ? ResolvedUrl.Unresolved() : other.resolved;
+
+        RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
+        RepositoryId otherRepoIdCmp = other.repositoryId == null ? RepositoryId.None() : other.repositoryId;
+
         boolean parentEqual = (this.parent == null && other.parent == null)
                 || (this.parent != null && other.parent != null && this.parent.equals(other.parent));
 
@@ -118,6 +152,8 @@ public class Pom implements Comparable<Pom> {
                 && this.artifactId.equals(other.artifactId)
                 && this.version.equals(other.version)
                 && pathCmp.equals(otherPathCmp)
+                && resolvedCmp.equals(otherResolvedCmp)
+                && repoIdCmp.equals(otherRepoIdCmp)
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
                 && this.checksum.equals(other.checksum)
                 && parentEqual;

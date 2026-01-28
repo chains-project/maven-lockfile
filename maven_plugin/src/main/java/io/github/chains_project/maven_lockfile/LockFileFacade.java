@@ -10,6 +10,8 @@ import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.data.Pom;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
+import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
@@ -367,7 +369,10 @@ public class LockFileFacade {
                             .relativize(project.getFile().toPath())
                             .toString();
             String checksum = null;
+            ResolvedUrl resolved = null;
+            RepositoryId repoId = null;
             if (project.getFile() == null) {
+                // External POM - get repository information
                 Artifact artifact = project.getArtifact();
                 Artifact pomArtifact = new DefaultArtifact(
                         artifact.getGroupId(),
@@ -378,6 +383,9 @@ public class LockFileFacade {
                         artifact.getClassifier(),
                         artifact.getArtifactHandler());
                 checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
+                RepositoryInformation repoInfo = checksumCalculator.getArtifactResolvedField(pomArtifact);
+                resolved = repoInfo.getResolvedUrl();
+                repoId = repoInfo.getRepositoryId();
             } else {
                 checksum = checksumCalculator.calculatePomChecksum(
                         project.getFile().toPath());
@@ -387,6 +395,8 @@ public class LockFileFacade {
                     ArtifactId.of(project.getArtifactId()),
                     VersionNumber.of(project.getVersion()),
                     relativePath,
+                    resolved,
+                    repoId,
                     checksumAlgorithm,
                     checksum,
                     lastPom);
