@@ -136,6 +136,9 @@ public class Pom implements Comparable<Pom> {
             return false;
         }
         Pom other = (Pom) obj;
+        // Poms are either defined by their relative path or resolved from a repository by their GAV.
+        // We cannot know where poms defined by their relative path will be hosted and thus their
+        // resolved fields are null.
         String pathCmp = this.relativePath == null ? "" : this.relativePath;
         String otherPathCmp = other.relativePath == null ? "" : other.relativePath;
 
