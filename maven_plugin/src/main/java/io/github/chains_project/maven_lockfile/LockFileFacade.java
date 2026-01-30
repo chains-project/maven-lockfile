@@ -96,7 +96,7 @@ public class LockFileFacade {
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
-        Set<MavenPlugin> plugins = new TreeSet<>();
+        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
         }
@@ -127,7 +127,7 @@ public class LockFileFacade {
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
-        Set<MavenPlugin> plugins = new TreeSet<>();
+        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
             RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
@@ -301,14 +301,13 @@ public class LockFileFacade {
                             "Built graph with %d nodes for plugin %s",
                             graph.nodes().size(), pluginArtifact));
 
-            DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator, false);
-
+            DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator,false, true);
             // Get root dependency nodes (excluding the plugin project itself)
-            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots =
+                    dependencyGraph.getRoots();
             PluginLogManager.getLog()
                     .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginArtifact));
             return roots;
-
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve dependencies for plugin %s", pluginArtifact), e);
@@ -335,10 +334,10 @@ public class LockFileFacade {
                     .info(String.format(
                             "Resolved %4d dependencies for project %s",
                             graph.nodes().size(), project));
-            return DependencyGraph.of(graph, checksumCalculator, reduced);
+            return DependencyGraph.of(graph, checksumCalculator, reduced,false);
         } catch (Exception e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
+            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced,false);
         }
     }
 
@@ -364,10 +363,10 @@ public class LockFileFacade {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
-                            .getBasedir()
-                            .toPath()
-                            .relativize(project.getFile().toPath())
-                            .toString();
+                    .getBasedir()
+                    .toPath()
+                    .relativize(project.getFile().toPath())
+                    .toString();
             String checksum = null;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
