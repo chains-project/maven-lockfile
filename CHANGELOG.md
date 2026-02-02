@@ -2354,3 +2354,31 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.0
+## Changelog
+
+## 🚀 Added
+- 30304ce ✨ feat(checksum calculator): Add cache to remote checksum calculator (#1481)
+- bd08070 ✨ feat(lockfile): Add resolve and repo id field to external poms (#1478)
+- 256923f ✨ feat: More stable MavenPlugin ordering in lockfile (#1466)
+
+## 🔄️ Changed
+- bb881fe 📌 deps: Add assertj-core 3.27.7 as direct dependency (#1479)
+
+## 📦 Dependencies
+- a62cb91 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.12.1 (#1475)
+
+## 🏁 Release
+- 20d836d 🔖 Releasing version 5.13.0
+- aea25de 🔖 Setting SNAPSHOT version 5.12.2-SNAPSHOT
+
+---
+- a4b8d83 chore(cd): Use latest version of maven lockfile in release script (#1474)
+- f318129 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))

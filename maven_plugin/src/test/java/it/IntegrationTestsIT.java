@@ -568,6 +568,12 @@ public class IntegrationTestsIT {
         assertThat(parentPom.getChecksum()).isNotBlank();
         // External pom should not have a relativePath
         assertThat(parentPom.getRelativePath()).isNull();
+        // External pom should have resolved URL and repositoryId
+        assertThat(parentPom.getResolved()).isNotNull();
+        assertThat(parentPom.getResolved().getValue()).contains("spring-boot-starter-parent");
+        assertThat(parentPom.getResolved().getValue()).endsWith(".pom");
+        assertThat(parentPom.getRepositoryId()).isNotNull();
+        assertThat(parentPom.getRepositoryId().getValue()).isNotBlank();
 
         // Verify grandparent pom is present (Spring Boot dependencies)
         var grandparentPom = parentPom.getParent();
@@ -577,6 +583,12 @@ public class IntegrationTestsIT {
                 .extracting(ArtifactId::getValue)
                 .isEqualTo("spring-boot-dependencies");
         assertThat(grandparentPom.getChecksum()).isNotBlank();
+        // External grandparent pom should also have resolved URL and repositoryId
+        assertThat(grandparentPom.getResolved()).isNotNull();
+        assertThat(grandparentPom.getResolved().getValue()).contains("spring-boot-dependencies");
+        assertThat(grandparentPom.getResolved().getValue()).endsWith(".pom");
+        assertThat(grandparentPom.getRepositoryId()).isNotNull();
+        assertThat(grandparentPom.getRepositoryId().getValue()).isNotBlank();
     }
 
     @MavenTest
@@ -606,5 +618,8 @@ public class IntegrationTestsIT {
                 .isEqualTo("relative-parent-pom-parent-project");
         assertThat(parentPom.getChecksum()).isNotBlank();
         assertThat(parentPom.getRelativePath()).isEqualTo("../pom.xml");
+        // Local parent pom should NOT have resolved URL or repositoryId
+        assertThat(parentPom.getResolved()).isNull();
+        assertThat(parentPom.getRepositoryId()).isNull();
     }
 }
