@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
@@ -283,7 +285,11 @@ public class LockFileFacade {
             dependencyBuildingRequest.setProject(pluginProject);
             dependencyBuildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
 
-            var rootNode = dependencyCollectorBuilder.collectDependencyGraph(dependencyBuildingRequest, null);
+            // Filter artifacts to "compile+runtime" scopes. Maven plugins require their runtime
+            // scope dependencies to be present alongside any compile-time dependencies.
+            // Test scope dependencies of plugins should be excluded.
+            ArtifactFilter filter = new ScopeArtifactFilter("compile+runtime");
+            var rootNode = dependencyCollectorBuilder.collectDependencyGraph(dependencyBuildingRequest, filter);
 
             int rootChildren =
                     rootNode.getChildren() != null ? rootNode.getChildren().size() : 0;
