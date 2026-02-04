@@ -50,21 +50,19 @@ public class DependencyGraph {
     public int hashCode() {
         return Objects.hashCode(graph);
     }
-
     public Optional<DependencyNode> getParentForNode(DependencyNode node) {
         return graph.stream().filter(n -> n.id.equals(node.getParent())).findFirst();
     }
-
     public static DependencyGraph of(
             MutableGraph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
-            boolean reduced) {
+            boolean reduced,boolean skipPluginTestScope) {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
         Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         for (var artifact : roots) {
-            createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
+            createDependencyNode(artifact, graph, calc, true, reduced,skipPluginTestScope).ifPresent(nodes::add);
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
         Set<DependencyNode> dependencyRoots = nodes.stream()
@@ -74,13 +72,12 @@ public class DependencyGraph {
         dependencyRoots.forEach(v -> v.setParent(null));
         return new DependencyGraph(dependencyRoots);
     }
-
     private static Optional<DependencyNode> createDependencyNode(
             org.apache.maven.shared.dependency.graph.DependencyNode node,
             Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
             boolean isRoot,
-            boolean reduce) {
+            boolean reduce,boolean skipPluginTestScope) {
         PluginLogManager.getLog()
                 .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
         var groupId = GroupId.of(node.getArtifact().getGroupId());
@@ -90,6 +87,11 @@ public class DependencyGraph {
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
+        if (skipPluginTestScope && !isRoot && scope == MavenScope.TEST) {
+            PluginLogManager.getLog().debug(String.format("Skipping test-scoped plugin dependency %s:%s:%s",
+            node.getArtifact().getGroupId(),node.getArtifact().getArtifactId(),node.getArtifact().getVersion()));
+            return Optional.empty();
+        }
         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
         var repositoryInformation =
                 isRoot ? RepositoryInformation.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
@@ -113,7 +115,7 @@ public class DependencyGraph {
         value.setSelectedVersion(baseVersion);
         value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
-            createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
+            createDependencyNode(artifact, graph, calc, false, reduce,skipPluginTestScope).ifPresent(value::addChild);
         }
         return Optional.of(value);
     }
