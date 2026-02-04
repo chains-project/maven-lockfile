@@ -1,0 +1,614 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 0e0eebe..01946d5 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2350,6 +2350,34 @@ We'd like to thank the following people for their contributions:
+ - ab92ea4 chore: update lockfile
+ 
+ 
++## Contributors
++We'd like to thank the following people for their contributions:
++- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
++- LogFlames ([@LogFlames](https://github.com/LogFlames))
++
++# 5.13.0
++## Changelog
++
++## 🚀 Added
++- 30304ce ✨ feat(checksum calculator): Add cache to remote checksum calculator (#1481)
++- bd08070 ✨ feat(lockfile): Add resolve and repo id field to external poms (#1478)
++- 256923f ✨ feat: More stable MavenPlugin ordering in lockfile (#1466)
++
++## 🔄️ Changed
++- bb881fe 📌 deps: Add assertj-core 3.27.7 as direct dependency (#1479)
++
++## 📦 Dependencies
++- a62cb91 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.12.1 (#1475)
++
++## 🏁 Release
++- 20d836d 🔖 Releasing version 5.13.0
++- aea25de 🔖 Setting SNAPSHOT version 5.12.2-SNAPSHOT
++
++---
++- a4b8d83 chore(cd): Use latest version of maven lockfile in release script (#1474)
++- f318129 chore: update lockfile
++
++
+ ## Contributors
+ We'd like to thank the following people for their contributions:
+ - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+diff --git a/action.yml b/action.yml
+index 725faaa..2f92f85 100644
+--- a/action.yml
++++ b/action.yml
+@@ -92,7 +92,7 @@ runs:
+         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
+         
+         # Convert to Maven plugin args
+-        PLUGIN_VERSION="5.12.1"
++        PLUGIN_VERSION="5.13.0"
+         MAVEN_ARGS=""
+         
+         if [ "$INCLUDE_MAVEN_PLUGINS" == "true" ]; then
+diff --git a/lockfile.json b/lockfile.json
+index 1639e61..ba00ec4 100644
+--- a/lockfile.json
++++ b/lockfile.json
+@@ -1,14 +1,14 @@
+ {
+   "artifactId": "maven-lockfile-parent",
+   "groupId": "io.github.chains-project",
+-  "version": "5.12.2-SNAPSHOT",
++  "version": "5.13.1-SNAPSHOT",
+   "pom": {
+     "groupId": "io.github.chains-project",
+     "artifactId": "maven-lockfile-parent",
+-    "version": "5.12.2-SNAPSHOT",
++    "version": "5.13.1-SNAPSHOT",
+     "relativePath": "pom.xml",
+     "checksumAlgorithm": "SHA-256",
+-    "checksum": "3ad6c7d96dc759c4e8bcf0e9503022f805d1f7eb091946690868f3e397938a45"
++    "checksum": "2c7f3c897f2a3d36f75b949d1a8466c1aaeae1aa18b10b5d4d52df1d0385433c"
+   },
+   "lockFileVersion": 1,
+   "dependencies": [],
+diff --git a/maven_plugin/lockfile.json b/maven_plugin/lockfile.json
+index bf24ec7..b96ce9d 100644
+--- a/maven_plugin/lockfile.json
++++ b/maven_plugin/lockfile.json
+@@ -1,21 +1,21 @@
+ {
+   "artifactId": "maven-lockfile",
+   "groupId": "io.github.chains-project",
+-  "version": "5.12.2-SNAPSHOT",
++  "version": "5.13.1-SNAPSHOT",
+   "pom": {
+     "groupId": "io.github.chains-project",
+     "artifactId": "maven-lockfile",
+-    "version": "5.12.2-SNAPSHOT",
++    "version": "5.13.1-SNAPSHOT",
+     "relativePath": "pom.xml",
+     "checksumAlgorithm": "SHA-256",
+-    "checksum": "f18a3b8ef415102d0530855ccdc5293337f2417ccb1590d5094d863a7c034b7f",
++    "checksum": "d2f98b5f8c421da60735d7efe905c314704e4775e4d1884ed76703704510d6e3",
+     "parent": {
+       "groupId": "io.github.chains-project",
+       "artifactId": "maven-lockfile-parent",
+-      "version": "5.12.2-SNAPSHOT",
++      "version": "5.13.1-SNAPSHOT",
+       "relativePath": "../pom.xml",
+       "checksumAlgorithm": "SHA-256",
+-      "checksum": "3ad6c7d96dc759c4e8bcf0e9503022f805d1f7eb091946690868f3e397938a45"
++      "checksum": "2c7f3c897f2a3d36f75b949d1a8466c1aaeae1aa18b10b5d4d52df1d0385433c"
+     }
+   },
+   "lockFileVersion": 1,
+diff --git a/maven_plugin/pom.xml b/maven_plugin/pom.xml
+index 7019aa5..7ab28d8 100644
+--- a/maven_plugin/pom.xml
++++ b/maven_plugin/pom.xml
+@@ -4,12 +4,12 @@
+   <parent>
+     <groupId>io.github.chains-project</groupId>
+     <artifactId>maven-lockfile-parent</artifactId>
+-    <version>5.12.2-SNAPSHOT</version>
++    <version>5.13.1-SNAPSHOT</version>
+     <relativePath>../</relativePath>
+   </parent>
+   <groupId>io.github.chains-project</groupId>
+   <artifactId>maven-lockfile</artifactId>
+-  <version>5.12.2-SNAPSHOT</version>
++  <version>5.13.1-SNAPSHOT</version>
+   <packaging>maven-plugin</packaging>
+   <name>maven-lockfile-plugin</name>
+   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
+diff --git a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java
+index 8eee330..2d996a0 100644
+--- a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java
++++ b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java
+@@ -10,6 +10,8 @@ import io.github.chains_project.maven_lockfile.data.LockFile;
+ import io.github.chains_project.maven_lockfile.data.MavenPlugin;
+ import io.github.chains_project.maven_lockfile.data.MetaData;
+ import io.github.chains_project.maven_lockfile.data.Pom;
++import io.github.chains_project.maven_lockfile.data.RepositoryId;
++import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+ import io.github.chains_project.maven_lockfile.data.VersionNumber;
+ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
+ import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+@@ -94,7 +96,7 @@ public class LockFileFacade {
+             AbstractChecksumCalculator checksumCalculator,
+             MetaData metadata) {
+         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
+-        Set<MavenPlugin> plugins = new TreeSet<>();
++        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
+         if (metadata.getConfig().isIncludeMavenPlugins()) {
+             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
+         }
+@@ -125,7 +127,7 @@ public class LockFileFacade {
+             MavenSession session,
+             DependencyCollectorBuilder dependencyCollectorBuilder,
+             AbstractChecksumCalculator checksumCalculator) {
+-        Set<MavenPlugin> plugins = new TreeSet<>();
++        Set<MavenPlugin> plugins = new TreeSet<>(Comparator.comparing(MavenPlugin::getChecksum));
+         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
+             RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
+             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
+@@ -299,14 +301,12 @@ public class LockFileFacade {
+                             "Built graph with %d nodes for plugin %s",
+                             graph.nodes().size(), pluginArtifact));
+ 
+-            DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator, false);
+-
++            DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator, false, true);
+             // Get root dependency nodes (excluding the plugin project itself)
+             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
+             PluginLogManager.getLog()
+                     .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginArtifact));
+             return roots;
+-
+         } catch (Exception e) {
+             PluginLogManager.getLog()
+                     .warn(String.format("Could not resolve dependencies for plugin %s", pluginArtifact), e);
+@@ -333,10 +333,10 @@ public class LockFileFacade {
+                     .info(String.format(
+                             "Resolved %4d dependencies for project %s",
+                             graph.nodes().size(), project));
+-            return DependencyGraph.of(graph, checksumCalculator, reduced);
++            return DependencyGraph.of(graph, checksumCalculator, reduced, false);
+         } catch (Exception e) {
+             PluginLogManager.getLog().warn("Could not generate graph", e);
+-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
++            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced, false);
+         }
+     }
+ 
+@@ -367,7 +367,10 @@ public class LockFileFacade {
+                             .relativize(project.getFile().toPath())
+                             .toString();
+             String checksum = null;
++            ResolvedUrl resolved = null;
++            RepositoryId repoId = null;
+             if (project.getFile() == null) {
++                // External POM - get repository information
+                 Artifact artifact = project.getArtifact();
+                 Artifact pomArtifact = new DefaultArtifact(
+                         artifact.getGroupId(),
+@@ -378,6 +381,9 @@ public class LockFileFacade {
+                         artifact.getClassifier(),
+                         artifact.getArtifactHandler());
+                 checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
++                RepositoryInformation repoInfo = checksumCalculator.getArtifactResolvedField(pomArtifact);
++                resolved = repoInfo.getResolvedUrl();
++                repoId = repoInfo.getRepositoryId();
+             } else {
+                 checksum = checksumCalculator.calculatePomChecksum(
+                         project.getFile().toPath());
+@@ -387,6 +393,8 @@ public class LockFileFacade {
+                     ArtifactId.of(project.getArtifactId()),
+                     VersionNumber.of(project.getVersion()),
+                     relativePath,
++                    resolved,
++                    repoId,
+                     checksumAlgorithm,
+                     checksum,
+                     lastPom);
+diff --git a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java
+index 67eea14..04b4909 100644
+--- a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java
++++ b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java
+@@ -10,7 +10,9 @@ import java.net.http.HttpRequest;
+ import java.net.http.HttpResponse;
+ import java.security.MessageDigest;
+ import java.util.Locale;
++import java.util.Map;
+ import java.util.Optional;
++import java.util.concurrent.ConcurrentHashMap;
+ import org.apache.maven.artifact.Artifact;
+ import org.apache.maven.artifact.repository.ArtifactRepository;
+ import org.apache.maven.project.ProjectBuildingRequest;
+@@ -19,6 +21,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+ 
+     private final ProjectBuildingRequest artifactBuildingRequest;
+     private final ProjectBuildingRequest pluginBuildingRequest;
++    private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
++    private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
+ 
+     public RemoteChecksumCalculator(
+             String checksumAlgorithm,
+@@ -37,7 +41,22 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+         this.pluginBuildingRequest = pluginBuildingRequest;
+     }
+ 
++    private String getCacheKey(Artifact artifact) {
++        String classifier = artifact.getClassifier();
++        if (classifier == null) {
++            classifier = "";
++        }
++        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":" + classifier
++                + ":" + artifact.getType();
++    }
++
+     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
++        String cacheKey = getCacheKey(artifact) + ":" + checksumAlgorithm;
++        String cached = checksumCache.get(cacheKey);
++        if (cached != null) {
++            return cached.isEmpty() ? Optional.empty() : Optional.of(cached);
++        }
++
+         try {
+             String groupId = artifact.getGroupId().replace(".", "/");
+             String artifactId = artifact.getArtifactId();
+@@ -73,7 +92,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+                         client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
+ 
+                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
+-                    return Optional.of(checksumResponse.body().strip());
++                    String checksum = checksumResponse.body().strip();
++                    checksumCache.put(cacheKey, checksum);
++                    return Optional.of(checksum);
+                 }
+ 
+                 if (checksumResponse.statusCode() == 404) {
+@@ -133,6 +154,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+                     String checksum = baseEncoding
+                             .encode(messageDigest.digest(artifactResponse.body()))
+                             .toLowerCase(Locale.ROOT);
++                    checksumCache.put(cacheKey, checksum);
+                     return Optional.of(checksum);
+                 }
+             }
+@@ -141,16 +163,24 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+                     .warn(String.format(
+                             "Artifact checksum `%s.%s` not found among remote repositories.",
+                             artifact, checksumAlgorithm));
++            checksumCache.put(cacheKey, "");
+             return Optional.empty();
+         } catch (Exception e) {
+             PluginLogManager.getLog()
+                     .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
++            checksumCache.put(cacheKey, "");
+             return Optional.empty();
+         }
+     }
+ 
+     private Optional<RepositoryInformation> getResolvedFieldInternal(
+             Artifact artifact, ProjectBuildingRequest buildingRequest) {
++        String cacheKey = getCacheKey(artifact);
++        RepositoryInformation cached = resolvedCache.get(cacheKey);
++        if (cached != null) {
++            return cached.equals(RepositoryInformation.Unresolved()) ? Optional.empty() : Optional.of(cached);
++        }
++
+         try {
+             String groupId = artifact.getGroupId().replace(".", "/");
+             String artifactId = artifact.getArtifactId();
+@@ -184,16 +214,20 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
+                 HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
+ 
+                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
+-                    return Optional.of(
+-                            new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId())));
++                    RepositoryInformation result =
++                            new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId()));
++                    resolvedCache.put(cacheKey, result);
++                    return Optional.of(result);
+                 }
+             }
+ 
+             PluginLogManager.getLog().warn(String.format("Artifact resolved url `%s` not found.", artifact));
++            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
+             return Optional.empty();
+         } catch (Exception e) {
+             PluginLogManager.getLog()
+                     .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
++            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
+             return Optional.empty();
+         }
+     }
+diff --git a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RepositoryInformation.java b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RepositoryInformation.java
+index d0c55bb..019e943 100644
+--- a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RepositoryInformation.java
++++ b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RepositoryInformation.java
+@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.checksum;
+ 
+ import io.github.chains_project.maven_lockfile.data.RepositoryId;
+ import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
++import java.util.Objects;
+ 
+ public class RepositoryInformation {
+     private final ResolvedUrl resolvedUrl;
+@@ -29,4 +30,19 @@ public class RepositoryInformation {
+     public RepositoryId getRepositoryId() {
+         return repositoryId;
+     }
++
++    @Override
++    public boolean equals(Object o) {
++        if (o == this) return true;
++        if (!(o instanceof RepositoryInformation)) {
++            return false;
++        }
++        RepositoryInformation other = (RepositoryInformation) o;
++        return Objects.equals(resolvedUrl, other.resolvedUrl) && Objects.equals(repositoryId, other.repositoryId);
++    }
++
++    @Override
++    public int hashCode() {
++        return Objects.hash(resolvedUrl, repositoryId);
++    }
+ }
+diff --git a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java
+index f2c7b98..534af85 100644
+--- a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java
++++ b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java
+@@ -6,6 +6,8 @@ public class Pom implements Comparable<Pom> {
+     private final ArtifactId artifactId;
+     private final VersionNumber version;
+     private final String relativePath;
++    private final ResolvedUrl resolved;
++    private final RepositoryId repositoryId;
+     private final String checksumAlgorithm;
+     private final String checksum;
+     private final Pom parent;
+@@ -15,6 +17,8 @@ public class Pom implements Comparable<Pom> {
+             ArtifactId artifactId,
+             VersionNumber version,
+             String relativePath,
++            ResolvedUrl resolved,
++            RepositoryId repositoryId,
+             String checksumAlgorithm,
+             String checksum,
+             Pom parent) {
+@@ -22,6 +26,8 @@ public class Pom implements Comparable<Pom> {
+         this.artifactId = artifactId;
+         this.version = version;
+         this.relativePath = relativePath;
++        this.resolved = resolved;
++        this.repositoryId = repositoryId;
+         this.checksumAlgorithm = checksumAlgorithm;
+         this.checksum = checksum;
+         this.parent = parent;
+@@ -43,6 +49,14 @@ public class Pom implements Comparable<Pom> {
+         return relativePath;
+     }
+ 
++    public ResolvedUrl getResolved() {
++        return resolved;
++    }
++
++    public RepositoryId getRepositoryId() {
++        return repositoryId;
++    }
++
+     public String getChecksumAlgorithm() {
+         return checksumAlgorithm;
+     }
+@@ -76,6 +90,20 @@ public class Pom implements Comparable<Pom> {
+             return pathCmp.compareTo(oPathCmp);
+         }
+ 
++        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
++        ResolvedUrl oResolvedCmp = o.resolved == null ? ResolvedUrl.Unresolved() : o.resolved;
++
++        if (resolvedCmp.compareTo(oResolvedCmp) != 0) {
++            return resolvedCmp.compareTo(oResolvedCmp);
++        }
++
++        RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
++        RepositoryId oRepoIdCmp = o.repositoryId == null ? RepositoryId.None() : o.repositoryId;
++
++        if (repoIdCmp.compareTo(oRepoIdCmp) != 0) {
++            return repoIdCmp.compareTo(oRepoIdCmp);
++        }
++
+         if (this.checksumAlgorithm.compareTo(o.checksumAlgorithm) != 0) {
+             return this.checksumAlgorithm.compareTo(o.checksumAlgorithm);
+         }
+@@ -108,9 +136,18 @@ public class Pom implements Comparable<Pom> {
+             return false;
+         }
+         Pom other = (Pom) obj;
++        // Poms are either defined by their relative path or resolved from a repository by their GAV.
++        // We cannot know where poms defined by their relative path will be hosted and thus their
++        // resolved fields are null.
+         String pathCmp = this.relativePath == null ? "" : this.relativePath;
+         String otherPathCmp = other.relativePath == null ? "" : other.relativePath;
+ 
++        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
++        ResolvedUrl otherResolvedCmp = other.resolved == null ? ResolvedUrl.Unresolved() : other.resolved;
++
++        RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
++        RepositoryId otherRepoIdCmp = other.repositoryId == null ? RepositoryId.None() : other.repositoryId;
++
+         boolean parentEqual = (this.parent == null && other.parent == null)
+                 || (this.parent != null && other.parent != null && this.parent.equals(other.parent));
+ 
+@@ -118,6 +155,8 @@ public class Pom implements Comparable<Pom> {
+                 && this.artifactId.equals(other.artifactId)
+                 && this.version.equals(other.version)
+                 && pathCmp.equals(otherPathCmp)
++                && resolvedCmp.equals(otherResolvedCmp)
++                && repoIdCmp.equals(otherRepoIdCmp)
+                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
+                 && this.checksum.equals(other.checksum)
+                 && parentEqual;
+diff --git a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java
+index fd6f184..079ef0d 100644
+--- a/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java
++++ b/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java
+@@ -58,13 +58,15 @@ public class DependencyGraph {
+     public static DependencyGraph of(
+             MutableGraph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
+             AbstractChecksumCalculator calc,
+-            boolean reduced) {
++            boolean reduced,
++            boolean skipTestScope) {
+         var roots = graph.nodes().stream()
+                 .filter(it -> graph.predecessors(it).isEmpty())
+                 .collect(Collectors.toList());
+         Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
+         for (var artifact : roots) {
+-            createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
++            createDependencyNode(artifact, graph, calc, true, reduced, skipTestScope)
++                    .ifPresent(nodes::add);
+         }
+         // maven dependency tree contains the project itself as a root node. We remove it here.
+         Set<DependencyNode> dependencyRoots = nodes.stream()
+@@ -80,7 +82,8 @@ public class DependencyGraph {
+             Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
+             AbstractChecksumCalculator calc,
+             boolean isRoot,
+-            boolean reduce) {
++            boolean reduce,
++            boolean skipTestScope) {
+         PluginLogManager.getLog()
+                 .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
+         var groupId = GroupId.of(node.getArtifact().getGroupId());
+@@ -90,6 +93,10 @@ public class DependencyGraph {
+         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
+         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
+         var scope = MavenScope.fromString(node.getArtifact().getScope());
++        if (skipPluginTestDependency(node, isRoot, skipTestScope)) {
++            PluginLogManager.getLog().debug("Skipping plugin test-scope dependency: " + node.toNodeString());
++            return Optional.empty();
++        }
+         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
+         var repositoryInformation =
+                 isRoot ? RepositoryInformation.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
+@@ -113,8 +120,29 @@ public class DependencyGraph {
+         value.setSelectedVersion(baseVersion);
+         value.setIncluded(included);
+         for (var artifact : graph.successors(node)) {
+-            createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
++            createDependencyNode(artifact, graph, calc, false, reduce, skipTestScope)
++                    .ifPresent(value::addChild);
+         }
+         return Optional.of(value);
+     }
++
++    private static boolean skipPluginTestDependency(
++            org.apache.maven.shared.dependency.graph.DependencyNode node, boolean isRoot, boolean skipTestScope) {
++        if (!skipTestScope) {
++            return false;
++        }
++        if (isRoot) {
++            return false;
++        }
++        boolean isTest = "test".equals(node.getArtifact().getScope());
++        if (isTest) {
++            PluginLogManager.getLog()
++                    .debug(String.format(
++                            "Skipping test-scoped plugin dependency %s:%s:%s",
++                            node.getArtifact().getGroupId(),
++                            node.getArtifact().getArtifactId(),
++                            node.getArtifact().getVersion()));
++        }
++        return isTest;
++    }
+ }
+diff --git a/maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java b/maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java
+index 9aade8f..dbb23f2 100644
+--- a/maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java
++++ b/maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java
+@@ -42,7 +42,7 @@ public class LockfileTest {
+                 groupId,
+                 artifactId,
+                 version,
+-                new Pom(groupId, artifactId, version, "pom.xml", "SHA-256", "POM-CHECKSUM", null),
++                new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
+                 Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
+                 Set.of(pluginA(), pluginB()),
+                 metadata);
+@@ -51,7 +51,7 @@ public class LockfileTest {
+                 groupId,
+                 artifactId,
+                 version,
+-                new Pom(groupId, artifactId, version, "pom.xml", "SHA-256", "POM-CHECKSUM", null),
++                new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
+                 Set.of(dependencyNodeB(), dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2())),
+                 Set.of(pluginB(), pluginA()),
+                 metadata);
+diff --git a/maven_plugin/src/test/java/it/IntegrationTestsIT.java b/maven_plugin/src/test/java/it/IntegrationTestsIT.java
+index 82663d1..7942fdb 100644
+--- a/maven_plugin/src/test/java/it/IntegrationTestsIT.java
++++ b/maven_plugin/src/test/java/it/IntegrationTestsIT.java
+@@ -568,6 +568,12 @@ public class IntegrationTestsIT {
+         assertThat(parentPom.getChecksum()).isNotBlank();
+         // External pom should not have a relativePath
+         assertThat(parentPom.getRelativePath()).isNull();
++        // External pom should have resolved URL and repositoryId
++        assertThat(parentPom.getResolved()).isNotNull();
++        assertThat(parentPom.getResolved().getValue()).contains("spring-boot-starter-parent");
++        assertThat(parentPom.getResolved().getValue()).endsWith(".pom");
++        assertThat(parentPom.getRepositoryId()).isNotNull();
++        assertThat(parentPom.getRepositoryId().getValue()).isNotBlank();
+ 
+         // Verify grandparent pom is present (Spring Boot dependencies)
+         var grandparentPom = parentPom.getParent();
+@@ -577,6 +583,12 @@ public class IntegrationTestsIT {
+                 .extracting(ArtifactId::getValue)
+                 .isEqualTo("spring-boot-dependencies");
+         assertThat(grandparentPom.getChecksum()).isNotBlank();
++        // External grandparent pom should also have resolved URL and repositoryId
++        assertThat(grandparentPom.getResolved()).isNotNull();
++        assertThat(grandparentPom.getResolved().getValue()).contains("spring-boot-dependencies");
++        assertThat(grandparentPom.getResolved().getValue()).endsWith(".pom");
++        assertThat(grandparentPom.getRepositoryId()).isNotNull();
++        assertThat(grandparentPom.getRepositoryId().getValue()).isNotBlank();
+     }
+ 
+     @MavenTest
+@@ -606,5 +618,8 @@ public class IntegrationTestsIT {
+                 .isEqualTo("relative-parent-pom-parent-project");
+         assertThat(parentPom.getChecksum()).isNotBlank();
+         assertThat(parentPom.getRelativePath()).isEqualTo("../pom.xml");
++        // Local parent pom should NOT have resolved URL or repositoryId
++        assertThat(parentPom.getResolved()).isNull();
++        assertThat(parentPom.getRepositoryId()).isNull();
+     }
+ }
+diff --git a/pom.xml b/pom.xml
+index fc09b23..322aec5 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -3,7 +3,7 @@
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>io.github.chains-project</groupId>
+   <artifactId>maven-lockfile-parent</artifactId>
+-  <version>5.12.2-SNAPSHOT</version>
++  <version>5.13.1-SNAPSHOT</version>
+   <packaging>pom</packaging>
+   <name>maven-lockfile-parent</name>
+   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
+@@ -38,9 +38,9 @@
+     <url>https://github.com/chains-project/maven-lockfile/tree/${project.scm.tag}</url>
+   </scm>
+   <properties>
+-    <project.build.outputTimestamp>2026-01-23T13:32:00Z</project.build.outputTimestamp>
++    <project.build.outputTimestamp>2026-01-29T13:35:49Z</project.build.outputTimestamp>
+     <sigstore.skip>true</sigstore.skip>
+-    <released.version>5.12.1</released.version>
++    <released.version>5.13.0</released.version>
+   </properties>
+   <build>
+     <plugins>

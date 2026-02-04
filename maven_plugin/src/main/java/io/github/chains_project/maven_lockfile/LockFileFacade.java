@@ -296,15 +296,12 @@ public class LockFileFacade {
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph));
 
-            PluginLogManager.getLog()
-                    .debug(String.format(
-                            "Built graph with %d nodes for plugin %s",
+            PluginLogManager.getLog().debug(String.format("Built graph with %d nodes for plugin %s",
                             graph.nodes().size(), pluginArtifact));
-
+            // Ignore test-scoped dependencies for plugins          
             DependencyGraph dependencyGraph = DependencyGraph.of(graph, checksumCalculator,false, true);
             // Get root dependency nodes (excluding the plugin project itself)
-            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots =
-                    dependencyGraph.getRoots();
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
             PluginLogManager.getLog()
                     .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginArtifact));
             return roots;
