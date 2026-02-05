@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.GroupId;
@@ -65,6 +66,7 @@ public class LockfileTest {
                 GroupId.of("Ag"),
                 VersionNumber.of("1"),
                 null,
+                ArtifactType.of("pom"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
                 RepositoryId.None(),
@@ -82,6 +84,7 @@ public class LockfileTest {
                 GroupId.of("Bg"),
                 VersionNumber.of("1"),
                 null,
+                ArtifactType.of("jar"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
                 RepositoryId.None(),
@@ -95,6 +98,7 @@ public class LockfileTest {
                 GroupId.of("Ag1"),
                 VersionNumber.of("1"),
                 null,
+                ArtifactType.of("war"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
                 RepositoryId.None(),
@@ -108,6 +112,7 @@ public class LockfileTest {
                 GroupId.of("Ag2"),
                 VersionNumber.of("1"),
                 null,
+                ArtifactType.of("jar"),
                 MavenScope.RUNTIME,
                 ResolvedUrl.Unresolved(),
                 RepositoryId.None(),
