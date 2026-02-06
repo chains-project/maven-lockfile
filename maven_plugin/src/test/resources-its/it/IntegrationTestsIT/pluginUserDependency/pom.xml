@@ -1,0 +1,43 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>plugin-project</artifactId>
+  <packaging>jar</packaging>
+  <version>1</version>
+  <properties>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+</dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>@project.version@</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>3.9.11</version>
+            <scope>compile</scope>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <checksumMode>local</checksumMode>
+          <includeMavenPlugins>true</includeMavenPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
