@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
-          token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify action checksums
         uses: chains-project/maven-lockfile/.github/actions/ghasum@20d836d7b2a6b22c1d2433492f35d9c5d735456c # 5.13.0
@@ -167,35 +167,15 @@ jobs:
           git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
-      - name: Merge Fast Forward
-        run: |
-          git checkout main
-          git merge --ff-only ${{ env.BRANCH_NAME }}
-
-      - name: Attempt Push with Retry
-        env:
-          RETRY_MAX_TIME: 1200
-          RETRY_INTERVAL: 10
+      - name: Create Pull Request for Release
         run: |
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.JRELEASER_GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${{ github.repository }}/pulls \
-            -d '{"title":"Release ${{ env.BRANCH_NAME }} ff-merge","body":"PR to trigger tests required for branch protection rules","head":"${{ env.BRANCH_NAME }}","base":"main"}'
-
-          START_TIME=$(date +%s)
-          while true; do
-            git push origin main && break
-            ELAPSED_TIME=$(( $(date +%s) - START_TIME ))
-            if [ "$ELAPSED_TIME" -ge $RETRY_MAX_TIME ]; then
-              echo "Push failed after $RETRY_MAX_TIME seconds. Exiting..."
-              exit 1
-            fi
-            echo "Push failed. Retrying in $RETRY_INTERVAL seconds..."
-            sleep $RETRY_INTERVAL
-          done
+            -d '{"title":"Release version ${{ env.NEXT_VERSION }}","body":"This PR updates the project to version ${{ env.NEXT_VERSION }} and sets the next SNAPSHOT version to ${{ env.NEXT_RELEASE_VERSION }}.\n\nThis PR should be squash-merged into main.","head":"${{ env.BRANCH_NAME }}","base":"main"}'
 
       # Log failure:
       - name: JReleaser release output
