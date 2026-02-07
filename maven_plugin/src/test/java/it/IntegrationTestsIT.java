@@ -2,6 +2,7 @@ package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.google.common.collect.Ordering;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
@@ -11,6 +12,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -86,6 +88,7 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @SuppressWarnings("null")
     public void pluginProject(MavenExecutionResult result) throws Exception {
         // contract: if including maven plugins the lockfile should contain these and be able to calculate checksums for
         // them. Plugin dependencies should also be resolved and recorded.
@@ -105,6 +108,85 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getMavenPlugins())
                 .allMatch(
                         p -> p.getDependencies() != null && !p.getDependencies().isEmpty());
+
+        lockFile.getMavenPlugins().forEach(plugin -> {
+            plugin.getDependencies().forEach(dep -> {
+                var scope = dep.getScope();
+                if (scope == null) {
+                    fail(String.format(
+                            "scope is null for dependency %s:%s:%s",
+                            dep.getGroupId().getValue(),
+                            dep.getArtifactId().getValue(),
+                            dep.getVersion().getValue()));
+                    return;
+                }
+                // Log the offending plugin that includes the unexpected scope.
+                // Null check warnings are suppressed because the .as() method always generates such a warning.
+                assertThat(scope)
+                        .as(
+                                "Scope of plugin dependency %s:%s:%s",
+                                dep.getGroupId().getValue(),
+                                dep.getArtifactId().getValue(),
+                                dep.getVersion().getValue())
+                        .isNotEqualTo(MavenScope.TEST);
+            });
+        });
+    }
+
+    @MavenTest
+    @SuppressWarnings("null")
+    public void pluginUserDependency(MavenExecutionResult result) throws Exception {
+        // contract: if including maven plugins the lockfile should contain these and be able to calculate checksums for
+        // them. Plugin dependencies should also be resolved and recorded.
+        // Note that remote does not work as the maven-lockfile plugin with SNAPSHOT version is not available on remote.
+        System.out.println("Running 'pluginUserDependency' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
+        assertThat(lockFile.getMavenPlugins())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+
+        // This uses the Maven lockfile plugin itself as a plugin in the test project's build lifecycle.
+        // All dependencies of this plugin should be recorded.
+        assertThat(lockFile.getMavenPlugins())
+                .allMatch(
+                        p -> p.getDependencies() != null && !p.getDependencies().isEmpty());
+
+        lockFile.getMavenPlugins().forEach(plugin -> {
+            plugin.getDependencies().forEach(dep -> {
+                var scope = dep.getScope();
+                if (scope == null) {
+                    fail(String.format(
+                            "scope is null for dependency %s:%s:%s",
+                            dep.getGroupId().getValue(),
+                            dep.getArtifactId().getValue(),
+                            dep.getVersion().getValue()));
+                    return;
+                }
+                // Log the offending plugin that includes the unexpected scope.
+                // Null check warnings are suppressed because the .as() method always generates such a warning.
+                assertThat(scope)
+                        .as(
+                                "Scope of plugin dependency %s:%s:%s",
+                                dep.getGroupId().getValue(),
+                                dep.getArtifactId().getValue(),
+                                dep.getVersion().getValue())
+                        .isNotEqualTo(MavenScope.TEST);
+                // Test that we can override the `maven-plugin-api` dependency scope from `provided` to `compile` for
+                // the maven-lockfile plugin only.
+                if (plugin.getGroupId().getValue().equals("io.github.chains-project")
+                        && plugin.getArtifactId().getValue().equals("maven-lockfile")
+                        && dep.getGroupId().getValue().equals("org.apache.maven")
+                        && dep.getArtifactId().getValue().equals("maven-plugin-api")) {
+                    assertThat(scope)
+                            .as("maven-lockifle org.apache.maven:maven-plugin-api scope")
+                            .isEqualTo(MavenScope.COMPILE);
+                }
+            });
+        });
     }
 
     @MavenTest

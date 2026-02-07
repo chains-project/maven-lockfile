@@ -24,7 +24,11 @@ import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -128,11 +132,33 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator) {
         Set<MavenPlugin> plugins = new TreeSet<>();
+
+        // Build a map of user-declared plugin dependencies
+        // Key: groupId:artifactId, Value: list of user-declared dependencies
+        Map<String, List<Dependency>> userPluginDependencies = new HashMap<>();
+        if (project.getBuild() != null && project.getBuild().getPlugins() != null) {
+            for (Plugin plugin : project.getBuild().getPlugins()) {
+                String key = plugin.getGroupId() + ":" + plugin.getArtifactId();
+                if (plugin.getDependencies() != null
+                        && !plugin.getDependencies().isEmpty()) {
+                    userPluginDependencies.put(key, plugin.getDependencies());
+                }
+            }
+        }
+
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
             RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(pluginArtifact);
+            String pluginKey = pluginArtifact.getGroupId() + ":" + pluginArtifact.getArtifactId();
+            List<Dependency> userDeclaredDeps = userPluginDependencies.getOrDefault(pluginKey, Collections.emptyList());
+
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
                     resolvePluginDependencies(
-                            pluginArtifact, session, project, dependencyCollectorBuilder, checksumCalculator);
+                            pluginArtifact,
+                            session,
+                            project,
+                            dependencyCollectorBuilder,
+                            checksumCalculator,
+                            userDeclaredDeps);
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
@@ -154,6 +180,7 @@ public class LockFileFacade {
      * @param project The current Maven project (for repository configuration)
      * @param dependencyCollectorBuilder The dependency collector builder
      * @param checksumCalculator The checksum calculator
+     * @param userDeclaredDeps User-declared dependencies for this plugin (from the project's pom.xml)
      * @return A set of dependency nodes representing the plugin's dependencies
      */
     private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolvePluginDependencies(
@@ -161,7 +188,8 @@ public class LockFileFacade {
             MavenSession session,
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            List<Dependency> userDeclaredDeps) {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
@@ -277,13 +305,51 @@ public class LockFileFacade {
                     .debug(String.format(
                             "Built plugin project %s with %d declared dependencies", pluginArtifact, declaredDeps));
 
+            // Merge user-declared dependencies into the plugin project
+            // User-declared dependencies override the plugin's default dependencies (e.g., scope changes)
+            if (!userDeclaredDeps.isEmpty()) {
+                List<Dependency> pluginDeps = new ArrayList<>(pluginProject.getDependencies());
+                // Build a map of existing dependencies for quick lookup
+                Map<String, Dependency> existingDepsMap = new HashMap<>();
+                for (Dependency dep : pluginDeps) {
+                    String key = dep.getGroupId() + ":" + dep.getArtifactId();
+                    existingDepsMap.put(key, dep);
+                }
+
+                for (Dependency userDep : userDeclaredDeps) {
+                    String key = userDep.getGroupId() + ":" + userDep.getArtifactId();
+                    if (existingDepsMap.containsKey(key)) {
+                        // Replace existing dependency with user-declared one (overrides scope, version, etc.)
+                        pluginDeps.remove(existingDepsMap.get(key));
+                        PluginLogManager.getLog()
+                                .debug(String.format(
+                                        "Overriding plugin dependency %s with user-declared dependency (scope: %s -> %s)",
+                                        key, existingDepsMap.get(key).getScope(), userDep.getScope()));
+                    } else {
+                        PluginLogManager.getLog()
+                                .debug(String.format(
+                                        "Adding user-declared dependency %s to plugin %s", key, pluginArtifact));
+                    }
+                    pluginDeps.add(userDep);
+                }
+                pluginProject.setDependencies(pluginDeps);
+                PluginLogManager.getLog()
+                        .debug(String.format(
+                                "Plugin %s now has %d dependencies after merging user-declared dependencies",
+                                pluginArtifact, pluginDeps.size()));
+            }
+
             // Resolve dependencies using DependencyCollectorBuilder
             ProjectBuildingRequest dependencyBuildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
             dependencyBuildingRequest.setProject(pluginProject);
             dependencyBuildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
 
-            var rootNode = dependencyCollectorBuilder.collectDependencyGraph(dependencyBuildingRequest, null);
+            // Filter artifacts to "compile+runtime" scopes. Maven plugins require their runtime
+            // scope dependencies to be present alongside any compile-time dependencies.
+            // Test scope dependencies of plugins should be excluded.
+            ArtifactFilter filter = new ScopeArtifactFilter("compile+runtime");
+            var rootNode = dependencyCollectorBuilder.collectDependencyGraph(dependencyBuildingRequest, filter);
 
             int rootChildren =
                     rootNode.getChildren() != null ? rootNode.getChildren().size() : 0;
