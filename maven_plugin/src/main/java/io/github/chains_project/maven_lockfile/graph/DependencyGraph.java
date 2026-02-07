@@ -5,6 +5,7 @@ import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
@@ -87,6 +88,7 @@ public class DependencyGraph {
         var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
         var version = VersionNumber.of(node.getArtifact().getVersion());
         var classifier = Classifier.of(node.getArtifact().getClassifier());
+        var type = ArtifactType.of(node.getArtifact().getType());
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
         var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
@@ -105,6 +107,7 @@ public class DependencyGraph {
                 groupId,
                 version,
                 classifier,
+                type,
                 scope,
                 repositoryInformation.getResolvedUrl(),
                 repositoryInformation.getRepositoryId(),
