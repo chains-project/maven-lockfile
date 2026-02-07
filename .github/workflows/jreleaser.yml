@@ -172,7 +172,7 @@ jobs:
         run: |
           gh pr create \
             --title "Release version ${{ env.NEXT_VERSION }}" \
-            --body "This PR updates the project to version ${{ env.NEXT_VERSION }} and sets the next SNAPSHOT version to ${{ env.NEXT_RELEASE_VERSION }}.\n\nThis PR should be squash-merged into main." \
+            --body "This PR updates the project to version ${{ env.NEXT_VERSION }} and sets the next SNAPSHOT version to ${{ env.NEXT_RELEASE_VERSION }}.\n\nThis PR should be rebased and merged into main." \
             --base main \
             --head "${{ env.BRANCH_NAME }}"
         env:
