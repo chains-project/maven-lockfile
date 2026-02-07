@@ -2382,3 +2382,30 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.1
+## Changelog
+
+## 🚀 Added
+- f14eee8 ✨ feat(ci/cd): Release workflow: Use PR squash-merge with GITHUB_TOKEN for branch protection compatibility (#1491)
+
+## 🐛 Fixed
+- f151b40 🐛 fix: Remove Plugin Test Dependencies (#1488)
+
+## 📦 Dependencies
+- 3f838f9 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.13.0 (#1486)
+
+## 🏁 Release
+- 359a6b5 🔖 Releasing version 5.13.1
+- 161a05f 🔖 Setting SNAPSHOT version 5.13.1-SNAPSHOT
+
+---
+- 1903c5f chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
+- Copilot ()
+- Elias Lundell ()
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
