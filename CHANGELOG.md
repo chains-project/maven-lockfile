@@ -2409,3 +2409,20 @@ We'd like to thank the following people for their contributions:
 - Copilot ()
 - Elias Lundell ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.2-beta-1
+## Changelog
+
+## 🏁 Release
+- 348afe4 🔖 Releasing version 5.13.2-beta-1
+- 2b5b565 🔖 Setting SNAPSHOT version 5.13.2-SNAPSHOT
+- 446b466 🔖 Releasing version 5.13.1
+
+---
+- b407248 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
