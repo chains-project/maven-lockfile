@@ -2409,3 +2409,25 @@ We'd like to thank the following people for their contributions:
 - Copilot ()
 - Elias Lundell ()
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.2
+## Changelog
+
+## 📦 Dependencies
+- b239b85 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.13.1 (#1494)
+
+## 🏁 Release
+- af7da72 🔖 Releasing version 5.13.2
+- 2b5b565 🔖 Setting SNAPSHOT version 5.13.2-SNAPSHOT
+- 446b466 🔖 Releasing version 5.13.1
+
+---
+- 45309f2 Fix release workflow PR creation and merge strategy instruction (#1493)
+- b407248 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Copilot ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
