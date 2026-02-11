@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
@@ -28,6 +29,10 @@ public class JsonUtils {
                         (it, type, ignore) -> new JsonPrimitive(it.getValue()))
                 .registerTypeAdapter(ArtifactId.class, (JsonDeserializer<ArtifactId>)
                         (it, type, ignore) -> ArtifactId.of(it.getAsString()))
+                .registerTypeAdapter(ArtifactType.class, (JsonSerializer<ArtifactType>)
+                        (it, type, ignore) -> new JsonPrimitive(it.getValue()))
+                .registerTypeAdapter(ArtifactType.class, (JsonDeserializer<ArtifactType>)
+                        (it, type, ignore) -> ArtifactType.of(it.getAsString()))
                 .registerTypeAdapter(Classifier.class, (JsonSerializer<Classifier>)
                         (it, type, ignore) -> new JsonPrimitive(it.getValue()))
                 .registerTypeAdapter(Classifier.class, (JsonDeserializer<Classifier>)
