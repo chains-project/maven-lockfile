@@ -13,10 +13,6 @@ on:
           - minor
           - patch
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   build:
     name: Build and release
@@ -24,6 +20,7 @@ jobs:
     permissions:
       id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
       contents: write
+      pull-requests: write
 
     runs-on: ubuntu-latest
 
