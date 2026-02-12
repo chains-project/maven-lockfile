@@ -704,4 +704,18 @@ public class IntegrationTestsIT {
         assertThat(parentPom.getResolved()).isNull();
         assertThat(parentPom.getRepositoryId()).isNull();
     }
+
+    @MavenTest
+    public void artifactTypeProject(MavenExecutionResult result) throws Exception {
+        // contract: dependencies with non-jar types should have their type recorded in the lockfile
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).isNotEmpty();
+        // Verify at least one dependency has a non-null type (the pom-type dependency)
+        assertThat(lockFile.getDependencies())
+                .anyMatch(
+                        dep -> dep.getType() != null && dep.getType().getValue().equals("pom"));
+    }
 }
