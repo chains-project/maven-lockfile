@@ -6,6 +6,8 @@ import java.util.Objects;
 /**
  * A Maven artifact type specifies the packaging type of the artifact (e.g., jar, pom, war).
  * The default type is "jar", so we return null for "jar" or null/empty input to avoid redundant data.
+ * 
+ * This is based on @see <a href="https://maven.apache.org/repositories/dependencies.html#dependency-types">Maven Dependency Types</a>
  */
 public class ArtifactType implements Comparable<ArtifactType> {
     public static ArtifactType of(String type) {
