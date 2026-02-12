@@ -377,7 +377,7 @@ public class IntegrationTestsIT {
     public void classifierDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
         // contract: a changed dependency should fail the build.
         // we changed the classifier id of "classifier": "sources", to "classifier": "42",
-        System.out.print("Running 'classifierDependencyCheckMustFail' integration test.");
+        System.out.println("Running 'classifierDependencyCheckMustFail' integration test.");
         assertThat(result).isFailure();
     }
 
@@ -386,7 +386,7 @@ public class IntegrationTestsIT {
         // contract: a changed dependency should generate a warning on the build.
         // if the allowValidationFailure parameter is true
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
-        System.out.print("Running 'singleDependencyCheckMustWarn' integration test.");
+        System.out.println("Running 'singleDependencyCheckMustWarn' integration test.");
         assertThat(result).isSuccessful();
 
         String stdout = Files.readString(result.getMavenLog().getStdout());
