@@ -67,10 +67,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             } else {
                 classifier = "-" + classifier;
             }
-            String extension = artifact.getType();
-            if (extension.equals("maven-plugin")) {
-                extension = "jar";
-            }
+            String extension = DependencyTypeUtils.getExtension(artifact.getType());
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
@@ -191,10 +188,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             } else {
                 classifier = "-" + classifier;
             }
-            String extension = artifact.getType();
-            if (extension.equals("maven-plugin")) {
-                extension = "jar";
-            }
+            String extension = DependencyTypeUtils.getExtension(artifact.getType());
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             HttpClient client = HttpClient.newBuilder()

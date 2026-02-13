@@ -98,10 +98,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
             String repository = null;
 
-            String type = artifact.getType();
-            if (type.equals("maven-plugin")) {
-                type = "jar";
-            }
+            String type = DependencyTypeUtils.getExtension(artifact.getType());
 
             String classifier = artifact.getClassifier();
             if (classifier == null) {
