@@ -5954,7 +5954,6 @@
               "groupId": "com.kohlschutter.junixsocket",
               "artifactId": "junixsocket-core",
               "version": "2.10.1",
-              "type": "pom",
               "checksumAlgorithm": "SHA-256",
               "checksum": "5f659d3cd7ea2270798e3a078dfd4749bae33102a82f99b6323b471eb31fb2c3",
               "scope": "runtime",
@@ -15545,7 +15544,6 @@
           "artifactId": "maven-surefire-plugin",
           "version": "3.5.4",
           "classifier": "site-source",
-          "type": "zip",
           "checksumAlgorithm": "SHA-256",
           "checksum": "ca97fcfa6328c1081fb6fad573de7501b7d0617f74cf3ff22bab206fd259d0e2",
           "scope": "provided",
@@ -31799,7 +31797,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.13.3",
+      "mavenLockfileVersion": "5.13.2",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
