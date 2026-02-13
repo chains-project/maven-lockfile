@@ -67,7 +67,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             } else {
                 classifier = "-" + classifier;
             }
-            String extension = DependencyTypeUtils.getExtension(artifact.getType());
+            String extension = artifact.getArtifactHandler().getExtension();
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
@@ -188,7 +188,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             } else {
                 classifier = "-" + classifier;
             }
-            String extension = DependencyTypeUtils.getExtension(artifact.getType());
+            String extension = artifact.getArtifactHandler().getExtension();
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             HttpClient client = HttpClient.newBuilder()

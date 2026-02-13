@@ -98,7 +98,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
             String repository = null;
 
-            String type = DependencyTypeUtils.getExtension(artifact.getType());
+            String type = artifact.getArtifactHandler().getExtension();
 
             String classifier = artifact.getClassifier();
             if (classifier == null) {
