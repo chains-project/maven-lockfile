@@ -2431,3 +2431,31 @@ We'd like to thank the following people for their contributions:
 - Copilot ()
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.3
+## Changelog
+
+## 🚀 Added
+- a4062c8 ✨ feat: Add type to lockfile (#1500)
+
+## 🐛 Fixed
+- 984eef8 🐛 ci/cd: Release: Move PR permission to job level (#1497)
+- 3cfdb3c ✏️ typo: Fix missing newlines in IT logging (#1495)
+
+## 📦 Dependencies
+- 4744510 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.13.2 (#1498)
+
+## 🏁 Release
+- 531fa83 🔖 Releasing version 5.13.3
+- e861fa5 🔖 Setting SNAPSHOT version 5.13.3-SNAPSHOT
+- da14a97 🔖 Releasing version 5.13.2
+
+---
+- ef5d043 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
