@@ -1,14 +1,14 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.13.4-SNAPSHOT",
+  "version": "5.13.4-beta-1",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile-parent",
-    "version": "5.13.4-SNAPSHOT",
+    "version": "5.13.4-beta-1",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "902b81ba75977538d80acb12549a1009fc178df55aba735aadd66a06bee1540d"
+    "checksum": "e1f245bbaccf15d9a3fe8dbda7e1e817f09a81fc71a9314e18f15982def6587f"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -2087,6 +2087,7 @@
               "groupId": "com.kohlschutter.junixsocket",
               "artifactId": "junixsocket-core",
               "version": "2.10.1",
+              "type": "pom",
               "checksumAlgorithm": "SHA-256",
               "checksum": "5f659d3cd7ea2270798e3a078dfd4749bae33102a82f99b6323b471eb31fb2c3",
               "scope": "runtime",
@@ -23746,7 +23747,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.13.2",
+      "mavenLockfileVersion": "5.13.4-beta-1",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
