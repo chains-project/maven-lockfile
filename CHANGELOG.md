@@ -2459,3 +2459,23 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ()
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.13.4-beta-1
+## Changelog
+
+## 🔄️ Changed
+- 9a91232 ♻️ refactor: Retrieve extension for maven API (#1501)
+
+## 🏁 Release
+- f0a5451 🔖 Releasing version 5.13.4-beta-1
+- 4cd0742 🔖 Setting SNAPSHOT version 5.13.4-SNAPSHOT
+- 0f95b74 🔖 Releasing version 5.13.3
+
+---
+- b9f189f chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
