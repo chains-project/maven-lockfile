@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
@@ -717,5 +718,27 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getDependencies())
                 .anyMatch(
                         dep -> dep.getType() != null && dep.getType().getValue().equals("pom"));
+    }
+
+    @MavenTest
+    public void freezePluginDependencies(MavenExecutionResult result) throws Exception {
+        // contract: freezing should add plugin dependencies to the frozen POM
+        assertThat(result).isSuccessful();
+        Path lockfilePomPath = findFile(result, "pom.lockfile.xml");
+        assertThat(lockfilePomPath).exists();
+        Model lockfilePom = readPom(lockfilePomPath);
+        // Verify plugins exist in the frozen POM with dependencies
+        assertThat(lockfilePom.getBuild()).isNotNull();
+        assertThat(lockfilePom.getBuild().getPlugins()).isNotEmpty();
+        assertThat(lockfilePom.getBuild().getPlugins())
+                .anyMatch(
+                        p -> p.getDependencies() != null && !p.getDependencies().isEmpty());
+        // Verify plugin dependencies only have valid scopes (compile, runtime, system)
+        for (Plugin plugin : lockfilePom.getBuild().getPlugins()) {
+            for (Dependency dep : plugin.getDependencies()) {
+                String scope = dep.getScope() != null ? dep.getScope() : "compile";
+                assertThat(scope).isIn("compile", "runtime", "system");
+            }
+        }
     }
 }
