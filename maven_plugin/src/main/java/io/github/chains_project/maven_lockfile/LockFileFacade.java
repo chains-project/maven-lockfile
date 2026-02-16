@@ -392,6 +392,23 @@ public class LockFileFacade {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
 
+                    MavenProject effectiveProject = project;
+                    List<MavenProject> parents = new ArrayList<>();
+
+                    MavenProject current = project;
+                    while (current.hasParent()){
+                        current = current.getParent();
+                        parents.add(current);
+                    }
+
+                    List<org.apache.maven.model.Dependency> allDeps = new ArrayList<>(project.getDependencies());
+                    for (MavenProject parent : parents) {
+                        if (parent.getDependencies() != null) {
+                            allDeps.addAll(parent.getDependencies());
+                        }
+                    }
+
+            project.setDependencies(allDeps);
             buildingRequest.setProject(project);
             var rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, null);
 
