@@ -1,0 +1,493 @@
+{
+  "artifactId": "imported-bom-project",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "pom": {
+    "groupId": "com.mycompany.app",
+    "artifactId": "imported-bom-project",
+    "version": "1",
+    "relativePath": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "ef8462bc5f8d5b5fc348d3b2c3e06757d32afc644ae62c4e428664dc5ac07076"
+  },
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter",
+      "version": "3.2.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "18b46cf89609455b34ecd13d95ac8d0cccf88d4d7935249ae4a6f79c6deb43e6",
+      "scope": "compile",
+      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter/3.2.0/spring-boot-starter-3.2.0.jar",
+      "repositoryId": "central",
+      "selectedVersion": "3.2.0",
+      "included": true,
+      "id": "org.springframework.boot:spring-boot-starter:3.2.0",
+      "children": [
+        {
+          "groupId": "jakarta.annotation",
+          "artifactId": "jakarta.annotation-api",
+          "version": "2.1.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "5f65fdaf424eee2b55e1d882ba9bb376be93fb09b37b808be6e22e8851c909fe",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar",
+          "repositoryId": "central",
+          "selectedVersion": "2.1.1",
+          "included": true,
+          "id": "jakarta.annotation:jakarta.annotation-api:2.1.1",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": []
+        },
+        {
+          "groupId": "org.springframework",
+          "artifactId": "spring-core",
+          "version": "6.1.1",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+          "repositoryId": "central",
+          "selectedVersion": "6.1.1",
+          "included": true,
+          "id": "org.springframework:spring-core:6.1.1",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-jcl",
+              "version": "6.1.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "df17daa5812222a83795065dcc920a494dad423171265f8fa392628961c92317",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-jcl/6.1.1/spring-jcl-6.1.1.jar",
+              "repositoryId": "central",
+              "selectedVersion": "6.1.1",
+              "included": true,
+              "id": "org.springframework:spring-jcl:6.1.1",
+              "parent": "org.springframework:spring-core:6.1.1",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot",
+          "version": "3.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "768ce558b6a998d203666d9647ed60a5ec8a6e0cd4598a6a7f6bdf226ff5e5d6",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot/3.2.0/spring-boot-3.2.0.jar",
+          "repositoryId": "central",
+          "selectedVersion": "3.2.0",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot:3.2.0",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": [
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-context",
+              "version": "6.1.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b46807c32546320560078dddd95f3b2e6a42b7a643830b323f45b0573bdbfaad",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-context/6.1.1/spring-context-6.1.1.jar",
+              "repositoryId": "central",
+              "selectedVersion": "6.1.1",
+              "included": true,
+              "id": "org.springframework:spring-context:6.1.1",
+              "parent": "org.springframework.boot:spring-boot:3.2.0",
+              "children": [
+                {
+                  "groupId": "io.micrometer",
+                  "artifactId": "micrometer-observation",
+                  "version": "1.12.0",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "3f160a849da81d2520bbdfe1d6976d1f72568256479576a16bf95babb6520085",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-observation/1.12.0/micrometer-observation-1.12.0.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "1.12.0",
+                  "included": true,
+                  "id": "io.micrometer:micrometer-observation:1.12.0",
+                  "parent": "org.springframework:spring-context:6.1.1",
+                  "children": [
+                    {
+                      "groupId": "io.micrometer",
+                      "artifactId": "micrometer-commons",
+                      "version": "1.12.0",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "f4b8ecae3c8ef40fd9b9da82582aada1cf764b8bb93f4a2a2126575e3f67de47",
+                      "scope": "compile",
+                      "resolved": "https://repo.maven.apache.org/maven2/io/micrometer/micrometer-commons/1.12.0/micrometer-commons-1.12.0.jar",
+                      "repositoryId": "central",
+                      "selectedVersion": "1.12.0",
+                      "included": true,
+                      "id": "io.micrometer:micrometer-commons:1.12.0",
+                      "parent": "io.micrometer:micrometer-observation:1.12.0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-aop",
+                  "version": "6.1.1",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "a3d5a8e7f7f1dc231c25d1d80669b67c3a306294bc9e36cdd002453e76a481b1",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-aop/6.1.1/spring-aop-6.1.1.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "6.1.1",
+                  "included": true,
+                  "id": "org.springframework:spring-aop:6.1.1",
+                  "parent": "org.springframework:spring-context:6.1.1",
+                  "children": [
+                    {
+                      "groupId": "org.springframework",
+                      "artifactId": "spring-beans",
+                      "version": "6.1.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "2bca4b8cdeeb81121db76cc423e4d952e251f708e9abc319c8e3f38511c43b86",
+                      "scope": "compile",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-beans/6.1.1/spring-beans-6.1.1.jar",
+                      "repositoryId": "central",
+                      "selectedVersion": "6.1.1",
+                      "included": false,
+                      "id": "org.springframework:spring-beans:6.1.1",
+                      "parent": "org.springframework:spring-aop:6.1.1",
+                      "children": []
+                    },
+                    {
+                      "groupId": "org.springframework",
+                      "artifactId": "spring-core",
+                      "version": "6.1.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+                      "scope": "compile",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+                      "repositoryId": "central",
+                      "selectedVersion": "6.1.1",
+                      "included": false,
+                      "id": "org.springframework:spring-core:6.1.1",
+                      "parent": "org.springframework:spring-aop:6.1.1",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-beans",
+                  "version": "6.1.1",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "2bca4b8cdeeb81121db76cc423e4d952e251f708e9abc319c8e3f38511c43b86",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-beans/6.1.1/spring-beans-6.1.1.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "6.1.1",
+                  "included": true,
+                  "id": "org.springframework:spring-beans:6.1.1",
+                  "parent": "org.springframework:spring-context:6.1.1",
+                  "children": [
+                    {
+                      "groupId": "org.springframework",
+                      "artifactId": "spring-core",
+                      "version": "6.1.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+                      "scope": "compile",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+                      "repositoryId": "central",
+                      "selectedVersion": "6.1.1",
+                      "included": false,
+                      "id": "org.springframework:spring-core:6.1.1",
+                      "parent": "org.springframework:spring-beans:6.1.1",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-core",
+                  "version": "6.1.1",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "6.1.1",
+                  "included": false,
+                  "id": "org.springframework:spring-core:6.1.1",
+                  "parent": "org.springframework:spring-context:6.1.1",
+                  "children": []
+                },
+                {
+                  "groupId": "org.springframework",
+                  "artifactId": "spring-expression",
+                  "version": "6.1.1",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "a787dc92f1f9959069f5be206d5adbd6c1efb2444d458d279f02eda6b0e6b26f",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-expression/6.1.1/spring-expression-6.1.1.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "6.1.1",
+                  "included": true,
+                  "id": "org.springframework:spring-expression:6.1.1",
+                  "parent": "org.springframework:spring-context:6.1.1",
+                  "children": [
+                    {
+                      "groupId": "org.springframework",
+                      "artifactId": "spring-core",
+                      "version": "6.1.1",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+                      "scope": "compile",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+                      "repositoryId": "central",
+                      "selectedVersion": "6.1.1",
+                      "included": false,
+                      "id": "org.springframework:spring-core:6.1.1",
+                      "parent": "org.springframework:spring-expression:6.1.1",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "groupId": "org.springframework",
+              "artifactId": "spring-core",
+              "version": "6.1.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "a2ef6992edc54d3380ba95c56d86d1baf64afb0eda9296518be21a483318d93f",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/springframework/spring-core/6.1.1/spring-core-6.1.1.jar",
+              "repositoryId": "central",
+              "selectedVersion": "6.1.1",
+              "included": false,
+              "id": "org.springframework:spring-core:6.1.1",
+              "parent": "org.springframework.boot:spring-boot:3.2.0",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-autoconfigure",
+          "version": "3.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "c317b3c218da4fa2f1715e06a5c22432f508cfd64dff0d83946c39092e6848a6",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-autoconfigure/3.2.0/spring-boot-autoconfigure-3.2.0.jar",
+          "repositoryId": "central",
+          "selectedVersion": "3.2.0",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-autoconfigure:3.2.0",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": [
+            {
+              "groupId": "org.springframework.boot",
+              "artifactId": "spring-boot",
+              "version": "3.2.0",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "768ce558b6a998d203666d9647ed60a5ec8a6e0cd4598a6a7f6bdf226ff5e5d6",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot/3.2.0/spring-boot-3.2.0.jar",
+              "repositoryId": "central",
+              "selectedVersion": "3.2.0",
+              "included": false,
+              "id": "org.springframework.boot:spring-boot:3.2.0",
+              "parent": "org.springframework.boot:spring-boot-autoconfigure:3.2.0",
+              "children": []
+            }
+          ]
+        },
+        {
+          "groupId": "org.springframework.boot",
+          "artifactId": "spring-boot-starter-logging",
+          "version": "3.2.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "3bce47ba84854cd6d37d91eadedae2d40a43c5c5069cc19ab9ca11d7ecc2e65d",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-logging/3.2.0/spring-boot-starter-logging-3.2.0.jar",
+          "repositoryId": "central",
+          "selectedVersion": "3.2.0",
+          "included": true,
+          "id": "org.springframework.boot:spring-boot-starter-logging:3.2.0",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": [
+            {
+              "groupId": "ch.qos.logback",
+              "artifactId": "logback-classic",
+              "version": "1.4.11",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "05850fca185dfa652969ed1e3864e365c0d724737a0f4ec68574baad1d855a0e",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-classic/1.4.11/logback-classic-1.4.11.jar",
+              "repositoryId": "central",
+              "selectedVersion": "1.4.11",
+              "included": true,
+              "id": "ch.qos.logback:logback-classic:1.4.11",
+              "parent": "org.springframework.boot:spring-boot-starter-logging:3.2.0",
+              "children": [
+                {
+                  "groupId": "ch.qos.logback",
+                  "artifactId": "logback-core",
+                  "version": "1.4.11",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "37ee7367bd24ca87ef77430119a1cb814a76b240afab5c17f802ea383f58aca1",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/ch/qos/logback/logback-core/1.4.11/logback-core-1.4.11.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "1.4.11",
+                  "included": true,
+                  "id": "ch.qos.logback:logback-core:1.4.11",
+                  "parent": "ch.qos.logback:logback-classic:1.4.11",
+                  "children": []
+                },
+                {
+                  "groupId": "org.slf4j",
+                  "artifactId": "slf4j-api",
+                  "version": "2.0.9",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "2.0.9",
+                  "included": true,
+                  "id": "org.slf4j:slf4j-api:2.0.9",
+                  "parent": "ch.qos.logback:logback-classic:1.4.11",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.apache.logging.log4j",
+              "artifactId": "log4j-to-slf4j",
+              "version": "2.21.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "de143c565ba78b0f2c0be58f132c7aec75e6e1a10845ebda5a4f17c2a35d9990",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-to-slf4j/2.21.1/log4j-to-slf4j-2.21.1.jar",
+              "repositoryId": "central",
+              "selectedVersion": "2.21.1",
+              "included": true,
+              "id": "org.apache.logging.log4j:log4j-to-slf4j:2.21.1",
+              "parent": "org.springframework.boot:spring-boot-starter-logging:3.2.0",
+              "children": [
+                {
+                  "groupId": "org.apache.logging.log4j",
+                  "artifactId": "log4j-api",
+                  "version": "2.21.1",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "1db48e180881bef1deb502022006a025a248d8f6a26186789b0c7ce487c602d6",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.21.1/log4j-api-2.21.1.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "2.21.1",
+                  "included": true,
+                  "id": "org.apache.logging.log4j:log4j-api:2.21.1",
+                  "parent": "org.apache.logging.log4j:log4j-to-slf4j:2.21.1",
+                  "children": []
+                },
+                {
+                  "groupId": "org.slf4j",
+                  "artifactId": "slf4j-api",
+                  "version": "2.0.9",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "2.0.9",
+                  "included": false,
+                  "id": "org.slf4j:slf4j-api:2.0.9",
+                  "parent": "org.apache.logging.log4j:log4j-to-slf4j:2.21.1",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.slf4j",
+              "artifactId": "jul-to-slf4j",
+              "version": "2.0.9",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "69b4e5f8d3bd3f6f54367d19f2c1ee95dd5877802f12d868282e218dd76b00bf",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/jul-to-slf4j/2.0.9/jul-to-slf4j-2.0.9.jar",
+              "repositoryId": "central",
+              "selectedVersion": "2.0.9",
+              "included": true,
+              "id": "org.slf4j:jul-to-slf4j:2.0.9",
+              "parent": "org.springframework.boot:spring-boot-starter-logging:3.2.0",
+              "children": [
+                {
+                  "groupId": "org.slf4j",
+                  "artifactId": "slf4j-api",
+                  "version": "2.0.9",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "0818930dc8d7debb403204611691da58e49d42c50b6ffcfdce02dadb7c3c2b6c",
+                  "scope": "compile",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "2.0.9",
+                  "included": false,
+                  "id": "org.slf4j:slf4j-api:2.0.9",
+                  "parent": "org.slf4j:jul-to-slf4j:2.0.9",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "groupId": "org.yaml",
+          "artifactId": "snakeyaml",
+          "version": "2.2",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "1467931448a0817696ae2805b7b8b20bfb082652bf9c4efaed528930dc49389b",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar",
+          "repositoryId": "central",
+          "selectedVersion": "2.2",
+          "included": true,
+          "id": "org.yaml:snakeyaml:2.2",
+          "parent": "org.springframework.boot:spring-boot-starter:3.2.0",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "mavenPlugins": [],
+  "boms": [
+    {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-dependencies",
+      "version": "3.2.0",
+      "resolved": "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-dependencies/3.2.0/spring-boot-dependencies-3.2.0.pom",
+      "repositoryId": "central",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "d38f834cc0ebf3980a3c75ffbf151eecb9eaf671928ebf9027247861a2418b91"
+    }
+  ],
+  "metaData": {
+    "environment": {
+      "osName": "Linux",
+      "mavenVersion": "3.9.11",
+      "javaVersion": "25.0.2"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
+      "allowEnvironmentalValidationFailure": false,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.13.1-SNAPSHOT",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}

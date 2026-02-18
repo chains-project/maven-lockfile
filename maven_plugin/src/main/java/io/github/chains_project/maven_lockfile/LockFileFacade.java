@@ -100,6 +100,15 @@ public class LockFileFacade {
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
+        
+        // Debug: Write to file to verify this method is called
+        try {
+            java.nio.file.Files.write(java.nio.file.Paths.get("/tmp/generate-debug.log"), 
+                ("generateLockFileFromProject CALLED for project: " + project.getArtifactId() + "\n").getBytes(), 
+                java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
+        } catch (Exception e) {
+            // Ignore file write errors
+        }
         Set<MavenPlugin> plugins = new TreeSet<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
@@ -116,6 +125,17 @@ public class LockFileFacade {
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
         var pom = constructRecursivePom(project, checksumCalculator);
+        Set<Pom> boms = extractImportedBoms(project, checksumCalculator);
+        
+        // Force debug output to see what's happening
+        System.out.println("=== BOM DEBUG: FINAL BOM COUNT: " + boms.size() + " ===");
+        for (Pom bom : boms) {
+            System.out.println("=== BOM DEBUG: FINAL BOM: " + bom.getGroupId() + ":" + bom.getArtifactId() + ":" + bom.getVersion() + " ===");
+        }
+        PluginLogManager.getLog().info("FINAL BOM COUNT: " + boms.size());
+        for (Pom bom : boms) {
+            PluginLogManager.getLog().info("FINAL BOM: " + bom.getGroupId() + ":" + bom.getArtifactId() + ":" + bom.getVersion());
+        }
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -123,7 +143,85 @@ public class LockFileFacade {
                 pom,
                 roots,
                 plugins,
+                boms,
                 metadata);
+    }
+
+    private static Set<Pom> extractImportedBoms(
+            MavenProject project,
+            AbstractChecksumCalculator checksumCalculator) {
+        Set<Pom> boms = new TreeSet<>();
+        
+        // Write debug to file to verify method is called
+        try {
+            java.nio.file.Files.write(java.nio.file.Paths.get("/tmp/bom-debug.log"), 
+                ("BOM EXTRACTION CALLED for project: " + project.getArtifactId() + "\n").getBytes(), 
+                java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
+        } catch (Exception e) {
+            // Ignore file write errors
+        }
+        
+        System.out.println("=== BOM EXTRACTION DEBUG: CALLED for project " + project.getArtifactId() + " ===");
+        PluginLogManager.getLog().info("=== BOM EXTRACTION DEBUG ===");
+        PluginLogManager.getLog().info("Project: " + project.getArtifactId());
+        
+        // Check original model first
+        if (project.getOriginalModel().getDependencyManagement() != null) {
+            PluginLogManager.getLog().info("✓ Found dependencyManagement in ORIGINAL MODEL");
+            var dependencies = project.getOriginalModel().getDependencyManagement().getDependencies();
+            PluginLogManager.getLog().info("✓ Original model has " + dependencies.size() + " dependencies");
+            
+            for (org.apache.maven.model.Dependency dependency : dependencies) {
+                PluginLogManager.getLog().info(" Dependency: " + dependency.getGroupId() + ":" + dependency.getArtifactId() + 
+                                 " scope=" + dependency.getScope() + " type=" + dependency.getType());
+                if ("import".equals(dependency.getScope()) && "pom".equals(dependency.getType())) {
+                    PluginLogManager.getLog().info(" FOUND BOM IMPORT: " + dependency);
+                    try {
+                        Artifact bomArtifact = new DefaultArtifact(
+                                dependency.getGroupId(),
+                                dependency.getArtifactId(),
+                                dependency.getVersion(),
+                                "compile",
+                                "pom",
+                                null,
+                                project.getArtifact().getArtifactHandler());
+                        
+                        String bomChecksum = checksumCalculator.calculateArtifactChecksum(bomArtifact);
+                        RepositoryInformation repositoryInformation = checksumCalculator.getArtifactResolvedField(bomArtifact);
+                        
+                        Pom bomPom = new Pom(
+                                GroupId.of(dependency.getGroupId()),
+                                ArtifactId.of(dependency.getArtifactId()),
+                                VersionNumber.of(dependency.getVersion()),
+                                null,
+                                repositoryInformation != null ? repositoryInformation.getResolvedUrl() : ResolvedUrl.Unresolved(),
+                                repositoryInformation != null ? repositoryInformation.getRepositoryId() : RepositoryId.None(),
+                                checksumCalculator.getChecksumAlgorithm(),
+                                bomChecksum,
+                                null);
+                        
+                        boms.add(bomPom);
+                        PluginLogManager.getLog().info(" Successfully added BOM: " + dependency.getArtifactId());
+                    } catch (Exception e) {
+                        PluginLogManager.getLog().warn(" Failed to process BOM: " + dependency + " - " + e.getMessage(), e);
+                    }
+                }
+            }
+        } else {
+            PluginLogManager.getLog().info("✗ No dependencyManagement in ORIGINAL MODEL");
+        }
+
+        // Also check current model
+        if (project.getModel().getDependencyManagement() != null) {
+            PluginLogManager.getLog().info("✓ Found dependencyManagement in CURRENT MODEL");
+            var dependencies = project.getModel().getDependencyManagement().getDependencies();
+            PluginLogManager.getLog().info("✓ Current model has " + dependencies.size() + " dependencies");
+        } else {
+            PluginLogManager.getLog().info("✗ No dependencyManagement in CURRENT MODEL");
+        }
+        
+        PluginLogManager.getLog().info("=== END BOM EXTRACTION DEBUG: Found " + boms.size() + " BOMs ===");
+        return boms;
     }
 
     private static Set<MavenPlugin> getAllPlugins(

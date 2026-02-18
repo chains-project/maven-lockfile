@@ -706,16 +706,28 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
-    public void artifactTypeProject(MavenExecutionResult result) throws Exception {
-        // contract: dependencies with non-jar types should have their type recorded in the lockfile
+    public void importedBomShouldBeLocked(MavenExecutionResult result) throws Exception {
+        // contract: a project importing a BOM should generate a lockfile containing the BOM
+        System.out.println("Running 'importedBomShouldBeLocked' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getDependencies()).isNotEmpty();
-        // Verify at least one dependency has a non-null type (the pom-type dependency)
-        assertThat(lockFile.getDependencies())
-                .anyMatch(
-                        dep -> dep.getType() != null && dep.getType().getValue().equals("pom"));
+        
+        // Assert BOMs is NOT empty
+        assertThat(lockFile.getBoms()).isNotEmpty();
+        assertThat(lockFile.getBoms()).hasSize(1);
+        
+        // Verify BOM details
+        var bom = lockFile.getBoms().iterator().next();
+        assertThat(bom.getGroupId()).extracting(GroupId::getValue).isEqualTo("org.springframework.boot");
+        assertThat(bom.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("spring-boot-dependencies");
+        assertThat(bom.getVersion()).extracting(VersionNumber::getValue).isEqualTo("3.2.0");
+        assertThat(bom.getResolved()).isNotNull();
+        assertThat(bom.getResolved().getValue()).contains("spring-boot-dependencies");
+        assertThat(bom.getResolved().getValue()).endsWith(".pom");
+        assertThat(bom.getChecksum()).isNotBlank();
+        assertThat(bom.getRepositoryId()).isNotNull();
+        assertThat(bom.getRepositoryId().getValue()).isNotBlank();
     }
 }
