@@ -214,7 +214,7 @@ public class FreezeDependencyMojo extends AbstractMojo {
             Plugin plugin = existingPluginsMap.get(key);
 
             if (plugin == null) {
-                // Plugin doesn't exist in the POM, create it
+                getLog().warn(String.format("Plugin %s not found in POM, adding it.", key));
                 plugin = new Plugin();
                 plugin.setGroupId(mavenPlugin.getGroupId().getValue());
                 plugin.setArtifactId(mavenPlugin.getArtifactId().getValue());
