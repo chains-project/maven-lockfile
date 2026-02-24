@@ -61,6 +61,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String baseVersion = artifact.getBaseVersion();
             String classifier = artifact.getClassifier();
             if (classifier == null) {
                 classifier = "";
@@ -77,7 +78,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
-                        + version + "/" + filename;
+                        + baseVersion + "/" + filename;
                 String checksumUrl =
                         artifactUrl + "." + checksumAlgorithm.toLowerCase().replace("-", "");
 
@@ -182,6 +183,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String version = artifact.getVersion();
+            String baseVersion = artifact.getBaseVersion();
             String classifier = artifact.getClassifier();
             if (classifier == null) {
                 classifier = "";
@@ -196,8 +198,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     .build();
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
-                String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + version
-                        + "/" + filename;
+                String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
+                        + baseVersion + "/" + filename;
 
                 PluginLogManager.getLog().debug(String.format("Checking: %s", url));
 
