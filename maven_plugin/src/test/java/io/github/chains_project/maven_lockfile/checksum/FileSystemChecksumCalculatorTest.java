@@ -76,10 +76,9 @@ public class FileSystemChecksumCalculatorTest {
         RepositoryInformation result = calculator.getArtifactResolvedField(artifact);
 
         // URL directory must use the baseVersion ("1.0-SNAPSHOT"), not the timestamped version
-        String expectedUrl = repositoryUrl.replaceAll("/$", "") + "/com/example/my-artifact/"
-                + baseVersion + "/" + artifactId + "-" + timestampedVersion + ".jar";
-        assertThat(result.getResolvedUrl())
-                .isEqualTo(ResolvedUrl.of(expectedUrl));
+        String expectedUrl = repositoryUrl.replaceAll("/$", "") + "/com/example/my-artifact/" + baseVersion + "/"
+                + artifactId + "-" + timestampedVersion + ".jar";
+        assertThat(result.getResolvedUrl()).isEqualTo(ResolvedUrl.of(expectedUrl));
         assertThat(result.getRepositoryId()).isEqualTo(RepositoryId.of(repositoryId));
     }
 
@@ -126,8 +125,8 @@ public class FileSystemChecksumCalculatorTest {
 
         RepositoryInformation result = calculator.getArtifactResolvedField(artifact);
 
-        String expectedUrl = repositoryUrl.replaceAll("/$", "") + "/com/example/my-artifact/"
-                + version + "/" + artifactId + "-" + version + ".jar";
+        String expectedUrl = repositoryUrl.replaceAll("/$", "") + "/com/example/my-artifact/" + version + "/"
+                + artifactId + "-" + version + ".jar";
         assertThat(result.getResolvedUrl()).isEqualTo(ResolvedUrl.of(expectedUrl));
         assertThat(result.getRepositoryId()).isEqualTo(RepositoryId.of(repositoryId));
     }
