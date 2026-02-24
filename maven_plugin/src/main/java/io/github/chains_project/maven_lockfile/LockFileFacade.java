@@ -222,10 +222,11 @@ public class LockFileFacade {
                     String groupPath = pluginArtifact.getGroupId().replace(".", "/");
                     String artifactId = pluginArtifact.getArtifactId();
                     String version = pluginArtifact.getVersion();
+                    String baseVersion = pluginArtifact.getBaseVersion();
                     String pomFileName = artifactId + "-" + version + ".pom";
 
                     Path localPomPath =
-                            Paths.get(localRepoBase.getAbsolutePath(), groupPath, artifactId, version, pomFileName);
+                            Paths.get(localRepoBase.getAbsolutePath(), groupPath, artifactId, baseVersion, pomFileName);
                     if (Files.exists(localPomPath)) {
                         pluginPomFile = localPomPath.toFile();
                     } else {
