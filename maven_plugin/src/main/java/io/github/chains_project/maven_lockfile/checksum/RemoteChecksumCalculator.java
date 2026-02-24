@@ -9,10 +9,16 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -222,6 +228,37 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
             resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public void prewarmArtifactCache(Collection<Artifact> artifacts) {
+        if (artifacts.isEmpty()) {
+            return;
+        }
+        int poolSize = Math.min(16, Math.max(4, Runtime.getRuntime().availableProcessors() * 2));
+        PluginLogManager.getLog()
+                .info(String.format(
+                        "Pre-warming checksum cache for %d unique artifacts with %d threads",
+                        artifacts.size(), poolSize));
+        ExecutorService executor = Executors.newFixedThreadPool(poolSize);
+        try {
+            List<Future<?>> futures = new ArrayList<>();
+            for (var artifact : artifacts) {
+                futures.add(executor.submit(() -> {
+                    calculateArtifactChecksum(artifact);
+                    getArtifactResolvedField(artifact);
+                }));
+            }
+            for (var future : futures) {
+                try {
+                    future.get();
+                } catch (Exception e) {
+                    PluginLogManager.getLog().debug("Pre-warm task failed: " + e.getMessage());
+                }
+            }
+        } finally {
+            executor.shutdown();
         }
     }
 

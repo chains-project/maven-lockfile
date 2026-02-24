@@ -12,10 +12,8 @@ import io.github.chains_project.maven_lockfile.data.MavenScope;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.stream.Collectors;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.shared.dependency.graph.internal.SpyingDependencyNodeUtils;
 
 public class DependencyGraph {
@@ -67,43 +65,20 @@ public class DependencyGraph {
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
 
-        // Pre-warm checksum cache in parallel for I/O-bound remote fetching
-        var nonRootNodes = graph.nodes().stream()
-                .filter(it -> !graph.predecessors(it).isEmpty())
-                .collect(Collectors.toList());
+        // Collect unique non-root artifacts and let the calculator pre-warm its cache
         Set<String> seen = new HashSet<>();
-        List<org.apache.maven.shared.dependency.graph.DependencyNode> uniqueNodes = new ArrayList<>();
-        for (var node : nonRootNodes) {
-            var a = node.getArtifact();
-            String key = a.getGroupId() + ":" + a.getArtifactId() + ":" + a.getVersion() + ":"
-                    + (a.getClassifier() != null ? a.getClassifier() : "") + ":" + a.getType();
-            if (seen.add(key)) {
-                uniqueNodes.add(node);
-            }
-        }
-        if (!uniqueNodes.isEmpty()) {
-            int poolSize = Math.min(16, Math.max(4, Runtime.getRuntime().availableProcessors() * 2));
-            PluginLogManager.getLog()
-                    .info(String.format(
-                            "Pre-warming checksum cache for %d unique artifacts with %d threads",
-                            uniqueNodes.size(), poolSize));
-            ExecutorService executor = Executors.newFixedThreadPool(poolSize);
-            List<Future<?>> futures = new ArrayList<>();
-            for (var node : uniqueNodes) {
-                futures.add(executor.submit(() -> {
-                    calc.calculateArtifactChecksum(node.getArtifact());
-                    calc.getArtifactResolvedField(node.getArtifact());
-                }));
-            }
-            for (var future : futures) {
-                try {
-                    future.get();
-                } catch (Exception e) {
-                    PluginLogManager.getLog().debug("Pre-warm task failed: " + e.getMessage());
+        List<Artifact> uniqueArtifacts = new ArrayList<>();
+        for (var node : graph.nodes()) {
+            if (!graph.predecessors(node).isEmpty()) {
+                var a = node.getArtifact();
+                String key = a.getGroupId() + ":" + a.getArtifactId() + ":" + a.getVersion() + ":"
+                        + (a.getClassifier() != null ? a.getClassifier() : "") + ":" + a.getType();
+                if (seen.add(key)) {
+                    uniqueArtifacts.add(a);
                 }
             }
-            executor.shutdown();
         }
+        calc.prewarmArtifactCache(uniqueArtifacts);
 
         Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         for (var artifact : roots) {
