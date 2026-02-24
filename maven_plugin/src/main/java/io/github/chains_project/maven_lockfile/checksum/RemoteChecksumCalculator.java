@@ -21,6 +21,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
+    private final HttpClient httpClient;
     private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
     private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
 
@@ -39,6 +40,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
+        this.httpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.ALWAYS)
+                .build();
     }
 
     private String getCacheKey(Artifact artifact) {
@@ -72,9 +76,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
@@ -87,7 +88,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
                 HttpResponse<String> checksumResponse =
-                        client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
+                        httpClient.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
                     String checksum = checksumResponse.body().strip();
@@ -100,7 +101,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl))
                             .build();
                     HttpResponse<byte[]> artifactResponse =
-                            client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
+                            httpClient.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
 
                     if (artifactResponse.statusCode() < 200 || artifactResponse.statusCode() >= 300) {
                         continue;
@@ -116,7 +117,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl + ".sha1"))
                             .build();
                     HttpResponse<String> artifactVerificationResponse =
-                            client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+                            httpClient.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
                     // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
                     // For example provided by:
@@ -193,10 +194,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String extension = artifact.getArtifactHandler().getExtension();
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
-
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
                         + baseVersion + "/" + filename;
@@ -207,7 +204,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         .uri(URI.create(url))
                         .method("HEAD", HttpRequest.BodyPublishers.noBody())
                         .build();
-                HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
+                HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
                     RepositoryInformation result =
