@@ -57,7 +57,7 @@ jobs:
       - name: Check maven pom quality
         run: mvn org.kordamp.maven:pomchecker-maven-plugin:1.9.0:check-maven-central -D"checker.release=false"
 
-  reproducilbilty:
+  reproducibility:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -94,8 +94,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots clean install
+      - name: First build
+        run: mvn --batch-mode --update-snapshots clean package -DskipTests
 
-      - name: Run reproducibility check
-        run: mvn clean install
+      - name: Save checksums of first build
+        run: sha256sum target/*.jar > /tmp/checksums.txt
+
+      - name: Rebuild
+        run: mvn --batch-mode clean package -DskipTests
+
+      - name: Compare JARs from both builds
+        run: sha256sum -c /tmp/checksums.txt
