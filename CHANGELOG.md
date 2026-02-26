@@ -2459,3 +2459,30 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ()
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.14.0
+## Changelog
+
+## 🚀 Added
+- 221131b ✨ feat: Include plugin dependencies in freeze (#1508)
+
+## 🔄️ Changed
+- f968cc1 ♻️ refactor: Add warning on missing plugin (#1510)
+- 9a91232 ♻️ refactor: Retrieve extension for maven API (#1501)
+
+## 📦 Dependencies
+- eee94fb ⬆️ (deps): Update chains-project/maven-lockfile action to v5.13.3 (#1504)
+
+## 🏁 Release
+- 2d2ed14 🔖 Releasing version 5.14.0
+- 4cd0742 🔖 Setting SNAPSHOT version 5.13.4-SNAPSHOT
+- 0f95b74 🔖 Releasing version 5.13.3
+
+---
+- b9f189f chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
