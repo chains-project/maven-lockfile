@@ -15,15 +15,12 @@ import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
-import java.io.File;
-import java.nio.file.Files;
+import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
@@ -31,14 +28,10 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -193,111 +186,16 @@ public class LockFileFacade {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
-            // Resolve the plugin's POM artifact
-            File pluginPomFile = null;
+            ProjectBuilder projectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories());
+            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGav(
+                    pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
 
-            // Try to get POM from the JAR file location first (faster if already resolved)
-            File pluginJarFile = pluginArtifact.getFile();
-            if (pluginJarFile != null && pluginJarFile.exists()) {
-                // Construct POM file path by replacing .jar with .pom
-                String jarPath = pluginJarFile.getAbsolutePath();
-                String pomPath = jarPath.replace(".jar", ".pom");
-                File potentialPomFile = new File(pomPath);
-                if (potentialPomFile.exists()) {
-                    pluginPomFile = potentialPomFile;
-                }
-            }
-
-            // If POM not found, try to construct path using Maven repository layout
-            if (pluginPomFile == null || !pluginPomFile.exists()) {
-                try {
-                    // Try to find POM in local repository using standard Maven layout
-                    // Format: groupId/artifactId/version/artifactId-version.pom
-                    var repositorySession = session.getRepositorySession();
-
-                    // getBasedir is deprecated, but is compatible with Maven 3.9.x.
-                    @SuppressWarnings("deprecation")
-                    File localRepoBase = repositorySession.getLocalRepository().getBasedir();
-
-                    String groupPath = pluginArtifact.getGroupId().replace(".", "/");
-                    String artifactId = pluginArtifact.getArtifactId();
-                    String version = pluginArtifact.getVersion();
-                    String baseVersion = pluginArtifact.getBaseVersion();
-                    String pomFileName = artifactId + "-" + version + ".pom";
-
-                    Path localPomPath =
-                            Paths.get(localRepoBase.getAbsolutePath(), groupPath, artifactId, baseVersion, pomFileName);
-                    if (Files.exists(localPomPath)) {
-                        pluginPomFile = localPomPath.toFile();
-                    } else {
-                        // If not in local repo, try to resolve it using artifact resolver
-                        @SuppressWarnings("deprecation")
-                        ArtifactFactory artifactFactory = session.getContainer().lookup(ArtifactFactory.class);
-                        Artifact pomArtifact = artifactFactory.createArtifact(
-                                pluginArtifact.getGroupId(),
-                                pluginArtifact.getArtifactId(),
-                                pluginArtifact.getVersion(),
-                                null,
-                                "pom");
-
-                        ProjectBuildingRequest pomBuildingRequest =
-                                new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-                        pomBuildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
-
-                        @SuppressWarnings("deprecation")
-                        ArtifactResolver artifactResolver =
-                                session.getContainer().lookup(ArtifactResolver.class);
-                        ArtifactResult result = artifactResolver.resolveArtifact(pomBuildingRequest, pomArtifact);
-                        if (result != null
-                                && result.getArtifact() != null
-                                && result.getArtifact().getFile() != null) {
-                            pluginPomFile = result.getArtifact().getFile();
-                        }
-                    }
-                } catch (Exception e) {
-                    PluginLogManager.getLog()
-                            .debug(String.format(
-                                    "Could not resolve POM artifact for plugin %s: %s",
-                                    pluginArtifact, e.getMessage()));
-                }
-            }
-
-            if (pluginPomFile == null || !pluginPomFile.exists()) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Could not find POM file for plugin %s, skipping dependency resolution",
-                                pluginArtifact));
-                return Collections.emptySet();
-            }
-
-            PluginLogManager.getLog()
-                    .debug(String.format(
-                            "Resolving dependencies for plugin %s using POM: %s",
-                            pluginArtifact, pluginPomFile.getAbsolutePath()));
-
-            // Build MavenProject from plugin POM
-            ProjectBuildingRequest buildingRequest =
-                    new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-            buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
-            buildingRequest.setProcessPlugins(false);
-            buildingRequest.setResolveDependencies(true);
-
-            // Note: getContainer() is deprecated but there's no clear replacement in the current Maven API
-            @SuppressWarnings("deprecation")
-            ProjectBuilder projectBuilder = session.getContainer().lookup(ProjectBuilder.class);
-            ProjectBuildingResult result = projectBuilder.build(pluginPomFile, buildingRequest);
-
-            if (result.getProblems() != null && !result.getProblems().isEmpty()) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Problems building plugin project for %s: %s", pluginArtifact, result.getProblems()));
-            }
-
-            MavenProject pluginProject = result.getProject();
-            if (pluginProject == null) {
+            if (pluginProjectOptional.isEmpty()) {
                 PluginLogManager.getLog().warn(String.format("Could not build project for plugin %s", pluginArtifact));
                 return Collections.emptySet();
             }
+
+            var pluginProject = pluginProjectOptional.get();
 
             int declaredDeps = pluginProject.getDependencies() != null
                     ? pluginProject.getDependencies().size()
