@@ -15,6 +15,7 @@ import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
 import java.nio.file.Path;
 import java.util.*;
@@ -109,6 +110,8 @@ public class LockFileFacade {
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
         var pom = constructRecursivePom(project, checksumCalculator);
+        resolveBoms(graph, session, project, checksumCalculator);
+
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -368,5 +371,25 @@ public class LockFileFacade {
         }
 
         return lastPom;
+    }
+
+    /**
+     * Resolve the BOM POMs for the current project and its dependencies.
+     *
+     * Note that this function will mutate the graph nodes by adding to each one the list of resolved BOMs.
+     *
+     * @param graph The dependency graph
+     * @param session The Maven session
+     * @param project The current Maven project
+     * @param checksumCalculator The checksum calculator
+     */
+    private static void resolveBoms(
+            DependencyGraph graph,
+            MavenSession session,
+            MavenProject project,
+            AbstractChecksumCalculator checksumCalculator) {
+        BomResolver resolver = new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator);
+
+        resolver.resolveBomsForDependencies(graph);
     }
 }

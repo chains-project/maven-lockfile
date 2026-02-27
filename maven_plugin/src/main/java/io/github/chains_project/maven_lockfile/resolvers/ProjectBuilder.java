@@ -116,7 +116,7 @@ public class ProjectBuilder {
                     session.getContainer().lookup(org.apache.maven.project.ProjectBuilder.class);
             ProjectBuildingResult result = projectBuilder.build(pomFile, buildingRequest);
 
-            if (result.getProblems() != null && !result.getProblems().isEmpty()) {
+            if (result.getProject() == null) {
                 log.warn(String.format(
                         "Problems building plugin project for %s: %s",
                         pomFile.getAbsoluteFile(), result.getProblems()));

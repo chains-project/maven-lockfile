@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Classifier;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.MavenScope;
+import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -39,6 +40,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     private final Set<DependencyNode> children;
 
+    private Set<Pom> boms;
+
     DependencyNode(
             ArtifactId artifactId,
             GroupId groupId,
@@ -62,6 +65,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.scope = scope;
         this.resolved = resolved;
         this.repositoryId = repositoryId;
+        this.boms = new TreeSet<>();
     }
     /**
      * @return the artifactId
@@ -117,6 +121,12 @@ public class DependencyNode implements Comparable<DependencyNode> {
     public RepositoryId getRepositoryId() {
         return repositoryId;
     }
+    /**
+     * @return the BOM POMs.
+     */
+    public Set<Pom> getBoms() {
+        return boms;
+    }
 
     void addChild(DependencyNode child) {
         children.add(child);
@@ -128,6 +138,10 @@ public class DependencyNode implements Comparable<DependencyNode> {
 
     void setParent(NodeId parent) {
         this.parent = parent;
+    }
+
+    public void setBoms(Set<Pom> boms) {
+        this.boms = boms;
     }
 
     /**
@@ -190,7 +204,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 selectedVersion,
                 id,
                 parent,
-                children);
+                children,
+                boms);
     }
 
     @Override
@@ -213,7 +228,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(selectedVersion, other.selectedVersion)
                 && Objects.equals(id, other.id)
                 && Objects.equals(parent, other.parent)
-                && Objects.equals(children, other.children);
+                && Objects.equals(children, other.children)
+                && Objects.equals(boms, other.boms);
     }
 
     @Override
@@ -248,7 +264,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 + ", classifier=" + classifier + ", type=" + type + ", checksumAlgorithm=" + checksumAlgorithm
                 + ", checksum=" + checksum + ", scope=" + scope + ", resolved=" + resolved + ", repositoryId="
                 + repositoryId + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
-                + ", children=" + children + "]";
+                + ", children=" + children + ", boms=" + boms + "]";
     }
 
     public String getComparatorString() {
