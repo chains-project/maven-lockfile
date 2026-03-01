@@ -2486,3 +2486,29 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.14.1-beta-1
+## Changelog
+
+## 🐛 Fixed
+- cba0563 🐛 fix: Reproducibility check (#1514)
+- 1d8855b 🐛 fix: Use baseVersion for path resolution (#1506)
+
+## 📦 Dependencies
+- a36faf2 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.14.0 (#1515)
+
+## 🏁 Release
+- 88008f7 🔖 Releasing version 5.14.1-beta-1
+- 3cf9c3b 🔖 Setting SNAPSHOT version 5.14.1-SNAPSHOT
+- 4486aed 🔖 Releasing version 5.14.0
+
+---
+- 17099c1 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- algomaster99 ([@algomaster99](https://github.com/algomaster99))
