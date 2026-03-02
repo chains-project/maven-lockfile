@@ -130,4 +130,54 @@ public class FileSystemChecksumCalculatorTest {
         assertThat(result.getResolvedUrl()).isEqualTo(ResolvedUrl.of(expectedUrl));
         assertThat(result.getRepositoryId()).isEqualTo(RepositoryId.of(repositoryId));
     }
+
+    @Test
+    void versionSuffixArtifactResolvedUrlUsesVersion() throws Exception {
+        // contract: for non-SNAPSHOT artifacts with a non-semantic version suffix,
+        // the resolved URL path uses the same version for both the directory and the filename.
+        String groupId = "com.example";
+        String artifactId = "my-artifact";
+        String version = "1.0.0-redhat-0012";
+        String repositoryId = "redhat-ga";
+        String repositoryUrl = "https://maven.repository.redhat.com/ga/";
+
+        Path artifactDir = tempDir.resolve("com/example/my-artifact/" + version);
+        Files.createDirectories(artifactDir);
+
+        Path artifactFile = artifactDir.resolve(artifactId + "-" + version + ".jar");
+        Files.createFile(artifactFile);
+
+        Path remoteReposFile = artifactDir.resolve("_remote.repositories");
+        Files.writeString(remoteReposFile, artifactId + "-" + version + ".jar>" + repositoryId + "=\n");
+
+        DefaultArtifact artifact = new DefaultArtifact(
+                groupId,
+                artifactId,
+                VersionRange.createFromVersion(version),
+                "compile",
+                "jar",
+                null,
+                new DefaultArtifactHandler("jar"));
+        artifact.setFile(artifactFile.toFile());
+
+        DefaultProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        MavenArtifactRepository redHatGARepo = new MavenArtifactRepository(
+                repositoryId,
+                repositoryUrl,
+                new DefaultRepositoryLayout(),
+                new ArtifactRepositoryPolicy(),
+                new ArtifactRepositoryPolicy());
+        buildingRequest.setRemoteRepositories(List.of(redHatGARepo));
+
+        FileSystemChecksumCalculator calculator =
+                new FileSystemChecksumCalculator(null, buildingRequest, buildingRequest, "SHA-256");
+
+        RepositoryInformation result = calculator.getArtifactResolvedField(artifact);
+
+        String expectedUrl = repositoryUrl.replaceAll("/$", "") + "/com/example/my-artifact/" + version + "/"
+                + artifactId + "-" + version + ".jar";
+        assertThat(result.getResolvedUrl()).isEqualTo(ResolvedUrl.of(expectedUrl));
+        assertThat(result.getRepositoryId()).isEqualTo(RepositoryId.of(repositoryId));
+    }
+
 }
