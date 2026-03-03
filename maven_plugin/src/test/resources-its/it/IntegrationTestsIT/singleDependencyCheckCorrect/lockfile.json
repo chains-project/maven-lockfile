@@ -38,7 +38,8 @@
           "included": true,
           "id": "org.apiguardian:apiguardian-api:1.1.2",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "children": []
+          "children": [],
+          "boms": []
         },
         {
           "groupId": "org.junit.platform",
@@ -67,7 +68,19 @@
               "included": false,
               "id": "org.apiguardian:apiguardian-api:1.1.2",
               "parent": "org.junit.platform:junit-platform-commons:1.9.2",
-              "children": []
+              "children": [],
+              "boms": []
+            }
+          ],
+          "boms": [
+            {
+              "groupId": "org.junit",
+              "artifactId": "junit-bom",
+              "version": "5.9.2",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.9.2/junit-bom-5.9.2.pom",
+              "repositoryId": "central",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "2ed07d65845131f5336a86476c9a4056b59d0b58b9815ab3679bb0f36f35f705"
             }
           ]
         },
@@ -84,7 +97,19 @@
           "included": true,
           "id": "org.opentest4j:opentest4j:1.2.0",
           "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "children": []
+          "children": [],
+          "boms": []
+        }
+      ],
+      "boms": [
+        {
+          "groupId": "org.junit",
+          "artifactId": "junit-bom",
+          "version": "5.9.2",
+          "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.9.2/junit-bom-5.9.2.pom",
+          "repositoryId": "central",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "2ed07d65845131f5336a86476c9a4056b59d0b58b9815ab3679bb0f36f35f705"
         }
       ]
     }
@@ -94,7 +119,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.5"
+      "javaVersion": "21.0.9"
     },
     "config": {
       "includeMavenPlugins": false,
@@ -103,7 +128,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.14.3-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
