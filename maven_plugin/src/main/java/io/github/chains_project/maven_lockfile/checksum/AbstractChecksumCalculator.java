@@ -5,6 +5,7 @@ import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.util.Collection;
 import java.util.Locale;
 import org.apache.maven.artifact.Artifact;
 
@@ -36,6 +37,14 @@ public abstract class AbstractChecksumCalculator {
     public abstract RepositoryInformation getArtifactResolvedField(Artifact artifact);
 
     public abstract RepositoryInformation getPluginResolvedField(Artifact artifact);
+
+    /**
+     * Pre-warm internal caches for the given artifacts. Implementations may use this
+     * to fetch checksums and repository information in parallel. The default is a no-op.
+     */
+    public void prewarmArtifactCache(Collection<Artifact> artifacts) {
+        // No-op by default; overridden by RemoteChecksumCalculator
+    }
 
     public String calculatePomChecksum(Path path) {
         try {

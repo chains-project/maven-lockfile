@@ -9,10 +9,16 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -21,6 +27,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
+    private final HttpClient httpClient;
     private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
     private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
 
@@ -39,6 +46,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
+        this.httpClient = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.ALWAYS)
+                .build();
     }
 
     private String getCacheKey(Artifact artifact) {
@@ -72,9 +82,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
             BaseEncoding baseEncoding = BaseEncoding.base16();
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
 
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String artifactUrl = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
@@ -87,7 +94,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 HttpRequest checksumRequest =
                         HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
                 HttpResponse<String> checksumResponse =
-                        client.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
+                        httpClient.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
                     String checksum = checksumResponse.body().strip();
@@ -100,7 +107,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl))
                             .build();
                     HttpResponse<byte[]> artifactResponse =
-                            client.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
+                            httpClient.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
 
                     if (artifactResponse.statusCode() < 200 || artifactResponse.statusCode() >= 300) {
                         continue;
@@ -116,7 +123,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .uri(URI.create(artifactUrl + ".sha1"))
                             .build();
                     HttpResponse<String> artifactVerificationResponse =
-                            client.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+                            httpClient.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
                     // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
                     // For example provided by:
@@ -193,10 +200,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String extension = artifact.getArtifactHandler().getExtension();
             String filename = artifactId + "-" + version + classifier + "." + extension;
 
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
-
             for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
                 String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
                         + baseVersion + "/" + filename;
@@ -207,7 +210,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         .uri(URI.create(url))
                         .method("HEAD", HttpRequest.BodyPublishers.noBody())
                         .build();
-                HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
+                HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
 
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
                     RepositoryInformation result =
@@ -225,6 +228,37 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
             resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public void prewarmArtifactCache(Collection<Artifact> artifacts) {
+        if (artifacts.isEmpty()) {
+            return;
+        }
+        int poolSize = Math.min(16, Math.max(4, Runtime.getRuntime().availableProcessors() * 2));
+        PluginLogManager.getLog()
+                .info(String.format(
+                        "Pre-warming checksum cache for %d unique artifacts with %d threads",
+                        artifacts.size(), poolSize));
+        ExecutorService executor = Executors.newFixedThreadPool(poolSize);
+        try {
+            List<Future<?>> futures = new ArrayList<>();
+            for (var artifact : artifacts) {
+                futures.add(executor.submit(() -> {
+                    calculateArtifactChecksum(artifact);
+                    getArtifactResolvedField(artifact);
+                }));
+            }
+            for (var future : futures) {
+                try {
+                    future.get();
+                } catch (Exception e) {
+                    PluginLogManager.getLog().debug("Pre-warm task failed: " + e.getMessage());
+                }
+            }
+        } finally {
+            executor.shutdown();
         }
     }
 
