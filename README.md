@@ -97,7 +97,7 @@ mvn io.github.chains-project:maven-lockfile:generate -DincludeMavenPlugins=true 
 
 ## Format
 
-An example lockfile is shown below:
+An example lockfile is shown below. Note that large parts of it has been minimzed to `{...}` for readability.
 For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in this repository.
 ```json
 {
@@ -105,105 +105,156 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "path": "pom.xml",
+    "groupId": "com.mycompany.app",
+    "artifactId": "single-dependency",
+    "version": "1",
+    "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "769c9ca78c22cd41728e76bf04377d1362da16063bd225c8ba8593ee28382507"
+    "checksum": "2152cc00c16d72fbf9430e6a95a56e9edf0180a500155490bf33a7349df75a1b"
   },
   "lockFileVersion": 1,
   "dependencies": [
     {
-      "groupId": "org.junit.jupiter",
-      "artifactId": "junit-jupiter-api",
-      "version": "5.9.2",
+      "groupId": "fr.inria.gforge.spoon",
+      "artifactId": "spoon-core",
+      "version": "10.3.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
-      "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
+      "checksum": "37a43de039cf9a6701777106e3c5921e7131e5417fa707709abf791d3d8d9174",
+      "scope": "compile",
+      "resolved": "https://repo.maven.apache.org/maven2/fr/inria/gforge/spoon/spoon-core/10.3.0/spoon-core-10.3.0.jar",
       "repositoryId": "central",
-      "selectedVersion": "5.9.2",
+      "selectedVersion": "10.3.0",
       "included": true,
-      "id": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+      "id": "fr.inria.gforge.spoon:spoon-core:10.3.0",
       "children": [
         {
-          "groupId": "org.apiguardian",
-          "artifactId": "apiguardian-api",
-          "version": "1.1.2",
+          "groupId": "com.fasterxml.jackson.core",
+          "artifactId": "jackson-databind",
+          "version": "2.14.2",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-          "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+          "checksum": "501d3abce4d18dcc381058ec593c5b94477906bba6efbac14dae40a642f77424",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar",
           "repositoryId": "central",
-          "selectedVersion": "1.1.2",
+          "selectedVersion": "2.14.2",
           "included": true,
-          "id": "org.apiguardian:apiguardian-api:1.1.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
-          "children": []
-        },
-        {
-          "groupId": "org.junit.platform",
-          "artifactId": "junit-platform-commons",
-          "version": "1.9.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "624a3d745ef1d28e955a6a67af8edba0fdfc5c9bad680a73f67a70bb950a683d",
-          "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar",
-          "repositoryId": "central",
-          "selectedVersion": "1.9.2",
-          "included": true,
-          "id": "org.junit.platform:junit-platform-commons:1.9.2",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "id": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
           "children": [
             {
-              "groupId": "org.apiguardian",
-              "artifactId": "apiguardian-api",
-              "version": "1.1.2",
+              "groupId": "com.fasterxml.jackson.core",
+              "artifactId": "jackson-annotations",
+              "version": "2.14.2",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38",
-              "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar",
+              "checksum": "2c6869d505cf60dc066734b7d50339f975bd3adc635e26a78abb71acb4473c0d",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.14.2/jackson-annotations-2.14.2.jar",
               "repositoryId": "central",
-              "selectedVersion": "1.1.2",
-              "included": false,
-              "id": "org.apiguardian:apiguardian-api:1.1.2",
-              "parent": "org.junit.platform:junit-platform-commons:1.9.2",
+              "selectedVersion": "2.14.2",
+              "included": true,
+              "id": "com.fasterxml.jackson.core:jackson-annotations:2.14.2",
+              "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
+              "children": []
+            },
+            {
+              "groupId": "com.fasterxml.jackson.core",
+              "artifactId": "jackson-core",
+              "version": "2.14.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "b5d37a77c88277b97e3593c8740925216c06df8e4172bbde058528df04ad3e7a",
+              "scope": "compile",
+              "resolved": "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar",
+              "repositoryId": "central",
+              "selectedVersion": "2.14.2",
+              "included": true,
+              "id": "com.fasterxml.jackson.core:jackson-core:2.14.2",
+              "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
               "children": []
             }
           ]
         },
         {
-          "groupId": "org.opentest4j",
-          "artifactId": "opentest4j",
-          "version": "1.2.0",
+          "groupId": "com.martiansoftware",
+          "artifactId": "jsap",
+          "version": "2.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
-          "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
+          "checksum": "331746fa62cfbc3368260c5a2e660936ad11be612308c120a044e120361d474e",
+          "scope": "compile",
+          "resolved": "https://repo.maven.apache.org/maven2/com/martiansoftware/jsap/2.1/jsap-2.1.jar",
           "repositoryId": "central",
-          "selectedVersion": "1.2.0",
+          "selectedVersion": "2.1",
           "included": true,
-          "id": "org.opentest4j:opentest4j:1.2.0",
-          "parent": "org.junit.jupiter:junit-jupiter-api:5.9.2",
+          "id": "com.martiansoftware:jsap:2.1",
+          "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
           "children": []
-        }
+        },
+        {...}
       ]
     }
   ],
-  "mavenPlugins": [],
+  "mavenPlugins": [
+    {
+      "groupId": "org.apache.maven.plugins",
+      "artifactId": "maven-clean-plugin",
+      "version": "3.2.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "b657bef2e1eb11e029a70cd688bde6adad29e4e99dacb18516bf651ecca32435",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.2.0/maven-clean-plugin-3.2.0.jar",
+      "repositoryId": "central",
+      "dependencies": [
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-core",
+          "version": "3.2.5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "4f1a0af8997e1daf778b91c5ae9e973f92df699439d909fdec7fc6055c09de12",
+          "scope": "provided",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.2.5/maven-core-3.2.5.jar",
+          "repositoryId": "central",
+          "selectedVersion": "3.2.5",
+          "included": true,
+          "id": "org.apache.maven:maven-core:3.2.5",
+          "children": [
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-aether-provider",
+              "version": "3.2.5",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "703944b922d5351aad53b842f7dd38439b7213425f13c6c7f034b8b699b7d578",
+              "scope": "provided",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.2.5/maven-aether-provider-3.2.5.jar",
+              "repositoryId": "central",
+              "selectedVersion": "3.2.5",
+              "included": true,
+              "id": "org.apache.maven:maven-aether-provider:3.2.5",
+              "parent": "org.apache.maven:maven-core:3.2.5",
+              "children": [
+                {...}
+              ]
+            },
+            {...}
+          ]
+        },
+        {...}
+      ]
+    },
+    {...}
+  ],
   "metaData": {
     "environment": {
-      "osName": "Mac OS X",
-      "mavenVersion": "3.9.11",
+      "osName": "Linux",
+      "mavenVersion": "3.9.12",
       "javaVersion": "21.0.8"
     },
     "config": {
-      "includeMavenPlugins": false,
+      "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.9.1-SNAPSHOT",
-      "checksumMode": "local",
+      "mavenLockfileVersion": "5.14.1-beta-1",
+      "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256"
     }
   }
@@ -237,7 +288,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: run maven-lockfile
-          uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
+          uses: chains-project/maven-lockfile@2d2ed1462246005ae3aafaf2d0bc619f521eadf6 # 5.14.0
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -258,7 +309,7 @@ It still works for pull requests from the same repository. Renovate also works w
 Extended github actions example with all available options:
 
 ```yml
-- uses: chains-project/maven-lockfile@dbd9538eaf1bc297225b74f5e891af7d2faf61a1 # v5.5.2
+- uses: chains-project/maven-lockfile@2d2ed1462246005ae3aafaf2d0bc619f521eadf6 # 5.14.0
   with:
     # Required. The GitHub token used to commit the updated lockfile to the repository.
     - github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
