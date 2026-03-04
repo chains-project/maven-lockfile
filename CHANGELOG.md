@@ -2486,3 +2486,37 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.14.1
+## Changelog
+
+## 🚀 Added
+- c4ab68e ✨ feat: Parallel downloading for RemoteChecksumCalculator (#1509)
+- 3bed2f2 ✅ test: Check Artifact Version Suffixes (#1517)
+
+## 🐛 Fixed
+- cba0563 🐛 fix: Reproducibility check (#1514)
+- 1d8855b 🐛 fix: Use baseVersion for path resolution (#1506)
+
+## 📦 Dependencies
+- a36faf2 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.14.0 (#1515)
+
+## 📝 Documentation
+- 0c2dca5 📝 docs: Update lockfile in README (#1518)
+
+## 🏁 Release
+- 1204b34 🔖 Releasing version 5.14.1
+- 3cf9c3b 🔖 Setting SNAPSHOT version 5.14.1-SNAPSHOT
+- 4486aed 🔖 Releasing version 5.14.0
+
+---
+- 17099c1 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Adam Kaplan ([@adambkaplan](https://github.com/adambkaplan))
+- Aman Sharma ()
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
+- algomaster99 ([@algomaster99](https://github.com/algomaster99))
