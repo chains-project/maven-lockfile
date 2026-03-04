@@ -179,5 +179,4 @@ public class FileSystemChecksumCalculatorTest {
         assertThat(result.getResolvedUrl()).isEqualTo(ResolvedUrl.of(expectedUrl));
         assertThat(result.getRepositoryId()).isEqualTo(RepositoryId.of(repositoryId));
     }
-
 }
