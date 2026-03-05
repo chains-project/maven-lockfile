@@ -8,7 +8,7 @@
     "version": "5.14.3-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "88cd47e3fd4e830d9c8bfe3314b3fd0e5ff1472dcc45acc552ff13646c1239bf",
+    "checksum": "150b66acd9ce5011707f366d55dbe7b3bb39d623cabfe94e3fc36034878f5dc4",
     "parent": {
       "groupId": "io.github.chains-project",
       "artifactId": "maven-lockfile-parent",
