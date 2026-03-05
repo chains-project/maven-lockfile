@@ -2520,3 +2520,23 @@ We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.14.2
+## Changelog
+
+## 🚀 Added
+- 5087a5f 👷 ci: Skip generate if version is newer (#1520)
+
+## 🏁 Release
+- c8ab8e4 🔖 Releasing version 5.14.2
+- 816278e 🔖 Setting SNAPSHOT version 5.14.2-SNAPSHOT
+- d12a3d7 🔖 Releasing version 5.14.1
+
+---
+- 3017e48 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
