@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@2d2ed1462246005ae3aafaf2d0bc619f521eadf6 # 5.14.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@1204b345196597e49ff9bb5df04b73ee1d0fc185 # 5.14.1
 
       - name: Dependency review
         uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
