@@ -38,7 +38,7 @@ jobs:
         persist-credentials: false
 
     - name: Verify action checksums
-      uses: chains-project/maven-lockfile/.github/actions/ghasum@1204b345196597e49ff9bb5df04b73ee1d0fc185 # 5.14.1
+      uses: chains-project/maven-lockfile/.github/actions/ghasum@c8ab8e4739f34b397457c22da0d80e7a14f75476 # 5.14.2
 
     - name: Run scanner
       uses: google/osv-scanner-action/osv-scanner-action@375a0e8ebdc98e99b02ac4338a724f5750f21213 # v2.3.1
