@@ -98,6 +98,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + "\n"
                         + "Missing plugins in project:\n "
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
+                        + "\n"
+                        + "Missing extensions in lockfile:\n "
+                        + JsonUtils.toJson(diff.getMissingExtensionsInFile())
+                        + "\n"
+                        + "Missing extensions in project:\n "
+                        + JsonUtils.toJson(diff.getMissingExtensionsInProject())
                         + "\n";
                 switch (config.getOnValidationFailure()) {
                     case Warn:
