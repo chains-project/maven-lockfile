@@ -108,6 +108,14 @@ public abstract class AbstractMavenComponent<T extends AbstractMavenComponent<T>
         if (artifactIdCompare != 0) {
             return artifactIdCompare;
         }
-        return version.compareTo(other.version);
+        int versionCompare = version.compareTo(other.version);
+        if (versionCompare != 0) {
+            return versionCompare;
+        }
+        int checksumAlgorithmCompare = checksumAlgorithm.compareTo(other.checksumAlgorithm);
+        if (checksumAlgorithmCompare != 0) {
+            return checksumAlgorithmCompare;
+        }
+        return checksum.compareTo(other.checksum);
     }
 }

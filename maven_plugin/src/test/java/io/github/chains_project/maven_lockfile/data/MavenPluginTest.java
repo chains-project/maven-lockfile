@@ -1,8 +1,8 @@
 package io.github.chains_project.maven_lockfile.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MavenPluginTest {
 

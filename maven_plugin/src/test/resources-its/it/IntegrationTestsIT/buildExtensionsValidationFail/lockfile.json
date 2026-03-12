@@ -1,0 +1,39 @@
+{
+  "artifactId": "build-extensions-validation-fail",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "pom": {
+    "groupId": "com.mycompany.app",
+    "artifactId": "build-extensions-validation-fail",
+    "version": "1",
+    "relativePath": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "dummy_checksum_will_be_replaced_by_actual_pom_checksum"
+  },
+  "lockFileVersion": 1,
+  "dependencies": [],
+  "mavenPlugins": [],
+  "mavenExtensions": [
+    {
+      "groupId": "kr.motd.maven",
+      "artifactId": "os-maven-plugin",
+      "version": "1.7.1",
+      "checksum": "TAMPERED_CHECKSUM_12345678901234567890123456789012345678901234567890123456",
+      "checksumAlgorithm": "SHA-256",
+      "resolved": "https://repo.maven.apache.org/maven2/kr/motd/maven/os-maven-plugin/1.7.1/os-maven-plugin-1.7.1.jar",
+      "repositoryId": "central",
+      "dependencies": []
+    }
+  ],
+  "metaData": {
+    "config": {
+      "checksumMode": "local",
+      "includeMavenPlugins": true,
+      "includeEnvironment": false,
+      "reduced": false,
+      "onValidationFailure": "Error",
+      "onPomValidationFailure": "Warn",
+      "onEnvironmentalValidationFailure": "Warn"
+    }
+  }
+}

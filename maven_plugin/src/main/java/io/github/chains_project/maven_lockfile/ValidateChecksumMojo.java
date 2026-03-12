@@ -39,17 +39,19 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
         PluginLogManager.setLog(getLog());
         try {
             getLog().info("Validating lock file ...");
-            Environment environment = generateMetaInformation();
-
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project, lockfileName));
             Config config = lockFileFromFile.getConfig() == null ? getConfig() : lockFileFromFile.getConfig();
             if (lockFileFromFile.getConfig() == null) {
                 getLog().warn("No config was found in the lock file. Using default config.");
             }
+            Environment environment = null;
+            if (config.isIncludeEnvironment()) {
+                environment = generateMetaInformation();
+            }
             MetaData metaData = new MetaData(environment, config);
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config, true);
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
             if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
                 String sb = "Lock file environment does not match project environment.\n"
                         + "Lockfile environment: " + lockFileFromFile.getEnvironment() + "\n"

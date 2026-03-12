@@ -743,6 +743,70 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @SuppressWarnings("null")
+    public void buildExtensionsSimple(MavenExecutionResult result) throws Exception {
+        // contract: if a project uses build extensions, the lockfile should contain them with checksums
+        // and their dependencies should be resolved and recorded
+        System.out.println("Running 'buildExtensionsSimple' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenExtensions()).isNotEmpty();
+        assertThat(lockFile.getMavenExtensions()).hasSize(1);
+
+        // Verify extension has valid checksum
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+
+        // Verify extension artifact details
+        var extension = lockFile.getMavenExtensions().iterator().next();
+        assertThat(extension.getGroupId()).extracting(GroupId::getValue).isEqualTo("kr.motd.maven");
+        assertThat(extension.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("os-maven-plugin");
+        assertThat(extension.getVersion()).extracting(VersionNumber::getValue).isEqualTo("1.7.1");
+
+        // Verify extension dependencies are resolved (os-maven-plugin has dependencies)
+        assertThat(extension.getDependencies()).isNotNull();
+    }
+
+    @MavenTest
+    @SuppressWarnings("null")
+    public void buildExtensionsMultiple(MavenExecutionResult result) throws Exception {
+        // contract: if a project uses multiple build extensions, all should be recorded in the lockfile
+        System.out.println("Running 'buildExtensionsMultiple' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenExtensions()).isNotEmpty();
+        assertThat(lockFile.getMavenExtensions()).hasSizeGreaterThanOrEqualTo(2);
+
+        // Verify all extensions have valid checksums
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+
+        // Verify specific extensions are present
+        assertThat(lockFile.getMavenExtensions())
+                .anyMatch(ext -> ext.getGroupId().getValue().equals("kr.motd.maven")
+                        && ext.getArtifactId().getValue().equals("os-maven-plugin"));
+        assertThat(lockFile.getMavenExtensions())
+                .anyMatch(ext -> ext.getGroupId().getValue().equals("org.apache.maven.wagon")
+                        && ext.getArtifactId().getValue().equals("wagon-ssh"));
+    }
+
+    @MavenTest
+    public void buildExtensionsValidationFail(MavenExecutionResult result) throws Exception {
+        // contract: if an extension checksum in the lockfile doesn't match the actual extension,
+        // validation should fail
+        System.out.println("Running 'buildExtensionsValidationFail' integration test.");
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Missing extensions")).isTrue();
+    }
+
+    @MavenTest
     public void bomPom(MavenExecutionResult result) throws Exception {
         // contract: the lockfile should contain BOM POMs in case any of the dependencies import them
         System.out.println("Running 'bomPom' integration test.");
