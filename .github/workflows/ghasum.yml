@@ -7,6 +7,7 @@ permissions: read-all
 jobs:
   update:
     name: Update gha.sum
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     permissions:
       contents: write # To push a commit
@@ -23,7 +24,6 @@ jobs:
             release-assets.githubusercontent.com:443
 
       - name: Checkout repository
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
@@ -31,18 +31,12 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Update gha.sum
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: chains-project/maven-lockfile/.github/actions/ghasum@c8ab8e4739f34b397457c22da0d80e7a14f75476 # 5.14.2
         with:
           mode: update
 
       - name: Commit gha.sum
-        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         with:
           commit_message: "chore: update ghasum checksums"
           file_pattern: .github/workflows/gha.sum
-
-      - name: Skip update (fork)
-        if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
-        run: echo "::warning::Cannot auto-update gha.sum for fork PRs. If actions were updated, please run ghasum update manually."
