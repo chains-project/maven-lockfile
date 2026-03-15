@@ -4,15 +4,7 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.MavenPlugin;
-import io.github.chains_project.maven_lockfile.data.MetaData;
-import io.github.chains_project.maven_lockfile.data.Pom;
-import io.github.chains_project.maven_lockfile.data.RepositoryId;
-import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
@@ -22,17 +14,38 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Extension;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.project.*;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
+import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
+import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.collection.CollectRequest;
+import org.eclipse.aether.repository.RemoteRepository;
+import org.eclipse.aether.resolution.DependencyRequest;
+import org.eclipse.aether.resolution.DependencyResolutionException;
+import org.eclipse.aether.resolution.DependencyResult;
+import org.eclipse.aether.util.artifact.JavaScopes;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -85,6 +98,7 @@ public class LockFileFacade {
      * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
      * @param checksumCalculator  The checksum calculator to use for calculating the checksums of the artifacts.
      * @param metadata The metadata to include in the lock file.
+     * @param repositorySystem The repository system for resolving artifacts.
      * @return  A lock file for the project.
      */
     public static LockFile generateLockFileFromProject(
@@ -92,12 +106,17 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            MetaData metadata) {
+            MetaData metadata,
+            RepositorySystem repositorySystem) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
         }
+
+        Set<MavenExtension> extensions = getAllExtensions(
+                project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
                 session,
@@ -119,8 +138,89 @@ public class LockFileFacade {
                 pom,
                 roots,
                 plugins,
+                extensions,
                 metadata,
                 boms);
+    }
+
+    private static Set<MavenExtension> getAllExtensions(
+            MavenProject project,
+            MavenSession session,
+            DependencyCollectorBuilder dependencyCollectorBuilder,
+            AbstractChecksumCalculator checksumCalculator,
+            RepositorySystem repositorySystem) {
+        Set<MavenExtension> extensions = new TreeSet<>();
+
+        List<Extension> buildExtensions = project.getBuildExtensions();
+        if (buildExtensions == null || buildExtensions.isEmpty()) {
+            return extensions;
+        }
+
+        RepositorySystemSession repoSession = session.getRepositorySession();
+        List<RemoteRepository> repositories = project.getRemotePluginRepositories();
+
+        // Collect all extensions as dependencies
+        List<org.eclipse.aether.graph.Dependency> extensionDependencies = new ArrayList<>();
+        for (Extension extension : buildExtensions) {
+            org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
+                    extension.getGroupId(), extension.getArtifactId(), "jar", extension.getVersion());
+            extensionDependencies.add(new org.eclipse.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
+        }
+
+        // Resolve all extensions and their dependencies in one call
+        CollectRequest collectRequest = new CollectRequest();
+        collectRequest.setDependencies(extensionDependencies);
+        collectRequest.setRepositories(repositories);
+
+        DependencyRequest dependencyRequest = new DependencyRequest();
+        dependencyRequest.setCollectRequest(collectRequest);
+
+        try {
+            DependencyResult dependencyResult = repositorySystem.resolveDependencies(repoSession, dependencyRequest);
+
+            // Process each resolved extension (direct dependencies from the root)
+            for (org.eclipse.aether.graph.DependencyNode node : dependencyResult.getRoot().getChildren()) {
+                org.eclipse.aether.artifact.Artifact artifact = node.getArtifact();
+
+                // Convert Aether artifact to Maven artifact for compatibility with checksumCalculator
+                Artifact mavenArtifact = new org.apache.maven.artifact.DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getVersion(),
+                        "compile",
+                        artifact.getExtension(),
+                        artifact.getClassifier(),
+                        new DefaultArtifactHandler(artifact.getExtension()));
+                mavenArtifact.setFile(artifact.getFile());
+
+                RepositoryInformation repositoryInformation =
+                        checksumCalculator.getPluginResolvedField(mavenArtifact);
+
+                // Resolve extension's transitive dependencies using the existing mechanism
+                Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
+                        resolveComponentDependencies(
+                                mavenArtifact,
+                                session,
+                                project,
+                                dependencyCollectorBuilder,
+                                checksumCalculator,
+                                Collections.emptyList());
+
+                extensions.add(new MavenExtension(
+                        GroupId.of(artifact.getGroupId()),
+                        ArtifactId.of(artifact.getArtifactId()),
+                        VersionNumber.of(artifact.getVersion()),
+                        checksumCalculator.calculatePluginChecksum(mavenArtifact),
+                        checksumCalculator.getChecksumAlgorithm(),
+                        repositoryInformation.getResolvedUrl(),
+                        repositoryInformation.getRepositoryId(),
+                        transitiveDeps));
+            }
+        } catch (DependencyResolutionException e) {
+            PluginLogManager.getLog().warn("Failed to resolve extension dependencies", e);
+        }
+
+        return extensions;
     }
 
     private static Set<MavenPlugin> getAllPlugins(
@@ -149,7 +249,7 @@ public class LockFileFacade {
             List<Dependency> userDeclaredDeps = userPluginDependencies.getOrDefault(pluginKey, Collections.emptyList());
 
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
-                    resolvePluginDependencies(
+                    resolveComponentDependencies(
                             pluginArtifact,
                             session,
                             project,
@@ -180,7 +280,7 @@ public class LockFileFacade {
      * @param userDeclaredDeps User-declared dependencies for this plugin (from the project's pom.xml)
      * @return A set of dependency nodes representing the plugin's dependencies
      */
-    private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolvePluginDependencies(
+    private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolveComponentDependencies(
             Artifact pluginArtifact,
             MavenSession session,
             MavenProject project,
