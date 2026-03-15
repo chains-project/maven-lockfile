@@ -49,7 +49,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             MetaData metaData = new MetaData(environment, config);
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config, true);
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
-                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData);
+                    session, project, dependencyCollectorBuilder, checksumCalculator, metaData, projectBuilder);
             if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
                 String sb = "Lock file environment does not match project environment.\n"
                         + "Lockfile environment: " + lockFileFromFile.getEnvironment() + "\n"

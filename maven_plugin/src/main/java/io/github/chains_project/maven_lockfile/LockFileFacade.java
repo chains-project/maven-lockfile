@@ -23,7 +23,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
@@ -37,8 +36,6 @@ import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -98,11 +95,12 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            MetaData metadata) {
+            MetaData metadata,
+            ProjectBuilder projectBuilder) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
-            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
+            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, projectBuilder);
         }
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
@@ -130,7 +128,8 @@ public class LockFileFacade {
             MavenProject project,
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            ProjectBuilder projectBuilder) {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
         // Build a map of user-declared plugin dependencies
@@ -158,7 +157,8 @@ public class LockFileFacade {
                             project,
                             dependencyCollectorBuilder,
                             checksumCalculator,
-                            userDeclaredDeps);
+                            userDeclaredDeps,
+                            projectBuilder);
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
@@ -189,7 +189,8 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            List<Dependency> userDeclaredDeps) {
+            List<Dependency> userDeclaredDeps,
+            ProjectBuilder projectBuilder) {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
@@ -230,29 +231,9 @@ public class LockFileFacade {
                     if (Files.exists(localPomPath)) {
                         pluginPomFile = localPomPath.toFile();
                     } else {
-                        // If not in local repo, try to resolve it using artifact resolver
-                        @SuppressWarnings("deprecation")
-                        ArtifactFactory artifactFactory = session.getContainer().lookup(ArtifactFactory.class);
-                        Artifact pomArtifact = artifactFactory.createArtifact(
-                                pluginArtifact.getGroupId(),
-                                pluginArtifact.getArtifactId(),
-                                pluginArtifact.getVersion(),
-                                null,
-                                "pom");
-
-                        ProjectBuildingRequest pomBuildingRequest =
-                                new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-                        pomBuildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
-
-                        @SuppressWarnings("deprecation")
-                        ArtifactResolver artifactResolver =
-                                session.getContainer().lookup(ArtifactResolver.class);
-                        ArtifactResult result = artifactResolver.resolveArtifact(pomBuildingRequest, pomArtifact);
-                        if (result != null
-                                && result.getArtifact() != null
-                                && result.getArtifact().getFile() != null) {
-                            pluginPomFile = result.getArtifact().getFile();
-                        }
+                        PluginLogManager.getLog()
+                                .debug(String.format(
+                                        "POM not found in local repository for plugin %s", pluginArtifact));
                     }
                 } catch (Exception e) {
                     PluginLogManager.getLog()
@@ -282,9 +263,6 @@ public class LockFileFacade {
             buildingRequest.setProcessPlugins(false);
             buildingRequest.setResolveDependencies(true);
 
-            // Note: getContainer() is deprecated but there's no clear replacement in the current Maven API
-            @SuppressWarnings("deprecation")
-            ProjectBuilder projectBuilder = session.getContainer().lookup(ProjectBuilder.class);
             ProjectBuildingResult result = projectBuilder.build(pluginPomFile, buildingRequest);
 
             if (result.getProblems() != null && !result.getProblems().isEmpty()) {
