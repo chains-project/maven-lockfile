@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile.data;
 import com.google.gson.annotations.SerializedName;
 import io.github.chains_project.maven_lockfile.JsonUtils;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

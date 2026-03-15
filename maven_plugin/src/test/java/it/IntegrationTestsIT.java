@@ -812,7 +812,8 @@ public class IntegrationTestsIT {
 
         // Verify all extensions have dependencies resolved
         assertThat(lockFile.getMavenExtensions())
-                .allMatch(ext -> ext.getDependencies() != null && !ext.getDependencies().isEmpty());
+                .allMatch(ext ->
+                        ext.getDependencies() != null && !ext.getDependencies().isEmpty());
 
         // Verify all dependencies have valid scopes and TEST scope is excluded
         lockFile.getMavenExtensions().forEach(extension -> {

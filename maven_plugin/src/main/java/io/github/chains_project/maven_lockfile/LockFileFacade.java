@@ -114,8 +114,8 @@ public class LockFileFacade {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
         }
 
-        Set<MavenExtension> extensions = getAllExtensions(
-                project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+        Set<MavenExtension> extensions =
+                getAllExtensions(project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
 
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
@@ -179,7 +179,8 @@ public class LockFileFacade {
             DependencyResult dependencyResult = repositorySystem.resolveDependencies(repoSession, dependencyRequest);
 
             // Process each resolved extension (direct dependencies from the root)
-            for (org.eclipse.aether.graph.DependencyNode node : dependencyResult.getRoot().getChildren()) {
+            for (org.eclipse.aether.graph.DependencyNode node :
+                    dependencyResult.getRoot().getChildren()) {
                 org.eclipse.aether.artifact.Artifact artifact = node.getArtifact();
 
                 // Convert Aether artifact to Maven artifact for compatibility with checksumCalculator
@@ -193,8 +194,7 @@ public class LockFileFacade {
                         new DefaultArtifactHandler(artifact.getExtension()));
                 mavenArtifact.setFile(artifact.getFile());
 
-                RepositoryInformation repositoryInformation =
-                        checksumCalculator.getPluginResolvedField(mavenArtifact);
+                RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
 
                 // Resolve extension's transitive dependencies using the existing mechanism
                 Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
