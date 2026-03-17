@@ -1,13 +1,15 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+
 import java.util.Set;
 
 /**
- * This class represents a maven plugin. It contains a group id, an artifact id, and a version number. A plugin is uniquely identified by its group id, artifact id, and version number.
+ * This class represents a maven plugin. It contains a group id, an artifact id, and a version number.
+ * A plugin is uniquely identified by its group id, artifact id, and version number.
  * A maven plugin is a dependency that is used to build a project. It is not a dependency of the project itself.
  */
-public class MavenPlugin extends AbstractMavenComponent<MavenPlugin> {
+public class MavenPlugin extends AbstractMavenComponent {
 
     public MavenPlugin(
             GroupId groupId,

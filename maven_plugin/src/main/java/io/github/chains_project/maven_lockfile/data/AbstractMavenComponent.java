@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
+
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -9,9 +10,11 @@ import java.util.Set;
  * Base class for Maven components (plugins, extensions) that share common metadata structure.
  * Contains artifact coordinates, checksums, repository information, and dependencies.
  *
- * @param <T> the concrete component type (for type-safe comparison)
+ * <p>Subclasses are compared first by their concrete type, then by GAV coordinates.
+ * This ensures that a {@link MavenPlugin} and {@link MavenExtension} with the same
+ * GAV are not considered equal, as they serve different roles in the build lifecycle.
  */
-public abstract class AbstractMavenComponent<T extends AbstractMavenComponent<T>> implements Comparable<T> {
+public abstract class AbstractMavenComponent implements Comparable<AbstractMavenComponent> {
 
     protected final GroupId groupId;
     protected final ArtifactId artifactId;
@@ -84,9 +87,11 @@ public abstract class AbstractMavenComponent<T extends AbstractMavenComponent<T>
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof AbstractMavenComponent)) {
+
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
+
         AbstractMavenComponent other = (AbstractMavenComponent) obj;
         return Objects.equals(groupId, other.groupId)
                 && Objects.equals(artifactId, other.artifactId)
@@ -99,7 +104,11 @@ public abstract class AbstractMavenComponent<T extends AbstractMavenComponent<T>
     }
 
     @Override
-    public int compareTo(T other) {
+    public int compareTo(AbstractMavenComponent other) {
+        if (this.getClass() != other.getClass()) {
+            return this.getClass().getName().compareTo(other.getClass().getName());
+        }
+
         int groupIdCompare = groupId.compareTo(other.groupId);
         if (groupIdCompare != 0) {
             return groupIdCompare;
