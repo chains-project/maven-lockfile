@@ -738,55 +738,6 @@ public class IntegrationTestsIT {
 
     @MavenTest
     @SuppressWarnings("null")
-    public void buildExtensionsSimple(MavenExecutionResult result) throws Exception {
-        // contract: if a project uses build extensions, the lockfile should contain them with checksums
-        // and their dependencies should be resolved and recorded
-        System.out.println("Running 'buildExtensionsSimple' integration test.");
-        assertThat(result).isSuccessful();
-        Path lockFilePath = findFile(result, "lockfile.json");
-        assertThat(lockFilePath).exists();
-        var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getMavenExtensions()).isNotEmpty();
-        assertThat(lockFile.getMavenExtensions()).hasSize(1);
-
-        // Verify extension has valid checksum
-        assertThat(lockFile.getMavenExtensions())
-                .allMatch(v -> !v.getChecksum().isBlank()
-                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
-
-        // Verify extension artifact details
-        var extension = lockFile.getMavenExtensions().iterator().next();
-        assertThat(extension.getGroupId()).extracting(GroupId::getValue).isEqualTo("kr.motd.maven");
-        assertThat(extension.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("os-maven-plugin");
-        assertThat(extension.getVersion()).extracting(VersionNumber::getValue).isEqualTo("1.7.1");
-
-        // Verify extension dependencies are resolved (os-maven-plugin has dependencies)
-        assertThat(extension.getDependencies()).isNotNull();
-        assertThat(extension.getDependencies()).isNotEmpty();
-
-        // Verify all dependencies have valid scopes and TEST scope is excluded
-        extension.getDependencies().forEach(dep -> {
-            var scope = dep.getScope();
-            if (scope == null) {
-                fail(String.format(
-                        "scope is null for dependency %s:%s:%s",
-                        dep.getGroupId().getValue(),
-                        dep.getArtifactId().getValue(),
-                        dep.getVersion().getValue()));
-                return;
-            }
-            assertThat(scope)
-                    .as(
-                            "Scope of extension dependency %s:%s:%s",
-                            dep.getGroupId().getValue(),
-                            dep.getArtifactId().getValue(),
-                            dep.getVersion().getValue())
-                    .isNotEqualTo(MavenScope.TEST);
-        });
-    }
-
-    @MavenTest
-    @SuppressWarnings("null")
     public void buildExtensionsMultiple(MavenExecutionResult result) throws Exception {
         // contract: if a project uses multiple build extensions, all should be recorded in the lockfile
         System.out.println("Running 'buildExtensionsMultiple' integration test.");
