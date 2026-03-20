@@ -46,7 +46,8 @@ public class LockfileTest {
                 new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
                 Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
                 Set.of(pluginA(), pluginB()),
-                metadata);
+                metadata,
+                Set.of(bom()));
 
         var lock2 = new LockFile(
                 groupId,
@@ -55,7 +56,8 @@ public class LockfileTest {
                 new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
                 Set.of(dependencyNodeB(), dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2())),
                 Set.of(pluginB(), pluginA()),
-                metadata);
+                metadata,
+                Set.of(bom()));
 
         assertThat(lock1).isEqualTo(lock2);
     }
@@ -140,5 +142,18 @@ public class LockfileTest {
                 RepositoryId.None(),
                 "SHA-1",
                 "PB");
+    }
+
+    private Pom bom() {
+        return new Pom(
+                GroupId.of("Bom"),
+                ArtifactId.of("Bom"),
+                VersionNumber.of("1"),
+                null,
+                null,
+                null,
+                "SHA-256",
+                "CHECKSUM-BOM",
+                null);
     }
 }
