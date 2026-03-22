@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
-
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
