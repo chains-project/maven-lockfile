@@ -43,6 +43,8 @@ public class LockFile {
 
     private final MetaData metaData;
 
+    private final Set<Pom> boms;
+
     public LockFile(
             GroupId groupId,
             ArtifactId name,
@@ -50,7 +52,8 @@ public class LockFile {
             Pom pom,
             Set<DependencyNode> dependencies,
             Set<MavenPlugin> mavenPlugins,
-            MetaData metaData) {
+            MetaData metaData,
+            Set<Pom> boms) {
         this.groupId = groupId;
         this.name = name;
         this.version = versionNumber;
@@ -58,6 +61,7 @@ public class LockFile {
         this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
         this.mavenPlugins = mavenPlugins == null ? Collections.emptySet() : mavenPlugins;
         this.metaData = metaData;
+        this.boms = boms;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -108,6 +112,14 @@ public class LockFile {
     public Set<MavenPlugin> getMavenPlugins() {
         return nullToEmpty(mavenPlugins);
     }
+
+    /**
+     * @return the bom poms
+     */
+    public Set<Pom> getBoms() {
+        return nullToEmpty(boms);
+    }
+
     /**
      * @return the metadata about the environment in which the lock file was generated
      */
@@ -124,7 +136,15 @@ public class LockFile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, groupId, version, lockfileVersion, pom, dependencies, nullToEmpty(mavenPlugins));
+        return Objects.hash(
+                name,
+                groupId,
+                version,
+                lockfileVersion,
+                pom,
+                dependencies,
+                nullToEmpty(mavenPlugins),
+                nullToEmpty(boms));
     }
 
     @Override
@@ -141,7 +161,8 @@ public class LockFile {
                 && Objects.equals(version, other.version)
                 && lockfileVersion == other.lockfileVersion
                 && Objects.equals(nullToEmpty(dependencies), nullToEmpty(other.dependencies))
-                && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins));
+                && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins))
+                && Objects.equals(nullToEmpty(boms), nullToEmpty(other.boms));
     }
 
     private static <T> Set<T> nullToEmpty(Set<T> set) {

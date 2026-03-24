@@ -741,4 +741,50 @@ public class IntegrationTestsIT {
             }
         }
     }
+
+    @MavenTest
+    public void bomPom(MavenExecutionResult result) throws Exception {
+        // contract: the lockfile should contain BOM POMs in case any of the dependencies import them
+        System.out.println("Running 'bomPom' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        var junitDep = lockFile.getDependencies().stream()
+                .filter(dep -> dep.getGroupId().getValue().equals("org.junit.jupiter")
+                        && dep.getArtifactId().getValue().equals("junit-jupiter-api"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("junit-jupiter-api dependency not found"));
+
+        junitDep.getBoms().stream()
+                .filter(bom -> bom.getGroupId().getValue().equals("org.junit")
+                        && bom.getArtifactId().getValue().equals("junit-bom")
+                        && bom.getVersion().getValue().equals("5.11.0"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("junit-bom not found in dependency BOMs"));
+    }
+
+    @MavenTest
+    public void bomPomWithParent(MavenExecutionResult result) throws Exception {
+        // contract: if a BOM POM has a parent POM, it should be resolved in the lockfile
+        System.out.println("Running 'bomPomWithParent' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        var foundBom = lockFile.getBoms().stream()
+                .filter(bom -> bom.getGroupId().getValue().equals("io.netty")
+                        && bom.getArtifactId().getValue().equals("netty-bom")
+                        && bom.getVersion().getValue().equals("4.1.125.Final"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("junit-jupiter-api dependency not found"));
+
+        var parent = foundBom.getParent();
+
+        assertThat(parent.getGroupId().equals("org.sonatype.oss"));
+        assertThat(parent.getArtifactId().equals("oss-parent"));
+        assertThat(parent.getVersion().equals("7"));
+    }
 }

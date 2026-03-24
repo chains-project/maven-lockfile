@@ -24,7 +24,8 @@
       "selectedVersion": "0.2.0",
       "included": true,
       "id": "atlassian-bandana:atlassian-bandana:0.2.0",
-      "children": []
+      "children": [],
+      "boms": []
     },
     {
       "groupId": "fr.inria.gforge.spoon",
@@ -66,7 +67,8 @@
               "included": true,
               "id": "com.fasterxml.jackson.core:jackson-annotations:2.14.2",
               "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
-              "children": []
+              "children": [],
+              "boms": []
             },
             {
               "groupId": "com.fasterxml.jackson.core",
@@ -81,9 +83,11 @@
               "included": true,
               "id": "com.fasterxml.jackson.core:jackson-core:2.14.2",
               "parent": "com.fasterxml.jackson.core:jackson-databind:2.14.2",
-              "children": []
+              "children": [],
+              "boms": []
             }
-          ]
+          ],
+          "boms": []
         },
         {
           "groupId": "com.martiansoftware",
@@ -98,7 +102,8 @@
           "included": true,
           "id": "com.martiansoftware:jsap:2.1",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": []
         },
         {
           "groupId": "commons-io",
@@ -113,7 +118,18 @@
           "included": true,
           "id": "commons-io:commons-io:2.11.0",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": [
+            {
+              "groupId": "org.junit",
+              "artifactId": "junit-bom",
+              "version": "5.7.2",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.7.2/junit-bom-5.7.2.pom",
+              "repositoryId": "central",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "cd14aaa869991f82021c585d570d31ff342bcba58bb44233b70193771b96487b"
+            }
+          ]
         },
         {
           "groupId": "org.apache.commons",
@@ -128,7 +144,8 @@
           "included": true,
           "id": "org.apache.commons:commons-compress:1.22",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": []
         },
         {
           "groupId": "org.apache.commons",
@@ -143,7 +160,18 @@
           "included": true,
           "id": "org.apache.commons:commons-lang3:3.12.0",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": [
+            {
+              "groupId": "org.junit",
+              "artifactId": "junit-bom",
+              "version": "5.7.1",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.7.1/junit-bom-5.7.1.pom",
+              "repositoryId": "central",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "0b9b14a3d62106fafe8c68a717b87b87ad18685899451b753c04fa41b6857784"
+            }
+          ]
         },
         {
           "groupId": "org.apache.maven",
@@ -172,7 +200,8 @@
               "included": true,
               "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
               "parent": "org.apache.maven:maven-model:4.0.0-rc-5",
-              "children": []
+              "children": [],
+              "boms": []
             },
             {
               "groupId": "org.apache.maven",
@@ -201,7 +230,8 @@
                   "included": false,
                   "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                   "parent": "org.apache.maven:maven-api-model:4.0.0-rc-5",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -216,9 +246,11 @@
                   "included": false,
                   "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
                   "parent": "org.apache.maven:maven-api-model:4.0.0-rc-5",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 }
-              ]
+              ],
+              "boms": []
             },
             {
               "groupId": "org.apache.maven",
@@ -247,9 +279,11 @@
                   "included": false,
                   "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                   "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 }
-              ]
+              ],
+              "boms": []
             },
             {
               "groupId": "org.apache.maven",
@@ -292,9 +326,11 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-metadata:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     }
-                  ]
+                  ],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -309,7 +345,8 @@
                   "included": false,
                   "id": "org.apache.maven:maven-api-model:4.0.0-rc-5",
                   "parent": "org.apache.maven:maven-support:4.0.0-rc-5",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -338,7 +375,8 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-plugin:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     },
                     {
                       "groupId": "org.apache.maven",
@@ -353,9 +391,11 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-plugin:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     }
-                  ]
+                  ],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -384,7 +424,8 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-settings:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     },
                     {
                       "groupId": "org.apache.maven",
@@ -399,9 +440,11 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-settings:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     }
-                  ]
+                  ],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -430,7 +473,8 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-toolchain:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     },
                     {
                       "groupId": "org.apache.maven",
@@ -445,9 +489,11 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-api-toolchain:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     }
-                  ]
+                  ],
+                  "boms": []
                 },
                 {
                   "groupId": "org.apache.maven",
@@ -490,9 +536,11 @@
                           "included": false,
                           "id": "org.codehaus.woodstox:stax2-api:4.2.2",
                           "parent": "com.fasterxml.woodstox:woodstox-core:7.1.1",
-                          "children": []
+                          "children": [],
+                          "boms": []
                         }
-                      ]
+                      ],
+                      "boms": []
                     },
                     {
                       "groupId": "org.apache.maven",
@@ -507,7 +555,8 @@
                       "included": false,
                       "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
                       "parent": "org.apache.maven:maven-xml:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     },
                     {
                       "groupId": "org.codehaus.woodstox",
@@ -522,11 +571,14 @@
                       "included": true,
                       "id": "org.codehaus.woodstox:stax2-api:4.2.2",
                       "parent": "org.apache.maven:maven-xml:4.0.0-rc-5",
-                      "children": []
+                      "children": [],
+                      "boms": []
                     }
-                  ]
+                  ],
+                  "boms": []
                 }
-              ]
+              ],
+              "boms": []
             },
             {
               "groupId": "org.codehaus.plexus",
@@ -555,11 +607,14 @@
                   "included": false,
                   "id": "org.apache.maven:maven-xml:4.0.0-rc-3",
                   "parent": "org.codehaus.plexus:plexus-xml:4.1.0",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 }
-              ]
+              ],
+              "boms": []
             }
-          ]
+          ],
+          "boms": []
         },
         {
           "groupId": "org.apache.maven.shared",
@@ -588,7 +643,8 @@
               "included": true,
               "id": "javax.inject:javax.inject:1",
               "parent": "org.apache.maven.shared:maven-invoker:3.2.0",
-              "children": []
+              "children": [],
+              "boms": []
             },
             {
               "groupId": "org.apache.maven.shared",
@@ -617,11 +673,14 @@
                   "included": false,
                   "id": "commons-io:commons-io:2.6",
                   "parent": "org.apache.maven.shared:maven-shared-utils:3.3.4",
-                  "children": []
+                  "children": [],
+                  "boms": []
                 }
-              ]
+              ],
+              "boms": []
             }
-          ]
+          ],
+          "boms": []
         },
         {
           "groupId": "org.eclipse.jdt",
@@ -636,7 +695,8 @@
           "included": true,
           "id": "org.eclipse.jdt:org.eclipse.jdt.core:3.32.0",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": []
         },
         {
           "groupId": "org.slf4j",
@@ -651,9 +711,11 @@
           "included": true,
           "id": "org.slf4j:slf4j-api:1.7.36",
           "parent": "fr.inria.gforge.spoon:spoon-core:10.3.0",
-          "children": []
+          "children": [],
+          "boms": []
         }
-      ]
+      ],
+      "boms": []
     }
   ],
   "mavenPlugins": [],
@@ -661,7 +723,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.5"
+      "javaVersion": "21.0.9"
     },
     "config": {
       "includeMavenPlugins": false,
@@ -670,7 +732,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.14.3-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }

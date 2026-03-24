@@ -1,5 +1,7 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import java.util.Objects;
+
 public class Pom implements Comparable<Pom> {
 
     private final GroupId groupId;
@@ -160,5 +162,19 @@ public class Pom implements Comparable<Pom> {
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
                 && this.checksum.equals(other.checksum)
                 && parentEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                groupId,
+                artifactId,
+                version,
+                relativePath,
+                resolved,
+                repositoryId,
+                checksumAlgorithm,
+                checksum,
+                parent);
     }
 }

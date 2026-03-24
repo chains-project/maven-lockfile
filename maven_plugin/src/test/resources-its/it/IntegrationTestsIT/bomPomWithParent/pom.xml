@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example.app</groupId>
+    <artifactId>maven-bom</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>maven-bom-parent</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>17</maven.compiler.release>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Declares "org.sonatype.oss:oss-parent:7" as parent -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-bom</artifactId>
+                <version>4.1.125.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.github.chains-project</groupId>
+                <artifactId>maven-lockfile</artifactId>
+                <version>@project.version@</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>
+                                generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <checksumMode>local</checksumMode>
+                    <includeMavenPlugins>false</includeMavenPlugins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
