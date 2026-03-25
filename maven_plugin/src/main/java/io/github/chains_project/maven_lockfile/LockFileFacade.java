@@ -42,6 +42,9 @@ import org.eclipse.aether.util.artifact.JavaScopes;
  */
 public class LockFileFacade {
 
+    private static final Set<String> writtenParentPoms = new HashSet<>();
+    private static final Set<String> visitedBoms = new HashSet<>();
+
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
      */
@@ -120,8 +123,7 @@ public class LockFileFacade {
         var roots = graph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        resolveParentPomsForDependencies(graph, session, project, checksumCalculator);
-        resolveBomsForDependencies(graph, session, project, checksumCalculator);
+        resolveParentsAndBomsForDependencies(graph, session, project, checksumCalculator, writtenParentPoms, visitedBoms);
         var boms = resolveBoms(session, project, checksumCalculator);
 
         return new LockFile(
@@ -245,24 +247,54 @@ public class LockFileFacade {
         return Optional.of(new org.eclipse.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
     }
 
-    private static void resolveParentPomsForDependencies(DependencyGraph graph, MavenSession session, MavenProject project, AbstractChecksumCalculator checksumCalculator) {
-        ProjectBuilder builder = new ProjectBuilder(session, project.getRemoteArtifactRepositories());
+    private static void resolveParentsAndBomsForDependencies(
+            DependencyGraph graph,
+            MavenSession session,
+            MavenProject rootProject,
+            AbstractChecksumCalculator checksumCalculator,
+            Set<String> writtenParentPoms,
+            Set<String> visitedBoms) {
+        ProjectBuilder builder = new ProjectBuilder(session, rootProject.getRemoteArtifactRepositories());
+        BomResolver bomResolver =
+                new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
+
         graph.getDependencySet().forEach(node -> {
+            boolean needsParentPom = !writtenParentPoms.contains(node.getChecksum());
+            boolean needsBom = !visitedBoms.contains(node.getChecksum());
+
+            if (!needsParentPom && !needsBom) {
+                return;
+            }
+
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
 
-            if(projectOptional.isPresent()) {
-                var projectDep = projectOptional.get();
+            if (projectOptional.isEmpty()) {
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Could not build project for dependency %s. Skipping parent and BOM resolution.",
+                                node));
+                return;
+            }
+            var mavenProject = projectOptional.get();
 
-                if(projectDep.hasParent()) {
-                    PluginLogManager.getLog().debug(String.format("Writing parent POM for %s", node));
-                    var pom = constructRecursivePom(projectDep.getParent(), session, checksumCalculator);
+            if (needsParentPom) {
+                if (mavenProject.hasParent()) {
+                    PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
+                    var pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
                     node.setParentPom(pom);
                 }
-            } else {
-                PluginLogManager.getLog().warn(String.format("Could not build project for dependency %s", node));
+                writtenParentPoms.add(node.getChecksum());
+            }
+
+            if (needsBom) {
+                Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
+                if (!boms.isEmpty()) {
+                    node.setBoms(boms);
+                }
+                visitedBoms.add(node.getChecksum());
             }
         });
     }
@@ -411,8 +443,7 @@ public class LockFileFacade {
                     filter,
                     false);
 
-            resolveParentPomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
-            resolveBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
+            resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator, writtenParentPoms, visitedBoms);
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
@@ -502,7 +533,7 @@ public class LockFileFacade {
                             .toPath()
                             .relativize(project.getFile().toPath())
                             .toString();
-            String checksum = null;
+            String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
             if (project.getFile() == null) {
@@ -542,44 +573,6 @@ public class LockFileFacade {
         }
 
         return lastPom;
-    }
-
-    /**
-     * Resolve the BOM POMs for the current project and its dependencies.
-     * <p>
-     * Note that this function will mutate the graph nodes by adding to each one the list of resolved BOMs.
-     *
-     * @param graph              The dependency graph
-     * @param session            The Maven session
-     * @param rootProject        The current Maven project
-     * @param checksumCalculator The checksum calculator
-     */
-    private static void resolveBomsForDependencies(
-            DependencyGraph graph,
-            MavenSession session,
-            MavenProject rootProject,
-            AbstractChecksumCalculator checksumCalculator) {
-        ProjectBuilder projectBuilder = new ProjectBuilder(session, rootProject.getRemoteArtifactRepositories());
-        BomResolver bomResolver =
-                new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
-
-        graph.getDependencySet().forEach(node -> {
-            var projectOptional = projectBuilder.buildFromGav(
-                    node.getGroupId().getValue(),
-                    node.getArtifactId().getValue(),
-                    node.getVersion().getValue());
-
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Skipping BOM resolution for %s", node));
-                return;
-            }
-
-            Set<Pom> boms = bomResolver.resolveForProject(projectOptional.get());
-
-            if (!boms.isEmpty()) {
-                node.setBoms(boms);
-            }
-        });
     }
 
     /**
