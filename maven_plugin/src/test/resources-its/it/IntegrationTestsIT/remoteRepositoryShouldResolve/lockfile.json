@@ -8,7 +8,7 @@
     "version": "1",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "ba56eb66051bce3676a634bd33db6bbf8fea7fc186cf1c8c148c176ebf95c569"
+    "checksum": "7f9c1e99beb6150920c5ef2927fd2b308d81cf995e0630d765a6c19d0cfd9513"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -545,15 +545,15 @@
                 {
                   "groupId": "org.apache.maven",
                   "artifactId": "maven-xml",
-                  "version": "4.0.0-rc-3",
+                  "version": "4.0.0-rc-5",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "063c424cb47f75164125d5eea25167b931dd694e34268d50247374e74211dd19",
+                  "checksum": "a4b7ad3e3410e0feb6438ebb6231c8e02449cd02fcf6451baed820008a103564",
                   "scope": "compile",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-xml/4.0.0-rc-3/maven-xml-4.0.0-rc-3.jar",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-xml/4.0.0-rc-5/maven-xml-4.0.0-rc-5.jar",
                   "repositoryId": "central",
                   "selectedVersion": "4.0.0-rc-5",
                   "included": false,
-                  "id": "org.apache.maven:maven-xml:4.0.0-rc-3",
+                  "id": "org.apache.maven:maven-xml:4.0.0-rc-5",
                   "parent": "org.codehaus.plexus:plexus-xml:4.1.0",
                   "children": []
                 }
@@ -660,8 +660,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.5"
+      "mavenVersion": "4.0.0-rc-5",
+      "javaVersion": "25"
     },
     "config": {
       "includeMavenPlugins": false,
@@ -670,7 +670,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.11.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.14.3-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
