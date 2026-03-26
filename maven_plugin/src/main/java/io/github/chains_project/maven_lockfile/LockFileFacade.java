@@ -7,20 +7,10 @@ import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
@@ -28,15 +18,12 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Extension;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.project.*;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 import org.apache.maven.shared.dependency.graph.traversal.DependencyNodeVisitor;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.collection.CollectRequest;
@@ -45,6 +32,10 @@ import org.eclipse.aether.resolution.DependencyRequest;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.artifact.JavaScopes;
+
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -57,9 +48,11 @@ public class LockFileFacade {
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<DependencyNode> graph;
+
         /**
          * Create a new instance of the visitor.
-         * @param graph  The graph to add the edges to.
+         *
+         * @param graph The graph to add the edges to.
          */
         private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph) {
             this.graph = graph;
@@ -79,6 +72,7 @@ public class LockFileFacade {
 
     /**
      * Generate a lock file for a project.
+     *
      * @param project The project to generate a lock file for.
      * @return A lock file for the project.
      */
@@ -92,13 +86,14 @@ public class LockFileFacade {
 
     /**
      * Generate a lock file for a project. This method is responsible for generating the lock file for a project. It uses the dependency collector to generate the dependency graph and then resolves the dependencies.
-     * @param session  The maven session.
-     * @param project  The project to generate a lock file for.
-     * @param dependencyCollectorBuilder  The dependency collector builder to use for generating the dependency graph.
-     * @param checksumCalculator  The checksum calculator to use for calculating the checksums of the artifacts.
-     * @param metadata The metadata to include in the lock file.
-     * @param repositorySystem The repository system for resolving artifacts.
-     * @return  A lock file for the project.
+     *
+     * @param session                    The maven session.
+     * @param project                    The project to generate a lock file for.
+     * @param dependencyCollectorBuilder The dependency collector builder to use for generating the dependency graph.
+     * @param checksumCalculator         The checksum calculator to use for calculating the checksums of the artifacts.
+     * @param metadata                   The metadata to include in the lock file.
+     * @param repositorySystem           The repository system for resolving artifacts.
+     * @return A lock file for the project.
      */
     public static LockFile generateLockFileFromProject(
             MavenSession session,
@@ -271,12 +266,12 @@ public class LockFileFacade {
     /**
      * Resolve the dependencies of a Maven plugin.
      *
-     * @param pluginArtifact The plugin artifact to resolve dependencies for
-     * @param session The Maven session
-     * @param project The current Maven project (for repository configuration)
+     * @param pluginArtifact             The plugin artifact to resolve dependencies for
+     * @param session                    The Maven session
+     * @param project                    The current Maven project (for repository configuration)
      * @param dependencyCollectorBuilder The dependency collector builder
-     * @param checksumCalculator The checksum calculator
-     * @param userDeclaredDeps User-declared dependencies for this plugin (from the project's pom.xml)
+     * @param checksumCalculator         The checksum calculator
+     * @param userDeclaredDeps           User-declared dependencies for this plugin (from the project's pom.xml)
      * @return A set of dependency nodes representing the plugin's dependencies
      */
     private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolveComponentDependencies(
@@ -432,10 +427,10 @@ public class LockFileFacade {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
-                            .getBasedir()
-                            .toPath()
-                            .relativize(project.getFile().toPath())
-                            .toString();
+                    .getBasedir()
+                    .toPath()
+                    .relativize(project.getFile().toPath())
+                    .toString();
             String checksum = null;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
@@ -475,12 +470,12 @@ public class LockFileFacade {
 
     /**
      * Resolve the BOM POMs for the current project and its dependencies.
-     *
+     * <p>
      * Note that this function will mutate the graph nodes by adding to each one the list of resolved BOMs.
      *
-     * @param graph The dependency graph
-     * @param session The Maven session
-     * @param project The current Maven project
+     * @param graph              The dependency graph
+     * @param session            The Maven session
+     * @param project            The current Maven project
      * @param checksumCalculator The checksum calculator
      */
     private static Set<Pom> resolveBoms(
