@@ -24,15 +24,18 @@ public class BomResolver {
     private final List<ArtifactRepository> repositories;
 
     private final AbstractChecksumCalculator checksumCalculator;
+    private final org.apache.maven.project.ProjectBuilder injectedProjectBuilder;
 
     @SuppressWarnings("deprecation")
     public BomResolver(
             MavenSession session,
             List<ArtifactRepository> repositories,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
         this.session = session;
         this.repositories = repositories;
         this.checksumCalculator = checksumCalculator;
+        this.injectedProjectBuilder = projectBuilder;
     }
 
     /**
@@ -44,7 +47,7 @@ public class BomResolver {
     public Set<Pom> resolveForProject(MavenProject project) {
         var model = project.getOriginalModel();
         var dependencyManagement = model.getDependencyManagement();
-        var projectBuilder = new ProjectBuilder(session, repositories);
+        var projectBuilder = new ProjectBuilder(session, repositories, injectedProjectBuilder);
         var boms = new TreeSet<Pom>();
 
         if (dependencyManagement == null
@@ -79,8 +82,8 @@ public class BomResolver {
      */
     @SuppressWarnings("deprecation")
     public void resolveBomsForDependencies(DependencyGraph graph) {
-        ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories);
-        BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator);
+        ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories, injectedProjectBuilder);
+        BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator, injectedProjectBuilder);
 
         graph.getDependencySet().forEach(node -> {
             var projectOptional = projectBuilder.buildFromGav(

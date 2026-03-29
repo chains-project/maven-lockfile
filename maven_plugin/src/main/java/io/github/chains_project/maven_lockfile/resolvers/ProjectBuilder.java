@@ -19,6 +19,7 @@ import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 
 public class ProjectBuilder {
+    private final org.apache.maven.project.ProjectBuilder injectedProjectBuilder;
     private final MavenSession session;
     private final Log log;
 
@@ -26,10 +27,11 @@ public class ProjectBuilder {
     private final List<ArtifactRepository> repositories;
 
     @SuppressWarnings("deprecation")
-    public ProjectBuilder(MavenSession session, List<ArtifactRepository> repositories) {
+    public ProjectBuilder(MavenSession session, List<ArtifactRepository> repositories, org.apache.maven.project.ProjectBuilder projectBuilder) {
         this.session = session;
         this.log = PluginLogManager.getLog();
         this.repositories = repositories;
+        this.injectedProjectBuilder = projectBuilder;
     }
 
     /**
@@ -110,11 +112,7 @@ public class ProjectBuilder {
         buildingRequest.setResolveDependencies(true);
 
         try {
-            // Note: getContainer() is deprecated but there's no clear replacement in the current Maven API
-            @SuppressWarnings("deprecation")
-            org.apache.maven.project.ProjectBuilder projectBuilder =
-                    session.getContainer().lookup(org.apache.maven.project.ProjectBuilder.class);
-            ProjectBuildingResult result = projectBuilder.build(pomFile, buildingRequest);
+            ProjectBuildingResult result = injectedProjectBuilder.build(pomFile, buildingRequest);
 
             if (result.getProject() == null) {
                 log.warn(String.format(
@@ -124,7 +122,7 @@ public class ProjectBuilder {
             }
 
             return Optional.of(result.getProject());
-        } catch (ComponentLookupException | ProjectBuildingException e) {
+        } catch (ProjectBuildingException e) {
             log.warn(String.format("Couldn't build project for %s: %s", pomFile.getAbsoluteFile(), e.getMessage()));
         }
 

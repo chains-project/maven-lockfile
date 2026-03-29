@@ -92,11 +92,12 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            MetaData metadata) {
+            MetaData metadata,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
-            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
+            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, projectBuilder);
         }
         // Get all the artifacts for the dependencies in the project
         var graph = LockFileFacade.graph(
@@ -110,7 +111,7 @@ public class LockFileFacade {
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(
                         io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString))));
         var pom = constructRecursivePom(project, checksumCalculator);
-        var boms = resolveBoms(graph, session, project, checksumCalculator);
+        var boms = resolveBoms(graph, session, project, checksumCalculator, projectBuilder);
 
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -127,7 +128,8 @@ public class LockFileFacade {
             MavenProject project,
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
         // Build a map of user-declared plugin dependencies
@@ -155,7 +157,8 @@ public class LockFileFacade {
                             project,
                             dependencyCollectorBuilder,
                             checksumCalculator,
-                            userDeclaredDeps);
+                            userDeclaredDeps,
+                            projectBuilder);
             plugins.add(new MavenPlugin(
                     GroupId.of(pluginArtifact.getGroupId()),
                     ArtifactId.of(pluginArtifact.getArtifactId()),
@@ -186,12 +189,13 @@ public class LockFileFacade {
             MavenProject project,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            List<Dependency> userDeclaredDeps) {
+            List<Dependency> userDeclaredDeps,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
-            ProjectBuilder projectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories());
-            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGav(
+            ProjectBuilder pluginProjectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories(), projectBuilder);
+            Optional<MavenProject> pluginProjectOptional = pluginProjectBuilder.buildFromGav(
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
 
             if (pluginProjectOptional.isEmpty()) {
@@ -388,8 +392,9 @@ public class LockFileFacade {
             DependencyGraph graph,
             MavenSession session,
             MavenProject project,
-            AbstractChecksumCalculator checksumCalculator) {
-        BomResolver resolver = new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator);
+            AbstractChecksumCalculator checksumCalculator,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
+        BomResolver resolver = new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator, projectBuilder);
         resolver.resolveBomsForDependencies(graph);
         return resolver.resolveForProject(project);
     }

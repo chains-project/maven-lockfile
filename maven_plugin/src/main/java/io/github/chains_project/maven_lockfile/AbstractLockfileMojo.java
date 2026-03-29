@@ -15,6 +15,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
@@ -38,6 +39,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     @Component
     protected DependencyResolver dependencyResolver;
+
+    @Component
+    protected ProjectBuilder projectBuilder;
 
     @Parameter(property = "includeMavenPlugins", defaultValue = "false")
     protected String includeMavenPlugins;
