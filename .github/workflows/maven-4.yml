@@ -2,6 +2,7 @@ name: Maven 4 Compatibility
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 jobs:
