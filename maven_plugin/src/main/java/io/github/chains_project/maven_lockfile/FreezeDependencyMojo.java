@@ -198,28 +198,32 @@ public class FreezeDependencyMojo extends AbstractMojo {
         List<Plugin> plugins = build.getPlugins();
         if (plugins == null) {
             plugins = new ArrayList<>();
-            build.setPlugins(plugins);
         }
 
-        Map<String, Plugin> existingPluginsMap = new HashMap<>();
-        for (Plugin plugin : plugins) {
+        List<Plugin> updatedPlugins = new ArrayList<>(plugins);
+        Map<String, Integer> existingPluginIndices = new HashMap<>();
+        for (int i = 0; i < updatedPlugins.size(); i++) {
+            Plugin plugin = updatedPlugins.get(i);
             String key = plugin.getGroupId() + ":" + plugin.getArtifactId();
-            existingPluginsMap.put(key, plugin);
+            existingPluginIndices.put(key, i);
         }
 
         // Process each plugin from the lock file
         for (MavenPlugin mavenPlugin : mavenPlugins) {
             String key = mavenPlugin.getGroupId().getValue() + ":"
                     + mavenPlugin.getArtifactId().getValue();
-            Plugin plugin = existingPluginsMap.get(key);
+            Integer pluginIndex = existingPluginIndices.get(key);
+            Plugin plugin = pluginIndex == null ? null : updatedPlugins.get(pluginIndex);
 
             if (plugin == null) {
                 getLog().warn(String.format("Plugin %s not found in POM, adding it.", key));
                 plugin = new Plugin();
-                plugin.setGroupId(mavenPlugin.getGroupId().getValue());
-                plugin.setArtifactId(mavenPlugin.getArtifactId().getValue());
-                plugins.add(plugin);
+            } else {
+                plugin = plugin.clone();
             }
+            plugin.setGroupId(mavenPlugin.getGroupId().getValue());
+            plugin.setArtifactId(mavenPlugin.getArtifactId().getValue());
+            plugin.setVersion(mavenPlugin.getVersion().getValue());
 
             // Add plugin dependencies if they exist
             Set<DependencyNode> pluginDependencies = mavenPlugin.getDependencies();
@@ -243,6 +247,14 @@ public class FreezeDependencyMojo extends AbstractMojo {
 
                 plugin.setDependencies(dependencies);
             }
+            if (pluginIndex == null) {
+                existingPluginIndices.put(key, updatedPlugins.size());
+                updatedPlugins.add(plugin);
+            } else {
+                updatedPlugins.set(pluginIndex, plugin);
+            }
         }
+        build.setPlugins(updatedPlugins);
+        build.flushPluginMap();
     }
 }
