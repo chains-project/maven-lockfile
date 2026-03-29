@@ -109,7 +109,7 @@ public class ProjectBuilder {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(repositories);
         buildingRequest.setProcessPlugins(false);
-        buildingRequest.setResolveDependencies(true);
+        buildingRequest.setResolveDependencies(false);
 
         try {
             ProjectBuildingResult result = injectedProjectBuilder.build(pomFile, buildingRequest);
