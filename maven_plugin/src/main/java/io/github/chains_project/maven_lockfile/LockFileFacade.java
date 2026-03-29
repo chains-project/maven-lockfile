@@ -194,7 +194,8 @@ public class LockFileFacade {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginArtifact));
         try {
-            ProjectBuilder pluginProjectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories(), projectBuilder);
+            ProjectBuilder pluginProjectBuilder =
+                    new ProjectBuilder(session, project.getPluginArtifactRepositories(), projectBuilder);
             Optional<MavenProject> pluginProjectOptional = pluginProjectBuilder.buildFromGav(
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
 
@@ -394,7 +395,8 @@ public class LockFileFacade {
             MavenProject project,
             AbstractChecksumCalculator checksumCalculator,
             org.apache.maven.project.ProjectBuilder projectBuilder) {
-        BomResolver resolver = new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator, projectBuilder);
+        BomResolver resolver =
+                new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator, projectBuilder);
         resolver.resolveBomsForDependencies(graph);
         return resolver.resolveForProject(project);
     }

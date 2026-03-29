@@ -27,7 +27,10 @@ public class ProjectBuilder {
     private final List<ArtifactRepository> repositories;
 
     @SuppressWarnings("deprecation")
-    public ProjectBuilder(MavenSession session, List<ArtifactRepository> repositories, org.apache.maven.project.ProjectBuilder projectBuilder) {
+    public ProjectBuilder(
+            MavenSession session,
+            List<ArtifactRepository> repositories,
+            org.apache.maven.project.ProjectBuilder projectBuilder) {
         this.session = session;
         this.log = PluginLogManager.getLog();
         this.repositories = repositories;
