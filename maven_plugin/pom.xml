@@ -34,6 +34,17 @@
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Force upgrade of vulnerable transitive plexus-utils (GHSA-6fmv-xxpf-w3cw / CVE-2025-67030).
+           maven-core pulls in 3.6.0 via maven-model; override to safe version 4.0.3. -->
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-utils</artifactId>
+        <version>4.0.3</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
