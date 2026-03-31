@@ -2540,3 +2540,37 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.15.0
+## Changelog
+
+## 🚀 Added
+- ec334e8 ✨ feat: Include BOM POMs in the lockfile (#1516)
+- 42741aa 👷 ci: Do not run ghasum update on forks (#1526)
+
+## 🔄️ Changed
+- 05a0408 🔧 chore: set Maven compiler release version to 11 (#1522)
+
+## 📦 Dependencies
+- 8840002 ⬆️  deps(lockfile): Update maven to 3.9.14 in lockfile (#1535)
+- 55db92c ⬆️  deps(lockfile): Update maven version in lockfile (#1531)
+- 2b60ec0 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.14.2 (#1524)
+- 16b2d74 ⬆️ (deps): Update chains-project/maven-lockfile action to v5.14.1 (#1523)
+
+## 🏁 Release
+- cc08dd5 🔖 Releasing version 5.15.0
+- 4babbf5 🔖 Setting SNAPSHOT version 5.14.3-SNAPSHOT
+- 32dfef3 🔖 Releasing version 5.14.2
+
+---
+- 2956c73 fix: force plexus-utils to 4.0.3 via dependencyManagement (GHSA-6fmv-xxpf-w3cw) (#1536)
+- eb380ca fix: address plexus vulnerability (#1533)
+- c4c6521 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Bruno Pimentel ([@brunoapimentel](https://github.com/brunoapimentel))
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
+- LogFlames ([@LogFlames](https://github.com/LogFlames))
