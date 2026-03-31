@@ -34,21 +34,25 @@
     <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Force upgrade of vulnerable transitive plexus-utils (GHSA-6fmv-xxpf-w3cw / CVE-2025-67030).
+           maven-core pulls in 3.6.0 via maven-model; override to safe version 4.0.3. -->
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-utils</artifactId>
+        <version>4.0.3</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>${mavenVersion}</version>
       <scope>provided</scope>
-      <exclusions>
-        <!-- Excluding the vulnerable transitive dependency org.codehaus.plexus:plexus-utils -->
-        <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-utils</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
-    <!--  Adding only the XML component of org.codehaus.plexus:plexus-utils for the code to compile  -->
+    <!-- plexus-utils 4.x extracted XML APIs into plexus-xml; needed for XmlPullParserException -->
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-xml</artifactId>
