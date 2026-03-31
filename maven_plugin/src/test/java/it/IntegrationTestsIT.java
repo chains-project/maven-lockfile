@@ -745,20 +745,18 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getMavenExtensions()).isNotEmpty();
-        assertThat(lockFile.getMavenExtensions()).hasSizeGreaterThanOrEqualTo(2);
+        assertThat(lockFile.getMavenExtensions()).hasSize(2);
 
         // Verify all extensions have valid checksums
         assertThat(lockFile.getMavenExtensions())
                 .allMatch(v -> !v.getChecksum().isBlank()
                         && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
 
-        // Verify specific extensions are present
-        assertThat(lockFile.getMavenExtensions())
-                .anyMatch(ext -> ext.getGroupId().getValue().equals("kr.motd.maven")
-                        && ext.getArtifactId().getValue().equals("os-maven-plugin"));
-        assertThat(lockFile.getMavenExtensions())
-                .anyMatch(ext -> ext.getGroupId().getValue().equals("org.apache.maven.wagon")
-                        && ext.getArtifactId().getValue().equals("wagon-ssh"));
+        // Verify specific extensions are present in sorted order (TreeSet orders by groupId then artifactId)
+        assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
+                .extracting(ext ->
+                        ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
+                .containsExactly("kr.motd.maven:os-maven-plugin", "org.apache.maven.wagon:wagon-ssh");
 
         // Verify all extensions have dependencies resolved
         assertThat(lockFile.getMavenExtensions())

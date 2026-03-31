@@ -9,6 +9,9 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -32,10 +35,6 @@ import org.eclipse.aether.resolution.DependencyRequest;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.artifact.JavaScopes;
-
-import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -427,10 +426,10 @@ public class LockFileFacade {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
-                    .getBasedir()
-                    .toPath()
-                    .relativize(project.getFile().toPath())
-                    .toString();
+                            .getBasedir()
+                            .toPath()
+                            .relativize(project.getFile().toPath())
+                            .toString();
             String checksum = null;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
