@@ -41,12 +41,14 @@
       <version>${mavenVersion}</version>
       <scope>provided</scope>
       <exclusions>
+        <!-- Excluding the vulnerable transitive dependency org.codehaus.plexus:plexus-utils -->
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
           <artifactId>plexus-utils</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
+    <!--  Adding only the XML component of org.codehaus.plexus:plexus-utils for the code to compile  -->
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-xml</artifactId>
