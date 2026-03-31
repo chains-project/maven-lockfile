@@ -8,7 +8,7 @@
     "version": "5.14.3-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "0a47bb323d213a7884ea199a60465b6bd936ba2d50c66d7b4380137c2673cda1",
+    "checksum": "671ac7295b87c7f4d77e0b6ebbf5491054bde0fadee6ddcccaf2b255701edaa3",
     "parent": {
       "groupId": "io.github.chains-project",
       "artifactId": "maven-lockfile-parent",
@@ -1829,89 +1829,11 @@
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-xml/4.0.0-rc-3/maven-xml-4.0.0-rc-3.jar",
           "repositoryId": "central",
-          "selectedVersion": "4.0.0-rc-3",
-          "included": true,
+          "selectedVersion": "4.0.0-rc-5",
+          "included": false,
           "id": "org.apache.maven:maven-xml:4.0.0-rc-3",
           "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
-          "children": [
-            {
-              "groupId": "com.fasterxml.woodstox",
-              "artifactId": "woodstox-core",
-              "version": "7.1.0",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "81266920a1cdc47306a8a2b4726c99ec89b3fbf31c2470e4f5e477d9d857ca9f",
-              "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/com/fasterxml/woodstox/woodstox-core/7.1.0/woodstox-core-7.1.0.jar",
-              "repositoryId": "central",
-              "selectedVersion": "7.1.0",
-              "included": true,
-              "id": "com.fasterxml.woodstox:woodstox-core:7.1.0",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
-              "children": [
-                {
-                  "groupId": "org.codehaus.woodstox",
-                  "artifactId": "stax2-api",
-                  "version": "4.2.2",
-                  "checksumAlgorithm": "SHA-256",
-                  "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
-                  "scope": "test",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/4.2.2/stax2-api-4.2.2.jar",
-                  "repositoryId": "central",
-                  "selectedVersion": "4.2.2",
-                  "included": false,
-                  "id": "org.codehaus.woodstox:stax2-api:4.2.2",
-                  "parent": "com.fasterxml.woodstox:woodstox-core:7.1.0",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "groupId": "org.apache.maven",
-              "artifactId": "maven-api-xml",
-              "version": "4.0.0-rc-3",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "f3e3b3642373c69d4c7441d40eba0765e1d744e992b62194452f5ea5451dfdba",
-              "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-api-xml/4.0.0-rc-3/maven-api-xml-4.0.0-rc-3.jar",
-              "repositoryId": "central",
-              "selectedVersion": "4.0.0-rc-3",
-              "included": true,
-              "id": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
-              "children": [
-                {
-                  "groupId": "org.apache.maven",
-                  "artifactId": "maven-api-annotations",
-                  "version": "4.0.0-rc-3",
-                  "checksumAlgorithm": "SHA-256",
-                  "checksum": "5d3490f72ad3a7e82be88b27629f37c59fd2531bae511c3b13866420d5d862bd",
-                  "scope": "test",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-api-annotations/4.0.0-rc-3/maven-api-annotations-4.0.0-rc-3.jar",
-                  "repositoryId": "central",
-                  "selectedVersion": "4.0.0-rc-3",
-                  "included": true,
-                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-3",
-                  "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-3",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "groupId": "org.codehaus.woodstox",
-              "artifactId": "stax2-api",
-              "version": "4.2.2",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
-              "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/4.2.2/stax2-api-4.2.2.jar",
-              "repositoryId": "central",
-              "selectedVersion": "4.2.2",
-              "included": true,
-              "id": "org.codehaus.woodstox:stax2-api:4.2.2",
-              "parent": "org.apache.maven:maven-xml:4.0.0-rc-3",
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "groupId": "org.codehaus.plexus",
@@ -2395,6 +2317,114 @@
           "id": "net.bytebuddy:byte-buddy:1.18.3",
           "parent": "org.assertj:assertj-core:3.27.7",
           "children": []
+        }
+      ]
+    },
+    {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-xml",
+      "version": "4.1.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e09b1fcc46da744a0e4dabe703f287ce133b631ea95c6e1a8a82ebad2b1a2815",
+      "scope": "provided",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-xml/4.1.1/plexus-xml-4.1.1.jar",
+      "repositoryId": "central",
+      "selectedVersion": "4.1.1",
+      "included": true,
+      "id": "org.codehaus.plexus:plexus-xml:4.1.1",
+      "children": [
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-xml",
+          "version": "4.0.0-rc-5",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "a4b7ad3e3410e0feb6438ebb6231c8e02449cd02fcf6451baed820008a103564",
+          "scope": "provided",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-xml/4.0.0-rc-5/maven-xml-4.0.0-rc-5.jar",
+          "repositoryId": "central",
+          "selectedVersion": "4.0.0-rc-5",
+          "included": true,
+          "id": "org.apache.maven:maven-xml:4.0.0-rc-5",
+          "parent": "org.codehaus.plexus:plexus-xml:4.1.1",
+          "children": [
+            {
+              "groupId": "com.fasterxml.woodstox",
+              "artifactId": "woodstox-core",
+              "version": "7.1.1",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "02b9d022e9d47704ff8a7a859a0dbfd3b2882a8311eb7ff1e180f760ccda2712",
+              "scope": "provided",
+              "resolved": "https://repo.maven.apache.org/maven2/com/fasterxml/woodstox/woodstox-core/7.1.1/woodstox-core-7.1.1.jar",
+              "repositoryId": "central",
+              "selectedVersion": "7.1.1",
+              "included": true,
+              "id": "com.fasterxml.woodstox:woodstox-core:7.1.1",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-5",
+              "children": [
+                {
+                  "groupId": "org.codehaus.woodstox",
+                  "artifactId": "stax2-api",
+                  "version": "4.2.2",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
+                  "scope": "provided",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/4.2.2/stax2-api-4.2.2.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "4.2.2",
+                  "included": false,
+                  "id": "org.codehaus.woodstox:stax2-api:4.2.2",
+                  "parent": "com.fasterxml.woodstox:woodstox-core:7.1.1",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-api-xml",
+              "version": "4.0.0-rc-5",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "358851a87edd0ddd566a437470ea021ba851a0487ec4d14825ff04db03ff5877",
+              "scope": "provided",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-api-xml/4.0.0-rc-5/maven-api-xml-4.0.0-rc-5.jar",
+              "repositoryId": "central",
+              "selectedVersion": "4.0.0-rc-5",
+              "included": true,
+              "id": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-5",
+              "children": [
+                {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-api-annotations",
+                  "version": "4.0.0-rc-5",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "1f7325c01a0ac5a5206caff09fa388520c6505dab850178f452d2c6aad3d3c83",
+                  "scope": "provided",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-api-annotations/4.0.0-rc-5/maven-api-annotations-4.0.0-rc-5.jar",
+                  "repositoryId": "central",
+                  "selectedVersion": "4.0.0-rc-5",
+                  "included": true,
+                  "id": "org.apache.maven:maven-api-annotations:4.0.0-rc-5",
+                  "parent": "org.apache.maven:maven-api-xml:4.0.0-rc-5",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "groupId": "org.codehaus.woodstox",
+              "artifactId": "stax2-api",
+              "version": "4.2.2",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "a61c48d553efad78bc01fffc4ac528bebbae64cbaec170b2a5e39cf61eb51abe",
+              "scope": "provided",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/woodstox/stax2-api/4.2.2/stax2-api-4.2.2.jar",
+              "repositoryId": "central",
+              "selectedVersion": "4.2.2",
+              "included": true,
+              "id": "org.codehaus.woodstox:stax2-api:4.2.2",
+              "parent": "org.apache.maven:maven-xml:4.0.0-rc-5",
+              "children": []
+            }
+          ]
         }
       ]
     },
