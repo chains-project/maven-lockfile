@@ -1,0 +1,1334 @@
+{
+  "folders": {
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data": {
+      "description": "This package contains the immutable data model and small typed value objects used to represent the lockfile JSON and its metadata. It centralizes canonical semantics (validation, null/absent semantics, stable ordering, and serialization-ready types) for all coordinates, POMs, plugins, environment/config, and repository/resolution information that other modules (graph, checksum, Mojos) depend on.",
+      "key_behaviors": [
+        "Provide strongly-typed lightweight value objects (GroupId, ArtifactId, VersionNumber, RepositoryId, ResolvedUrl, ArtifactType, Classifier) that validate inputs and implement equals/hashCode/Comparable for deterministic ordering.",
+        "Represent POM and plugin resolution state (Pom, MavenPlugin) including resolved URL, repository id, checksum algorithm and checksum, and parent chains for serialization into the lockfile.",
+        "Capture generation-time metadata and environment (Config, Environment, MetaData) that is persisted alongside lockfile contents and used for later validation comparisons.",
+        "Normalize absent/default values & collections for compact and stable JSON (e.g., 'jar' omitted via ArtifactType, empty classifier treated as absent, null collections normalized to empty sets in LockFile).",
+        "Deserialize lockfile JSON back into model objects (LockFile.readLockFile) with attention to backward-compatibility and deterministic equality for validation and diffing."
+      ],
+      "insights": [
+        {
+          "category": "Representation & Serialization",
+          "title": "Null/Absent semantics affect JSON shape and compatibility",
+          "problem": "Several value objects encode absent/default values (ArtifactType returns null for 'jar', Classifier.of returns null for empty classifier, RepositoryId has a None sentinel), which changes whether fields appear in serialized JSON and how older/newer lockfiles are read.",
+          "root_cause": "Design choice to keep lockfile compact and stable by omitting default values and using sentinels rather than explicit nulls or raw strings.",
+          "solution": "Treat these sentinel/null-returning factory behaviors as part of the public contract: maintain them when editing, ensure readLockFile tolerates omitted fields, and preserve consistent serialization names/absence patterns to avoid breaking validation."
+        },
+        {
+          "category": "Determinism",
+          "title": "Stable ordering required for reproducible outputs and diffs",
+          "problem": "Lockfile consumers and CI rely on stable ordering; inconsistent compareTo/equals implementations or unordered collections lead to non-deterministic JSON diffs and flaky validations.",
+          "root_cause": "Use of Sets and value objects across the model demands explicit Comparable/equality contracts for deterministic sorting during serialization.",
+          "solution": "Keep compareTo/equals/hashCode implementations stable and ensure collections are normalized (nullToEmpty) before serialization so outputs remain deterministic across runs and platforms."
+        },
+        {
+          "category": "Backward Compatibility",
+          "title": "Model evolution extended stored fields (BOMs, Config, resolved URLs)",
+          "problem": "LockFile and Pom models have been extended to include BOMs, Config/MetaData, resolved URLs and repo ids; older lockfiles may lack these fields and new code must be tolerant when deserializing.",
+          "root_cause": "Progressive feature additions required new persisted fields that consumers and validators expect to be present.",
+          "solution": "Ensure readLockFile and any deserialization paths supply safe defaults for missing fields, and preserve field names and sentinel conventions to minimize schema breaks."
+        },
+        {
+          "category": "Validation & Construction",
+          "title": "Value-object invariants are enforced at construction time",
+          "problem": "Constructors/factory methods perform non-null and non-empty checks; bypassing these checks or changing validation will affect collection keys and equality behavior.",
+          "root_cause": "The package relies on immutability and upfront validation for correctness across graph and checksum code.",
+          "solution": "Respect constructor validation rules when constructing or mutating instances; do not add alternative constructors that relax these invariants without updating all callers and tests."
+        },
+        {
+          "category": "Cross-module coupling",
+          "title": "Checksum and graph modules depend on explicit resolved fields here",
+          "problem": "Checksum calculation, dependency graph assembly, plugin resolution and validation expect specific fields (checksumAlgorithm, checksum, resolved URL, repository id, classifier/type semantics) to be present and normalized.",
+          "root_cause": "Data objects are the contract exchanged between the facade, calculators and Mojos; they carry the canonical information needed for validation and freeze operations.",
+          "solution": "Any change to field names, null semantics, or presence must be evaluated against callers in graph, checksum, and mojo modules to avoid runtime mismatches."
+        },
+        {
+          "category": "Immutability & Thread-safety",
+          "title": "Models are immutable to be safely shared and used as map/set keys",
+          "problem": "Mutable state or lazily-initialized derived fields would break equality/ordering and could introduce subtle bugs when objects are used across collectors or caches.",
+          "root_cause": "Design explicitly favors immutable final fields and simple getters for predictability.",
+          "solution": "Preserve immutability and avoid adding mutable caches or transient fields that affect equals/hashCode/compareTo semantics."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/LockFile.java",
+          "why": "Root model serialized/deserialized to lockfile.json; central aggregation of dependencies, plugins, BOMs, and metadata used across generate/validate flows."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java",
+          "why": "Canonical representation of project and parent POMs including resolved URL, repo id and checksum \u2014 used by facade when constructing the POM chain and by validators."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/MavenPlugin.java",
+          "why": "Represents build plugin identity, resolved location and plugin dependency nodes; plugin validation and includeMavenPlugins behavior rely on this model."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Config.java",
+          "why": "Captures generation/validation options persisted with lockfile; affects how validation interprets stored checksums and environment inclusion."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/ResolvedUrl.java",
+          "why": "Typed wrapper for resolved locations with Unresolved sentinel; used by Pom and MavenPlugin and affects whether 'resolved' fields appear in JSON."
+        }
+      ],
+      "construct_relationships": [
+        "LockFile aggregates Pom (project POM), a Set<DependencyNode> (dependency roots, external type), Set<MavenPlugin> (plugin metadata), a collection of BOMs, and MetaData (which wraps Environment and Config).",
+        "Pom contains GAV-like fields (groupId, artifactId, version via GroupId/ArtifactId/VersionNumber semantics), checksum info (checksumAlgorithm, checksum), ResolvedUrl and RepositoryId, and an optional parent Pom forming a recursive parent chain.",
+        "MavenPlugin stores coordinates (GroupId/ArtifactId/VersionNumber), a ResolvedUrl, RepositoryId, checksumAlgorithm/checksum and a set of dependency nodes; compareTo/equals contract is implemented to provide deterministic ordering in LockFile plugin sets.",
+        "Value objects (ArtifactType, Classifier, RepositoryId, ResolvedUrl) define null/sentinel behaviors that determine whether corresponding JSON fields are omitted or present, influencing LockFile serialization shape.",
+        "MetaData bundles Config and Environment so higher-level APIs (e.g., LockFileFacade and Mojos) pass a single metadata object through generation and validation flows."
+      ],
+      "notable_relationships": [
+        "Checksum calculators and validation Mojo code (outside this package) expect lockfile models to contain checksumAlgorithm and checksum fields on Pom and MavenPlugin; changes to those fields affect validation behavior.",
+        "Dependency graph and DependencyNode types (in other packages) use ArtifactId/GroupId/VersionNumber/Classifier/ArtifactType for identity and ordering \u2014 modifications to these types affect graph equality and serialization order.",
+        "LockFile.readLockFile must remain tolerant of older lockfiles that lack newly-introduced fields (Config/MetaData, BOMs, resolved URLs); changing field names or sentinel conventions has downstream compatibility impact on validate and freeze goals.",
+        "CI and reproducible-build features depend on deterministic ordering implemented by Comparable and Set normalization in these models; cross-platform differences (e.g., OS-specific artifacts) interact with Environment recorded here."
+      ],
+      "recommendations": [
+        "Preserve immutability, constructor validation, equals/hashCode and compareTo semantics for all value objects; do not alter these contracts without co-updating all consumers (graph, checksum, Mojos) and tests.",
+        "Keep sentinel/null-returning factory behaviors (ArtifactType.of, Classifier.of, ResolvedUrl.Unresolved, RepositoryId.None) as public contracts because they determine serialized JSON presence/absence.",
+        "When adding/removing fields or renaming, update LockFile.readLockFile to provide safe defaults for missing historical fields and maintain backward compatibility for validation runs.",
+        "Ensure any changes that affect ordering are accompanied by re-checking deterministic serialization: run mvn test, serialization unit tests, and a generate+validate integration scenario to detect unstable diffs.",
+        "Before changing Config/MetaData semantics, verify interactions with checksum defaults (ChecksumModes) and validation severity behaviors in the Mojo and checksum implementations to avoid mismatches."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum": {
+      "description": "This package encapsulates checksum calculation and resolved-repository metadata used by the Maven lockfile plugin. It defines an abstract API for obtaining artifact, plugin and POM checksums plus resolved URL/repository id information, and provides concrete local-filesystem and remote-HTTP implementations with caching, prewarm, and algorithm selection.",
+      "key_behaviors": [
+        "Provide a unified checksum API (AbstractChecksumCalculator) that reports checksum algorithm, computes POM checksums consistently, and supplies artifact/plugin checksum and resolved-source information.",
+        "Local resolution: derive artifact file paths from the local Maven repository, compute hex-encoded checksums over files, and infer repository id / resolved URL by parsing local metadata files.",
+        "Remote resolution: perform HTTP requests to fetch repository-provided checksum files or artifacts, compute or verify checksums locally when needed, perform HTTP HEAD to determine resolved URLs, and cache results in-memory.",
+        "Pre-warm and parallelize expensive remote operations via a prewarmArtifactCache hook that implementations can use to reduce repeated network requests during graph assembly.",
+        "Mode selection via canonical ChecksumModes enum to avoid stringly-typed configuration and to serialize stable mode names into the produced lockfile metadata."
+      ],
+      "insights": [
+        {
+          "category": "resolution",
+          "title": "Snapshot path resolution must use baseVersion",
+          "problem": "Snapshot artifacts were being resolved using timestamped artifact version strings, which produced incorrect local and remote paths and missed checksum files.",
+          "root_cause": "Code used artifact.getVersion() (timestamped) instead of artifact.getBaseVersion() (directory-level snapshot) when building repository paths.",
+          "solution": "Use artifact.getBaseVersion() for constructing repository directory paths for snapshot artifacts so both local path lookups and remote checksum/POM requests target the repository layout directory rather than a timestamped file path."
+        },
+        {
+          "category": "resolution",
+          "title": "Classifiers affect filenames and resolved-URL detection",
+          "problem": "Calculators ignored artifact classifiers when composing filenames and parsing _remote.repositories, causing missed matches for artifacts with classifiers.",
+          "root_cause": "Filename and remote-repository parsing logic omitted classifier handling, assuming artifact coordinates consist only of group/artifact/version/extension.",
+          "solution": "Include classifier in filename construction and in remote metadata parsing to ensure artifacts with classifiers are located and their resolved URLs/checksums detected."
+        },
+        {
+          "category": "compatibility",
+          "title": "Artifact extension must come from artifact handler, not type string",
+          "problem": "Special-casing 'maven-plugin' or using the raw artifact type string for file extension caused incorrect filename/URL resolution for some artifacts.",
+          "root_cause": "Code derived file extensions from artifact.getType() (fragile) instead of using the artifact handler extension mapping that reflects repository filenames.",
+          "solution": "Use the artifact handler extension (artifact.getArtifactHandler().getExtension()) when producing filenames and remote request paths to align with repository storage conventions."
+        },
+        {
+          "category": "performance",
+          "title": "Remote operations require caching and pre-warm",
+          "problem": "Repeated HTTP requests and per-request HttpClient creation led to poor performance and redundant network traffic when resolving many artifacts.",
+          "root_cause": "No central HTTP client or in-memory cache; resolution logic executed per call without a prewarm mechanism.",
+          "solution": "Centralize network resources (single HttpClient), add in-memory caching for checksum and resolved-URL results, and provide a prewarmArtifactCache hook to parallelize initial lookups to reduce repeated requests."
+        },
+        {
+          "category": "logging & integration",
+          "title": "Plugin logging must integrate with Maven logging",
+          "problem": "Checksum code previously used a logger external to the plugin logging infrastructure, producing inconsistent log output and warnings that were disconnected from the Mojo log.",
+          "root_cause": "Checksum implementation used a standalone logging framework (e.g., log4j) instead of the plugin's PluginLogManager / Maven log bridge.",
+          "solution": "Route warnings and informational messages through PluginLogManager to keep logs consistent with Maven plugin execution context and respect configured logging verbosity."
+        },
+        {
+          "category": "data-model & caching",
+          "title": "RepositoryInformation needs proper equality semantics for caching",
+          "problem": "Repository id and resolved-url were returned separately and lacked a single immutable value object with equals/hashCode, making cache keys and comparisons fragile.",
+          "root_cause": "Resolved URL and repository id were separate primitives returned from calculators; caches compared or stored them inconsistently.",
+          "solution": "Encapsulate both pieces into RepositoryInformation with equals/hashCode and provide an Unresolved sentinel; use it as cache values and comparison keys to simplify and stabilize cache behavior."
+        },
+        {
+          "category": "configuration",
+          "title": "Checksum mode strings must be canonicalized",
+          "problem": "Stringly-typed checksum mode configuration led to risk of typos and inconsistent mode selection across the codebase.",
+          "root_cause": "Multiple places consumed raw strings for modes instead of a centralized enum mapping.",
+          "solution": "Centralize valid modes in a ChecksumModes enum with stable serialized names and a fromName parser so external configuration and JSON use canonical names."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java",
+          "why": "Defines the plugin-facing checksum API, POM checksum logic, prewarm hook, and exposes the algorithm string used in lockfile metadata \u2014 the contract other classes must follow."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/FileSystemChecksumCalculator.java",
+          "why": "Implements local-repo-based checksum and resolved-URL derivation logic; used when checksum mode is LOCAL and must correctly handle snapshots, classifiers and local metadata parsing."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java",
+          "why": "Performs network-based checksum resolution with caching, HTTP operations, and prewarm; used when checksum mode is REMOTE and must manage concurrency, caching and verification against repository-provided checksums."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java",
+          "why": "Central source of permitted checksum mode names and parsing; changes affect configuration parsing, JSON serialization, and mode selection across the plugin."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RepositoryInformation.java",
+          "why": "Value object returned by calculators combining resolved URL and repository id; used as cache values and equality-keyed comparisons, so its identity semantics are relied upon."
+        }
+      ],
+      "construct_relationships": [
+        "AbstractChecksumCalculator declares the API consumed by FileSystemChecksumCalculator and RemoteChecksumCalculator for calculateArtifactChecksum, calculatePluginChecksum, getArtifactResolvedField and getPluginResolvedField.",
+        "AbstractChecksumCalculator implements consistent POM checksum computation and exposes the checksum algorithm string used by data serialization; concrete calculators use the abstract POM logic and supply artifact/plugin-specific resolution.",
+        "FileSystemChecksumCalculator and RemoteChecksumCalculator both produce RepositoryInformation values representing resolved URL + repository id; consumers expect RepositoryInformation.Unresolved() sentinel on failures.",
+        "RemoteChecksumCalculator relies on a shared HttpClient, internal caches, and a prewarmArtifactCache implementation to reduce repeated network requests; prewarmArtifactCache is defined by AbstractChecksumCalculator and invoked by callers to parallelize resolution.",
+        "ChecksumModes is referenced when selecting which concrete checksum calculator to instantiate/configure; its serialized names appear in produced lockfile metadata and in configuration parsing."
+      ],
+      "notable_relationships": [
+        "Lockfile generation and validation code (LockFileFacade, Mojos) depends on implementations of AbstractChecksumCalculator to produce checksums, resolved URLs and checksumAlgorithm metadata included in LockFile.json.",
+        "Checksum calculator behavior affects dependency graph construction and BOM/plugin resolution: incorrect resolved URLs or checksum mismatches will cause validation failures or differing lockfile outputs across environments.",
+        "Checksum mode selection (ChecksumModes) is consumed by higher-level Mojos and configuration parsing; misalignment between the enum serialized names and documented/configured values will break CI and user configuration.",
+        "RepositoryInformation equality semantics are relied on by in-memory caches in RemoteChecksumCalculator and possibly other caching layers; altering equality/hash behavior or the Unresolved sentinel semantics will impact cache hits and duplicate network requests."
+      ],
+      "recommendations": [
+        "Preserve AbstractChecksumCalculator's public contract: POM checksum format (hex lowercase), checksum algorithm exposure, and the prewarmArtifactCache hook so callers and serializers continue to rely on consistent outputs.",
+        "When editing resolution logic, ensure snapshot resolution uses artifact.getBaseVersion(), and include classifier and artifact handler extension in filename/URL construction for both local and remote implementations.",
+        "Maintain RepositoryInformation as an immutable value with equals/hashCode and the Unresolved sentinel; do not split resolved-url and repository id into separate return points without updating caches and comparisons that consume it.",
+        "Respect existing caching and single-HttpClient reuse patterns in RemoteChecksumCalculator; changes that create per-request clients or remove caches will regress performance and increase network load during graph assembly.",
+        "Keep ChecksumModes' serialized names stable (Gson annotations) and ensure any configuration parsing continues to use the fromName helper so external configuration and lockfile JSON remain compatible.",
+        "Route log messages through PluginLogManager (or the established plugin logging bridge) rather than introducing standalone loggers; maintain message levels and content expected by surrounding Mojos.",
+        "After changes, run the project's tests and typical plugin flows (generate, validate, freeze) and CI scenarios where lockfile generation and validation are executed; verify produced lockfile.json metadata (checksumAlgorithm, resolved URLs) and cross-platform considerations for native artifacts."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data": {
+      "description": "This folder contains unit tests for the lockfile data model value objects and deterministic ordering semantics used by the Maven Lockfile plugin. The tests lock in validation rules (non-null, non-empty), parsing and defaulting behavior (Maven scope), version string preservation, and the compareTo ordering for MavenPlugin entries \u2014 behaviors that downstream serialization, graph ordering, and validation rely on for reproducible lockfiles.",
+      "key_behaviors": [
+        "Value-object validation: enforcing non-null and non-empty invariants for GroupId, ArtifactId and VersionNumber inputs.",
+        "Preservation of exact version strings (including SNAPSHOT and timestamped builds) for use in lockfile output.",
+        "Parsing and defaulting for dependency scopes where null/empty inputs map to COMPILE and enum round-trip is preserved.",
+        "Deterministic ordering/comparison of MavenPlugin instances using a strict comparator priority (groupId -> artifactId -> version -> checksumAlgorithm -> checksum) to guarantee stable lockfile plugin lists."
+      ],
+      "insights": [
+        {
+          "category": "Validation invariants",
+          "title": "Non-null/non-empty identifier enforcement",
+          "problem": "GroupId and ArtifactId value objects are expected to reject null or empty strings; relaxing these checks would allow invalid identifiers into the lockfile.",
+          "root_cause": "Downstream code assumes well-formed identifiers and ordering/comparison code expects non-null fields.",
+          "solution": "Maintain current constructor/factory guards that throw or reject null/empty values; any intentional change must update tests and consider serialization and graph-building consumers."
+        },
+        {
+          "category": "Version semantics",
+          "title": "Exact version string preservation",
+          "problem": "VersionNumber tests expect exact retention of input strings (including snapshot and timestamp formats); altering normalization would change lockfile contents and break reproducibility.",
+          "root_cause": "Other systems and the lockfile consumer use the literal version string as a key/identifier.",
+          "solution": "Ensure constructors and serializers preserve the raw version string without normalization unless tests and all consumers are updated in lockstep."
+        },
+        {
+          "category": "Enum parsing default",
+          "title": "MavenScope defaulting behavior",
+          "problem": "MavenScope.fromString treats null or empty input as COMPILE; changing this default will change recorded scopes and may alter dependency resolution/validation behavior.",
+          "root_cause": "Implicit defaulting simplifies consumers that omit scope and relies on COMPILE semantics.",
+          "solution": "Retain null/empty -> COMPILE mapping or intentionally coordinate any change across serialization, graph building, and validation logic and update tests accordingly."
+        },
+        {
+          "category": "Deterministic ordering",
+          "title": "MavenPlugin.compareTo stability",
+          "problem": "MavenPlugin ordering is relied upon for stable lockfile plugin lists; if comparator priorities or null-handling change, lockfile ordering and validation will be affected.",
+          "root_cause": "Lockfile generation and equality checks rely on a specific comparator sequence (groupId -> artifactId -> version -> checksumAlgorithm -> checksum).",
+          "solution": "Preserve comparator priority and null semantics; if adjustments are necessary, adjust tests and downstream consumers that depend on plugin ordering."
+        },
+        {
+          "category": "Test coverage assumptions",
+          "title": "Unit tests encode contract expectations",
+          "problem": "These tests codify contracts between data objects and consumers; code changes that break these tests indicate contract changes that must be reflected across the plugin.",
+          "root_cause": "Small, focused unit tests protect narrow semantics which are implicitly relied on by higher-level flows (serialization, graph ordering, validation).",
+          "solution": "When modifying data-type behavior, run and update unit tests and ensure alignment with serialization and lockfile validation steps used elsewhere in the plugin and CI."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/MavenPluginTest.java",
+          "why": "Verifies MavenPlugin.compareTo ordering used to produce deterministic plugin listings in lockfiles; a change here indicates comparator contract changes."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/MavenScopeTest.java",
+          "why": "Locks in MavenScope parsing and defaulting (null/empty -> COMPILE) which affects dependency scope serialization and downstream resolution behavior."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/ArtifactIdTest.java",
+          "why": "Ensures ArtifactId rejects invalid inputs and preserves values \u2014 foundational for identifiers used in graphs and lockfile records."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/GroupIdTest.java",
+          "why": "Ensures GroupId invariants that are assumed by ordering and serialization logic."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/VersionNumberTest.java",
+          "why": "Asserts exact retention of version strings; changes here influence artifact identity and reproducibility guarantees."
+        }
+      ],
+      "construct_relationships": [
+        "MavenPlugin.compareTo relies on GroupId, ArtifactId and VersionNumber values as the primary comparator keys, then checksumAlgorithm and checksum as tiebreakers.",
+        "MavenScope.fromString and enum round-trip behavior are consumed by serialization logic that writes dependency scopes into the lockfile and by components that read lockfile scopes back into typed enums.",
+        "GroupId, ArtifactId and VersionNumber are small value objects that compose higher-level models (MavenPlugin, dependency nodes and lockfile entries) and therefore their validation and string-preservation propagate to serialization and graph ordering.",
+        "Tests assume null/empty inputs are handled consistently (either rejected for identifiers or defaulted to COMPILE for scopes), so null-handling semantics are cross-cutting between these value objects and higher-level producers/consumers."
+      ],
+      "notable_relationships": [
+        "These tests constrain production classes in maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data and influence lockfile serialization, dependency graph ordering, and validation Mojos; changes to data-type contracts will affect LockFileFacade, DependencyGraph, and Mojo behavior.",
+        "Deterministic MavenPlugin ordering impacts the produced JSON lockfile ordering (plugin lists) which downstream validation and CI workflows depend on for reproducibility and diff-stability.",
+        "MavenScope defaulting and VersionNumber preservation influence cross-module compatibility: serialization consumers (lockfile writer/reader) and validation logic expect the exact strings and default scopes asserted by these tests."
+      ],
+      "recommendations": [
+        "Do not change value-object null/empty validation semantics (GroupId, ArtifactId, VersionNumber) without updating these tests and all upstream consumers that assume those invariants.",
+        "Preserve exact version string storage and serialization behavior; any normalization must be coordinated across serialization, comparison, and validation code and accompanied by test updates.",
+        "Keep MavenScope.fromString null/empty -> COMPILE behavior or update dependent serialization/validation logic and tests when changing this default.",
+        "Maintain the comparator priority and null-handling in MavenPlugin.compareTo to avoid unexpected reordering of plugin lists in lockfiles; if modified, update tests and downstream consumers.",
+        "Run mvn test (unit tests) and apply project formatting (spotless) after changes in this subtree; failures here signal broader contract changes that affect lockfile generation and validation."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph": {
+      "description": "This package adapts Maven's runtime dependency graph into the plugin's immutable, deterministic dependency model used in lockfile generation and validation. It is responsible for traversing Maven's graph, producing DependencyNode instances (identity via NodeId), enforcing parent/child invariants, preparing deterministic ordering, and pre-warming checksum/resolution metadata needed by higher-level facades and serializers.",
+      "key_behaviors": [
+        "Traverse Maven's org.apache.maven.shared.dependency.graph.DependencyNode graph and produce an immutable, flattened set of DependencyNode domain objects.",
+        "Create and attach identity (NodeId), resolved resolution metadata (resolved URL, repository id), artifact attributes (type, classifier, scope), BOM attachments and parent-child links for each domain node.",
+        "Pre-warm and batch unique artifact information required for checksum retrieval via an injected AbstractChecksumCalculator to reduce I/O latency and avoid repeated remote calls.",
+        "Provide deterministic ordering and stable comparator strings for children and whole-graph traversal; support a 'reduced' mode that omits non-selected/conflicted nodes.",
+        "Enforce parent-child linkage invariants when constructing nodes (addChild) to preserve graph integrity used by serialization and comparison."
+      ],
+      "insights": [
+        {
+          "category": "Identity & Equality",
+          "title": "Node identity must include classifier and canonical coordinates",
+          "problem": "Artifacts that differ only by classifier or previously-unrecorded resolution details could collide in sets or maps used for lockfile generation and comparison.",
+          "root_cause": "Earlier domain model omitted classifier and resolved/resolution metadata from node identity and comparisons, so distinct artifacts could be treated as equal.",
+          "solution": "NodeId/DependencyNode now include classifier and canonical coordinate string used by equals/hashCode and comparatorString to ensure distinct artifacts remain distinct; any edits must preserve these fields and their role in equality and sorting."
+        },
+        {
+          "category": "Checksum Retrieval & Performance",
+          "title": "Checksum calculation is batched and pre-warmed",
+          "problem": "On-the-fly checksum retrieval per artifact can create heavy, repeated I/O (especially remote) and slow graph construction.",
+          "root_cause": "Checksum calculations were previously invoked during per-node creation without aggregating unique artifacts first.",
+          "solution": "DependencyGraph gathers a unique set of transitive artifacts and pre-warms a checksum cache via the AbstractChecksumCalculator before node creation; changes must respect that batched pre-warm step and the lifecycle/contract of the calculator (including exception and concurrency behavior)."
+        },
+        {
+          "category": "Graph Integrity & Reduced Mode",
+          "title": "Parent-child invariants and reduced-mode filtering affect graph shape",
+          "problem": "Graph traversal that doesn't respect selected/conflicted node resolution or parent-child invariants can produce inconsistent trees and incorrect lockfile contents.",
+          "root_cause": "Maven's dependency graph contains both selected nodes and conflict-omitted nodes; naively traversing it can produce parents/children that violate expected invariants.",
+          "solution": "DependencyGraph enforces addChild invariants and supports a reduced mode that omits non-selected nodes; maintain traversal logic and node inclusion criteria to avoid breaking comparisons and downstream consumers that depend on the reduced representation."
+        },
+        {
+          "category": "Logging & Debug Context",
+          "title": "Maven-aware logging context is required",
+          "problem": "Non-Maven loggers used during graph construction made debugging output less useful in Maven plugin contexts and inconsistent with plugin logs.",
+          "root_cause": "Graph creation and debug output originally used a generic logger rather than the project's PluginLogManager tied to Maven's logging.",
+          "solution": "Graph code now uses PluginLogManager for logging; edits should preserve Maven logging context to keep CI/test expectations and log-driven diagnostics intact."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java",
+          "why": "Core adapter that traverses Maven's dependency graph, produces the flattened deterministic DependencyNode set, pre-warms checksum cache, applies reduced-mode filtering, and supplies roots for lockfile assembly."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyNode.java",
+          "why": "Domain model for an artifact in the lockfile: holds coordinates, checksum metadata, resolved URL/repositoryId, classifier/type, BOMs, children, and equality/comparator behavior relied upon by serialization and comparison logic."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/NodeId.java",
+          "why": "Canonical, immutable identifier for artifacts (group:artifact:version) used for stable equals/hashCode, consistent text serialization, and as the fundamental key in maps/sets during graph construction."
+        }
+      ],
+      "construct_relationships": [
+        "DependencyGraph.of(...) traverses Maven dependency graph and creates DependencyNode instances (using NodeId to represent identity).",
+        "DependencyNode.addChild enforces parent-child linkage invariants; DependencyGraph uses addChild to build the in-memory parent/child relationships deterministically.",
+        "DependencyGraph gathers unique NodeId/artifact identities to pre-warm checksums via an injected AbstractChecksumCalculator (external to this package) and then attaches checksum, resolved URL and repository id into each DependencyNode.",
+        "DependencyNode comparatorString (derived from NodeId and artifact metadata) is used by DependencyGraph to order children deterministically for BFS flattening and for producing stable outputs consumed by lockfile serialization."
+      ],
+      "notable_relationships": [
+        "DependencyGraph depends on the checksum subsystem (maven_plugin.src.main.java.io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator) to enrich nodes with checksum and resolution fields \u2014 changes here must respect that API and error behavior.",
+        "Graph output is consumed by LockFileFacade and LockFile data models; any change to node fields, equality, or ordering impacts lockfile JSON structure and comparison logic used by validation/freeze Mojos.",
+        "Logging in this package is expected to use PluginLogManager (reporting) so that messages appear in Maven logs and CI; altering logging behavior affects diagnostics and test expectations.",
+        "Reduced-mode behavior and parent/child invariants interact with BOM resolution and plugin dependency resolution in other packages (resolvers/BomResolver, LockFileFacade.getAllPlugins) and so changes can alter which artifacts are included in subsequent BOM/plugin resolution steps."
+      ],
+      "recommendations": [
+        "Preserve deterministic ordering: do not change comparatorString semantics or child-sorting without coordinating downstream serialization and tests that rely on stable ordering.",
+        "Maintain equals/hashCode compatibility for NodeId/DependencyNode: adding/removing fields that participate in equality will change set/map membership and diffing; if altering, update serialization, lockfile model, and tests together.",
+        "Respect the checksum pre-warm step and the AbstractChecksumCalculator contract: batch-collection of unique artifacts precedes per-node enrichment; handle calculator exceptions and concurrency as expected by callers.",
+        "Keep parent-child invariants and reduced-mode semantics intact: any traversal or filtering changes must continue to enforce addChild invariants to avoid producing inconsistent graphs.",
+        "Use PluginLogManager/Maven logging context for diagnostics: changing logging targets or formats can break CI/test expectations and complicate debugging in Maven executions.",
+        "Run the full Maven test suite and validate produced lockfile JSON outputs after edits (including cross-platform CI matrix) because small changes to node identity, ordering, or resolution metadata affect lockfile diffs and validation behavior."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph": {
+      "description": "This folder contains unit tests that validate the LockFile-related graph model behavior, chiefly that LockFile equality and identity are order-insensitive for dependency roots, plugins and BOMs. The tests build representative dependency graphs, plugin and POM/BOM fixtures and assert equality semantics that must remain stable across model changes; they act as a guardrail for changes in the data model and equals/hashCode behavior used by the plugin.",
+      "key_behaviors": [
+        "Assemble in-memory sample dependency graphs (DependencyNode with children) and plugin/POM/BOM fixtures to represent realistic lockfile contents.",
+        "Create multiple LockFile instances with the same logical content but different insertion orders for collections and assert they are considered equal.",
+        "Exercise model convenience APIs (ResolvedUrl.Unresolved(), RepositoryId.None()) and enum/config-backed fields indirectly through fixture construction.",
+        "Rely on equals/hashCode implementations of LockFile and contained types so that Set semantics (order-insensitivity) hold during assertions."
+      ],
+      "insights": [
+        {
+          "category": "Equality semantics",
+          "title": "Tests depend on order-insensitive equality for LockFile contents",
+          "problem": "If LockFile or any contained type switches collection types or changes equals/hashCode semantics, tests will fail even when logical data is identical.",
+          "root_cause": "The test asserts equality across instances that only differ by insertion order; this relies on Set semantics and stable equals/hashCode for LockFile, DependencyNode, MavenPlugin, Pom and BOM types.",
+          "solution": "When changing model fields or collection types, ensure equals/hashCode continue to treat dependency roots/plugins/BOMs as unordered sets or update tests to reflect intended new semantics."
+        },
+        {
+          "category": "Fragile fixtures",
+          "title": "Tests use lightweight fixtures tied to model constructors and convenience factories",
+          "problem": "Refactoring constructors, adding required fields, or renaming factory methods (e.g., ResolvedUrl/RepositoryId/APIs) will break test compilation and behavior.",
+          "root_cause": "Fixtures instantiate model objects directly and rely on specific constructors/factory methods and default values.",
+          "solution": "Any edit that adds or changes model constructor signatures, required fields, or convenience factory methods must be accompanied by corresponding updates to the test fixtures or alternative fixture helpers."
+        },
+        {
+          "category": "Model coupling",
+          "title": "Tests act as a contract for model serialization/equality",
+          "problem": "Changes to enums, added metadata fields (e.g., Pom added to LockFile), or changes in plugin/bom representation may have ripple effects in tests and in code that serializes/deserializes lockfiles.",
+          "root_cause": "Unit tests implicitly codify expectations about which fields participate in equality and which are optional/unresolved.",
+          "solution": "Treat these tests as verification of contract: when modifying model fields or serialization behavior, update tests to reflect the new contract and run full test suite to detect regressions."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java",
+          "why": "Primary unit test that constructs sample dependency graph, plugin and POM/BOM fixtures and asserts order-insensitive equality for LockFile instances; any change to LockFile/model types will require attention here."
+        }
+      ],
+      "construct_relationships": [
+        "LockfileTest constructs DependencyNode instances (nodes with children) and groups them into collections that are placed into LockFile instances to model dependency roots.",
+        "LockfileTest creates MavenPlugin and Pom/BOM fixtures and attaches them to LockFile instances to exercise plugin and parent-POM related fields.",
+        "LockfileTest uses ResolvedUrl.Unresolved() and RepositoryId.None() factory or sentinel values to represent unresolved external references in fixtures.",
+        "The equality assertion in LockfileTest depends on LockFile.equals/hashCode delegating to the equals/hashCode of contained DependencyNode, MavenPlugin and Pom/BOM types and treating their collections as unordered (Set) members."
+      ],
+      "notable_relationships": [
+        "Tests depend on data model classes under maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data and graph types; changes in those production classes (LockFile, DependencyNode, MavenPlugin, Pom, ResolvedUrl, RepositoryId) are the primary cause of test breakage.",
+        "Because tests validate order-insensitivity via Set semantics, any upstream change that converts sets to lists (or vice versa) or alters element equality will change test outcomes and likely indicate a change in intended contract.",
+        "Test fixtures reflect recent refactors (e.g., addition of Pom to LockFile and enums changes); future edits to configuration enums or checksum-related fields in the main codebase will require corresponding test updates."
+      ],
+      "recommendations": [
+        "When editing production model classes referenced by these tests, ensure equals() and hashCode() semantics remain compatible with order-insensitive collection expectations or update tests to reflect new semantics.",
+        "If adding new required fields or changing constructor signatures for model types (Pom, MavenPlugin, DependencyNode, ResolvedUrl, RepositoryId), update this test's fixtures and imports so they compile and represent intended defaults.",
+        "Run the module test suite (mvn -pl maven_plugin test or mvn test at repo root) after changes; compilation failures or assertion differences here are direct signals of contract changes.",
+        "Be aware that changes affecting serialization shape or the set/list nature of collections will change test behavior; check both in-memory equality and any serialization-based tests when adjusting model types.",
+        "Preserve access to convenience factory methods or sentinel constructors used by the tests (e.g., ResolvedUrl.Unresolved(), RepositoryId.None()) or provide replacements in tests if those APIs are renamed."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/resolvers": {
+      "description": "This package provides resolution utilities used by lockfile generation: locating POMs by GAV, constructing MavenProject instances, and resolving BOM (Bill Of Materials) imports to produce Pom metadata (including parent chains and checksums) that are attached to dependency graph nodes and recorded in the lockfile. It matters because BOMs and POM parent chains are required for a faithful, reproducible lockfile: missing or incorrectly-resolved BOMs produce incomplete metadata and can break validation or freeze operations downstream.",
+      "key_behaviors": [
+        "Resolve BOMs declared as dependencyManagement entries (type=pom, scope=import) for a given MavenProject and for dependency nodes; build parent Pom chains and produce Pom objects carrying resolved URL, repo id, checksum algorithm and checksum.",
+        "Perform local-first POM artifact lookup (fast local repo check) and fall back to remote ArtifactResolver resolution to obtain POM files for a GAV, then build a MavenProject from the POM with plugins disabled.",
+        "Interpolate simple ${property} placeholders in dependencyManagement version fields to determine effective BOM versions before resolution.",
+        "Attach resolved BOM sets (as sorted/deterministic collections) to DependencyNode instances in the dependency graph, enabling downstream serialization into the LockFile model.",
+        "Fail soft: when POM/BOM resolution fails, return Optional.empty and log warnings rather than throwing exceptions, so generation can continue without hard failures."
+      ],
+      "insights": [
+        {
+          "category": "coverage-gap",
+          "title": "BOMs previously omitted from lockfiles",
+          "problem": "BOMs imported via dependencyManagement (type=pom, scope=import) were not being recorded in the lockfile outputs or attached to dependency nodes previously.",
+          "root_cause": "Dependency collection focused on parent POM chains and direct dependencies; dependencyManagement-imported BOM POMs were not traversed or converted into Pom metadata for inclusion.",
+          "solution": "Explicitly resolve BOM POMs (via ProjectBuilder) and build their parent chains and checksums, then attach them (in a sorted/deterministic set) to the relevant DependencyNode/Project so the lockfile records these imports."
+        },
+        {
+          "category": "resolution-strategy",
+          "title": "Local-first POM lookup with graceful fallback",
+          "problem": "Multiple callers duplicated logic to find POM files in the local repo or to resolve them remotely, and failures could be noisy or cause hard errors.",
+          "root_cause": "Consumers of POM resolution historically reimplemented lookups; remote resolution requires Maven container components and can fail in CI or network-constrained environments.",
+          "solution": "Encapsulate local-first lookup and ArtifactResolver fallback in ProjectBuilder, return Optional<MavenProject>, and log warnings rather than throwing; maintain this behavior so callers can handle missing POMs without aborting generation."
+        },
+        {
+          "category": "placeholder-handling",
+          "title": "Limited interpolation of version placeholders",
+          "problem": "Some dependencyManagement version fields contain ${property} placeholders that must be resolved to compute the effective BOM version; naive handling can fail or produce incorrect GAVs.",
+          "root_cause": "DependencyManagement entries may reference project properties; full Maven expression evaluation is heavier than simple substitution.",
+          "solution": "Interpolate only simple ${property} placeholders where safe and documented; recognize the limitation as a deliberate simplification and preserve deterministic behavior. Consumers that rely on complex expressions must be aware resolutions may fail and be handled gracefully."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/resolvers/BomResolver.java",
+          "why": "Primary component that finds and resolves BOM POMs, builds parent Pom chains, interpolates simple placeholders, and attaches resolved BOMs and metadata to DependencyNode/Project for lockfile inclusion."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/resolvers/ProjectBuilder.java",
+          "why": "Encapsulates GAV-to-MavenProject resolution with local-first lookup and ArtifactResolver fallback; used by BomResolver and other callers to obtain MavenProject instances and POM files without duplicating resolution logic."
+        }
+      ],
+      "construct_relationships": [
+        "BomResolver.resolveForProject / resolveBomsForDependencies -> calls ProjectBuilder.buildFromGav to obtain MavenProject instances for BOM coordinates.",
+        "BomResolver -> uses AbstractChecksumCalculator implementations to compute checksums for resolved POM files and to populate Pom.checksum and algorithm fields.",
+        "BomResolver.resolveBomParents -> constructs Pom parent chains (Pom objects) and returns them as a sorted/deterministic set that is attached to DependencyNode instances in the DependencyGraph.",
+        "ProjectBuilder -> first attempts lookForPomFileInLocalRepository; if absent, falls back to resolvePomFile via ArtifactResolver and then buildProjectFromPomFile to produce a MavenProject with plugins disabled.",
+        "Consumers (e.g., LockFileFacade) expect Optional<MavenProject> from ProjectBuilder and will continue generation when Optional.empty is returned (warnings logged rather than exceptions)."
+      ],
+      "notable_relationships": [
+        "LockFileFacade and other lockfile-generation callers depend on BomResolver to populate BOM metadata; any change to BOM resolution semantics affects LockFile model contents and subsequent serialization/validation.",
+        "Checksum subsystem (checksum package) is used to compute and attach checksums for BOM/POM artifacts; changing checksum APIs or behavior will impact the Pom objects produced here and thus lockfile integrity checks.",
+        "Dependency graph structures (DependencyGraph, DependencyNode) receive BOM sets from BomResolver; changes that alter attachment shape (e.g., ordering or set types) will affect deterministic serialization and diff behavior in generated lockfiles.",
+        "ProjectBuilder uses Maven container components (ArtifactResolver, project building) potentially referencing deprecated APIs; modifications may require ensuring the correct Maven runtime context is available when Mojos run."
+      ],
+      "recommendations": [
+        "Preserve the local-first resolution order: check the local repository for a POM file before invoking remote ArtifactResolver fallback; callers rely on that behavior to avoid unnecessary network access.",
+        "Keep failure-tolerant behavior: ProjectBuilder returns Optional<MavenProject> and logs warnings on resolution failures rather than throwing; maintain this contract so higher-level flows do not unexpectedly abort.",
+        "Maintain deterministic output: BOM sets are returned/attached as sorted collections; do not change ordering semantics without coordinating changes to lockfile serialization and tests that assert deterministic ordering.",
+        "Retain limited placeholder interpolation semantics: only simple ${property} substitutions are handled; broadening interpolation may change resolved BOM versions and should be coordinated with callers and tests.",
+        "When modifying method signatures or behaviors, update all callers (LockFileFacade, graph assembly code, Mojo usages) because these resolver APIs are transitively relied upon by lockfile generation, validation, and freeze flows.",
+        "Run the full test suite and the end-to-end lockfile generation/validation scenarios (mvn test; generate a lockfile and run validate against it) and verify across CI-like environments because resolution and checksum differences can surface only in integration flows and different platforms.",
+        "Account for Maven container/runtime expectations: ProjectBuilder uses Maven resolver components that require the Mojo/container context; preserve usage patterns (plugins disabled when building projects) to avoid side effects during project construction."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/reporting": {
+      "description": "This package contains small reporting utilities used by the Maven plugin: a typed, defensive representation of differences between two lockfiles and a centralized static holder for the Maven Log usable by non-Mojo code. These utilities are lightweight but critical for user-facing validation output and for ensuring that library code logs through Maven's logging infrastructure when executed inside Maven.",
+      "key_behaviors": [
+        "Compute a structured diff between an on-disk lockfile and a lockfile generated from the current project, separating missing dependencies and missing Maven plugins into explicit sets.",
+        "Provide defensive, immutable-facing access to diff results so callers can render or react to lockfile mismatches without corrupting internal state.",
+        "Expose a global, injectable Maven Log for non-Mojo classes with a SystemStreamLog fallback so downstream utilities log consistently when run both inside and outside of Maven.",
+        "Rely on data model equality/hashCode semantics for set-based difference computations and on Mojos to inject the Maven Log at startup."
+      ],
+      "insights": [
+        {
+          "category": "API safety",
+          "title": "Defensive copies for diff results",
+          "problem": "Callers previously received internal mutable sets for missing items, allowing external mutation of the diff object's internals.",
+          "root_cause": "Diff object exposed internal collection references directly instead of returning copies or unmodifiable views.",
+          "solution": "Return defensive copies (or unmodifiable snapshots) from getters so callers cannot mutate internal state; preserve this contract when editing APIs or changing collection types."
+        },
+        {
+          "category": "Logging integration",
+          "title": "Centralized Maven Log injection with fallback",
+          "problem": "Some plugin code used other logging frameworks directly, producing inconsistent log output when executed inside Maven.",
+          "root_cause": "Non-Mojo classes had no standardized way to obtain the Mojo-supplied org.apache.maven.plugin.logging.Log instance.",
+          "solution": "Use a static PluginLogManager with setLog/getLog; Mojos must call PluginLogManager.setLog(getLog()) early. If no Log is set, fall back to SystemStreamLog so code remains usable outside Maven."
+        },
+        {
+          "category": "Equality/Comparison reliance",
+          "title": "Set difference depends on model equality semantics",
+          "problem": "The correctness of reported missing dependencies/plugins depends on proper equals/hashCode (or comparator) implementations on DependencyNode and MavenPlugin.",
+          "root_cause": "Differences are computed as set operations; any change to data model identity semantics will change diff outcomes.",
+          "solution": "Preserve or co-evolve equality/hashCode behavior in data models when modifying diff code; validate with tests that diff results remain stable across changes."
+        },
+        {
+          "category": "Global state risk",
+          "title": "Static logger holder is global and process-scoped",
+          "problem": "PluginLogManager uses a static holder for the Log instance; changes to its lifecycle or mutation behavior can affect logging globally across threads and plugin invocations.",
+          "root_cause": "A static setter/getter model is convenient but introduces process-wide state shared by all non-Mojo code.",
+          "solution": "Treat the static Log as global shared state; maintain thread-safety expectations and the simple injection contract (Mojo calls setLog once). Avoid changes that add per-instance semantics without co-ordinated changes in all callers."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/reporting/LockFileDifference.java",
+          "why": "Canonical representation and computation of structured differences between an on-disk lockfile and the project's resolved lockfile; consumers render validation failures and take decisions based on these results."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/reporting/PluginLogManager.java",
+          "why": "Global accessor for the Maven Log used by non-Mojo classes; Mojos must inject the Log here so downstream code logs through Maven."
+        }
+      ],
+      "construct_relationships": [
+        "LockFileDifference computes set differences between two data.LockFile instances and exposes sets of missing graph.DependencyNode and data.MavenPlugin elements.",
+        "LockFileDifference relies on equality/hashCode (or comparator semantics) of DependencyNode and MavenPlugin from the data/graph packages to produce correct set-based diffs.",
+        "PluginLogManager is a process-scoped static holder: Mojos call PluginLogManager.setLog(getLog()) and non-Mojo utilities call PluginLogManager.getLog() to obtain Maven's Log; when unset, getLog() returns a SystemStreamLog fallback.",
+        "Consumers (Mojo classes like GenerateLockFileMojo/ValidateChecksumMojo and other utilities) take LockFileDifference results and use PluginLogManager-provided Log to present messages to users and to fail or pass builds."
+      ],
+      "notable_relationships": [
+        "This package depends on the data models in the data and graph packages (LockFile, DependencyNode, MavenPlugin). Any change to those models' identity semantics affects diff results here.",
+        "Mojos and Facade code outside this package must call PluginLogManager.setLog(getLog()) at startup to ensure consistent logging \u2014 changes here affect cross-cutting logging behavior across the plugin.",
+        "Validation and reporting flows (e.g., ValidateChecksumMojo) consume LockFileDifference to compute build-failure conditions; altering diff semantics will change validation outcomes upstream.",
+        "Because the static logger is process-wide, CI and multi-threaded/plugin-host scenarios could observe different logging if the injection contract is not followed or if the static state is mutated unexpectedly."
+      ],
+      "recommendations": [
+        "Preserve the public API contract: getters must continue to return defensive copies or immutable snapshots of internal collections so external callers cannot mutate internal state.",
+        "Do not change assumptions about equals/hashCode/comparator semantics on DependencyNode and MavenPlugin without coordinating updates and regression tests for diff results.",
+        "Maintain the PluginLogManager static setter/getter semantics and SystemStreamLog fallback; ensure Mojos call PluginLogManager.setLog(getLog()) early in their lifecycle.",
+        "Treat the static logger as shared global state: avoid introducing non-thread-safe mutations or per-instance expectations; consider synchronization implications if modifying the static holder.",
+        "Run the project's unit tests and integration flows (mvn test, and the plugin goals used by CI such as generate/validate) after edits to confirm reporting and validation behaviors remain unchanged."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/typeadapters": {
+      "description": "This folder provides Gson type-adapter plumbing used when serializing/deserializing lockfile JSON. Its single purpose is to alter the default Gson handling of Java List types so that empty Java Lists are written as JSON null (a targeted workaround for a known Gson behavior), while reading behavior remains unchanged. Because lockfile JSON is produced and consumed across Maven Mojos and CI flows, the adapter's behavior directly affects lockfile shape and downstream validation.",
+      "key_behaviors": [
+        "Intercept Gson serialization for List<T> types and replace empty Java lists with JSON null while preserving normal deserialization.",
+        "Distinguish construction mode (no-arg constructor used by @JsonAdapter vs programmatic registration) to choose the correct method for obtaining the delegate adapter (gson.getAdapter vs gson.getDelegateAdapter).",
+        "Act as a stateless TypeAdapterFactory that delegates all non-writing behavior to Gson's standard adapters to avoid altering element-level serialization."
+      ],
+      "insights": [
+        {
+          "category": "Compatibility workaround",
+          "title": "Empty list -> JSON null mapping",
+          "problem": "Gson serializes empty Java Lists as empty JSON arrays by default; the project needs empty Lists to be emitted as JSON null to work around a known Gson behavior/issue and to match the lockfile schema expectations.",
+          "root_cause": "Default Gson behavior and a documented issue that motivated a targeted override for List serialization.",
+          "solution": "Provide a TypeAdapterFactory that produces a TypeAdapter for List types that writes JSON null when the list is empty, while delegating reads and non-empty writes to the underlying adapter."
+        },
+        {
+          "category": "Adapter resolution",
+          "title": "Different adapter resolution paths depending on registration method",
+          "problem": "Obtaining the delegate adapter incorrectly can cause recursion or bypass other adapters if the factory does not use the correct Gson API depending on how it was registered.",
+          "root_cause": "Gson distinguishes between adapters obtained via getAdapter and getDelegateAdapter; @JsonAdapter-driven construction expects a no-arg constructor and a different delegate resolution path than programmatic registration.",
+          "solution": "The factory records how it was constructed (no-arg/@JsonAdapter vs INSTANCE programmatic) and uses gson.getAdapter or gson.getDelegateAdapter accordingly to acquire the delegate adapter safely."
+        },
+        {
+          "category": "Schema stability",
+          "title": "Lockfile JSON shape is sensitive to null vs array",
+          "problem": "Changing whether empty lists are emitted as null vs [] will change lockfile JSON structure and may break consumers or validation that expect the current shape.",
+          "root_cause": "Lockfile consumers (other Mojos, action workflows, or external tools) and persisted lockfiles depend on a stable JSON schema.",
+          "solution": "Maintain the adapter's write semantics and ensure tests and integration flows that generate/validate lockfiles are considered when editing serialization behavior."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/typeadapters/EmptyListToNullFactory.java",
+          "why": "The single TypeAdapterFactory in this folder; implements the empty-list-to-null serialization behavior and contains the construction-mode logic that must be preserved."
+        }
+      ],
+      "construct_relationships": [
+        "EmptyListToNullFactory implements Gson TypeAdapterFactory and produces TypeAdapter<List<T>> instances that delegate read operations to Gson's normal adapter and override write operations to emit JSON null for empty lists.",
+        "The factory differentiates construction mode (no-arg vs programmatic INSTANCE) and uses gson.getAdapter or gson.getDelegateAdapter accordingly to obtain the delegate adapter and avoid recursion or bypassing other registered adapters.",
+        "Adapters produced by this factory will be used when serializing/deserializing any List-typed fields in lockfile model classes (data.*), so the factory's write semantics affect the on-disk lockfile.json shape."
+      ],
+      "notable_relationships": [
+        "JsonUtils (project-wide Gson configuration) is the likely registration point for this factory; edits here will affect all Gson serialization configured via JsonUtils.",
+        "LockFile data model classes (data/*.java) contain List-typed fields whose serialized form depends on this adapter; changes can alter the persisted lockfile structure consumed by GenerateLockFileMojo and ValidateChecksumMojo.",
+        "CI, GitHub Action usage, and consumers that compare lockfile.json (including validation and freeze flows) depend on stable JSON output\u2014changing this adapter can cause validation failures or require regenerated lockfiles.",
+        "Behavior depends on the project's Gson version and on how other TypeAdapterFactories are registered; incorrect delegate resolution risks adapter recursion or unexpected adapter selection."
+      ],
+      "recommendations": [
+        "Preserve the distinct constructor behavior: the no-arg constructor must continue to indicate @JsonAdapter usage and programmatic INSTANCE must continue to indicate external registration\u2014do not collapse these semantics without verifying delegate resolution.",
+        "When modifying this factory, ensure delegate acquisition uses the appropriate Gson API (getAdapter vs getDelegateAdapter) to avoid recursion and to respect other registered adapters.",
+        "Limit the factory's scope to List types only; confirm that edits do not accidentally affect other collection types or generic resolution.",
+        "Run unit tests for JSON serialization/deserialization of LockFile model classes, and run integration flows that generate lockfile.json (GenerateLockFileMojo) and validate it (ValidateChecksumMojo) to detect schema regressions.",
+        "Be mindful of the downstream contract: any change that modifies whether empty lists become null vs [] will change lockfile.json and can break CI validations and downstream consumers\u2014coordinate updates to persisted lockfiles if the behavior changes.",
+        "Consider Gson version compatibility when editing: test with the project's configured Gson version to ensure the delegate-resolution strategy remains correct and that no runtime regressions occur."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile": {
+      "description": "This package hosts the Maven plugin Mojos and the top-level orchestration pieces that produce, validate and freeze JSON lockfiles for Maven projects. It wires together project/session context, dependency-graph traversal, checksum resolution strategy selection, lockfile model construction and JSON serialization; changes here directly affect lockfile shape, validation semantics and CI determinism.",
+      "key_behaviors": [
+        "Mojo entrypoints (generate, validate, freeze) obtain Maven context, build Config and environment metadata, select a checksum strategy, and delegate heavy work to LockFileFacade and checksum calculators.",
+        "LockFileFacade drives end-to-end lockfile construction: collect dependency graph, attach POM/parent/BOM metadata, collect optional plugin metadata and plugin dependency sub-graphs, and assemble the LockFile model for serialization.",
+        "Checksum resolution is pluggable: AbstractChecksumCalculator defines the API and is implemented by FileSystemChecksumCalculator (local resolution) and RemoteChecksumCalculator (remote HTTP with caching and prewarm) used according to ChecksumModes.",
+        "JSON serialization is centralized in JsonUtils with custom type adapters to produce a compact, stable lockfile shape (primitive serialization for small value types and special list handling).",
+        "Freeze goal reads an existing lockfile, derives nearest/resolved versions from the graph, and emits a pinned/frozen POM including optional plugin dependencies and dependencyManagement entries."
+      ],
+      "insights": [
+        {
+          "category": "Logging",
+          "title": "Global plugin logging must be initialized by Mojos",
+          "problem": "Non-Mojo classes rely on a global PluginLogManager but the log was not consistently set, causing logging to be missing or inconsistent when non-Mojo code executed.",
+          "root_cause": "PluginLogManager holds a static/log global that is not initialized by library code; only the Mojos have Maven Log objects available.",
+          "solution": "Mojos must call PluginLogManager.setLog(getLog()) early in execute() so library classes (checksum calculators, facades, resolvers) log via Maven's logging infrastructure."
+        },
+        {
+          "category": "Configuration Persistence",
+          "title": "Generation-time Config must be persisted and reused",
+          "problem": "Regenerating or validating lockfiles lost or mismatched generation configuration (include-plugins, checksum mode/algorithm, validation policies), leading to inconsistent reproduction of the original lockfile.",
+          "root_cause": "Configuration was built ad-hoc from Mojo parameters and defaults; LockFile initially did not include a canonical Config representation.",
+          "solution": "Persist a canonical Config inside LockFile and ensure Mojos merge/derive current config from existing lockfile when present; maintain plugin version metadata in config for reproducible behavior."
+        },
+        {
+          "category": "Checksum Determinism",
+          "title": "Validation must not perform remote checksum mode by default",
+          "problem": "Validation occasionally triggered remote network resolution leading to flaky CI and non-deterministic validation results.",
+          "root_cause": "Checksum calculator selection was driven by mode strings without enforcement for validation workflows.",
+          "solution": "Validation flows should force local checksum resolution or explicitly honor the lockfile's persisted checksum mode so validation is deterministic and network-independent."
+        },
+        {
+          "category": "Artifact Path Resolution",
+          "title": "Use baseVersion for SNAPSHOT path resolution",
+          "problem": "Snapshot artifacts were resolved against timestamped versions or wrong directories, causing failures to find checksum files or resolved URLs.",
+          "root_cause": "Code used artifact.getVersion() instead of artifact.getBaseVersion() when constructing repository paths.",
+          "solution": "Construct local and remote artifact paths using baseVersion to match repository layout for SNAPSHOTs and related metadata access."
+        },
+        {
+          "category": "Artifact Attributes",
+          "title": "Classifier and type handling must be preserved",
+          "problem": "Classifiers and non-default artifact types (including maven-plugin mapping) were ignored or incorrectly mapped, producing incorrect resolved URLs and missing entries in lockfiles and frozen POMs.",
+          "root_cause": "Checksum/resolution logic did not include classifier in path/filename calculations and treated plugin types incorrectly (special-cased type strings rather than handler extension).",
+          "solution": "Include Classifier and ArtifactType in resolution and filename generation; use artifact handler extension/packaging mapping consistently to compute file names, resolved URLs and lookups."
+        },
+        {
+          "category": "Remote Performance",
+          "title": "Remote checksum lookups require caching and prewarm",
+          "problem": "Repeated network requests and per-request HttpClient creation caused slow lockfile generation and excessive network traffic.",
+          "root_cause": "Remote resolution code performed redundant HTTP requests and did not batch or cache results.",
+          "solution": "Use a shared HttpClient, in-memory caches for checksum and resolved-url results, and a prewarmArtifactCache hook to parallelize or prefetch remote metadata before building the graph."
+        },
+        {
+          "category": "Determinism & Equality",
+          "title": "Model ordering and equality must be stable",
+          "problem": "Lockfile diffs were unstable across runs due to unordered collections and missing Comparable/equals/hashCode implementations.",
+          "root_cause": "Some domain types lacked ordering or normalized null handling; collection types serialized in arbitrary order.",
+          "solution": "Make domain models Comparable where needed, normalize null collections to empty sets, and ensure equals/hashCode are implemented for value objects used as keys or in sets to produce deterministic lockfile output."
+        },
+        {
+          "category": "JSON Shape",
+          "title": "Gson type adapters control compact, backward-compatible JSON",
+          "problem": "Default Gson behavior produced verbose or incompatible JSON shapes (e.g., empty lists serialized as [] rather than null), breaking backward compatibility and diff stability.",
+          "root_cause": "Domain primitives and certain collection shapes were not centrally adapted for JSON representation.",
+          "solution": "Centralize Gson configuration and type adapters in JsonUtils (and typeadapters package) so small wrapper types serialize as primitives and list-adapter behaviors retain lockfile compatibility."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java",
+          "why": "Central base for all Mojos: injects Maven context, constructs Config and selects checksum calculators; edits here affect all goals' runtime behavior and logging setup."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java",
+          "why": "Orchestration center that builds the LockFile model by combining dependency graph, POM/BOM resolution and checksum data; primary touchpoint for generate/validate flows."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java",
+          "why": "Defines the checksum resolution contract (pom/artifact/plugin checksums, prewarm, resolved fields) used throughout graph-building and validation."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java",
+          "why": "Implements network-bound checksum/resolution logic with caching and prewarm; sensitive to HTTP, caching and path-resolution behavior that affects CI runtimes."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/JsonUtils.java",
+          "why": "Single source of Gson configuration and type adapters which determines lockfile JSON shape and compatibility across versions and tools."
+        }
+      ],
+      "construct_relationships": [
+        "GenerateLockFileMojo / ValidateChecksumMojo / FreezeDependencyMojo extend AbstractLockfileMojo to obtain Maven context, build Config, and initialize PluginLogManager prior to invoking LockFileFacade or checksum calculators.",
+        "LockFileFacade consumes a DependencyCollectorBuilder/graph adapter and an AbstractChecksumCalculator to produce DependencyGraph, attach RepositoryInformation and Pom/BOM metadata, and assemble the LockFile model.",
+        "AbstractChecksumCalculator is the interface used by graph-building logic; FileSystemChecksumCalculator and RemoteChecksumCalculator implement artifact/plugin checksum retrieval and return RepositoryInformation used by DependencyNode and MavenPlugin models.",
+        "JsonUtils serializes/deserializes data model classes (LockFile, Pom, MavenPlugin, value objects like ArtifactType, Classifier, GroupId) and is relied on by Mojos to read/write lockfile.json with a stable compact shape.",
+        "FreezeDependencyMojo reads a LockFile (JsonUtils) produced by LockFileFacade, computes nearest-version mapping from graph nodes and writes a frozen POM that must respect artifact attributes (classifier, type) and plugin dependency merges."
+      ],
+      "notable_relationships": [
+        "This package depends on the data, checksum, graph, resolvers and reporting subpackages: data models must remain compatible with JsonUtils and LockFileFacade output; checksum implementations must satisfy AbstractChecksumCalculator contract assumed by graph builders.",
+        "CI and user workflows rely on deterministic lockfile output: changes here affect .github workflows that call the generate/validate goals and may change when Platform-specific artifacts (native classifiers) are included or how checksum modes operate across runners.",
+        "Freeze/validate flows are upstream/downstream: freeze consumes the lockfile model to emit POMs used by downstream builds; validate compares current project state to the on-disk lockfile \u2014 both require Config and environment metadata semantics to be stable.",
+        "Logging and user-facing reports depend on PluginLogManager being initialized by Mojos so non-Mojo classes produce Maven-appropriate output during CI runs and local execution."
+      ],
+      "recommendations": [
+        "When editing Mojos or any entrypoint, ensure PluginLogManager.setLog(getLog()) is invoked early so library code uses Maven logging.",
+        "Do not change the serialized lockfile JSON shape implicitly: preserve or update JsonUtils type adapters and the Config/LockFile schema; any schema change must preserve backward-compatibility where tests expect it.",
+        "Respect and preserve checksum mode semantics: Generate uses selected mode (and may prewarm remote caches), Validate should force or honor persisted local checksum selection to avoid network-dependent failures.",
+        "Maintain deterministic ordering and stable equals/hashCode for data models used in lockfile sets; changes to compareTo/ordering will affect lockfile diffs and CI churn.",
+        "Keep classifier and artifact type in mind when modifying checksum/resolution logic: filename/path construction, _remote.repositories parsing, and remote HEAD/GET requests must include classifier and use baseVersion for SNAPSHOTs.",
+        "Preserve RemoteChecksumCalculator caching and prewarm behavior (single HttpClient, in-memory caches) to avoid regressions in performance and network usage in CI; avoid creating per-request HTTP clients.",
+        "After edits, run the full Maven test suite and exercise the plugin goals locally: mvn test, mvn io.github.chains-project:maven-lockfile:generate, validate and freeze on representative projects (including SNAPSHOT and classifier cases) and run mvn spotless:apply to match formatting expectations.",
+        "Be cautious modifying Config merging or persistence: changes can alter validation behavior and CI pass/fail outcomes; ensure Config in existing lockfiles continues to be interpreted or explicitly migrated with tests."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile": {
+      "description": "This test folder contains unit tests that lock in domain invariants, deterministic ordering and serialization semantics for the Maven Lockfile plugin. The tests exercise value objects (GroupId, ArtifactId, VersionNumber), enum parsing/defaulting (MavenScope), checksum resolved-url construction for local-repo artifacts, comparison ordering for MavenPlugin, and JSON serialization behaviors (including edge cases with Guava set views). These tests act as a behavioral contract that downstream code (mojos, facade, checksum calculators, data models and JsonUtils) must preserve to maintain reproducible lockfiles and deterministic CI behavior.",
+      "key_behaviors": [
+        "Validation of value-object invariants (non-null, non-empty) for identifiers used in lockfiles",
+        "Deterministic ordering and comparison semantics (compareTo/equals/hashCode) for plugin and lockfile model types",
+        "Serialization determinism: JSON conversion of collections (including Guava view wrappers) must not emit unexpected tokens like the literal \"null\"",
+        "Local filesystem checksum/resolved-URL resolution semantics, especially SNAPSHOT baseVersion vs timestamped filename handling based on _remote.repositories metadata",
+        "Order-insensitive equality for LockFile model instances to avoid spurious mismatches due to insertion order of collections"
+      ],
+      "insights": [
+        {
+          "category": "Serialization",
+          "title": "JsonUtils must serialize Set views reliably",
+          "problem": "Serializing a Guava Sets.difference view (or similar collection view) previously produced the literal string \"null\" in JSON output under certain conditions.",
+          "root_cause": "Jackson/JsonUtils interacting with non-concrete collection views or unexpected runtime types during serialization led to incorrect output.",
+          "solution": "Tests ensure JsonUtils handles Set-to-JSON conversion by materializing views into concrete collections before serializing; maintain compatibility of JsonUtils with view/wrapper collections or preserve the materialization pattern where used."
+        },
+        {
+          "category": "Checksum / Resolution",
+          "title": "SNAPSHOT resolved URL composition depends on baseVersion",
+          "problem": "Incorrectly composing the resolved URL for SNAPSHOT artifacts could use the timestamped filename or wrong directory segment, breaking checksum provenance and validation.",
+          "root_cause": "Local-repo layout contains timestamped artifact filenames while repository mapping in _remote.repositories specifies baseVersion; logic must choose directory vs filename correctly based on artifact type.",
+          "solution": "Tests assert SNAPSHOT directory uses artifact.getBaseVersion() and non-SNAPSHOT uses version; any changes to FileSystemChecksumCalculator must preserve this distinction and parsing of _remote.repositories for repository id extraction."
+        },
+        {
+          "category": "Determinism / Ordering",
+          "title": "MavenPlugin ordering must be deterministic and well specified",
+          "problem": "Non-deterministic ordering of plugin entries can lead to non-reproducible lockfiles and spurious diffs.",
+          "root_cause": "compareTo/ordering that is not fully specified across all relevant fields can leave ordering ambiguous when stored in sorted collections or when serialized.",
+          "solution": "Tests lock in the comparator priority (groupId -> artifactId -> version -> checksumAlgorithm -> checksum). Any change to compareTo or fields used for ordering must preserve deterministic total ordering as asserted by tests."
+        },
+        {
+          "category": "Model Invariants",
+          "title": "Value objects enforce non-null/non-empty constraints",
+          "problem": "Allowing null or empty strings for GroupId/ArtifactId/VersionNumber breaks assumptions elsewhere (serialization, compareTo, lockfile consumers).",
+          "root_cause": "Downstream logic depends on canonical, non-empty identifiers and exact version strings (including snapshots/timestamped builds).",
+          "solution": "Tests require these invariants; edits to constructors, factories or deserialization paths must preserve rejection of null/empty values and exact preservation of provided version strings."
+        },
+        {
+          "category": "Enum Parsing / Defaults",
+          "title": "MavenScope parsing must default null/empty to COMPILE",
+          "problem": "Inconsistent handling of null or empty scope strings would alter scope behavior in lockfiles and third-party tooling that consumes them.",
+          "root_cause": "Multiple codepaths may parse raw scope strings; missing a canonical default mapping causes divergence.",
+          "solution": "Tests validate round-trip parsing for enum constants and that null/empty inputs map to COMPILE. Any string-to-enum parsing changes must preserve this defaulting behavior."
+        },
+        {
+          "category": "Equality Semantics",
+          "title": "LockFile equality must be order-insensitive for collection fields",
+          "problem": "Relying on insertion order for collections (Lists) when logical identity is order-insensitive causes false negatives during validation and CI checks.",
+          "root_cause": "Switching collections from List to Set (or vice-versa) without updating equality semantics or tests can change equality outcomes.",
+          "solution": "Tests assert equal LockFile instances with different insertion orders are equal; data model equals/hashCode must treat dependencies, plugins and BOMs as unordered sets."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/JsonUtilsTest.java",
+          "why": "Verifies JSON serialization behavior for sets and Guava collection views \u2014 guards against regressions in JsonUtils handling of non-concrete collection types."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/checksum/FileSystemChecksumCalculatorTest.java",
+          "why": "Asserts resolved-URL composition and repository id extraction logic for filesystem-based artifacts (SNAPSHOT vs non-SNAPSHOT); critical for checksum provenance."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java",
+          "why": "Ensures LockFile equality is order-insensitive and that graph/model fixtures are assembled consistently for comparisons \u2014 protects against nondeterministic lockfile diffs."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/MavenPluginTest.java",
+          "why": "Locks in compareTo ordering semantics for MavenPlugin which affects deterministic sorting and set behavior in lockfile outputs."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/MavenScopeTest.java",
+          "why": "Validates enum parsing and defaulting for dependency scopes used throughout the lockfile model and serialization."
+        }
+      ],
+      "construct_relationships": [
+        "JsonUtilsTest -> JsonUtils: exercises JSON serialization of Set<DependencyNode> and materialization of Guava view to concrete collection prior to serialization.",
+        "FileSystemChecksumCalculatorTest -> FileSystemChecksumCalculator: verifies getArtifactResolvedField uses artifact.getBaseVersion() for SNAPSHOT directory composition and parses _remote.repositories to extract repository id.",
+        "MavenPluginTest -> MavenPlugin.compareTo: asserts comparator priority across groupId, artifactId, version, checksumAlgorithm, checksum, which influences deterministic ordering in LockFile sets.",
+        "LockfileTest -> LockFile model (DependencyNode, MavenPlugin, Pom/BOM): builds dependency graphs and plugin/POM fixtures and asserts equality when collections are permuted (Sets vs Lists).",
+        "MavenScopeTest -> MavenScope enum: ensures fromString parsing and defaulting to COMPILE, which downstream code relies on when serializing/validating lockfile dependency scopes."
+      ],
+      "notable_relationships": [
+        "These tests assert contracts of main-code types in maven_plugin/src/main/java \u2014 any change there (data models, equals/hashCode, compareTo, JsonUtils, checksum resolvers) will require test updates in this folder.",
+        "FileSystemChecksumCalculator tests depend on local-repo layout and _remote.repositories semantics; changes to repository metadata handling or to how artifacts are resolved (e.g., switching to a different resolver strategy) will affect these tests.",
+        "Serialization tests imply JsonUtils compatibility expectations with Guava collection views and Instancio-generated objects \u2014 changing serializers, default modules, or collection handling in the main codebase is likely to break tests.",
+        "Ordering and equality guarantees asserted here are upstream requirements for CI-level lockfile validation and for producing reproducible lockfile artifacts consumed by downstream CI workflows and release processes."
+      ],
+      "recommendations": [
+        "When editing model classes (equals/hashCode/compareTo), preserve deterministic total ordering and set-based equality semantics tested here or update corresponding tests.",
+        "Any changes to JsonUtils serialization (modules, collection handling) must preserve correct serialization of concrete collections and Guava view wrappers; run mvn test to validate JsonUtilsTest.",
+        "Modifications to FileSystemChecksumCalculator or artifact-resolution logic must keep SNAPSHOT baseVersion vs timestamped filename behavior and _remote.repositories parsing consistent with FileSystemChecksumCalculatorTest expectations.",
+        "Ensure value-object factories/constructors continue to reject null/empty GroupId/ArtifactId and preserve exact VersionNumber strings; otherwise, update tests in this folder.",
+        "Maintain MavenScope.fromString defaulting for null/empty inputs to COMPILE; if altering enum parsing, update dependent tests and consumers.",
+        "Run the test suite (mvn test) after changes and inspect tests in this directory for failures \u2014 they encode behavioral contracts relied upon by lockfile generation, validation and CI flows."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/test/resources-its": {
+      "description": "This directory contains integration-test resource fixtures (pom.xml files and expected lockfile/POM outputs) used by the plugin's integration test suite. The resources exercise end-to-end scenarios for lockfile generation, validation, freezing, plugin resolution, parent POM resolution (relative and external), reduced lockfile behavior, deterministic ordering, and remote-repository resolution. These files encode test inputs and the canonical expected outputs that the integration tests assert against.",
+      "key_behaviors": [
+        "Provide Maven project fixtures that run specific plugin goals (generate, validate, freeze) with configured checksumMode and plugin flags to exercise end-to-end flows.",
+        "Supply expected outputs (lockfile.json, pom.lockfile.expected.xml) that the integration tests compare with generated artifacts to assert correctness of freezing and lockfile generation.",
+        "Model parent/child POM resolution scenarios: relative parent paths, external parent (remote) POMs, and cases that intentionally trigger POM/parent validation failures.",
+        "Exercise plugin-related behaviors: including maven plugins in lockfiles, merging user-declared plugin dependencies into plugin resolution, and capturing plugin dependency graphs/checksums.",
+        "Test reduced lockfile logic and ordering sensitivity: scenarios where dependency ordering affects reduced result (e.g., log4j-related cases) and deterministic ordering assertions."
+      ],
+      "insights": [
+        {
+          "category": "Test fixtures and expectations",
+          "title": "Expected outputs are canonical and tightly coupled to implementation",
+          "problem": "Several tests compare generated outputs to committed expected files (lockfile.json, pom.lockfile.expected.xml). If generation behavior or sorting changes, tests will fail.",
+          "root_cause": "Integration tests assert exact equality against static expected resource files committed in this folder.",
+          "solution": "When modifying generation, freezing, ordering, or checksum resolution logic, update the corresponding expected fixture files in this directory to keep tests consistent; otherwise integration tests will detect regressions."
+        },
+        {
+          "category": "Checksum mode and environment",
+          "title": "Many fixtures rely on local checksumMode; remote-resolution tests explicitly require network repositories",
+          "problem": "Tests assume local checksums for determinism, but some fixtures (remoteRepositoryShouldResolve, resolvedFieldShouldResolve, externalParentPom) depend on fetching artifacts or metadata from remote repositories.",
+          "root_cause": "Mix of fixtures aimed at isolating checksum computation (local) and fixtures explicitly testing remote repository resolution.",
+          "solution": "Preserve checksumMode and repository configuration in fixtures; ensure CI/integration test environment allows network access for remote-resolving fixtures and account for platform-dependent artifacts when running these tests."
+        },
+        {
+          "category": "Parent POM resolution",
+          "title": "Relative vs external parent POMs are explicitly tested and encoded",
+          "problem": "Fixtures model both relative parent resolution (multi-module layouts) and external parents; failures are intentionally provoked for validation tests.",
+          "root_cause": "Lockfile generation captures parent chain and checksums/resolved fields; different resolution strategies produce different lockfile content.",
+          "solution": "Any change to parent resolution, checksum capture for parents, or parent path handling must consider these fixtures; maintain relativePath semantics and resolved-parent recording or update expected outputs accordingly."
+        },
+        {
+          "category": "Plugin resolution and overrides",
+          "title": "Plugin inclusion and user-declared plugin dependency merging is validated",
+          "problem": "Tests exercise includeMavenPlugins and merging of user-declared plugin dependencies; output includes plugin metadata and plugin dependency graphs/checksums.",
+          "root_cause": "Lockfile format contains a mavenPlugins section capturing resolved plugin coordinates, repositoryOrigin, plugin checksum and plugin dependency nodes.",
+          "solution": "Preserve the shape and content assumptions of plugin entries in lockfile output; when changing plugin resolution or how user-declared dependencies are merged, update the fixtures that assert plugin-related outputs."
+        },
+        {
+          "category": "Determinism and ordering",
+          "title": "Deterministic ordering is required by tests",
+          "problem": "Ordered-lockfile and freeze tests assert deterministic ordering of dependencies (including classifier handling). Non-deterministic iteration or unstable comparators will break tests.",
+          "root_cause": "Integration tests compare serialized outputs that depend on deterministic ordering of collections.",
+          "solution": "Maintain stable sorting/comparator behavior for dependency nodes, classifiers, repository lists, and any serialized lists used in lockfile/POM outputs; if algorithmic changes affect ordering, update expected fixtures."
+        },
+        {
+          "category": "Reduced lockfile sensitivity",
+          "title": "Reduced lockfile logic depends on dependency order and shading behavior",
+          "problem": "Two similar fixtures (reduceLog4jAffected / NotAffected) only differ by dependency ordering and expect different reduced outputs; shading interactions are simulated via maven-shade-plugin.",
+          "root_cause": "Reduction algorithm interprets transitive/ordering/shade interactions which can change which artifacts are included in the reduced lockfile.",
+          "solution": "When editing reduction behavior or interactions with shading, validate both order-sensitive fixtures and keep their expected outputs synchronized with algorithmic intent."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/test/resources-its/it/IntegrationTestsIT/freezeWithDepManagement/lockfile.json",
+          "why": "Canonical expected lockfile used to assert freeze behavior when dependencyManagement entries must be respected and included in frozen outputs."
+        },
+        {
+          "path": "maven_plugin/src/test/resources-its/it/IntegrationTestsIT/freezeWithoutDepManagement/pom.lockfile.expected.xml",
+          "why": "Expected frozen POM for a project without dependencyManagement; tests compare generated frozen POM to this file to validate pinning/synthesizing behavior."
+        },
+        {
+          "path": "maven_plugin/src/test/resources-its/it/IntegrationTestsIT/relativeParentPom/child-module/pom.xml",
+          "why": "Exercise relative parent resolution in a multi-module layout; changes to parent handling must preserve semantics required by this fixture."
+        },
+        {
+          "path": "maven_plugin/src/test/resources-its/it/IntegrationTestsIT/remoteRepositoryShouldResolve/lockfile.json",
+          "why": "Fixture that records artifacts resolved from a remote repository and central; used to verify repository-origin and resolved URL fields are captured in lockfiles."
+        },
+        {
+          "path": "maven_plugin/src/test/resources-its/it/IntegrationTestsIT/pluginUserDependency/pom.xml",
+          "why": "Models a plugin with an explicit user-declared dependency to validate merging behavior between plugin POM defaults and user overrides during plugin resolution."
+        }
+      ],
+      "construct_relationships": [
+        "Each pom.xml fixture configures the maven-lockfile plugin with specific goals and options (checksumMode, includeMavenPlugins, reduced, exactVersionStrings) that drive how LockFileFacade and checksum calculators will be exercised by tests.",
+        "Expected files (lockfile.json, pom.lockfile.expected.xml) are the canonical outputs that integration tests compare to generated outputs from the plugin when run against the corresponding input POM fixtures.",
+        "Relative parent POM fixtures form parent-child pairs (relativeParentPom parent and child-module) where the child module's relativePath must resolve to the parent POM for generate goal tests to succeed.",
+        "Plugin-related fixtures (pluginProject, pluginUserDependency) configure includeMavenPlugins and user-declared plugin dependencies; tests expect plugin metadata and plugin dependency graphs to appear in generated lockfiles.",
+        "Reduce-related fixtures pair two similar POMs differing in dependency declaration order; the reduction logic (and any shading simulation via maven-shade-plugin) must yield different reduced lockfile outputs that the tests assert."
+      ],
+      "notable_relationships": [
+        "These resources are consumed by the integration test harness in src/test (upstream code changes to LockFileFacade, checksum calculators, or serialization will directly affect test outcomes here).",
+        "Remote-repository fixtures require network access and rely on external repositories; CI environments that block egress or use mirrors will affect those tests and may cause mismatches in resolved URLs or repositoryIds.",
+        "Platform-dependent artifact checksums and classifier handling can cause divergent test results across OS/architecture matrix runs; the fixtures assume deterministic checksum calculation for the selected checksumMode.",
+        "Frozen POM expectations are downstream consumers of dependency resolution and version-pinning logic; any change in dependency resolution/version-selection impacts the expected frozen-POM files here."
+      ],
+      "recommendations": [
+        "Do not rename, remove, or move fixture files without updating the integration tests that reference them; tests rely on exact paths and file contents.",
+        "When changing behavior that affects generated lockfile or frozen POM shape (fields, ordering, resolved-url/repositoryId, plugin entries, checksum algorithm), update corresponding expected files in this directory and re-run the integration test suite.",
+        "Respect checksumMode settings in the fixtures (many use local) and verify test runs under CI reproduce the intended network/no-network assumptions; run remote-repository-related tests only in environments that allow access to the declared repositories.",
+        "Preserve deterministic ordering and stable comparators used for serialization; if you alter ordering logic, validate the orderedLockfile fixture and other expected outputs.",
+        "Run the full integration test suite (the project's ITs) after edits that touch generation, resolution, checksum calculation, plugin resolution, parent handling, or freeze/reduce logic to catch mismatches with these fixtures."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin/src/test": {
+      "description": "This subtree holds the unit and integration tests that verify the maven-lockfile plugin's behavior end-to-end and at the model/utility level. Tests exercise JSON serialization, checksum resolution (local repo layout and snapshot handling), data-model equality and ordering, value-object validation, MavenScope parsing defaults, plugin resolution and freeze behavior using real Maven runs and fixture projects. These tests encode the expected external-facing outputs and invariants that guard regressions across core flows.",
+      "key_behaviors": [
+        "Serialization and deterministic JSON output for model objects (including handling of Guava collection views and avoiding spurious literal 'null').",
+        "Local repository checksum/resolved URL composition, with special handling for SNAPSHOT baseVersion vs timestamped artifacts and extraction of repository IDs from _remote.repositories files.",
+        "Data-model invariants: equality and ordering semantics for LockFile and MavenPlugin, and strict value-object validation for GroupId, ArtifactId, VersionNumber and MavenScope parsing/defaults.",
+        "End-to-end integration flows: invoking plugin goals (generate, validate, freeze) against fixture Maven projects, reading generated lockfile.json and pom.lockfile.xml, and comparing against expected fixtures.",
+        "Plugin resolution flows in integration: inclusion of Maven plugins, merging user-declared plugin dependencies, and BOM/parent-POM resolution (including external parents) are exercised by IT fixtures."
+      ],
+      "insights": [
+        {
+          "category": "Serialization",
+          "title": "Guava set-view serialization can produce undesired output",
+          "problem": "Serializing a Guava Sets.difference view directly led to JSON containing the literal string \"null\" in earlier runs.",
+          "root_cause": "JSON serializer configuration or handling did not correctly handle Guava collection view implementations, and a view type was serialized without materializing into a standard concrete collection.",
+          "solution": "Tests materialize Guava views into concrete HashSet instances before serialization; maintain JsonUtils behavior that safely serializes Sets and guard future changes that introduce alternative collection views."
+        },
+        {
+          "category": "Checksum resolution",
+          "title": "SNAPSHOT resolved URL composition must use baseVersion directory",
+          "problem": "Timestamped SNAPSHOT artifact filenames must still reference the baseVersion directory portion (e.g., 1.0-SNAPSHOT) for resolved URL construction; incorrect handling will misrecord resolved fields.",
+          "root_cause": "Local repository layout separates directory (baseVersion) and filename (timestamped copy); naive use of artifact version can produce wrong directories.",
+          "solution": "FileSystem checksum logic and tests assert baseVersion usage for SNAPSHOT directories and correct repository id extraction from _remote.repositories files; maintain these semantics in checksum calculators."
+        },
+        {
+          "category": "Model equality & ordering",
+          "title": "LockFile equality must be order-insensitive",
+          "problem": "Tests and consumers expect logically equivalent LockFile instances to compare equal regardless of insertion order of dependencies, plugins, or BOMs.",
+          "root_cause": "Collections in the data model were (or are) represented as Sets to enforce order-insensitivity; earlier code or tests assumed Lists and index-based ordering.",
+          "solution": "Treat dependency/plugin/BOM collections as Sets in equality contracts and ensure tests validate equality independently of insertion order; any model changes that affect equals/hashCode must preserve this behavior."
+        },
+        {
+          "category": "Integration coverage",
+          "title": "New features require end-to-end integration assertions",
+          "problem": "BOMs, parent POMs, plugin dependencies, resolved fields, and remote checksum modes introduce behaviors that unit tests alone don't catch.",
+          "root_cause": "These features interact with Maven's resolver and repository layout; unit tests cannot fully simulate real Maven resolution semantics and file outputs.",
+          "solution": "Integration tests run real Maven builds against fixture projects and assert produced lockfile/pom outputs; maintain and update IT fixtures and expected outputs when resolution behavior changes."
+        },
+        {
+          "category": "Value-object validation",
+          "title": "Value objects must reject invalid inputs and preserve exact strings",
+          "problem": "GroupId, ArtifactId, and VersionNumber are relied upon to be non-null/non-empty and for VersionNumber to preserve exact strings (including snapshots/timestamps).",
+          "root_cause": "Lockfile output and comparisons depend on canonical, stable identity/value representations; malformed or normalized values could break reproducibility.",
+          "solution": "Unit tests validate constructors/rejection rules and exact value preservation; any edits to these types must keep the same validation and retention semantics."
+        },
+        {
+          "category": "MavenScope handling",
+          "title": "Scope parsing must default to COMPILE for null/empty",
+          "problem": "Other components rely on MavenScope.fromString(null or empty) returning COMPILE; deviating behavior would change lockfile scope entries.",
+          "root_cause": "Null/empty inputs occur in POMs or resolver outputs; a default improves stability and compatibility.",
+          "solution": "Tests assert round-trip parsing for all enum values and default behavior; preserve these defaults when modifying scope-related code."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/test/java/it/IntegrationTestsIT.java",
+          "why": "Primary end-to-end integration suite that runs real Maven builds against fixture projects and asserts generated lockfile/pom outputs\u2014guards cross-cutting resolution and freeze behaviors."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java",
+          "why": "Validates LockFile model equality and order-insensitivity for dependencies/plugins/BOMs\u2014protects a core invariant relied upon by CI checks and outputs."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/checksum/FileSystemChecksumCalculatorTest.java",
+          "why": "Verifies local-repo checksum/resolved URL composition, especially SNAPSHOT baseVersion behavior and repository id extraction from _remote.repositories."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/JsonUtilsTest.java",
+          "why": "Ensures JsonUtils serializes Sets (including materialized Guava views) correctly and does not emit literal 'null'\u2014important for deterministic lockfile JSON output."
+        },
+        {
+          "path": "maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/data/MavenPluginTest.java",
+          "why": "Asserts deterministic compareTo ordering for MavenPlugin, which affects ordering in outputs and equality comparisons used by tests and consumers."
+        }
+      ],
+      "construct_relationships": [
+        "JsonUtils is used to serialize Set<DependencyNode> and other model types; tests ensure concrete Sets (not Guava view types) are serialized without producing \"null\" literals.",
+        "FileSystemChecksumCalculator composes resolved URL strings from artifact metadata and local repository layout and is validated by FileSystemChecksumCalculatorTest which simulates _remote.repositories mappings.",
+        "LockFile model (including Pom, MavenPlugin, ResolvedUrl, RepositoryId) is constructed by plugin code under test and is asserted by LockfileTest and IntegrationTestsIT for equality, ordering, and content correctness.",
+        "IntegrationTestsIT invokes real Maven executions (generate/validate/freeze goals) and validates outputs that depend on checksum calculators, BOM resolution, plugin resolution, and freeze logic implemented in main code.",
+        "MavenPlugin.compareTo (tested by MavenPluginTest) dictates ordering semantics that affect deterministic output ordering asserted by orderedLockfile integration fixtures."
+      ],
+      "notable_relationships": [
+        "Integration tests depend on fixtures in src/test/resources-its and on the main plugin implementation under src/main; changes to model shapes, serialization, checksum behavior, or resolution flows in main code will require updating both unit and IT expectations.",
+        "Integration tests exercise network/repository resolution semantics (external parents, BOMs, remote checksum modes); CI environment constraints (egress allowlists, platform differences) can affect test outcomes\u2014fixtures and expected outputs assume certain resolution behaviors.",
+        "Deterministic ordering and Set-based equality in tests imply that any change to equals/hashCode or to how collections are serialized will ripple into multiple tests and resource expectations.",
+        "Integration test harness uses the com.soebes Maven IT extension and inspects files on disk produced by real Maven runs; these tests are sensitive to build lifecycle, plugin configuration, and produced artifact file paths."
+      ],
+      "recommendations": [
+        "When modifying production code in this module, run both unit tests and the integration test suite (mvn test and the configured IT runner) because fixtures validate real Maven runs and serialized outputs.",
+        "Preserve existing serialization semantics: JsonUtils must continue to handle Sets and materialized Guava views; verify any changes by running JsonUtilsTest and IT scenarios that read lockfile.json.",
+        "If changing checksum calculation, SNAPSHOT handling, or resolved-field composition, update FileSystemChecksumCalculatorTest and re-run ITs that assert resolved URLs and repository ids (fixtures expect specific formats).",
+        "Any change to data-model classes (equals/hashCode, compareTo, collection types, or fields like Pom/ResolvedUrl/RepositoryId) requires updating LockfileTest, MavenPluginTest, and expected IT resources (lockfile.json, pom.lockfile.expected.xml).",
+        "Be aware of environment- and platform-sensitive behaviors (native classifiers, remote checksum mode, network access) when running integration tests in CI; ensure test runs replicate CI constraints or adjust expectations in fixtures accordingly.",
+        "When editing tests or fixtures in src/test/resources-its, maintain the mapping between the fixture POMs and their corresponding expected outputs; do not assume list ordering in tests where models now use Sets\u2014verify equality/order-insensitivity is preserved."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    ".github/workflows": {
+      "description": "This folder contains GitHub Actions workflows that orchestrate CI for the project: lockfile generation/validation, code quality/reproducibility checks, docs regeneration, release automation (JReleaser), manual/regeneration triggers, and smoke tests. These workflows coordinate external actions, runner environments (Java/Maven), tokens/permissions, and working directories; they directly affect what CI runs, what files may be committed back to the repo, and which runtime constraints must be satisfied for successful builds and releases.",
+      "key_behaviors": [
+        "Scheduled and event-driven CI runs that generate and validate the Maven lockfile using a pinned maven-lockfile action and may commit updates back to the repository.",
+        "Code-quality/reproducibility verification jobs that install Java/Maven, run POM-quality checks and repeatable-build checks for the Maven plugin.",
+        "Documentation regeneration workflow that updates templated docs (README/action.yml) automatically on PRs and/or on-demand.",
+        "Release workflow (JReleaser) that builds, may run the maven-lockfile action as part of release, and needs write permissions and a compatible Java runtime.",
+        "Smoke-test workflow that executes scripts (via jbang) and Maven commands in a specific working-directory with environment variables passed through."
+      ],
+      "insights": [
+        {
+          "category": "action-versioning",
+          "title": "Workflows reference older pinned action SHAs",
+          "problem": "Several workflows pin older SHAs or versions of the maven-lockfile action, missing fixes or new features.",
+          "root_cause": "Workflows were not updated when the action was released with fixes/features; pinning to stable tags/SHAs was left outdated.",
+          "solution": "Treat action version pins as a first-class maintenance concern: ensure workflows reference compatible, intentional versions and recognize that different workflows must be kept in sync."
+        },
+        {
+          "category": "workflow-triggers",
+          "title": "No default PR run for lockfile validation",
+          "problem": "The repository lacked a workflow that runs the maven-lockfile action on pull requests by default, reducing early detection of lockfile regressions.",
+          "root_cause": "Lockfile validation/generation was exercised primarily on push or release events, not on PR events.",
+          "solution": "When changing workflows or adding new checks, verify that the intended events (push, pull_request, workflow_dispatch) are configured so validation runs at the right time."
+        },
+        {
+          "category": "build-environment",
+          "title": "CI jobs rely on explicit Java/Maven setup and aligned Java versions",
+          "problem": "Some workflows omitted explicit Maven setup or used mismatched Java versions (Java 11 vs 17), causing tool compatibility and reproducibility issues.",
+          "root_cause": "Assumptions about runner defaults or copy-pasted workflow steps created inconsistencies across jobs.",
+          "solution": "Ensure each job explicitly sets required Java and Maven versions consistent with tools used (JReleaser, plugin build, action requirements) and treat runtime alignment as critical."
+        },
+        {
+          "category": "permissions-and-commits",
+          "title": "Release workflows need write permission and correct token for committing lockfile changes",
+          "problem": "Release steps that should commit updated lockfiles lacked write permission or used the default token; commits might not be created or may not retrigger CI as intended.",
+          "root_cause": "Default GITHUB_TOKEN restrictions and workflow permissions were not accounted for when workflows were authored.",
+          "solution": "Workflows that must commit back must request repository write permissions and use an appropriate token (e.g., a personal access token) and callers must be aware of the token behavior (PRs, forks, reruns)."
+        },
+        {
+          "category": "working-directory-and-environment",
+          "title": "Smoke tests and scripts depend on working-directory and environment variables",
+          "problem": "Smoke-tests assumed the mvn wrapper and scripts are at specific locations and did not set working-directory or correctly pass env vars to jbang, causing step failures.",
+          "root_cause": "Steps relied on repository layout or implicit environment propagation rather than explicit working-directory and env declarations.",
+          "solution": "Jobs must set working-directory and explicitly pass/shape environment variables expected by scripts; path assumptions and script invocations must be validated in CI."
+        },
+        {
+          "category": "docs-regeneration",
+          "title": "Documentation templates need automated regeneration on PRs",
+          "problem": "Templated docs and action metadata (README/action.yml) were not automatically regenerated during PRs, risking drift between code and published documentation.",
+          "root_cause": "No dedicated workflow existed to run the templating/generation step on PR events.",
+          "solution": "Include an explicit docs-generation workflow trigger for PRs and document that changes to templates may require running that workflow to keep docs in sync."
+        }
+      ],
+      "key_files": [
+        {
+          "path": ".github/workflows/Lockfile.yml",
+          "why": "Primary workflow for generating/validating the maven lockfile; controls which action version is used and whether lockfile updates are committed."
+        },
+        {
+          "path": ".github/workflows/jreleaser.yml",
+          "why": "Release orchestration that must be granted write permissions and the correct Java runtime; ties releases to lockfile actions and docs generation."
+        },
+        {
+          "path": ".github/workflows/code-qualitiy.yml",
+          "why": "Holds reproducibility and POM-quality checks; needs explicit Maven and Java setup to ensure plugin builds are reproducible."
+        },
+        {
+          "path": ".github/workflows/smoke-tests.yml",
+          "why": "Executes runtime smoke tests and scripts (jbang); depends on working-directory and environment variables for successful runs."
+        },
+        {
+          "path": ".github/workflows/regenerate-lockfile.yml",
+          "why": "Provides a manual or scheduled trigger to regenerate lockfiles; impacts when and how lockfiles are updated outside push/release events."
+        }
+      ],
+      "construct_relationships": [
+        "Lockfile.yml invokes the maven-lockfile GitHub Action; the action version pinned here must be consistent with versions assumed by release workflows.",
+        "jreleaser.yml runs release steps that may call the same maven-lockfile logic and also triggers docs generation; it must align Java runtime and permissions with those other workflows.",
+        "code-qualitiy.yml and Lockfile.yml both require Maven to be set up in the runner and therefore share the need to configure Java/Maven versions and runner environment correctly.",
+        "smoke-tests.yml runs scripts (jbang) that depend on repository layout and the presence of the mvnw wrapper; working-directory settings in smoke-tests.yml must match where those files live.",
+        "regenerate-lockfile.yml and Lockfile.yml are operationally related: one is a manual/dispatch trigger and the other is the main automation \u2014 both affect lockfile.json and commit behavior."
+      ],
+      "notable_relationships": [
+        "These workflows can modify repository state (lockfile.json, docs) and therefore interact with repo permissions, token usage patterns (GITHUB_TOKEN vs personal tokens), and CI re-run behavior.",
+        "Workflows depend on specific Java and Maven versions that must be compatible with project build logic, the Maven plugin code, and third-party tools like JReleaser and jbang.",
+        "Action version pins create an implicit dependency on external action releases; updating action versions in one workflow may necessitate parallel updates in other workflows that assume the same behavior.",
+        "Docs generation and action metadata (README/action.yml) are produced from repository sources; automated regeneration on PRs is tied to workflows in this folder and affects release artifacts."
+      ],
+      "recommendations": [
+        "When editing any workflow, verify and document the intended runner Java and Maven versions for that job; treat runtime alignment as mandatory for reproducible CI.",
+        "Check and explicitly set workflow permissions and token use for steps that must commit files: ensure write access is declared and be aware of GITHUB_TOKEN behavior vs personal tokens for PRs/forks.",
+        "Keep action version pins consistent across workflows that interoperate (maven-lockfile, jbang-related actions); confirm compatibility before changing pins.",
+        "Ensure job steps explicitly set working-directory and required environment variables for scripts (jbang, mvnw) so path assumptions are not implicit.",
+        "When modifying workflows that generate or commit files (lockfile.json, README/action.yml), consider the downstream effects: which jobs depend on those artifacts and whether CI re-runs or protected-branch rules will be triggered.",
+        "Run the affected CI jobs locally or in a throwaway branch after edits: at minimum execute lockfile generation, code-quality/reproducibility checks, smoke tests, and the release job path to validate changes."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    "maven_plugin": {
+      "description": "maven_plugin contains the Maven plugin implementation and surrounding build model that produce, validate, and freeze JSON lockfiles for Maven projects. It orchestrates dependency-graph collection, checksum resolution (local or remote), plugin and BOM resolution, and JSON (de)serialization of the lockfile model; correctness here is critical for reproducible builds, CI validation, and stable lockfile schemas consumed by downstream workflows.",
+      "key_behaviors": [
+        "Generate: collect project dependency graph + parent POM chain, compute checksums (local or remote), optionally collect plugin dependency trees and BOMs, assemble LockFile model and serialize to JSON.",
+        "Validate: read on-disk lockfile, reconstruct resolution using stored Config, recompute checksums (force local when configured), compare generated model to persisted lockfile and enforce configured validation policies.",
+        "Freeze: read lockfile, compute selected direct and transitive versions, write a frozen POM with pinned direct dependency versions and dependencyManagement entries; optionally include plugin dependencies.",
+        "Checksum resolution: provide pluggable strategies (FileSystem or Remote) with prewarm/caching hooks, consistent checksum algorithm selection, and resolved repository metadata returned as RepositoryInformation.",
+        "Serialization: use a centralized Gson configuration to (de)serialize many small typed value-objects as compact JSON primitives, ensuring stable JSON schema and ordering for deterministic diffs."
+      ],
+      "insights": [
+        {
+          "category": "serialization",
+          "title": "Centralized Gson adapters ensure compact/stable lockfile JSON",
+          "problem": "Domain value objects (ArtifactType, Classifier, MavenScope, etc.) were serialized inconsistently or as verbose objects, breaking compactness and compatibility.",
+          "root_cause": "Multiple ad-hoc (de)serialization points and missing adapters for new typed wrappers.",
+          "solution": "Register explicit Gson adapters in a single JsonUtils provider and update adapters whenever new value objects are added; maintain stable serialized names and lenient parsing where backward compatibility is required."
+        },
+        {
+          "category": "checksum-resolution",
+          "title": "Checksum mode behavior must be deterministic and efficient",
+          "problem": "Validation and generation sometimes used different checksum modes, produced network-bound or inconsistent results, and repeated network calls caused slow runs.",
+          "root_cause": "Checksum selection logic scattered and calculators lacked prewarm/caching; snapshot path resolution used timestamped versions or wrong extension/classifier handling.",
+          "solution": "Use a single checksum factory (from Mojo) and ensure calculators implement prewarm, caching, baseVersion-based path resolution and classifier/extension handling so generation and validation reproduce the same results efficiently."
+        },
+        {
+          "category": "snapshot-resolution",
+          "title": "SNAPSHOT artifact path resolution must use baseVersion",
+          "problem": "Local and remote resolution looked up snapshot artifacts using timestamped version strings and produced incorrect paths or failed HEAD/GET requests.",
+          "root_cause": "Code used artifact.getVersion() rather than getBaseVersion(), and file name construction ignored artifact handler extension and classifiers.",
+          "solution": "Resolve snapshot directory and filenames using baseVersion and artifact handler extension; include classifier in file name resolution logic for both local and remote calculators."
+        },
+        {
+          "category": "logging-and-context",
+          "title": "Non-Mojo components depend on Maven logging context",
+          "problem": "Utility and calculator classes logged via different mechanisms or lacked access to Maven's Mojo log, producing inconsistent or missing log messages.",
+          "root_cause": "PluginLogManager was not initialized by Mojos; utilities used standalone loggers.",
+          "solution": "Mojos must set PluginLogManager.setLog(getLog()) before delegating work so non-Mojo classes log through Maven's logging channel."
+        },
+        {
+          "category": "model-equality-ordering",
+          "title": "Deterministic ordering and equality are required for stable lockfiles and caching",
+          "problem": "Lockfile JSON diffs and in-memory caches were unstable because some domain objects lacked compareTo/equals/hashCode or sets preserved insertion order inconsistently.",
+          "root_cause": "Value objects and collection choices did not enforce deterministic ordering or equality semantics.",
+          "solution": "Make domain types comparable and define equals/hashCode; use sorted/ordered collections where stable diffs are required and normalize null collections to empty sets before serialization."
+        },
+        {
+          "category": "plugin-metadata",
+          "title": "Plugin resolution must capture full metadata for later validation",
+          "problem": "Lockfiles lacked plugin resolved URLs, repository ids, checksums, and plugin-dependency trees, preventing full validation of build-time artifacts.",
+          "root_cause": "Initial model and facade logic omitted plugin resolved location and plugin dependency resolution to keep generation simpler.",
+          "solution": "Record MavenPlugin resolved url, repository id, checksum+algorithm and dependency nodes in the LockFile model; ensure LockFileFacade and checksum calculators can produce that data."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java",
+          "why": "Central orchestration for building LockFile: collects dependency graph, parent POMs, BOMs and plugin metadata; primary integration point between Maven resolution and checksum calculators."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java",
+          "why": "Provides common Mojo context, config and checksum factory used by concrete goals; changes here affect all goals' configuration, checksum selection, and project-building request construction."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java",
+          "why": "Entrypoint for generating lockfiles; orchestrates reading existing lockfile, merging Config, delegating to LockFileFacade and writing JSON output."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/ValidateChecksumMojo.java",
+          "why": "Entrypoint for validation: reads lockfile, reconstructs resolution with stored Config, and enforces validation policies; affects CI failures/allowances."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java",
+          "why": "Defines the checksum API and prewarm hook used by Remote/FileSystem implementations; changes here alter how checksums are computed, cached, and exposed to the LockFile model."
+        }
+      ],
+      "construct_relationships": [
+        "GenerateLockFileMojo and ValidateChecksumMojo obtain Config and checksum calculator from AbstractLockfileMojo and delegate the heavy lifting to LockFileFacade.",
+        "LockFileFacade uses Maven's DependencyCollectorBuilder/DependencyResolver and ProjectBuildingRequest (created by AbstractLockfileMojo) to build a dependency graph and to ask a supplied AbstractChecksumCalculator for artifact and POM checksums and RepositoryInformation.",
+        "AbstractChecksumCalculator is an abstraction implemented by FileSystemChecksumCalculator and RemoteChecksumCalculator; LockFileFacade treats calculators interchangeably but relies on correct prewarm/caching and resolved-url semantics.",
+        "JsonUtils provides Gson configuration for serializing/deserializing data model classes (LockFile, MavenPlugin, Pom, ArtifactType, Classifier, Environment, Config); LockFileFacade/ Mojos rely on that serialization to read/write lockfile.json.",
+        "FreezeDependencyMojo reads the LockFile model (LockFile.readLockFile) and maps dependency graph nodes into Maven Dependency entries and dependencyManagement; it also interacts with PluginLogManager to ensure consistent logging across utility code."
+      ],
+      "notable_relationships": [
+        "maven_plugin/pom.xml drives build and published coordinates; changing plugin artifact coordinates or plugin versions can affect consumers and CI releases.",
+        "RemoteChecksumCalculator performs network calls to external Maven repositories; its behavior impacts CI runtime, potential flakiness, and platform-dependent checksum differences.",
+        "Lockfile JSON is consumed by CI workflows (e.g., .github/workflows/Lockfile.yml) and other repository tools; schema changes (serialized names, added/removed fields) must preserve backward compatibility or be coordinated with downstream consumers.",
+        "The plugin depends on Maven internals (DependencyCollectorBuilder, DependencyResolver, ProjectBuildingRequest) and local repository layout conventions (including _remote.repositories parsing); changes must respect Maven resolution semantics and local repo file layouts.",
+        "Gson SerializedName usage (ChecksumModes, etc.) is part of stable serialized contract\u2014alterations here affect persisted Config and lockfile compatibility."
+      ],
+      "recommendations": [
+        "Preserve JSON serialization compatibility: update JsonUtils whenever adding/removing typed wrappers and keep SerializedName strings stable; run serialization-based tests after changes.",
+        "Ensure Mojos always initialize PluginLogManager.setLog(getLog()) before invoking non-Mojo code so logs appear in Maven output.",
+        "When modifying checksum behavior, respect the prewarm hook and caching contract; ensure Remote and FileSystem calculators continue to return consistent RepositoryInformation and use baseVersion, artifact handler extension, and classifier when resolving paths.",
+        "Maintain deterministic ordering and equality for any domain value objects used in sets/maps or serialized output (implement Comparable and equals/hashCode); changing collection types or ordering will affect lockfile diffs.",
+        "When changing Config or LockFile schema, consider backward compatibility: LockFile.readLockFile and getConfigPath must still parse older lockfiles or migration logic must be provided; update consumers (Validate/Freeze) accordingly.",
+        "Run unit and integration tests plus lifecycle verification: mvn test and mvn verify (failsafe) for the module; apply project formatting (mvn spotless:apply) to avoid CI failures; test on multiple platforms if checksum or snapshot handling changes due to platform-dependent artifacts.",
+        "Be aware of CI behavior around committing lockfiles: changing behavior that writes/updates lockfile.json may require coordination with GitHub Action token usage and platform matrix differences for checksum validation."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    },
+    ".": {
+      "description": "Repository root that provides a reusable GitHub Action and a Maven plugin implementation to generate, validate, and freeze a JSON dependency lockfile for Maven projects. The Action (action.yml) invokes the maven-lockfile plugin module (maven_plugin) and the plugin module contains Mojos, orchestration (LockFileFacade), checksum resolution strategies, the lockfile data model, and JSON (de)serialization logic required for producing deterministic lockfiles consumed by CI and downstream tooling.",
+      "key_behaviors": [
+        "CI orchestration: the composite GitHub Action checks out code, detects changes (pom.xml and optionally workflow file), maps inputs to -D Maven properties, invokes the plugin goals (generate/validate), and can commit updated lockfiles back to the repo.",
+        "Lockfile generation: GenerateLockFileMojo (via AbstractLockfileMojo) delegates to LockFileFacade to collect a dependency graph, construct the parent POM chain, optionally resolve BOMs and plugin dependency subgraphs, compute checksums (local or remote), assemble a LockFile model, and serialize it using JsonUtils.",
+        "Validation: ValidateChecksumMojo replays generation using serialized Config from the lockfile (or mojo config), forces appropriate checksum mode for deterministic comparison, compares produced LockFile to on-disk lockfile, and enforces configured validation policies.",
+        "Freeze: FreezeDependencyMojo reads a lockfile, computes selected direct/transitive versions (nearest version resolution), optionally includes plugin dependencies, and writes a frozen POM with direct versions pinned and transitive dependencies added to dependencyManagement.",
+        "Checksum resolution: AbstractChecksumCalculator is the abstraction used by FileSystemChecksumCalculator and RemoteChecksumCalculator; remote mode supports caching and parallel pre-warm while filesystem mode reads local repository state and _remote.repositories to infer resolved URLs and repository ids."
+      ],
+      "insights": [
+        {
+          "category": "Checksum resolution",
+          "title": "Local vs Remote modes must be deterministic and performant",
+          "problem": "Validation or generation using the wrong checksum mode or inefficient remote fetches produced inconsistent or slow lockfile runs.",
+          "root_cause": "Mixed usage of remote vs local checksum sources, lack of prewarm/caching, and per-request HttpClient creation for remote resolution.",
+          "solution": "Respect the configured ChecksumModes and checksum algorithm stored in Config; remote calculators should prewarm and cache network results; validation should default to forced local checksums to avoid network variance and perf issues."
+        },
+        {
+          "category": "Snapshot resolution",
+          "title": "Incorrect path resolution for SNAPSHOT artifacts",
+          "problem": "Snapshot artifacts were resolved using timestamped versions or wrong filename heuristics, causing missing checksum/URL lookups and incorrect resolved fields.",
+          "root_cause": "Code used artifact.getVersion() (possibly timestamped) instead of artifact.getBaseVersion() and ignored artifact handler extension/classifier when building paths.",
+          "solution": "When mapping artifacts to repository paths or requesting remote checksum/HEAD resources use baseVersion and artifact handler extension and include classifier when present so both local and remote resolution match repository layouts."
+        },
+        {
+          "category": "Model & serialization",
+          "title": "Lockfile JSON compactness and schema stability",
+          "problem": "New value types (ArtifactType, Classifier, MavenScope, etc.) and alterations to the LockFile shape (Config, boms) require consistent Gson adapters and serialized names to keep lockfile compatibility and compactness.",
+          "root_cause": "Domain primitives serialized as objects or with inconsistent names led to larger or incompatible JSON and brittle parsing across plugin versions.",
+          "solution": "Centralize Gson adapters in JsonUtils, serialize domain wrappers as primitives (or omit default jar packaging), annotate ChecksumModes with serialized names, and preserve lenient parsing where backwards compatibility is required."
+        },
+        {
+          "category": "Logging & instrumentation",
+          "title": "Non-Mojo classes expect a Maven Log",
+          "problem": "Non-Mojo components used PluginLogManager.getLog() but Mojos did not always initialize PluginLogManager, causing missing or inconsistent logs and differing behavior between CLI and tests.",
+          "root_cause": "PluginLogManager was not set by Mojos before invoking shared components (checksum calculators, LockFileFacade).",
+          "solution": "Mojos must set PluginLogManager.setLog(getLog()) before delegating to shared classes so logging behavior is consistent across generate/validate/freeze flows."
+        },
+        {
+          "category": "Equality & caching",
+          "title": "Value objects need stable equality for caching and comparisons",
+          "problem": "Repository/Resolved value objects lacked equals/hashCode making cache keys and set/map membership unreliable.",
+          "root_cause": "Plain container objects returned multiple primitives separately and lacked proper equality/hash semantics for use in caches or collections.",
+          "solution": "Encapsulate related resolved fields into immutable value objects (RepositoryInformation) and implement equals/hashCode to allow reliable caching/comparisons across checksum resolvers and facade logic."
+        },
+        {
+          "category": "Action UX & commit behavior",
+          "title": "Action inputs and commit behavior are opinionated",
+          "problem": "The composite action hard-coded commit author, commit message defaults and only watched pom.xml for changes by default, which limited user control and could misattribute commits or miss changes that require regeneration.",
+          "root_cause": "Action hard-coded EndBug/add-and-commit defaults and monitored only pom.xml unless workflow-filename input was used.",
+          "solution": "Action maps inputs to Maven properties; when relying on the Action, be aware that commit behavior (token, author, message) and watched files are configurable inputs and edits to action.yml should preserve or document these input mappings and effects."
+        },
+        {
+          "category": "Freeze behavior",
+          "title": "Freeze must account for plugin dependencies and exact version formats",
+          "problem": "Earlier freeze output omitted plugin dependencies and always emitted plain version strings, producing incomplete or insufficiently pinned POMs for some consumers.",
+          "root_cause": "Freeze goal previously only processed project dependencies and lacked options for exact version formatting and plugin merging.",
+          "solution": "Freeze logic now supports including plugin dependencies and an exactVersionStrings option; edits must respect those flags and ensure dependencyManagement entries and plugin merges are written in a deterministic order."
+        }
+      ],
+      "key_files": [
+        {
+          "path": "action.yml",
+          "why": "Composite GitHub Action that maps inputs to Maven properties, detects changed files, runs generate/validate goals, and optionally commits updated lockfiles \u2014 edits here affect CI invocation and commit semantics."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java",
+          "why": "Central orchestration that collects dependency graph, parent POM chain, plugin metadata and BOMs, and composes the LockFile model used by generate/validate/freeze Mojos."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java",
+          "why": "Common Mojo base that constructs Config, selects checksum calculators, builds ProjectBuildingRequests, and initializes environment metadata \u2014 changes affect all concrete goals."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java",
+          "why": "Network-bound checksum/resolution implementation offering caching and prewarm semantics; impacts generation performance and determinism when remote checksums are used."
+        },
+        {
+          "path": "maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/JsonUtils.java",
+          "why": "Single place registering Gson adapters for domain types \u2014 must be kept consistent to preserve lockfile JSON schema, compactness, and backwards compatibility."
+        }
+      ],
+      "construct_relationships": [
+        "GenerateLockFileMojo, ValidateChecksumMojo and FreezeDependencyMojo extend AbstractLockfileMojo to obtain Maven context and construct Config and checksum calculators.",
+        "Mojos delegate orchestration to LockFileFacade which uses DependencyCollectorBuilder/DependencyResolver to build a DependencyGraph and invokes an AbstractChecksumCalculator implementation to attach checksums and resolved repository information to nodes.",
+        "AbstractChecksumCalculator is implemented by FileSystemChecksumCalculator and RemoteChecksumCalculator; LockFileFacade chooses and may call prewarmArtifactCache on the chosen calculator prior to heavy resolution.",
+        "JsonUtils serializes/deserializes LockFile and related data value objects (ArtifactType, Classifier, GroupId, ArtifactId, Config, Environment) and must match the shapes produced by the LockFile model and consumed by Mojos.",
+        "RepositoryInformation is produced by checksum calculators and used by LockFileFacade and LockFile model to represent resolved URL + repository id as a single unit for caching and equality checks."
+      ],
+      "notable_relationships": [
+        "action.yml -> maven_plugin: the composite GitHub Action invokes plugin goals with -D properties derived from inputs; changes to property names or expected plugin parameters must be kept aligned between action.yml and AbstractLockfileMojo/GenerateLockFileMojo.",
+        "maven_plugin/pom.xml -> build & test behavior: POM changes (version pins, plugin versions, packaging) affect plugin compilation, generated mojo descriptors, and integration-test execution via failsafe; CI workflows depend on these artifacts.",
+        "Lockfile JSON -> downstream consumers: lockfile.json schema (field names, presence/absence of packaging/type, classifiers, Config and boms) is consumed by validate and freeze goals and by external CI workflows; schema changes impact validation reproducibility and freeze output.",
+        "Platform/CI matrix -> checksum determinism: platform-specific artifacts and SNAPSHOT layouts can cause different checksums across OS/arch/runner matrix; CI action and validation logic are sensitive to these platform-dependent differences.",
+        "Git commit workflow -> CI re-triggering: action's commit step may require a personal token (not default GITHUB_TOKEN) to commit updates in PR workflows and retrigger CI as intended; this affects how the action is configured in repositories."
+      ],
+      "recommendations": [
+        "When editing Mojos or LockFileFacade preserve Config serialization and the Contract used to reconstruct generation settings from existing lockfiles; ensure backward-compatible Gson names/enum serialized names are retained.",
+        "Any changes touching checksum resolution must maintain baseVersion handling, classifier and artifact extension handling, and must keep RepositoryInformation equality/hashing intact for caches; validate both local and remote modes and re-run integration tests that simulate SNAPSHOT and classifier cases.",
+        "If touching logging or PluginLogManager usage, ensure every Mojo initializes PluginLogManager.setLog(getLog()) before invoking shared non-Mojo classes so logging side-effects remain consistent.",
+        "When modifying action.yml keep the mapping between Action inputs and -D Maven properties stable (or update Mojos to accept new property names) and preserve commit-related inputs (token, author, message) semantics if users rely on them.",
+        "Preserve JsonUtils adapters for all domain wrappers (ArtifactType, Classifier, MavenScope, VersionNumber, etc.) to avoid lockfile schema changes; run unit + integration serialization tests and verify lockfile round-trips.",
+        "Run full test matrix and formatting: execute mvn test, mvn failsafe:integration-test (where used), and mvn spotless:apply to ensure changes do not break builds, plugin descriptor generation, or CI expectations."
+      ],
+      "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+    }
+  },
+  "metadata": {
+    "generated_at": "2026-03-25T21:56:32Z",
+    "total_folders": 15,
+    "generated_at_commit": "ec334e81a31a6801d24abbd3f0eb97285d7cb7a9"
+  }
+}
