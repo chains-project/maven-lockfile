@@ -2,9 +2,9 @@
 
 ## Root
 
-- `action.yml` - Composite GitHub Action that runs the Maven lockfile plugin to generate or validate a lockfile. Key: `github-token`, `commit-lockfile`, `include-maven-plugins`, `lockfile-name`, `workflow-filename` [CONFIG]
+- `action.yml` - Composite GitHub Action that runs the Maven lockfile plugin to generate or validate a lockfile. **Generated from template/action.yml** by the gmavenplus-plugin during the `generate-resources` Maven phase — do not edit directly. Key: `github-token`, `commit-lockfile`, `include-maven-plugins`, `lockfile-name`, `workflow-filename` [CONFIG]
 - `jreleaser.yml` - Release and signing configuration for JReleaser [CONFIG]
-- `lockfile.json` - Example/generated repository lockfile containing dependency graph and checksums [GENERATED]
+- `lockfile.json` - The project's own lockfile recording its resolved dependencies and checksums (not primarily an example). Also serves as a dogfooding example of a generated lockfile. [GENERATED]
 - `pom.xml` - Parent POM that centralizes build configuration, plugins, and reproducibility settings for the project. Key: `project.build.outputTimestamp`, `sigstore.skip`, `modules`, `cyclonedx-maven-plugin`, `gmavenplus-plugin` [BUILD]
 - `qodana.yml` - Qodana static analysis profile for CI [CONFIG]
 - `renovate.json` - Dependency automation rules for Renovate bot [CONFIG]

@@ -8,8 +8,8 @@ Maven Lockfile
 
 # Key Components
 
-- action.yml: composite GitHub Action wrapper that runs the plugin in CI (generate vs validate), detects changed files, optionally commits updated lockfiles.
-- template/action.yml: template used to produce an action; contains the runtime bash driver (helpers like execute_maven_command) and PLUGIN_VERSION placeholder.
+- action.yml: composite GitHub Action wrapper that runs the plugin in CI (generate vs validate), detects changed files, optionally commits updated lockfiles. **This file is generated from template/action.yml** by the gmavenplus-plugin during the `generate-resources` phase (configured in the parent pom.xml). Do not edit action.yml directly — edit template/action.yml instead and regenerate.
+- template/action.yml: source template for action.yml; contains the runtime bash driver (helpers like execute_maven_command) and the `PLUGIN_VERSION` placeholder that is substituted during the generate-resources phase. Changes here are propagated to action.yml at build time.
 - maven_plugin/pom.xml: module POM (packaging=maven-plugin) — authoritative build config for the plugin artifact.
 
 Primary Java constructs (use these when changing behavior):
@@ -142,8 +142,8 @@ Before adding changes:
 - Checksum algorithm defaults: Config default checksumAlgorithm is obtained from FileSystemChecksumCalculator.getDefaultChecksumAlgorithm(). If you change defaults, update Config and tests accordingly.
 - Root node checksum suppression: DependencyGraph.createDependencyNode sets checksum empty for project root nodes; do not compute root checksum or tests will break.
 - Do not mutate fields that affect comparator/equality after inserting nodes into TreeSet/HashSet. Fields used by compareTo/getComparatorString and equals/hashCode must remain stable while in collections (DependencyNode, children ordering).
-- SpyingDependencyNodeUtils.getWinnerVersion is reflective and brittle (relies on Maven internals). Treat Optional.empty() as legitimate fallback when upgrading Maven versions.
-- Validation must force local checksum mode: ValidateChecksumMojo uses getChecksumCalculator(config, true). If you reintroduce network resolution during validate you'll get non-determinism and CI flakes.
+- SpyingDependencyNodeUtils.getWinnerVersion is reflective and brittle (relies on Maven internals). If it breaks on a Maven upgrade, it should surface an explicit error or warning — do not silently fall back, as that may produce an incorrect frozen POM without any indication of the failure.
+- Validation checksum mode: ValidateChecksumMojo uses getChecksumCalculator(config, true) which forces local (filesystem) checksum resolution. The primary purpose is to verify that the artifacts in the developer's local `.m2` repository match the lockfile — not to avoid network calls. Remote checksum verification (against Maven Central) is a different guarantee. Note: CI does run remote-mode lockfiles; forcing local mode in all cases would defeat that use-case.
 - Changing serialization (JsonUtils adapters, field names, @SerializedName) breaks existing lockfile.json compatibility and CI validation.
 - Platform-dependent artifacts: checksums can differ across OS/JDK/platform-specific classifiers. CI may run on ubuntu-latest while developer runs on other OS — tests and CI may diverge.
 
@@ -159,12 +159,12 @@ Before adding changes:
   - High-level orchestration that collects plugins, constructs graph, pre-warms checksum cache, and assembles LockFile. Keep orchestration logic here and delegate resolution/IO.
 
 - maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java:of/createDependencyNode
-  - Convert Maven dependency graph to deterministic DependencyNode model; call calc.prewarmArtifactCache(uniqueArtifacts) before heavy IO.
+  - Convert Maven dependency graph to deterministic DependencyNode model; call calc.prewarmArtifactCache(uniqueArtifacts) before artifact resolution. Note: prewarmArtifactCache is a meaningful operation only in remote mode (RemoteChecksumCalculator uses it to batch-fetch checksums in parallel); it is a no-op for local (FileSystem) mode. It exists on the AbstractChecksumCalculator interface so callers do not need to know which mode is active.
 
 # Common Mistakes → Fast Fixes
 
-- Symptom: Validate Mojo flakily performs network calls and fails on CI.
-  - Check: ValidateChecksumMojo.execute must call getChecksumCalculator(config, true) to force local checksum mode.
+- Symptom: Validate Mojo unexpectedly performs network calls or fails on CI.
+  - Check: Validate what checksum mode the lockfile was generated with. If the lockfile was generated in local (filesystem) mode, ValidateChecksumMojo should be using getChecksumCalculator(config, true) to force local resolution. However, if the lockfile was intentionally generated in remote mode (e.g., to verify Maven Central integrity), do not force local mode — fix the underlying cause instead.
 
 - Symptom: Lockfile appears with different ordering or tests fail with ordering assertions.
   - Check: Ensure sets are collected into TreeSet with the same comparator (DependencyNode::getComparatorString) and you didn't change comparator fields.
@@ -199,7 +199,7 @@ Before adding changes:
 
 - CI workflow example: .github/workflows/Lockfile.yml uses the published action chain and demonstrates runner hardening and action invocation.
 
-If you are about to change any of the above major components, run unit tests and the integration tests (mvn -pl maven_plugin verify) and update the README/CHANGELOG when public behavior (defaults, PLUGIN_VERSION contract, or lockfile schema) changes.
+If you are about to change any of the above major components, run unit tests and the integration tests (mvn -pl maven_plugin verify) and update the README when public behavior (defaults, PLUGIN_VERSION contract, or lockfile schema) changes. Do NOT update the CHANGELOG — it is auto-generated by jreleaser.
 
 # Verification Checklist
 
