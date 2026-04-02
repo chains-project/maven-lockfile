@@ -8,7 +8,7 @@
     "version": "1",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "4e418a9ef8f5494f1185bcfd7deefe9c46065b6d711342c8d449df92ec14fd08"
+    "checksum": "ed5fee5166f65120e1ec208e64462e1de7748ea382eaee80b2ee0256e9a68e64"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -27,13 +27,14 @@
   ],
   "metaData": {
     "config": {
-      "checksumMode": "local",
       "includeMavenPlugins": true,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
+      "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": false,
       "reduced": false,
-      "onValidationFailure": "Error",
-      "onPomValidationFailure": "Warn",
-      "onEnvironmentalValidationFailure": "Warn"
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
     }
   }
 }
