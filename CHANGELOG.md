@@ -2574,3 +2574,19 @@ We'd like to thank the following people for their contributions:
 - Bruno Pimentel ([@brunoapimentel](https://github.com/brunoapimentel))
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.15.1-beta-1
+## Changelog
+
+## 📦 Dependencies
+- 34ab7ca ⬆️ (deps): Update chains-project/maven-lockfile action to v5.15.0 (#1539)
+
+## 🏁 Release
+- 89924a4 🔖 Releasing version 5.15.1-beta-1
+- 6b6e06a 🔖 Setting SNAPSHOT version 5.15.1-SNAPSHOT
+- 5aa85a8 🔖 Releasing version 5.15.0
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Elias Lundell ([@LogFlames](https://github.com/LogFlames))
