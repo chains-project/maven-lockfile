@@ -24,6 +24,11 @@
         <artifactId>wagon-ssh</artifactId>
         <version>3.5.3</version>
       </extension>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <!-- no version: simulates an extension inherited from a parent POM -->
+      </extension>
     </extensions>
     <plugins>
       <plugin>

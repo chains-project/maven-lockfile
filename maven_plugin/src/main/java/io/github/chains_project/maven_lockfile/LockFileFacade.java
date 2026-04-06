@@ -9,9 +9,6 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -35,6 +32,10 @@ import org.eclipse.aether.resolution.DependencyRequest;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.artifact.JavaScopes;
+
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Entry point for the lock file generation. This class is responsible for generating the lock file for a project.
@@ -153,12 +154,10 @@ public class LockFileFacade {
         List<RemoteRepository> repositories = project.getRemotePluginRepositories();
 
         // Collect all extensions as dependencies
-        List<org.eclipse.aether.graph.Dependency> extensionDependencies = new ArrayList<>();
-        for (Extension extension : buildExtensions) {
-            org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
-                    extension.getGroupId(), extension.getArtifactId(), "jar", extension.getVersion());
-            extensionDependencies.add(new org.eclipse.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
-        }
+        List<org.eclipse.aether.graph.Dependency> extensionDependencies = buildExtensions.stream()
+                .map(LockFileFacade::toExtensionDependency)
+                .flatMap(Optional::stream)
+                .collect(Collectors.toList());
 
         // Resolve all extensions and their dependencies in one call
         CollectRequest collectRequest = new CollectRequest();
@@ -214,6 +213,19 @@ public class LockFileFacade {
         }
 
         return extensions;
+    }
+
+    private static Optional<org.eclipse.aether.graph.Dependency> toExtensionDependency(Extension extension) {
+        if (extension.getVersion() == null || extension.getVersion().isBlank()) {
+            PluginLogManager.getLog()
+                    .warn(String.format("Skipping extension %s:%s with no version",
+                            extension.getGroupId(),
+                            extension.getArtifactId()));
+            return Optional.empty();
+        }
+        org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
+                extension.getGroupId(), extension.getArtifactId(), "jar", extension.getVersion());
+        return Optional.of(new org.eclipse.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
     }
 
     private static Set<MavenPlugin> getAllPlugins(
@@ -426,10 +438,10 @@ public class LockFileFacade {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
-                            .getBasedir()
-                            .toPath()
-                            .relativize(project.getFile().toPath())
-                            .toString();
+                    .getBasedir()
+                    .toPath()
+                    .relativize(project.getFile().toPath())
+                    .toString();
             String checksum = null;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
