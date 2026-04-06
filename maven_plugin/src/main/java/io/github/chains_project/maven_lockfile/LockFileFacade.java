@@ -218,9 +218,9 @@ public class LockFileFacade {
     private static Optional<org.eclipse.aether.graph.Dependency> toExtensionDependency(Extension extension) {
         if (extension.getVersion() == null || extension.getVersion().isBlank()) {
             PluginLogManager.getLog()
-                    .warn(String.format("Skipping extension %s:%s with no version",
-                            extension.getGroupId(),
-                            extension.getArtifactId()));
+                    .warn(String.format(
+                            "Skipping extension %s:%s with no version",
+                            extension.getGroupId(), extension.getArtifactId()));
             return Optional.empty();
         }
         org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(

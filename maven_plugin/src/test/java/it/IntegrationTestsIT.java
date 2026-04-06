@@ -798,6 +798,30 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @SuppressWarnings("null")
+    public void buildExtensionVersionFromParent(MavenExecutionResult result) throws Exception {
+        // contract: covers two inheritance scenarios:
+        // 1. wagon-ftp declared only in parent — inherited by child with version, recorded in lockfile
+        // 2. wagon-ssh re-declared in child without version — Maven uses the child's declaration (null version),
+        //    the parent's version is NOT applied; our tool skips it with a warning
+        System.out.println("Running 'buildExtensionVersionFromParent' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenExtensions()).hasSize(2);
+        assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
+                .extracting(ext ->
+                        ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
+                .containsExactly("kr.motd.maven:os-maven-plugin", "org.apache.maven.wagon:wagon-ftp");
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout).contains("Skipping extension org.apache.maven.wagon:wagon-ssh with no version");
+    }
+
+    @MavenTest
     public void buildExtensionsValidationFail(MavenExecutionResult result) throws Exception {
         // contract: if an extension checksum in the lockfile doesn't match the actual extension,
         // validation should fail
