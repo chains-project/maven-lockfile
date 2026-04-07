@@ -28,6 +28,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
     private final MavenScope scope;
     private final ResolvedUrl resolved;
     private final RepositoryId repositoryId;
+    private Pom parentPom;
 
     private String selectedVersion;
 
@@ -205,7 +206,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 id,
                 parent,
                 children,
-                boms);
+                boms,
+                parentPom);
     }
 
     @Override
@@ -229,7 +231,8 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 && Objects.equals(id, other.id)
                 && Objects.equals(parent, other.parent)
                 && Objects.equals(children, other.children)
-                && Objects.equals(boms, other.boms);
+                && Objects.equals(boms, other.boms)
+                && Objects.equals(parentPom, other.parentPom);
     }
 
     @Override
@@ -264,11 +267,19 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 + ", classifier=" + classifier + ", type=" + type + ", checksumAlgorithm=" + checksumAlgorithm
                 + ", checksum=" + checksum + ", scope=" + scope + ", resolved=" + resolved + ", repositoryId="
                 + repositoryId + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
-                + ", children=" + children + ", boms=" + boms + "]";
+                + ", children=" + children + ", boms=" + boms + ", parentPom=" + parentPom +  "]";
     }
 
     public String getComparatorString() {
         return this.getGroupId().getValue() + "#" + this.getArtifactId().getValue() + "#"
                 + this.getVersion().getValue() + "#" + this.getChecksum();
+    }
+
+    public Pom getParentPom() {
+        return parentPom;
+    }
+
+    public void setParentPom(Pom parentPom) {
+        this.parentPom = parentPom;
     }
 }
