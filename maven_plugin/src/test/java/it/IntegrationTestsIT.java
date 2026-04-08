@@ -746,8 +746,8 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getMavenExtensions()).isNotEmpty();
-        // wagon-ftp has no version and must be skipped — only the 2 versioned extensions are recorded
-        assertThat(lockFile.getMavenExtensions()).hasSize(2);
+        // wagon-ftp has no explicit version but is resolved from Maven's extensionArtifactMap — all 3 are recorded
+        assertThat(lockFile.getMavenExtensions()).hasSize(3);
 
         // Verify all extensions have valid checksums
         assertThat(lockFile.getMavenExtensions())
@@ -758,15 +758,14 @@ public class IntegrationTestsIT {
         assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
                 .extracting(ext ->
                         ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
-                .containsExactly("kr.motd.maven:os-maven-plugin", "org.apache.maven.wagon:wagon-ssh");
+                .containsExactly(
+                        "kr.motd.maven:os-maven-plugin",
+                        "org.apache.maven.wagon:wagon-ftp",
+                        "org.apache.maven.wagon:wagon-ssh");
 
-        // Verify the version-less extension is absent from the lockfile
-        assertThat(lockFile.getMavenExtensions())
-                .noneMatch(ext -> ext.getArtifactId().getValue().equals("wagon-ftp"));
-
-        // Verify the version-less extension triggered a warning in the build log
+        // Verify the version-less extension triggered a warning (resolved, not skipped)
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout).contains("Skipping extension org.apache.maven.wagon:wagon-ftp with no version");
+        assertThat(stdout).contains("Extension org.apache.maven.wagon:wagon-ftp has no explicit version");
 
         // Verify all extensions have dependencies resolved
         assertThat(lockFile.getMavenExtensions())
@@ -801,23 +800,26 @@ public class IntegrationTestsIT {
     public void buildExtensionVersionFromParent(MavenExecutionResult result) throws Exception {
         // contract: covers two inheritance scenarios:
         // 1. wagon-ftp declared only in parent — inherited by child with version, recorded in lockfile
-        // 2. wagon-ssh re-declared in child without version — Maven uses the child's declaration (null version),
-        //    the parent's version is NOT applied; our tool skips it with a warning
+        // 2. wagon-ssh re-declared in child without version — resolved from Maven's extensionArtifactMap,
+        //    recorded with a warning that no explicit version was declared
         System.out.println("Running 'buildExtensionVersionFromParent' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getMavenExtensions()).hasSize(2);
+        assertThat(lockFile.getMavenExtensions()).hasSize(3);
         assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
                 .extracting(ext ->
                         ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
-                .containsExactly("kr.motd.maven:os-maven-plugin", "org.apache.maven.wagon:wagon-ftp");
+                .containsExactly(
+                        "kr.motd.maven:os-maven-plugin",
+                        "org.apache.maven.wagon:wagon-ftp",
+                        "org.apache.maven.wagon:wagon-ssh");
         assertThat(lockFile.getMavenExtensions())
                 .allMatch(v -> !v.getChecksum().isBlank()
                         && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout).contains("Skipping extension org.apache.maven.wagon:wagon-ssh with no version");
+        assertThat(stdout).contains("Extension org.apache.maven.wagon:wagon-ssh has no explicit version");
     }
 
     @MavenTest

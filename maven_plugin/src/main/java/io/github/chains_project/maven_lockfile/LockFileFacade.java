@@ -31,9 +31,7 @@ import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.collection.CollectRequest;
 import org.eclipse.aether.repository.RemoteRepository;
-import org.eclipse.aether.resolution.DependencyRequest;
-import org.eclipse.aether.resolution.DependencyResolutionException;
-import org.eclipse.aether.resolution.DependencyResult;
+import org.eclipse.aether.resolution.*;
 import org.eclipse.aether.util.artifact.JavaScopes;
 
 /**
@@ -154,7 +152,7 @@ public class LockFileFacade {
 
         // Collect all extensions as dependencies
         List<org.eclipse.aether.graph.Dependency> extensionDependencies = buildExtensions.stream()
-                .map(LockFileFacade::toExtensionDependency)
+                .map(ext -> toExtensionDependency(ext, repositorySystem, repoSession, repositories))
                 .flatMap(Optional::stream)
                 .collect(Collectors.toList());
 
@@ -214,16 +212,34 @@ public class LockFileFacade {
         return extensions;
     }
 
-    private static Optional<org.eclipse.aether.graph.Dependency> toExtensionDependency(Extension extension) {
-        if (extension.getVersion() == null || extension.getVersion().isBlank()) {
-            PluginLogManager.getLog()
-                    .warn(String.format(
-                            "Skipping extension %s:%s with no version",
-                            extension.getGroupId(), extension.getArtifactId()));
-            return Optional.empty();
+    private static Optional<org.eclipse.aether.graph.Dependency> toExtensionDependency(
+            Extension extension,
+            RepositorySystem repositorySystem,
+            RepositorySystemSession repoSession,
+            List<RemoteRepository> repositories) {
+        String version = extension.getVersion();
+        if (version == null || version.isBlank()) {
+            try {
+                VersionRequest request = new VersionRequest(
+                        new org.eclipse.aether.artifact.DefaultArtifact(
+                                extension.getGroupId(), extension.getArtifactId(), "jar", "RELEASE"),
+                        repositories,
+                        null);
+                version = repositorySystem.resolveVersion(repoSession, request).getVersion();
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Extension %s:%s has no explicit version; resolved to %s",
+                                extension.getGroupId(), extension.getArtifactId(), version));
+            } catch (VersionResolutionException e) {
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "Skipping extension %s:%s: no version declared and could not resolve one",
+                                extension.getGroupId(), extension.getArtifactId()));
+                return Optional.empty();
+            }
         }
         org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
-                extension.getGroupId(), extension.getArtifactId(), "jar", extension.getVersion());
+                extension.getGroupId(), extension.getArtifactId(), "jar", version);
         return Optional.of(new org.eclipse.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
     }
 
