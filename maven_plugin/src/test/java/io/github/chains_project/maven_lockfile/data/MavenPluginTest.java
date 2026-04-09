@@ -71,4 +71,49 @@ public class MavenPluginTest {
         assertThat(pluginA.compareTo(pluginB)).isLessThan(0);
         assertThat(pluginB.compareTo(pluginA)).isGreaterThan(0);
     }
+
+    @Test
+    void equalsReturnsTrueForIdenticalPlugins() {
+        MavenPlugin plugin1 = createPlugin("org.example", "artifact", "1.0.0", "SHA-256", "abc123");
+        MavenPlugin plugin2 = createPlugin("org.example", "artifact", "1.0.0", "SHA-256", "abc123");
+
+        assertThat(plugin1).isEqualTo(plugin2);
+        assertThat(plugin2).isEqualTo(plugin1);
+        assertThat(plugin1.hashCode()).isEqualTo(plugin2.hashCode());
+    }
+
+    @Test
+    void equalsReturnsFalseForPluginAndExtensionWithSameGAV() {
+        MavenPlugin plugin = createPlugin("org.example", "artifact", "1.0.0", "SHA-256", "abc123");
+        MavenExtension extension = new MavenExtension(
+                GroupId.of("org.example"),
+                ArtifactId.of("artifact"),
+                VersionNumber.of("1.0.0"),
+                "abc123",
+                "SHA-256",
+                null,
+                null,
+                null);
+
+        assertThat(plugin).isNotEqualTo(extension);
+        assertThat(extension).isNotEqualTo(plugin);
+    }
+
+    @Test
+    void compareToOrdersByTypeFirst() {
+        MavenPlugin plugin = createPlugin("org.example", "artifact", "1.0.0", "SHA-256", "abc123");
+        MavenExtension extension = new MavenExtension(
+                GroupId.of("org.example"),
+                ArtifactId.of("artifact"),
+                VersionNumber.of("1.0.0"),
+                "abc123",
+                "SHA-256",
+                null,
+                null,
+                null);
+
+        int result = plugin.compareTo(extension);
+        assertThat(result).isNotEqualTo(0);
+        assertThat(extension.compareTo(plugin)).isEqualTo(-result);
+    }
 }

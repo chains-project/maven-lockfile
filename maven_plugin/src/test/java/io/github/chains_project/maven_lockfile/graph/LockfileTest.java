@@ -46,6 +46,7 @@ public class LockfileTest {
                 new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
                 Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
                 Set.of(pluginA(), pluginB()),
+                Set.of(),
                 metadata,
                 Set.of(bom()));
 
@@ -56,6 +57,7 @@ public class LockfileTest {
                 new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", null),
                 Set.of(dependencyNodeB(), dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2())),
                 Set.of(pluginB(), pluginA()),
+                Set.of(),
                 metadata,
                 Set.of(bom()));
 
