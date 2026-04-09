@@ -8,14 +8,7 @@ import com.google.common.collect.Ordering;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
-import io.github.chains_project.maven_lockfile.data.ArtifactId;
-import io.github.chains_project.maven_lockfile.data.Classifier;
-import io.github.chains_project.maven_lockfile.data.GroupId;
-import io.github.chains_project.maven_lockfile.data.LockFile;
-import io.github.chains_project.maven_lockfile.data.MavenScope;
-import io.github.chains_project.maven_lockfile.data.RepositoryId;
-import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
-import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -740,6 +733,103 @@ public class IntegrationTestsIT {
                 assertThat(scope).isIn("compile", "runtime", "system");
             }
         }
+    }
+
+    @MavenTest
+    @SuppressWarnings("null")
+    public void buildExtensionsMultiple(MavenExecutionResult result) throws Exception {
+        // contract: if a project uses multiple build extensions, all versioned ones should be recorded in the lockfile;
+        // extensions with no version should be skipped with a warning and not cause a build failure
+        System.out.println("Running 'buildExtensionsMultiple' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenExtensions()).isNotEmpty();
+        // wagon-ftp has no explicit version but is resolved from Maven's extensionArtifactMap — all 3 are recorded
+        assertThat(lockFile.getMavenExtensions()).hasSize(3);
+
+        // Verify all extensions have valid checksums
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+
+        // Verify specific extensions are present in sorted order (TreeSet orders by groupId then artifactId)
+        assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
+                .extracting(ext ->
+                        ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
+                .containsExactly(
+                        "kr.motd.maven:os-maven-plugin",
+                        "org.apache.maven.wagon:wagon-ftp",
+                        "org.apache.maven.wagon:wagon-ssh");
+
+        // Verify the version-less extension triggered a warning (resolved, not skipped)
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout).contains("Extension org.apache.maven.wagon:wagon-ftp has no explicit version");
+
+        // Verify all extensions have dependencies resolved
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(ext ->
+                        ext.getDependencies() != null && !ext.getDependencies().isEmpty());
+
+        // Verify all dependencies have valid scopes and TEST scope is excluded
+        lockFile.getMavenExtensions().forEach(extension -> {
+            extension.getDependencies().forEach(dep -> {
+                var scope = dep.getScope();
+                if (scope == null) {
+                    fail(String.format(
+                            "scope is null for dependency %s:%s:%s",
+                            dep.getGroupId().getValue(),
+                            dep.getArtifactId().getValue(),
+                            dep.getVersion().getValue()));
+                    return;
+                }
+                assertThat(scope)
+                        .as(
+                                "Scope of extension dependency %s:%s:%s",
+                                dep.getGroupId().getValue(),
+                                dep.getArtifactId().getValue(),
+                                dep.getVersion().getValue())
+                        .isNotEqualTo(MavenScope.TEST);
+            });
+        });
+    }
+
+    @MavenTest
+    @SuppressWarnings("null")
+    public void buildExtensionVersionFromParent(MavenExecutionResult result) throws Exception {
+        // contract: covers two inheritance scenarios:
+        // 1. wagon-ftp declared only in parent — inherited by child with version, recorded in lockfile
+        // 2. wagon-ssh re-declared in child without version — resolved from Maven's extensionArtifactMap,
+        //    recorded with a warning that no explicit version was declared
+        System.out.println("Running 'buildExtensionVersionFromParent' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getMavenExtensions()).hasSize(3);
+        assertThat(new ArrayList<>(lockFile.getMavenExtensions()))
+                .extracting(ext ->
+                        ext.getGroupId().getValue() + ":" + ext.getArtifactId().getValue())
+                .containsExactly(
+                        "kr.motd.maven:os-maven-plugin",
+                        "org.apache.maven.wagon:wagon-ftp",
+                        "org.apache.maven.wagon:wagon-ssh");
+        assertThat(lockFile.getMavenExtensions())
+                .allMatch(v -> !v.getChecksum().isBlank()
+                        && v.getChecksumAlgorithm().equals(lockFile.getConfig().getChecksumAlgorithm()));
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout).contains("Extension org.apache.maven.wagon:wagon-ssh has no explicit version");
+    }
+
+    @MavenTest
+    public void buildExtensionsValidationFail(MavenExecutionResult result) throws Exception {
+        // contract: if an extension checksum in the lockfile doesn't match the actual extension,
+        // validation should fail
+        System.out.println("Running 'buildExtensionsValidationFail' integration test.");
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Missing extensions")).isTrue();
     }
 
     @MavenTest
