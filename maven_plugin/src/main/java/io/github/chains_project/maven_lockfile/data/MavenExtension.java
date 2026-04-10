@@ -30,7 +30,7 @@ public class MavenExtension extends AbstractMavenComponent {
             ResolvedUrl resolved,
             RepositoryId repositoryId,
             Set<DependencyNode> dependencies) {
-        super(groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies);
+        super(groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies, null);
     }
 
     @Override
