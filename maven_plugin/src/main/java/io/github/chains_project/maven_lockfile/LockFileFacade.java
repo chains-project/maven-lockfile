@@ -9,9 +9,11 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
+
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -42,8 +44,8 @@ import org.eclipse.aether.util.artifact.JavaScopes;
  */
 public class LockFileFacade {
 
-    private static final Set<String> writtenParentPoms = new HashSet<>();
-    private static final Set<String> visitedBoms = new HashSet<>();
+    private static final Map<MavenProject, Pom> parentsResolved = new HashMap<>();
+    private static final Map<MavenProject, Set<Pom>> bomsResolved = new HashMap<>();
 
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
@@ -123,7 +125,7 @@ public class LockFileFacade {
         var roots = graph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        resolveParentsAndBomsForDependencies(graph, session, project, checksumCalculator, writtenParentPoms, visitedBoms);
+        resolveParentsAndBomsForDependencies(graph, session, project, checksumCalculator);
         var boms = resolveBoms(session, project, checksumCalculator);
 
         return new LockFile(
@@ -168,6 +170,8 @@ public class LockFileFacade {
         DependencyRequest dependencyRequest = new DependencyRequest();
         dependencyRequest.setCollectRequest(collectRequest);
 
+        ProjectBuilder extensionProjectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories());
+
         try {
             DependencyResult dependencyResult = repositorySystem.resolveDependencies(repoSession, dependencyRequest);
 
@@ -189,12 +193,15 @@ public class LockFileFacade {
 
                 RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
 
+                Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGav(
+                        artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
+
                 // Resolve extension's transitive dependencies using the existing mechanism
                 Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
                         resolveComponentDependencies(
-                                project,
+                                extensionProjectOptional.get(),
                                 session,
-                                project.getRemoteArtifactRepositories(),
+                                project.getPluginArtifactRepositories(),
                                 dependencyCollectorBuilder,
                                 checksumCalculator,
                                 Collections.emptyList());
@@ -251,20 +258,12 @@ public class LockFileFacade {
             DependencyGraph graph,
             MavenSession session,
             MavenProject rootProject,
-            AbstractChecksumCalculator checksumCalculator,
-            Set<String> writtenParentPoms,
-            Set<String> visitedBoms) {
+            AbstractChecksumCalculator checksumCalculator) {
         ProjectBuilder builder = new ProjectBuilder(session, rootProject.getRemoteArtifactRepositories());
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-            boolean needsParentPom = !writtenParentPoms.contains(node.getChecksum());
-            boolean needsBom = !visitedBoms.contains(node.getChecksum());
-
-            if (!needsParentPom && !needsBom) {
-                return;
-            }
 
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
@@ -280,21 +279,28 @@ public class LockFileFacade {
             }
             var mavenProject = projectOptional.get();
 
-            if (needsParentPom) {
-                if (mavenProject.hasParent()) {
-                    PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
-                    var pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
+            if (mavenProject.hasParent()) {
+                PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
+
+                //Optimization, not to resolve parent if already resolved
+                //It has to be written in full form before lockfile v2
+                if (parentsResolved.containsKey(mavenProject.getParent())) {
+                    node.setParentPom(parentsResolved.get(mavenProject.getParent()));
+                } else {
+                    Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
+                    parentsResolved.put(mavenProject.getParent(), pom);
                     node.setParentPom(pom);
                 }
-                writtenParentPoms.add(node.getChecksum());
             }
 
-            if (needsBom) {
+            if (bomsResolved.containsKey(mavenProject)) {
+                node.setBoms(bomsResolved.get(mavenProject));
+            } else {
                 Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
                 if (!boms.isEmpty()) {
                     node.setBoms(boms);
                 }
-                visitedBoms.add(node.getChecksum());
+                bomsResolved.put(mavenProject,boms);
             }
         });
     }
@@ -370,12 +376,12 @@ public class LockFileFacade {
     /**
      * Resolve the dependencies of a Maven plugin.
      *
-     * @param pluginProject The plugin project to resolve dependencies for
-     * @param session The Maven session
-     * @param repositories The repositories to use for resolving dependencies
+     * @param pluginProject              The plugin project to resolve dependencies for
+     * @param session                    The Maven session
+     * @param repositories               The repositories to use for resolving dependencies
      * @param dependencyCollectorBuilder The dependency collector builder
-     * @param checksumCalculator The checksum calculator
-     * @param userDeclaredDeps User-declared dependencies for this plugin (from the project's pom.xml)
+     * @param checksumCalculator         The checksum calculator
+     * @param userDeclaredDeps           User-declared dependencies for this plugin (from the project's pom.xml)
      * @return A set of dependency nodes representing the plugin's dependencies
      */
     private static Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> resolveComponentDependencies(
@@ -443,7 +449,7 @@ public class LockFileFacade {
                     filter,
                     false);
 
-            resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator, writtenParentPoms, visitedBoms);
+            resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
@@ -529,10 +535,10 @@ public class LockFileFacade {
             String relativePath = project.getFile() == null
                     ? null
                     : initialProject
-                            .getBasedir()
-                            .toPath()
-                            .relativize(project.getFile().toPath())
-                            .toString();
+                    .getBasedir()
+                    .toPath()
+                    .relativize(project.getFile().toPath())
+                    .toString();
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
@@ -567,7 +573,7 @@ public class LockFileFacade {
                     checksumAlgorithm,
                     checksum,
                     lastPom);
-            if(!boms.isEmpty()) {
+            if (!boms.isEmpty()) {
                 lastPom.setBoms(boms);
             }
         }
@@ -578,8 +584,8 @@ public class LockFileFacade {
     /**
      * Resolve the BOM POMs for the current project.
      *
-     * @param session The Maven session
-     * @param rootProject The current Maven project (for repository configuration)
+     * @param session            The Maven session
+     * @param rootProject        The current Maven project (for repository configuration)
      * @param checksumCalculator The checksum calculator
      * @return A set of BOM POMs
      */
