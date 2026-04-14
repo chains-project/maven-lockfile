@@ -116,16 +116,19 @@ public class LockFileFacade {
                 getAllExtensions(project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
 
         // Get all the artifacts for the dependencies in the project
-        var graph = LockFileFacade.graph(
-                session,
+        DependencyGraph dependencyGraph = createDependencyGraph(
                 project,
+                session,
+                project.getRemoteArtifactRepositories(),
                 dependencyCollectorBuilder,
                 checksumCalculator,
+                null,
                 metadata.getConfig().isReduced());
-        var roots = graph.getRoots();
+
+        var roots = dependencyGraph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        resolveParentsAndBomsForDependencies(graph, session, project, checksumCalculator);
+        resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
         var boms = resolveBoms(session, project, checksumCalculator);
 
         return new LockFile(
@@ -300,7 +303,7 @@ public class LockFileFacade {
                 if (!boms.isEmpty()) {
                     node.setBoms(boms);
                 }
-                bomsResolved.put(mavenProject,boms);
+                bomsResolved.put(mavenProject, boms);
             }
         });
     }
@@ -462,22 +465,6 @@ public class LockFileFacade {
                     .warn(String.format("Could not resolve dependencies for plugin %s", pluginProject.getArtifact()), e);
             return Collections.emptySet();
         }
-    }
-
-    private static DependencyGraph graph(
-            MavenSession session,
-            MavenProject project,
-            DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator,
-            boolean reduced) {
-        return createDependencyGraph(
-                project,
-                session,
-                project.getRemoteArtifactRepositories(),
-                dependencyCollectorBuilder,
-                checksumCalculator,
-                null,
-                reduced);
     }
 
     private static DependencyGraph createDependencyGraph(
