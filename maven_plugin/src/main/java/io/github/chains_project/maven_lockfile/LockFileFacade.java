@@ -43,10 +43,6 @@ import org.eclipse.aether.util.artifact.JavaScopes;
  *
  */
 public class LockFileFacade {
-
-    private static final Map<MavenProject, Pom> parentsResolved = new HashMap<>();
-    private static final Map<MavenProject, Set<Pom>> bomsResolved = new HashMap<>();
-
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
      */
@@ -287,23 +283,13 @@ public class LockFileFacade {
 
                 //Optimization, not to resolve parent if already resolved
                 //It has to be written in full form before lockfile v2
-                if (parentsResolved.containsKey(mavenProject.getParent())) {
-                    node.setParentPom(parentsResolved.get(mavenProject.getParent()));
-                } else {
-                    Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
-                    parentsResolved.put(mavenProject.getParent(), pom);
-                    node.setParentPom(pom);
-                }
+                Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
+                node.setParentPom(pom);
             }
 
-            if (bomsResolved.containsKey(mavenProject)) {
-                node.setBoms(bomsResolved.get(mavenProject));
-            } else {
-                Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
-                if (!boms.isEmpty()) {
-                    node.setBoms(boms);
-                }
-                bomsResolved.put(mavenProject, boms);
+            Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
+            if (!boms.isEmpty()) {
+                node.setBoms(boms);
             }
         });
     }
