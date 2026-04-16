@@ -61,6 +61,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
 
+            checksumCalculator.report();
             Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);

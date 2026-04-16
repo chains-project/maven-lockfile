@@ -115,6 +115,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
+            checksumCalculator.report();
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
         }

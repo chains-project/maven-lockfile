@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.CachingChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
@@ -118,19 +119,23 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
             checksumModeEnum = ChecksumModes.LOCAL;
         }
 
+        final AbstractChecksumCalculator checksumCalculator;
         switch (checksumModeEnum) {
             case LOCAL:
-                return new FileSystemChecksumCalculator(
+                checksumCalculator = new FileSystemChecksumCalculator(
                         dependencyResolver,
                         artifactBuildingRequest,
                         pluginBuildingRequest,
                         config.getChecksumAlgorithm());
+                break;
             case REMOTE:
-                return new RemoteChecksumCalculator(
+                checksumCalculator = new RemoteChecksumCalculator(
                         config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
+                break;
             default:
                 throw new MojoExecutionException("Invalid checksum mode: " + checksumModeEnum);
         }
+        return CachingChecksumCalculator.getCachingChecksumCalculator(checksumCalculator, project, session);
     }
 
     protected Config getConfig() {

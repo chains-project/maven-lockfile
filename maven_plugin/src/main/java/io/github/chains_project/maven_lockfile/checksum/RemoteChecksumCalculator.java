@@ -9,16 +9,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
@@ -28,8 +20,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
     private final HttpClient httpClient;
-    private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
-    private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
 
     public RemoteChecksumCalculator(
             String checksumAlgorithm,
@@ -51,22 +41,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 .build();
     }
 
-    private String getCacheKey(Artifact artifact) {
-        String classifier = artifact.getClassifier();
-        if (classifier == null) {
-            classifier = "";
-        }
-        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":" + classifier
-                + ":" + artifact.getType();
-    }
-
     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
-        String cacheKey = getCacheKey(artifact) + ":" + checksumAlgorithm;
-        String cached = checksumCache.get(cacheKey);
-        if (cached != null) {
-            return cached.isEmpty() ? Optional.empty() : Optional.of(cached);
-        }
-
         try {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
@@ -98,7 +73,6 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                 if (checksumResponse.statusCode() >= 200 && checksumResponse.statusCode() < 300) {
                     String checksum = checksumResponse.body().strip();
-                    checksumCache.put(cacheKey, checksum);
                     return Optional.of(checksum);
                 }
 
@@ -159,33 +133,24 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     String checksum = baseEncoding
                             .encode(messageDigest.digest(artifactResponse.body()))
                             .toLowerCase(Locale.ROOT);
-                    checksumCache.put(cacheKey, checksum);
                     return Optional.of(checksum);
                 }
             }
 
             PluginLogManager.getLog()
                     .warn(String.format(
-                            "Artifact checksum `%s.%s` not found among remote repositories.",
-                            artifact, checksumAlgorithm));
-            checksumCache.put(cacheKey, "");
+                            "Artifact checksum `%s.%s` not found among remote repositories %s.",
+                            artifact, checksumAlgorithm, buildingRequest.getRemoteRepositories()));
             return Optional.empty();
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
-            checksumCache.put(cacheKey, "");
             return Optional.empty();
         }
     }
 
     private Optional<RepositoryInformation> getResolvedFieldInternal(
             Artifact artifact, ProjectBuildingRequest buildingRequest) {
-        String cacheKey = getCacheKey(artifact);
-        RepositoryInformation cached = resolvedCache.get(cacheKey);
-        if (cached != null) {
-            return cached.equals(RepositoryInformation.Unresolved()) ? Optional.empty() : Optional.of(cached);
-        }
-
         try {
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
@@ -215,50 +180,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 if (response.statusCode() >= 200 && response.statusCode() < 300) {
                     RepositoryInformation result =
                             new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId()));
-                    resolvedCache.put(cacheKey, result);
                     return Optional.of(result);
                 }
             }
 
             PluginLogManager.getLog().warn(String.format("Artifact resolved url `%s` not found.", artifact));
-            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve url for artifact: %s", artifact.getArtifactId()), e);
-            resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
-        }
-    }
-
-    @Override
-    public void prewarmArtifactCache(Collection<Artifact> artifacts) {
-        if (artifacts.isEmpty()) {
-            return;
-        }
-        int poolSize = Math.min(16, Math.max(4, Runtime.getRuntime().availableProcessors() * 2));
-        PluginLogManager.getLog()
-                .info(String.format(
-                        "Pre-warming checksum cache for %d unique artifacts with %d threads",
-                        artifacts.size(), poolSize));
-        ExecutorService executor = Executors.newFixedThreadPool(poolSize);
-        try {
-            List<Future<?>> futures = new ArrayList<>();
-            for (var artifact : artifacts) {
-                futures.add(executor.submit(() -> {
-                    calculateArtifactChecksum(artifact);
-                    getArtifactResolvedField(artifact);
-                }));
-            }
-            for (var future : futures) {
-                try {
-                    future.get();
-                } catch (Exception e) {
-                    PluginLogManager.getLog().debug("Pre-warm task failed: " + e.getMessage());
-                }
-            }
-        } finally {
-            executor.shutdown();
         }
     }
 

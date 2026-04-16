@@ -43,7 +43,7 @@ public abstract class AbstractChecksumCalculator {
      * to fetch checksums and repository information in parallel. The default is a no-op.
      */
     public void prewarmArtifactCache(Collection<Artifact> artifacts) {
-        // No-op by default; overridden by RemoteChecksumCalculator
+        // No-op by default.
     }
 
     public String calculatePomChecksum(Path path) {
@@ -57,5 +57,13 @@ public abstract class AbstractChecksumCalculator {
             PluginLogManager.getLog().warn("Could not calculate checksum for pom " + path, e);
             return "";
         }
+    }
+
+    /**
+     * Reports on checksum calculation progress. Implementations may use this
+     * to provide debug information in the log. The default is a no-op.
+     */
+    public void report() {
+        // No-op by default.
     }
 }
