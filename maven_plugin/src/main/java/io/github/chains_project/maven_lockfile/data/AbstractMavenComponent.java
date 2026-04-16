@@ -1,9 +1,13 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 
 /**
  * Base class for Maven components (plugins, extensions) that share common metadata structure.
@@ -73,6 +77,27 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
 
     public Set<DependencyNode> getDependencies() {
         return dependencies;
+    }
+
+    public Artifact toArtifact() {
+        final String scopeValue = null;
+        final String typeValue = "maven-plugin";
+        final String classifierValue = null;
+        return new DefaultArtifact(
+                groupId.getValue(),
+                artifactId.getValue(),
+                version.getValue(),
+                scopeValue,
+                typeValue,
+                classifierValue,
+                new DefaultArtifactHandler(typeValue));
+    }
+
+    public RepositoryInformation getRepositoryInformation() {
+        if (resolved != null && repositoryId != null) {
+            return new RepositoryInformation(resolved, repositoryId);
+        }
+        return RepositoryInformation.Unresolved();
     }
 
     @Override

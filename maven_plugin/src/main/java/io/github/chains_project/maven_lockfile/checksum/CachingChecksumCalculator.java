@@ -92,6 +92,42 @@ public class CachingChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     @Override
+    public void prepopulateCache(LockFile lockFile) {
+        prepopulateDeps(lockFile.getDependencies());
+        prepopulatePlugins(lockFile.getMavenPlugins());
+        prepopulatePlugins(lockFile.getMavenExtensions());
+        prepopulatePom(lockFile.getPom());
+        lockFile.getBoms().forEach(this::prepopulatePom);
+    }
+
+    private void prepopulate(Artifact artifact, String checksum, RepositoryInformation repositoryInformation) {
+        checksumCache.put(checksumCacheKey(artifact), checksum);
+        resolveCache.put(cacheKey(artifact), repositoryInformation);
+    }
+
+    private void prepopulatePom(Pom pom) {
+        prepopulate(pom.toArtifact(), pom.getChecksum(), pom.getRepositoryInformation());
+        if (pom.getParent() != null) {
+            prepopulatePom(pom.getParent());
+        }
+    }
+
+    private void prepopulatePlugins(Collection<? extends AbstractMavenComponent> plugins) {
+        for (AbstractMavenComponent plugin : plugins) {
+            prepopulate(plugin.toArtifact(), plugin.getChecksum(), plugin.getRepositoryInformation());
+            prepopulateDeps(plugin.getDependencies());
+        }
+    }
+
+    private void prepopulateDeps(Collection<DependencyNode> dependencies) {
+        for (DependencyNode node : dependencies) {
+            prepopulate(node.toArtifact(), node.getChecksum(), node.getRepositoryInformation());
+            prepopulateDeps(node.getChildren());
+            node.getBoms().forEach(this::prepopulatePom);
+        }
+    }
+
+    @Override
     public void report() {
         var checksumStats = checksumCache.stats();
         var resolveStats = resolveCache.stats();

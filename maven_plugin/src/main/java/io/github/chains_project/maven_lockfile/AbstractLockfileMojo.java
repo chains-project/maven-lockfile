@@ -74,6 +74,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "reduced")
     protected String reduced;
 
+    @Parameter(defaultValue = "false", property = "incrementalGenerate")
+    protected String incrementalGenerate;
+
     @Parameter(defaultValue = "false", property = "skip")
     protected String skip;
 
@@ -160,6 +163,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : Config.EnvironmentInclusion.Exclude;
         Config.ReductionState reductionState =
                 Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+        Config.GenerationMode generationMode =
+                Boolean.parseBoolean(incrementalGenerate) ? Config.GenerationMode.Incremental : Config.GenerationMode.Full;
 
         return new Config(
                 mavenPluginsInclusion,
@@ -168,6 +173,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 onEnvironmentalValidationFailure,
                 environmentInclusion,
                 reductionState,
+                generationMode,
                 mojo.getPlugin().getVersion(),
                 chosenChecksumMode,
                 chosenChecksumAlgorithm);
