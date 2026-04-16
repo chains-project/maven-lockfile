@@ -80,7 +80,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
     @Override
     public int hashCode() {
         return Objects.hash(
-                groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies);
+                groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies, parent);
     }
 
     @Override
