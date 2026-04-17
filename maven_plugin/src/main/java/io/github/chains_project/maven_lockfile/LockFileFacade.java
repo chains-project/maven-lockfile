@@ -502,22 +502,34 @@ public class LockFileFacade {
             recursiveProjects.add(currentProject);
         }
 
+        @SuppressWarnings("deprecation")
+        Path localRepoBasePath = session.getRepositorySession()
+                .getLocalRepository()
+                .getBasedir()
+                .toPath();
+
         Pom lastPom = null;
         Collections.reverse(recursiveProjects);
         for (MavenProject project : recursiveProjects) {
-            String relativePath = project.getFile() == null
+            boolean cachedInLocalRepo = project.getFile() != null
+                    && project.getFile().toPath().startsWith(localRepoBasePath);
+            boolean isExternalPom = project.getFile() == null || cachedInLocalRepo;
+
+            String relativePath = isExternalPom
                     ? null
                     : initialProject
-                    .getBasedir()
-                    .toPath()
-                    .relativize(project.getFile().toPath())
-                    .toString();
+                            .getBasedir()
+                            .toPath()
+                            .relativize(project.getFile().toPath())
+                            .toString();
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
-            if (project.getFile() == null) {
-                // External POM - get repository information
+            if (isExternalPom) {
+                // External POM (not in project directory) - get repository information
                 Artifact artifact = project.getArtifact();
+                // Use an explicit POM handler so getArtifactHandler().getExtension() reliably
+                // returns "pom", which is required for parsing _remote.repositories correctly.
                 Artifact pomArtifact = new DefaultArtifact(
                         artifact.getGroupId(),
                         artifact.getArtifactId(),
@@ -525,8 +537,15 @@ public class LockFileFacade {
                         artifact.getScope(),
                         "pom",
                         artifact.getClassifier(),
-                        artifact.getArtifactHandler());
-                checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
+                        new org.apache.maven.artifact.handler.DefaultArtifactHandler("pom"));
+                if (cachedInLocalRepo) {
+                    // Pre-set the file so getArtifactResolvedField can read _remote.repositories
+                    // even if the POM-type dependency resolution fails
+                    pomArtifact.setFile(project.getFile());
+                    checksum = checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+                } else {
+                    checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
+                }
                 RepositoryInformation repoInfo = checksumCalculator.getArtifactResolvedField(pomArtifact);
                 resolved = repoInfo.getResolvedUrl();
                 repoId = repoInfo.getRepositoryId();

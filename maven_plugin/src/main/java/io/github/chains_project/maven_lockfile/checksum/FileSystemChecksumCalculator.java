@@ -97,6 +97,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .collect(Collectors.toSet());
 
             String repository = null;
+            boolean foundWithEmptyRepoId = false;
 
             String type = artifact.getArtifactHandler().getExtension();
 
@@ -124,6 +125,13 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                 }
 
                 repository = remoteRepository.substring(start + 1, end);
+                if (repository.isEmpty()) {
+                    // Empty repo ID means the artifact was resolved locally (e.g. copied from user's
+                    // .m2 to an isolated repo). Record this and keep looking for a non-empty entry.
+                    foundWithEmptyRepoId = true;
+                    repository = null;
+                    continue;
+                }
                 if (!remoteRepositoriesSet.contains(repository)) {
                     continue;
                 }
@@ -132,8 +140,36 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             }
 
             if (repository == null) {
-                // No repository found, possible locally installed artifact or unknown _remote.repositories format
-                return Optional.empty();
+                if (foundWithEmptyRepoId) {
+                    // Artifact was locally installed/copied (no remote attribution in _remote.repositories).
+                    // Attempt to find the correct repo by checking the user's default .m2 repository,
+                    // which retains the original remote attribution from when the artifact was downloaded.
+                    Path isoRepoBase = java.nio.file.Paths.get(
+                            buildingRequest.getLocalRepository().getBasedir());
+                    if (artifactFolderPath.startsWith(isoRepoBase)) {
+                        Path relPath = isoRepoBase.relativize(artifactFolderPath);
+                        Path userM2 = java.nio.file.Paths.get(System.getProperty("user.home"), ".m2", "repository");
+                        Path fallbackFolder = userM2.resolve(relPath);
+                        Path fallbackRemoteRepo = fallbackFolder.resolve("_remote.repositories");
+                        if (Files.exists(fallbackRemoteRepo)) {
+                            for (String line : Files.readAllLines(fallbackRemoteRepo)) {
+                                if (!line.startsWith(target)) continue;
+                                int s = line.indexOf(">");
+                                int e = line.indexOf("=");
+                                if (s == -1 || e == -1) continue;
+                                String fallbackId = line.substring(s + 1, e);
+                                if (!fallbackId.isEmpty() && remoteRepositoriesSet.contains(fallbackId)) {
+                                    repository = fallbackId;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (repository == null) {
+                    // No repository found, possible locally installed artifact or unknown format
+                    return Optional.empty();
+                }
             }
 
             // Convert repository to url
@@ -182,13 +218,19 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
+        // If the artifact already has its file set (e.g. pre-resolved from local .m2),
+        // skip re-resolution — the resolver may return a new Artifact without the file.
+        Artifact toCheck =
+                artifact.getFile() != null ? artifact : resolveDependency(artifact, artifactBuildingRequest);
+        return getResolvedFieldInternal(toCheck, artifactBuildingRequest)
                 .orElse(RepositoryInformation.Unresolved());
     }
 
     @Override
     public RepositoryInformation getPluginResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
+        Artifact toCheck =
+                artifact.getFile() != null ? artifact : resolveDependency(artifact, pluginBuildingRequest);
+        return getResolvedFieldInternal(toCheck, pluginBuildingRequest)
                 .orElse(RepositoryInformation.Unresolved());
     }
 }
