@@ -23,7 +23,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
     protected final ResolvedUrl resolved;
     protected final RepositoryId repositoryId;
     protected final Set<DependencyNode> dependencies;
-    protected final Pom parent;
+    protected final Pom parentPom;
 
     protected AbstractMavenComponent(
             GroupId groupId,
@@ -33,7 +33,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
             String checksumAlgorithm,
             ResolvedUrl resolved,
             RepositoryId repositoryId,
-            Set<DependencyNode> dependencies, Pom parent) {
+            Set<DependencyNode> dependencies, Pom parentPom) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
@@ -42,7 +42,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
         this.resolved = resolved;
         this.repositoryId = repositoryId;
         this.dependencies = dependencies == null ? Collections.emptySet() : dependencies;
-        this.parent = parent;
+        this.parentPom = parentPom;
     }
 
     public GroupId getGroupId() {
@@ -80,7 +80,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
     @Override
     public int hashCode() {
         return Objects.hash(
-                groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies, parent);
+                groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies, parentPom);
     }
 
     @Override
@@ -102,7 +102,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
                 && Objects.equals(resolved, other.resolved)
                 && Objects.equals(repositoryId, other.repositoryId)
                 && Objects.equals(dependencies, other.dependencies)
-                && Objects.equals(parent, other.parent);
+                && Objects.equals(parentPom, other.parentPom);
     }
 
     @Override
