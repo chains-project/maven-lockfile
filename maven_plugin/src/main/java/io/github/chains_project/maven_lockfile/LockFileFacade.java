@@ -9,11 +9,9 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
-
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -263,7 +261,6 @@ public class LockFileFacade {
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
@@ -281,8 +278,8 @@ public class LockFileFacade {
             if (mavenProject.hasParent()) {
                 PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
 
-                //Optimization, not to resolve parent if already resolved
-                //It has to be written in full form before lockfile v2
+                // Optimization, not to resolve parent if already resolved
+                // It has to be written in full form before lockfile v2
                 Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
                 node.setParentPom(pom);
             }
@@ -389,7 +386,8 @@ public class LockFileFacade {
                     : 0;
             PluginLogManager.getLog()
                     .debug(String.format(
-                            "Built plugin project %s with %d declared dependencies", pluginProject.getArtifact(), declaredDeps));
+                            "Built plugin project %s with %d declared dependencies",
+                            pluginProject.getArtifact(), declaredDeps));
 
             // Merge user-declared dependencies into the plugin project
             // User-declared dependencies override the plugin's default dependencies (e.g., scope changes)
@@ -414,7 +412,8 @@ public class LockFileFacade {
                     } else {
                         PluginLogManager.getLog()
                                 .debug(String.format(
-                                        "Adding user-declared dependency %s to plugin %s", key, pluginProject.getArtifact()));
+                                        "Adding user-declared dependency %s to plugin %s",
+                                        key, pluginProject.getArtifact()));
                     }
                     pluginDeps.add(userDep);
                 }
@@ -443,12 +442,15 @@ public class LockFileFacade {
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
             PluginLogManager.getLog()
-                    .info(String.format("Resolved %4d dependencies for plugin %s", roots.size(), pluginProject.getArtifact()));
+                    .info(String.format(
+                            "Resolved %4d dependencies for plugin %s", roots.size(), pluginProject.getArtifact()));
             return roots;
 
         } catch (Exception e) {
             PluginLogManager.getLog()
-                    .warn(String.format("Could not resolve dependencies for plugin %s", pluginProject.getArtifact()), e);
+                    .warn(
+                            String.format("Could not resolve dependencies for plugin %s", pluginProject.getArtifact()),
+                            e);
             return Collections.emptySet();
         }
     }
@@ -467,8 +469,7 @@ public class LockFileFacade {
             buildingRequest.setProject(project);
             buildingRequest.setRemoteRepositories(repositories);
 
-            DependencyNode rootNode =
-                    dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
+            DependencyNode rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
             rootNode.accept(new GraphBuildingNodeVisitor(graph));
@@ -493,7 +494,8 @@ public class LockFileFacade {
             MavenProject initialProject, MavenSession session, AbstractChecksumCalculator checksumCalculator) {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
 
-        BomResolver bomResolver = new BomResolver(session, initialProject.getRemoteArtifactRepositories(), checksumCalculator);
+        BomResolver bomResolver =
+                new BomResolver(session, initialProject.getRemoteArtifactRepositories(), checksumCalculator);
         List<MavenProject> recursiveProjects = new ArrayList<>();
         MavenProject currentProject = initialProject;
         recursiveProjects.add(currentProject);
@@ -503,16 +505,14 @@ public class LockFileFacade {
         }
 
         @SuppressWarnings("deprecation")
-        Path localRepoBasePath = session.getRepositorySession()
-                .getLocalRepository()
-                .getBasedir()
-                .toPath();
+        Path localRepoBasePath =
+                session.getRepositorySession().getLocalRepository().getBasedir().toPath();
 
         Pom lastPom = null;
         Collections.reverse(recursiveProjects);
         for (MavenProject project : recursiveProjects) {
-            boolean cachedInLocalRepo = project.getFile() != null
-                    && project.getFile().toPath().startsWith(localRepoBasePath);
+            boolean cachedInLocalRepo =
+                    project.getFile() != null && project.getFile().toPath().startsWith(localRepoBasePath);
             boolean isExternalPom = project.getFile() == null || cachedInLocalRepo;
 
             String relativePath = isExternalPom
@@ -542,7 +542,8 @@ public class LockFileFacade {
                     // Pre-set the file so getArtifactResolvedField can read _remote.repositories
                     // even if the POM-type dependency resolution fails
                     pomArtifact.setFile(project.getFile());
-                    checksum = checksumCalculator.calculatePomChecksum(project.getFile().toPath());
+                    checksum = checksumCalculator.calculatePomChecksum(
+                            project.getFile().toPath());
                 } else {
                     checksum = checksumCalculator.calculateArtifactChecksum(pomArtifact);
                 }

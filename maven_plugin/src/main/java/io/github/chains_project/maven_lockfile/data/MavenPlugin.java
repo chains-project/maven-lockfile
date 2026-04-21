@@ -18,7 +18,7 @@ public class MavenPlugin extends AbstractMavenComponent {
             RepositoryId repositoryId,
             String checksumAlgorithm,
             String checksum) {
-        this(groupId, artifactId, version, resolvedUrl, repositoryId, checksumAlgorithm, checksum, null,null);
+        this(groupId, artifactId, version, resolvedUrl, repositoryId, checksumAlgorithm, checksum, null, null);
     }
 
     public MavenPlugin(
@@ -31,7 +31,16 @@ public class MavenPlugin extends AbstractMavenComponent {
             String checksum,
             Set<DependencyNode> dependencies,
             Pom parent) {
-        super(groupId, artifactId, version, checksum, checksumAlgorithm, resolvedUrl, repositoryId, dependencies, parent);
+        super(
+                groupId,
+                artifactId,
+                version,
+                checksum,
+                checksumAlgorithm,
+                resolvedUrl,
+                repositoryId,
+                dependencies,
+                parent);
     }
 
     @Override

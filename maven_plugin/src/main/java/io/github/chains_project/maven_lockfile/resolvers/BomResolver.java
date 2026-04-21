@@ -67,7 +67,7 @@ public class BomResolver {
                 var bomProject = bomProjectOptional.get();
                 var bomBoms = resolveForProject(bomProject);
                 var bomTree = resolveBomParents(bomProject);
-                if(!bomBoms.isEmpty() && bomTree != null) {
+                if (!bomBoms.isEmpty() && bomTree != null) {
                     bomTree.setBoms(bomBoms);
                 }
                 boms.add(bomTree);
@@ -146,7 +146,7 @@ public class BomResolver {
                 current = bom;
             }
             var bomBoms = resolveForProject(project);
-            if(!bomBoms.isEmpty()){
+            if (!bomBoms.isEmpty()) {
                 current.setBoms(bomBoms);
             }
         }

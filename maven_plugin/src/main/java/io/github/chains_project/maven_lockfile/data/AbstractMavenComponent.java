@@ -33,7 +33,8 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
             String checksumAlgorithm,
             ResolvedUrl resolved,
             RepositoryId repositoryId,
-            Set<DependencyNode> dependencies, Pom parentPom) {
+            Set<DependencyNode> dependencies,
+            Pom parentPom) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
@@ -80,7 +81,15 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
     @Override
     public int hashCode() {
         return Objects.hash(
-                groupId, artifactId, version, checksum, checksumAlgorithm, resolved, repositoryId, dependencies, parentPom);
+                groupId,
+                artifactId,
+                version,
+                checksum,
+                checksumAlgorithm,
+                resolved,
+                repositoryId,
+                dependencies,
+                parentPom);
     }
 
     @Override

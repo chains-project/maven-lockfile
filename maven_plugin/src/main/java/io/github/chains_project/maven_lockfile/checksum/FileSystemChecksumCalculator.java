@@ -141,7 +141,9 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                                 if (!line.startsWith(artifactFileName)) continue;
 
                                 String remoteRepository = parseRepositoryIdFromLine(line, artifactFileName);
-                                if (remoteRepository != null && !remoteRepository.isEmpty() && remoteRepositoriesSet.contains(remoteRepository)) {
+                                if (remoteRepository != null
+                                        && !remoteRepository.isEmpty()
+                                        && remoteRepositoriesSet.contains(remoteRepository)) {
                                     repository = remoteRepository;
                                     break;
                                 }
@@ -227,17 +229,13 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
         // If the artifact already has its file set (e.g. pre-resolved from local .m2),
         // skip re-resolution — the resolver may return a new Artifact without the file.
-        Artifact toCheck =
-                artifact.getFile() != null ? artifact : resolveDependency(artifact, artifactBuildingRequest);
-        return getResolvedFieldInternal(toCheck, artifactBuildingRequest)
-                .orElse(RepositoryInformation.Unresolved());
+        Artifact toCheck = artifact.getFile() != null ? artifact : resolveDependency(artifact, artifactBuildingRequest);
+        return getResolvedFieldInternal(toCheck, artifactBuildingRequest).orElse(RepositoryInformation.Unresolved());
     }
 
     @Override
     public RepositoryInformation getPluginResolvedField(Artifact artifact) {
-        Artifact toCheck =
-                artifact.getFile() != null ? artifact : resolveDependency(artifact, pluginBuildingRequest);
-        return getResolvedFieldInternal(toCheck, pluginBuildingRequest)
-                .orElse(RepositoryInformation.Unresolved());
+        Artifact toCheck = artifact.getFile() != null ? artifact : resolveDependency(artifact, pluginBuildingRequest);
+        return getResolvedFieldInternal(toCheck, pluginBuildingRequest).orElse(RepositoryInformation.Unresolved());
     }
 }

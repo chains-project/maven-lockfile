@@ -267,7 +267,7 @@ public class DependencyNode implements Comparable<DependencyNode> {
                 + ", classifier=" + classifier + ", type=" + type + ", checksumAlgorithm=" + checksumAlgorithm
                 + ", checksum=" + checksum + ", scope=" + scope + ", resolved=" + resolved + ", repositoryId="
                 + repositoryId + ", selectedVersion=" + selectedVersion + ", id=" + id + ", parent=" + parent
-                + ", children=" + children + ", boms=" + boms + ", parentPom=" + parentPom +  "]";
+                + ", children=" + children + ", boms=" + boms + ", parentPom=" + parentPom + "]";
     }
 
     public String getComparatorString() {
