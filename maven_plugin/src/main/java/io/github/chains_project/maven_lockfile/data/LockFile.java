@@ -151,6 +151,7 @@ public class LockFile {
                 groupId,
                 version,
                 lockfileVersion,
+                pom,
                 dependencies,
                 nullToEmpty(mavenPlugins),
                 nullToEmpty(mavenExtensions),
@@ -166,9 +167,6 @@ public class LockFile {
             return false;
         }
         LockFile other = (LockFile) obj;
-        // pom is intentionally excluded: it is compared separately in ValidateChecksumMojo
-        // using the onPomValidationFailure policy (warn vs error). Including it here would
-        // cause equals to fail even when pom validation failure is explicitly allowed.
         return Objects.equals(name, other.name)
                 && Objects.equals(groupId, other.groupId)
                 && Objects.equals(version, other.version)
