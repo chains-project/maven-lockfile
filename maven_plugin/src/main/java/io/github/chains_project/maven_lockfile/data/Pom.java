@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Pom implements Comparable<Pom> {
 
@@ -13,6 +14,7 @@ public class Pom implements Comparable<Pom> {
     private final String checksumAlgorithm;
     private final String checksum;
     private final Pom parent;
+    private Set<Pom> boms;
 
     public Pom(
             GroupId groupId,
@@ -176,5 +178,13 @@ public class Pom implements Comparable<Pom> {
                 checksumAlgorithm,
                 checksum,
                 parent);
+    }
+
+    public Set<Pom> getBoms() {
+        return boms;
+    }
+
+    public void setBoms(Set<Pom> boms) {
+        this.boms = boms;
     }
 }

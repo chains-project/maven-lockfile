@@ -97,33 +97,26 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .collect(Collectors.toSet());
 
             String repository = null;
+            boolean foundWithEmptyRepoId = false;
 
             String type = artifact.getArtifactHandler().getExtension();
 
-            String classifier = artifact.getClassifier();
-            if (classifier == null) {
-                classifier = "";
-            } else {
-                classifier = "-" + classifier;
-            }
-
-            String target = artifact.getArtifactId() + "-" + artifact.getVersion() + classifier + "." + type;
+            String classifier = artifact.getClassifier() == null ? "" : "-" + artifact.getClassifier();
+            String artifactFileName = artifact.getArtifactId() + "-" + artifact.getVersion() + classifier + "." + type;
 
             for (String remoteRepository : locallySavedRemoteRepositories) {
-                if (!remoteRepository.startsWith(target)) {
+                if (!remoteRepository.startsWith(artifactFileName)) {
                     continue;
                 }
-
                 // Parsing 'repository' from 'artifactId-version.type>repository='
-                int start = remoteRepository.indexOf(">");
-                int end = remoteRepository.indexOf("=");
-
-                if (start == -1 || end == -1) {
-                    PluginLogManager.getLog().warn("Possible unknown _remote.repositories format");
+                repository = parseRepositoryIdFromLine(remoteRepository, artifactFileName);
+                if (repository != null && repository.isEmpty()) {
+                    // Empty repo ID means the artifact was resolved locally (e.g. copied from user's
+                    // .m2 to an isolated repo). Record this and keep looking for a non-empty entry.
+                    foundWithEmptyRepoId = true;
+                    repository = null;
                     continue;
                 }
-
-                repository = remoteRepository.substring(start + 1, end);
                 if (!remoteRepositoriesSet.contains(repository)) {
                     continue;
                 }
@@ -132,8 +125,36 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             }
 
             if (repository == null) {
-                // No repository found, possible locally installed artifact or unknown _remote.repositories format
-                return Optional.empty();
+                if (foundWithEmptyRepoId) {
+                    // Artifact was locally installed/copied (no remote attribution in _remote.repositories).
+                    // Attempt to find the correct repo by checking the user's default .m2 repository,
+                    // which retains the original remote attribution from when the artifact was downloaded.
+                    Path isoRepoBase = java.nio.file.Paths.get(
+                            buildingRequest.getLocalRepository().getBasedir());
+                    if (artifactFolderPath.startsWith(isoRepoBase)) {
+                        Path relPath = isoRepoBase.relativize(artifactFolderPath);
+                        Path userM2 = java.nio.file.Paths.get(System.getProperty("user.home"), ".m2", "repository");
+                        Path fallbackFolder = userM2.resolve(relPath);
+                        Path remoteRepositoriesFile = fallbackFolder.resolve("_remote.repositories");
+                        if (Files.exists(remoteRepositoriesFile)) {
+                            for (String line : Files.readAllLines(remoteRepositoriesFile)) {
+                                if (!line.startsWith(artifactFileName)) continue;
+
+                                String remoteRepository = parseRepositoryIdFromLine(line, artifactFileName);
+                                if (remoteRepository != null
+                                        && !remoteRepository.isEmpty()
+                                        && remoteRepositoriesSet.contains(remoteRepository)) {
+                                    repository = remoteRepository;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (repository == null) {
+                    // No repository found, possible locally installed artifact or unknown format
+                    return Optional.empty();
+                }
             }
 
             // Convert repository to url
@@ -153,7 +174,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             String baseVersion = artifact.getBaseVersion();
 
             String url = remoteRepository.get().getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
-                    + baseVersion + "/" + target;
+                    + baseVersion + "/" + artifactFileName;
 
             return Optional.of(new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository)));
         } catch (Exception e) {
@@ -161,6 +182,30 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .warn(String.format("Could not fetch remote repository for artifact %s", artifact), e);
             return Optional.empty();
         }
+    }
+
+    /**
+     * Parses a repository ID from a _remote.repositories file line.
+     * Format: "filename&gt;repositoryId="
+     *
+     * @param line The line to parse
+     * @param artifactFilename The artifact filename to match
+     * @return The repository ID if line matches (may be empty string), null if line doesn't match
+     */
+    private String parseRepositoryIdFromLine(String line, String artifactFilename) {
+        if (!line.startsWith(artifactFilename + ">")) {
+            return null;
+        }
+
+        int start = line.indexOf(">");
+        int end = line.indexOf("=");
+
+        if (start == -1 || end == -1) {
+            PluginLogManager.getLog().warn("Possible unknown _remote.repositories format: " + line);
+            return null;
+        }
+
+        return line.substring(start + 1, end);
     }
 
     @Override
@@ -182,13 +227,15 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public RepositoryInformation getArtifactResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(resolveDependency(artifact, artifactBuildingRequest), artifactBuildingRequest)
-                .orElse(RepositoryInformation.Unresolved());
+        // If the artifact already has its file set (e.g. pre-resolved from local .m2),
+        // skip re-resolution — the resolver may return a new Artifact without the file.
+        Artifact toCheck = artifact.getFile() != null ? artifact : resolveDependency(artifact, artifactBuildingRequest);
+        return getResolvedFieldInternal(toCheck, artifactBuildingRequest).orElse(RepositoryInformation.Unresolved());
     }
 
     @Override
     public RepositoryInformation getPluginResolvedField(Artifact artifact) {
-        return getResolvedFieldInternal(resolveDependency(artifact, pluginBuildingRequest), pluginBuildingRequest)
-                .orElse(RepositoryInformation.Unresolved());
+        Artifact toCheck = artifact.getFile() != null ? artifact : resolveDependency(artifact, pluginBuildingRequest);
+        return getResolvedFieldInternal(toCheck, pluginBuildingRequest).orElse(RepositoryInformation.Unresolved());
     }
 }
