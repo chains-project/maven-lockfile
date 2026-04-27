@@ -118,37 +118,63 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                     "Unable to find %s checksum for %s on remote. Downloading and calculating locally.",
                                     checksumAlgorithm, artifact));
 
-                    // Fallback to and verify downloaded artifact with SHA-1
-                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
-                            .uri(URI.create(artifactUrl + ".sha1"))
-                            .build();
-                    HttpResponse<String> artifactVerificationResponse =
-                            httpClient.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
+                    // Fallback to verify downloaded artifact with SHA-1. Look first in standard repository manager
+                    // headers.
+                    var maybeVerificationChecksum = artifactResponse
+                            .headers()
+                            .firstValue("x-checksum-sha1")
+                            .or(() -> artifactResponse.headers().firstValue("x-goog-meta-checksum-sha1"))
+                            .or(() -> {
+                                // Fall back to requesting .sha1 file
+                                PluginLogManager.getLog()
+                                        .debug(String.format(
+                                                "Falling back to HTTP to find download integrity sha1 for %s",
+                                                artifact.getId()));
+                                try {
+                                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
+                                            .uri(URI.create(artifactUrl + ".sha1"))
+                                            .build();
+                                    HttpResponse<String> artifactVerificationResponse = httpClient.send(
+                                            artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
-                    // Extract first part of string to handle sha1sum format, `hash_in_hex /path/to/file`.
-                    // For example provided by:
-                    //     https://repo.maven.apache.org/maven2/com/martiansoftware/jsap/2.1/jsap-2.1.jar.sha1
-                    //     https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar.sha1
-                    String artifactVerification =
-                            artifactVerificationResponse.body().strip();
-                    int spaceIndex = artifactVerification.indexOf(" ");
-                    artifactVerification =
-                            spaceIndex == -1 ? artifactVerification : artifactVerification.substring(0, spaceIndex);
+                                    // Extract first part of string to handle sha1sum format, `hash_in_hex
+                                    // /path/to/file`.
+                                    // For example provided by:
+                                    //
+                                    // https://repo.maven.apache.org/maven2/com/martiansoftware/jsap/2.1/jsap-2.1.jar.sha1
+                                    //
+                                    // https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar.sha1
 
-                    if (artifactVerificationResponse.statusCode() >= 200
-                            && artifactVerificationResponse.statusCode() < 300) {
+                                    if (artifactVerificationResponse.statusCode() >= 200
+                                            && artifactVerificationResponse.statusCode() < 300) {
+                                        String artifactVerification = artifactVerificationResponse
+                                                .body()
+                                                .strip();
+                                        int spaceIndex = artifactVerification.indexOf(" ");
+                                        artifactVerification = spaceIndex == -1
+                                                ? artifactVerification
+                                                : artifactVerification.substring(0, spaceIndex);
+                                        return Optional.of(artifactVerification);
+                                    }
+                                } catch (Exception ignored) {
+                                }
+                                return Optional.empty();
+                            });
+
+                    if (maybeVerificationChecksum.isPresent()) {
+                        var verificationChecksum = maybeVerificationChecksum.get();
                         MessageDigest verificationMessageDigest = MessageDigest.getInstance("SHA-1");
                         String sha1 = baseEncoding
                                 .encode(verificationMessageDigest.digest(artifactResponse.body()))
                                 .toLowerCase(Locale.ROOT);
 
-                        if (!sha1.equals(artifactVerification)) {
+                        if (!sha1.equals(verificationChecksum)) {
                             PluginLogManager.getLog()
                                     .error(String.format("Invalid SHA-1 checksum for: %s", artifactUrl));
                             throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
                                     + "'. Checksum found at '" + artifactUrl
                                     + ".sha1' does not match calculated checksum of downloaded file. Remote checksum = '"
-                                    + artifactVerification + "'. Locally calculated checksum = '" + sha1 + "'.");
+                                    + verificationChecksum + "'. Locally calculated checksum = '" + sha1 + "'.");
                         }
                     } else {
                         PluginLogManager.getLog()
