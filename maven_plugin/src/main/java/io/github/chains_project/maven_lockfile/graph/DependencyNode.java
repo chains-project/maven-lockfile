@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile.graph;
 
 import com.google.gson.annotations.Expose;
+import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Classifier;
@@ -11,6 +12,9 @@ import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.*;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 
 /**
  * This class represents a node in the dependency graph. It contains the artifactId, groupId and version  of the dependency.
@@ -189,6 +193,33 @@ public class DependencyNode implements Comparable<DependencyNode> {
      */
     public boolean isIncluded() {
         return included;
+    }
+
+    /**
+     * @return the artifact representation of the dependency node
+     */
+    public Artifact toArtifact() {
+        var scopeValue = (scope == null) ? null : scope.getValue();
+        var typeValue = (type == null) ? "jar" : type.getValue();
+        var classifierValue = (classifier == null) ? null : classifier.getValue();
+        return new DefaultArtifact(
+                groupId.getValue(),
+                artifactId.getValue(),
+                version.getValue(),
+                scopeValue,
+                typeValue,
+                classifierValue,
+                new DefaultArtifactHandler(typeValue));
+    }
+
+    /**
+     * @return the combined repository information.
+     */
+    public RepositoryInformation getRepositoryInformation() {
+        if (resolved != null && repositoryId != null) {
+            return new RepositoryInformation(resolved, repositoryId);
+        }
+        return RepositoryInformation.Unresolved();
     }
 
     @Override

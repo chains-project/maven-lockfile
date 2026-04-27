@@ -54,13 +54,17 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             }
             MetaData metaData = new MetaData(environment, config);
 
+            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
             if (lockFileFromFile == null) {
                 getLog().info("No lockfile found. Generating new lockfile.");
+            } else if (config.isIncrementalGenerate()) {
+                checksumCalculator.prepopulateCache(lockFileFromFile);
             }
-            AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
+
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
 
+            checksumCalculator.report();
             Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
@@ -83,6 +87,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 config.getOnEnvironmentalValidationFailure(),
                 config.getEnvironmentInclusion(),
                 config.getReductionState(),
+                config.getGenerationMode(),
                 mojo.getPlugin().getVersion(),
                 config.getChecksumMode(),
                 config.getChecksumAlgorithm());

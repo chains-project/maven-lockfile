@@ -11,6 +11,7 @@ public class Config {
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
+    private final boolean incrementalGenerate;
     private final String mavenLockfileVersion;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
@@ -22,6 +23,7 @@ public class Config {
             OnEnvironmentalValidationFailure allowEnvironmentalValidationFailure,
             EnvironmentInclusion includeEnvironment,
             ReductionState reduced,
+            GenerationMode generationMode,
             String mavenLockfileVersion,
             ChecksumModes checksumMode,
             String checksumAlgorithm) {
@@ -32,6 +34,7 @@ public class Config {
                 allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
         this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
         this.reduced = reduced.equals(ReductionState.Reduced);
+        this.incrementalGenerate = generationMode.equals(GenerationMode.Incremental);
         this.mavenLockfileVersion = mavenLockfileVersion;
         this.checksumMode = checksumMode;
         this.checksumAlgorithm = checksumAlgorithm;
@@ -44,6 +47,7 @@ public class Config {
         this.allowEnvironmentalValidationFailure = false;
         this.includeEnvironment = true;
         this.reduced = false;
+        this.incrementalGenerate = false;
         this.mavenLockfileVersion = "1";
         this.checksumMode = ChecksumModes.LOCAL;
         this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
@@ -123,6 +127,18 @@ public class Config {
         return reduced ? ReductionState.Reduced : ReductionState.NonReduced;
     }
     /**
+     * @return whether generation should be incremental.
+     */
+    public boolean isIncrementalGenerate() {
+        return incrementalGenerate;
+    }
+    /**
+     * @return the generation mode.
+     */
+    public GenerationMode getGenerationMode() {
+        return incrementalGenerate ? GenerationMode.Incremental : GenerationMode.Full;
+    }
+    /**
      * @return the mavenLockfileVersion
      */
     public String getMavenLockfileVersion() {
@@ -169,5 +185,10 @@ public class Config {
     public enum ReductionState {
         Reduced,
         NonReduced
+    }
+
+    public enum GenerationMode {
+        Incremental,
+        Full
     }
 }
