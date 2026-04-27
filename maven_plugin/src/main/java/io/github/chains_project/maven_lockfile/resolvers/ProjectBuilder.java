@@ -40,7 +40,9 @@ public class ProjectBuilder {
     public Optional<MavenProject> buildFromGav(String groupId, String artifactId, String version) {
         log.debug(String.format("Resolving dependencies for%s:%s:%s", groupId, artifactId, version));
 
-        var pomFileOptional = lookForPomFileInLocalRepository(groupId, artifactId, version);
+        var pomFileOptional = isSpecialVersion(version)
+                ? Optional.<File>empty()
+                : lookForPomFileInLocalRepository(groupId, artifactId, version);
 
         if (pomFileOptional.isEmpty()) {
             pomFileOptional = resolvePomFile(groupId, artifactId, version);
@@ -51,6 +53,10 @@ public class ProjectBuilder {
         }
 
         return Optional.empty();
+    }
+
+    private boolean isSpecialVersion(String version) {
+        return "RELEASE".equals(version) || "LATEST".equals(version);
     }
 
     private Optional<File> lookForPomFileInLocalRepository(String groupId, String artifactId, String version) {

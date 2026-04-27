@@ -121,21 +121,23 @@ public class DependencyGraph {
             boolean reduce) {
         PluginLogManager.getLog()
                 .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
-        var groupId = GroupId.of(node.getArtifact().getGroupId());
-        var artifactId = ArtifactId.of(node.getArtifact().getArtifactId());
-        var version = VersionNumber.of(node.getArtifact().getVersion());
-        var classifier = Classifier.of(node.getArtifact().getClassifier());
-        var type = ArtifactType.of(node.getArtifact().getType());
+        Artifact resolvedArtifact = isRoot ? node.getArtifact() : calc.resolveArtifact(node.getArtifact());
+        var groupId = GroupId.of(resolvedArtifact.getGroupId());
+        var artifactId = ArtifactId.of(resolvedArtifact.getArtifactId());
+        String resolvedVersion = resolvedArtifact.getVersion();
+        var version = VersionNumber.of(resolvedVersion);
+        var classifier = Classifier.of(resolvedArtifact.getClassifier());
+        var type = ArtifactType.of(resolvedArtifact.getType());
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
-        var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
-        var scope = MavenScope.fromString(node.getArtifact().getScope());
+        var checksum = isRoot ? "" : calc.calculateArtifactChecksum(resolvedArtifact);
+        var scope = MavenScope.fromString(resolvedArtifact.getScope());
         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
         var repositoryInformation =
-                isRoot ? RepositoryInformation.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
+                isRoot ? RepositoryInformation.Unresolved() : calc.getArtifactResolvedField(resolvedArtifact);
         Optional<String> winnerVersion = SpyingDependencyNodeUtils.getWinnerVersion(node);
         boolean included = winnerVersion.isEmpty();
         // if there is no conflict marker for this node, we use the version from the artifact
-        String baseVersion = included ? node.getArtifact().getVersion() : winnerVersion.get();
+        String baseVersion = included ? resolvedVersion : winnerVersion.get();
         if (reduce && !included) {
             return Optional.empty();
         }

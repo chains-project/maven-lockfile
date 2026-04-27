@@ -62,6 +62,11 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
         }
     }
 
+    @Override
+    public Artifact resolveArtifact(Artifact artifact) {
+        return resolveDependency(artifact, artifactBuildingRequest);
+    }
+
     private Optional<String> calculateChecksumInternal(Artifact artifact) {
         if (artifact.getFile() == null) {
             PluginLogManager.getLog().warn(String.format("Artifact %s has no file", artifact));

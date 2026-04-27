@@ -82,6 +82,16 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void dependencyReleaseVersion(MavenExecutionResult result) throws Exception {
+        assertSpecialVersionDependencyIsResolved(result, "RELEASE");
+    }
+
+    @MavenTest
+    public void dependencyLatestVersion(MavenExecutionResult result) throws Exception {
+        assertSpecialVersionDependencyIsResolved(result, "LATEST");
+    }
+
+    @MavenTest
     @SuppressWarnings("null")
     public void pluginProject(MavenExecutionResult result) throws Exception {
         // contract: if including maven plugins the lockfile should contain these and be able to calculate checksums for
@@ -254,6 +264,19 @@ public class IntegrationTestsIT {
                         (path, attr) -> path.getFileName().toString().contains(fileName))
                 .findAny()
                 .isPresent();
+    }
+
+    private void assertSpecialVersionDependencyIsResolved(MavenExecutionResult result, String specialVersion)
+            throws Exception {
+        System.out.println("Running special-version integration test for " + specialVersion + ".");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).hasSize(1);
+
+        var dependency = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
+        assertThat(dependency.getVersion().getValue()).isNotEqualTo(specialVersion);
+        assertThat(dependency.getChecksum()).isNotBlank();
     }
 
     private Model readPom(Path pomPath) throws IOException, XmlPullParserException {
