@@ -21,10 +21,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
+    private final DependencyResolver resolver;
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
     private final HttpClient httpClient;
@@ -32,6 +35,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
 
     public RemoteChecksumCalculator(
+            DependencyResolver resolver,
             String checksumAlgorithm,
             ProjectBuildingRequest artifactBuildingRequest,
             ProjectBuildingRequest pluginBuildingRequest) {
@@ -44,11 +48,42 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     + "', remote repositories only supports MD5, SHA-1, SHA-256 or SHA-512.");
         }
 
+        this.resolver = resolver;
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
         this.httpClient = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.ALWAYS)
                 .build();
+    }
+
+    private Dependency createDependency(Artifact artifact) {
+        Dependency dependency = new Dependency();
+        dependency.setGroupId(artifact.getGroupId());
+        dependency.setArtifactId(artifact.getArtifactId());
+        dependency.setVersion(artifact.getVersion());
+        dependency.setScope(artifact.getScope());
+        dependency.setType(artifact.getType());
+        dependency.setClassifier(artifact.getClassifier());
+        dependency.setOptional(artifact.isOptional());
+        return dependency;
+    }
+
+    private Artifact resolveDependency(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+        try {
+            return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
+                    .iterator()
+                    .next()
+                    .getArtifact();
+        } catch (Exception e) {
+            PluginLogManager.getLog()
+                    .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
+            return artifact;
+        }
+    }
+
+    @Override
+    public Artifact resolveArtifact(Artifact artifact) {
+        return resolveDependency(artifact, artifactBuildingRequest);
     }
 
     private String getCacheKey(Artifact artifact) {

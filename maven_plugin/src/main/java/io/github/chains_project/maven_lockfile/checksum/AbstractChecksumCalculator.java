@@ -39,6 +39,14 @@ public abstract class AbstractChecksumCalculator {
     public abstract RepositoryInformation getPluginResolvedField(Artifact artifact);
 
     /**
+     * Resolve an artifact to the concrete artifact Maven selected. Implementations may override this
+     * to replace symbolic versions such as RELEASE/LATEST with the resolved artifact instance.
+     */
+    public Artifact resolveArtifact(Artifact artifact) {
+        return artifact;
+    }
+
+    /**
      * Pre-warm internal caches for the given artifacts. Implementations may use this
      * to fetch checksums and repository information in parallel. The default is a no-op.
      */

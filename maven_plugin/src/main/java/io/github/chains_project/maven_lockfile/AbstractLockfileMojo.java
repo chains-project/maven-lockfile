@@ -98,7 +98,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 return new FileSystemChecksumCalculator(
                         dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
             case REMOTE:
-                return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
+                return new RemoteChecksumCalculator(
+                        dependencyResolver, checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
             default:
                 throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
         }
@@ -127,7 +128,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                         config.getChecksumAlgorithm());
             case REMOTE:
                 return new RemoteChecksumCalculator(
-                        config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
+                        dependencyResolver,
+                        config.getChecksumAlgorithm(),
+                        artifactBuildingRequest,
+                        pluginBuildingRequest);
             default:
                 throw new MojoExecutionException("Invalid checksum mode: " + checksumModeEnum);
         }

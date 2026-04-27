@@ -226,23 +226,24 @@ public class LockFileFacade {
             RepositorySystemSession repoSession,
             List<RemoteRepository> repositories) {
         String version = extension.getVersion();
-        if (version == null || version.isBlank()) {
+        if (version == null || version.isBlank() || "RELEASE".equals(version) || "LATEST".equals(version)) {
+            String requestedVersion = (version == null || version.isBlank()) ? "RELEASE" : version;
             try {
                 VersionRequest request = new VersionRequest(
                         new org.eclipse.aether.artifact.DefaultArtifact(
-                                extension.getGroupId(), extension.getArtifactId(), "jar", "RELEASE"),
+                                extension.getGroupId(), extension.getArtifactId(), "jar", requestedVersion),
                         repositories,
                         null);
                 version = repositorySystem.resolveVersion(repoSession, request).getVersion();
                 PluginLogManager.getLog()
                         .warn(String.format(
-                                "Extension %s:%s has no explicit version; resolved to %s",
-                                extension.getGroupId(), extension.getArtifactId(), version));
+                                "Resolved extension version %s for %s:%s to %s",
+                                requestedVersion, extension.getGroupId(), extension.getArtifactId(), version));
             } catch (VersionResolutionException e) {
                 PluginLogManager.getLog()
                         .warn(String.format(
-                                "Skipping extension %s:%s: no version declared and could not resolve one",
-                                extension.getGroupId(), extension.getArtifactId()));
+                                "Skipping extension %s:%s: could not resolve version %s",
+                                extension.getGroupId(), extension.getArtifactId(), requestedVersion));
                 return Optional.empty();
             }
         }
