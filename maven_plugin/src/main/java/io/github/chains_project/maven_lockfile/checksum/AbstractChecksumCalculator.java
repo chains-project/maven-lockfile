@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.util.Collection;
 import java.util.Locale;
 import org.apache.maven.artifact.Artifact;
+import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractChecksumCalculator {
 
@@ -49,8 +50,14 @@ public abstract class AbstractChecksumCalculator {
     public String calculatePomChecksum(Path path) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
-            byte[] fileBuffer = Files.readAllBytes(path);
-            byte[] artifactHash = messageDigest.digest(fileBuffer);
+
+            //normalize line endings to prevent false-positives on checksum mismatch
+            byte[] normalizedBytes = Files.readString(path)
+                                            .replace("\r\n", "\n")
+                                            .replace("\r", "\n")
+                                            .getBytes(StandardCharsets.UTF_8);
+            
+            byte[] artifactHash = messageDigest.digest(normalizedBytes);
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
         } catch (Exception e) {
