@@ -2574,3 +2574,34 @@ We'd like to thank the following people for their contributions:
 - Bruno Pimentel ([@brunoapimentel](https://github.com/brunoapimentel))
 - Elias Lundell ([@LogFlames](https://github.com/LogFlames))
 - LogFlames ([@LogFlames](https://github.com/LogFlames))
+
+# 5.16.0
+## Changelog
+
+## 🚀 Added
+- 5ef77f3 ✨ feat: resolve parent POMs and their BOMs (#1540)
+- 9ac76fe ✨ feat: Add Maven build extensions support to lockfile (#1529)
+
+## 📦 Dependencies
+- 34ab7ca ⬆️ (deps): Update chains-project/maven-lockfile action to v5.15.0 (#1539)
+
+## 📝 Documentation
+- 053d459 📝 docs: add Codeset-generated knowledge base for Claude Code (#1538)
+
+## 🏁 Release
+- 3ddcf33 🔖 Releasing version 5.16.0
+- 6b6e06a 🔖 Setting SNAPSHOT version 5.15.1-SNAPSHOT
+- 5aa85a8 🔖 Releasing version 5.15.0
+
+---
+- c10f984 chore: Update log4j-core version to 2.25.4 (#1554)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Sonnet 4.6 ()
+- Elias Lundell ()
+- Timotej Kubas ()
+- fz-rh ()
+- tkubas-rh ()
