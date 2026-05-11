@@ -9,6 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.MessageDigest;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +22,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.settings.Server;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
@@ -30,11 +34,13 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
     private final HttpClient httpClient;
     private final Map<String, String> checksumCache = new ConcurrentHashMap<>();
     private final Map<String, RepositoryInformation> resolvedCache = new ConcurrentHashMap<>();
+    private final MavenSession session;
 
     public RemoteChecksumCalculator(
             String checksumAlgorithm,
             ProjectBuildingRequest artifactBuildingRequest,
-            ProjectBuildingRequest pluginBuildingRequest) {
+            ProjectBuildingRequest pluginBuildingRequest,
+            MavenSession session) {
         super(checksumAlgorithm);
         if (!(checksumAlgorithm.equals("MD5")
                 || checksumAlgorithm.equals("SHA-1")
@@ -46,6 +52,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
+        this.session = session;
         this.httpClient = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.ALWAYS)
                 .build();
@@ -58,6 +65,45 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         }
         return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion() + ":" + classifier
                 + ":" + artifact.getType();
+    }
+
+    private HttpRequest.Builder repositoryRequest(ArtifactRepository repository, String url) {
+        repository.getId();
+        HttpRequest.Builder request = HttpRequest.newBuilder().uri(URI.create(url));
+        Optional<Server> maybeServerSettings = session.getSettings().getServers().stream()
+                .filter(s -> s.getId().equals(repository.getId()))
+                .findFirst();
+        if (maybeServerSettings.isPresent()) {
+            // TODO: username/password willl require per-repo clients so we can apply PasswordAuthenticators separately.
+            applyServerConfig(maybeServerSettings.get(), request);
+            return request;
+        }
+        return request;
+    }
+
+    private static void applyServerConfig(Server server, HttpRequest.Builder request) {
+        // Apply custom transport config from server.xml
+        var serverConfig = server.getConfiguration();
+        if (serverConfig instanceof Xpp3Dom) {
+            var config = (Xpp3Dom) serverConfig;
+            var headers = config.getChild("httpHeaders");
+            if (headers != null) {
+                for (var header : headers.getChildren("property")) {
+                    Xpp3Dom nameElement = header.getChild("name");
+                    Xpp3Dom valueElement = header.getChild("value");
+                    if (nameElement != null && valueElement != null) {
+                        request.header(nameElement.getValue(), valueElement.getValue());
+                    }
+                }
+            }
+            var requestTimeout = config.getChild("requestTimeout");
+            if (requestTimeout != null) {
+                try {
+                    request.timeout(Duration.ofMillis(Long.parseLong(requestTimeout.getValue())));
+                } catch (NumberFormatException ignored) {
+                }
+            }
+        }
     }
 
     private Optional<String> calculateChecksumInternal(Artifact artifact, ProjectBuildingRequest buildingRequest) {
@@ -92,7 +138,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 PluginLogManager.getLog().debug(String.format("Checking: %s", checksumUrl));
 
                 HttpRequest checksumRequest =
-                        HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
+                        repositoryRequest(repository, checksumUrl).build();
                 HttpResponse<String> checksumResponse =
                         httpClient.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
@@ -103,9 +149,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
 
                 if (checksumResponse.statusCode() == 404) {
-                    HttpRequest artifactRequest = HttpRequest.newBuilder()
-                            .uri(URI.create(artifactUrl))
-                            .build();
+                    HttpRequest artifactRequest =
+                            repositoryRequest(repository, artifactUrl).build();
                     HttpResponse<byte[]> artifactResponse =
                             httpClient.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
 
@@ -119,9 +164,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                     checksumAlgorithm, artifact));
 
                     // Fallback to and verify downloaded artifact with SHA-1
-                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
-                            .uri(URI.create(artifactUrl + ".sha1"))
-                            .build();
+                    HttpRequest artifactVerificationRequest =
+                            repositoryRequest(repository, artifactUrl + ".sha1").build();
                     HttpResponse<String> artifactVerificationResponse =
                             httpClient.send(artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
 
@@ -206,8 +250,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                 PluginLogManager.getLog().debug(String.format("Checking: %s", url));
 
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(url))
+                HttpRequest request = repositoryRequest(repository, url)
                         .method("HEAD", HttpRequest.BodyPublishers.noBody())
                         .build();
                 HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
