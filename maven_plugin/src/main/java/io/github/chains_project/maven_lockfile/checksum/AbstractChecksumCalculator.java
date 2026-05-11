@@ -2,13 +2,13 @@ package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Collection;
 import java.util.Locale;
 import org.apache.maven.artifact.Artifact;
-import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractChecksumCalculator {
 
@@ -51,12 +51,12 @@ public abstract class AbstractChecksumCalculator {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
 
-            //normalize line endings to prevent false-positives on checksum mismatch
+            // normalize line endings to prevent false-positives on checksum mismatch
             byte[] normalizedBytes = Files.readString(path)
-                                            .replace("\r\n", "\n")
-                                            .replace("\r", "\n")
-                                            .getBytes(StandardCharsets.UTF_8);
-            
+                    .replace("\r\n", "\n")
+                    .replace("\r", "\n")
+                    .getBytes(StandardCharsets.UTF_8);
+
             byte[] artifactHash = messageDigest.digest(normalizedBytes);
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
