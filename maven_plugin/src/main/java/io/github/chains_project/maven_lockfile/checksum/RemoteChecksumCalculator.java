@@ -260,6 +260,13 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
         } finally {
             executor.shutdown();
         }
+        // Parallel pre-warm requests can fail transiently (e.g. rate-limiting, connection
+        // exhaustion) and cache empty/Unresolved sentinels as negative results. Clear those
+        // so the sequential node-creation phase can retry each artifact individually.
+        for (Artifact artifact : artifacts) {
+            checksumCache.remove(getCacheKey(artifact) + ":" + checksumAlgorithm, "");
+            resolvedCache.remove(getCacheKey(artifact), RepositoryInformation.Unresolved());
+        }
     }
 
     @Override
