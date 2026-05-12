@@ -118,12 +118,17 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                     "Unable to find %s checksum for %s on remote. Downloading and calculating locally.",
                                     checksumAlgorithm, artifact));
 
-                    // Fallback to verify downloaded artifact with SHA-1. Look first in standard repository manager
-                    // headers.
+                    // Look first in standard repository manager headers as per
+                    // https://maven.apache.org/resolver/expected-checksums.html#non-standard-x-headers.
+                    // Fallback to verify downloaded artifact with SHA-1.
                     var maybeVerificationChecksum = artifactResponse
                             .headers()
+                            // curl -I https://repo1.maven.org/maven2/org/mvnpm/axios/1.15.1/axios-1.15.1.jar
+                            // x-checksum-sha1: 8161aecbad5fceb8ce4aca8b557be1a8b77b5cbe
                             .firstValue("x-checksum-sha1")
                             .or(() -> artifactResponse.headers().firstValue("x-goog-meta-checksum-sha1"))
+                            // Non-Maven Central or non-GCS hosted packages may not emit these headers
+                            // curl -I https://plugins.gradle.org/m2/org/jmailen/gradle/kotlinter-gradle/5.3.0/kotlinter-gradle-5.3.0.jar
                             .or(() -> {
                                 // Fall back to requesting .sha1 file
                                 PluginLogManager.getLog()
