@@ -128,7 +128,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                             .firstValue("x-checksum-sha1")
                             .or(() -> artifactResponse.headers().firstValue("x-goog-meta-checksum-sha1"))
                             // Non-Maven Central or non-GCS hosted packages may not emit these headers
-                            // curl -I https://plugins.gradle.org/m2/org/jmailen/gradle/kotlinter-gradle/5.3.0/kotlinter-gradle-5.3.0.jar
+                            // curl -I
+                            // https://plugins.gradle.org/m2/org/jmailen/gradle/kotlinter-gradle/5.3.0/kotlinter-gradle-5.3.0.jar
                             .or(() -> {
                                 // Fall back to requesting .sha1 file
                                 PluginLogManager.getLog()
