@@ -1,14 +1,14 @@
 {
   "artifactId": "maven-lockfile-parent",
   "groupId": "io.github.chains-project",
-  "version": "5.16.1-SNAPSHOT",
+  "version": "5.16.1-beta-1",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile-parent",
-    "version": "5.16.1-SNAPSHOT",
+    "version": "5.16.1-beta-1",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "55119da5d9e24efbe5245896e02e29275c453b003a995abe19a81ece77c57bbe"
+    "checksum": "ae4ff9a450427911e609b45de826e886d75e2ce52251fd5268c0b92e397bab93"
   },
   "lockFileVersion": 1,
   "dependencies": [],
@@ -41455,7 +41455,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.16.0",
+      "mavenLockfileVersion": "5.16.1-beta-1",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256"
     }
