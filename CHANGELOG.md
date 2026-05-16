@@ -2605,3 +2605,24 @@ We'd like to thank the following people for their contributions:
 - Timotej Kubas ()
 - fz-rh ()
 - tkubas-rh ()
+
+# 5.16.1-beta-1
+## Changelog
+
+## 🏁 Release
+- e2a090a 🔖 Releasing version 5.16.1-beta-1
+- fec11c3 🔖 Setting SNAPSHOT version 5.16.1-SNAPSHOT
+- 7501c66 🔖 Releasing version 5.16.0
+
+---
+- c6c35b8 chore: update lockfile (#1570)
+- f320e85 perf: avoid sha-1 resource load for remote download verification (#1566)
+- 9206c01 chore: Update maven-lockfile action to version 5.16.0 (#1559)
+- f32af3b fix: normalize lockfiles for Windows (#1556)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Joe Morris ()
+- Tim Whittington ()
