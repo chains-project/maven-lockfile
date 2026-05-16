@@ -12,6 +12,7 @@ import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
@@ -534,11 +535,16 @@ public class LockFileFacade {
 
             String relativePath = isExternalPom
                     ? null
-                    : initialProject
-                            .getBasedir()
-                            .toPath()
-                            .relativize(project.getFile().toPath())
-                            .toString();
+                    : StreamSupport.stream(
+                                    initialProject
+                                            .getBasedir()
+                                            .toPath()
+                                            .relativize(project.getFile().toPath())
+                                            .spliterator(),
+                                    false)
+                            .map(Path::toString)
+                            .collect(Collectors.joining("/"));
+
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;

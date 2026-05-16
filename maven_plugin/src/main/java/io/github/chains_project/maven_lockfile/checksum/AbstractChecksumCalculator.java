@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.checksum;
 
 import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -49,8 +50,14 @@ public abstract class AbstractChecksumCalculator {
     public String calculatePomChecksum(Path path) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
-            byte[] fileBuffer = Files.readAllBytes(path);
-            byte[] artifactHash = messageDigest.digest(fileBuffer);
+
+            // normalize line endings to prevent false-positives on checksum mismatch
+            byte[] normalizedBytes = Files.readString(path)
+                    .replace("\r\n", "\n")
+                    .replace("\r", "\n")
+                    .getBytes(StandardCharsets.UTF_8);
+
+            byte[] artifactHash = messageDigest.digest(normalizedBytes);
             BaseEncoding baseEncoding = BaseEncoding.base16();
             return baseEncoding.encode(artifactHash).toLowerCase(Locale.ROOT);
         } catch (Exception e) {
