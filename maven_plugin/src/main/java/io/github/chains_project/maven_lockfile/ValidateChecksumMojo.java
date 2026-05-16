@@ -7,10 +7,9 @@ import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MetaData;
-import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+import io.github.chains_project.maven_lockfile.reporting.ValidationPhases;
 import java.io.IOException;
-import java.util.Objects;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -54,69 +53,17 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config, true);
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
-            if (!Objects.equals(lockFileFromFile.getEnvironment(), lockFileFromProject.getEnvironment())) {
-                String sb = "Lock file environment does not match project environment.\n"
-                        + "Lockfile environment: " + lockFileFromFile.getEnvironment() + "\n"
-                        + "Project environment:  " + lockFileFromProject.getEnvironment() + "\n";
+            for (var phase : ValidationPhases.all()) {
+                if (!phase.isEnabled(config)) continue;
+                var failure = phase.validate(lockFileFromFile, lockFileFromProject, config);
+                if (failure.isEmpty()) continue;
+                if (phase.isWarn(config)) {
+                    getLog().warn(failure.get());
+                } else {
+                    throw new MojoExecutionException(failure.get());
+                }
+            }
 
-                switch (config.getOnEnvironmentalValidationFailure()) {
-                    case Warn:
-                        getLog().warn(sb);
-                        break;
-                    case Error:
-                        throw new MojoExecutionException("Failed verifying environment. " + sb);
-                }
-            }
-            if (!Objects.equals(lockFileFromFile.getPom(), lockFileFromProject.getPom())) {
-                String sb = "Pom checksum mismatch. Differences:\nYour lockfile pom:\n"
-                        + JsonUtils.toJson(lockFileFromFile.getPom())
-                        + "\n" + "Your project pom:\n"
-                        + JsonUtils.toJson(lockFileFromProject.getPom())
-                        + "\n";
-
-                switch (config.getOnPomValidationFailure()) {
-                    case Warn:
-                        getLog().warn(sb);
-                        break;
-                    case Error:
-                        throw new MojoExecutionException("Failed verifying lock file. " + sb);
-                }
-            }
-            if (!lockFileFromFile.equals(lockFileFromProject)) {
-                var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
-                String sb = "Lock file validation failed. Differences:" + "\n"
-                        + "Your lockfile from file is for:"
-                        + lockFileFromFile.getGroupId().getValue()
-                        + ":" + lockFileFromFile.getName().getValue() + ":"
-                        + lockFileFromFile.getVersion().getValue() + "\n" + "Your generated lockfile is for:"
-                        + lockFileFromProject.getGroupId().getValue() + ":"
-                        + lockFileFromProject.getName().getValue() + ":"
-                        + lockFileFromProject.getVersion().getValue() + "\n" + "Missing dependencies in lock file:\n "
-                        + JsonUtils.toJson(diff.getMissingDependenciesInFile())
-                        + "\n"
-                        + "Missing dependencies in project:\n "
-                        + JsonUtils.toJson(diff.getMissingDependenciesInProject())
-                        + "\n"
-                        + "Missing plugins in lockfile:\n "
-                        + JsonUtils.toJson(diff.getMissingPluginsInFile())
-                        + "\n"
-                        + "Missing plugins in project:\n "
-                        + JsonUtils.toJson(diff.getMissingPluginsInProject())
-                        + "\n"
-                        + "Missing extensions in lockfile:\n "
-                        + JsonUtils.toJson(diff.getMissingExtensionsInFile())
-                        + "\n"
-                        + "Missing extensions in project:\n "
-                        + JsonUtils.toJson(diff.getMissingExtensionsInProject())
-                        + "\n";
-                switch (config.getOnValidationFailure()) {
-                    case Warn:
-                        getLog().warn("Failed verifying lock file. " + sb);
-                        break;
-                    case Error:
-                        throw new MojoExecutionException("Failed verifying lock file. " + sb);
-                }
-            }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
         }
