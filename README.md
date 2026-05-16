@@ -73,7 +73,7 @@ mvn -f pom.lockfile.xml
 ## Command line Flags
 
 - `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
-- `includeMavenPlugins` (`-DincludeMavenPlugins=true`) will include the maven plugins in the lockfile. This is useful if you want to validate the Maven plugins as well.
+- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
 - `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow validation failure of the pom specifically, dependency validation still occurs (assuming `allowValidationFailure` is `false`). In case of checksum mismatch of pom prints a warning instead of default exception.
 - `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
@@ -90,9 +90,9 @@ For `:freeze` target:
 
 ### Flags example
 
-The flags are passed by the maven [`-D` (`--define`)](https://books.sonatype.com/mvnref-book/reference/running-sect-options.html) property. For example, to set the `lockfileName` to `my-lockfile.json` and include maven plugins in the lockfile, you would run the following command:
+The flags are passed by the maven [`-D` (`--define`)](https://books.sonatype.com/mvnref-book/reference/running-sect-options.html) property. For example, to set the `lockfileName` to `my-lockfile.json` while keeping the default Maven plugin inclusion, you would run the following command:
 ```bash
-mvn io.github.chains-project:maven-lockfile:generate -DincludeMavenPlugins=true -DlockfileName=my-lockfile.json
+mvn io.github.chains-project:maven-lockfile:generate -DlockfileName=my-lockfile.json
 ```
 
 ## Format
@@ -291,7 +291,6 @@ jobs:
           uses: chains-project/maven-lockfile@2d2ed1462246005ae3aafaf2d0bc619f521eadf6 # 5.14.0
           with:
             github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
-            include-maven-plugins: true
 ```
 If a pom.xml or lockfile.json file is changed, this action will add a commit with the updated lockfile to the pull request.
 Otherwise, it will validate the lockfile and fail if the lockfile is incorrect.
@@ -328,9 +327,9 @@ Extended github actions example with all available options:
     # Defaults to 'chore: update lockfile'
     - commit-message: 'chore: update lockfile'
 
-    # Optional. Wether to include Maven plugins in the lockfile.
-    # Defaults to false.
-    - include-maven-plugins: false
+    # Optional. Whether to include Maven plugins in the lockfile.
+    # Defaults to true.
+    - include-maven-plugins: true
 
     # Optional. The name of the lockfile to generate/validate.
     # Defaults to 'lockfile.json'.
