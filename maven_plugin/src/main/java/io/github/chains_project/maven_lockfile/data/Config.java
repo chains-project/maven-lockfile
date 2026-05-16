@@ -14,6 +14,12 @@ public class Config {
     private final String mavenLockfileVersion;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
+    private final boolean includeBoms;
+    private final boolean allowBomValidationFailure;
+    private final boolean includeParentPom;
+    private final boolean allowParentPomValidationFailure;
+    private final boolean includeMavenExtensions;
+    private final boolean allowMavenExtensionsValidationFailure;
 
     public Config(
             MavenPluginsInclusion includeMavenPlugins,
@@ -24,7 +30,13 @@ public class Config {
             ReductionState reduced,
             String mavenLockfileVersion,
             ChecksumModes checksumMode,
-            String checksumAlgorithm) {
+            String checksumAlgorithm,
+            BomsInclusion includeBoms,
+            OnBomValidationFailure allowBomValidationFailure,
+            ParentPomInclusion includeParentPom,
+            OnParentPomValidationFailure allowParentPomValidationFailure,
+            MavenExtensionsInclusion includeMavenExtensions,
+            OnMavenExtensionsValidationFailure allowMavenExtensionsValidationFailure) {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
@@ -35,6 +47,14 @@ public class Config {
         this.mavenLockfileVersion = mavenLockfileVersion;
         this.checksumMode = checksumMode;
         this.checksumAlgorithm = checksumAlgorithm;
+        this.includeBoms = includeBoms.equals(BomsInclusion.Include);
+        this.allowBomValidationFailure = allowBomValidationFailure.equals(OnBomValidationFailure.Warn);
+        this.includeParentPom = includeParentPom.equals(ParentPomInclusion.Include);
+        this.allowParentPomValidationFailure =
+                allowParentPomValidationFailure.equals(OnParentPomValidationFailure.Warn);
+        this.includeMavenExtensions = includeMavenExtensions.equals(MavenExtensionsInclusion.Include);
+        this.allowMavenExtensionsValidationFailure =
+                allowMavenExtensionsValidationFailure.equals(OnMavenExtensionsValidationFailure.Warn);
     }
 
     public Config() {
@@ -47,6 +67,12 @@ public class Config {
         this.mavenLockfileVersion = "1";
         this.checksumMode = ChecksumModes.LOCAL;
         this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
+        this.includeBoms = false;
+        this.allowBomValidationFailure = false;
+        this.includeParentPom = false;
+        this.allowParentPomValidationFailure = false;
+        this.includeMavenExtensions = false;
+        this.allowMavenExtensionsValidationFailure = false;
     }
     /**
      * @return the includeMavenPlugins
@@ -141,6 +167,56 @@ public class Config {
         return checksumAlgorithm;
     }
 
+    public boolean isIncludeBoms() {
+        return includeBoms;
+    }
+
+    public BomsInclusion getBomsInclusion() {
+        return includeBoms ? BomsInclusion.Include : BomsInclusion.Exclude;
+    }
+
+    public boolean isAllowBomValidationFailure() {
+        return allowBomValidationFailure;
+    }
+
+    public OnBomValidationFailure getOnBomValidationFailure() {
+        return allowBomValidationFailure ? OnBomValidationFailure.Warn : OnBomValidationFailure.Error;
+    }
+
+    public boolean isIncludeParentPom() {
+        return includeParentPom;
+    }
+
+    public ParentPomInclusion getParentPomInclusion() {
+        return includeParentPom ? ParentPomInclusion.Include : ParentPomInclusion.Exclude;
+    }
+
+    public boolean isAllowParentPomValidationFailure() {
+        return allowParentPomValidationFailure;
+    }
+
+    public OnParentPomValidationFailure getOnParentPomValidationFailure() {
+        return allowParentPomValidationFailure ? OnParentPomValidationFailure.Warn : OnParentPomValidationFailure.Error;
+    }
+
+    public boolean isIncludeMavenExtensions() {
+        return includeMavenExtensions;
+    }
+
+    public MavenExtensionsInclusion getMavenExtensionsInclusion() {
+        return includeMavenExtensions ? MavenExtensionsInclusion.Include : MavenExtensionsInclusion.Exclude;
+    }
+
+    public boolean isAllowMavenExtensionsValidationFailure() {
+        return allowMavenExtensionsValidationFailure;
+    }
+
+    public OnMavenExtensionsValidationFailure getOnMavenExtensionsValidationFailure() {
+        return allowMavenExtensionsValidationFailure
+                ? OnMavenExtensionsValidationFailure.Warn
+                : OnMavenExtensionsValidationFailure.Error;
+    }
+
     public enum MavenPluginsInclusion {
         Include,
         Exclude
@@ -169,5 +245,35 @@ public class Config {
     public enum ReductionState {
         Reduced,
         NonReduced
+    }
+
+    public enum BomsInclusion {
+        Include,
+        Exclude
+    }
+
+    public enum OnBomValidationFailure {
+        Warn,
+        Error
+    }
+
+    public enum ParentPomInclusion {
+        Include,
+        Exclude
+    }
+
+    public enum OnParentPomValidationFailure {
+        Warn,
+        Error
+    }
+
+    public enum MavenExtensionsInclusion {
+        Include,
+        Exclude
+    }
+
+    public enum OnMavenExtensionsValidationFailure {
+        Warn,
+        Error
     }
 }

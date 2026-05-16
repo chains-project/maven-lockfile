@@ -78,6 +78,12 @@ mvn -f pom.lockfile.xml
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow validation failure of the pom specifically, dependency validation still occurs (assuming `allowValidationFailure` is `false`). In case of checksum mismatch of pom prints a warning instead of default exception.
 - `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
+- `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
+- `allowBomValidationFailure` (`-DallowBomValidationFailure=true`, default=false) allow BOM validation failures, printing a warning instead of an error.
+- `includeParentPom` (`-DincludeParentPom=true`, default=true) controls whether parent POM data is included in the lockfile for dependencies and plugins.
+- `allowParentPomValidationFailure` (`-DallowParentPomValidationFailure=true`, default=false) allow parent POM validation failures, printing a warning instead of an error.
+- `includeMavenExtensions` (`-DincludeMavenExtensions=true`, default=true) controls whether Maven build extensions are included in the lockfile.
+- `allowMavenExtensionsValidationFailure` (`-DallowMavenExtensionsValidationFailure=true`, default=false) allow Maven extensions validation failures, printing a warning instead of an error.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
