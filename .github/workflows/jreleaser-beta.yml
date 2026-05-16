@@ -96,7 +96,7 @@ jobs:
       - name: commit changes
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
-          git commit -am "🔖 Releasing version ${{ env.NEXT_BETA_VERSION }}"
+          git commit -am "chore: release version ${{ env.NEXT_BETA_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
       - name: generate buildinfo file
@@ -130,7 +130,7 @@ jobs:
 
       - name: Commit & Push changes
         run: |
-          git commit -am ":memo: Appending CHANGELOG for ${{ env.NEXT_BETA_VERSION }}"
+          git commit -am "chore: append changelog for ${{ env.NEXT_BETA_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
       # Log failure:
