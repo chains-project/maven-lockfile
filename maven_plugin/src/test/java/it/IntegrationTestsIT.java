@@ -649,7 +649,8 @@ public class IntegrationTestsIT {
         System.out.println("Running 'environmentalCheckShouldFail' integration test.");
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout.contains("Failed verifying environment.")).isTrue();
+        assertThat(stdout.contains("Lock file environment does not match project environment."))
+                .isTrue();
     }
 
     @MavenTest
