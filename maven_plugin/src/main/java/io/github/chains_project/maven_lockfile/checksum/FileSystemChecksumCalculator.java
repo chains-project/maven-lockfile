@@ -82,7 +82,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     private Optional<RepositoryInformation> getResolvedFieldInternal(
             Artifact artifact, ProjectBuildingRequest buildingRequest) {
         if (artifact.getFile() == null) {
-            PluginLogManager.getLog().warn(String.format("Artifact %s has no file, repository info will be empty", artifact));
+            PluginLogManager.getLog()
+                    .warn(String.format("Artifact %s has no file, repository info will be empty", artifact));
             return Optional.empty();
         }
         try {
