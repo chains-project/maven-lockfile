@@ -85,6 +85,12 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 config.getReductionState(),
                 mojo.getPlugin().getVersion(),
                 config.getChecksumMode(),
-                config.getChecksumAlgorithm());
+                config.getChecksumAlgorithm(),
+                config.getBomsInclusion(),
+                config.getOnBomValidationFailure(),
+                config.getParentPomInclusion(),
+                config.getOnParentPomValidationFailure(),
+                config.getMavenExtensionsInclusion(),
+                config.getOnMavenExtensionsValidationFailure());
     }
 }

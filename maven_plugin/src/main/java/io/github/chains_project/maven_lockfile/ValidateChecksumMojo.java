@@ -8,11 +8,14 @@ import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import io.github.chains_project.maven_lockfile.reporting.LockFileDifference;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -85,20 +88,10 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
-            boolean skipParentPom = !lockFileHasParentPomData(lockFileFromFile);
-            // Old-format lockfiles also lack parent chains on bom Pom objects; skip bom comparison
-            // whenever parentPom data is absent, since both features were introduced together.
-            boolean skipNodeBoms = skipParentPom || !lockFileHasNodeBomData(lockFileFromFile);
-            boolean skipExtensions = lockFileFromFile.getMavenExtensions().isEmpty();
-            if (skipParentPom || skipNodeBoms || skipExtensions) {
-                getLog().warn("The on-disk lockfile is missing one or more fields introduced in recent"
-                        + " plugin versions (parentPom, dependency BOMs, mavenExtensions)."
-                        + " Those fields will be skipped during validation."
-                        + " Please regenerate the lockfile with the current plugin version to enable full validation.");
-            }
-            boolean equal = lockFilesEqual(
-                    lockFileFromFile, lockFileFromProject, skipParentPom, skipNodeBoms, skipExtensions);
-            if (!equal) {
+
+            // Phase 1: core equality (deps/plugins compared without parentPom, boms, extensions)
+            boolean phase1Equal = coreEqual(lockFileFromFile, lockFileFromProject);
+            if (!phase1Equal) {
                 var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
                 String sb = "Lock file validation failed. Differences:" + "\n"
                         + "Your lockfile from file is for:"
@@ -107,7 +100,8 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + lockFileFromFile.getVersion().getValue() + "\n" + "Your generated lockfile is for:"
                         + lockFileFromProject.getGroupId().getValue() + ":"
                         + lockFileFromProject.getName().getValue() + ":"
-                        + lockFileFromProject.getVersion().getValue() + "\n" + "Missing dependencies in lock file:\n "
+                        + lockFileFromProject.getVersion().getValue() + "\n"
+                        + "Missing dependencies in lock file:\n "
                         + JsonUtils.toJson(diff.getMissingDependenciesInFile())
                         + "\n"
                         + "Missing dependencies in project:\n "
@@ -118,12 +112,6 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         + "\n"
                         + "Missing plugins in project:\n "
                         + JsonUtils.toJson(diff.getMissingPluginsInProject())
-                        + "\n"
-                        + "Missing extensions in lockfile:\n "
-                        + JsonUtils.toJson(diff.getMissingExtensionsInFile())
-                        + "\n"
-                        + "Missing extensions in project:\n "
-                        + JsonUtils.toJson(diff.getMissingExtensionsInProject())
                         + "\n";
                 switch (config.getOnValidationFailure()) {
                     case Warn:
@@ -133,43 +121,83 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                         throw new MojoExecutionException("Failed verifying lock file. " + sb);
                 }
             }
+
+            // Phase 2: bom membership (independent of Phase 1)
+            if (config.isIncludeBoms()) {
+                if (!bomsEqualForAll(lockFileFromFile, lockFileFromProject, config.isIncludeParentPom())) {
+                    String msg = "Bom validation failed."
+                            + " The BOM membership or BOM POM data of dependencies differs"
+                            + " between the lockfile and the project.";
+                    switch (config.getOnBomValidationFailure()) {
+                        case Warn:
+                            getLog().warn(msg);
+                            break;
+                        case Error:
+                            throw new MojoExecutionException(msg);
+                    }
+                }
+            }
+
+            // Phase 3: parentPom on nodes/plugins (only when Phase 1 passed)
+            if (phase1Equal && config.isIncludeParentPom()) {
+                if (!parentPomsEqualForAll(lockFileFromFile, lockFileFromProject)) {
+                    String msg = "Parent POM validation failed."
+                            + " The parentPom of one or more dependencies or plugins differs"
+                            + " between the lockfile and the project.";
+                    switch (config.getOnParentPomValidationFailure()) {
+                        case Warn:
+                            getLog().warn(msg);
+                            break;
+                        case Error:
+                            throw new MojoExecutionException(msg);
+                    }
+                }
+            }
+
+            // Phase 4: maven extensions (independent)
+            if (config.isIncludeMavenExtensions()) {
+                if (!Objects.equals(lockFileFromFile.getMavenExtensions(), lockFileFromProject.getMavenExtensions())) {
+                    var diff = LockFileDifference.diff(lockFileFromFile, lockFileFromProject);
+                    String msg = "Maven extensions validation failed.\n"
+                            + "Missing extensions in lockfile:\n "
+                            + JsonUtils.toJson(diff.getMissingExtensionsInFile())
+                            + "\n"
+                            + "Missing extensions in project:\n "
+                            + JsonUtils.toJson(diff.getMissingExtensionsInProject())
+                            + "\n";
+                    switch (config.getOnMavenExtensionsValidationFailure()) {
+                        case Warn:
+                            getLog().warn(msg);
+                            break;
+                        case Error:
+                            throw new MojoExecutionException(msg);
+                    }
+                }
+            }
+
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
         }
         getLog().info("Lockfile successfully validated.");
     }
 
-    private static boolean lockFilesEqual(
-            LockFile fromFile,
-            LockFile fromProject,
-            boolean skipParentPom,
-            boolean skipNodeBoms,
-            boolean skipExtensions) {
-        if (!Objects.equals(fromFile.getName(), fromProject.getName())
-                || !Objects.equals(fromFile.getGroupId(), fromProject.getGroupId())
-                || !Objects.equals(fromFile.getVersion(), fromProject.getVersion())) {
+    // Phase 1: core equality — skips parentPom, per-node boms, top-level boms, and extensions
+    private static boolean coreEqual(LockFile a, LockFile b) {
+        if (!Objects.equals(a.getName(), b.getName())
+                || !Objects.equals(a.getGroupId(), b.getGroupId())
+                || !Objects.equals(a.getVersion(), b.getVersion())) {
             return false;
         }
-        if (!depSetsEqual(fromFile.getDependencies(), fromProject.getDependencies(), skipParentPom, skipNodeBoms))
-            return false;
-        if (!pluginSetsEqual(fromFile.getMavenPlugins(), fromProject.getMavenPlugins(), skipParentPom, skipNodeBoms))
-            return false;
-        // Extensions: the on-disk lockfile pre-dates extension tracking when the set is empty,
-        // so only compare when the on-disk lockfile already contains extension data.
-        if (!skipExtensions
-                && !Objects.equals(fromFile.getMavenExtensions(), fromProject.getMavenExtensions())) return false;
-        return Objects.equals(fromFile.getBoms(), fromProject.getBoms());
+        if (!depsEqualCore(a.getDependencies(), b.getDependencies())) return false;
+        return pluginsEqualCore(a.getMavenPlugins(), b.getMavenPlugins());
     }
 
-    private static boolean depSetsEqual(
-            Set<DependencyNode> a, Set<DependencyNode> b, boolean skipParentPom, boolean skipNodeBoms) {
+    private static boolean depsEqualCore(Set<DependencyNode> a, Set<DependencyNode> b) {
         if (a.size() != b.size()) return false;
-        return a.stream()
-                .allMatch(nodeA -> b.stream().anyMatch(nodeB -> depNodesEqual(nodeA, nodeB, skipParentPom, skipNodeBoms)));
+        return a.stream().allMatch(nodeA -> b.stream().anyMatch(nodeB -> nodeEqualCore(nodeA, nodeB)));
     }
 
-    private static boolean depNodesEqual(
-            DependencyNode a, DependencyNode b, boolean skipParentPom, boolean skipNodeBoms) {
+    private static boolean nodeEqualCore(DependencyNode a, DependencyNode b) {
         return Objects.equals(a.getGroupId(), b.getGroupId())
                 && Objects.equals(a.getArtifactId(), b.getArtifactId())
                 && Objects.equals(a.getVersion(), b.getVersion())
@@ -180,19 +208,15 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                 && Objects.equals(a.getScope(), b.getScope())
                 && Objects.equals(a.getSelectedVersion(), b.getSelectedVersion())
                 && Objects.equals(a.getParent(), b.getParent())
-                && (skipNodeBoms || Objects.equals(a.getBoms(), b.getBoms()))
-                && depSetsEqual(a.getChildren(), b.getChildren(), skipParentPom, skipNodeBoms);
+                && depsEqualCore(a.getChildren(), b.getChildren());
     }
 
-    private static boolean pluginSetsEqual(
-            Set<MavenPlugin> a, Set<MavenPlugin> b, boolean skipParentPom, boolean skipNodeBoms) {
+    private static boolean pluginsEqualCore(Set<MavenPlugin> a, Set<MavenPlugin> b) {
         if (a.size() != b.size()) return false;
-        return a.stream()
-                .allMatch(pA -> b.stream().anyMatch(pB -> pluginEquals(pA, pB, skipParentPom, skipNodeBoms)));
+        return a.stream().allMatch(pA -> b.stream().anyMatch(pB -> pluginEqualCore(pA, pB)));
     }
 
-    private static boolean pluginEquals(
-            MavenPlugin a, MavenPlugin b, boolean skipParentPom, boolean skipNodeBoms) {
+    private static boolean pluginEqualCore(MavenPlugin a, MavenPlugin b) {
         return Objects.equals(a.getGroupId(), b.getGroupId())
                 && Objects.equals(a.getArtifactId(), b.getArtifactId())
                 && Objects.equals(a.getVersion(), b.getVersion())
@@ -200,32 +224,83 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
                 && Objects.equals(a.getChecksumAlgorithm(), b.getChecksumAlgorithm())
                 && Objects.equals(a.getResolved(), b.getResolved())
                 && Objects.equals(a.getRepositoryId(), b.getRepositoryId())
-                && (skipParentPom || Objects.equals(a.getParentPom(), b.getParentPom()))
-                && depSetsEqual(a.getDependencies(), b.getDependencies(), skipParentPom, skipNodeBoms);
+                && depsEqualCore(a.getDependencies(), b.getDependencies());
     }
 
-    /** Returns true if any dependency node or plugin (transitively) carries a non-null parentPom. */
-    private static boolean lockFileHasParentPomData(LockFile lockFile) {
-        return lockFile.getDependencies().stream().anyMatch(ValidateChecksumMojo::nodeHasParentPom)
-                || lockFile.getMavenPlugins().stream()
-                        .anyMatch(p -> p.getParentPom() != null
-                                || p.getDependencies().stream().anyMatch(ValidateChecksumMojo::nodeHasParentPom));
+    // Phase 2: bom equality — top-level boms + per-node boms; optionally skip Pom parent chains
+    private static boolean bomsEqualForAll(LockFile a, LockFile b, boolean compareParentChains) {
+        if (!pomSetsEqual(a.getBoms(), b.getBoms(), compareParentChains)) return false;
+        if (!nodeBomsEqual(a.getDependencies(), b.getDependencies(), compareParentChains)) return false;
+        for (MavenPlugin pA : a.getMavenPlugins()) {
+            Optional<MavenPlugin> pBOpt = b.getMavenPlugins().stream()
+                    .filter(pB -> Objects.equals(pA.getGroupId(), pB.getGroupId())
+                            && Objects.equals(pA.getArtifactId(), pB.getArtifactId())
+                            && Objects.equals(pA.getVersion(), pB.getVersion()))
+                    .findFirst();
+            if (!pBOpt.isPresent()) return false;
+            if (!nodeBomsEqual(pA.getDependencies(), pBOpt.get().getDependencies(), compareParentChains)) return false;
+        }
+        return true;
     }
 
-    private static boolean nodeHasParentPom(DependencyNode node) {
-        return node.getParentPom() != null
-                || node.getChildren().stream().anyMatch(ValidateChecksumMojo::nodeHasParentPom);
+    private static boolean nodeBomsEqual(
+            Set<DependencyNode> depsA, Set<DependencyNode> depsB, boolean compareParentChains) {
+        if (depsA.size() != depsB.size()) return false;
+        return depsA.stream().allMatch(nA -> depsB.stream()
+                .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
+                        && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
+                        && Objects.equals(nA.getVersion(), nB.getVersion())
+                        && pomSetsEqual(nA.getBoms(), nB.getBoms(), compareParentChains)
+                        && nodeBomsEqual(nA.getChildren(), nB.getChildren(), compareParentChains)));
     }
 
-    /** Returns true if any dependency node (transitively) has a non-empty boms set. */
-    private static boolean lockFileHasNodeBomData(LockFile lockFile) {
-        return lockFile.getDependencies().stream().anyMatch(ValidateChecksumMojo::nodeHasBoms)
-                || lockFile.getMavenPlugins().stream()
-                        .anyMatch(p -> p.getDependencies().stream().anyMatch(ValidateChecksumMojo::nodeHasBoms));
+    private static boolean pomSetsEqual(Set<Pom> a, Set<Pom> b, boolean compareParentChains) {
+        Set<Pom> safeA = a == null ? Collections.emptySet() : a;
+        Set<Pom> safeB = b == null ? Collections.emptySet() : b;
+        if (safeA.size() != safeB.size()) return false;
+        return safeA.stream()
+                .allMatch(pomA -> safeB.stream().anyMatch(pomB -> pomEqual(pomA, pomB, compareParentChains)));
     }
 
-    private static boolean nodeHasBoms(DependencyNode node) {
-        return !node.getBoms().isEmpty()
-                || node.getChildren().stream().anyMatch(ValidateChecksumMojo::nodeHasBoms);
+    private static boolean pomEqual(Pom a, Pom b, boolean compareParentChains) {
+        if (a == null && b == null) return true;
+        if (a == null || b == null) return false;
+        boolean baseEqual = Objects.equals(a.getGroupId(), b.getGroupId())
+                && Objects.equals(a.getArtifactId(), b.getArtifactId())
+                && Objects.equals(a.getVersion(), b.getVersion())
+                && Objects.equals(a.getRelativePath(), b.getRelativePath())
+                && Objects.equals(a.getResolved(), b.getResolved())
+                && Objects.equals(a.getRepositoryId(), b.getRepositoryId())
+                && Objects.equals(a.getChecksumAlgorithm(), b.getChecksumAlgorithm())
+                && Objects.equals(a.getChecksum(), b.getChecksum());
+        if (!baseEqual) return false;
+        return !compareParentChains || pomEqual(a.getParent(), b.getParent(), true);
+    }
+
+    // Phase 3: parentPom equality on all dependency nodes and plugins
+    private static boolean parentPomsEqualForAll(LockFile a, LockFile b) {
+        if (!nodeParentPomsEqual(a.getDependencies(), b.getDependencies())) return false;
+        for (MavenPlugin pA : a.getMavenPlugins()) {
+            Optional<MavenPlugin> pBOpt = b.getMavenPlugins().stream()
+                    .filter(pB -> Objects.equals(pA.getGroupId(), pB.getGroupId())
+                            && Objects.equals(pA.getArtifactId(), pB.getArtifactId())
+                            && Objects.equals(pA.getVersion(), pB.getVersion()))
+                    .findFirst();
+            if (!pBOpt.isPresent()) return false;
+            MavenPlugin pB = pBOpt.get();
+            if (!Objects.equals(pA.getParentPom(), pB.getParentPom())) return false;
+            if (!nodeParentPomsEqual(pA.getDependencies(), pB.getDependencies())) return false;
+        }
+        return true;
+    }
+
+    private static boolean nodeParentPomsEqual(Set<DependencyNode> depsA, Set<DependencyNode> depsB) {
+        if (depsA.size() != depsB.size()) return false;
+        return depsA.stream().allMatch(nA -> depsB.stream()
+                .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
+                        && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
+                        && Objects.equals(nA.getVersion(), nB.getVersion())
+                        && Objects.equals(nA.getParentPom(), nB.getParentPom())
+                        && nodeParentPomsEqual(nA.getChildren(), nB.getChildren())));
     }
 }

@@ -26,7 +26,13 @@ class AbstractLockfileMojoTest {
                 Config.ReductionState.NonReduced,
                 "5.16.0",
                 ChecksumModes.LOCAL,
-                "SHA-256");
+                "SHA-256",
+                Config.BomsInclusion.Include,
+                Config.OnBomValidationFailure.Error,
+                Config.ParentPomInclusion.Include,
+                Config.OnParentPomValidationFailure.Error,
+                Config.MavenExtensionsInclusion.Include,
+                Config.OnMavenExtensionsValidationFailure.Error);
     }
 
     @Test
