@@ -1,5 +1,10 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
+import org.apache.maven.artifact.handler.DefaultArtifactHandler;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -71,6 +76,27 @@ public class Pom implements Comparable<Pom> {
 
     public Pom getParent() {
         return parent;
+    }
+
+    public Artifact toArtifact() {
+        final String scopeValue = null;
+        final String typeValue = "pom";
+        final String classifierValue = null;
+        return new DefaultArtifact(
+                groupId.getValue(),
+                artifactId.getValue(),
+                version.getValue(),
+                scopeValue,
+                typeValue,
+                classifierValue,
+                new DefaultArtifactHandler(typeValue));
+    }
+
+    public RepositoryInformation getRepositoryInformation() {
+        if (resolved != null && repositoryId != null) {
+            return new RepositoryInformation(resolved, repositoryId);
+        }
+        return RepositoryInformation.Unresolved();
     }
 
     @Override

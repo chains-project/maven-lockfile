@@ -32,6 +32,7 @@ public class LockfileTest {
                         Config.OnEnvironmentalValidationFailure.Error,
                         Config.EnvironmentInclusion.Include,
                         Config.ReductionState.NonReduced,
+                        Config.GenerationMode.Full,
                         "1",
                         ChecksumModes.LOCAL,
                         "SHA-1"));

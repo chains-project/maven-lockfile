@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile;
 
 import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.CachingChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
@@ -73,6 +74,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(defaultValue = "false", property = "reduced")
     protected String reduced;
 
+    @Parameter(defaultValue = "false", property = "incrementalGenerate")
+    protected String incrementalGenerate;
+
     @Parameter(defaultValue = "false", property = "skip")
     protected String skip;
 
@@ -118,19 +122,23 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
             checksumModeEnum = ChecksumModes.LOCAL;
         }
 
+        final AbstractChecksumCalculator checksumCalculator;
         switch (checksumModeEnum) {
             case LOCAL:
-                return new FileSystemChecksumCalculator(
+                checksumCalculator = new FileSystemChecksumCalculator(
                         dependencyResolver,
                         artifactBuildingRequest,
                         pluginBuildingRequest,
                         config.getChecksumAlgorithm());
+                break;
             case REMOTE:
-                return new RemoteChecksumCalculator(
+                checksumCalculator = new RemoteChecksumCalculator(
                         config.getChecksumAlgorithm(), artifactBuildingRequest, pluginBuildingRequest);
+                break;
             default:
                 throw new MojoExecutionException("Invalid checksum mode: " + checksumModeEnum);
         }
+        return CachingChecksumCalculator.getCachingChecksumCalculator(checksumCalculator, project, session);
     }
 
     protected Config getConfig() {
@@ -155,6 +163,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : Config.EnvironmentInclusion.Exclude;
         Config.ReductionState reductionState =
                 Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+        Config.GenerationMode generationMode =
+                Boolean.parseBoolean(incrementalGenerate) ? Config.GenerationMode.Incremental : Config.GenerationMode.Full;
 
         return new Config(
                 mavenPluginsInclusion,
@@ -163,6 +173,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 onEnvironmentalValidationFailure,
                 environmentInclusion,
                 reductionState,
+                generationMode,
                 mojo.getPlugin().getVersion(),
                 chosenChecksumMode,
                 chosenChecksumAlgorithm);
