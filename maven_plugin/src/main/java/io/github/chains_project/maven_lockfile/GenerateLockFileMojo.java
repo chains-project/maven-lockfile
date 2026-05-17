@@ -31,14 +31,14 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
     @Parameter(defaultValue = "true", property = "getConfigFromFile")
-    String getConfigFromFile;
+    boolean getConfigFromFile;
 
     /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException if the lock file could not be written or the generation failed.
      */
     public void execute() throws MojoExecutionException {
-        if (Boolean.parseBoolean(skip)) {
+        if (skip) {
             getLog().info("Skipping maven-lockfile");
             return;
         }
@@ -47,7 +47,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
                     : null;
-            Config config = Boolean.parseBoolean(getConfigFromFile) ? getConfig(lockFileFromFile) : getConfig();
+            Config config = getConfigFromFile ? getConfig(lockFileFromFile) : getConfig();
             Environment environment = null;
             if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();
