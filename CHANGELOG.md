@@ -2605,3 +2605,20 @@ We'd like to thank the following people for their contributions:
 - Timotej Kubas ()
 - fz-rh ()
 - tkubas-rh ()
+
+# 5.16.1-beta-2
+## Changelog
+
+## 🏁 Release
+- 8314473 🔖 Releasing version 5.16.1-beta-2
+
+---
+- c9be707 fix: use maven metadata for beta version computation (#1579)
+- acf7187 style: use boolean mojo parameters (#1577)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Phung ()
+- nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
