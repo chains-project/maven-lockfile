@@ -53,10 +53,17 @@ jobs:
 
       - name: Get next beta version
         run: |
-          # Compute next beta number
+          # Compute next beta number using maven-metadata.xml, which lists every
+          # published version and is not subject to search-index lag or the
+          # "latest stable" bias of the Sonatype search API.
           set -euo pipefail
 
-          LAST_BETA_NUMBER="$(curl -L "https://central.sonatype.com/solrsearch/select?q=a:maven-lockfile+g:io.github.chains-project" | jq -r ".response.docs | map(.latestVersion) | map((match(\"$CURRENT_VERSION-beta-(.*)\") | .captures[0].string) // \"0\") | .[0]")"
+          # Escape dots so the version string is treated as a literal in the regex.
+          ESCAPED_VERSION=$(printf '%s\n' "$CURRENT_VERSION" | sed 's/\./\\./g')
+
+          LAST_BETA_NUMBER="$(curl -sf "https://repo1.maven.org/maven2/io/github/chains-project/maven-lockfile/maven-metadata.xml" | \
+            grep -oP "<version>${ESCAPED_VERSION}-beta-\K[0-9]+" | \
+            sort -n | tail -1)"
 
           if [[ -z "${LAST_BETA_NUMBER:-}" || "$LAST_BETA_NUMBER" == "null" ]]; then
             LAST_BETA_NUMBER=0
