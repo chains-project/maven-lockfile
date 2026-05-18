@@ -7,11 +7,13 @@ import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
@@ -55,13 +57,16 @@ public class BomResolver {
         for (Dependency dependency : dependencyManagement.getDependencies()) {
             // A BOM POM always has type=pom and scope=import
             if ("pom".equals(dependency.getType()) && "import".equals(dependency.getScope())) {
-                var resolvedVersion = resolveVersionFromPlaceholder(dependency.getVersion(), project);
+                var resolvedVersion = interpolateProperty(dependency.getVersion(), project);
+                var resolvedGroupId = interpolateProperty(dependency.getGroupId(), project);
+                var resolvedArtifactId = interpolateProperty(dependency.getArtifactId(), project);
                 var bomProjectOptional = projectBuilder.buildFromGav(
-                        dependency.getGroupId(), dependency.getArtifactId(), resolvedVersion);
+                        resolvedGroupId, resolvedArtifactId, resolvedVersion);
 
                 if (bomProjectOptional.isEmpty()) {
-                    PluginLogManager.getLog().warn(String.format("Could not resolve BOM for %s", dependency));
-                    continue;
+                    PluginLogManager.getLog().error(String.format("Could not resolve BOM for %s", dependency));
+                    throw new RuntimeException("Error resolving BOM pom, fail fast");
+                    //continue;
                 }
 
                 var bomProject = bomProjectOptional.get();
@@ -107,19 +112,25 @@ public class BomResolver {
         });
     }
 
-    private String resolveVersionFromPlaceholder(String version, MavenProject project) {
-        if (version != null && version.startsWith("${") && version.endsWith("}")) {
-            String propertyName = version.substring(2, version.length() - 1);
+    /** limitatinon - does not work when there are multiple placeholders in the text **/
+    private String interpolateProperty(String textOrPlaceholder, MavenProject project) {
+        if (textOrPlaceholder != null && textOrPlaceholder.startsWith("${") && textOrPlaceholder.endsWith("}")) {
+            String propertyName = textOrPlaceholder.substring(2, textOrPlaceholder.length() - 1);
 
             // Check project properties (interpolated model has all properties resolved)
-            var resolvedVersion = project.getModel().getProperties().getProperty(propertyName);
+            var propertyValue = project.getModel().getProperties().getProperty(propertyName);
 
-            if (resolvedVersion != null) {
-                return resolvedVersion;
+            if (propertyValue != null) {
+                return propertyValue;
+            }
+            if ("project.version".equals(propertyName)) {
+                return project.getVersion();
+            } else if ("project.groupId".equals(propertyName)) {
+                return project.getGroupId();
             }
         }
 
-        return version;
+        return textOrPlaceholder;
     }
 
     private Pom resolveBomParents(MavenProject start) {
