@@ -24,7 +24,7 @@ release:
       pattern: .*beta.*
     changelog:
       formatted: ALWAYS
-      preset: 'gitmoji'
+      preset: 'conventional-commits'
       format: '- {{commitShortHash}} {{commitTitle}}'
       contributors:
         format: '- {{contributorName}} ({{contributorUsernameAsLink}})'
