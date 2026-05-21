@@ -32,7 +32,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
      */
     public void execute() throws MojoExecutionException {
-        if (Boolean.parseBoolean(skip)) {
+        if (skip) {
             getLog().info("Skipping maven-lockfile");
             return;
         }

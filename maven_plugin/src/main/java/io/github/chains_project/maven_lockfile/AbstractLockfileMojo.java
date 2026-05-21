@@ -44,19 +44,19 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected RepositorySystem repositorySystem;
 
     @Parameter(property = "includeMavenPlugins", defaultValue = "false")
-    protected String includeMavenPlugins;
+    protected boolean includeMavenPlugins;
 
     @Parameter(property = "allowValidationFailure", defaultValue = "false")
-    protected String allowValidationFailure;
+    protected boolean allowValidationFailure;
 
     @Parameter(property = "allowPomValidationFailure", defaultValue = "false")
-    protected String allowPomValidationFailure;
+    protected boolean allowPomValidationFailure;
 
     @Parameter(property = "allowEnvironmentalValidationFailure", defaultValue = "false")
-    protected String allowEnvironmentalValidationFailure;
+    protected boolean allowEnvironmentalValidationFailure;
 
     @Parameter(property = "includeEnvironment", defaultValue = "true")
-    protected String includeEnvironment;
+    protected boolean includeEnvironment;
 
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
@@ -71,10 +71,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected String checksumMode;
 
     @Parameter(defaultValue = "false", property = "reduced")
-    protected String reduced;
+    protected boolean reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
-    protected String skip;
+    protected boolean skip;
 
     @Parameter(defaultValue = "lockfile.json", property = "lockfileName")
     protected String lockfileName;
@@ -137,24 +137,19 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         String chosenChecksumAlgorithm = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
         ChecksumModes chosenChecksumMode =
                 Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
-        Config.MavenPluginsInclusion mavenPluginsInclusion = Boolean.parseBoolean(includeMavenPlugins)
-                ? Config.MavenPluginsInclusion.Include
-                : Config.MavenPluginsInclusion.Exclude;
-        Config.OnValidationFailure onValidationFailure = Boolean.parseBoolean(allowValidationFailure)
-                ? Config.OnValidationFailure.Warn
-                : Config.OnValidationFailure.Error;
-        Config.OnPomValidationFailure onPomValidationFailure = Boolean.parseBoolean(allowPomValidationFailure)
-                ? Config.OnPomValidationFailure.Warn
-                : Config.OnPomValidationFailure.Error;
-        Config.OnEnvironmentalValidationFailure onEnvironmentalValidationFailure =
-                Boolean.parseBoolean(allowEnvironmentalValidationFailure)
-                        ? Config.OnEnvironmentalValidationFailure.Warn
-                        : Config.OnEnvironmentalValidationFailure.Error;
-        Config.EnvironmentInclusion environmentInclusion = Boolean.parseBoolean(includeEnvironment)
-                ? Config.EnvironmentInclusion.Include
-                : Config.EnvironmentInclusion.Exclude;
+        Config.MavenPluginsInclusion mavenPluginsInclusion =
+                includeMavenPlugins ? Config.MavenPluginsInclusion.Include : Config.MavenPluginsInclusion.Exclude;
+        Config.OnValidationFailure onValidationFailure =
+                allowValidationFailure ? Config.OnValidationFailure.Warn : Config.OnValidationFailure.Error;
+        Config.OnPomValidationFailure onPomValidationFailure =
+                allowPomValidationFailure ? Config.OnPomValidationFailure.Warn : Config.OnPomValidationFailure.Error;
+        Config.OnEnvironmentalValidationFailure onEnvironmentalValidationFailure = allowEnvironmentalValidationFailure
+                ? Config.OnEnvironmentalValidationFailure.Warn
+                : Config.OnEnvironmentalValidationFailure.Error;
+        Config.EnvironmentInclusion environmentInclusion =
+                includeEnvironment ? Config.EnvironmentInclusion.Include : Config.EnvironmentInclusion.Exclude;
         Config.ReductionState reductionState =
-                Boolean.parseBoolean(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+                reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
 
         return new Config(
                 mavenPluginsInclusion,
