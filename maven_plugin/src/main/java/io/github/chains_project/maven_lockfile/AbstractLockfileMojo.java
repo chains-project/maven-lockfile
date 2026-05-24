@@ -174,4 +174,34 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         buildingRequest.setRemoteRepositories(project.getPluginArtifactRepositories());
         return buildingRequest;
     }
+
+    /**
+     * Returns a Config that starts from {@code base} (typically the stored lockfile config) and overrides
+     * only the fields for which a boolean flag was explicitly set to {@code true}. When a flag is
+     * {@code false} (the default), the stored value is preserved so that existing lockfile configs are
+     * not silently tightened by plugin defaults.
+     */
+    protected Config mergeConfigWithCliArgs(Config base) {
+        Config.MavenPluginsInclusion pluginsInclusion =
+                includeMavenPlugins ? Config.MavenPluginsInclusion.Include : base.getMavenPluginsInclusion();
+        Config.OnValidationFailure onValidationFailure =
+                allowValidationFailure ? Config.OnValidationFailure.Warn : base.getOnValidationFailure();
+        Config.OnPomValidationFailure onPomValidationFailure =
+                allowPomValidationFailure ? Config.OnPomValidationFailure.Warn : base.getOnPomValidationFailure();
+        Config.OnEnvironmentalValidationFailure onEnvFailure = allowEnvironmentalValidationFailure
+                ? Config.OnEnvironmentalValidationFailure.Warn
+                : base.getOnEnvironmentalValidationFailure();
+        Config.EnvironmentInclusion environmentInclusion =
+                includeEnvironment ? Config.EnvironmentInclusion.Include : base.getEnvironmentInclusion();
+        return new Config(
+                pluginsInclusion,
+                onValidationFailure,
+                onPomValidationFailure,
+                onEnvFailure,
+                environmentInclusion,
+                base.getReductionState(),
+                base.getMavenLockfileVersion(),
+                base.getChecksumMode(),
+                base.getChecksumAlgorithm());
+    }
 }
