@@ -620,6 +620,17 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void environmentalCheckCliOverride(MavenExecutionResult result) throws Exception {
+        // contract: a CLI arg (allowEnvironmentalValidationFailure=true) overrides the stored lockfile
+        // config (allowEnvironmentalValidationFailure=false), so validation succeeds even when the
+        // environment recorded in the lockfile does not match the current environment.
+        System.out.println("Running 'environmentalCheckCliOverride' integration test.");
+        assertThat(result).isSuccessful();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Failed verifying environment.")).isFalse();
+    }
+
+    @MavenTest
     public void externalParentPom(MavenExecutionResult result) throws Exception {
         // contract: a project with an external parent POM (e.g., Spring Boot) should generate
         // a lockfile containing the full parent pom hierarchy with checksums
