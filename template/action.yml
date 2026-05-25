@@ -34,7 +34,7 @@ inputs:
   allow-environmental-validation-failure:
     description: 'Allow environmental validation failures (e.g. Maven version changes between runner image updates) to produce a warning instead of failing the build. Recommended when using GitHub-hosted runners where the Maven version is not pinned. See https://github.com/chains-project/maven-lockfile/issues/1583.'
     required: false
-    default: false
+    default: true
 runs:
   using: "composite"
   steps:
