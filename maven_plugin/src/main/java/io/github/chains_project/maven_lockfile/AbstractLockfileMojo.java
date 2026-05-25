@@ -55,6 +55,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowMavenPluginValidationFailure")
     protected Boolean allowMavenPluginValidationFailure;
 
+    // For CI with GitHub Actions, set to true; runner environments (Maven version, OS) can change between updates and are not fully controllable.
     @Parameter(property = "allowEnvironmentalValidationFailure")
     protected Boolean allowEnvironmentalValidationFailure;
 
