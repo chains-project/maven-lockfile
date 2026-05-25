@@ -47,18 +47,34 @@ public class LockFileFacade {
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<DependencyNode> graph;
+        private final MavenProject project;
 
         /**
          * Create a new instance of the visitor.
          *
          * @param graph The graph to add the edges to.
+         * @param project The project to resolve the dependencies for.
+         *                This is useful to resolve `RELEASE` and `LATEST` versions, which are not resolved
+         *                by dependency collector.
          */
-        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph) {
+        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph, MavenProject project) {
             this.graph = graph;
+            this.project = project;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
+            String version = node.getArtifact().getVersion();
+            if (isSpecialVersion(version)) {
+                project.getArtifacts().stream()
+                        .filter(a -> a.getDependencyConflictId()
+                                .equals(node.getArtifact().getDependencyConflictId()))
+                        .findFirst()
+                        .ifPresent(resolved -> {
+                            node.getArtifact().setVersion(resolved.getVersion());
+                            node.getArtifact().setFile(resolved.getFile());
+                        });
+            }
             node.getChildren().forEach(v -> graph.putEdge(node, v));
             return true;
         }
@@ -227,11 +243,12 @@ public class LockFileFacade {
             RepositorySystemSession repoSession,
             List<RemoteRepository> repositories) {
         String version = extension.getVersion();
-        if (version == null || version.isBlank()) {
+        if (version == null || version.isBlank() || isSpecialVersion(version)) {
+            String requestedVersion = (version == null || version.isBlank()) ? "RELEASE" : version;
             try {
                 VersionRequest request = new VersionRequest(
                         new org.eclipse.aether.artifact.DefaultArtifact(
-                                extension.getGroupId(), extension.getArtifactId(), "jar", "RELEASE"),
+                                extension.getGroupId(), extension.getArtifactId(), "jar", requestedVersion),
                         repositories,
                         null);
                 version = repositorySystem.resolveVersion(repoSession, request).getVersion();
@@ -473,7 +490,7 @@ public class LockFileFacade {
             DependencyNode rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(graph));
+            rootNode.accept(new GraphBuildingNodeVisitor(graph, project));
 
             PluginLogManager.getLog()
                     .info(String.format(
@@ -593,5 +610,9 @@ public class LockFileFacade {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
         return bomResolver.resolveForProject(rootProject);
+    }
+
+    private static boolean isSpecialVersion(String version) {
+        return "RELEASE".equals(version) || "LATEST".equals(version);
     }
 }
