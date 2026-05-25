@@ -41452,7 +41452,7 @@
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
-      "allowEnvironmentalValidationFailure": true,
+      "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.16.0",
