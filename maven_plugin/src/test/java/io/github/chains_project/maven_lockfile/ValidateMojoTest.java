@@ -46,7 +46,7 @@ class ValidateMojoTest {
     @Test
     void storedConfigUsedWhenCliArgNotSet() {
         var m = mojo();
-        assertThat(m.allowEnvironmentalValidationFailure).isFalse();
+        assertThat(m.allowEnvironmentalValidationFailure).isNull();
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
         assertThat(merged.getOnEnvironmentalValidationFailure())
