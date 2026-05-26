@@ -37,6 +37,8 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
+        assertThat(lockFile.getConfig().isIncludeMavenPlugins()).isTrue();
+        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
     }
 
     @MavenTest
