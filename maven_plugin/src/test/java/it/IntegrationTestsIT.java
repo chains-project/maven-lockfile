@@ -919,4 +919,42 @@ public class IntegrationTestsIT {
         assertThat(parent.getArtifactId().equals("oss-parent"));
         assertThat(parent.getVersion().equals("7"));
     }
+
+    @MavenTest
+    public void surefirePluginResolver(MavenExecutionResult result) throws Exception {
+        // contract: when maven-surefire-plugin is present and junit-jupiter is declared as a test
+        // dependency, SurefirePluginResolver must inject surefire-junit-platform into the
+        // surefire plugin's recorded dependencies so the JUnit Platform provider is available
+        // for offline builds.
+        System.out.println("Running 'surefirePluginResolver' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        var surefirePlugin = lockFile.getMavenPlugins().stream()
+                .filter(p -> "maven-surefire-plugin".equals(p.getArtifactId().getValue()))
+                .findFirst();
+        assertThat(surefirePlugin).isPresent();
+
+        // surefire-junit-platform must be injected by SurefirePluginResolver
+        assertThat(surefirePlugin.get().getDependencies())
+                .as("maven-surefire-plugin should contain surefire-junit-platform injected by SurefirePluginResolver")
+                .anyMatch(dep -> "surefire-junit-platform".equals(dep.getArtifactId().getValue())
+                        && "org.apache.maven.surefire".equals(dep.getGroupId().getValue()));
+
+        // The injected provider must have its transitive dependencies resolved
+        var provider = surefirePlugin.get().getDependencies().stream()
+                .filter(dep -> "surefire-junit-platform".equals(dep.getArtifactId().getValue()))
+                .findFirst();
+        assertThat(provider).isPresent();
+        assertThat(provider.get().getChildren())
+                .as("surefire-junit-platform must have transitive dependencies resolved")
+                .isNotEmpty();
+
+        // junit-platform-launcher must be in the transitive closure
+        assertThat(flattenDependencies(provider.get()))
+                .as("injected subtree must contain junit-platform-launcher for offline JUnit 5 execution")
+                .anyMatch(dep -> "junit-platform-launcher".equals(dep.getArtifactId().getValue()));
+    }
 }

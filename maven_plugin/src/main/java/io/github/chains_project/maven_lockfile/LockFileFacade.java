@@ -9,6 +9,8 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
+import io.github.chains_project.maven_lockfile.resolvers.SpecialPluginResolver;
+import io.github.chains_project.maven_lockfile.resolvers.SurefirePluginResolver;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,6 +44,14 @@ import org.eclipse.aether.util.artifact.JavaScopes;
  *
  */
 public class LockFileFacade {
+
+    /**
+     * Registry of special plugin resolvers that discover dynamically-loaded plugin artifacts.
+     * Add new implementations here to extend lockfile generation to new build plugins.
+     */
+    private static final List<SpecialPluginResolver> PLUGIN_RESOLVERS = List.of(
+            new SurefirePluginResolver());
+
     /**
      * This visitor is used to traverse the dependency graph and add the edges to the graph.
      */
@@ -316,7 +326,7 @@ public class LockFileFacade {
             AbstractChecksumCalculator checksumCalculator) {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
-        // Build a map of user-declared plugin dependencies
+        // Build a map of user-declared plugin dependencies (mutable lists so resolvers can inject)
         // Key: groupId:artifactId, Value: list of user-declared dependencies
         Map<String, List<Dependency>> userPluginDependencies = new HashMap<>();
         if (project.getBuild() != null && project.getBuild().getPlugins() != null) {
@@ -324,10 +334,20 @@ public class LockFileFacade {
                 String key = plugin.getGroupId() + ":" + plugin.getArtifactId();
                 if (plugin.getDependencies() != null
                         && !plugin.getDependencies().isEmpty()) {
-                    userPluginDependencies.put(key, plugin.getDependencies());
+                    userPluginDependencies.put(key, new ArrayList<>(plugin.getDependencies()));
                 }
             }
         }
+
+        for (SpecialPluginResolver resolver : PLUGIN_RESOLVERS) {
+            if (!resolver.isApplicable(project)) continue;
+            PluginLogManager.getLog()
+                    .info(resolver.getDisplayName() + " detected — running special plugin resolver");
+            SpecialPluginResolver.DiscoveryResult result = resolver.discover(project, session);
+            result.getPluginDependencies().forEach((pluginKey, deps) ->
+                    userPluginDependencies.computeIfAbsent(pluginKey, k -> new ArrayList<>()).addAll(deps));
+        }
+
         ProjectBuilder projectBuilder = new ProjectBuilder(session, project.getPluginArtifactRepositories());
 
         for (Artifact pluginArtifact : project.getPluginArtifacts()) {
