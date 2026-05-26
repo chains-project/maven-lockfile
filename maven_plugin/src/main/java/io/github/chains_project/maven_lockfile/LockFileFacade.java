@@ -5,6 +5,7 @@ import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
@@ -109,6 +110,7 @@ public class LockFileFacade {
      * @param metadata                   The metadata to include in the lock file.
      * @param repositorySystem           The repository system for resolving artifacts.
      * @return A lock file for the project.
+     * @throws ProjectResolutionException if a project cannot be resolved during lockfile generation
      */
     public static LockFile generateLockFileFromProject(
             MavenSession session,
@@ -116,7 +118,8 @@ public class LockFileFacade {
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
             MetaData metadata,
-            RepositorySystem repositorySystem) {
+            RepositorySystem repositorySystem)
+            throws ProjectResolutionException {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>();
         if (metadata.getConfig().isIncludeMavenPlugins()) {
@@ -159,7 +162,8 @@ public class LockFileFacade {
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            RepositorySystem repositorySystem) {
+            RepositorySystem repositorySystem)
+            throws ProjectResolutionException {
         Set<MavenExtension> extensions = new TreeSet<>();
 
         List<Extension> buildExtensions = project.getBuildExtensions();
@@ -210,6 +214,14 @@ public class LockFileFacade {
                 Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGav(
                         artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
 
+                if (extensionProjectOptional.isEmpty()) {
+                    throw new ProjectResolutionException(
+                            artifact.getGroupId(),
+                            artifact.getArtifactId(),
+                            artifact.getVersion(),
+                            "Could not build project for extension");
+                }
+
                 // Resolve extension's transitive dependencies using the existing mechanism
                 Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
                         resolveComponentDependencies(
@@ -231,7 +243,12 @@ public class LockFileFacade {
                         transitiveDeps));
             }
         } catch (DependencyResolutionException e) {
-            PluginLogManager.getLog().warn("Failed to resolve extension dependencies", e);
+            throw new ProjectResolutionException(
+                    project.getGroupId(),
+                    project.getArtifactId(),
+                    project.getVersion(),
+                    "Failed to resolve extension dependencies",
+                    e);
         }
 
         return extensions;
@@ -273,23 +290,24 @@ public class LockFileFacade {
             DependencyGraph graph,
             MavenSession session,
             MavenProject rootProject,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator)
+            throws ProjectResolutionException {
         ProjectBuilder builder = new ProjectBuilder(session, rootProject.getRemoteArtifactRepositories());
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
-        graph.getDependencySet().forEach(node -> {
+        for (var node : graph.getDependencySet()) {
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
 
             if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Could not build project for dependency %s. Skipping parent and BOM resolution.",
-                                node));
-                return;
+                throw new ProjectResolutionException(
+                        node.getGroupId().getValue(),
+                        node.getArtifactId().getValue(),
+                        node.getVersion().getValue(),
+                        "Could not build project for dependency parent and BOM resolution");
             }
             var mavenProject = projectOptional.get();
 
@@ -306,14 +324,15 @@ public class LockFileFacade {
             if (!boms.isEmpty()) {
                 node.setBoms(boms);
             }
-        });
+        }
     }
 
     private static Set<MavenPlugin> getAllPlugins(
             MavenProject project,
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator)
+            throws ProjectResolutionException {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
         // Build a map of user-declared plugin dependencies
@@ -339,8 +358,11 @@ public class LockFileFacade {
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
 
             if (pluginProjectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Could not build project for plugin %s", pluginArtifact));
-                continue;
+                throw new ProjectResolutionException(
+                        pluginArtifact.getGroupId(),
+                        pluginArtifact.getArtifactId(),
+                        pluginArtifact.getBaseVersion(),
+                        "Could not build project for plugin");
             }
             MavenProject pluginProject = pluginProjectOptional.get();
 
@@ -370,7 +392,8 @@ public class LockFileFacade {
     }
 
     private static Pom resolvePluginParents(
-            MavenProject pluginProject, MavenSession session, AbstractChecksumCalculator checksumCalculator) {
+            MavenProject pluginProject, MavenSession session, AbstractChecksumCalculator checksumCalculator)
+            throws ProjectResolutionException {
         if (!pluginProject.hasParent()) {
             return null;
         }
@@ -507,9 +530,12 @@ public class LockFileFacade {
     /**
      * Construct a Pom object containing a full tree of its parent POM references. These parent
      * POMs may be relative to the project being built, or are specified from an external POM.
+     *
+     * @throws ProjectResolutionException if a BOM project cannot be resolved
      */
     private static Pom constructRecursivePom(
-            MavenProject initialProject, MavenSession session, AbstractChecksumCalculator checksumCalculator) {
+            MavenProject initialProject, MavenSession session, AbstractChecksumCalculator checksumCalculator)
+            throws ProjectResolutionException {
         String checksumAlgorithm = checksumCalculator.getChecksumAlgorithm();
 
         BomResolver bomResolver =
@@ -604,9 +630,11 @@ public class LockFileFacade {
      * @param rootProject        The current Maven project (for repository configuration)
      * @param checksumCalculator The checksum calculator
      * @return A set of BOM POMs
+     * @throws ProjectResolutionException if a BOM project cannot be resolved
      */
     private static Set<Pom> resolveBoms(
-            MavenSession session, MavenProject rootProject, AbstractChecksumCalculator checksumCalculator) {
+            MavenSession session, MavenProject rootProject, AbstractChecksumCalculator checksumCalculator)
+            throws ProjectResolutionException {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
         return bomResolver.resolveForProject(rootProject);

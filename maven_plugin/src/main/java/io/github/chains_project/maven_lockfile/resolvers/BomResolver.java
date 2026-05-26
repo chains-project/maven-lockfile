@@ -5,8 +5,8 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,8 +40,9 @@ public class BomResolver {
      *
      * @param project The project to resolve the BOM POMs from.
      * @return A set containing all the resolved BOM POMs.
+     * @throws ProjectResolutionException if a BOM project cannot be resolved
      */
-    public Set<Pom> resolveForProject(MavenProject project) {
+    public Set<Pom> resolveForProject(MavenProject project) throws ProjectResolutionException {
         var model = project.getOriginalModel();
         var dependencyManagement = model.getDependencyManagement();
         var projectBuilder = new ProjectBuilder(session, repositories);
@@ -60,8 +61,11 @@ public class BomResolver {
                         dependency.getGroupId(), dependency.getArtifactId(), resolvedVersion);
 
                 if (bomProjectOptional.isEmpty()) {
-                    PluginLogManager.getLog().warn(String.format("Could not resolve BOM for %s", dependency));
-                    continue;
+                    throw new ProjectResolutionException(
+                            dependency.getGroupId(),
+                            dependency.getArtifactId(),
+                            resolvedVersion,
+                            "Could not build project for BOM");
                 }
 
                 var bomProject = bomProjectOptional.get();
@@ -81,21 +85,25 @@ public class BomResolver {
      * Resolve the BOM POMs for all the dependencies in a DependencyGraph.
      *
      * @param graph The dependency graph
+     * @throws ProjectResolutionException if a BOM project cannot be resolved
      */
     @SuppressWarnings("deprecation")
-    public void resolveBomsForDependencies(DependencyGraph graph) {
+    public void resolveBomsForDependencies(DependencyGraph graph) throws ProjectResolutionException {
         ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories);
         BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator);
 
-        graph.getDependencySet().forEach(node -> {
+        for (var node : graph.getDependencySet()) {
             var projectOptional = projectBuilder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
 
             if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Skipping BOM resolution for %s", node));
-                return;
+                throw new ProjectResolutionException(
+                        node.getGroupId().getValue(),
+                        node.getArtifactId().getValue(),
+                        node.getVersion().getValue(),
+                        "Could not build project for dependency BOM resolution");
             }
 
             Set<Pom> boms = bomResolver.resolveForProject(projectOptional.get());
@@ -104,7 +112,7 @@ public class BomResolver {
                 // TODO: Avoid the mutation of the graph within this function
                 node.setBoms(boms);
             }
-        });
+        }
     }
 
     private String resolveVersionFromPlaceholder(String version, MavenProject project) {
@@ -122,7 +130,7 @@ public class BomResolver {
         return version;
     }
 
-    private Pom resolveBomParents(MavenProject start) {
+    private Pom resolveBomParents(MavenProject start) throws ProjectResolutionException {
         List<MavenProject> projects = new ArrayList<>();
         Pom current = null;
 
