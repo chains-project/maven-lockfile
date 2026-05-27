@@ -19,6 +19,7 @@ class ValidateMojoTest {
     private static Config storedConfig() {
         return new Config(
                 Config.MavenPluginsInclusion.Exclude,
+                Config.MavenExtensionInclusion.Exclude,
                 Config.OnValidationFailure.Error,
                 Config.OnPomValidationFailure.Warn,
                 Config.OnEnvironmentalValidationFailure.Error,

@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -65,7 +66,9 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
             getLog().info("Lockfile written to " + lockFilePath);
         } catch (IOException e) {
-            getLog().error(e);
+            throw new MojoExecutionException("Could not write lockfile", e);
+        } catch (ProjectResolutionException e) {
+            throw new MojoExecutionException("Lockfile generation failed due to resolution error", e);
         }
     }
 
@@ -78,6 +81,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
         return new Config(
                 config.getMavenPluginsInclusion(),
+                config.getMavenExtensionInclusion(),
                 config.getOnValidationFailure(),
                 config.getOnPomValidationFailure(),
                 config.getOnEnvironmentalValidationFailure(),

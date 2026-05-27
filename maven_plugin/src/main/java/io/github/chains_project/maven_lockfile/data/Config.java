@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 public class Config {
 
     private final boolean includeMavenPlugins;
+    private final boolean includeMavenExtensions;
     private final boolean allowValidationFailure;
     private final boolean allowPomValidationFailure;
     private final boolean allowEnvironmentalValidationFailure;
@@ -17,6 +18,7 @@ public class Config {
 
     public Config(
             MavenPluginsInclusion includeMavenPlugins,
+            MavenExtensionInclusion includeMavenExtensions,
             OnValidationFailure allowValidationFailure,
             OnPomValidationFailure allowPomValidationFailure,
             OnEnvironmentalValidationFailure allowEnvironmentalValidationFailure,
@@ -26,6 +28,7 @@ public class Config {
             ChecksumModes checksumMode,
             String checksumAlgorithm) {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
+        this.includeMavenExtensions = includeMavenExtensions.equals(MavenExtensionInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
         this.allowEnvironmentalValidationFailure =
@@ -39,6 +42,7 @@ public class Config {
 
     public Config() {
         this.includeMavenPlugins = true;
+        this.includeMavenExtensions = true;
         this.allowValidationFailure = false;
         this.allowPomValidationFailure = false;
         this.allowEnvironmentalValidationFailure = false;
@@ -59,6 +63,18 @@ public class Config {
      */
     public MavenPluginsInclusion getMavenPluginsInclusion() {
         return includeMavenPlugins ? MavenPluginsInclusion.Include : MavenPluginsInclusion.Exclude;
+    }
+    /**
+     * @return the includeMavenExtensions
+     */
+    public boolean isIncludeMavenExtensions() {
+        return includeMavenExtensions;
+    }
+    /**
+     * @return the mavenExtensionInclusion enum
+     */
+    public MavenExtensionInclusion getMavenExtensionInclusion() {
+        return includeMavenExtensions ? MavenExtensionInclusion.Include : MavenExtensionInclusion.Exclude;
     }
     /**
      * @return the allowValidationFailure
@@ -142,6 +158,11 @@ public class Config {
     }
 
     public enum MavenPluginsInclusion {
+        Include,
+        Exclude
+    }
+
+    public enum MavenExtensionInclusion {
         Include,
         Exclude
     }

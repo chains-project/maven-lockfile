@@ -27,6 +27,7 @@ public class LockfileTest {
                 new Environment("os", "mv", "jv"),
                 new Config(
                         Config.MavenPluginsInclusion.Include,
+                        Config.MavenExtensionInclusion.Include,
                         Config.OnValidationFailure.Error,
                         Config.OnPomValidationFailure.Error,
                         Config.OnEnvironmentalValidationFailure.Error,

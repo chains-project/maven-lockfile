@@ -119,6 +119,8 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
+        } catch (io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException e) {
+            throw new MojoExecutionException("Lockfile validation failed due to resolution error", e);
         }
         getLog().info("Lockfile successfully validated.");
     }
