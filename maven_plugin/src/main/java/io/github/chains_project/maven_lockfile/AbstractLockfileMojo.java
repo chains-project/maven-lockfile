@@ -46,6 +46,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "includeMavenPlugins")
     protected Boolean includeMavenPlugins;
 
+    @Parameter(property = "includeMavenExtensions")
+    protected Boolean includeMavenExtensions;
+
     @Parameter(property = "allowValidationFailure")
     protected Boolean allowValidationFailure;
 
@@ -141,6 +144,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.MavenPluginsInclusion mavenPluginsInclusion = Boolean.FALSE.equals(includeMavenPlugins)
                 ? Config.MavenPluginsInclusion.Exclude
                 : Config.MavenPluginsInclusion.Include;
+        // includeMavenExtensions defaults to true when not explicitly set
+        Config.MavenExtensionInclusion mavenExtensionInclusion = Boolean.FALSE.equals(includeMavenExtensions)
+                ? Config.MavenExtensionInclusion.Exclude
+                : Config.MavenExtensionInclusion.Include;
         Config.OnValidationFailure onValidationFailure = Boolean.TRUE.equals(allowValidationFailure)
                 ? Config.OnValidationFailure.Warn
                 : Config.OnValidationFailure.Error;
@@ -160,6 +167,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
         return new Config(
                 mavenPluginsInclusion,
+                mavenExtensionInclusion,
                 onValidationFailure,
                 onPomValidationFailure,
                 onEnvironmentalValidationFailure,
@@ -191,6 +199,11 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.MavenPluginsInclusion pluginsInclusion = includeMavenPlugins != null
                 ? (includeMavenPlugins ? Config.MavenPluginsInclusion.Include : Config.MavenPluginsInclusion.Exclude)
                 : base.getMavenPluginsInclusion();
+        Config.MavenExtensionInclusion extensionsInclusion = includeMavenExtensions != null
+                ? (includeMavenExtensions
+                        ? Config.MavenExtensionInclusion.Include
+                        : Config.MavenExtensionInclusion.Exclude)
+                : base.getMavenExtensionInclusion();
         Config.OnValidationFailure onValidationFailure = allowValidationFailure != null
                 ? (allowValidationFailure ? Config.OnValidationFailure.Warn : Config.OnValidationFailure.Error)
                 : base.getOnValidationFailure();
@@ -207,6 +220,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : base.getEnvironmentInclusion();
         return new Config(
                 pluginsInclusion,
+                extensionsInclusion,
                 onValidationFailure,
                 onPomValidationFailure,
                 onEnvFailure,

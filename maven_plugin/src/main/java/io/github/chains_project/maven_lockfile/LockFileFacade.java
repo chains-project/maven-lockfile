@@ -122,12 +122,16 @@ public class LockFileFacade {
             throws ProjectResolutionException {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Set<MavenPlugin> plugins = new TreeSet<>();
+        Set<MavenExtension> extensions = new TreeSet<>();
+
         if (metadata.getConfig().isIncludeMavenPlugins()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
         }
 
-        Set<MavenExtension> extensions =
-                getAllExtensions(project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+        if (metadata.getConfig().isIncludeMavenExtensions()) {
+            extensions = getAllExtensions(
+                    project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+        }
 
         // Get all the artifacts for the dependencies in the project
         DependencyGraph dependencyGraph = createDependencyGraph(
