@@ -38,7 +38,7 @@ public class Config {
     }
 
     public Config() {
-        this.includeMavenPlugins = false;
+        this.includeMavenPlugins = true;
         this.allowValidationFailure = false;
         this.allowPomValidationFailure = false;
         this.allowEnvironmentalValidationFailure = false;

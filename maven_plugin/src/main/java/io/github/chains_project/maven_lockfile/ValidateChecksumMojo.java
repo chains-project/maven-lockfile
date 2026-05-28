@@ -40,10 +40,12 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
         try {
             getLog().info("Validating lock file ...");
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project, lockfileName));
-            Config config = lockFileFromFile.getConfig() == null ? getConfig() : lockFileFromFile.getConfig();
-            if (lockFileFromFile.getConfig() == null) {
+            Config baseConfig = lockFileFromFile.getConfig();
+            if (baseConfig == null) {
                 getLog().warn("No config was found in the lock file. Using default config.");
+                baseConfig = getConfig();
             }
+            Config config = mergeConfigWithCliArgs(baseConfig);
             Environment environment = null;
             if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();

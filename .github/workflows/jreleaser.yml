@@ -107,7 +107,7 @@ jobs:
       - name: commit changes
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
-          git commit -am "🔖 Releasing version ${{ env.NEXT_VERSION }}"
+          git commit -am "chore: release version ${{ env.NEXT_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
 
@@ -162,7 +162,7 @@ jobs:
 
       - name: Commit & Push changes
         run: |
-          git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
+          git commit -am "chore: set snapshot version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
       - name: Create Pull Request for Release

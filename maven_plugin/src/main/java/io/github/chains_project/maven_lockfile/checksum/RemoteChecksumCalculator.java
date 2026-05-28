@@ -8,8 +8,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -91,8 +93,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                 PluginLogManager.getLog().debug(String.format("Checking: %s", checksumUrl));
 
-                HttpRequest checksumRequest =
-                        HttpRequest.newBuilder().uri(URI.create(checksumUrl)).build();
+                HttpRequest checksumRequest = addAuth(HttpRequest.newBuilder().uri(URI.create(checksumUrl)), repository)
+                        .build();
                 HttpResponse<String> checksumResponse =
                         httpClient.send(checksumRequest, HttpResponse.BodyHandlers.ofString());
 
@@ -103,8 +105,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                 }
 
                 if (checksumResponse.statusCode() == 404) {
-                    HttpRequest artifactRequest = HttpRequest.newBuilder()
-                            .uri(URI.create(artifactUrl))
+                    HttpRequest artifactRequest = addAuth(
+                                    HttpRequest.newBuilder().uri(URI.create(artifactUrl)), repository)
                             .build();
                     HttpResponse<byte[]> artifactResponse =
                             httpClient.send(artifactRequest, HttpResponse.BodyHandlers.ofByteArray());
@@ -137,8 +139,9 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                                 "Falling back to HTTP to find download integrity sha1 for %s",
                                                 artifact.getId()));
                                 try {
-                                    HttpRequest artifactVerificationRequest = HttpRequest.newBuilder()
-                                            .uri(URI.create(artifactUrl + ".sha1"))
+                                    HttpRequest artifactVerificationRequest = addAuth(
+                                                    HttpRequest.newBuilder().uri(URI.create(artifactUrl + ".sha1")),
+                                                    repository)
                                             .build();
                                     HttpResponse<String> artifactVerificationResponse = httpClient.send(
                                             artifactVerificationRequest, HttpResponse.BodyHandlers.ofString());
@@ -194,11 +197,16 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                     checksumCache.put(cacheKey, checksum);
                     return Optional.of(checksum);
                 }
+                // Non-2xx, non-404: likely an authentication or server error — do not silently skip
+                PluginLogManager.getLog()
+                        .warn(String.format(
+                                "HTTP %d fetching checksum from %s — verify credentials in settings.xml for repository '%s'",
+                                checksumResponse.statusCode(), checksumUrl, repository.getId()));
             }
 
             PluginLogManager.getLog()
                     .warn(String.format(
-                            "Artifact checksum `%s.%s` not found among remote repositories.",
+                            "Artifact checksum `%s.%s` not found in any configured remote repository.",
                             artifact, checksumAlgorithm));
             checksumCache.put(cacheKey, "");
             return Optional.empty();
@@ -238,9 +246,11 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
                 PluginLogManager.getLog().debug(String.format("Checking: %s", url));
 
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(url))
-                        .method("HEAD", HttpRequest.BodyPublishers.noBody())
+                HttpRequest request = addAuth(
+                                HttpRequest.newBuilder()
+                                        .uri(URI.create(url))
+                                        .method("HEAD", HttpRequest.BodyPublishers.noBody()),
+                                repository)
                         .build();
                 HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
 
@@ -261,6 +271,34 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             resolvedCache.put(cacheKey, RepositoryInformation.Unresolved());
             return Optional.empty();
         }
+    }
+
+    /**
+     * Adds HTTP Basic authentication credentials to the request builder if the repository has
+     * authentication configured. Maven decrypts settings.xml server passwords before plugin
+     * execution, so {@code repository.getAuthentication()} already contains plaintext credentials.
+     *
+     * @throws IllegalStateException if credentials are configured but the repository URL does not
+     *     use HTTPS, to prevent credential exposure over an unencrypted connection.
+     */
+    private HttpRequest.Builder addAuth(HttpRequest.Builder builder, ArtifactRepository repository) {
+        var auth = repository.getAuthentication();
+        if (auth != null && auth.getUsername() != null && !auth.getUsername().isEmpty()) {
+            if (!repository.getUrl().toLowerCase(Locale.ROOT).startsWith("https://")) {
+                throw new IllegalStateException(
+                        "Repository '" + repository.getId() + "' has credentials configured but uses a plain HTTP URL ("
+                                + repository.getUrl()
+                                + "). Refusing to send credentials over an unencrypted connection. "
+                                + "Change the repository URL to HTTPS.");
+            }
+            String password = auth.getPassword() != null ? auth.getPassword() : "";
+            String encoded = Base64.getEncoder()
+                    .encodeToString((auth.getUsername() + ":" + password).getBytes(StandardCharsets.UTF_8));
+            PluginLogManager.getLog()
+                    .debug(String.format("Using Basic auth credentials for repository: %s", repository.getId()));
+            return builder.header("Authorization", "Basic " + encoded);
+        }
+        return builder;
     }
 
     @Override

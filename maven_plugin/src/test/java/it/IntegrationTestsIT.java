@@ -24,6 +24,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.junit.jupiter.api.Nested;
 
 @MavenJupiterExtension
 public class IntegrationTestsIT {
@@ -36,6 +37,8 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
+        assertThat(lockFile.getConfig().isIncludeMavenPlugins()).isTrue();
+        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
     }
 
     @MavenTest
@@ -79,6 +82,36 @@ public class IntegrationTestsIT {
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
         System.out.println("Running 'singleDependencyCheckMustFail' integration test.");
         assertThat(result).isFailure();
+    }
+
+    @Nested
+    class SpecialVersionDependencyResolution {
+        @MavenTest
+        void dependencyReleaseVersion(MavenExecutionResult result) throws Exception {
+            assertSpecialVersionDependencyIsResolved(result, "RELEASE");
+        }
+
+        @MavenTest
+        void dependencyLatestVersion(MavenExecutionResult result) throws Exception {
+            assertSpecialVersionDependencyIsResolved(result, "LATEST");
+        }
+
+        private void assertSpecialVersionDependencyIsResolved(MavenExecutionResult result, String specialVersion)
+                throws Exception {
+            System.out.printf("Running '%s' version resolution integration test.%n", specialVersion);
+            assertThat(result).isSuccessful();
+            Path lockFilePath = findFile(result, "lockfile.json");
+            var lockFile = LockFile.readLockFile(lockFilePath);
+            assertThat(lockFile.getDependencies()).hasSize(1);
+
+            var dependency = lockFile.getDependencies().stream()
+                    .filter(dep -> dep.getGroupId().getValue().equals("fr.inria.gforge.spoon")
+                            && dep.getArtifactId().getValue().equals("spoon-core"))
+                    .findFirst()
+                    .orElseThrow(() -> new AssertionError("Expected dependency fr.inria.gforge.spoon:spoon-core"));
+            assertThat(dependency.getVersion().getValue()).isNotEqualTo(specialVersion);
+            assertThat(dependency.getChecksum()).isNotBlank();
+        }
     }
 
     @MavenTest
@@ -617,6 +650,17 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Failed verifying environment.")).isTrue();
+    }
+
+    @MavenTest
+    public void environmentalCheckCliOverride(MavenExecutionResult result) throws Exception {
+        // contract: a CLI arg (allowEnvironmentalValidationFailure=true) overrides the stored lockfile
+        // config (allowEnvironmentalValidationFailure=false), so validation succeeds even when the
+        // environment recorded in the lockfile does not match the current environment.
+        System.out.println("Running 'environmentalCheckCliOverride' integration test.");
+        assertThat(result).isSuccessful();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout.contains("Failed verifying environment.")).isFalse();
     }
 
     @MavenTest
