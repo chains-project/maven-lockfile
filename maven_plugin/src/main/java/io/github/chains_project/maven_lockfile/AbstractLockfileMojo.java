@@ -7,15 +7,26 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.apache.maven.RepositoryUtils;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.DefaultDependencyResolutionRequest;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.DependencyResolutionException;
+import org.apache.maven.project.DependencyResolutionResult;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.project.ProjectDependenciesResolver;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 import org.eclipse.aether.RepositorySystem;
@@ -42,6 +53,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     @Component
     protected RepositorySystem repositorySystem;
+
+    @Component
+    protected ProjectDependenciesResolver projectDependenciesResolver;
 
     @Parameter(property = "includeMavenPlugins")
     protected Boolean includeMavenPlugins;
@@ -81,6 +95,41 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     protected MojoExecution mojo;
+
+    /**
+     * Populates {@code project.getArtifacts()} by resolving dependencies explicitly.
+     * Using {@code ResolutionScope.NONE} on the Mojo annotation avoids pre-resolution failures
+     * for artifacts that exist only in non-JAR packaging (e.g., AAR). However, the dependency
+     * graph builder still needs resolved artifact versions for RELEASE/LATEST specifiers, which
+     * Maven only provides after resolution. This method performs resolution manually, tolerating
+     * failures (e.g., for AAR-only artifacts that have no JAR variant) so that the rest of the
+     * lockfile generation can proceed with whatever was successfully resolved.
+     */
+    protected void tryPopulateProjectArtifacts() {
+        DefaultDependencyResolutionRequest request =
+                new DefaultDependencyResolutionRequest(project, session.getRepositorySession());
+        DependencyResolutionResult result;
+        try {
+            result = projectDependenciesResolver.resolve(request);
+        } catch (DependencyResolutionException e) {
+            result = e.getResult();
+            getLog().debug(
+                    "Some dependencies could not be resolved (e.g., non-JAR packaging); "
+                            + "continuing with partial resolution: "
+                            + e.getMessage());
+        }
+        if (result != null && result.getDependencyGraph() != null) {
+            Set<Artifact> artifacts = new LinkedHashSet<>();
+            RepositoryUtils.toArtifacts(
+                    artifacts,
+                    result.getDependencyGraph().getChildren(),
+                    Collections.singletonList(project.getArtifact().getId()),
+                    null);
+            project.setResolvedArtifacts(artifacts);
+        }
+        project.setArtifactFilter(
+                new CumulativeScopeArtifactFilter(Arrays.asList(Artifact.SCOPE_COMPILE, Artifact.SCOPE_RUNTIME)));
+    }
 
     protected Environment generateMetaInformation() {
         String osName = System.getProperty("os.name");

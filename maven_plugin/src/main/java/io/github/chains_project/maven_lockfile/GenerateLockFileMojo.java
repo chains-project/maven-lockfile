@@ -43,6 +43,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
+        tryPopulateProjectArtifacts();
         try {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))

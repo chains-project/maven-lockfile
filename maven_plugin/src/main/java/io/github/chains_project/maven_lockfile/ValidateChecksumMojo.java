@@ -37,6 +37,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
+        tryPopulateProjectArtifacts();
         try {
             getLog().info("Validating lock file ...");
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project, lockfileName));
