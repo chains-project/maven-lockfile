@@ -113,10 +113,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
             result = projectDependenciesResolver.resolve(request);
         } catch (DependencyResolutionException e) {
             result = e.getResult();
-            getLog().debug(
-                    "Some dependencies could not be resolved (e.g., non-JAR packaging); "
-                            + "continuing with partial resolution: "
-                            + e.getMessage());
+            getLog().debug("Some dependencies could not be resolved (e.g., non-JAR packaging); "
+                    + "continuing with partial resolution: "
+                    + e.getMessage());
         }
         if (result != null && result.getDependencyGraph() != null) {
             Set<Artifact> artifacts = new LinkedHashSet<>();
