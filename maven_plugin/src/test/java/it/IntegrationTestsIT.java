@@ -744,6 +744,24 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void aarDependency(MavenExecutionResult result) throws Exception {
+        // contract: a dependency that only exists as aar on Maven Central (not as jar)
+        // declared without <type>aar</type> should not cause a build failure.
+        // Previously, requiresDependencyResolution=COMPILE forced Maven to download the
+        // jar before the Mojo ran, failing with "Could not find artifact ... jar".
+        System.out.println("Running 'aarDependency' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        // The aar-only dependency should appear in the lockfile
+        assertThat(lockFile.getDependencies()).isNotEmpty();
+        assertThat(lockFile.getDependencies())
+                .anyMatch(dep -> dep.getArtifactId().getValue().equals("library")
+                        && dep.getGroupId().getValue().equals("com.lorentzos.swipecards"));
+    }
+
+    @MavenTest
     public void artifactTypeProject(MavenExecutionResult result) throws Exception {
         // contract: dependencies with non-jar types should have their type recorded in the lockfile
         assertThat(result).isSuccessful();

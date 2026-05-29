@@ -23,7 +23,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 @Mojo(
         name = "validate",
         defaultPhase = LifecyclePhase.COMPILE,
-        requiresDependencyResolution = ResolutionScope.COMPILE,
+        requiresDependencyResolution = ResolutionScope.NONE,
         requiresOnline = true)
 public class ValidateChecksumMojo extends AbstractLockfileMojo {
 
@@ -37,6 +37,7 @@ public class ValidateChecksumMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
+        tryPopulateProjectArtifacts();
         try {
             getLog().info("Validating lock file ...");
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project, lockfileName));

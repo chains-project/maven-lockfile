@@ -36,7 +36,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 @Mojo(
         name = "freeze",
         defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
-        requiresDependencyResolution = ResolutionScope.COMPILE,
+        requiresDependencyResolution = ResolutionScope.NONE,
         requiresOnline = true)
 public class FreezeDependencyMojo extends AbstractMojo {
 
