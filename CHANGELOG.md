@@ -2605,3 +2605,29 @@ We'd like to thank the following people for their contributions:
 - Timotej Kubas ()
 - fz-rh ()
 - tkubas-rh ()
+
+# 5.16.1-beta-3
+## Changelog
+
+## 🚀 Features
+- af2afc1 feat: include Maven plugins by default (#1576)
+- 180bb76 feat: resolve and pin RELEASE and LATEST (#1555)
+
+## 🐛 Fixes
+- 29d0393 fix: support three-state logic for arguments (#1587)
+- 4a374a4 fix: authenticate checksum fetching from remote (#1586)
+- feb3a97 fix: override config value in lockfile with CLI args
+
+## 🔄️ Changes
+- 535f6df style: switch jreleaser changelog preset to conventional-commits (#1571)
+
+## 🧰 Tasks
+- a2238cc chore: release version 5.16.1-beta-3
+- e1180d2 chore: update lockfile
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Juga Paazmaya ([@paazmaya](https://github.com/paazmaya))
