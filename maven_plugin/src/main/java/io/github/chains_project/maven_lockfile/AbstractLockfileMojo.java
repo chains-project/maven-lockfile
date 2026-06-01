@@ -181,18 +181,16 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.OnBomValidationFailure onBomValidationFailure = Boolean.TRUE.equals(allowBomValidationFailure)
                 ? Config.OnBomValidationFailure.Warn
                 : Config.OnBomValidationFailure.Error;
-        Config.ParentPomInclusion parentPomInclusion =
-                Boolean.FALSE.equals(includeParentPom)
-                        ? Config.ParentPomInclusion.Exclude
-                        : Config.ParentPomInclusion.Include;
+        Config.ParentPomInclusion parentPomInclusion = Boolean.FALSE.equals(includeParentPom)
+                ? Config.ParentPomInclusion.Exclude
+                : Config.ParentPomInclusion.Include;
         Config.OnParentPomValidationFailure onParentPomValidationFailure =
                 Boolean.TRUE.equals(allowParentPomValidationFailure)
                         ? Config.OnParentPomValidationFailure.Warn
                         : Config.OnParentPomValidationFailure.Error;
-        Config.MavenExtensionsInclusion mavenExtensionsInclusion =
-                Boolean.FALSE.equals(includeMavenExtensions)
-                        ? Config.MavenExtensionsInclusion.Exclude
-                        : Config.MavenExtensionsInclusion.Include;
+        Config.MavenExtensionsInclusion mavenExtensionsInclusion = Boolean.FALSE.equals(includeMavenExtensions)
+                ? Config.MavenExtensionsInclusion.Exclude
+                : Config.MavenExtensionsInclusion.Include;
         Config.OnMavenExtensionsValidationFailure onMavenExtensionsValidationFailure =
                 Boolean.TRUE.equals(allowMavenExtensionsValidationFailure)
                         ? Config.OnMavenExtensionsValidationFailure.Warn
