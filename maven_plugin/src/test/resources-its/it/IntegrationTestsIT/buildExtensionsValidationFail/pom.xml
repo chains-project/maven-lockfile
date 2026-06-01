@@ -34,7 +34,7 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
-          <includeMavenPlugins>true</includeMavenPlugins>
+          <includeMavenPlugins>false</includeMavenPlugins>
         </configuration>
       </plugin>
     </plugins>
