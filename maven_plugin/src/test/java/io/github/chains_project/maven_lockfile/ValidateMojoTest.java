@@ -26,7 +26,13 @@ class ValidateMojoTest {
                 Config.ReductionState.NonReduced,
                 "5.16.0",
                 ChecksumModes.LOCAL,
-                "SHA-256");
+                "SHA-256",
+                Config.BomsInclusion.Exclude,
+                Config.OnBomValidationFailure.Error,
+                Config.ParentPomInclusion.Exclude,
+                Config.OnParentPomValidationFailure.Error,
+                Config.MavenExtensionsInclusion.Exclude,
+                Config.OnMavenExtensionsValidationFailure.Error);
     }
 
     @Test
