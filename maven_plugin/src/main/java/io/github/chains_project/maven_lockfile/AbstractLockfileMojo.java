@@ -58,6 +58,24 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "includeEnvironment")
     protected Boolean includeEnvironment;
 
+    @Parameter(property = "includeBoms")
+    protected Boolean includeBoms;
+
+    @Parameter(property = "allowBomValidationFailure")
+    protected Boolean allowBomValidationFailure;
+
+    @Parameter(property = "includeParentPom")
+    protected Boolean includeParentPom;
+
+    @Parameter(property = "allowParentPomValidationFailure")
+    protected Boolean allowParentPomValidationFailure;
+
+    @Parameter(property = "includeMavenExtensions")
+    protected Boolean includeMavenExtensions;
+
+    @Parameter(property = "allowMavenExtensionsValidationFailure")
+    protected Boolean allowMavenExtensionsValidationFailure;
+
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
 
@@ -157,6 +175,26 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : Config.EnvironmentInclusion.Include;
         Config.ReductionState reductionState =
                 reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+        // include* flags default to true when not explicitly set
+        Config.BomsInclusion bomsInclusion =
+                Boolean.FALSE.equals(includeBoms) ? Config.BomsInclusion.Exclude : Config.BomsInclusion.Include;
+        Config.OnBomValidationFailure onBomValidationFailure = Boolean.TRUE.equals(allowBomValidationFailure)
+                ? Config.OnBomValidationFailure.Warn
+                : Config.OnBomValidationFailure.Error;
+        Config.ParentPomInclusion parentPomInclusion = Boolean.FALSE.equals(includeParentPom)
+                ? Config.ParentPomInclusion.Exclude
+                : Config.ParentPomInclusion.Include;
+        Config.OnParentPomValidationFailure onParentPomValidationFailure =
+                Boolean.TRUE.equals(allowParentPomValidationFailure)
+                        ? Config.OnParentPomValidationFailure.Warn
+                        : Config.OnParentPomValidationFailure.Error;
+        Config.MavenExtensionsInclusion mavenExtensionsInclusion = Boolean.FALSE.equals(includeMavenExtensions)
+                ? Config.MavenExtensionsInclusion.Exclude
+                : Config.MavenExtensionsInclusion.Include;
+        Config.OnMavenExtensionsValidationFailure onMavenExtensionsValidationFailure =
+                Boolean.TRUE.equals(allowMavenExtensionsValidationFailure)
+                        ? Config.OnMavenExtensionsValidationFailure.Warn
+                        : Config.OnMavenExtensionsValidationFailure.Error;
 
         return new Config(
                 mavenPluginsInclusion,
@@ -167,7 +205,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 reductionState,
                 mojo.getPlugin().getVersion(),
                 chosenChecksumMode,
-                chosenChecksumAlgorithm);
+                chosenChecksumAlgorithm,
+                bomsInclusion,
+                onBomValidationFailure,
+                parentPomInclusion,
+                onParentPomValidationFailure,
+                mavenExtensionsInclusion,
+                onMavenExtensionsValidationFailure);
     }
 
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
@@ -205,6 +249,31 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.EnvironmentInclusion environmentInclusion = includeEnvironment != null
                 ? (includeEnvironment ? Config.EnvironmentInclusion.Include : Config.EnvironmentInclusion.Exclude)
                 : base.getEnvironmentInclusion();
+        Config.BomsInclusion bomsInclusion = includeBoms != null
+                ? (includeBoms ? Config.BomsInclusion.Include : Config.BomsInclusion.Exclude)
+                : base.getBomsInclusion();
+        Config.OnBomValidationFailure onBomValidationFailure = allowBomValidationFailure != null
+                ? (allowBomValidationFailure ? Config.OnBomValidationFailure.Warn : Config.OnBomValidationFailure.Error)
+                : base.getOnBomValidationFailure();
+        Config.ParentPomInclusion parentPomInclusion = includeParentPom != null
+                ? (includeParentPom ? Config.ParentPomInclusion.Include : Config.ParentPomInclusion.Exclude)
+                : base.getParentPomInclusion();
+        Config.OnParentPomValidationFailure onParentPomValidationFailure = allowParentPomValidationFailure != null
+                ? (allowParentPomValidationFailure
+                        ? Config.OnParentPomValidationFailure.Warn
+                        : Config.OnParentPomValidationFailure.Error)
+                : base.getOnParentPomValidationFailure();
+        Config.MavenExtensionsInclusion mavenExtensionsInclusion = includeMavenExtensions != null
+                ? (includeMavenExtensions
+                        ? Config.MavenExtensionsInclusion.Include
+                        : Config.MavenExtensionsInclusion.Exclude)
+                : base.getMavenExtensionsInclusion();
+        Config.OnMavenExtensionsValidationFailure onMavenExtensionsValidationFailure =
+                allowMavenExtensionsValidationFailure != null
+                        ? (allowMavenExtensionsValidationFailure
+                                ? Config.OnMavenExtensionsValidationFailure.Warn
+                                : Config.OnMavenExtensionsValidationFailure.Error)
+                        : base.getOnMavenExtensionsValidationFailure();
         return new Config(
                 pluginsInclusion,
                 onValidationFailure,
@@ -214,6 +283,12 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 base.getReductionState(),
                 base.getMavenLockfileVersion(),
                 base.getChecksumMode(),
-                base.getChecksumAlgorithm());
+                base.getChecksumAlgorithm(),
+                bomsInclusion,
+                onBomValidationFailure,
+                parentPomInclusion,
+                onParentPomValidationFailure,
+                mavenExtensionsInclusion,
+                onMavenExtensionsValidationFailure);
     }
 }

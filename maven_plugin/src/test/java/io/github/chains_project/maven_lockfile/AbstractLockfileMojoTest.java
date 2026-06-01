@@ -7,7 +7,7 @@ import io.github.chains_project.maven_lockfile.data.Config;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.jupiter.api.Test;
 
-class ValidateMojoTest {
+class AbstractLockfileMojoTest {
 
     private static AbstractLockfileMojo mojo() {
         return new AbstractLockfileMojo() {
@@ -27,11 +27,11 @@ class ValidateMojoTest {
                 "5.16.0",
                 ChecksumModes.LOCAL,
                 "SHA-256",
-                Config.BomsInclusion.Exclude,
+                Config.BomsInclusion.Include,
                 Config.OnBomValidationFailure.Error,
-                Config.ParentPomInclusion.Exclude,
+                Config.ParentPomInclusion.Include,
                 Config.OnParentPomValidationFailure.Error,
-                Config.MavenExtensionsInclusion.Exclude,
+                Config.MavenExtensionsInclusion.Include,
                 Config.OnMavenExtensionsValidationFailure.Error);
     }
 
