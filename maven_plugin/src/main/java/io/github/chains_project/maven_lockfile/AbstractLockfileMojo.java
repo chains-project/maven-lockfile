@@ -59,10 +59,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected Boolean includeEnvironment;
 
     @Parameter(property = "includeBoms")
-    protected String includeBoms;
+    protected Boolean includeBoms;
 
     @Parameter(property = "allowBomValidationFailure")
-    protected String allowBomValidationFailure;
+    protected Boolean allowBomValidationFailure;
 
     @Parameter(property = "includeParentPom")
     protected String includeParentPom;
@@ -175,11 +175,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : Config.EnvironmentInclusion.Include;
         Config.ReductionState reductionState =
                 reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
-        // include* flags default to Include when unset — same pattern as includeEnvironment
-        Config.BomsInclusion bomsInclusion = Strings.isNullOrEmpty(includeBoms) || Boolean.parseBoolean(includeBoms)
-                ? Config.BomsInclusion.Include
-                : Config.BomsInclusion.Exclude;
-        Config.OnBomValidationFailure onBomValidationFailure = Boolean.parseBoolean(allowBomValidationFailure)
+        // include* flags default to true when not explicitly set
+        Config.BomsInclusion bomsInclusion =
+                Boolean.FALSE.equals(includeBoms) ? Config.BomsInclusion.Exclude : Config.BomsInclusion.Include;
+        Config.OnBomValidationFailure onBomValidationFailure = Boolean.TRUE.equals(allowBomValidationFailure)
                 ? Config.OnBomValidationFailure.Warn
                 : Config.OnBomValidationFailure.Error;
         Config.ParentPomInclusion parentPomInclusion =
@@ -252,14 +251,12 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.EnvironmentInclusion environmentInclusion = includeEnvironment != null
                 ? (includeEnvironment ? Config.EnvironmentInclusion.Include : Config.EnvironmentInclusion.Exclude)
                 : base.getEnvironmentInclusion();
-        Config.BomsInclusion bomsInclusion = Strings.isNullOrEmpty(includeBoms)
-                ? base.getBomsInclusion()
-                : (Boolean.parseBoolean(includeBoms) ? Config.BomsInclusion.Include : Config.BomsInclusion.Exclude);
-        Config.OnBomValidationFailure onBomValidationFailure = Strings.isNullOrEmpty(allowBomValidationFailure)
-                ? base.getOnBomValidationFailure()
-                : (Boolean.parseBoolean(allowBomValidationFailure)
-                        ? Config.OnBomValidationFailure.Warn
-                        : Config.OnBomValidationFailure.Error);
+        Config.BomsInclusion bomsInclusion = includeBoms != null
+                ? (includeBoms ? Config.BomsInclusion.Include : Config.BomsInclusion.Exclude)
+                : base.getBomsInclusion();
+        Config.OnBomValidationFailure onBomValidationFailure = allowBomValidationFailure != null
+                ? (allowBomValidationFailure ? Config.OnBomValidationFailure.Warn : Config.OnBomValidationFailure.Error)
+                : base.getOnBomValidationFailure();
         Config.ParentPomInclusion parentPomInclusion = Strings.isNullOrEmpty(includeParentPom)
                 ? base.getParentPomInclusion()
                 : (Boolean.parseBoolean(includeParentPom)
