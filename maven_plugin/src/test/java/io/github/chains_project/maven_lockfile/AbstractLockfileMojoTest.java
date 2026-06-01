@@ -38,7 +38,7 @@ class AbstractLockfileMojoTest {
     @Test
     void cliArgOverridesStoredConfig() {
         var m = mojo();
-        m.allowEnvironmentalValidationFailure = "true";
+        m.allowEnvironmentalValidationFailure = true;
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
 
