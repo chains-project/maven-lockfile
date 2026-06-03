@@ -232,7 +232,8 @@ public class LockFileFacade {
                         transitiveDeps));
             }
         } catch (DependencyResolutionException e) {
-            PluginLogManager.getLog().warn("Failed to resolve extension dependencies", e);
+            throw new ProjectResolutionException(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), e.getMessage());
         }
 
         return extensions;
@@ -258,11 +259,8 @@ public class LockFileFacade {
                                 "Extension %s:%s has no explicit version; resolved to %s",
                                 extension.getGroupId(), extension.getArtifactId(), version));
             } catch (VersionResolutionException e) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Skipping extension %s:%s: no version declared and could not resolve one",
-                                extension.getGroupId(), extension.getArtifactId()));
-                return Optional.empty();
+                throw new ProjectResolutionException(
+                        extension.getGroupId(), extension.getArtifactId(), extension.getVersion(), e.getMessage());
             }
         }
         org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
@@ -451,11 +449,11 @@ public class LockFileFacade {
             return roots;
 
         } catch (Exception e) {
-            PluginLogManager.getLog()
-                    .warn(
-                            String.format("Could not resolve dependencies for plugin %s", pluginProject.getArtifact()),
-                            e);
-            return Collections.emptySet();
+            throw new ProjectResolutionException(
+                    pluginProject.getGroupId(),
+                    pluginProject.getArtifactId(),
+                    pluginProject.getVersion(),
+                    e.getMessage());
         }
     }
 
@@ -485,8 +483,8 @@ public class LockFileFacade {
 
             return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (DependencyCollectorBuilderException e) {
-            PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
+            throw new ProjectResolutionException(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), e.getMessage());
         }
     }
 
