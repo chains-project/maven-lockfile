@@ -64,7 +64,6 @@ public class BomResolver {
                 if (bomProjectOptional.isEmpty()) {
                     PluginLogManager.getLog().error(String.format("Could not resolve BOM for %s", dependency));
                     throw new RuntimeException("Error resolving BOM pom, fail fast");
-                    // continue;
                 }
 
                 var bomProject = bomProjectOptional.get();
