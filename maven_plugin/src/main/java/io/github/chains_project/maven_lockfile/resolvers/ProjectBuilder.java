@@ -1,5 +1,6 @@
 package io.github.chains_project.maven_lockfile.resolvers;
 
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.File;
 import java.nio.file.Files;
@@ -36,22 +37,18 @@ public class ProjectBuilder {
     /**
      * Builds a MavenProject from a GAV specification.
      *
-     * @return an Optional that contains the MavenProject in case it was successfully built.
+     * @return the built MavenProject.
      */
-    public Optional<MavenProject> buildFromGav(String groupId, String artifactId, String version) {
+    public MavenProject buildFromGav(String groupId, String artifactId, String version) {
         log.debug(String.format("Resolving dependencies for%s:%s:%s", groupId, artifactId, version));
 
         var pomFileOptional = lookForPomFileInLocalRepository(groupId, artifactId, version);
-
-        if (pomFileOptional.isEmpty()) {
-            pomFileOptional = resolvePomFile(groupId, artifactId, version);
-        }
-
         if (pomFileOptional.isPresent()) {
-            return buildProjectFromPomFile(pomFileOptional.get());
+            return buildProjectFromPomFile(groupId, artifactId, version, pomFileOptional.get());
         }
 
-        return Optional.empty();
+        var pomFile = resolvePomFile(groupId, artifactId, version);
+        return buildProjectFromPomFile(groupId, artifactId, version, pomFile);
     }
 
     private Optional<File> lookForPomFileInLocalRepository(String groupId, String artifactId, String version) {
@@ -72,7 +69,7 @@ public class ProjectBuilder {
         return Optional.empty();
     }
 
-    private Optional<File> resolvePomFile(String groupId, String artifactId, String version) {
+    private File resolvePomFile(String groupId, String artifactId, String version) {
         try {
             @SuppressWarnings("deprecation")
             ArtifactFactory artifactFactory = session.getContainer().lookup(ArtifactFactory.class);
@@ -89,21 +86,21 @@ public class ProjectBuilder {
             if (result != null
                     && result.getArtifact() != null
                     && result.getArtifact().getFile() != null) {
-                return Optional.of(result.getArtifact().getFile());
+                return result.getArtifact().getFile();
             }
 
-            log.warn(String.format(
-                    "Couldn't resolve POM file for %s:%s:%s: resolver returned an empty result",
-                    groupId, artifactId, version));
+            throw new ProjectResolutionException(
+                    groupId,
+                    artifactId,
+                    version,
+                    "Couldn't resolve POM file for artifact, resolver returned an empty result");
         } catch (ComponentLookupException | ArtifactResolverException e) {
-            log.warn(String.format(
-                    "Couldn't resolve POM file for %s:%s:%s: %s", groupId, artifactId, version, e.getMessage()));
+            throw new ProjectResolutionException(groupId, artifactId, version, e.getMessage());
         }
-
-        return Optional.empty();
     }
 
-    private Optional<MavenProject> buildProjectFromPomFile(File pomFile) {
+    private MavenProject buildProjectFromPomFile(String groupId, String artifactId, String version, File pomFile)
+            throws ProjectResolutionException {
         // Build MavenProject from plugin POM
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(repositories);
@@ -119,17 +116,13 @@ public class ProjectBuilder {
             ProjectBuildingResult result = projectBuilder.build(pomFile, buildingRequest);
 
             if (result.getProject() == null) {
-                log.warn(String.format(
-                        "Problems building plugin project for %s: %s",
-                        pomFile.getAbsoluteFile(), result.getProblems()));
-                return Optional.empty();
+                throw new ProjectResolutionException(
+                        groupId, artifactId, version, result.getProblems().toString());
             }
 
-            return Optional.of(result.getProject());
+            return result.getProject();
         } catch (ComponentLookupException | ProjectBuildingException e) {
-            log.warn(String.format("Couldn't build project for %s: %s", pomFile.getAbsoluteFile(), e.getMessage()));
+            throw new ProjectResolutionException(groupId, artifactId, version, e.getMessage());
         }
-
-        return Optional.empty();
     }
 }

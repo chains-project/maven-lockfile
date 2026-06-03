@@ -5,6 +5,7 @@ import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
@@ -207,13 +208,13 @@ public class LockFileFacade {
 
                 RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
 
-                Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGav(
+                MavenProject extensionProject = extensionProjectBuilder.buildFromGav(
                         artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
 
                 // Resolve extension's transitive dependencies using the existing mechanism
                 Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
                         resolveComponentDependencies(
-                                extensionProjectOptional.get(),
+                                extensionProject,
                                 session,
                                 project.getPluginArtifactRepositories(),
                                 dependencyCollectorBuilder,
@@ -279,19 +280,10 @@ public class LockFileFacade {
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-            var projectOptional = builder.buildFromGav(
+            var mavenProject = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
-
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Could not build project for dependency %s. Skipping parent and BOM resolution.",
-                                node));
-                return;
-            }
-            var mavenProject = projectOptional.get();
 
             if (mavenProject.hasParent()) {
                 PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
@@ -335,14 +327,8 @@ public class LockFileFacade {
             String pluginKey = pluginArtifact.getGroupId() + ":" + pluginArtifact.getArtifactId();
             List<Dependency> userDeclaredDeps = userPluginDependencies.getOrDefault(pluginKey, Collections.emptyList());
 
-            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGav(
+            MavenProject pluginProject = projectBuilder.buildFromGav(
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
-
-            if (pluginProjectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Could not build project for plugin %s", pluginArtifact));
-                continue;
-            }
-            MavenProject pluginProject = pluginProjectOptional.get();
 
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
                     resolveComponentDependencies(

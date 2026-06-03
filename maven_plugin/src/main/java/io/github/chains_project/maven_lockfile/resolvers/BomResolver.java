@@ -6,7 +6,6 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,15 +57,8 @@ public class BomResolver {
                 var resolvedVersion = interpolateProperty(dependency.getVersion(), project);
                 var resolvedGroupId = interpolateProperty(dependency.getGroupId(), project);
                 var resolvedArtifactId = interpolateProperty(dependency.getArtifactId(), project);
-                var bomProjectOptional =
-                        projectBuilder.buildFromGav(resolvedGroupId, resolvedArtifactId, resolvedVersion);
+                var bomProject = projectBuilder.buildFromGav(resolvedGroupId, resolvedArtifactId, resolvedVersion);
 
-                if (bomProjectOptional.isEmpty()) {
-                    PluginLogManager.getLog().error(String.format("Could not resolve BOM for %s", dependency));
-                    throw new RuntimeException("Error resolving BOM pom, fail fast");
-                }
-
-                var bomProject = bomProjectOptional.get();
                 var bomBoms = resolveForProject(bomProject);
                 var bomTree = resolveBomParents(bomProject);
                 if (!bomBoms.isEmpty() && bomTree != null) {
@@ -90,17 +82,12 @@ public class BomResolver {
         BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-            var projectOptional = projectBuilder.buildFromGav(
+            var project = projectBuilder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
 
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Skipping BOM resolution for %s", node));
-                return;
-            }
-
-            Set<Pom> boms = bomResolver.resolveForProject(projectOptional.get());
+            Set<Pom> boms = bomResolver.resolveForProject(project);
 
             if (!boms.isEmpty()) {
                 // TODO: Avoid the mutation of the graph within this function
