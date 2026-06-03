@@ -110,7 +110,9 @@ public class BomResolver {
         });
     }
 
-    /** limitatinon - does not work when there are multiple placeholders in the text **/
+    /** Limitation
+     *  This does not work when there are multiple placeholders in the text like ${main.version.number}${minor.version.number}
+     *  I am not aware of any project which could use it like that.*/
     private String interpolateProperty(String textOrPlaceholder, MavenProject project) {
         if (textOrPlaceholder != null && textOrPlaceholder.startsWith("${") && textOrPlaceholder.endsWith("}")) {
             String propertyName = textOrPlaceholder.substring(2, textOrPlaceholder.length() - 1);
