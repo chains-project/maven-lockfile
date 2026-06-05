@@ -70,8 +70,7 @@ public class RemoteChecksumCalculatorTest {
         testRepo.setLayout(new DefaultRepositoryLayout());
         buildingRequest.setRemoteRepositories(List.of(testRepo));
 
-        RemoteChecksumCalculator calculator =
-                new RemoteChecksumCalculator("SHA-256", buildingRequest, buildingRequest);
+        RemoteChecksumCalculator calculator = new RemoteChecksumCalculator("SHA-256", buildingRequest, buildingRequest);
 
         // Act
         RepositoryInformation result = calculator.getArtifactResolvedField(artifact);
