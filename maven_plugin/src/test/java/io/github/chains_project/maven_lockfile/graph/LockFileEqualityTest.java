@@ -116,10 +116,17 @@ class LockFileEqualityTest {
     }
 
     @Test
-    void coreEqual_falseWhenPluginChecksumDiffers() {
+    void coreEqual_ignoresPluginChecksumDiffers() {
         var a = lockFile(Set.of(), Set.of(plugin("p", "pc1")), Set.of());
         var b = lockFile(Set.of(), Set.of(plugin("p", "DIFFERENT")), Set.of());
-        assertThat(LockFileEquality.coreEqual(a, b)).isFalse();
+        assertThat(LockFileEquality.coreEqual(a, b)).isTrue();
+    }
+
+    @Test
+    void mavenPluginsEqual_falseWhenPluginChecksumDiffers() {
+        var a = lockFile(Set.of(), Set.of(plugin("p", "pc1")), Set.of());
+        var b = lockFile(Set.of(), Set.of(plugin("p", "DIFFERENT")), Set.of());
+        assertThat(LockFileEquality.mavenPluginsEqual(a, b)).isFalse();
     }
 
     @Test

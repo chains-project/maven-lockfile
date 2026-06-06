@@ -21,6 +21,7 @@ class ValidateMojoTest {
                 Config.MavenPluginsInclusion.Exclude,
                 Config.OnValidationFailure.Error,
                 Config.OnPomValidationFailure.Warn,
+                Config.OnMavenPluginValidationFailure.Error,
                 Config.OnEnvironmentalValidationFailure.Error,
                 Config.EnvironmentInclusion.Include,
                 Config.ReductionState.NonReduced,
@@ -50,6 +51,17 @@ class ValidateMojoTest {
     }
 
     @Test
+    void cliArgOverridesStoredMavenPluginValidationConfig() {
+        var m = mojo();
+        m.allowMavenPluginValidationFailure = true;
+
+        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+
+        assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Warn);
+        assertThat(merged.getOnValidationFailure()).isEqualTo(Config.OnValidationFailure.Error);
+    }
+
+    @Test
     void storedConfigUsedWhenCliArgNotSet() {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
@@ -57,5 +69,6 @@ class ValidateMojoTest {
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
+        assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
     }
 }
