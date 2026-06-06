@@ -118,13 +118,17 @@ public class LockFileFacade {
             MetaData metadata,
             RepositorySystem repositorySystem) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
+        Config config = metadata.getConfig();
         Set<MavenPlugin> plugins = new TreeSet<>();
-        if (metadata.getConfig().isIncludeMavenPlugins()) {
-            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
+        if (config.isIncludeMavenPlugins()) {
+            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, config);
         }
 
-        Set<MavenExtension> extensions =
-                getAllExtensions(project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+        Set<MavenExtension> extensions = new TreeSet<>();
+        if (config.isIncludeMavenExtensions()) {
+            extensions = getAllExtensions(
+                    project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem, config);
+        }
 
         // Get all the artifacts for the dependencies in the project
         DependencyGraph dependencyGraph = createDependencyGraph(
@@ -134,13 +138,15 @@ public class LockFileFacade {
                 dependencyCollectorBuilder,
                 checksumCalculator,
                 null,
-                metadata.getConfig().isReduced());
+                config.isReduced());
 
         var roots = dependencyGraph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
-        var boms = resolveBoms(session, project, checksumCalculator);
+        if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+            resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
+        }
+        Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -159,7 +165,8 @@ public class LockFileFacade {
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            RepositorySystem repositorySystem) {
+            RepositorySystem repositorySystem,
+            Config config) {
         Set<MavenExtension> extensions = new TreeSet<>();
 
         List<Extension> buildExtensions = project.getBuildExtensions();
@@ -218,7 +225,8 @@ public class LockFileFacade {
                                 project.getPluginArtifactRepositories(),
                                 dependencyCollectorBuilder,
                                 checksumCalculator,
-                                Collections.emptyList());
+                                Collections.emptyList(),
+                                config);
 
                 extensions.add(new MavenExtension(
                         GroupId.of(artifact.getGroupId()),
@@ -313,7 +321,8 @@ public class LockFileFacade {
             MavenProject project,
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            Config config) {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
         // Build a map of user-declared plugin dependencies
@@ -351,7 +360,8 @@ public class LockFileFacade {
                             project.getPluginArtifactRepositories(),
                             dependencyCollectorBuilder,
                             checksumCalculator,
-                            userDeclaredDeps);
+                            userDeclaredDeps,
+                            config);
 
             Pom parent = resolvePluginParents(pluginProject, session, checksumCalculator);
 
@@ -394,7 +404,8 @@ public class LockFileFacade {
             List<ArtifactRepository> repositories,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            List<Dependency> userDeclaredDeps) {
+            List<Dependency> userDeclaredDeps,
+            Config config) {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginProject.getArtifact()));
         try {
@@ -455,7 +466,9 @@ public class LockFileFacade {
                     filter,
                     false);
 
-            resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
+            if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+                resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
+            }
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
