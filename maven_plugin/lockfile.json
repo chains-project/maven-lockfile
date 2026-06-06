@@ -56509,14 +56509,14 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.17.0",
+      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
-      "includeBoms": false,
+      "includeBoms": true,
       "allowBomValidationFailure": false,
-      "includeParentPom": false,
+      "includeParentPom": true,
       "allowParentPomValidationFailure": false,
-      "includeMavenExtensions": false,
+      "includeMavenExtensions": true,
       "allowMavenExtensionsValidationFailure": false
     }
   },
