@@ -90,8 +90,8 @@ class LockFileEqualityTest {
     }
 
     // -------------------------------------------------------------------------
-    // coreEqual — GAV, dependency coordinates + checksums, plugin coordinates + checksums
-    // Ignores: per-node BOMs, per-node parentPom, top-level BOMs, extensions
+    // coreEqual — GAV and dependency coordinates + checksums
+    // Ignores: plugins, per-node BOMs, per-node parentPom, top-level BOMs, extensions
     // -------------------------------------------------------------------------
 
     @Test
