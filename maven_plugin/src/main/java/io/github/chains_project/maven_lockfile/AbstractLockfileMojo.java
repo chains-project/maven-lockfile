@@ -52,6 +52,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowPomValidationFailure")
     protected Boolean allowPomValidationFailure;
 
+    @Parameter(property = "allowMavenPluginValidationFailure")
+    protected Boolean allowMavenPluginValidationFailure;
+
     @Parameter(property = "allowEnvironmentalValidationFailure")
     protected Boolean allowEnvironmentalValidationFailure;
 
@@ -165,6 +168,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.OnPomValidationFailure onPomValidationFailure = Boolean.TRUE.equals(allowPomValidationFailure)
                 ? Config.OnPomValidationFailure.Warn
                 : Config.OnPomValidationFailure.Error;
+        Config.OnMavenPluginValidationFailure onMavenPluginValidationFailure =
+                Boolean.TRUE.equals(allowMavenPluginValidationFailure)
+                        ? Config.OnMavenPluginValidationFailure.Warn
+                        : Config.OnMavenPluginValidationFailure.Error;
         Config.OnEnvironmentalValidationFailure onEnvironmentalValidationFailure =
                 Boolean.TRUE.equals(allowEnvironmentalValidationFailure)
                         ? Config.OnEnvironmentalValidationFailure.Warn
@@ -200,6 +207,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 mavenPluginsInclusion,
                 onValidationFailure,
                 onPomValidationFailure,
+                onMavenPluginValidationFailure,
                 onEnvironmentalValidationFailure,
                 environmentInclusion,
                 reductionState,
@@ -241,6 +249,11 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.OnPomValidationFailure onPomValidationFailure = allowPomValidationFailure != null
                 ? (allowPomValidationFailure ? Config.OnPomValidationFailure.Warn : Config.OnPomValidationFailure.Error)
                 : base.getOnPomValidationFailure();
+        Config.OnMavenPluginValidationFailure onMavenPluginValidationFailure = allowMavenPluginValidationFailure != null
+                ? (allowMavenPluginValidationFailure
+                        ? Config.OnMavenPluginValidationFailure.Warn
+                        : Config.OnMavenPluginValidationFailure.Error)
+                : base.getOnMavenPluginValidationFailure();
         Config.OnEnvironmentalValidationFailure onEnvFailure = allowEnvironmentalValidationFailure != null
                 ? (allowEnvironmentalValidationFailure
                         ? Config.OnEnvironmentalValidationFailure.Warn
@@ -278,6 +291,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 pluginsInclusion,
                 onValidationFailure,
                 onPomValidationFailure,
+                onMavenPluginValidationFailure,
                 onEnvFailure,
                 environmentInclusion,
                 base.getReductionState(),

@@ -15,7 +15,8 @@ import java.util.Set;
  *
  * <p>Each method covers one independently-testable concern:
  * <ul>
- *   <li>{@link #coreEqual}: GAV, dependency nodes, and plugins — the minimum required for a valid lockfile.
+ *   <li>{@link #coreEqual}: GAV and dependency nodes — the minimum required for a valid lockfile.
+ *   <li>{@link #mavenPluginsEqual}: plugin coordinates, checksums, resolved metadata, and dependencies.
  *   <li>{@link #bomsEqualForAll}: top-level BOMs and per-node BOMs across all dependencies and plugins.
  *   <li>{@link #parentPomsEqualForAll}: parentPom on every dependency node and plugin.
  * </ul>
@@ -31,8 +32,11 @@ public final class LockFileEquality {
         return Objects.equals(a.getName(), b.getName())
                 && Objects.equals(a.getGroupId(), b.getGroupId())
                 && Objects.equals(a.getVersion(), b.getVersion())
-                && dependencySetsEqual(a.getDependencies(), b.getDependencies())
-                && pluginSetsEqual(a.getMavenPlugins(), b.getMavenPlugins());
+                && dependencySetsEqual(a.getDependencies(), b.getDependencies());
+    }
+
+    public static boolean mavenPluginsEqual(LockFile a, LockFile b) {
+        return pluginSetsEqual(a.getMavenPlugins(), b.getMavenPlugins());
     }
 
     private static boolean dependencySetsEqual(Set<DependencyNode> a, Set<DependencyNode> b) {

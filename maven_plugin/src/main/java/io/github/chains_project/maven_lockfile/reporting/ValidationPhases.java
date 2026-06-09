@@ -21,6 +21,7 @@ public final class ValidationPhases {
                 new EnvironmentPhase(),
                 new PomPhase(),
                 new CorePhase(),
+                new MavenPluginsPhase(),
                 new BomsPhase(),
                 new ParentPomPhase(),
                 new ExtensionsPhase());
@@ -101,7 +102,30 @@ public final class ValidationPhases {
                     + "Missing dependencies in lock file:\n "
                     + JsonUtils.toJson(diff.getMissingDependenciesInFile()) + "\n"
                     + "Missing dependencies in project:\n "
-                    + JsonUtils.toJson(diff.getMissingDependenciesInProject()) + "\n"
+                    + JsonUtils.toJson(diff.getMissingDependenciesInProject()) + "\n";
+            return Optional.of(msg);
+        }
+
+        @Override
+        public boolean isWarn(Config config) {
+            return config.getOnValidationFailure() == Config.OnValidationFailure.Warn;
+        }
+    }
+
+    private static final class MavenPluginsPhase implements ValidationPhase {
+
+        @Override
+        public boolean isEnabled(Config config) {
+            return config.isIncludeMavenPlugins();
+        }
+
+        @Override
+        public Optional<String> validate(LockFile fromFile, LockFile fromProject, Config config) {
+            if (LockFileEquality.mavenPluginsEqual(fromFile, fromProject)) {
+                return Optional.empty();
+            }
+            var diff = LockFileDifference.diff(fromFile, fromProject);
+            String msg = "Maven plugin validation failed. Differences:\n"
                     + "Missing plugins in lockfile:\n "
                     + JsonUtils.toJson(diff.getMissingPluginsInFile()) + "\n"
                     + "Missing plugins in project:\n "
@@ -111,7 +135,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnValidationFailure() == Config.OnValidationFailure.Warn;
+            return config.getOnMavenPluginValidationFailure() == Config.OnMavenPluginValidationFailure.Warn;
         }
     }
 

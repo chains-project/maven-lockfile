@@ -8,6 +8,7 @@ public class Config {
     private final boolean includeMavenPlugins;
     private final boolean allowValidationFailure;
     private final boolean allowPomValidationFailure;
+    private final boolean allowMavenPluginValidationFailure;
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
@@ -25,6 +26,7 @@ public class Config {
             MavenPluginsInclusion includeMavenPlugins,
             OnValidationFailure allowValidationFailure,
             OnPomValidationFailure allowPomValidationFailure,
+            OnMavenPluginValidationFailure allowMavenPluginValidationFailure,
             OnEnvironmentalValidationFailure allowEnvironmentalValidationFailure,
             EnvironmentInclusion includeEnvironment,
             ReductionState reduced,
@@ -40,6 +42,8 @@ public class Config {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
+        this.allowMavenPluginValidationFailure =
+                allowMavenPluginValidationFailure.equals(OnMavenPluginValidationFailure.Warn);
         this.allowEnvironmentalValidationFailure =
                 allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
         this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
@@ -61,6 +65,7 @@ public class Config {
         this.includeMavenPlugins = true;
         this.allowValidationFailure = false;
         this.allowPomValidationFailure = false;
+        this.allowMavenPluginValidationFailure = false;
         this.allowEnvironmentalValidationFailure = false;
         this.includeEnvironment = true;
         this.reduced = false;
@@ -110,6 +115,17 @@ public class Config {
     public OnPomValidationFailure getOnPomValidationFailure() {
         return allowPomValidationFailure ? OnPomValidationFailure.Warn : OnPomValidationFailure.Error;
     }
+
+    public boolean isAllowMavenPluginValidationFailure() {
+        return allowMavenPluginValidationFailure;
+    }
+
+    public OnMavenPluginValidationFailure getOnMavenPluginValidationFailure() {
+        return allowMavenPluginValidationFailure
+                ? OnMavenPluginValidationFailure.Warn
+                : OnMavenPluginValidationFailure.Error;
+    }
+
     /**
      * @return the allowEnvironmentalValidationFailure
      */
@@ -228,6 +244,11 @@ public class Config {
     }
 
     public enum OnPomValidationFailure {
+        Warn,
+        Error
+    }
+
+    public enum OnMavenPluginValidationFailure {
         Warn,
         Error
     }
