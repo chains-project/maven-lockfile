@@ -2647,3 +2647,25 @@ We'd like to thank the following people for their contributions:
 - Phung ()
 - Tim Whittington ()
 - nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
+
+# 5.17.1-beta-1
+## Changelog
+
+## 🚀 Features
+- dfa82e8 feat: add Maven plugin validation failure flag (#1595)
+
+## 🐛 Fixes
+- 2db2301 fix: handle no prior beta versions in beta release workflow (#1602)
+- 8e6d7ab fix: guard generation of parentPom, mavenExtensions, and boms (#1596)
+
+## 🧰 Tasks
+- b731f89 chore: release version 5.17.1-beta-1
+- f704951 chore: use GITHUB_TOKEN instead of PAT (#1601)
+- cfe6f21 chore: set snapshot version 5.17.1-SNAPSHOT
+- e61d543 chore: release version 5.17.0
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- LeiXiaoGao ()
