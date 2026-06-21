@@ -1,21 +1,21 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.17.1-SNAPSHOT",
+  "version": "5.17.1-beta-2",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile",
-    "version": "5.17.1-SNAPSHOT",
+    "version": "5.17.1-beta-2",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "424ab20f9fe7a96b59761889cebf8016dc0717d4b1dfad65dae8ef852d4f7a8d",
+    "checksum": "844a8c821b51d053c0eb0304035b2ae84755498a184a48b572cd3975a8c72401",
     "parent": {
       "groupId": "io.github.chains-project",
       "artifactId": "maven-lockfile-parent",
-      "version": "5.17.1-SNAPSHOT",
+      "version": "5.17.1-beta-2",
       "relativePath": "../pom.xml",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f76d332ec40162fd845f8ec44359971c5748d4affea5975e79e572bb5a313bd4"
+      "checksum": "79c5dc86122959976ded46cbd14c67a2d0334bfbc9c19295604e3882f4d6dffc"
     }
   },
   "lockFileVersion": 1,
@@ -56506,10 +56506,11 @@
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.17.1-beta-2",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
