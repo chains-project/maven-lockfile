@@ -6,7 +6,6 @@ import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
-import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,16 +54,11 @@ public class BomResolver {
         for (Dependency dependency : dependencyManagement.getDependencies()) {
             // A BOM POM always has type=pom and scope=import
             if ("pom".equals(dependency.getType()) && "import".equals(dependency.getScope())) {
-                var resolvedVersion = resolveVersionFromPlaceholder(dependency.getVersion(), project);
-                var bomProjectOptional = projectBuilder.buildFromGav(
-                        dependency.getGroupId(), dependency.getArtifactId(), resolvedVersion);
+                var resolvedVersion = interpolateProperty(dependency.getVersion(), project);
+                var resolvedGroupId = interpolateProperty(dependency.getGroupId(), project);
+                var resolvedArtifactId = interpolateProperty(dependency.getArtifactId(), project);
+                var bomProject = projectBuilder.buildFromGav(resolvedGroupId, resolvedArtifactId, resolvedVersion);
 
-                if (bomProjectOptional.isEmpty()) {
-                    PluginLogManager.getLog().warn(String.format("Could not resolve BOM for %s", dependency));
-                    continue;
-                }
-
-                var bomProject = bomProjectOptional.get();
                 var bomBoms = resolveForProject(bomProject);
                 var bomTree = resolveBomParents(bomProject);
                 if (!bomBoms.isEmpty() && bomTree != null) {
@@ -88,17 +82,12 @@ public class BomResolver {
         BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-            var projectOptional = projectBuilder.buildFromGav(
+            var project = projectBuilder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
 
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Skipping BOM resolution for %s", node));
-                return;
-            }
-
-            Set<Pom> boms = bomResolver.resolveForProject(projectOptional.get());
+            Set<Pom> boms = bomResolver.resolveForProject(project);
 
             if (!boms.isEmpty()) {
                 // TODO: Avoid the mutation of the graph within this function
@@ -107,19 +96,27 @@ public class BomResolver {
         });
     }
 
-    private String resolveVersionFromPlaceholder(String version, MavenProject project) {
-        if (version != null && version.startsWith("${") && version.endsWith("}")) {
-            String propertyName = version.substring(2, version.length() - 1);
+    /** Limitation
+     *  This does not work when there are multiple placeholders in the text like ${main.version.number}${minor.version.number}
+     *  I am not aware of any project which could use it like that.*/
+    private String interpolateProperty(String textOrPlaceholder, MavenProject project) {
+        if (textOrPlaceholder != null && textOrPlaceholder.startsWith("${") && textOrPlaceholder.endsWith("}")) {
+            String propertyName = textOrPlaceholder.substring(2, textOrPlaceholder.length() - 1);
 
             // Check project properties (interpolated model has all properties resolved)
-            var resolvedVersion = project.getModel().getProperties().getProperty(propertyName);
+            var propertyValue = project.getModel().getProperties().getProperty(propertyName);
 
-            if (resolvedVersion != null) {
-                return resolvedVersion;
+            if (propertyValue != null) {
+                return propertyValue;
+            }
+            if ("project.version".equals(propertyName)) {
+                return project.getVersion();
+            } else if ("project.groupId".equals(propertyName)) {
+                return project.getGroupId();
             }
         }
 
-        return version;
+        return textOrPlaceholder;
     }
 
     private Pom resolveBomParents(MavenProject start) {
