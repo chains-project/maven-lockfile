@@ -78,6 +78,10 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
         return dependencies;
     }
 
+    public Pom getParentPom() {
+        return parentPom;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(

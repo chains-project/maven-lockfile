@@ -18,7 +18,7 @@ inputs:
   include-maven-plugins:
     description: 'Include Maven plugins in the lockfile'
     required: false
-    default: false
+    default: true
   lockfile-name:
     description: 'Name of the lockfile (default="lockfile.json")'
     required: false
@@ -96,12 +96,10 @@ runs:
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
         
         # Convert to Maven plugin args
-        PLUGIN_VERSION="5.16.0"
+        PLUGIN_VERSION="5.17.0"
         MAVEN_ARGS=""
         
-        if [ "$INCLUDE_MAVEN_PLUGINS" == "true" ]; then
-          MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=true"
-        fi
+        MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
         
         if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -DlockfileName=$LOCKFILE_NAME"

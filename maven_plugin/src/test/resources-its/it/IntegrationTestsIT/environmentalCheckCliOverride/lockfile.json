@@ -1,0 +1,35 @@
+{
+  "artifactId": "environmental-check-cli-override",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "pom": {
+    "groupId": "com.mycompany.app",
+    "artifactId": "environmental-check-cli-override",
+    "version": "1",
+    "relativePath": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "lockFileVersion": 1,
+  "dependencies": [],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "TamperedOS",
+      "mavenVersion": "0.0.0",
+      "javaVersion": "0.0.0"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
+      "allowEnvironmentalValidationFailure": false,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.16.0",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  },
+  "boms": []
+}

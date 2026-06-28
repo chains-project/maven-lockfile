@@ -107,7 +107,7 @@ jobs:
       - name: commit changes
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
-          git commit -am "🔖 Releasing version ${{ env.NEXT_VERSION }}"
+          git commit -am "chore: release version ${{ env.NEXT_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
 
@@ -128,7 +128,7 @@ jobs:
           arguments: full-release 
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
           JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
@@ -162,7 +162,7 @@ jobs:
 
       - name: Commit & Push changes
         run: |
-          git commit -am "🔖 Setting SNAPSHOT version ${{ env.NEXT_RELEASE_VERSION }}"
+          git commit -am "chore: set snapshot version ${{ env.NEXT_RELEASE_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
       - name: Create Pull Request for Release

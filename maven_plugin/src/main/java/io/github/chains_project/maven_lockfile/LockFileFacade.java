@@ -47,18 +47,34 @@ public class LockFileFacade {
      */
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<DependencyNode> graph;
+        private final MavenProject project;
 
         /**
          * Create a new instance of the visitor.
          *
          * @param graph The graph to add the edges to.
+         * @param project The project to resolve the dependencies for.
+         *                This is useful to resolve `RELEASE` and `LATEST` versions, which are not resolved
+         *                by dependency collector.
          */
-        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph) {
+        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph, MavenProject project) {
             this.graph = graph;
+            this.project = project;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
+            String version = node.getArtifact().getVersion();
+            if (isSpecialVersion(version)) {
+                project.getArtifacts().stream()
+                        .filter(a -> a.getDependencyConflictId()
+                                .equals(node.getArtifact().getDependencyConflictId()))
+                        .findFirst()
+                        .ifPresent(resolved -> {
+                            node.getArtifact().setVersion(resolved.getVersion());
+                            node.getArtifact().setFile(resolved.getFile());
+                        });
+            }
             node.getChildren().forEach(v -> graph.putEdge(node, v));
             return true;
         }
@@ -102,13 +118,17 @@ public class LockFileFacade {
             MetaData metadata,
             RepositorySystem repositorySystem) {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
+        Config config = metadata.getConfig();
         Set<MavenPlugin> plugins = new TreeSet<>();
-        if (metadata.getConfig().isIncludeMavenPlugins()) {
-            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator);
+        if (config.isIncludeMavenPlugins()) {
+            plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, config);
         }
 
-        Set<MavenExtension> extensions =
-                getAllExtensions(project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem);
+        Set<MavenExtension> extensions = new TreeSet<>();
+        if (config.isIncludeMavenExtensions()) {
+            extensions = getAllExtensions(
+                    project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem, config);
+        }
 
         // Get all the artifacts for the dependencies in the project
         DependencyGraph dependencyGraph = createDependencyGraph(
@@ -118,13 +138,15 @@ public class LockFileFacade {
                 dependencyCollectorBuilder,
                 checksumCalculator,
                 null,
-                metadata.getConfig().isReduced());
+                config.isReduced());
 
         var roots = dependencyGraph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
-        var boms = resolveBoms(session, project, checksumCalculator);
+        if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+            resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
+        }
+        Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -143,7 +165,8 @@ public class LockFileFacade {
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            RepositorySystem repositorySystem) {
+            RepositorySystem repositorySystem,
+            Config config) {
         Set<MavenExtension> extensions = new TreeSet<>();
 
         List<Extension> buildExtensions = project.getBuildExtensions();
@@ -202,7 +225,8 @@ public class LockFileFacade {
                                 project.getPluginArtifactRepositories(),
                                 dependencyCollectorBuilder,
                                 checksumCalculator,
-                                Collections.emptyList());
+                                Collections.emptyList(),
+                                config);
 
                 extensions.add(new MavenExtension(
                         GroupId.of(artifact.getGroupId()),
@@ -227,11 +251,12 @@ public class LockFileFacade {
             RepositorySystemSession repoSession,
             List<RemoteRepository> repositories) {
         String version = extension.getVersion();
-        if (version == null || version.isBlank()) {
+        if (version == null || version.isBlank() || isSpecialVersion(version)) {
+            String requestedVersion = (version == null || version.isBlank()) ? "RELEASE" : version;
             try {
                 VersionRequest request = new VersionRequest(
                         new org.eclipse.aether.artifact.DefaultArtifact(
-                                extension.getGroupId(), extension.getArtifactId(), "jar", "RELEASE"),
+                                extension.getGroupId(), extension.getArtifactId(), "jar", requestedVersion),
                         repositories,
                         null);
                 version = repositorySystem.resolveVersion(repoSession, request).getVersion();
@@ -296,7 +321,8 @@ public class LockFileFacade {
             MavenProject project,
             MavenSession session,
             DependencyCollectorBuilder dependencyCollectorBuilder,
-            AbstractChecksumCalculator checksumCalculator) {
+            AbstractChecksumCalculator checksumCalculator,
+            Config config) {
         Set<MavenPlugin> plugins = new TreeSet<>();
 
         // Build a map of user-declared plugin dependencies
@@ -334,7 +360,8 @@ public class LockFileFacade {
                             project.getPluginArtifactRepositories(),
                             dependencyCollectorBuilder,
                             checksumCalculator,
-                            userDeclaredDeps);
+                            userDeclaredDeps,
+                            config);
 
             Pom parent = resolvePluginParents(pluginProject, session, checksumCalculator);
 
@@ -377,7 +404,8 @@ public class LockFileFacade {
             List<ArtifactRepository> repositories,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
-            List<Dependency> userDeclaredDeps) {
+            List<Dependency> userDeclaredDeps,
+            Config config) {
         PluginLogManager.getLog()
                 .debug(String.format("Attempting to resolve dependencies for plugin %s", pluginProject.getArtifact()));
         try {
@@ -438,7 +466,9 @@ public class LockFileFacade {
                     filter,
                     false);
 
-            resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
+            if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+                resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
+            }
 
             // Get root dependency nodes (excluding the plugin project itself)
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots = dependencyGraph.getRoots();
@@ -473,7 +503,7 @@ public class LockFileFacade {
             DependencyNode rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(graph));
+            rootNode.accept(new GraphBuildingNodeVisitor(graph, project));
 
             PluginLogManager.getLog()
                     .info(String.format(
@@ -593,5 +623,9 @@ public class LockFileFacade {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
         return bomResolver.resolveForProject(rootProject);
+    }
+
+    private static boolean isSpecialVersion(String version) {
+        return "RELEASE".equals(version) || "LATEST".equals(version);
     }
 }

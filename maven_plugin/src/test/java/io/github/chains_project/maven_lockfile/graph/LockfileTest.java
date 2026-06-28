@@ -29,12 +29,19 @@ public class LockfileTest {
                         Config.MavenPluginsInclusion.Include,
                         Config.OnValidationFailure.Error,
                         Config.OnPomValidationFailure.Error,
+                        Config.OnMavenPluginValidationFailure.Error,
                         Config.OnEnvironmentalValidationFailure.Error,
                         Config.EnvironmentInclusion.Include,
                         Config.ReductionState.NonReduced,
                         "1",
                         ChecksumModes.LOCAL,
-                        "SHA-1"));
+                        "SHA-1",
+                        Config.BomsInclusion.Include,
+                        Config.OnBomValidationFailure.Error,
+                        Config.ParentPomInclusion.Include,
+                        Config.OnParentPomValidationFailure.Error,
+                        Config.MavenExtensionsInclusion.Include,
+                        Config.OnMavenExtensionsValidationFailure.Error));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");

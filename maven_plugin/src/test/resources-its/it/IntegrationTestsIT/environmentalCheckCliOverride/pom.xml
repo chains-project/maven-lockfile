@@ -1,8 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.mycompany.app</groupId>
-  <artifactId>build-extensions-validation-fail</artifactId>
+  <artifactId>environmental-check-cli-override</artifactId>
   <packaging>jar</packaging>
   <version>1</version>
   <properties>
@@ -13,13 +12,6 @@
   <dependencies>
   </dependencies>
   <build>
-    <extensions>
-      <extension>
-        <groupId>kr.motd.maven</groupId>
-        <artifactId>os-maven-plugin</artifactId>
-        <version>1.7.1</version>
-      </extension>
-    </extensions>
     <plugins>
       <plugin>
         <groupId>io.github.chains-project</groupId>
@@ -34,6 +26,7 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
+          <allowEnvironmentalValidationFailure>true</allowEnvironmentalValidationFailure>
         </configuration>
       </plugin>
     </plugins>

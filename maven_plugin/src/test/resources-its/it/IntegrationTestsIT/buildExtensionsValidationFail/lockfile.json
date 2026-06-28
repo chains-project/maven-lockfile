@@ -27,14 +27,15 @@
   ],
   "metaData": {
     "config": {
-      "includeMavenPlugins": true,
+      "includeMavenPlugins": false,
       "allowValidationFailure": false,
       "allowPomValidationFailure": true,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": false,
       "reduced": false,
       "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeMavenExtensions": true
     }
   }
 }
