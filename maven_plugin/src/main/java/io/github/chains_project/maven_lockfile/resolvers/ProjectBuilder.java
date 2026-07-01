@@ -39,7 +39,7 @@ public class ProjectBuilder {
      * @return an Optional that contains the MavenProject in case it was successfully built.
      */
     public Optional<MavenProject> buildFromGav(String groupId, String artifactId, String version) {
-        log.debug(String.format("Resolving dependencies for%s:%s:%s", groupId, artifactId, version));
+        log.debug(String.format("Resolving dependencies for %s:%s:%s", groupId, artifactId, version));
 
         var pomFileOptional = lookForPomFileInLocalRepository(groupId, artifactId, version);
 
