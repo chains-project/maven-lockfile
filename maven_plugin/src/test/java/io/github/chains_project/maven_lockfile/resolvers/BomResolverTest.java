@@ -1,11 +1,16 @@
 package io.github.chains_project.maven_lockfile.resolvers;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
+import java.util.*;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
@@ -18,12 +23,6 @@ import org.apache.maven.project.MavenProject;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 class BomResolverTest {
 
@@ -90,7 +89,7 @@ class BomResolverTest {
             assertThat(errorMessage)
                     .as("Property interpolation should have resolved ${maven-lockfile-test-version} to 1.1.1")
                     .doesNotContain("${maven-lockfile-test-version}")
-                    .doesNotContain("${");  // Should not contain any unresolved properties
+                    .doesNotContain("${"); // Should not contain any unresolved properties
         }
     }
 
@@ -130,7 +129,7 @@ class BomResolverTest {
             assertThat(errorMessage)
                     .as("Property interpolation should have resolved ${project.version} to 2.0.0")
                     .doesNotContain("${project.version}")
-                    .doesNotContain("${");  // Should not contain any unresolved properties
+                    .doesNotContain("${"); // Should not contain any unresolved properties
         }
     }
 
@@ -172,7 +171,7 @@ class BomResolverTest {
             assertThat(errorMessage)
                     .as("Property interpolation should have resolved ${project.groupId} to io.github.test")
                     .doesNotContain("${project.groupId}")
-                    .doesNotContain("${");  // Should not contain any unresolved properties
+                    .doesNotContain("${"); // Should not contain any unresolved properties
         }
     }
 
@@ -234,7 +233,7 @@ class BomResolverTest {
         Dependency transitiveBomDep = new Dependency();
         transitiveBomDep.setGroupId("com.example");
         transitiveBomDep.setArtifactId("${transitive.artifact}");
-        transitiveBomDep.setVersion("${project.version}");  // Uses project.version from nested BOM
+        transitiveBomDep.setVersion("${project.version}"); // Uses project.version from nested BOM
         transitiveBomDep.setType("pom");
         transitiveBomDep.setScope("import");
         nestedDepMgmt.addDependency(transitiveBomDep);
@@ -255,54 +254,58 @@ class BomResolverTest {
         // Ensure artifacts are not null (MavenProject constructor should set them, but let's be explicit)
         if (nestedBomProject.getArtifact() == null) {
             nestedBomProject.setArtifact(new org.apache.maven.artifact.DefaultArtifact(
-                    "com.example", "parent-bom", "2.0.0", "compile", "pom", "",
+                    "com.example",
+                    "parent-bom",
+                    "2.0.0",
+                    "compile",
+                    "pom",
+                    "",
                     new org.apache.maven.artifact.handler.DefaultArtifactHandler("pom")));
         }
         if (transitiveBomProject.getArtifact() == null) {
             transitiveBomProject.setArtifact(new org.apache.maven.artifact.DefaultArtifact(
-                    "com.example", "transitive-bom", "2.0.0", "compile", "pom", "",
+                    "com.example",
+                    "transitive-bom",
+                    "2.0.0",
+                    "compile",
+                    "pom",
+                    "",
                     new org.apache.maven.artifact.handler.DefaultArtifactHandler("pom")));
         }
 
         // Mock ProjectBuilder to return our test BOMs when buildFromGav is called
-        try (var mockedProjectBuilder = mockConstruction(ProjectBuilder.class,
-                (mock, context) -> {
-                    // When buildFromGav is called with interpolated coordinates, return the appropriate BOM
-                    // The key here is that if properties are interpolated correctly:
-                    // - "${bom.version}" should become "2.0.0"
-                    // - "${transitive.artifact}" should become "transitive-bom"
-                    // - "${project.version}" should become "2.0.0" (from nested BOM)
+        try (var mockedProjectBuilder = mockConstruction(ProjectBuilder.class, (mock, context) -> {
+            // When buildFromGav is called with interpolated coordinates, return the appropriate BOM
+            // The key here is that if properties are interpolated correctly:
+            // - "${bom.version}" should become "2.0.0"
+            // - "${transitive.artifact}" should become "transitive-bom"
+            // - "${project.version}" should become "2.0.0" (from nested BOM)
 
-                    when(mock.buildFromGav(anyString(), anyString(), anyString()))
-                            .thenAnswer(invocation -> {
-                                String groupId = invocation.getArgument(0);
-                                String artifactId = invocation.getArgument(1);
-                                String version = invocation.getArgument(2);
+            when(mock.buildFromGav(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
+                String groupId = invocation.getArgument(0);
+                String artifactId = invocation.getArgument(1);
+                String version = invocation.getArgument(2);
 
-                                // Parent BOM: com.example:parent-bom:2.0.0 (from ${bom.version})
-                                if ("com.example".equals(groupId) &&
-                                        "parent-bom".equals(artifactId) &&
-                                        "2.0.0".equals(version)) {
-                                    return Optional.of(nestedBomProject);
-                                }
+                // Parent BOM: com.example:parent-bom:2.0.0 (from ${bom.version})
+                if ("com.example".equals(groupId) && "parent-bom".equals(artifactId) && "2.0.0".equals(version)) {
+                    return Optional.of(nestedBomProject);
+                }
 
-                                // Transitive BOM: com.example:transitive-bom:2.0.0
-                                // (artifactId from ${transitive.artifact}, version from ${project.version})
-                                if ("com.example".equals(groupId) &&
-                                        "transitive-bom".equals(artifactId) &&
-                                        "2.0.0".equals(version)) {
-                                    return Optional.of(transitiveBomProject);
-                                }
+                // Transitive BOM: com.example:transitive-bom:2.0.0
+                // (artifactId from ${transitive.artifact}, version from ${project.version})
+                if ("com.example".equals(groupId) && "transitive-bom".equals(artifactId) && "2.0.0".equals(version)) {
+                    return Optional.of(transitiveBomProject);
+                }
 
-                                // If we get unresolved properties, the test should fail
-                                if (groupId.contains("${") || artifactId.contains("${") || version.contains("${")) {
-                                    throw new AssertionError("Property not interpolated: " +
-                                            groupId + ":" + artifactId + ":" + version);
-                                }
+                // If we get unresolved properties, the test should fail
+                if (groupId.contains("${") || artifactId.contains("${") || version.contains("${")) {
+                    throw new AssertionError(
+                            "Property not interpolated: " + groupId + ":" + artifactId + ":" + version);
+                }
 
-                                return Optional.empty();
-                            });
-                })) {
+                return Optional.empty();
+            });
+        })) {
 
             BomResolver resolver = new BomResolver(session, repositories, checksumCalculator);
 
@@ -311,7 +314,7 @@ class BomResolverTest {
 
             // Assert
             assertThat(result).isNotEmpty();
-            assertThat(result).hasSize(1);  // Parent BOM was resolved
+            assertThat(result).hasSize(1); // Parent BOM was resolved
 
             // Verify the parent BOM was resolved with interpolated version "2.0.0"
             Pom parentBom = result.iterator().next();
@@ -356,7 +359,7 @@ class BomResolverTest {
         regularDep.setGroupId("junit");
         regularDep.setArtifactId("${junit.artifactId}");
         regularDep.setVersion("4.13.2");
-        regularDep.setType("jar");  // Not a BOM (type != pom)
+        regularDep.setType("jar"); // Not a BOM (type != pom)
         regularDep.setScope("test");
         depMgmt.addDependency(regularDep);
         model.setDependencyManagement(depMgmt);
@@ -425,15 +428,14 @@ class BomResolverTest {
         private ModelSource createDummyModelSource(String groupId, String artifactId, String version) {
             // Create a minimal POM XML
             String pomXml = String.format(
-                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                            "<project xmlns=\"http://maven.apache.org/POM/4.0.0\">\n" +
-                            "  <modelVersion>4.0.0</modelVersion>\n" +
-                            "  <groupId>%s</groupId>\n" +
-                            "  <artifactId>%s</artifactId>\n" +
-                            "  <version>%s</version>\n" +
-                            "</project>",
-                    groupId, artifactId, version
-            );
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\">\n"
+                            + "  <modelVersion>4.0.0</modelVersion>\n"
+                            + "  <groupId>%s</groupId>\n"
+                            + "  <artifactId>%s</artifactId>\n"
+                            + "  <version>%s</version>\n"
+                            + "</project>",
+                    groupId, artifactId, version);
             return new StringModelSource(pomXml, groupId + ":" + artifactId + ":" + version);
         }
 
@@ -452,5 +454,4 @@ class BomResolverTest {
             return this;
         }
     }
-
 }
