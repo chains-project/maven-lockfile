@@ -1,7 +1,9 @@
 package io.github.chains_project.maven_lockfile.resolvers;
 
+import io.github.chains_project.maven_lockfile.LockFileFacade;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -9,13 +11,16 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 
 public class BomResolver {
     private final MavenSession session;
@@ -43,6 +48,8 @@ public class BomResolver {
      */
     public Set<Pom> resolveForProject(MavenProject project) {
         var model = project.getOriginalModel();
+        List<Dependency> dependencies = project.getModel().getDependencies();
+        dependencies.forEach(model::addDependency);
         var dependencyManagement = model.getDependencyManagement();
         var projectBuilder = new ProjectBuilder(session, repositories);
         var boms = new TreeSet<Pom>();
@@ -55,13 +62,15 @@ public class BomResolver {
         for (Dependency dependency : dependencyManagement.getDependencies()) {
             // A BOM POM always has type=pom and scope=import
             if ("pom".equals(dependency.getType()) && "import".equals(dependency.getScope())) {
-                var resolvedVersion = resolveVersionFromPlaceholder(dependency.getVersion(), project);
-                var bomProjectOptional = projectBuilder.buildFromGav(
-                        dependency.getGroupId(), dependency.getArtifactId(), resolvedVersion);
+                var resolvedVersion = interpolateProperty(dependency.getVersion(), project);
+                var resolvedGroupId = interpolateProperty(dependency.getGroupId(), project);
+                var resolvedArtifactId = interpolateProperty(dependency.getArtifactId(), project);
+                var bomProjectOptional =
+                        projectBuilder.buildFromGav(resolvedGroupId, resolvedArtifactId, resolvedVersion);
 
                 if (bomProjectOptional.isEmpty()) {
-                    PluginLogManager.getLog().warn(String.format("Could not resolve BOM for %s", dependency));
-                    continue;
+                    PluginLogManager.getLog().error(String.format("Could not resolve BOM for %s", dependency));
+                    throw new RuntimeException("Error resolving BOM pom, fail fast");
                 }
 
                 var bomProject = bomProjectOptional.get();
@@ -76,6 +85,64 @@ public class BomResolver {
 
         return boms;
     }
+
+    /**
+     * Extract all managed dependencies from a BOM and resolve them as DependencyNode roots.
+     * This captures the artifacts that the BOM manages versions for.
+     */
+    public Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> extractManagedDependencies(
+            MavenProject bomProject,
+            DependencyCollectorBuilder dependencyCollectorBuilder,
+            AbstractChecksumCalculator checksumCalculator,
+            Config config) {
+
+        var managedDeps = bomProject.getDependencyManagement();
+        if (managedDeps == null || managedDeps.getDependencies().isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> nodes = new TreeSet<>(
+                Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString));
+
+        ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories);
+
+        for (Dependency dep : managedDeps.getDependencies()) {
+            // Skip import-scoped BOMs (those are nested BOMs, already handled)
+            if ("import".equals(dep.getScope()) && "pom".equals(dep.getType())) {
+                continue;
+            }
+
+            String resolvedVersion = interpolateProperty(dep.getVersion(), bomProject);
+            String resolvedGroupId = interpolateProperty(dep.getGroupId(), bomProject);
+            String resolvedArtifactId = interpolateProperty(dep.getArtifactId(), bomProject);
+
+            Optional<MavenProject> depProjectOpt = projectBuilder.buildFromGav(
+                    resolvedGroupId, resolvedArtifactId, resolvedVersion);
+
+            if (depProjectOpt.isEmpty()) {
+                PluginLogManager.getLog().debug(String.format(
+                        "BOM %s manages %s:%s:%s but could not resolve it",
+                        bomProject.getArtifact(), resolvedGroupId, resolvedArtifactId, resolvedVersion));
+                continue;
+            }
+
+            // Resolve this managed dependency with its transitive dependencies
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> depNodes =
+                    LockFileFacade.resolveComponentDependencies(
+                            depProjectOpt.get(),
+                            session,
+                            repositories,
+                            dependencyCollectorBuilder,
+                            checksumCalculator,
+                            Collections.emptyList(),
+                            config);
+
+            nodes.addAll(depNodes);
+        }
+
+        return nodes;
+    }
+
 
     /**
      * Resolve the BOM POMs for all the dependencies in a DependencyGraph.
@@ -107,19 +174,27 @@ public class BomResolver {
         });
     }
 
-    private String resolveVersionFromPlaceholder(String version, MavenProject project) {
-        if (version != null && version.startsWith("${") && version.endsWith("}")) {
-            String propertyName = version.substring(2, version.length() - 1);
+    /** Limitation
+     *  This does not work when there are multiple placeholders in the text like ${main.version.number}${minor.version.number}
+     *  I am not aware of any project which could use it like that.*/
+    private String interpolateProperty(String textOrPlaceholder, MavenProject project) {
+        if (textOrPlaceholder != null && textOrPlaceholder.startsWith("${") && textOrPlaceholder.endsWith("}")) {
+            String propertyName = textOrPlaceholder.substring(2, textOrPlaceholder.length() - 1);
 
             // Check project properties (interpolated model has all properties resolved)
-            var resolvedVersion = project.getModel().getProperties().getProperty(propertyName);
+            var propertyValue = project.getModel().getProperties().getProperty(propertyName);
 
-            if (resolvedVersion != null) {
-                return resolvedVersion;
+            if (propertyValue != null) {
+                return propertyValue;
+            }
+            if ("project.version".equals(propertyName)) {
+                return project.getVersion();
+            } else if ("project.groupId".equals(propertyName)) {
+                return project.getGroupId();
             }
         }
 
-        return version;
+        return textOrPlaceholder;
     }
 
     private Pom resolveBomParents(MavenProject start) {
