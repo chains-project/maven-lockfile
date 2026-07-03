@@ -145,6 +145,30 @@ public class LockFileFacade {
 
         if (config.isIncludeParentPom() || config.isIncludeBoms()) {
             resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
+            var boms = resolveBoms(session, project, checksumCalculator);
+            // NEW: Extract managed dependencies from BOMs and add as roots
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> bomManagedDeps = new TreeSet<>(
+                    Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString));
+
+            BomResolver bomResolver = new BomResolver(session, project.getRemoteArtifactRepositories(), checksumCalculator);
+            for (Pom bom : boms) {
+                ProjectBuilder projectBuilder = new ProjectBuilder(session, project.getRemoteArtifactRepositories());
+                Optional<MavenProject> bomProjectOpt = projectBuilder.buildFromGav(
+                        bom.getGroupId().getValue(),
+                        bom.getArtifactId().getValue(),
+                        bom.getVersion().getValue());
+
+                if (bomProjectOpt.isPresent()) {
+                    Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> managed =
+                            bomResolver.extractManagedDependencies(
+                                    bomProjectOpt.get(),
+                                    dependencyCollectorBuilder,
+                                    checksumCalculator,
+                                    config);
+                    bomManagedDeps.addAll(managed);
+                }
+            }
+            roots.addAll(bomManagedDeps);
         }
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 

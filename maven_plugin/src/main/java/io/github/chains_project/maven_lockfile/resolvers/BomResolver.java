@@ -1,7 +1,9 @@
 package io.github.chains_project.maven_lockfile.resolvers;
 
+import io.github.chains_project.maven_lockfile.LockFileFacade;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
+import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
@@ -9,13 +11,16 @@ import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
 
 public class BomResolver {
     private final MavenSession session;
@@ -43,6 +48,8 @@ public class BomResolver {
      */
     public Set<Pom> resolveForProject(MavenProject project) {
         var model = project.getOriginalModel();
+        List<Dependency> dependencies = project.getModel().getDependencies();
+        dependencies.forEach(model::addDependency);
         var dependencyManagement = model.getDependencyManagement();
         var projectBuilder = new ProjectBuilder(session, repositories);
         var boms = new TreeSet<Pom>();
@@ -78,6 +85,64 @@ public class BomResolver {
 
         return boms;
     }
+
+    /**
+     * Extract all managed dependencies from a BOM and resolve them as DependencyNode roots.
+     * This captures the artifacts that the BOM manages versions for.
+     */
+    public Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> extractManagedDependencies(
+            MavenProject bomProject,
+            DependencyCollectorBuilder dependencyCollectorBuilder,
+            AbstractChecksumCalculator checksumCalculator,
+            Config config) {
+
+        var managedDeps = bomProject.getDependencyManagement();
+        if (managedDeps == null || managedDeps.getDependencies().isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> nodes = new TreeSet<>(
+                Comparator.comparing(io.github.chains_project.maven_lockfile.graph.DependencyNode::getComparatorString));
+
+        ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories);
+
+        for (Dependency dep : managedDeps.getDependencies()) {
+            // Skip import-scoped BOMs (those are nested BOMs, already handled)
+            if ("import".equals(dep.getScope()) && "pom".equals(dep.getType())) {
+                continue;
+            }
+
+            String resolvedVersion = interpolateProperty(dep.getVersion(), bomProject);
+            String resolvedGroupId = interpolateProperty(dep.getGroupId(), bomProject);
+            String resolvedArtifactId = interpolateProperty(dep.getArtifactId(), bomProject);
+
+            Optional<MavenProject> depProjectOpt = projectBuilder.buildFromGav(
+                    resolvedGroupId, resolvedArtifactId, resolvedVersion);
+
+            if (depProjectOpt.isEmpty()) {
+                PluginLogManager.getLog().debug(String.format(
+                        "BOM %s manages %s:%s:%s but could not resolve it",
+                        bomProject.getArtifact(), resolvedGroupId, resolvedArtifactId, resolvedVersion));
+                continue;
+            }
+
+            // Resolve this managed dependency with its transitive dependencies
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> depNodes =
+                    LockFileFacade.resolveComponentDependencies(
+                            depProjectOpt.get(),
+                            session,
+                            repositories,
+                            dependencyCollectorBuilder,
+                            checksumCalculator,
+                            Collections.emptyList(),
+                            config);
+
+            nodes.addAll(depNodes);
+        }
+
+        return nodes;
+    }
+
 
     /**
      * Resolve the BOM POMs for all the dependencies in a DependencyGraph.
