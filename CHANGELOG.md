@@ -2647,3 +2647,19 @@ We'd like to thank the following people for their contributions:
 - Phung ()
 - Tim Whittington ()
 - nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
+
+# 5.17.1-beta-4
+## Changelog
+
+## 🚀 Features
+- c5b4cfa feat: allow-environmental-validation-failure input to GA (#1584)
+- 8bb20da feat: skip validation of `resolvedUrl` (#1597)
+
+## 🧰 Tasks
+- 56b8a9c chore: release version 5.17.1-beta-4
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
