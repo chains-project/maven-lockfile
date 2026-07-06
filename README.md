@@ -1,4 +1,3 @@
-
 # Maven Lockfile
 
 [![SemVersion](https://img.shields.io/badge/semver-2.0.0-blue)](https://img.shields.io/badge/semver-2.0.0-blue)
@@ -347,6 +346,14 @@ Extended github actions example with all available options:
     #  the workflow is updated.
     # Defaults to 'Lockfile.yml'
     - workflow-filename: 'Lockfile.yml'
+
+    # Optional. Allow environment validation failures (e.g. Maven version changes between
+    #  GitHub-hosted runner image updates) to produce a warning instead of failing the build.
+    #  Recommended when using GitHub-hosted runners where the exact Maven version is not pinned,
+    #  because runner image updates can change the Maven version and cause spurious failures.
+    #  See https://github.com/chains-project/maven-lockfile/issues/1583.
+    # Defaults to false.
+    - allow-environmental-validation-failure: false
 ```
 
 ### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)
