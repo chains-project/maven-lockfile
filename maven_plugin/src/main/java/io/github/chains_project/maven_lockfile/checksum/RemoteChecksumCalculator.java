@@ -177,7 +177,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .encode(verificationMessageDigest.digest(artifactResponse.body()))
                                 .toLowerCase(Locale.ROOT);
 
-                        if (!sha1.equals(verificationChecksum)) {
+                        if (!sha1.equalsIgnoreCase(verificationChecksum)) {
                             PluginLogManager.getLog()
                                     .error(String.format("Invalid SHA-1 checksum for: %s", artifactUrl));
                             throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
