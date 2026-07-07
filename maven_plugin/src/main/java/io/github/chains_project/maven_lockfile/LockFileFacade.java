@@ -5,6 +5,7 @@ import com.google.common.graph.MutableGraph;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
+import io.github.chains_project.maven_lockfile.exceptions.ProjectResolutionException;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
@@ -214,13 +215,13 @@ public class LockFileFacade {
 
                 RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
 
-                Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGav(
+                MavenProject extensionProject = extensionProjectBuilder.buildFromGav(
                         artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
 
                 // Resolve extension's transitive dependencies using the existing mechanism
                 Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> transitiveDeps =
                         resolveComponentDependencies(
-                                extensionProjectOptional.get(),
+                                extensionProject,
                                 session,
                                 project.getPluginArtifactRepositories(),
                                 dependencyCollectorBuilder,
@@ -239,7 +240,8 @@ public class LockFileFacade {
                         transitiveDeps));
             }
         } catch (DependencyResolutionException e) {
-            PluginLogManager.getLog().warn("Failed to resolve extension dependencies", e);
+            throw new ProjectResolutionException(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), e.getMessage());
         }
 
         return extensions;
@@ -265,11 +267,8 @@ public class LockFileFacade {
                                 "Extension %s:%s has no explicit version; resolved to %s",
                                 extension.getGroupId(), extension.getArtifactId(), version));
             } catch (VersionResolutionException e) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Skipping extension %s:%s: no version declared and could not resolve one",
-                                extension.getGroupId(), extension.getArtifactId()));
-                return Optional.empty();
+                throw new ProjectResolutionException(
+                        extension.getGroupId(), extension.getArtifactId(), extension.getVersion(), e.getMessage());
             }
         }
         org.eclipse.aether.artifact.Artifact artifact = new org.eclipse.aether.artifact.DefaultArtifact(
@@ -287,19 +286,10 @@ public class LockFileFacade {
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
         graph.getDependencySet().forEach(node -> {
-            var projectOptional = builder.buildFromGav(
+            var mavenProject = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
                     node.getVersion().getValue());
-
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog()
-                        .warn(String.format(
-                                "Could not build project for dependency %s. Skipping parent and BOM resolution.",
-                                node));
-                return;
-            }
-            var mavenProject = projectOptional.get();
 
             if (mavenProject.hasParent()) {
                 PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
@@ -344,14 +334,8 @@ public class LockFileFacade {
             String pluginKey = pluginArtifact.getGroupId() + ":" + pluginArtifact.getArtifactId();
             List<Dependency> userDeclaredDeps = userPluginDependencies.getOrDefault(pluginKey, Collections.emptyList());
 
-            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGav(
+            MavenProject pluginProject = projectBuilder.buildFromGav(
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
-
-            if (pluginProjectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Could not build project for plugin %s", pluginArtifact));
-                continue;
-            }
-            MavenProject pluginProject = pluginProjectOptional.get();
 
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> pluginDependencies =
                     resolveComponentDependencies(
@@ -478,11 +462,11 @@ public class LockFileFacade {
             return roots;
 
         } catch (Exception e) {
-            PluginLogManager.getLog()
-                    .warn(
-                            String.format("Could not resolve dependencies for plugin %s", pluginProject.getArtifact()),
-                            e);
-            return Collections.emptySet();
+            throw new ProjectResolutionException(
+                    pluginProject.getGroupId(),
+                    pluginProject.getArtifactId(),
+                    pluginProject.getVersion(),
+                    e.getMessage());
         }
     }
 
@@ -512,8 +496,8 @@ public class LockFileFacade {
 
             return DependencyGraph.of(graph, checksumCalculator, reduced);
         } catch (DependencyCollectorBuilderException e) {
-            PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
+            throw new ProjectResolutionException(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), e.getMessage());
         }
     }
 
