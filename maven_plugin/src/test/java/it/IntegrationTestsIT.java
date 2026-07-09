@@ -313,9 +313,19 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getDependencies().stream().flatMap(v -> flattenDependencies(v).stream()))
-                .anyMatch(v -> v.getArtifactId().getValue().equals("log4j-core")
-                        && v.getVersion().getValue().equals("2.0"));
+        List<DependencyNode> allDependencies = lockFile.getDependencies().stream()
+                .flatMap(v -> flattenDependencies(v).stream())
+                .collect(Collectors.toList());
+        // With reduced=true, conflict-losing duplicate versions are removed, leaving only the
+        // resolved winner. log4j-core must therefore appear exactly once, at the selected version 2.0...
+        assertThat(allDependencies)
+                .filteredOn(v -> v.getArtifactId().getValue().equals("log4j-core"))
+                .extracting(v -> v.getVersion().getValue())
+                .containsExactly("2.0");
+        // ...and the conflict-losing log4j-api:2.19.0 duplicate must not be present at all.
+        assertThat(allDependencies)
+                .noneMatch(v -> v.getArtifactId().getValue().equals("log4j-api")
+                        && v.getVersion().getValue().equals("2.19.0"));
     }
 
     @MavenTest
