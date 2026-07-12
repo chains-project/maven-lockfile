@@ -2647,3 +2647,22 @@ We'd like to thank the following people for their contributions:
 - Phung ()
 - Tim Whittington ()
 - nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
+
+# 5.17.1-beta-5
+## Changelog
+
+## 🚀 Features
+- 47ca4dd feat: resolve special maven properties in BOMs (#1581)
+
+## 🐛 Fixes
+- 38e0fce fix: artifact URL resolution when classifier is empty in RemoteChecksumCalculator
+- 94c15a6 fix: ignore case when comparing remote SHA-1 checksums (#1600)
+
+## 🧰 Tasks
+- 4f930e7 chore: release version 5.17.1-beta-5
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
