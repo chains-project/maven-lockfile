@@ -1,0 +1,2 @@
+jsoncanon==0.2.3
+opentimestamps-client==0.7.2
