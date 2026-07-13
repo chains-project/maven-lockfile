@@ -1,0 +1,63 @@
+name: Anchor
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-anchor:
+    name: Verify the lockfile anchor binds
+    runs-on: ubuntu-latest
+    steps:
+      # Verification is offline: it recomputes the canonical root and checks the
+      # proof commits to it. No Bitcoin node and no calendar is contacted, so the
+      # only egress needed is PyPI, to install the two pinned dependencies.
+      #
+      # Stamping a NEW proof does contact the OpenTimestamps calendars, and a job
+      # that stamps must additionally allow:
+      #     alice.btc.calendar.opentimestamps.org:443
+      #     bob.btc.calendar.opentimestamps.org:443
+      #     finney.calendar.eternitywall.com:443
+      #     btc.calendar.catallaxy.com:443
+      - name: Harden Runner
+        uses: step-security/harden-runner@20cf305ff2072d973412fa9b1e3a4f227bda3c76 # v2.14.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            github.com:443
+            api.github.com:443
+            files.pythonhosted.org:443
+            pypi.org:443
+
+      # fetch-depth: 0 so the pinned lockfile of commit 8e6d7ab is readable below.
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install pinned anchor tooling
+        run: pip install -r scripts/anchor/requirements.txt
+
+      # Conformance vector. The committed proof anchors the lockfile as it stood
+      # at 8e6d7ab, so it is checked against THAT lockfile, read from git. This
+      # stays green as the lockfile evolves; it asserts that the canonicalization
+      # and the proof still agree, which is the part a reimplementation can break.
+      - name: Verify the committed proof against the lockfile it anchors
+        run: |
+          git show 8e6d7ab3900135b32ce85a8ade2464d3c9d05dee:lockfile.json > /tmp/lockfile-8e6d7ab.json
+          python3 scripts/anchor/verify_anchor.py \
+            /tmp/lockfile-8e6d7ab.json \
+            scripts/anchor/testdata/lockfile-8e6d7ab.jcs.json.ots
+
+      # Informational only. Prints the anchor root of the lockfile on this branch,
+      # which is what would be stamped for the next release. Deliberately does not
+      # fail when the lockfile has moved on: a dependency bump SHOULD change this
+      # root, and the anchor is re-stamped at release time, not on every push.
+      - name: Anchor root of the current lockfile
+        run: python3 scripts/anchor/canonicalize.py lockfile.json
