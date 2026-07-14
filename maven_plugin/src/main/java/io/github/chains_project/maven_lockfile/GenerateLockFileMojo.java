@@ -26,7 +26,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 @Mojo(
         name = "generate",
         defaultPhase = LifecyclePhase.GENERATE_RESOURCES,
-        requiresDependencyResolution = ResolutionScope.COMPILE,
+        requiresDependencyResolution = ResolutionScope.NONE,
         requiresOnline = true)
 public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
@@ -43,6 +43,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
+        tryPopulateProjectArtifacts();
         try {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
