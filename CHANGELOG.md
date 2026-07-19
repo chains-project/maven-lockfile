@@ -2647,3 +2647,18 @@ We'd like to thank the following people for their contributions:
 - Phung ()
 - Tim Whittington ()
 - nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
+
+# 5.17.1-beta-6
+## Changelog
+
+## 🔄️ Changes
+- b36dae3 refactor: cluster BomResolverTest into nested test classes (#1607)
+
+## 🧰 Tasks
+- 14e9fa6 chore: release version 5.17.1-beta-6
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- fz-rh ()
