@@ -1,21 +1,21 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.17.1-SNAPSHOT",
+  "version": "5.17.1-beta-6",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile",
-    "version": "5.17.1-SNAPSHOT",
+    "version": "5.17.1-beta-6",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "424ab20f9fe7a96b59761889cebf8016dc0717d4b1dfad65dae8ef852d4f7a8d",
+    "checksum": "a34d811d0830a44bc00136640c22f8436b004ce84b2c41bc6565eab7c7cee784",
     "parent": {
       "groupId": "io.github.chains-project",
       "artifactId": "maven-lockfile-parent",
-      "version": "5.17.1-SNAPSHOT",
+      "version": "5.17.1-beta-6",
       "relativePath": "../pom.xml",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "f76d332ec40162fd845f8ec44359971c5748d4affea5975e79e572bb5a313bd4"
+      "checksum": "d6c1624d190ae5d16f2e414eeeb1aa31c5a79a4b3504bf8b061d2489ae016726"
     }
   },
   "lockFileVersion": 1,
@@ -9265,7 +9265,18 @@
                 "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-parent/4.30.2/protobuf-parent-4.30.2.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "9b3c46b4f4ce6d5930ac5210c706f41af13ecf308e28989bf71f119e98d9c22f"
+                "checksum": "9b3c46b4f4ce6d5930ac5210c706f41af13ecf308e28989bf71f119e98d9c22f",
+                "boms": [
+                  {
+                    "groupId": "com.google.protobuf",
+                    "artifactId": "protobuf-bom",
+                    "version": "4.30.2",
+                    "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-bom/4.30.2/protobuf-bom-4.30.2.pom",
+                    "repositoryId": "central",
+                    "checksumAlgorithm": "SHA-256",
+                    "checksum": "eb5c77e035d8203f6abd9f5888328b83fccd3947150ce6146d2a4143c7be1930"
+                  }
+                ]
               },
               "selectedVersion": "4.30.2",
               "included": true,
@@ -9555,7 +9566,18 @@
                     "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-parent/4.30.2/protobuf-parent-4.30.2.pom",
                     "repositoryId": "central",
                     "checksumAlgorithm": "SHA-256",
-                    "checksum": "9b3c46b4f4ce6d5930ac5210c706f41af13ecf308e28989bf71f119e98d9c22f"
+                    "checksum": "9b3c46b4f4ce6d5930ac5210c706f41af13ecf308e28989bf71f119e98d9c22f",
+                    "boms": [
+                      {
+                        "groupId": "com.google.protobuf",
+                        "artifactId": "protobuf-bom",
+                        "version": "4.30.2",
+                        "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-bom/4.30.2/protobuf-bom-4.30.2.pom",
+                        "repositoryId": "central",
+                        "checksumAlgorithm": "SHA-256",
+                        "checksum": "eb5c77e035d8203f6abd9f5888328b83fccd3947150ce6146d2a4143c7be1930"
+                      }
+                    ]
                   },
                   "selectedVersion": "4.30.2",
                   "included": true,
@@ -10102,7 +10124,18 @@
                     "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-parent/3.25.5/protobuf-parent-3.25.5.pom",
                     "repositoryId": "central",
                     "checksumAlgorithm": "SHA-256",
-                    "checksum": "64cc0e3ad6e85f5aec8f9dcf9341d1379e9525364ff53e23e16d8d5824673ef7"
+                    "checksum": "64cc0e3ad6e85f5aec8f9dcf9341d1379e9525364ff53e23e16d8d5824673ef7",
+                    "boms": [
+                      {
+                        "groupId": "com.google.protobuf",
+                        "artifactId": "protobuf-bom",
+                        "version": "3.25.5",
+                        "resolved": "https://repo.maven.apache.org/maven2/com/google/protobuf/protobuf-bom/3.25.5/protobuf-bom-3.25.5.pom",
+                        "repositoryId": "central",
+                        "checksumAlgorithm": "SHA-256",
+                        "checksum": "080e2984173238b50e064c226afffbb1b0233520295c790a7fd3d6ae4593f063"
+                      }
+                    ]
                   },
                   "selectedVersion": "4.30.2",
                   "included": false,
@@ -56506,10 +56539,11 @@
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
+      "mavenLockfileVersion": "5.17.1-beta-6",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
