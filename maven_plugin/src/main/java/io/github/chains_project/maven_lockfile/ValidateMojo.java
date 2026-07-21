@@ -16,7 +16,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
- * Plugin goal that validates the checksums of the dependencies of a project against a lock file.
+ * Plugin goal that validates a project against its lock file.
  *
  */
 @Mojo(
@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
         defaultPhase = LifecyclePhase.COMPILE,
         requiresDependencyResolution = ResolutionScope.COMPILE,
         requiresOnline = true)
-public class ValidateChecksumMojo extends AbstractLockfileMojo {
+public class ValidateMojo extends AbstractLockfileMojo {
 
     /**
      * Validate the local copies of the dependencies against the project's lock file.

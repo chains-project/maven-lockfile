@@ -14,7 +14,7 @@ Maven Lockfile
 
 Primary Java constructs (use these when changing behavior):
 - maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java:execute
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/ValidateChecksumMojo.java:execute
+- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/ValidateMojo.java:execute
 - maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/FreezeDependencyMojo.java:execute
 - maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java:getConfig, getChecksumCalculator, generateMetaInformation
 - maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java:generateLockFileFromProject, getAllPlugins, constructRecursivePom
@@ -80,7 +80,7 @@ Generate (mvn ...:generate)
   - JsonUtils.toJson(...) -> write lockfile.json
 
 Validate (mvn ...:validate)
-- ValidateChecksumMojo.execute:
+- ValidateMojo.execute:
   - Read existing lockfile, build Config from it (fall back to mojo config)
   - Force local checksum mode: getChecksumCalculator(config, true)
   - Regenerate lockfile via LockFileFacade.generateLockFileFromProject
@@ -143,7 +143,7 @@ Before adding changes:
 - Root node checksum suppression: DependencyGraph.createDependencyNode sets checksum empty for project root nodes; do not compute root checksum or tests will break.
 - Do not mutate fields that affect comparator/equality after inserting nodes into TreeSet/HashSet. Fields used by compareTo/getComparatorString and equals/hashCode must remain stable while in collections (DependencyNode, children ordering).
 - SpyingDependencyNodeUtils.getWinnerVersion is reflective and brittle (relies on Maven internals). If it breaks on a Maven upgrade, it should surface an explicit error or warning — do not silently fall back, as that may produce an incorrect frozen POM without any indication of the failure.
-- Validation checksum mode: ValidateChecksumMojo uses getChecksumCalculator(config, true) which forces local (filesystem) checksum resolution. The primary purpose is to verify that the artifacts in the developer's local `.m2` repository match the lockfile — not to avoid network calls. Remote checksum verification (against Maven Central) is a different guarantee. Note: CI does run remote-mode lockfiles; forcing local mode in all cases would defeat that use-case.
+- Validation checksum mode: ValidateMojo uses getChecksumCalculator(config, true) which forces local (filesystem) checksum resolution. The primary purpose is to verify that the artifacts in the developer's local `.m2` repository match the lockfile — not to avoid network calls. Remote checksum verification (against Maven Central) is a different guarantee. Note: CI does run remote-mode lockfiles; forcing local mode in all cases would defeat that use-case.
 - Changing serialization (JsonUtils adapters, field names, @SerializedName) breaks existing lockfile.json compatibility and CI validation.
 - Platform-dependent artifacts: checksums can differ across OS/JDK/platform-specific classifiers. CI may run on ubuntu-latest while developer runs on other OS — tests and CI may diverge.
 
@@ -164,7 +164,7 @@ Before adding changes:
 # Common Mistakes → Fast Fixes
 
 - Symptom: Validate Mojo unexpectedly performs network calls or fails on CI.
-  - Check: Validate what checksum mode the lockfile was generated with. If the lockfile was generated in local (filesystem) mode, ValidateChecksumMojo should be using getChecksumCalculator(config, true) to force local resolution. However, if the lockfile was intentionally generated in remote mode (e.g., to verify Maven Central integrity), do not force local mode — fix the underlying cause instead.
+  - Check: Validate what checksum mode the lockfile was generated with. If the lockfile was generated in local (filesystem) mode, ValidateMojo should be using getChecksumCalculator(config, true) to force local resolution. However, if the lockfile was intentionally generated in remote mode (e.g., to verify Maven Central integrity), do not force local mode — fix the underlying cause instead.
 
 - Symptom: Lockfile appears with different ordering or tests fail with ordering assertions.
   - Check: Ensure sets are collected into TreeSet with the same comparator (DependencyNode::getComparatorString) and you didn't change comparator fields.
