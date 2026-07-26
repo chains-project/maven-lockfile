@@ -85,18 +85,21 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
-    public void reactorSnapshotSiblingMustFail(MavenExecutionResult result) throws Exception {
-        // contract: an in-reactor sibling -SNAPSHOT dependency cannot be pinned by
-        // checksum, because it is rebuilt on every run and its jar bytes (and thus
-        // checksum) drift between the generate run and the validate run. module-a
-        // depends on the sibling module-b:1.0.0-SNAPSHOT; the committed lockfile pins
-        // a checksum for module-b that no longer matches the freshly built jar, so
-        // validation fails. This reproduces the reactor-local SNAPSHOT scenario from
-        // https://github.com/chains-project/maven-lockfile/issues/1610 and should turn
-        // green once reactor-local SNAPSHOT artifacts are excluded from checksum
-        // validation.
-        System.out.println("Running 'reactorSnapshotSiblingMustFail' integration test.");
-        assertThat(result).isFailure();
+    public void reactorSnapshotSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a reactor-local sibling -SNAPSHOT (module-b) is rebuilt every run, so
+        // its checksum drifts and can't be pinned. maven-lockfile leaves its checksum
+        // empty, so validation succeeds instead of failing on the drift. See #1610.
+        System.out.println("Running 'reactorSnapshotSiblingShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        // the reactor-local SNAPSHOT sibling is recorded with an empty checksum
+        assertThat(moduleB.getChecksum()).isEmpty();
     }
 
     @Nested

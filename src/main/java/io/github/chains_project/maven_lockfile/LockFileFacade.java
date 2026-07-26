@@ -510,10 +510,16 @@ public class LockFileFacade {
                             "Resolved %4d dependencies for project %s",
                             graph.nodes().size(), project.getArtifactId()));
 
-            return DependencyGraph.of(graph, checksumCalculator, reduced);
+            // GAVs of the modules built in the current reactor (used to skip checksums
+            // for reactor-local SNAPSHOTs, whose checksums drift each run).
+            Set<String> reactorGavs = session.getProjects().stream()
+                    .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
+                    .collect(Collectors.toSet());
+
+            return DependencyGraph.of(graph, checksumCalculator, reduced, reactorGavs);
         } catch (DependencyCollectorBuilderException e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
+            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced, Set.of());
         }
     }
 

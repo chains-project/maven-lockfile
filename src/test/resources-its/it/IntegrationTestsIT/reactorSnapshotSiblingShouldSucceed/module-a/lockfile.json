@@ -25,7 +25,7 @@
       "artifactId": "module-b",
       "version": "1.0.0-SNAPSHOT",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "c680c5ac42d2f0860f7887411617b7101fa1df09110c5797c27020536b616c35",
+      "checksum": "",
       "scope": "compile",
       "resolved": "",
       "repositoryId": "",
@@ -33,8 +33,7 @@
         "groupId": "com.mycompany.app",
         "artifactId": "reactor-snapshot-sibling-parent",
         "version": "1.0.0-SNAPSHOT",
-        "resolved": "",
-        "repositoryId": "",
+        "relativePath": "pom.xml",
         "checksumAlgorithm": "SHA-256",
         "checksum": "2c5e3529a91fa1289e348d7e7dbb7d2bcea6998882b163c474382a75f4b3daca"
       },
