@@ -55,7 +55,6 @@ jobs:
           --format=json
           --output=old-results.json
           ./pom.xml
-          ./maven_plugin/pom.xml
 
     - name: "Checkout current branch"
       # Use -f in case any changes were made by osv-scanner (there should be no changes)
