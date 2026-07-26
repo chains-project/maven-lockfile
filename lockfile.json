@@ -8,7 +8,7 @@
     "version": "5.17.1-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "b8a4b3c79032b04e2662ef6e8af103e74836c1780d75bc2847a4fb58e241dfe3"
+    "checksum": "a95ed9b4d32ca90ac9df0b1092be627cbc214d51b329da6b0c7f501db3ff06f6"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -56524,8 +56524,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.6",
-      "javaVersion": "21.0.10"
+      "mavenVersion": "3.9.16",
+      "javaVersion": "17.0.19"
     },
     "config": {
       "includeMavenPlugins": true,
@@ -56535,7 +56535,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.17.1-beta-7",
+      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
