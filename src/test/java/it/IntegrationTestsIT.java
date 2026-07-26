@@ -84,6 +84,21 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
     }
 
+    @MavenTest
+    public void reactorSnapshotSiblingMustFail(MavenExecutionResult result) throws Exception {
+        // contract: an in-reactor sibling -SNAPSHOT dependency cannot be pinned by
+        // checksum, because it is rebuilt on every run and its jar bytes (and thus
+        // checksum) drift between the generate run and the validate run. module-a
+        // depends on the sibling module-b:1.0.0-SNAPSHOT; the committed lockfile pins
+        // a checksum for module-b that no longer matches the freshly built jar, so
+        // validation fails. This reproduces the reactor-local SNAPSHOT scenario from
+        // https://github.com/chains-project/maven-lockfile/issues/1610 and should turn
+        // green once reactor-local SNAPSHOT artifacts are excluded from checksum
+        // validation.
+        System.out.println("Running 'reactorSnapshotSiblingMustFail' integration test.");
+        assertThat(result).isFailure();
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest

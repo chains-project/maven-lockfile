@@ -1,0 +1,12 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>reactor-snapshot-sibling-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>module-b</artifactId>
+  <packaging>jar</packaging>
+</project>
