@@ -3,28 +3,28 @@
 Maven Lockfile
 
 - What: A Maven plugin + supporting GitHub Action that generates, persists and validates a repository-level lockfile (JSON) containing resolved dependency graphs, checksums, plugin metadata and POM/BOM metadata. It supports generate, validate and freeze goals to produce lockfile.json, verify an on-disk lockfile, and produce a frozen pom (pom.lockfile.xml).
-- Ecosystem: Java / Maven plugin. The main module is maven_plugin.
+- Ecosystem: Java / Maven plugin. It is a single-module Maven project.
 - Intended usage: add to CI to validate reproducibility and integrity of Maven builds; optionally commit regenerated lockfiles back to PRs; enable reproducible rebuilds by freezing POMs.
 
 # Key Components
 
 - action.yml: composite GitHub Action wrapper that runs the plugin in CI (generate vs validate), detects changed files, optionally commits updated lockfiles. **This file is generated from template/action.yml** by the gmavenplus-plugin during the `generate-resources` phase (configured in the parent pom.xml). Do not edit action.yml directly — edit template/action.yml instead and regenerate.
 - template/action.yml: source template for action.yml; contains the runtime bash driver (helpers like execute_maven_command) and the `PLUGIN_VERSION` placeholder that is substituted during the generate-resources phase. Changes here are propagated to action.yml at build time.
-- maven_plugin/pom.xml: module POM (packaging=maven-plugin) — authoritative build config for the plugin artifact.
+- pom.xml: module POM (packaging=maven-plugin) — authoritative build config for the plugin artifact.
 
 Primary Java constructs (use these when changing behavior):
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java:execute
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/ValidateChecksumMojo.java:execute
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/FreezeDependencyMojo.java:execute
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java:getConfig, getChecksumCalculator, generateMetaInformation
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java:generateLockFileFromProject, getAllPlugins, constructRecursivePom
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java:of, createDependencyNode, getDependencySet
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyNode.java (data model)
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/LockFile.java:readLockFile
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java (API)
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/FileSystemChecksumCalculator.java
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/JsonUtils.java:getGson, toJson, fromJson
+- src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java:execute
+- src/main/java/io/github/chains_project/maven_lockfile/ValidateChecksumMojo.java:execute
+- src/main/java/io/github/chains_project/maven_lockfile/FreezeDependencyMojo.java:execute
+- src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java:getConfig, getChecksumCalculator, generateMetaInformation
+- src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java:generateLockFileFromProject, getAllPlugins, constructRecursivePom
+- src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java:of, createDependencyNode, getDependencySet
+- src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyNode.java (data model)
+- src/main/java/io/github/chains_project/maven_lockfile/data/LockFile.java:readLockFile
+- src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java (API)
+- src/main/java/io/github/chains_project/maven_lockfile/checksum/FileSystemChecksumCalculator.java
+- src/main/java/io/github/chains_project/maven_lockfile/checksum/RemoteChecksumCalculator.java
+- src/main/java/io/github/chains_project/maven_lockfile/JsonUtils.java:getGson, toJson, fromJson
 
 # Architecture
 
@@ -51,20 +51,20 @@ High-level data flow:
 
 # Core Data Structures
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/LockFile.java
+- src/main/java/io/github/chains_project/maven_lockfile/data/LockFile.java
   - Root model serialized to lockfile.json. Contains: project Pom, Set<DependencyNode> dependencies, Set<MavenPlugin> mavenPlugins, MetaData (Environment + Config), Set<Pom> boms.
   - Use LockFile.readLockFile(Path) to deserialize.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyNode.java
+- src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyNode.java
   - Node model: GroupId, ArtifactId, VersionNumber, Classifier, ArtifactType, checksumAlgorithm, checksum, ResolvedUrl, RepositoryId, scope, selectedVersion, included, children (TreeSet), id (NodeId). Children and comparator strings enforce deterministic ordering.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java
+- src/main/java/io/github/chains_project/maven_lockfile/data/Pom.java
   - Represents a POM record: GAV, relativePath (for local), resolved url, repository id, checksumAlgorithm, checksum and parent chain.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/data/Config.java
+- src/main/java/io/github/chains_project/maven_lockfile/data/Config.java
   - Persisted generation/validation options (includeMavenPlugins, reduced, checksumMode/algorithm, validation policies). Defaults are tied to ChecksumModes and FileSystemChecksumCalculator.getDefaultChecksumAlgorithm().
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java
+- src/main/java/io/github/chains_project/maven_lockfile/checksum/AbstractChecksumCalculator.java
   - Abstraction for checksum retrieval and resolved info. Key methods: calculateArtifactChecksum, calculatePluginChecksum, getArtifactResolvedField, getPluginResolvedField, calculatePomChecksum, prewarmArtifactCache.
 
 # Control Flow (end-to-end)
@@ -100,14 +100,14 @@ GitHub Action (action.yml / template/action.yml)
 
 # Test-Driven Development
 
-- Run module/unit tests (fast): mvn -pl maven_plugin test
-- Run all tests / integration verify: mvn test (or mvn -pl maven_plugin verify to include failsafe ITs)
-- Run a single unit test class: mvn -pl maven_plugin -Dtest=io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculatorTest test
-- Run integration tests (IT harness): mvn -pl maven_plugin -Dtest=it.IntegrationTestsIT test
-- Useful files for IT fixtures: maven_plugin/src/test/resources-its/it/IntegrationTestsIT/*
+- Run module/unit tests (fast): mvn test
+- Run all tests / integration verify: mvn test (or mvn verify to include failsafe ITs)
+- Run a single unit test class: mvn -Dtest=io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculatorTest test
+- Run integration tests (IT harness): mvn -Dtest=it.IntegrationTestsIT test
+- Useful files for IT fixtures: src/test/resources-its/it/IntegrationTestsIT/*
 
 Before adding changes:
-- Run maven_plugin unit + integration tests locally with the same Maven wrapper (maven_plugin/mvnw) to reproduce CI environment.
+- Run unit + integration tests locally with the same Maven wrapper (./mvnw) to reproduce CI environment.
 - When changing serialization or defaults, update integration test fixtures under resources-its.
 
 # Bash / Maven Commands
@@ -122,10 +122,10 @@ Before adding changes:
   mvn io.github.chains-project:maven-lockfile:freeze
 
 - Run plugin unit tests:
-  mvn -pl maven_plugin test
+  mvn test
 
 - Run integration tests (module):
-  mvn -pl maven_plugin -Dtest=it.IntegrationTestsIT test
+  mvn -Dtest=it.IntegrationTestsIT test
 
 # Code Style & Conventions (non-obvious)
 
@@ -149,16 +149,16 @@ Before adding changes:
 
 # Pattern Examples (good examples to copy)
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java:execute
+- src/main/java/io/github/chains_project/maven_lockfile/GenerateLockFileMojo.java:execute
   - Orchestrates reading existing lockfile, merging config, building checksum calculator and calling LockFileFacade.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java:getChecksumCalculator(Config)
+- src/main/java/io/github/chains_project/maven_lockfile/AbstractLockfileMojo.java:getChecksumCalculator(Config)
   - Centralized factory for checksum calculators (remote vs local). Keep this single source for consistent behavior across Mojos.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java:generateLockFileFromProject
+- src/main/java/io/github/chains_project/maven_lockfile/LockFileFacade.java:generateLockFileFromProject
   - High-level orchestration that collects plugins, constructs graph, pre-warms checksum cache, and assembles LockFile. Keep orchestration logic here and delegate resolution/IO.
 
-- maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java:of/createDependencyNode
+- src/main/java/io/github/chains_project/maven_lockfile/graph/DependencyGraph.java:of/createDependencyNode
   - Convert Maven dependency graph to deterministic DependencyNode model; call calc.prewarmArtifactCache(uniqueArtifacts) before artifact resolution. Note: prewarmArtifactCache is a meaningful operation only in remote mode (RemoteChecksumCalculator uses it to batch-fetch checksums in parallel); it is a no-op for local (FileSystem) mode. It exists on the AbstractChecksumCalculator interface so callers do not need to know which mode is active.
 
 # Common Mistakes → Fast Fixes
@@ -194,12 +194,12 @@ Before adding changes:
 # Helpful References
 
 - Key test classes and fixtures:
-  - maven_plugin/src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java
-  - maven_plugin/src/test/java/it/IntegrationTestsIT.java and resources-its/*
+  - src/test/java/io/github/chains_project/maven_lockfile/graph/LockfileTest.java
+  - src/test/java/it/IntegrationTestsIT.java and resources-its/*
 
 - CI workflow example: .github/workflows/Lockfile.yml uses the published action chain and demonstrates runner hardening and action invocation.
 
-If you are about to change any of the above major components, run unit tests and the integration tests (mvn -pl maven_plugin verify) and update the README when public behavior (defaults, PLUGIN_VERSION contract, or lockfile schema) changes. Do NOT update the CHANGELOG — it is auto-generated by jreleaser.
+If you are about to change any of the above major components, run unit tests and the integration tests (mvn verify) and update the README when public behavior (defaults, PLUGIN_VERSION contract, or lockfile schema) changes. Do NOT update the CHANGELOG — it is auto-generated by jreleaser.
 
 # Verification Checklist
 

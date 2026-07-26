@@ -27,7 +27,7 @@ public class SmokeTest {
 
     public static void main(String... args) throws Exception {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Path mavenPath = Path.of("./maven_plugin/./mvnw");
+        Path mavenPath = Path.of("./mvnw");
         String pluginVersion = getProjectVersion(mavenPath);
         new ProcBuilder(mavenPath.toString(), "clean", "install", "-DskipTests", "-q")
             .withNoTimeout()
@@ -49,12 +49,12 @@ public class SmokeTest {
                 result.checkout().setName(projectUrl.commitHash).call();
                 File workingDir = result.getRepository().getDirectory().getParentFile();
                 System.out.println("Cloned " + projectUrl.projectUrl + " to " + workingDir);
-                new ProcBuilder("../../maven_plugin/mvnw", command)
+                new ProcBuilder("../../mvnw", command)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
                 LockFile lockFile = mapper.readValue(new File(workingDir, "lockfile.json"), LockFile.class);
-                new ProcBuilder("../../maven_plugin/mvnw", mavenGraph)
+                new ProcBuilder("../../mvnw", mavenGraph)
                     .withWorkingDirectory(workingDir)
                     .withNoTimeout()
                     .run();
@@ -102,7 +102,7 @@ public class SmokeTest {
 
     private static String getProjectVersion(Path path) {
         return new ProcBuilder(path.toAbsolutePath().toString(), new String[]{ "help:evaluate", "-Dexpression=project.version", "-q",
-                "-DforceStdout"}).withNoTimeout().withWorkingDirectory(Path.of("./maven_plugin").toFile()).run().getOutputString().trim();
+                "-DforceStdout"}).withNoTimeout().withWorkingDirectory(Path.of(".").toFile()).run().getOutputString().trim();
     }
 
     record Dependency(String groupId, String artifactId, String classifier, String version,
