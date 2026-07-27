@@ -98,8 +98,11 @@ public class IntegrationTestsIT {
                 .filter(d -> d.getArtifactId().getValue().equals("module-b"))
                 .findFirst()
                 .orElseThrow();
-        // the reactor-local SNAPSHOT sibling is recorded with an empty checksum
+        // every reactor-local SNAPSHOT is recorded with an empty checksum: the sibling
+        // dependency, the module's own pom, and its parent pom.
         assertThat(moduleB.getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
     }
 
     @Nested
