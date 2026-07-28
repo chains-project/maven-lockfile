@@ -2680,3 +2680,25 @@ We'd like to thank the following people for their contributions:
 - Claude ()
 - LeiXiaoGao ()
 - fz-rh ()
+
+# 5.17.2
+## Changelog
+
+## 🐛 Fixes
+- 114e914 fix: skip checksum for reactor-local dependencies (#1613)
+
+## 🔄️ Changes
+- 7e403b2 refactor: break circular dependency between DependencyGraph and LockFileFacade (#1615)
+
+## 🧰 Tasks
+- 43a742d chore: release version 5.17.2
+- 0f28065 chore: set snapshot version 5.17.2-SNAPSHOT
+- 68d31d0 chore: release version 5.17.1
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Claude ()
+- Noaa Maman ()
+- noaa maman ([@noaamaman325158](https://github.com/noaamaman325158))
