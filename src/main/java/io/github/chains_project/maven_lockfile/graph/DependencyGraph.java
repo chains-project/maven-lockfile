@@ -133,10 +133,10 @@ public class DependencyGraph {
         // Reactor-local SNAPSHOTs are rebuilt every run, so their checksum drifts and
         // can't be pinned; leave it empty (releases still get a real checksum). See #1610.
         var nodeArtifact = node.getArtifact();
-        var reactorGav = nodeArtifact.getGroupId() + ":" + nodeArtifact.getArtifactId() + ":" + nodeArtifact.getBaseVersion();
-        var checksum = isRoot || reactorGavs.contains(reactorGav)
-                ? ""
-                : calc.calculateArtifactChecksum(node.getArtifact());
+        var reactorGav =
+                nodeArtifact.getGroupId() + ":" + nodeArtifact.getArtifactId() + ":" + nodeArtifact.getBaseVersion();
+        var checksum =
+                isRoot || reactorGavs.contains(reactorGav) ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
         var repositoryInformation =
