@@ -101,7 +101,7 @@ runs:
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
 
         # Convert to Maven plugin args
-        PLUGIN_VERSION="5.17.2"
+        PLUGIN_VERSION="5.17.3"
         MAVEN_ARGS=""
         
         MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
