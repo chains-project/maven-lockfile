@@ -105,6 +105,20 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
     }
 
+    @MavenTest
+    public void singleModuleSnapshotShouldKeepOwnPomChecksum(MavenExecutionResult result) throws Exception {
+        // contract: reactor-local snapshot detection must not treat the project's own pom
+        // as a sibling reactor module. In a single-module build the project is the only
+        // member of session.getProjects(), so a SNAPSHOT version must not blank out its
+        // own pom checksum the way a genuine sibling reactor dependency's would. See #1616.
+        System.out.println("Running 'singleModuleSnapshotShouldKeepOwnPomChecksum' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest

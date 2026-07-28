@@ -638,9 +638,16 @@ public class LockFileFacade {
         return "RELEASE".equals(version) || "LATEST".equals(version);
     }
 
-    /** GAVs of the SNAPSHOT modules built in the current reactor. */
+    /**
+     * GAVs of the SNAPSHOT modules built in the current reactor. If there's only one
+     * project, it's the root project the pom is being generated for, not a sibling module.
+     */
     static Set<String> reactorGavs(MavenSession session) {
-        return session.getProjects().stream()
+        List<MavenProject> projects = session.getProjects();
+        if (projects.size() <= 1) {
+            return Set.of();
+        }
+        return projects.stream()
                 .filter(p -> ArtifactUtils.isSnapshot(p.getVersion()))
                 .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
                 .collect(Collectors.toSet());
