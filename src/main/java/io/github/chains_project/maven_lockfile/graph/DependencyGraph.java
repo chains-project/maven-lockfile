@@ -2,7 +2,6 @@ package io.github.chains_project.maven_lockfile.graph;
 
 import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
-import io.github.chains_project.maven_lockfile.LockFileFacade;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
@@ -134,12 +133,8 @@ public class DependencyGraph {
         // Reactor-local SNAPSHOTs are rebuilt every run, so their checksum drifts and
         // can't be pinned; leave it empty (releases still get a real checksum). See #1610.
         var nodeArtifact = node.getArtifact();
-        var checksum = isRoot
-                        || LockFileFacade.isReactorLocalSnapshot(
-                                nodeArtifact.getGroupId(),
-                                nodeArtifact.getArtifactId(),
-                                nodeArtifact.getBaseVersion(),
-                                reactorGavs)
+        var reactorGav = nodeArtifact.getGroupId() + ":" + nodeArtifact.getArtifactId() + ":" + nodeArtifact.getBaseVersion();
+        var checksum = isRoot || reactorGavs.contains(reactorGav)
                 ? ""
                 : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
