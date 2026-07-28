@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.ArtifactUtils;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -510,10 +511,12 @@ public class LockFileFacade {
                             "Resolved %4d dependencies for project %s",
                             graph.nodes().size(), project.getArtifactId()));
 
-            return DependencyGraph.of(graph, checksumCalculator, reduced);
+            // Reactor-local SNAPSHOTs are rebuilt every run, so their checksums drift and
+            // are skipped during recording/validation.
+            return DependencyGraph.of(graph, checksumCalculator, reduced, reactorGavs(session));
         } catch (DependencyCollectorBuilderException e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced);
+            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced, Set.of());
         }
     }
 
@@ -527,6 +530,7 @@ public class LockFileFacade {
 
         BomResolver bomResolver =
                 new BomResolver(session, initialProject.getRemoteArtifactRepositories(), checksumCalculator);
+        Set<String> reactorGavs = reactorGavs(session);
         List<MavenProject> recursiveProjects = new ArrayList<>();
         MavenProject currentProject = initialProject;
         recursiveProjects.add(currentProject);
@@ -561,7 +565,12 @@ public class LockFileFacade {
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
-            if (isExternalPom) {
+            if (isReactorLocalSnapshot(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), reactorGavs)) {
+                // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts
+                // and can't be pinned; leave it empty (releases still get a real checksum).
+                checksum = "";
+            } else if (isExternalPom) {
                 // External POM (not in project directory) - get repository information
                 Artifact artifact = project.getArtifact();
                 // Use an explicit POM handler so getArtifactHandler().getExtension() reliably
@@ -627,5 +636,24 @@ public class LockFileFacade {
 
     private static boolean isSpecialVersion(String version) {
         return "RELEASE".equals(version) || "LATEST".equals(version);
+    }
+
+    /** GAVs of the modules built in the current reactor. */
+    private static Set<String> reactorGavs(MavenSession session) {
+        return session.getProjects().stream()
+                .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Whether a SNAPSHOT artifact is a module built in the current reactor. Reactor-local
+     * SNAPSHOTs are rebuilt on every run, so their checksums drift and cannot be pinned.
+     */
+    public static boolean isReactorLocalSnapshot(
+            String groupId, String artifactId, String baseVersion, Set<String> reactorGavs) {
+        if (!ArtifactUtils.isSnapshot(baseVersion)) {
+            return false;
+        }
+        return reactorGavs.contains(groupId + ":" + artifactId + ":" + baseVersion);
     }
 }

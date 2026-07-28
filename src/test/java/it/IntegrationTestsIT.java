@@ -84,6 +84,27 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
     }
 
+    @MavenTest
+    public void reactorSnapshotSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a reactor-local sibling -SNAPSHOT (module-b) is rebuilt every run, so
+        // its checksum drifts and can't be pinned. maven-lockfile leaves its checksum
+        // empty, so validation succeeds instead of failing on the drift. See #1610.
+        System.out.println("Running 'reactorSnapshotSiblingShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        // every reactor-local SNAPSHOT is recorded with an empty checksum: the sibling
+        // dependency, the module's own pom, and its parent pom.
+        assertThat(moduleB.getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest
