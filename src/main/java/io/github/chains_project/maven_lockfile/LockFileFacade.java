@@ -639,10 +639,8 @@ public class LockFileFacade {
     }
 
     /**
-     * GAVs of the SNAPSHOT modules built in the current reactor. A build with a single
-     * project isn't a reactor at all, so it never contributes reactor-local GAVs - otherwise
-     * a single-module SNAPSHOT project would treat its own pom as a "sibling" and blank its
-     * checksum on every run.
+     * GAVs of the SNAPSHOT modules built in the current reactor. If there's only one
+     * project, it's the root project the pom is being generated for, not a sibling module.
      */
     static Set<String> reactorGavs(MavenSession session) {
         List<MavenProject> projects = session.getProjects();
