@@ -638,9 +638,18 @@ public class LockFileFacade {
         return "RELEASE".equals(version) || "LATEST".equals(version);
     }
 
-    /** GAVs of the SNAPSHOT modules built in the current reactor. */
+    /**
+     * GAVs of the SNAPSHOT modules built in the current reactor. A build with a single
+     * project isn't a reactor at all, so it never contributes reactor-local GAVs - otherwise
+     * a single-module SNAPSHOT project would treat its own pom as a "sibling" and blank its
+     * checksum on every run.
+     */
     static Set<String> reactorGavs(MavenSession session) {
-        return session.getProjects().stream()
+        List<MavenProject> projects = session.getProjects();
+        if (projects.size() <= 1) {
+            return Set.of();
+        }
+        return projects.stream()
                 .filter(p -> ArtifactUtils.isSnapshot(p.getVersion()))
                 .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
                 .collect(Collectors.toSet());
