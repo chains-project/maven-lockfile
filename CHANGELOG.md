@@ -2702,3 +2702,21 @@ We'd like to thank the following people for their contributions:
 - Claude ()
 - Noaa Maman ()
 - noaa maman ([@noaamaman325158](https://github.com/noaamaman325158))
+
+# 5.17.3
+## Changelog
+
+## 🐛 Fixes
+- ed9d789 fix: report checksum for inital project (#1617)
+- 81af00d fix: restore own-pom checksum in lockfile.json
+
+## 🧰 Tasks
+- 965b5ae chore: release version 5.17.3
+- 20f6e1e chore: set snapshot version 5.17.3-SNAPSHOT
+- 854ced5 chore: release version 5.17.2
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
