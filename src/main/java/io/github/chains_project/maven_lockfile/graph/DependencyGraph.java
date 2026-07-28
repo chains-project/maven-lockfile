@@ -2,6 +2,7 @@ package io.github.chains_project.maven_lockfile.graph;
 
 import com.google.common.graph.Graph;
 import com.google.common.graph.MutableGraph;
+import io.github.chains_project.maven_lockfile.LockFileFacade;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
@@ -132,7 +133,13 @@ public class DependencyGraph {
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
         // Reactor-local SNAPSHOTs are rebuilt every run, so their checksum drifts and
         // can't be pinned; leave it empty (releases still get a real checksum). See #1610.
-        var checksum = isRoot || isReactorLocalSnapshot(node.getArtifact(), reactorGavs)
+        var nodeArtifact = node.getArtifact();
+        var checksum = isRoot
+                        || LockFileFacade.isReactorLocalSnapshot(
+                                nodeArtifact.getGroupId(),
+                                nodeArtifact.getArtifactId(),
+                                nodeArtifact.getBaseVersion(),
+                                reactorGavs)
                 ? ""
                 : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
@@ -164,14 +171,5 @@ public class DependencyGraph {
                     .ifPresent(value::addChild);
         }
         return Optional.of(value);
-    }
-
-    /** Whether the artifact is a SNAPSHOT module built in the current reactor. */
-    private static boolean isReactorLocalSnapshot(Artifact artifact, Set<String> reactorGavs) {
-        if (!artifact.isSnapshot()) {
-            return false;
-        }
-        String gav = artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getBaseVersion();
-        return reactorGavs.contains(gav);
     }
 }

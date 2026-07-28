@@ -565,7 +565,8 @@ public class LockFileFacade {
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
-            if (isReactorLocalSnapshot(project, reactorGavs)) {
+            if (isReactorLocalSnapshot(
+                    project.getGroupId(), project.getArtifactId(), project.getVersion(), reactorGavs)) {
                 // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts
                 // and can't be pinned; leave it empty (releases still get a real checksum).
                 checksum = "";
@@ -644,11 +645,15 @@ public class LockFileFacade {
                 .collect(Collectors.toSet());
     }
 
-    /** Whether the project is a SNAPSHOT module built in the current reactor. */
-    private static boolean isReactorLocalSnapshot(MavenProject project, Set<String> reactorGavs) {
-        if (!ArtifactUtils.isSnapshot(project.getVersion())) {
+    /**
+     * Whether a SNAPSHOT artifact is a module built in the current reactor. Reactor-local
+     * SNAPSHOTs are rebuilt on every run, so their checksums drift and cannot be pinned.
+     */
+    public static boolean isReactorLocalSnapshot(
+            String groupId, String artifactId, String baseVersion, Set<String> reactorGavs) {
+        if (!ArtifactUtils.isSnapshot(baseVersion)) {
             return false;
         }
-        return reactorGavs.contains(project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion());
+        return reactorGavs.contains(groupId + ":" + artifactId + ":" + baseVersion);
     }
 }
