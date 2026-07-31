@@ -84,6 +84,41 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
     }
 
+    @MavenTest
+    public void reactorSnapshotSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a reactor-local sibling -SNAPSHOT (module-b) is rebuilt every run, so
+        // its checksum drifts and can't be pinned. maven-lockfile leaves its checksum
+        // empty, so validation succeeds instead of failing on the drift. See #1610.
+        System.out.println("Running 'reactorSnapshotSiblingShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        // every reactor-local SNAPSHOT is recorded with an empty checksum: the sibling
+        // dependency, the module's own pom, and its parent pom.
+        assertThat(moduleB.getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
+    }
+
+    @MavenTest
+    public void singleModuleSnapshotShouldKeepOwnPomChecksum(MavenExecutionResult result) throws Exception {
+        // contract: reactor-local snapshot detection must not treat the project's own pom
+        // as a sibling reactor module. In a single-module build the project is the only
+        // member of session.getProjects(), so a SNAPSHOT version must not blank out its
+        // own pom checksum the way a genuine sibling reactor dependency's would. See #1616.
+        System.out.println("Running 'singleModuleSnapshotShouldKeepOwnPomChecksum' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest

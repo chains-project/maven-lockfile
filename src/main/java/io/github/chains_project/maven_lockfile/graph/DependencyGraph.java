@@ -80,7 +80,8 @@ public class DependencyGraph {
     public static DependencyGraph of(
             MutableGraph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
-            boolean reduced) {
+            boolean reduced,
+            Set<String> reactorGavs) {
         var roots = graph.nodes().stream()
                 .filter(it -> graph.predecessors(it).isEmpty())
                 .collect(Collectors.toList());
@@ -102,7 +103,8 @@ public class DependencyGraph {
 
         Set<DependencyNode> nodes = new TreeSet<>(Comparator.comparing(DependencyNode::getComparatorString));
         for (var artifact : roots) {
-            createDependencyNode(artifact, graph, calc, true, reduced).ifPresent(nodes::add);
+            createDependencyNode(artifact, graph, calc, true, reduced, reactorGavs)
+                    .ifPresent(nodes::add);
         }
         // maven dependency tree contains the project itself as a root node. We remove it here.
         Set<DependencyNode> dependencyRoots = nodes.stream()
@@ -118,7 +120,8 @@ public class DependencyGraph {
             Graph<org.apache.maven.shared.dependency.graph.DependencyNode> graph,
             AbstractChecksumCalculator calc,
             boolean isRoot,
-            boolean reduce) {
+            boolean reduce,
+            Set<String> reactorGavs) {
         PluginLogManager.getLog()
                 .debug(String.format("Creating dependency node for: %s, root: %s", node.toNodeString(), isRoot));
         var groupId = GroupId.of(node.getArtifact().getGroupId());
@@ -127,7 +130,13 @@ public class DependencyGraph {
         var classifier = Classifier.of(node.getArtifact().getClassifier());
         var type = ArtifactType.of(node.getArtifact().getType());
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
-        var checksum = isRoot ? "" : calc.calculateArtifactChecksum(node.getArtifact());
+        // Reactor-local SNAPSHOTs are rebuilt every run, so their checksum drifts and
+        // can't be pinned; leave it empty (releases still get a real checksum). See #1610.
+        var nodeArtifact = node.getArtifact();
+        var reactorGav =
+                nodeArtifact.getGroupId() + ":" + nodeArtifact.getArtifactId() + ":" + nodeArtifact.getBaseVersion();
+        var checksum =
+                isRoot || reactorGavs.contains(reactorGav) ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
         var repositoryInformation =
@@ -153,7 +162,8 @@ public class DependencyGraph {
         value.setSelectedVersion(baseVersion);
         value.setIncluded(included);
         for (var artifact : graph.successors(node)) {
-            createDependencyNode(artifact, graph, calc, false, reduce).ifPresent(value::addChild);
+            createDependencyNode(artifact, graph, calc, false, reduce, reactorGavs)
+                    .ifPresent(value::addChild);
         }
         return Optional.of(value);
     }

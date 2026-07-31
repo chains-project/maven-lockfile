@@ -1,0 +1,70 @@
+{
+  "artifactId": "module-a",
+  "groupId": "com.mycompany.app",
+  "version": "1.0.0-SNAPSHOT",
+  "pom": {
+    "groupId": "com.mycompany.app",
+    "artifactId": "module-a",
+    "version": "1.0.0-SNAPSHOT",
+    "relativePath": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "",
+    "parent": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "reactor-snapshot-sibling-parent",
+      "version": "1.0.0-SNAPSHOT",
+      "relativePath": "../pom.xml",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": ""
+    }
+  },
+  "lockFileVersion": 1,
+  "dependencies": [
+    {
+      "groupId": "com.mycompany.app",
+      "artifactId": "module-b",
+      "version": "1.0.0-SNAPSHOT",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "",
+      "scope": "compile",
+      "resolved": "",
+      "repositoryId": "",
+      "parentPom": {
+        "groupId": "com.mycompany.app",
+        "artifactId": "reactor-snapshot-sibling-parent",
+        "version": "1.0.0-SNAPSHOT",
+        "relativePath": "pom.xml",
+        "checksumAlgorithm": "SHA-256",
+        "checksum": ""
+      },
+      "selectedVersion": "1.0.0-SNAPSHOT",
+      "included": true,
+      "id": "com.mycompany.app:module-b:1.0.0-SNAPSHOT",
+      "children": [],
+      "boms": []
+    }
+  ],
+  "mavenPlugins": [],
+  "mavenExtensions": [],
+  "metaData": {
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
+      "allowEnvironmentalValidationFailure": false,
+      "includeEnvironment": false,
+      "reduced": false,
+      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": true,
+      "allowBomValidationFailure": false,
+      "includeParentPom": true,
+      "allowParentPomValidationFailure": false,
+      "includeMavenExtensions": true,
+      "allowMavenExtensionsValidationFailure": false
+    }
+  },
+  "boms": []
+}

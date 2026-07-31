@@ -2647,3 +2647,76 @@ We'd like to thank the following people for their contributions:
 - Phung ()
 - Tim Whittington ()
 - nvphungdev ([@nvphungdev](https://github.com/nvphungdev))
+
+# 5.17.1
+## Changelog
+
+## 🚀 Features
+- 47ca4dd feat: resolve special maven properties in BOMs (#1581)
+- c5b4cfa feat: allow-environmental-validation-failure input to GA (#1584)
+- 8bb20da feat: skip validation of `resolvedUrl` (#1597)
+- dfa82e8 feat: add Maven plugin validation failure flag (#1595)
+
+## 🐛 Fixes
+- 38e0fce fix: artifact URL resolution when classifier is empty in RemoteChecksumCalculator
+- 94c15a6 fix: ignore case when comparing remote SHA-1 checksums (#1600)
+- 2db2301 fix: handle no prior beta versions in beta release workflow (#1602)
+- 8e6d7ab fix: guard generation of parentPom, mavenExtensions, and boms (#1596)
+
+## 🔄️ Changes
+- 9b8e146 refactor: convert to single-module Maven project (#1611)
+- b36dae3 refactor: cluster BomResolverTest into nested test classes (#1607)
+
+## 🧰 Tasks
+- dacb3cc chore: release version 5.17.1
+- f704951 chore: use GITHUB_TOKEN instead of PAT (#1601)
+- cfe6f21 chore: set snapshot version 5.17.1-SNAPSHOT
+- e61d543 chore: release version 5.17.0
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- LeiXiaoGao ()
+- fz-rh ()
+
+# 5.17.2
+## Changelog
+
+## 🐛 Fixes
+- 114e914 fix: skip checksum for reactor-local dependencies (#1613)
+
+## 🔄️ Changes
+- 7e403b2 refactor: break circular dependency between DependencyGraph and LockFileFacade (#1615)
+
+## 🧰 Tasks
+- 43a742d chore: release version 5.17.2
+- 0f28065 chore: set snapshot version 5.17.2-SNAPSHOT
+- 68d31d0 chore: release version 5.17.1
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ()
+- Claude ()
+- Noaa Maman ()
+- noaa maman ([@noaamaman325158](https://github.com/noaamaman325158))
+
+# 5.17.3
+## Changelog
+
+## 🐛 Fixes
+- ed9d789 fix: report checksum for inital project (#1617)
+- 81af00d fix: restore own-pom checksum in lockfile.json
+
+## 🧰 Tasks
+- 965b5ae chore: release version 5.17.3
+- 20f6e1e chore: set snapshot version 5.17.3-SNAPSHOT
+- 854ced5 chore: release version 5.17.2
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
