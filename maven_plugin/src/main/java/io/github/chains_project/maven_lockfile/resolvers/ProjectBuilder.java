@@ -11,6 +11,7 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.building.ModelBuildingRequest;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.*;
 import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
@@ -38,7 +39,7 @@ public class ProjectBuilder {
      * @return an Optional that contains the MavenProject in case it was successfully built.
      */
     public Optional<MavenProject> buildFromGav(String groupId, String artifactId, String version) {
-        log.debug(String.format("Resolving dependencies for%s:%s:%s", groupId, artifactId, version));
+        log.debug(String.format("Resolving dependencies for %s:%s:%s", groupId, artifactId, version));
 
         var pomFileOptional = lookForPomFileInLocalRepository(groupId, artifactId, version);
 
@@ -114,6 +115,7 @@ public class ProjectBuilder {
             @SuppressWarnings("deprecation")
             org.apache.maven.project.ProjectBuilder projectBuilder =
                     session.getContainer().lookup(org.apache.maven.project.ProjectBuilder.class);
+            buildingRequest.setValidationLevel(ModelBuildingRequest.VALIDATION_LEVEL_MINIMAL);
             ProjectBuildingResult result = projectBuilder.build(pomFile, buildingRequest);
 
             if (result.getProject() == null) {

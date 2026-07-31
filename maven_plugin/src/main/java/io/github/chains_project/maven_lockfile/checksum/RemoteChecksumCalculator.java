@@ -177,7 +177,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                                 .encode(verificationMessageDigest.digest(artifactResponse.body()))
                                 .toLowerCase(Locale.ROOT);
 
-                        if (!sha1.equals(verificationChecksum)) {
+                        if (!sha1.equalsIgnoreCase(verificationChecksum)) {
                             PluginLogManager.getLog()
                                     .error(String.format("Invalid SHA-1 checksum for: %s", artifactUrl));
                             throw new RuntimeException("Invalid SHA-1 checksum for '" + artifact
@@ -232,10 +232,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String version = artifact.getVersion();
             String baseVersion = artifact.getBaseVersion();
             String classifier = artifact.getClassifier();
-            if (classifier == null) {
-                classifier = "";
-            } else {
+            if (classifier != null && !classifier.isEmpty()) {
                 classifier = "-" + classifier;
+            } else {
+                classifier = "";
             }
             String extension = artifact.getArtifactHandler().getExtension();
             String filename = artifactId + "-" + version + classifier + "." + extension;

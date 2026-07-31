@@ -9,6 +9,7 @@ public class Pom implements Comparable<Pom> {
     private final ArtifactId artifactId;
     private final VersionNumber version;
     private final String relativePath;
+    // Intentionally excluded from equals/hashCode/compareTo: mirrors differ in URL but are equivalent.
     private final ResolvedUrl resolved;
     private final RepositoryId repositoryId;
     private final String checksumAlgorithm;
@@ -94,13 +95,6 @@ public class Pom implements Comparable<Pom> {
             return pathCmp.compareTo(oPathCmp);
         }
 
-        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
-        ResolvedUrl oResolvedCmp = o.resolved == null ? ResolvedUrl.Unresolved() : o.resolved;
-
-        if (resolvedCmp.compareTo(oResolvedCmp) != 0) {
-            return resolvedCmp.compareTo(oResolvedCmp);
-        }
-
         RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
         RepositoryId oRepoIdCmp = o.repositoryId == null ? RepositoryId.None() : o.repositoryId;
 
@@ -140,14 +134,8 @@ public class Pom implements Comparable<Pom> {
             return false;
         }
         Pom other = (Pom) obj;
-        // Poms are either defined by their relative path or resolved from a repository by their GAV.
-        // We cannot know where poms defined by their relative path will be hosted and thus their
-        // resolved fields are null.
         String pathCmp = this.relativePath == null ? "" : this.relativePath;
         String otherPathCmp = other.relativePath == null ? "" : other.relativePath;
-
-        ResolvedUrl resolvedCmp = this.resolved == null ? ResolvedUrl.Unresolved() : this.resolved;
-        ResolvedUrl otherResolvedCmp = other.resolved == null ? ResolvedUrl.Unresolved() : other.resolved;
 
         RepositoryId repoIdCmp = this.repositoryId == null ? RepositoryId.None() : this.repositoryId;
         RepositoryId otherRepoIdCmp = other.repositoryId == null ? RepositoryId.None() : other.repositoryId;
@@ -159,7 +147,6 @@ public class Pom implements Comparable<Pom> {
                 && this.artifactId.equals(other.artifactId)
                 && this.version.equals(other.version)
                 && pathCmp.equals(otherPathCmp)
-                && resolvedCmp.equals(otherResolvedCmp)
                 && repoIdCmp.equals(otherRepoIdCmp)
                 && this.checksumAlgorithm.equals(other.checksumAlgorithm)
                 && this.checksum.equals(other.checksum)
@@ -169,15 +156,7 @@ public class Pom implements Comparable<Pom> {
     @Override
     public int hashCode() {
         return Objects.hash(
-                groupId,
-                artifactId,
-                version,
-                relativePath,
-                resolved,
-                repositoryId,
-                checksumAlgorithm,
-                checksum,
-                parent);
+                groupId, artifactId, version, relativePath, repositoryId, checksumAlgorithm, checksum, parent);
     }
 
     public Set<Pom> getBoms() {

@@ -35,7 +35,7 @@ jobs:
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: chains-project/maven-lockfile@3ddcf33c03217482c614440fd714375e9053e732 # 5.16.0
         with:
-          github-token: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true
     
       - name: run maven-lockfile (fork/external)

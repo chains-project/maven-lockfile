@@ -1,4 +1,3 @@
-
 # Maven Lockfile
 
 [![SemVersion](https://img.shields.io/badge/semver-2.0.0-blue)](https://img.shields.io/badge/semver-2.0.0-blue)
@@ -76,8 +75,15 @@ mvn -f pom.lockfile.xml
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
 - `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow validation failures, printing a warning instead of an error. This is useful if you want to only validate the Maven lockfile, but do not need to fail the build in case the lockfile is not valid. Use with caution, you loose all guarantees.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow validation failure of the pom specifically, dependency validation still occurs (assuming `allowValidationFailure` is `false`). In case of checksum mismatch of pom prints a warning instead of default exception.
+- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowValidationFailure` is also enabled.
 - `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
+- `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
+- `allowBomValidationFailure` (`-DallowBomValidationFailure=true`, default=false) allow BOM validation failures, printing a warning instead of an error.
+- `includeParentPom` (`-DincludeParentPom=true`, default=true) controls whether parent POM data is included in the lockfile for dependencies and plugins.
+- `allowParentPomValidationFailure` (`-DallowParentPomValidationFailure=true`, default=false) allow parent POM validation failures, printing a warning instead of an error.
+- `includeMavenExtensions` (`-DincludeMavenExtensions=true`, default=true) controls whether Maven build extensions are included in the lockfile.
+- `allowMavenExtensionsValidationFailure` (`-DallowMavenExtensionsValidationFailure=true`, default=false) allow Maven extensions validation failures, printing a warning instead of an error.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/maven_plugin/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
@@ -250,6 +256,7 @@ For a full example, see the [lockfile.json](/maven_plugin/lockfile.json) file in
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": true,
       "reduced": false,
@@ -339,6 +346,14 @@ Extended github actions example with all available options:
     #  the workflow is updated.
     # Defaults to 'Lockfile.yml'
     - workflow-filename: 'Lockfile.yml'
+
+    # Optional. Allow environment validation failures (e.g. Maven version changes between
+    #  GitHub-hosted runner image updates) to produce a warning instead of failing the build.
+    #  Recommended when using GitHub-hosted runners where the exact Maven version is not pinned,
+    #  because runner image updates can change the Maven version and cause spurious failures.
+    #  See https://github.com/chains-project/maven-lockfile/issues/1583.
+    # Defaults to false.
+    - allow-environmental-validation-failure: false
 ```
 
 ### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)

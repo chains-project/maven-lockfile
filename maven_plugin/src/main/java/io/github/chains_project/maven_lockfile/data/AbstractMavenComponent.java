@@ -20,6 +20,7 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
     protected final VersionNumber version;
     protected final String checksum;
     protected final String checksumAlgorithm;
+    // Intentionally excluded from equals/hashCode/compareTo: mirrors differ in URL but are equivalent.
     protected final ResolvedUrl resolved;
     protected final RepositoryId repositoryId;
     protected final Set<DependencyNode> dependencies;
@@ -78,18 +79,14 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
         return dependencies;
     }
 
+    public Pom getParentPom() {
+        return parentPom;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(
-                groupId,
-                artifactId,
-                version,
-                checksum,
-                checksumAlgorithm,
-                resolved,
-                repositoryId,
-                dependencies,
-                parentPom);
+                groupId, artifactId, version, checksum, checksumAlgorithm, repositoryId, dependencies, parentPom);
     }
 
     @Override
@@ -108,7 +105,6 @@ public abstract class AbstractMavenComponent implements Comparable<AbstractMaven
                 && Objects.equals(version, other.version)
                 && Objects.equals(checksum, other.checksum)
                 && Objects.equals(checksumAlgorithm, other.checksumAlgorithm)
-                && Objects.equals(resolved, other.resolved)
                 && Objects.equals(repositoryId, other.repositoryId)
                 && Objects.equals(dependencies, other.dependencies)
                 && Objects.equals(parentPom, other.parentPom);
