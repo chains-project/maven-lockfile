@@ -2720,3 +2720,20 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
+
+# 5.17.4-beta-1
+## Changelog
+
+## 🔄️ Changes
+- f1598f7 style: improve test assertions for `reduceLog4jAffected` (#1589)
+
+## 🧰 Tasks
+- 977c6d4 chore: release version 5.17.4-beta-1
+- cf545ac chore: set snapshot version 5.17.4-SNAPSHOT
+- 63d1a90 chore: release version 5.17.3
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
