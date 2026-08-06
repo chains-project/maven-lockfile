@@ -29,7 +29,7 @@
     <dependency>
       <groupId>fr.inria.gforge.spoon</groupId>
       <artifactId>spoon-core</artifactId>
-      <version>10.3.0</version>
+      <version>11.5.0</version>
     </dependency>
     <dependency>
       <groupId>atlassian-bandana</groupId>
@@ -56,6 +56,11 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
+          <includeMavenPlugins>false</includeMavenPlugins>
+          <includeBoms>false</includeBoms>
+          <includeParentPom>false</includeParentPom>
+          <includeMavenExtensions>false</includeMavenExtensions>
+          <allowPomValidationFailure>true</allowPomValidationFailure>
         </configuration>
       </plugin>
     </plugins>
