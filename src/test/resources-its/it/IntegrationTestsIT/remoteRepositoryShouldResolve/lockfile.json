@@ -389,18 +389,13 @@
   "mavenPlugins": [],
   "mavenExtensions": [],
   "metaData": {
-    "environment": {
-      "osName": "Linux",
-      "mavenVersion": "3.9.14",
-      "javaVersion": "25.0.2"
-    },
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
       "allowPomValidationFailure": true,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
-      "includeEnvironment": true,
+      "includeEnvironment": false,
       "reduced": false,
       "mavenLockfileVersion": "5.17.3",
       "checksumMode": "local",
