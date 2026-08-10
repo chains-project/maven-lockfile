@@ -81,11 +81,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowMavenExtensionsValidationFailure")
     protected Boolean allowMavenExtensionsValidationFailure;
 
-    /**
-     * Merge artifacts recorded by a DynamicResolutionSpy extension (attached via
-     * .mvn/extensions.xml or -Dmaven.ext.class.path) into the lockfile. Off by default: it only
-     * has an effect when that extension was actually attached to the build.
-     */
     @Parameter(property = "includeDynamicallyResolvedArtifacts")
     protected Boolean includeDynamicallyResolvedArtifacts;
 
@@ -212,8 +207,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.TRUE.equals(allowMavenExtensionsValidationFailure)
                         ? Config.OnMavenExtensionsValidationFailure.Warn
                         : Config.OnMavenExtensionsValidationFailure.Error;
-        // includeDynamicallyResolvedArtifacts defaults to false: it only has an effect once a
-        // DynamicResolutionSpy extension is actually attached to the build.
         Config.DynamicArtifactsInclusion dynamicArtifactsInclusion =
                 Boolean.TRUE.equals(includeDynamicallyResolvedArtifacts)
                         ? Config.DynamicArtifactsInclusion.Include

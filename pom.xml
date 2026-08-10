@@ -287,40 +287,36 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.4.0</version>
+        <!-- kept plugin-level: doc.yml calls `mvn resources:copy-resources` directly from the CLI -->
+        <configuration>
+          <outputDirectory>${project.basedir}</outputDirectory>
+          <resources>
+            <resource>
+              <directory>./template/</directory>
+              <includes>
+                <include>action.yml</include>
+              </includes>
+              <filtering>true</filtering>
+            </resource>
+          </resources>
+          <encoding>UTF-8</encoding>
+        </configuration>
         <executions>
-          <!--
-            A plain plugin-level <configuration> here previously replaced the *default*
-            process-resources binding too (Maven merges plugin-level config into implicit
-            lifecycle executions), so src/main/resources (e.g. the Sisu component index under
-            META-INF/sisu/) never made it into target/classes - only template/action.yml was
-            ever copied. Splitting into two explicit executions restores standard
-            src/main/resources handling alongside the action.yml generation step.
-          -->
+          <!-- copy-resources (unlike the resources goal) accepts an outputDirectory/resources
+               override, so src/main/resources still reaches target/classes -->
           <execution>
-            <id>default-resources</id>
+            <id>copy-main-resources</id>
             <goals>
-              <goal>resources</goal>
-            </goals>
-            <phase>process-resources</phase>
-          </execution>
-          <execution>
-            <id>generate-action-yml</id>
-            <goals>
-              <goal>resources</goal>
+              <goal>copy-resources</goal>
             </goals>
             <phase>process-resources</phase>
             <configuration>
-              <outputDirectory>${project.basedir}</outputDirectory>
-              <resources>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources combine.self="override">
                 <resource>
-                  <directory>./template/</directory>
-                  <includes>
-                    <include>action.yml</include>
-                  </includes>
-                  <filtering>true</filtering>
+                  <directory>${project.basedir}/src/main/resources</directory>
                 </resource>
               </resources>
-              <encoding>UTF-8</encoding>
             </configuration>
           </execution>
         </executions>

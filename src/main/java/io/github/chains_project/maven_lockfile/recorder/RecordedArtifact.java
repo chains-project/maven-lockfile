@@ -2,15 +2,7 @@ package io.github.chains_project.maven_lockfile.recorder;
 
 import java.util.Objects;
 
-/**
- * A single artifact coordinate observed being resolved during a Maven session, captured by
- * {@link DynamicResolutionSpy} independently of which plugin triggered the resolution.
- *
- * <p>Equality intentionally excludes {@code repositoryId}: the same GAV/classifier/extension
- * resolved from a mirror is still the same artifact (mirrors this file's {@code Pom}/{@code
- * AbstractMavenComponent} sibling classes, which exclude the resolved URL from equality for the
- * same reason).
- */
+/** An artifact coordinate observed being resolved during a session, captured by {@link DynamicResolutionSpy}. */
 public final class RecordedArtifact implements Comparable<RecordedArtifact> {
 
     private final String groupId;

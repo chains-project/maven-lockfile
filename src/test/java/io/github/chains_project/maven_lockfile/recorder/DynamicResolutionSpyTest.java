@@ -13,11 +13,6 @@ import org.eclipse.aether.repository.RemoteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-/**
- * Verifies DynamicResolutionSpy's event-filtering and recording logic directly, without going
- * through a full Maven session. The end-to-end capture behavior against a real build (the thing
- * this class is meant to observe) is covered by the dynamicResolutionCapture integration test.
- */
 class DynamicResolutionSpyTest {
 
     @TempDir
@@ -81,11 +76,6 @@ class DynamicResolutionSpyTest {
                 .build();
     }
 
-    /**
-     * Points the spy's close() at a temp directory (the same mechanism it uses to find the real
-     * reactor root) and reads back what it wrote, exercising the actual production code path
-     * rather than a test-only accessor.
-     */
     private List<RecordedArtifact> currentlyRecorded(DynamicResolutionSpy spy) throws IOException {
         String previous = System.getProperty("maven.multiModuleProjectDirectory");
         System.setProperty("maven.multiModuleProjectDirectory", tempDir.toString());

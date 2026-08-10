@@ -142,11 +142,7 @@ public class LockFile {
     }
 
     /**
-     * @return artifacts that a real build dynamically resolved outside the declared dependency
-     *     graph (e.g. Surefire's test-framework provider), captured by an attached {@code
-     *     DynamicResolutionSpy} extension and merged in when {@code
-     *     includeDynamicallyResolvedArtifacts} is enabled. Empty when the feature is off or no
-     *     recording was found.
+     * @return artifacts a DynamicResolutionSpy extension recorded outside the declared graph
      */
     public Set<Pom> getDynamicallyResolvedArtifacts() {
         return nullToEmpty(dynamicallyResolvedArtifacts);

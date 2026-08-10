@@ -34,11 +34,7 @@
         <version>@project.version@</version>
         <executions>
           <execution>
-            <!--
-              Bound to verify (after Surefire runs the tests), not the goal's default
-              generate-resources phase: the DynamicResolutionSpy extension only has something to
-              merge once the provider it resolves at test-execution time has actually happened.
-            -->
+            <!-- bound to verify, after Surefire runs, so there's something to merge -->
             <phase>verify</phase>
             <goals>
               <goal>generate</goal>

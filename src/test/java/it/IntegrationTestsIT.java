@@ -972,12 +972,9 @@ public class IntegrationTestsIT {
     @MavenTest
     @MavenGoal("verify")
     public void dynamicResolutionCapture(MavenExecutionResult result) throws Exception {
-        // contract: maven-surefire-plugin resolves its JUnit-Platform provider
-        // (org.apache.maven.surefire:surefire-junit-platform) imperatively at test-execution
-        // time, based on the test-scope classpath - it is never declared in any POM, so the
-        // statically-walked dependency/plugin graph can never see it (see issue #1568). With the
-        // DynamicResolutionSpy core extension attached (.mvn/extensions.xml in this fixture) and
-        // includeDynamicallyResolvedArtifacts enabled, the lockfile must still capture it.
+        // contract: surefire-junit-platform is resolved by Surefire at test-execution time and
+        // never declared in any POM (#1568); the DynamicResolutionSpy extension should still
+        // capture it into dynamicallyResolvedArtifacts.
         System.out.println("Running 'dynamicResolutionCapture' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -986,8 +983,6 @@ public class IntegrationTestsIT {
 
         assertThat(lockFile.getConfig().isIncludeDynamicallyResolvedArtifacts()).isTrue();
 
-        // Confirm the blind spot still exists in the statically-walked graph: no dependency, no
-        // plugin dependency of maven-surefire-plugin declares the provider.
         boolean declaredAnywhere = lockFile.getDependencies().stream().anyMatch(dep -> "surefire-junit-platform"
                         .equals(dep.getArtifactId().getValue()))
                 || lockFile.getMavenPlugins().stream()

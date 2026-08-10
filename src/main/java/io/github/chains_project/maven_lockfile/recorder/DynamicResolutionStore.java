@@ -11,12 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
 
-/**
- * Reads and writes the flat JSON file used to hand off artifacts recorded by {@link
- * DynamicResolutionSpy} (loaded early, as a Maven core extension) to {@code LockFileFacade}
- * (running later, inside a Mojo, in the normal plugin realm). The two never share a classloader
- * or static state reliably, so a small file on disk is the simplest robust hand-off.
- */
+/** Reads/writes the JSON file that hands artifacts off from {@link DynamicResolutionSpy} (a core extension) to {@code LockFileFacade} (a Mojo, different realm). */
 public final class DynamicResolutionStore {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -24,7 +19,6 @@ public final class DynamicResolutionStore {
 
     private DynamicResolutionStore() {}
 
-    /** Default location, rooted at the reactor's top-level {@code multiModuleProjectDirectory}. */
     public static Path defaultPath(Path multiModuleProjectDirectory) {
         return multiModuleProjectDirectory
                 .resolve("target")
@@ -37,7 +31,6 @@ public final class DynamicResolutionStore {
         Files.writeString(path, GSON.toJson(new TreeSet<>(artifacts), LIST_TYPE));
     }
 
-    /** Returns an empty list if no recording exists at {@code path} (e.g. the extension wasn't attached). */
     public static List<RecordedArtifact> read(Path path) throws IOException {
         if (!Files.exists(path)) {
             return List.of();

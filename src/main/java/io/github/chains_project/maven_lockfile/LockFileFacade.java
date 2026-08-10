@@ -169,12 +169,7 @@ public class LockFileFacade {
                 dynamicallyResolvedArtifacts);
     }
 
-    /**
-     * Merges artifacts a {@code DynamicResolutionSpy} core extension recorded during a real build
-     * (e.g. Surefire's test-framework provider, resolved imperatively at test-execution time and
-     * never declared in any POM) into the lockfile, skipping any GAV already covered by the
-     * statically-walked dependency/plugin/extension graph.
-     */
+    /** Merges artifacts a DynamicResolutionSpy extension recorded, skipping GAVs already covered by the static graph. */
     private static Set<Pom> resolveDynamicallyResolvedArtifacts(
             MavenSession session,
             AbstractChecksumCalculator checksumCalculator,
