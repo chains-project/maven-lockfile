@@ -6,9 +6,12 @@ import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculat
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
+import io.github.chains_project.maven_lockfile.recorder.DynamicResolutionStore;
+import io.github.chains_project.maven_lockfile.recorder.RecordedArtifact;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -149,6 +152,10 @@ public class LockFileFacade {
         }
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
+        Set<Pom> dynamicallyResolvedArtifacts = config.isIncludeDynamicallyResolvedArtifacts()
+                ? resolveDynamicallyResolvedArtifacts(session, checksumCalculator, roots, plugins, extensions)
+                : new TreeSet<>();
+
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -158,7 +165,100 @@ public class LockFileFacade {
                 plugins,
                 extensions,
                 metadata,
-                boms);
+                boms,
+                dynamicallyResolvedArtifacts);
+    }
+
+    /**
+     * Merges artifacts a {@code DynamicResolutionSpy} core extension recorded during a real build
+     * (e.g. Surefire's test-framework provider, resolved imperatively at test-execution time and
+     * never declared in any POM) into the lockfile, skipping any GAV already covered by the
+     * statically-walked dependency/plugin/extension graph.
+     */
+    private static Set<Pom> resolveDynamicallyResolvedArtifacts(
+            MavenSession session,
+            AbstractChecksumCalculator checksumCalculator,
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots,
+            Set<MavenPlugin> plugins,
+            Set<MavenExtension> extensions) {
+        Set<Pom> result = new TreeSet<>();
+
+        var multiModuleProjectDirectory = session.getRequest().getMultiModuleProjectDirectory();
+        if (multiModuleProjectDirectory == null) {
+            return result;
+        }
+
+        List<RecordedArtifact> recorded;
+        try {
+            recorded = DynamicResolutionStore.read(
+                    DynamicResolutionStore.defaultPath(multiModuleProjectDirectory.toPath()));
+        } catch (IOException e) {
+            PluginLogManager.getLog().warn("Could not read recorded dynamic resolutions", e);
+            return result;
+        }
+        if (recorded.isEmpty()) {
+            return result;
+        }
+
+        Set<String> knownGavs = new HashSet<>();
+        roots.forEach(node -> collectGavs(node, knownGavs));
+        plugins.forEach(plugin -> {
+            knownGavs.add(gavKey(plugin.getGroupId(), plugin.getArtifactId(), plugin.getVersion()));
+            plugin.getDependencies().forEach(node -> collectGavs(node, knownGavs));
+        });
+        extensions.forEach(extension -> {
+            knownGavs.add(gavKey(extension.getGroupId(), extension.getArtifactId(), extension.getVersion()));
+            extension.getDependencies().forEach(node -> collectGavs(node, knownGavs));
+        });
+
+        for (RecordedArtifact artifact : recorded) {
+            String key = artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion();
+            if (knownGavs.contains(key)) {
+                // Already visible through the declared dependency/plugin/extension graph.
+                continue;
+            }
+            try {
+                Artifact mavenArtifact = new DefaultArtifact(
+                        artifact.getGroupId(),
+                        artifact.getArtifactId(),
+                        artifact.getVersion(),
+                        "runtime",
+                        artifact.getExtension(),
+                        artifact.getClassifier(),
+                        new DefaultArtifactHandler(artifact.getExtension()));
+                RepositoryInformation repositoryInformation =
+                        checksumCalculator.getArtifactResolvedField(mavenArtifact);
+                String checksum = checksumCalculator.calculateArtifactChecksum(mavenArtifact);
+                result.add(new Pom(
+                        GroupId.of(artifact.getGroupId()),
+                        ArtifactId.of(artifact.getArtifactId()),
+                        VersionNumber.of(artifact.getVersion()),
+                        null,
+                        repositoryInformation.getResolvedUrl(),
+                        repositoryInformation.getRepositoryId(),
+                        checksumCalculator.getChecksumAlgorithm(),
+                        checksum,
+                        null));
+            } catch (Exception e) {
+                PluginLogManager.getLog()
+                        .warn(
+                                String.format(
+                                        "Could not resolve checksum for dynamically-resolved artifact %s; skipping",
+                                        artifact),
+                                e);
+            }
+        }
+        return result;
+    }
+
+    private static void collectGavs(
+            io.github.chains_project.maven_lockfile.graph.DependencyNode node, Set<String> gavs) {
+        gavs.add(gavKey(node.getGroupId(), node.getArtifactId(), node.getVersion()));
+        node.getChildren().forEach(child -> collectGavs(child, gavs));
+    }
+
+    private static String gavKey(GroupId groupId, ArtifactId artifactId, VersionNumber version) {
+        return groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue();
     }
 
     private static Set<MavenExtension> getAllExtensions(

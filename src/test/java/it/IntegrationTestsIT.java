@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.google.common.collect.Ordering;
+import com.soebes.itf.jupiter.extension.MavenGoal;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
@@ -966,5 +967,44 @@ public class IntegrationTestsIT {
         assertThat(parent.getGroupId().equals("org.sonatype.oss"));
         assertThat(parent.getArtifactId().equals("oss-parent"));
         assertThat(parent.getVersion().equals("7"));
+    }
+
+    @MavenTest
+    @MavenGoal("verify")
+    public void dynamicResolutionCapture(MavenExecutionResult result) throws Exception {
+        // contract: maven-surefire-plugin resolves its JUnit-Platform provider
+        // (org.apache.maven.surefire:surefire-junit-platform) imperatively at test-execution
+        // time, based on the test-scope classpath - it is never declared in any POM, so the
+        // statically-walked dependency/plugin graph can never see it (see issue #1568). With the
+        // DynamicResolutionSpy core extension attached (.mvn/extensions.xml in this fixture) and
+        // includeDynamicallyResolvedArtifacts enabled, the lockfile must still capture it.
+        System.out.println("Running 'dynamicResolutionCapture' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        assertThat(lockFile.getConfig().isIncludeDynamicallyResolvedArtifacts()).isTrue();
+
+        // Confirm the blind spot still exists in the statically-walked graph: no dependency, no
+        // plugin dependency of maven-surefire-plugin declares the provider.
+        boolean declaredAnywhere = lockFile.getDependencies().stream().anyMatch(dep -> "surefire-junit-platform"
+                        .equals(dep.getArtifactId().getValue()))
+                || lockFile.getMavenPlugins().stream()
+                        .flatMap(plugin -> plugin.getDependencies().stream())
+                        .anyMatch(dep -> "surefire-junit-platform"
+                                .equals(dep.getArtifactId().getValue()));
+        assertThat(declaredAnywhere)
+                .as("surefire-junit-platform must NOT appear in the statically-walked graph")
+                .isFalse();
+
+        assertThat(lockFile.getDynamicallyResolvedArtifacts())
+                .as("surefire-junit-platform must be captured via the DynamicResolutionSpy extension instead")
+                .anyMatch(artifact ->
+                        "org.apache.maven.surefire".equals(artifact.getGroupId().getValue())
+                                && "surefire-junit-platform"
+                                        .equals(artifact.getArtifactId().getValue())
+                                && artifact.getChecksum() != null
+                                && !artifact.getChecksum().isEmpty());
     }
 }

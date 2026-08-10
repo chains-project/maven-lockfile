@@ -92,6 +92,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 config.getParentPomInclusion(),
                 config.getOnParentPomValidationFailure(),
                 config.getMavenExtensionsInclusion(),
-                config.getOnMavenExtensionsValidationFailure());
+                config.getOnMavenExtensionsValidationFailure(),
+                config.getDynamicArtifactsInclusion());
     }
 }
