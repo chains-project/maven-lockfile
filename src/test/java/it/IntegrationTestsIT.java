@@ -1,6 +1,7 @@
 package it;
 
 import static com.soebes.itf.extension.assertj.MavenITAssertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -972,9 +973,11 @@ public class IntegrationTestsIT {
     @MavenTest
     @MavenGoal("verify")
     public void dynamicResolutionCapture(MavenExecutionResult result) throws Exception {
-        // contract: surefire-junit-platform is resolved by Surefire at test-execution time and
-        // never declared in any POM (#1568); the DynamicResolutionSpy extension should still
-        // capture it into dynamicallyResolvedArtifacts.
+        // contract: Surefire resolves its JUnit-Platform provider (and the provider's own parent
+        // POM and dependency chain) at test-execution time, never declared in any POM (#1568);
+        // the DynamicResolutionSpy extension should capture all 8 of those artifacts into
+        // dynamicallyResolvedArtifacts, and none of them should appear in the statically-walked
+        // graph.
         System.out.println("Running 'dynamicResolutionCapture' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -994,12 +997,24 @@ public class IntegrationTestsIT {
                 .isFalse();
 
         assertThat(lockFile.getDynamicallyResolvedArtifacts())
-                .as("surefire-junit-platform must be captured via the DynamicResolutionSpy extension instead")
-                .anyMatch(artifact ->
-                        "org.apache.maven.surefire".equals(artifact.getGroupId().getValue())
-                                && "surefire-junit-platform"
-                                        .equals(artifact.getArtifactId().getValue())
-                                && artifact.getChecksum() != null
-                                && !artifact.getChecksum().isEmpty());
+                .as(
+                        "all 8 artifacts from the dynamic Surefire-provider chain must be captured, each with a real checksum")
+                .extracting(
+                        pom -> pom.getGroupId().getValue(),
+                        pom -> pom.getArtifactId().getValue(),
+                        pom -> pom.getVersion().getValue())
+                .containsExactlyInAnyOrder(
+                        tuple("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5"),
+                        tuple("org.apache.maven.surefire", "surefire-providers", "3.2.5"),
+                        tuple("org.apache.maven.surefire", "common-java5", "3.2.5"),
+                        tuple("org.junit.platform", "junit-platform-launcher", "1.9.3"),
+                        tuple("org.junit.platform", "junit-platform-launcher", "1.10.2"),
+                        tuple("org.junit.platform", "junit-platform-engine", "1.9.3"),
+                        tuple("org.junit.platform", "junit-platform-commons", "1.9.3"),
+                        tuple("org.opentest4j", "opentest4j", "1.2.0"));
+
+        assertThat(lockFile.getDynamicallyResolvedArtifacts())
+                .as("every dynamically-resolved artifact must carry a real checksum")
+                .allMatch(pom -> pom.getChecksum() != null && !pom.getChecksum().isEmpty());
     }
 }

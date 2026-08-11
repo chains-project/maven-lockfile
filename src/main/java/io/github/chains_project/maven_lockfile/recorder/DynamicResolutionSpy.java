@@ -51,7 +51,7 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
             return;
         }
         org.eclipse.aether.artifact.Artifact artifact = repositoryEvent.getArtifact();
-        if (artifact == null || "pom".equals(artifact.getExtension())) {
+        if (artifact == null) {
             return;
         }
         String repositoryId = repositoryEvent.getRepository() != null

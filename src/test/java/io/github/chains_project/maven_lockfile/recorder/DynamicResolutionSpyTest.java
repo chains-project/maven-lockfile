@@ -41,11 +41,13 @@ class DynamicResolutionSpyTest {
     }
 
     @Test
-    void ignoresPomResolutions() throws IOException {
+    void recordsPomResolutions() throws IOException {
         DynamicResolutionSpy spy = new DynamicResolutionSpy();
-        spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "pom"));
+        spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-providers", "3.2.5", "pom"));
 
-        assertThat(currentlyRecorded(spy)).isEmpty();
+        assertThat(currentlyRecorded(spy))
+                .extracting(RecordedArtifact::getArtifactId)
+                .containsExactly("surefire-providers");
     }
 
     @Test
