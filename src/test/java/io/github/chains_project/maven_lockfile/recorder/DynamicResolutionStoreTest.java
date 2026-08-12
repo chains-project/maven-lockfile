@@ -23,9 +23,23 @@ class DynamicResolutionStoreTest {
     void writeThenReadRoundTripsArtifacts() throws IOException {
         Path path = DynamicResolutionStore.defaultPath(tempDir);
         RecordedArtifact provider = new RecordedArtifact(
-                "org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "jar", null, "central");
-        RecordedArtifact dependency =
-                new RecordedArtifact("org.apache.maven.surefire", "common-java5", "3.2.5", "jar", null, "central");
+                "org.apache.maven.surefire",
+                "surefire-junit-platform",
+                "3.2.5",
+                "jar",
+                null,
+                "central",
+                "org.apache.maven.plugins",
+                "maven-surefire-plugin");
+        RecordedArtifact dependency = new RecordedArtifact(
+                "org.apache.maven.surefire",
+                "common-java5",
+                "3.2.5",
+                "jar",
+                null,
+                "central",
+                "org.apache.maven.plugins",
+                "maven-surefire-plugin");
 
         DynamicResolutionStore.write(path, List.of(provider, dependency));
         List<RecordedArtifact> readBack = DynamicResolutionStore.read(path);

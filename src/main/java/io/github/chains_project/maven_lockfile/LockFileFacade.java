@@ -152,9 +152,10 @@ public class LockFileFacade {
         }
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
-        Set<Pom> dynamicallyResolvedArtifacts = config.isIncludeDynamicallyResolvedArtifacts()
-                ? resolveDynamicallyResolvedArtifacts(session, checksumCalculator, pom, roots, plugins, extensions)
-                : new TreeSet<>();
+        if (config.isIncludeDynamicallyResolvedArtifacts()) {
+            plugins =
+                    attachDynamicallyResolvedDependencies(session, checksumCalculator, pom, roots, plugins, extensions);
+        }
 
         return new LockFile(
                 GroupId.of(project.getGroupId()),
@@ -165,23 +166,25 @@ public class LockFileFacade {
                 plugins,
                 extensions,
                 metadata,
-                boms,
-                dynamicallyResolvedArtifacts);
+                boms);
     }
 
-    /** Merges artifacts a DynamicResolutionSpy extension recorded, skipping GAVs already covered by the static graph. */
-    private static Set<Pom> resolveDynamicallyResolvedArtifacts(
+    /**
+     * Merges artifacts a DynamicResolutionSpy extension recorded directly into the {@link
+     * MavenPlugin} whose Mojo was executing when each one was resolved, skipping GAVs already
+     * covered by the static graph. An artifact whose triggering plugin isn't one of {@code
+     * plugins} is dropped with a warning rather than surfaced anywhere else.
+     */
+    private static Set<MavenPlugin> attachDynamicallyResolvedDependencies(
             MavenSession session,
             AbstractChecksumCalculator checksumCalculator,
             Pom projectPom,
             Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots,
             Set<MavenPlugin> plugins,
             Set<MavenExtension> extensions) {
-        Set<Pom> result = new TreeSet<>();
-
         var multiModuleProjectDirectory = session.getRequest().getMultiModuleProjectDirectory();
         if (multiModuleProjectDirectory == null) {
-            return result;
+            return plugins;
         }
 
         List<RecordedArtifact> recorded;
@@ -190,10 +193,10 @@ public class LockFileFacade {
                     DynamicResolutionStore.defaultPath(multiModuleProjectDirectory.toPath()));
         } catch (IOException e) {
             PluginLogManager.getLog().warn("Could not read recorded dynamic resolutions", e);
-            return result;
+            return plugins;
         }
         if (recorded.isEmpty()) {
-            return result;
+            return plugins;
         }
 
         Set<String> knownGavs = new HashSet<>();
@@ -214,27 +217,24 @@ public class LockFileFacade {
         // full stop - this is the actual thing a hermetic build needs to fetch.
         Set<String> newGavs = new HashSet<>();
         Set<String> newGroupIds = new HashSet<>();
+        Map<String, Set<io.github.chains_project.maven_lockfile.graph.DependencyNode>> newDependenciesByPlugin =
+                new HashMap<>();
         for (RecordedArtifact artifact : recorded) {
-            if ("pom".equals(artifact.getExtension())) {
+            if ("pom".equals(artifact.getExtension()) || knownGavs.contains(gavKey(artifact))) {
                 continue;
             }
-            String key = gavKey(artifact);
-            if (knownGavs.contains(key)) {
-                continue;
-            }
-            newGavs.add(key);
+            newGavs.add(gavKey(artifact));
             newGroupIds.add(artifact.getGroupId());
-            addResolvedPom(result, artifact, checksumCalculator);
+            addDynamicDependency(newDependenciesByPlugin, artifact, checksumCalculator);
         }
 
-        // POMs second, and only two kinds: the small number of resolutions that genuinely have
-        // no matching jar (e.g. surefire-junit-platform's own parent, surefire-providers, which
-        // is "pom" packaging and never has a jar). Everything else resolved as a POM during the
-        // build is either the same GAV as a jar already added above (its own POM - redundant,
-        // skip), or version-mediation noise unrelated to this dynamic resolution (a candidate
-        // version Maven's resolver evaluated and discarded for some other, already-known plugin's
-        // own dependency graph - skip unless its groupId is one we've already confirmed as
-        // genuinely dynamic).
+        // POMs second, and only the kind that genuinely has no matching jar (e.g.
+        // surefire-junit-platform's own parent, surefire-providers, which is "pom" packaging and
+        // never has a jar). Everything else resolved as a POM during the build is either the same
+        // GAV as a jar already added above (its own POM - redundant, skip), or version-mediation
+        // noise unrelated to this dynamic resolution (a candidate version Maven's resolver
+        // evaluated and discarded for some other, already-known plugin's own dependency graph -
+        // skip unless its groupId is one we've already confirmed as genuinely dynamic).
         for (RecordedArtifact artifact : recorded) {
             if (!"pom".equals(artifact.getExtension())) {
                 continue;
@@ -243,13 +243,54 @@ public class LockFileFacade {
             if (knownGavs.contains(key) || newGavs.contains(key) || !newGroupIds.contains(artifact.getGroupId())) {
                 continue;
             }
-            addResolvedPom(result, artifact, checksumCalculator);
+            addDynamicDependency(newDependenciesByPlugin, artifact, checksumCalculator);
         }
+
+        if (newDependenciesByPlugin.isEmpty()) {
+            return plugins;
+        }
+
+        Set<MavenPlugin> result = new TreeSet<>();
+        for (MavenPlugin plugin : plugins) {
+            String pluginKey = gavKey(
+                    plugin.getGroupId().getValue(), plugin.getArtifactId().getValue());
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> newDeps =
+                    newDependenciesByPlugin.remove(pluginKey);
+            if (newDeps == null) {
+                result.add(plugin);
+                continue;
+            }
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> mergedDeps = new TreeSet<>();
+            mergedDeps.addAll(plugin.getDependencies());
+            mergedDeps.addAll(newDeps);
+            result.add(new MavenPlugin(
+                    plugin.getGroupId(),
+                    plugin.getArtifactId(),
+                    plugin.getVersion(),
+                    plugin.getResolved(),
+                    plugin.getRepositoryId(),
+                    plugin.getChecksumAlgorithm(),
+                    plugin.getChecksum(),
+                    mergedDeps,
+                    plugin.getParentPom()));
+        }
+        newDependenciesByPlugin.forEach((pluginKey, deps) -> PluginLogManager.getLog()
+                .warn(String.format(
+                        "Dynamically-resolved dependencies attributed to plugin %s, which isn't part of this "
+                                + "project's build plugins; dropping %d artifact(s): %s",
+                        pluginKey, deps.size(), deps)));
         return result;
     }
 
-    private static void addResolvedPom(
-            Set<Pom> result, RecordedArtifact artifact, AbstractChecksumCalculator checksumCalculator) {
+    private static void addDynamicDependency(
+            Map<String, Set<io.github.chains_project.maven_lockfile.graph.DependencyNode>> byPlugin,
+            RecordedArtifact artifact,
+            AbstractChecksumCalculator checksumCalculator) {
+        if (artifact.getTriggeringPluginGroupId() == null || artifact.getTriggeringPluginArtifactId() == null) {
+            PluginLogManager.getLog()
+                    .warn("Dynamically-resolved artifact " + artifact + " has no known triggering plugin; skipping");
+            return;
+        }
         try {
             Artifact mavenArtifact = new DefaultArtifact(
                     artifact.getGroupId(),
@@ -261,16 +302,20 @@ public class LockFileFacade {
                     new DefaultArtifactHandler(artifact.getExtension()));
             RepositoryInformation repositoryInformation = checksumCalculator.getArtifactResolvedField(mavenArtifact);
             String checksum = checksumCalculator.calculateArtifactChecksum(mavenArtifact);
-            result.add(new Pom(
-                    GroupId.of(artifact.getGroupId()),
-                    ArtifactId.of(artifact.getArtifactId()),
-                    VersionNumber.of(artifact.getVersion()),
-                    null,
-                    repositoryInformation.getResolvedUrl(),
-                    repositoryInformation.getRepositoryId(),
-                    checksumCalculator.getChecksumAlgorithm(),
-                    checksum,
-                    null));
+            io.github.chains_project.maven_lockfile.graph.DependencyNode node =
+                    io.github.chains_project.maven_lockfile.graph.DependencyNode.of(
+                            ArtifactId.of(artifact.getArtifactId()),
+                            GroupId.of(artifact.getGroupId()),
+                            VersionNumber.of(artifact.getVersion()),
+                            Classifier.of(artifact.getClassifier()),
+                            ArtifactType.of(artifact.getExtension()),
+                            MavenScope.RUNTIME,
+                            repositoryInformation.getResolvedUrl(),
+                            repositoryInformation.getRepositoryId(),
+                            checksumCalculator.getChecksumAlgorithm(),
+                            checksum);
+            String pluginKey = gavKey(artifact.getTriggeringPluginGroupId(), artifact.getTriggeringPluginArtifactId());
+            byPlugin.computeIfAbsent(pluginKey, k -> new TreeSet<>()).add(node);
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(
@@ -283,6 +328,10 @@ public class LockFileFacade {
 
     private static String gavKey(RecordedArtifact artifact) {
         return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion();
+    }
+
+    private static String gavKey(String groupId, String artifactId) {
+        return groupId + ":" + artifactId;
     }
 
     private static void collectGavs(

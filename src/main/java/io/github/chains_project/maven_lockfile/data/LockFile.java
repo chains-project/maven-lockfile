@@ -47,8 +47,6 @@ public class LockFile {
 
     private final Set<Pom> boms;
 
-    private final Set<Pom> dynamicallyResolvedArtifacts;
-
     public LockFile(
             GroupId groupId,
             ArtifactId name,
@@ -59,20 +57,6 @@ public class LockFile {
             Set<MavenExtension> mavenExtensions,
             MetaData metaData,
             Set<Pom> boms) {
-        this(groupId, name, versionNumber, pom, dependencies, mavenPlugins, mavenExtensions, metaData, boms, null);
-    }
-
-    public LockFile(
-            GroupId groupId,
-            ArtifactId name,
-            VersionNumber versionNumber,
-            Pom pom,
-            Set<DependencyNode> dependencies,
-            Set<MavenPlugin> mavenPlugins,
-            Set<MavenExtension> mavenExtensions,
-            MetaData metaData,
-            Set<Pom> boms,
-            Set<Pom> dynamicallyResolvedArtifacts) {
         this.groupId = groupId;
         this.name = name;
         this.version = versionNumber;
@@ -82,7 +66,6 @@ public class LockFile {
         this.mavenExtensions = mavenExtensions == null ? Collections.emptySet() : mavenExtensions;
         this.metaData = metaData;
         this.boms = boms;
-        this.dynamicallyResolvedArtifacts = dynamicallyResolvedArtifacts;
     }
     /**
      * Create a lock file object from a serialized JSON string.
@@ -142,13 +125,6 @@ public class LockFile {
     }
 
     /**
-     * @return artifacts a DynamicResolutionSpy extension recorded outside the declared graph
-     */
-    public Set<Pom> getDynamicallyResolvedArtifacts() {
-        return nullToEmpty(dynamicallyResolvedArtifacts);
-    }
-
-    /**
      * @return the mavenExtensions
      */
     public Set<MavenExtension> getMavenExtensions() {
@@ -179,8 +155,7 @@ public class LockFile {
                 dependencies,
                 nullToEmpty(mavenPlugins),
                 nullToEmpty(mavenExtensions),
-                nullToEmpty(boms),
-                nullToEmpty(dynamicallyResolvedArtifacts));
+                nullToEmpty(boms));
     }
 
     @Override
@@ -199,9 +174,7 @@ public class LockFile {
                 && Objects.equals(nullToEmpty(dependencies), nullToEmpty(other.dependencies))
                 && Objects.equals(nullToEmpty(mavenPlugins), nullToEmpty(other.mavenPlugins))
                 && Objects.equals(nullToEmpty(mavenExtensions), nullToEmpty(other.mavenExtensions))
-                && Objects.equals(nullToEmpty(boms), nullToEmpty(other.boms))
-                && Objects.equals(
-                        nullToEmpty(dynamicallyResolvedArtifacts), nullToEmpty(other.dynamicallyResolvedArtifacts));
+                && Objects.equals(nullToEmpty(boms), nullToEmpty(other.boms));
     }
 
     private static <T> Set<T> nullToEmpty(Set<T> set) {

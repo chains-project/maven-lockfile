@@ -975,9 +975,9 @@ public class IntegrationTestsIT {
     public void dynamicResolutionCapture(MavenExecutionResult result) throws Exception {
         // contract: Surefire resolves its JUnit-Platform provider (and the provider's own parent
         // POM and dependency chain) at test-execution time, never declared in any POM (#1568);
-        // the DynamicResolutionSpy extension should capture all 8 of those artifacts into
-        // dynamicallyResolvedArtifacts, and none of them should appear in the statically-walked
-        // graph.
+        // the DynamicResolutionSpy extension should capture all 8 of those artifacts and merge
+        // them into maven-surefire-plugin's own dependencies, since that's the plugin whose
+        // Mojo triggered the resolution.
         System.out.println("Running 'dynamicResolutionCapture' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -986,24 +986,27 @@ public class IntegrationTestsIT {
 
         assertThat(lockFile.getConfig().isIncludeDynamicallyResolvedArtifacts()).isTrue();
 
-        boolean declaredAnywhere = lockFile.getDependencies().stream().anyMatch(dep -> "surefire-junit-platform"
-                        .equals(dep.getArtifactId().getValue()))
-                || lockFile.getMavenPlugins().stream()
-                        .flatMap(plugin -> plugin.getDependencies().stream())
-                        .anyMatch(dep -> "surefire-junit-platform"
-                                .equals(dep.getArtifactId().getValue()));
-        assertThat(declaredAnywhere)
-                .as("surefire-junit-platform must NOT appear in the statically-walked graph")
-                .isFalse();
+        assertThat(lockFile.getDependencies())
+                .as("surefire-junit-platform is never declared in the project's own POM")
+                .noneMatch(dep ->
+                        "surefire-junit-platform".equals(dep.getArtifactId().getValue()));
 
-        assertThat(lockFile.getDynamicallyResolvedArtifacts())
-                .as(
-                        "all 8 artifacts from the dynamic Surefire-provider chain must be captured, each with a real checksum")
+        var surefirePlugin = lockFile.getMavenPlugins().stream()
+                .filter(plugin ->
+                        "maven-surefire-plugin".equals(plugin.getArtifactId().getValue()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("maven-surefire-plugin not found in lockfile"));
+
+        assertThat(surefirePlugin.getDependencies())
+                .as("all 8 artifacts from the dynamic Surefire-provider chain must be nested under "
+                        + "maven-surefire-plugin, each with a real checksum")
+                .filteredOn(
+                        dep -> dep.getChecksum() != null && !dep.getChecksum().isEmpty())
                 .extracting(
-                        pom -> pom.getGroupId().getValue(),
-                        pom -> pom.getArtifactId().getValue(),
-                        pom -> pom.getVersion().getValue())
-                .containsExactlyInAnyOrder(
+                        dep -> dep.getGroupId().getValue(),
+                        dep -> dep.getArtifactId().getValue(),
+                        dep -> dep.getVersion().getValue())
+                .contains(
                         tuple("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5"),
                         tuple("org.apache.maven.surefire", "surefire-providers", "3.2.5"),
                         tuple("org.apache.maven.surefire", "common-java5", "3.2.5"),
@@ -1012,9 +1015,5 @@ public class IntegrationTestsIT {
                         tuple("org.junit.platform", "junit-platform-engine", "1.9.3"),
                         tuple("org.junit.platform", "junit-platform-commons", "1.9.3"),
                         tuple("org.opentest4j", "opentest4j", "1.2.0"));
-
-        assertThat(lockFile.getDynamicallyResolvedArtifacts())
-                .as("every dynamically-resolved artifact must carry a real checksum")
-                .allMatch(pom -> pom.getChecksum() != null && !pom.getChecksum().isEmpty());
     }
 }

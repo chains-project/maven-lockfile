@@ -1,10 +1,14 @@
 package io.github.chains_project.maven_lockfile.recorder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import org.apache.maven.execution.ExecutionEvent;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.RepositoryEvent;
 import org.eclipse.aether.RepositorySystemSession;
@@ -63,12 +67,57 @@ class DynamicResolutionSpyTest {
     }
 
     @Test
+    void tagsArtifactsWithTheCurrentlyExecutingPlugin() throws IOException {
+        DynamicResolutionSpy spy = new DynamicResolutionSpy();
+        spy.onEvent(mojoStartedEvent("org.apache.maven.plugins", "maven-surefire-plugin"));
+        spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "jar"));
+
+        List<RecordedArtifact> recorded = currentlyRecorded(spy);
+        assertThat(recorded).hasSize(1);
+        assertThat(recorded.get(0).getTriggeringPluginGroupId()).isEqualTo("org.apache.maven.plugins");
+        assertThat(recorded.get(0).getTriggeringPluginArtifactId()).isEqualTo("maven-surefire-plugin");
+    }
+
+    @Test
+    void noLongerTagsArtifactsOnceTheMojoFinishes() throws IOException {
+        DynamicResolutionSpy spy = new DynamicResolutionSpy();
+        MojoExecution surefireExecution = mojoExecution("org.apache.maven.plugins", "maven-surefire-plugin");
+        spy.onEvent(mojoStartedEvent(surefireExecution));
+        spy.onEvent(mojoFinishedEvent(surefireExecution, ExecutionEvent.Type.MojoSucceeded));
+        spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "jar"));
+
+        assertThat(currentlyRecorded(spy).get(0).getTriggeringPluginGroupId()).isNull();
+    }
+
+    @Test
     void deduplicatesRepeatedResolutionsOfTheSameArtifact() throws IOException {
         DynamicResolutionSpy spy = new DynamicResolutionSpy();
         spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "jar"));
         spy.onEvent(resolvedEvent("org.apache.maven.surefire", "surefire-junit-platform", "3.2.5", "jar"));
 
         assertThat(currentlyRecorded(spy)).hasSize(1);
+    }
+
+    private static MojoExecution mojoExecution(String groupId, String artifactId) {
+        MojoExecution mojoExecution = mock(MojoExecution.class);
+        when(mojoExecution.getGroupId()).thenReturn(groupId);
+        when(mojoExecution.getArtifactId()).thenReturn(artifactId);
+        return mojoExecution;
+    }
+
+    private static ExecutionEvent mojoStartedEvent(String groupId, String artifactId) {
+        return mojoStartedEvent(mojoExecution(groupId, artifactId));
+    }
+
+    private static ExecutionEvent mojoStartedEvent(MojoExecution mojoExecution) {
+        return mojoFinishedEvent(mojoExecution, ExecutionEvent.Type.MojoStarted);
+    }
+
+    private static ExecutionEvent mojoFinishedEvent(MojoExecution mojoExecution, ExecutionEvent.Type type) {
+        ExecutionEvent event = mock(ExecutionEvent.class);
+        when(event.getType()).thenReturn(type);
+        when(event.getMojoExecution()).thenReturn(mojoExecution);
+        return event;
     }
 
     private static RepositoryEvent resolvedEvent(String groupId, String artifactId, String version, String extension) {

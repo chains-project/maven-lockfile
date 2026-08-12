@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import org.apache.maven.eventspy.AbstractEventSpy;
@@ -18,8 +19,8 @@ import org.eclipse.aether.RepositoryEvent;
  * which plugin triggered it - including artifacts resolved imperatively at execution time (e.g.
  * Surefire's test-framework provider) that never appear in any POM. Load via {@code
  * .mvn/extensions.xml} or {@code -Dmaven.ext.class.path}; {@code LockFileFacade} merges what it
- * recorded (via {@link DynamicResolutionStore}) when {@code includeDynamicallyResolvedArtifacts}
- * is enabled.
+ * recorded (via {@link DynamicResolutionStore}) into the triggering plugin's own dependencies
+ * when {@code includeDynamicallyResolvedArtifacts} is enabled.
  *
  * <p>Pauses itself once this plugin's own {@code generate}/{@code validate} Mojo starts: that
  * goal resolves a large, legitimate static graph through the same resolver, which would otherwise
@@ -35,6 +36,7 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
 
     private final Map<RecordedArtifact, Boolean> recorded = new ConcurrentHashMap<>();
     private final AtomicBoolean paused = new AtomicBoolean(false);
+    private final AtomicReference<MojoExecution> currentMojo = new AtomicReference<>();
 
     @Override
     public void onEvent(Object event) {
@@ -57,30 +59,37 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         String repositoryId = repositoryEvent.getRepository() != null
                 ? repositoryEvent.getRepository().getId()
                 : null;
+        MojoExecution mojo = currentMojo.get();
         RecordedArtifact newlyRecorded = new RecordedArtifact(
                 artifact.getGroupId(),
                 artifact.getArtifactId(),
                 artifact.getVersion(),
                 artifact.getExtension(),
                 artifact.getClassifier(),
-                repositoryId);
+                repositoryId,
+                mojo != null ? mojo.getGroupId() : null,
+                mojo != null ? mojo.getArtifactId() : null);
         if (recorded.put(newlyRecorded, Boolean.TRUE) == null) {
             flush();
         }
     }
 
     private void onExecutionEvent(ExecutionEvent executionEvent) {
-        if (executionEvent.getType() != ExecutionEvent.Type.MojoStarted) {
-            return;
-        }
         MojoExecution mojoExecution = executionEvent.getMojoExecution();
         if (mojoExecution == null) {
             return;
         }
-        if (OWN_GROUP_ID.equals(mojoExecution.getGroupId())
-                && OWN_ARTIFACT_ID.equals(mojoExecution.getArtifactId())
-                && PAUSE_ON_OWN_GOALS.contains(mojoExecution.getGoal())) {
-            paused.set(true);
+        if (executionEvent.getType() == ExecutionEvent.Type.MojoStarted) {
+            currentMojo.set(mojoExecution);
+            if (OWN_GROUP_ID.equals(mojoExecution.getGroupId())
+                    && OWN_ARTIFACT_ID.equals(mojoExecution.getArtifactId())
+                    && PAUSE_ON_OWN_GOALS.contains(mojoExecution.getGoal())) {
+                paused.set(true);
+            }
+        } else if (executionEvent.getType() == ExecutionEvent.Type.MojoSucceeded
+                || executionEvent.getType() == ExecutionEvent.Type.MojoFailed
+                || executionEvent.getType() == ExecutionEvent.Type.MojoSkipped) {
+            currentMojo.compareAndSet(mojoExecution, null);
         }
     }
 
