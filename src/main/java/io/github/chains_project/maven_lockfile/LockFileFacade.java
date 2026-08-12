@@ -210,8 +210,7 @@ public class LockFileFacade {
             extension.getDependencies().forEach(node -> collectGavs(node, knownGavs));
         });
 
-        // Binary artifacts (jar, etc.) first: anything not already in the static graph is new,
-        // full stop - this is the actual thing a hermetic build needs to fetch.
+        // Jars first: anything not already in the static graph is genuinely new.
         Set<String> newGavs = new HashSet<>();
         Set<String> newGroupIds = new HashSet<>();
         Map<String, Set<io.github.chains_project.maven_lockfile.graph.DependencyNode>> newDependenciesByPlugin =
@@ -225,13 +224,9 @@ public class LockFileFacade {
             addDynamicDependency(newDependenciesByPlugin, artifact, checksumCalculator);
         }
 
-        // POMs second, and only the kind that genuinely has no matching jar (e.g.
-        // surefire-junit-platform's own parent, surefire-providers, which is "pom" packaging and
-        // never has a jar). Everything else resolved as a POM during the build is either the same
-        // GAV as a jar already added above (its own POM - redundant, skip), or version-mediation
-        // noise unrelated to this dynamic resolution (a candidate version Maven's resolver
-        // evaluated and discarded for some other, already-known plugin's own dependency graph -
-        // skip unless its groupId is one we've already confirmed as genuinely dynamic).
+        // Then POMs with no matching jar (e.g. a pom-only parent like surefire-providers),
+        // restricted to groupIds already confirmed dynamic above to filter out ordinary
+        // version-mediation noise.
         for (RecordedArtifact artifact : recorded) {
             if (!"pom".equals(artifact.getExtension())) {
                 continue;

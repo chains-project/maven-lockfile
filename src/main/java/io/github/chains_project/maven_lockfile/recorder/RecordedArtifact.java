@@ -10,7 +10,6 @@ public final class RecordedArtifact implements Comparable<RecordedArtifact> {
     private final String version;
     private final String extension;
     private final String classifier;
-    private final String repositoryId;
     private final String triggeringPluginGroupId;
     private final String triggeringPluginArtifactId;
 
@@ -20,7 +19,6 @@ public final class RecordedArtifact implements Comparable<RecordedArtifact> {
             String version,
             String extension,
             String classifier,
-            String repositoryId,
             String triggeringPluginGroupId,
             String triggeringPluginArtifactId) {
         this.groupId = groupId;
@@ -28,7 +26,6 @@ public final class RecordedArtifact implements Comparable<RecordedArtifact> {
         this.version = version;
         this.extension = extension;
         this.classifier = classifier == null ? "" : classifier;
-        this.repositoryId = repositoryId;
         this.triggeringPluginGroupId = triggeringPluginGroupId;
         this.triggeringPluginArtifactId = triggeringPluginArtifactId;
     }
@@ -51,10 +48,6 @@ public final class RecordedArtifact implements Comparable<RecordedArtifact> {
 
     public String getClassifier() {
         return classifier;
-    }
-
-    public String getRepositoryId() {
-        return repositoryId;
     }
 
     /** GroupId of the plugin whose Mojo was executing when this artifact was resolved, or null if none was. */

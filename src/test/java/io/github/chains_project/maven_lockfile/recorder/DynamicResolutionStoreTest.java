@@ -28,7 +28,6 @@ class DynamicResolutionStoreTest {
                 "3.2.5",
                 "jar",
                 null,
-                "central",
                 "org.apache.maven.plugins",
                 "maven-surefire-plugin");
         RecordedArtifact dependency = new RecordedArtifact(
@@ -37,7 +36,6 @@ class DynamicResolutionStoreTest {
                 "3.2.5",
                 "jar",
                 null,
-                "central",
                 "org.apache.maven.plugins",
                 "maven-surefire-plugin");
 
