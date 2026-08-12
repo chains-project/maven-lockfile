@@ -33,8 +33,7 @@ class ValidateMojoTest {
                 Config.ParentPomInclusion.Exclude,
                 Config.OnParentPomValidationFailure.Error,
                 Config.MavenExtensionsInclusion.Exclude,
-                Config.OnMavenExtensionsValidationFailure.Error,
-                Config.DynamicArtifactsInclusion.Exclude);
+                Config.OnMavenExtensionsValidationFailure.Error);
     }
 
     @Test

@@ -33,8 +33,7 @@ class AbstractLockfileMojoTest {
                 Config.ParentPomInclusion.Include,
                 Config.OnParentPomValidationFailure.Error,
                 Config.MavenExtensionsInclusion.Include,
-                Config.OnMavenExtensionsValidationFailure.Error,
-                Config.DynamicArtifactsInclusion.Exclude);
+                Config.OnMavenExtensionsValidationFailure.Error);
     }
 
     @Test

@@ -41,8 +41,7 @@ public class LockfileTest {
                         Config.ParentPomInclusion.Include,
                         Config.OnParentPomValidationFailure.Error,
                         Config.MavenExtensionsInclusion.Include,
-                        Config.OnMavenExtensionsValidationFailure.Error,
-                        Config.DynamicArtifactsInclusion.Exclude));
+                        Config.OnMavenExtensionsValidationFailure.Error));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("a");

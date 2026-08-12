@@ -81,9 +81,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowMavenExtensionsValidationFailure")
     protected Boolean allowMavenExtensionsValidationFailure;
 
-    @Parameter(property = "includeDynamicallyResolvedArtifacts")
-    protected Boolean includeDynamicallyResolvedArtifacts;
-
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
 
@@ -207,10 +204,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.TRUE.equals(allowMavenExtensionsValidationFailure)
                         ? Config.OnMavenExtensionsValidationFailure.Warn
                         : Config.OnMavenExtensionsValidationFailure.Error;
-        Config.DynamicArtifactsInclusion dynamicArtifactsInclusion =
-                Boolean.TRUE.equals(includeDynamicallyResolvedArtifacts)
-                        ? Config.DynamicArtifactsInclusion.Include
-                        : Config.DynamicArtifactsInclusion.Exclude;
 
         return new Config(
                 mavenPluginsInclusion,
@@ -228,8 +221,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 parentPomInclusion,
                 onParentPomValidationFailure,
                 mavenExtensionsInclusion,
-                onMavenExtensionsValidationFailure,
-                dynamicArtifactsInclusion);
+                onMavenExtensionsValidationFailure);
     }
 
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
@@ -297,11 +289,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                                 ? Config.OnMavenExtensionsValidationFailure.Warn
                                 : Config.OnMavenExtensionsValidationFailure.Error)
                         : base.getOnMavenExtensionsValidationFailure();
-        Config.DynamicArtifactsInclusion dynamicArtifactsInclusion = includeDynamicallyResolvedArtifacts != null
-                ? (includeDynamicallyResolvedArtifacts
-                        ? Config.DynamicArtifactsInclusion.Include
-                        : Config.DynamicArtifactsInclusion.Exclude)
-                : base.getDynamicArtifactsInclusion();
         return new Config(
                 pluginsInclusion,
                 onValidationFailure,
@@ -318,7 +305,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 parentPomInclusion,
                 onParentPomValidationFailure,
                 mavenExtensionsInclusion,
-                onMavenExtensionsValidationFailure,
-                dynamicArtifactsInclusion);
+                onMavenExtensionsValidationFailure);
     }
 }

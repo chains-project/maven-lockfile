@@ -44,7 +44,6 @@
         <configuration>
           <checksumMode>local</checksumMode>
           <includeMavenPlugins>true</includeMavenPlugins>
-          <includeDynamicallyResolvedArtifacts>true</includeDynamicallyResolvedArtifacts>
         </configuration>
       </plugin>
     </plugins>

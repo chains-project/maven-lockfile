@@ -21,7 +21,6 @@ public class Config {
     private final boolean allowParentPomValidationFailure;
     private final boolean includeMavenExtensions;
     private final boolean allowMavenExtensionsValidationFailure;
-    private final boolean includeDynamicallyResolvedArtifacts;
 
     public Config(
             MavenPluginsInclusion includeMavenPlugins,
@@ -39,8 +38,7 @@ public class Config {
             ParentPomInclusion includeParentPom,
             OnParentPomValidationFailure allowParentPomValidationFailure,
             MavenExtensionsInclusion includeMavenExtensions,
-            OnMavenExtensionsValidationFailure allowMavenExtensionsValidationFailure,
-            DynamicArtifactsInclusion includeDynamicallyResolvedArtifacts) {
+            OnMavenExtensionsValidationFailure allowMavenExtensionsValidationFailure) {
         this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
         this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
         this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
@@ -61,8 +59,6 @@ public class Config {
         this.includeMavenExtensions = includeMavenExtensions.equals(MavenExtensionsInclusion.Include);
         this.allowMavenExtensionsValidationFailure =
                 allowMavenExtensionsValidationFailure.equals(OnMavenExtensionsValidationFailure.Warn);
-        this.includeDynamicallyResolvedArtifacts =
-                includeDynamicallyResolvedArtifacts.equals(DynamicArtifactsInclusion.Include);
     }
 
     public Config() {
@@ -82,7 +78,6 @@ public class Config {
         this.allowParentPomValidationFailure = false;
         this.includeMavenExtensions = false;
         this.allowMavenExtensionsValidationFailure = false;
-        this.includeDynamicallyResolvedArtifacts = false;
     }
     /**
      * @return the includeMavenPlugins
@@ -238,21 +233,6 @@ public class Config {
                 : OnMavenExtensionsValidationFailure.Error;
     }
 
-    /**
-     * @return whether artifacts dynamically resolved during a real build (e.g. Surefire's
-     *     test-framework provider), and captured by a {@code DynamicResolutionSpy} extension
-     *     attached to that build, are merged into the lockfile.
-     */
-    public boolean isIncludeDynamicallyResolvedArtifacts() {
-        return includeDynamicallyResolvedArtifacts;
-    }
-
-    public DynamicArtifactsInclusion getDynamicArtifactsInclusion() {
-        return includeDynamicallyResolvedArtifacts
-                ? DynamicArtifactsInclusion.Include
-                : DynamicArtifactsInclusion.Exclude;
-    }
-
     public enum MavenPluginsInclusion {
         Include,
         Exclude
@@ -316,10 +296,5 @@ public class Config {
     public enum OnMavenExtensionsValidationFailure {
         Warn,
         Error
-    }
-
-    public enum DynamicArtifactsInclusion {
-        Include,
-        Exclude
     }
 }

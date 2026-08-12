@@ -984,8 +984,6 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
 
-        assertThat(lockFile.getConfig().isIncludeDynamicallyResolvedArtifacts()).isTrue();
-
         assertThat(lockFile.getDependencies())
                 .as("surefire-junit-platform is never declared in the project's own POM")
                 .noneMatch(dep ->
