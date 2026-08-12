@@ -56,6 +56,9 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         if (artifact == null) {
             return;
         }
+        if (OWN_GROUP_ID.equals(artifact.getGroupId()) && OWN_ARTIFACT_ID.equals(artifact.getArtifactId())) {
+            return;
+        }
         MojoExecution mojo = currentMojo.get();
         RecordedArtifact newlyRecorded = new RecordedArtifact(
                 artifact.getGroupId(),
