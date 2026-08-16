@@ -6,9 +6,12 @@ import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculat
 import io.github.chains_project.maven_lockfile.checksum.RepositoryInformation;
 import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
+import io.github.chains_project.maven_lockfile.recorder.DynamicResolutionStore;
+import io.github.chains_project.maven_lockfile.recorder.RecordedArtifact;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -149,6 +152,8 @@ public class LockFileFacade {
         }
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
+        plugins = attachDynamicallyResolvedDependencies(session, checksumCalculator, pom, roots, plugins, extensions);
+
         return new LockFile(
                 GroupId.of(project.getGroupId()),
                 ArtifactId.of(project.getArtifactId()),
@@ -159,6 +164,184 @@ public class LockFileFacade {
                 extensions,
                 metadata,
                 boms);
+    }
+
+    /**
+     * Merges artifacts a DynamicResolutionSpy extension recorded directly into the {@link
+     * MavenPlugin} whose Mojo was executing when each one was resolved, skipping GAVs already
+     * covered by the static graph. An artifact whose triggering plugin isn't one of {@code
+     * plugins} is dropped with a warning rather than surfaced anywhere else.
+     */
+    private static Set<MavenPlugin> attachDynamicallyResolvedDependencies(
+            MavenSession session,
+            AbstractChecksumCalculator checksumCalculator,
+            Pom projectPom,
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> roots,
+            Set<MavenPlugin> plugins,
+            Set<MavenExtension> extensions) {
+        var multiModuleProjectDirectory = session.getRequest().getMultiModuleProjectDirectory();
+        if (multiModuleProjectDirectory == null) {
+            return plugins;
+        }
+
+        List<RecordedArtifact> recorded;
+        try {
+            recorded = DynamicResolutionStore.read(
+                    DynamicResolutionStore.defaultPath(multiModuleProjectDirectory.toPath()));
+        } catch (IOException e) {
+            PluginLogManager.getLog().warn("Could not read recorded dynamic resolutions", e);
+            return plugins;
+        }
+        if (recorded.isEmpty()) {
+            return plugins;
+        }
+
+        Set<String> knownGavs = new HashSet<>();
+        collectPomChainGavs(projectPom, knownGavs);
+        roots.forEach(node -> collectGavs(node, knownGavs));
+        plugins.forEach(plugin -> {
+            knownGavs.add(gavKey(plugin.getGroupId(), plugin.getArtifactId(), plugin.getVersion()));
+            collectPomChainGavs(plugin.getParentPom(), knownGavs);
+            plugin.getDependencies().forEach(node -> collectGavs(node, knownGavs));
+        });
+        extensions.forEach(extension -> {
+            knownGavs.add(gavKey(extension.getGroupId(), extension.getArtifactId(), extension.getVersion()));
+            collectPomChainGavs(extension.getParentPom(), knownGavs);
+            extension.getDependencies().forEach(node -> collectGavs(node, knownGavs));
+        });
+
+        // Jars first: anything not already in the static graph is genuinely new.
+        Set<String> newGavs = new HashSet<>();
+        Set<String> newGroupIds = new HashSet<>();
+        Map<String, Set<io.github.chains_project.maven_lockfile.graph.DependencyNode>> newDependenciesByPlugin =
+                new HashMap<>();
+        for (RecordedArtifact artifact : recorded) {
+            if ("pom".equals(artifact.getExtension()) || knownGavs.contains(gavKey(artifact))) {
+                continue;
+            }
+            newGavs.add(gavKey(artifact));
+            newGroupIds.add(artifact.getGroupId());
+            addDynamicDependency(newDependenciesByPlugin, artifact, checksumCalculator);
+        }
+
+        // Then POMs with no matching jar (e.g. a pom-only parent like surefire-providers),
+        // restricted to groupIds already confirmed dynamic above to filter out ordinary
+        // version-mediation noise.
+        for (RecordedArtifact artifact : recorded) {
+            if (!"pom".equals(artifact.getExtension())) {
+                continue;
+            }
+            String key = gavKey(artifact);
+            if (knownGavs.contains(key) || newGavs.contains(key) || !newGroupIds.contains(artifact.getGroupId())) {
+                continue;
+            }
+            addDynamicDependency(newDependenciesByPlugin, artifact, checksumCalculator);
+        }
+
+        if (newDependenciesByPlugin.isEmpty()) {
+            return plugins;
+        }
+
+        Set<MavenPlugin> result = new TreeSet<>();
+        for (MavenPlugin plugin : plugins) {
+            String pluginKey = gavKey(
+                    plugin.getGroupId().getValue(), plugin.getArtifactId().getValue());
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> newDeps =
+                    newDependenciesByPlugin.remove(pluginKey);
+            if (newDeps == null) {
+                result.add(plugin);
+                continue;
+            }
+            Set<io.github.chains_project.maven_lockfile.graph.DependencyNode> mergedDeps = new TreeSet<>();
+            mergedDeps.addAll(plugin.getDependencies());
+            mergedDeps.addAll(newDeps);
+            result.add(new MavenPlugin(
+                    plugin.getGroupId(),
+                    plugin.getArtifactId(),
+                    plugin.getVersion(),
+                    plugin.getResolved(),
+                    plugin.getRepositoryId(),
+                    plugin.getChecksumAlgorithm(),
+                    plugin.getChecksum(),
+                    mergedDeps,
+                    plugin.getParentPom()));
+        }
+        newDependenciesByPlugin.forEach((pluginKey, deps) -> PluginLogManager.getLog()
+                .warn(String.format(
+                        "Dynamically-resolved dependencies attributed to plugin %s, which isn't part of this "
+                                + "project's build plugins; dropping %d artifact(s): %s",
+                        pluginKey, deps.size(), deps)));
+        return result;
+    }
+
+    private static void addDynamicDependency(
+            Map<String, Set<io.github.chains_project.maven_lockfile.graph.DependencyNode>> byPlugin,
+            RecordedArtifact artifact,
+            AbstractChecksumCalculator checksumCalculator) {
+        if (artifact.getTriggeringPluginGroupId() == null || artifact.getTriggeringPluginArtifactId() == null) {
+            PluginLogManager.getLog()
+                    .warn("Dynamically-resolved artifact " + artifact + " has no known triggering plugin; skipping");
+            return;
+        }
+        try {
+            Artifact mavenArtifact = new DefaultArtifact(
+                    artifact.getGroupId(),
+                    artifact.getArtifactId(),
+                    artifact.getVersion(),
+                    "runtime",
+                    artifact.getExtension(),
+                    artifact.getClassifier(),
+                    new DefaultArtifactHandler(artifact.getExtension()));
+            RepositoryInformation repositoryInformation = checksumCalculator.getArtifactResolvedField(mavenArtifact);
+            String checksum = checksumCalculator.calculateArtifactChecksum(mavenArtifact);
+            io.github.chains_project.maven_lockfile.graph.DependencyNode node =
+                    io.github.chains_project.maven_lockfile.graph.DependencyNode.of(
+                            ArtifactId.of(artifact.getArtifactId()),
+                            GroupId.of(artifact.getGroupId()),
+                            VersionNumber.of(artifact.getVersion()),
+                            Classifier.of(artifact.getClassifier()),
+                            ArtifactType.of(artifact.getExtension()),
+                            MavenScope.RUNTIME,
+                            repositoryInformation.getResolvedUrl(),
+                            repositoryInformation.getRepositoryId(),
+                            checksumCalculator.getChecksumAlgorithm(),
+                            checksum);
+            String pluginKey = gavKey(artifact.getTriggeringPluginGroupId(), artifact.getTriggeringPluginArtifactId());
+            byPlugin.computeIfAbsent(pluginKey, k -> new TreeSet<>()).add(node);
+        } catch (Exception e) {
+            PluginLogManager.getLog()
+                    .warn(
+                            String.format(
+                                    "Could not resolve checksum for dynamically-resolved artifact %s; skipping",
+                                    artifact),
+                            e);
+        }
+    }
+
+    private static String gavKey(RecordedArtifact artifact) {
+        return artifact.getGroupId() + ":" + artifact.getArtifactId() + ":" + artifact.getVersion();
+    }
+
+    private static String gavKey(String groupId, String artifactId) {
+        return groupId + ":" + artifactId;
+    }
+
+    private static void collectGavs(
+            io.github.chains_project.maven_lockfile.graph.DependencyNode node, Set<String> gavs) {
+        gavs.add(gavKey(node.getGroupId(), node.getArtifactId(), node.getVersion()));
+        collectPomChainGavs(node.getParentPom(), gavs);
+        node.getChildren().forEach(child -> collectGavs(child, gavs));
+    }
+
+    private static void collectPomChainGavs(Pom pom, Set<String> gavs) {
+        while (pom != null) {
+            gavs.add(gavKey(pom.getGroupId(), pom.getArtifactId(), pom.getVersion()));
+            pom = pom.getParent();
+        }
+    }
+
+    private static String gavKey(GroupId groupId, ArtifactId artifactId, VersionNumber version) {
+        return groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue();
     }
 
     private static Set<MavenExtension> getAllExtensions(
