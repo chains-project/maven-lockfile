@@ -2720,3 +2720,16 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
+
+# 5.17.4-beta-3
+## Changelog
+
+## 🧰 Tasks
+- 04b5337 chore: release version 5.17.4-beta-3
+- f66b846 chore: allow environmental validation failure in release workflows (#1624)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Fable 5 ()
