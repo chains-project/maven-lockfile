@@ -152,7 +152,10 @@ public class LockFileFacade {
         }
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
-        plugins = attachDynamicallyResolvedDependencies(session, checksumCalculator, pom, roots, plugins, extensions);
+        if (config.isHermetic()) {
+            plugins =
+                    attachDynamicallyResolvedDependencies(session, checksumCalculator, pom, roots, plugins, extensions);
+        }
 
         return new LockFile(
                 GroupId.of(project.getGroupId()),

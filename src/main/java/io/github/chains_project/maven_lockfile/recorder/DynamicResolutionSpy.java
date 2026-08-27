@@ -18,9 +18,9 @@ import org.eclipse.aether.RepositoryEvent;
  * Maven core extension that records every artifact resolved during a session, regardless of
  * which plugin triggered it - including artifacts resolved imperatively at execution time (e.g.
  * Surefire's test-framework provider) that never appear in any POM. Load via {@code
- * .mvn/extensions.xml} or {@code -Dmaven.ext.class.path}; {@code LockFileFacade} always merges
- * what it recorded (via {@link DynamicResolutionStore}) into the triggering plugin's own
- * dependencies, so this only has any effect once the extension is actually loaded.
+ * .mvn/extensions.xml} or {@code -Dmaven.ext.class.path}; {@code LockFileFacade} merges what it
+ * recorded (via {@link DynamicResolutionStore}) into the triggering plugin's own dependencies
+ * when {@code hermetic} is enabled.
  *
  * <p>Pauses itself once this plugin's own {@code generate}/{@code validate} Mojo starts: that
  * goal resolves a large, legitimate static graph through the same resolver, which would otherwise

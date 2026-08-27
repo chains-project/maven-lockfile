@@ -984,6 +984,8 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
 
+        assertThat(lockFile.getConfig().isHermetic()).isTrue();
+
         assertThat(lockFile.getDependencies())
                 .as("surefire-junit-platform is never declared in the project's own POM")
                 .noneMatch(dep ->
@@ -1013,5 +1015,31 @@ public class IntegrationTestsIT {
                         tuple("org.junit.platform", "junit-platform-engine", "1.9.3"),
                         tuple("org.junit.platform", "junit-platform-commons", "1.9.3"),
                         tuple("org.opentest4j", "opentest4j", "1.2.0"));
+    }
+
+    @MavenTest
+    public void hermeticOnboarding(MavenExecutionResult result) throws Exception {
+        // contract: hermetic=true only works if this plugin is also registered as a Maven core
+        // extension via .mvn/extensions.xml. This fixture intentionally ships without that file,
+        // so GenerateLockFileMojo should notice, create it, and warn - rather than silently doing
+        // nothing - so the *next* build actually captures dynamic resolutions.
+        assertThat(Path.of("src/test/resources-its/it/IntegrationTestsIT/hermeticOnboarding/.mvn/extensions.xml"))
+                .as("the fixture must not ship its own .mvn/extensions.xml, or this test proves nothing")
+                .doesNotExist();
+
+        System.out.println("Running 'hermeticOnboarding' integration test.");
+        assertThat(result).isSuccessful();
+
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getConfig().isHermetic()).isTrue();
+
+        Path extensionsFile = findFile(result, "extensions.xml");
+        assertThat(extensionsFile)
+                .as("maven-lockfile should have auto-created .mvn/extensions.xml for the next run")
+                .exists();
+        String extensionsContent = Files.readString(extensionsFile);
+        assertThat(extensionsContent).contains("io.github.chains-project").contains("maven-lockfile");
     }
 }
