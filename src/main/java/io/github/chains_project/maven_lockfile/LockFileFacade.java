@@ -12,6 +12,7 @@ import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.resolvers.BomResolver;
 import io.github.chains_project.maven_lockfile.resolvers.ProjectBuilder;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -187,15 +188,23 @@ public class LockFileFacade {
             return plugins;
         }
 
+        Path recordedPath = DynamicResolutionStore.defaultPath(multiModuleProjectDirectory.toPath());
         List<RecordedArtifact> recorded;
         try {
-            recorded = DynamicResolutionStore.read(
-                    DynamicResolutionStore.defaultPath(multiModuleProjectDirectory.toPath()));
+            recorded = DynamicResolutionStore.read(recordedPath);
         } catch (IOException e) {
             PluginLogManager.getLog().warn("Could not read recorded dynamic resolutions", e);
             return plugins;
         }
         if (recorded.isEmpty()) {
+            if (Files.exists(recordedPath)) {
+                PluginLogManager.getLog()
+                        .warn("DynamicResolutionSpy is attached but recorded no dynamically-resolved artifacts "
+                                + "this session. If you expected some (e.g. Surefire's test-framework provider), "
+                                + "make sure the build already ran past the phase that triggers them (e.g. `test` "
+                                + "or `verify`) before this goal runs - this goal's default binding is "
+                                + "generate-resources, which runs earlier in the lifecycle.");
+            }
             return plugins;
         }
 

@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import org.apache.maven.eventspy.AbstractEventSpy;
+import org.apache.maven.eventspy.EventSpy;
 import org.apache.maven.execution.ExecutionEvent;
 import org.apache.maven.plugin.MojoExecution;
 import org.eclipse.aether.RepositoryEvent;
@@ -37,6 +38,18 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
     private final Map<RecordedArtifact, Boolean> recorded = new ConcurrentHashMap<>();
     private final AtomicBoolean paused = new AtomicBoolean(false);
     private final AtomicReference<MojoExecution> currentMojo = new AtomicReference<>();
+
+    /**
+     * Writes an empty recording as soon as the extension loads, before any Mojo runs. That way
+     * {@code LockFileFacade} can tell "extension attached but nothing captured yet" (file exists,
+     * empty) apart from "extension not attached" (file absent) - the former usually means
+     * generate/validate ran before whatever build phase triggers the dynamic resolution (e.g.
+     * `test` for Surefire's provider), since this goal's default binding is generate-resources.
+     */
+    @Override
+    public void init(EventSpy.Context context) {
+        flushMarker();
+    }
 
     @Override
     public void onEvent(Object event) {
@@ -101,6 +114,10 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         if (recorded.isEmpty()) {
             return;
         }
+        flushMarker();
+    }
+
+    private void flushMarker() {
         String multiModuleProjectDirectory = System.getProperty("maven.multiModuleProjectDirectory");
         if (multiModuleProjectDirectory == null) {
             return;
