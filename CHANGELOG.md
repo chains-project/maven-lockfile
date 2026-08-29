@@ -2720,3 +2720,34 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
+
+# 5.18.0
+## Changelog
+
+## 🚀 Features
+- 6424e56 feat: capture dynamically-resolved artifacts via a generic EventSpy extension (#1623)
+
+## 🐛 Fixes
+- 1ca78bd fix: order release workflow so released.version bump follows staging (#1626)
+- c0759d5 fix: pin resolved plugin version when freezing dependencies (#1620)
+- 0bdcf68 fix: bump spoon-core to 11.5.0 in remoteRepositoryShouldResolve IT (#1622)
+
+## 🔄️ Changes
+- cfbb4c9 refactor: rename ValidateChecksumMojo to ValidateMojo (#1619)
+- f1598f7 style: improve test assertions for `reduceLog4jAffected` (#1589)
+
+## 🧰 Tasks
+- ecad299 chore: release version 5.18.0
+- f66b846 chore: allow environmental validation failure in release workflows (#1624)
+- 81aa231 chore: skip environment check in CI (#1621)
+- cf545ac chore: set snapshot version 5.17.4-SNAPSHOT
+- 63d1a90 chore: release version 5.17.3
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Fable 5 ()
+- Claude Sonnet 5 ()
+- gaoxiaolei-s59 ([@gaoxiaolei-s59](https://github.com/gaoxiaolei-s59))
