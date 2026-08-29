@@ -150,7 +150,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return getConfig();
         }
 
-        Config config = lockFileFromFile.getConfig();
+        Config config = mergeConfigWithCliArgs(lockFileFromFile.getConfig());
 
         return new Config(
                 config.getMavenPluginsInclusion(),
