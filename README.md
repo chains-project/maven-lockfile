@@ -89,6 +89,7 @@ mvn -f pom.lockfile.xml
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+- `hermetic` (`-Dhermetic=true`, default=false) merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
 - `pomLockfileOutput` (`-DpomLockfileOutput=pom.xml`, default=pom.lockfile.xml) sets the name of the generated flattened pom file. Default is to create a new file with the name `pom.lockfile.xml`, but you can also set it to `pom.xml` to overwrite the original pom file.
@@ -354,6 +355,14 @@ Extended github actions example with all available options:
     #  See https://github.com/chains-project/maven-lockfile/issues/1583.
     # Defaults to false.
     - allow-environmental-validation-failure: false
+
+    # Optional. Merge artifacts dynamically resolved during a real build (e.g. Surefire's
+    #  test-framework provider) into the lockfile, via a Maven core extension. Requires this
+    #  plugin to also be registered in .mvn/extensions.xml, and a step that runs a build
+    #  triggering the dynamic resolution (e.g. `mvn verify`) earlier in the same job, before
+    #  this action - see the `hermetic` command-line flag above for details.
+    # Defaults to false.
+    - hermetic: false
 ```
 
 ### Using Action in Release with `-SNAPSHOT`-versions (synchronizing lockfile with release)
