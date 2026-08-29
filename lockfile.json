@@ -56535,7 +56535,7 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.18.0",
+      "mavenLockfileVersion": "5.17.3",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
@@ -56543,8 +56543,7 @@
       "includeParentPom": true,
       "allowParentPomValidationFailure": false,
       "includeMavenExtensions": true,
-      "allowMavenExtensionsValidationFailure": false,
-      "hermetic": false
+      "allowMavenExtensionsValidationFailure": false
     }
   },
   "boms": []
