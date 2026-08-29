@@ -220,6 +220,14 @@ public class FreezeDependencyMojo extends AbstractMojo {
                 plugin.setArtifactId(mavenPlugin.getArtifactId().getValue());
                 plugins.add(plugin);
             }
+            // Pin the plugin to the version resolved in the lock file, otherwise Maven
+            // falls back to a default/latest version at build time and the frozen POM
+            // no longer reproduces the original build.
+            String version = mavenPlugin.getVersion().getValue();
+            if (exactVersionStrings.equals("true")) {
+                version = convertSoftToExactVersionString(version);
+            }
+            plugin.setVersion(version);
 
             // Add plugin dependencies if they exist
             Set<DependencyNode> pluginDependencies = mavenPlugin.getDependencies();

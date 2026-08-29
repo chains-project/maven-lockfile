@@ -32,7 +32,7 @@ jobs:
 
       - name: Update gha.sum
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@3ddcf33c03217482c614440fd714375e9053e732 # 5.16.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@965b5aeb7c07fc4483409f041706e6642e6967a7 # 5.17.3
         with:
           mode: update
 

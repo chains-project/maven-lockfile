@@ -4,16 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.Config;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.jupiter.api.Test;
 
 class ValidateMojoTest {
 
-    private static AbstractLockfileMojo mojo() {
-        return new AbstractLockfileMojo() {
-            @Override
-            public void execute() throws MojoExecutionException {}
-        };
+    private static ValidateMojo mojo() {
+        return new ValidateMojo();
     }
 
     private static Config storedConfig() {
