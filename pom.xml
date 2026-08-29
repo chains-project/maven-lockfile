@@ -287,6 +287,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.4.0</version>
+        <!-- kept plugin-level: doc.yml calls `mvn resources:copy-resources` directly from the CLI -->
         <configuration>
           <outputDirectory>${project.basedir}</outputDirectory>
           <resources>
@@ -297,9 +298,36 @@
               </includes>
               <filtering>true</filtering>
             </resource>
+            <resource>
+              <directory>./template/</directory>
+              <includes>
+                <include>extensions.xml</include>
+              </includes>
+              <targetPath>.mvn</targetPath>
+              <filtering>true</filtering>
+            </resource>
           </resources>
           <encoding>UTF-8</encoding>
         </configuration>
+        <executions>
+          <!-- copy-resources (unlike the resources goal) accepts an outputDirectory/resources
+               override, so src/main/resources still reaches target/classes -->
+          <execution>
+            <id>copy-main-resources</id>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources combine.self="override">
+                <resource>
+                  <directory>${project.basedir}/src/main/resources</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

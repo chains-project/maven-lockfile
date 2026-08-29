@@ -68,6 +68,31 @@ public class DependencyNode implements Comparable<DependencyNode> {
         this.repositoryId = repositoryId;
         this.boms = new TreeSet<>();
     }
+
+    /** Builds a standalone, childless node - e.g. an artifact discovered outside the normal graph walk. */
+    public static DependencyNode of(
+            ArtifactId artifactId,
+            GroupId groupId,
+            VersionNumber version,
+            Classifier classifier,
+            ArtifactType type,
+            MavenScope scope,
+            ResolvedUrl resolved,
+            RepositoryId repositoryId,
+            String checksumAlgorithm,
+            String checksum) {
+        return new DependencyNode(
+                artifactId,
+                groupId,
+                version,
+                classifier,
+                type,
+                scope,
+                resolved,
+                repositoryId,
+                checksumAlgorithm,
+                checksum);
+    }
     /**
      * @return the artifactId
      */

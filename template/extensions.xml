@@ -7,6 +7,6 @@
   <extension>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile</artifactId>
-    <version>5.17.3</version>
+    <version>${released.version}</version>
   </extension>
 </extensions>

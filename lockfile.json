@@ -8,7 +8,7 @@
     "version": "5.17.4-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "68018ba05203a148b70a1c02a0c26b5de36b94bb2a6a58ee330dde75aa1c513b"
+    "checksum": "5c1cd85993e2cc4e4ac31e54ee11418b07a10d0fb5abe3a31adbb1cd5e0e9ffc"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -56525,7 +56525,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.16",
-      "javaVersion": "17.0.19"
+      "javaVersion": "17.0.20.1"
     },
     "config": {
       "includeMavenPlugins": true,

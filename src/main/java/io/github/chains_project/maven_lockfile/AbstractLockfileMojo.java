@@ -81,6 +81,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowMavenExtensionsValidationFailure")
     protected Boolean allowMavenExtensionsValidationFailure;
 
+    @Parameter(property = "hermetic")
+    protected Boolean hermetic;
+
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
 
@@ -204,6 +207,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Boolean.TRUE.equals(allowMavenExtensionsValidationFailure)
                         ? Config.OnMavenExtensionsValidationFailure.Warn
                         : Config.OnMavenExtensionsValidationFailure.Error;
+        // hermetic defaults to false (opt-in) when not explicitly set
+        Config.HermeticInclusion hermeticInclusion =
+                Boolean.TRUE.equals(hermetic) ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude;
 
         return new Config(
                 mavenPluginsInclusion,
@@ -221,7 +227,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 parentPomInclusion,
                 onParentPomValidationFailure,
                 mavenExtensionsInclusion,
-                onMavenExtensionsValidationFailure);
+                onMavenExtensionsValidationFailure,
+                hermeticInclusion);
     }
 
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
@@ -289,6 +296,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                                 ? Config.OnMavenExtensionsValidationFailure.Warn
                                 : Config.OnMavenExtensionsValidationFailure.Error)
                         : base.getOnMavenExtensionsValidationFailure();
+        Config.HermeticInclusion hermeticInclusion = hermetic != null
+                ? (hermetic ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude)
+                : base.getHermeticInclusion();
         return new Config(
                 pluginsInclusion,
                 onValidationFailure,
@@ -305,6 +315,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 parentPomInclusion,
                 onParentPomValidationFailure,
                 mavenExtensionsInclusion,
-                onMavenExtensionsValidationFailure);
+                onMavenExtensionsValidationFailure,
+                hermeticInclusion);
     }
 }
