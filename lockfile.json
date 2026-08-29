@@ -3790,7 +3790,7 @@
           "artifactId": "slf4j-api",
           "version": "2.0.17",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "99ac608cc1e4bd04dc02934f47c73452821fda5f97fc599959ce14c4d7e3b9ef",
+          "checksum": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
           "scope": "test",
           "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
           "repositoryId": "central",
@@ -3801,7 +3801,7 @@
             "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/2.0.17/slf4j-parent-2.0.17.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "fa490528c660fdee7d1bbdbe1cd100169b53a4d1b6bcb444049e02463ff327f4",
+            "checksum": "95cd71e852dfdb29126e58b7b939d57ec2b2e6024391852e0b545dee082bbf3b",
             "parent": {
               "groupId": "org.slf4j",
               "artifactId": "slf4j-bom",
@@ -3809,7 +3809,7 @@
               "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-bom/2.0.17/slf4j-bom-2.0.17.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "33c25710f2fe0ae6f0e4472a2c9aa04b299ed785893181c875ea492a97aaca0e"
+              "checksum": "f78d27b642b4b886eb839fc102b5cd9fe7f30f37599ffe68185be4e1609031e9"
             }
           },
           "selectedVersion": "1.7.36",
@@ -5155,7 +5155,7 @@
               "artifactId": "slf4j-api",
               "version": "2.0.17",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "99ac608cc1e4bd04dc02934f47c73452821fda5f97fc599959ce14c4d7e3b9ef",
+              "checksum": "7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832",
               "scope": "test",
               "resolved": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar",
               "repositoryId": "central",
@@ -56524,8 +56524,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.6",
-      "javaVersion": "25.0.2"
+      "mavenVersion": "3.9.16",
+      "javaVersion": "17.0.20.1"
     },
     "config": {
       "includeMavenPlugins": true,
