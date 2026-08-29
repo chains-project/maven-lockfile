@@ -298,6 +298,14 @@
               </includes>
               <filtering>true</filtering>
             </resource>
+            <resource>
+              <directory>./template/</directory>
+              <includes>
+                <include>extensions.xml</include>
+              </includes>
+              <targetPath>.mvn</targetPath>
+              <filtering>true</filtering>
+            </resource>
           </resources>
           <encoding>UTF-8</encoding>
         </configuration>
