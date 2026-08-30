@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.chains-project</groupId>
   <artifactId>maven-lockfile</artifactId>
-  <version>5.18.1-SNAPSHOT</version>
+  <version>5.18.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>maven-lockfile-plugin</name>
   <description>This plugin is a state-of-the-art solution that can be used to validate the integrity
@@ -40,9 +40,9 @@
   <properties>
     <mavenVersion>3.9.11</mavenVersion>
     <maven.compiler.release>11</maven.compiler.release>
-    <project.build.outputTimestamp>2026-08-29T20:29:43Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-08-30T20:51:48Z</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <released.version>5.18.0</released.version>
+    <released.version>5.18.1</released.version>
     <sigstore.skip>true</sigstore.skip>
   </properties>
   <dependencyManagement>

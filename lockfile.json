@@ -1,14 +1,14 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.18.1-SNAPSHOT",
+  "version": "5.18.2-SNAPSHOT",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile",
-    "version": "5.18.1-SNAPSHOT",
+    "version": "5.18.2-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "b2717600101b6119b2078ca9d0f7cb9a914bb5eb3b58b171482fd1c74dca423c"
+    "checksum": "ef2724864028bfd57fe85887632f4d608b834daa1827e5f5378e0023485e142e"
   },
   "lockFileVersion": 1,
   "dependencies": [
