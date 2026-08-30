@@ -2751,3 +2751,19 @@ We'd like to thank the following people for their contributions:
 - Claude Fable 5 ()
 - Claude Sonnet 5 ()
 - gaoxiaolei-s59 ([@gaoxiaolei-s59](https://github.com/gaoxiaolei-s59))
+
+# 5.18.1-beta-1
+## Changelog
+
+## 🐛 Fixes
+- cfea5a1 fix: bump log4j-core to 2.26.1 (GHSA-qv9r-c865-cp47) (#1628)
+
+## 🧰 Tasks
+- c657630 chore: release version 5.18.1-beta-1
+- 11a18f5 chore: set snapshot version 5.18.1-SNAPSHOT
+- f504517 chore: release version 5.18.0
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
