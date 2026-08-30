@@ -35,6 +35,10 @@ inputs:
     description: 'Allow environmental validation failures (e.g. Maven version changes between runner image updates) to produce a warning instead of failing the build. Recommended when using GitHub-hosted runners where the Maven version is not pinned. See https://github.com/chains-project/maven-lockfile/issues/1583.'
     required: false
     default: true
+  hermetic:
+    description: 'Merge artifacts dynamically resolved during a real build (e.g. Surefire test-framework providers) into the lockfile, via a DynamicResolutionSpy Maven core extension. Requires this plugin to also be registered in .mvn/extensions.xml (the generate goal creates it automatically on first run if missing) and for a build that triggers the dynamic resolution (e.g. `mvn verify`) to run before this action, in the same job.'
+    required: false
+    default: false
 runs:
   using: "composite"
   steps:
@@ -97,21 +101,26 @@ runs:
         INCLUDE_MAVEN_PLUGINS="${{ inputs.include-maven-plugins }}"
         LOCKFILE_NAME="${{ inputs.lockfile-name }}"
         ALLOW_ENV_VALIDATION_FAILURE="${{ inputs.allow-environmental-validation-failure }}"
+        HERMETIC="${{ inputs.hermetic }}"
         POM_CHANGED="${POM_CHANGED}"
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
 
         # Convert to Maven plugin args
         PLUGIN_VERSION="5.18.0"
         MAVEN_ARGS=""
-        
+
         MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
-        
+
         if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -DlockfileName=$LOCKFILE_NAME"
         fi
 
         if [ "$ALLOW_ENV_VALIDATION_FAILURE" == "true" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -DallowEnvironmentalValidationFailure=true"
+        fi
+
+        if [ "$HERMETIC" == "true" ]; then
+          MAVEN_ARGS="$MAVEN_ARGS -Dhermetic=true"
         fi
         
         # Function to execute Maven plugin and handle errors
