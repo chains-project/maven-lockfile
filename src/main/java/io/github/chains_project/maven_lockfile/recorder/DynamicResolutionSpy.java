@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -45,6 +46,12 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
      * empty) apart from "extension not attached" (file absent) - the former usually means
      * generate/validate ran before whatever build phase triggers the dynamic resolution (e.g.
      * `test` for Surefire's provider), since this goal's default binding is generate-resources.
+     * Safe to call unconditionally: {@link #flushMarker()} merges with whatever is already on disk
+     * rather than overwriting it, so this doesn't erase a recording written by an *earlier* {@code
+     * mvn} invocation in the same job (e.g. a `test` step followed by a separate `generate` step) -
+     * each process gets its own {@link DynamicResolutionSpy} instance with an empty in-memory
+     * {@code recorded} map, so a plain overwrite here would otherwise silently lose that data before
+     * {@code LockFileFacade} ever reads it.
      */
     @Override
     public void init(EventSpy.Context context) {
@@ -117,6 +124,12 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         flushMarker();
     }
 
+    /**
+     * Merges this process's in-memory {@code recorded} set with whatever is already on disk before
+     * writing, since each {@code mvn} invocation in a job gets its own {@link DynamicResolutionSpy}
+     * instance (and thus its own empty {@code recorded} map) - a plain overwrite would lose an
+     * earlier invocation's recording every time this one flushes, including at {@link #init}.
+     */
     private void flushMarker() {
         String multiModuleProjectDirectory = System.getProperty("maven.multiModuleProjectDirectory");
         if (multiModuleProjectDirectory == null) {
@@ -124,7 +137,9 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         }
         Path path = DynamicResolutionStore.defaultPath(Path.of(multiModuleProjectDirectory));
         try {
-            DynamicResolutionStore.write(path, recorded.keySet());
+            Set<RecordedArtifact> merged = new TreeSet<>(recorded.keySet());
+            merged.addAll(DynamicResolutionStore.read(path));
+            DynamicResolutionStore.write(path, merged);
         } catch (IOException e) {
             System.err.println("[maven-lockfile] Could not write recorded dynamic resolutions: " + e.getMessage());
         }
