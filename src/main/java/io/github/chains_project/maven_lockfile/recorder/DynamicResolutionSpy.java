@@ -46,12 +46,6 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
      * empty) apart from "extension not attached" (file absent) - the former usually means
      * generate/validate ran before whatever build phase triggers the dynamic resolution (e.g.
      * `test` for Surefire's provider), since this goal's default binding is generate-resources.
-     * Safe to call unconditionally: {@link #flushMarker()} merges with whatever is already on disk
-     * rather than overwriting it, so this doesn't erase a recording written by an *earlier* {@code
-     * mvn} invocation in the same job (e.g. a `test` step followed by a separate `generate` step) -
-     * each process gets its own {@link DynamicResolutionSpy} instance with an empty in-memory
-     * {@code recorded} map, so a plain overwrite here would otherwise silently lose that data before
-     * {@code LockFileFacade} ever reads it.
      */
     @Override
     public void init(EventSpy.Context context) {
