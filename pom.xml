@@ -311,13 +311,15 @@
           <encoding>UTF-8</encoding>
         </configuration>
         <executions>
-          <!-- Disables the implicit default-resources and default-testResources executions that
-               Maven binds automatically at process-resources/process-test-resources for this
-               packaging: both would otherwise inherit the plugin-level <configuration> above and
-               silently rewrite action.yml/.mvn/extensions.xml (now templated on ${project.version})
-               on every normal build. copy-main-resources below already handles copying
-               src/main/resources to target/classes; there is no equivalent override needed for test
-               resources since this project has none. -->
+          <!-- Without these, Maven auto-binds this plugin's resources/testResources goals to every
+               normal build (test, verify, ...) via the implicit default-resources/
+               default-testResources executions, which inherit the plugin-level <configuration>
+               above - so any `mvn test` would silently rewrite action.yml/.mvn/extensions.xml with
+               ${project.version}. Disabling them here means this <configuration> only ever runs
+               when explicitly invoked as `mvn resources:copy-resources`, which is what the release
+               workflows do. copy-main-resources below still copies src/main/resources to
+               target/classes for normal builds; there's no test-resources equivalent needed since
+               this project has none. -->
           <execution>
             <id>default-resources</id>
             <phase>none</phase>
