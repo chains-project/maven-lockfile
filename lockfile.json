@@ -56544,7 +56544,7 @@
       "allowParentPomValidationFailure": false,
       "includeMavenExtensions": true,
       "allowMavenExtensionsValidationFailure": false,
-      "hermetic": false
+      "hermetic": true
     }
   },
   "boms": []
