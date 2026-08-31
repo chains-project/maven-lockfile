@@ -21,7 +21,6 @@ jobs:
       id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
       contents: write
       pull-requests: write
-      workflows: write # To bump the maven-lockfile action pin in Lockfile.yml/LockfilePR.yml below
 
     runs-on: ubuntu-latest
 
@@ -114,9 +113,6 @@ jobs:
           git commit -am "chore: release version ${{ env.NEXT_VERSION }}"
           git push --set-upstream origin ${{ env.BRANCH_NAME }}
 
-      # Only known now that the release commit exists: a commit can't reference its own SHA.
-      - name: Capture release commit SHA
-        run: echo "RELEASE_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
@@ -166,20 +162,6 @@ jobs:
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate
         shell: bash
-
-      # Bumps this repo's own consumption of the action it just released, so it no longer needs a
-      # separate manual follow-up PR each time (see #1631/#1634). Folded into the snapshot-version
-      # commit below since RELEASE_SHA is only known after the release commit above was created.
-      - name: Bump maven-lockfile action pin to this release
-        run: |
-          sed -i -E "s|uses: chains-project/maven-lockfile@[0-9a-f]{40} # [0-9]+\.[0-9]+\.[0-9]+|uses: chains-project/maven-lockfile@${RELEASE_SHA} # ${NEXT_VERSION}|g" \
-            .github/workflows/Lockfile.yml .github/workflows/LockfilePR.yml
-        shell: bash
-
-      - name: Update gha.sum for the new pin
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@965b5aeb7c07fc4483409f041706e6642e6967a7 # 5.17.3
-        with:
-          mode: update
 
       - name: Commit & Push changes
         run: |
