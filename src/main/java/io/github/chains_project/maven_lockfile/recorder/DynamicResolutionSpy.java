@@ -118,12 +118,6 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         flushMarker();
     }
 
-    /**
-     * Merges this process's in-memory {@code recorded} set with whatever is already on disk before
-     * writing, since each {@code mvn} invocation in a job gets its own {@link DynamicResolutionSpy}
-     * instance (and thus its own empty {@code recorded} map) - a plain overwrite would lose an
-     * earlier invocation's recording every time this one flushes, including at {@link #init}.
-     */
     private void flushMarker() {
         String multiModuleProjectDirectory = System.getProperty("maven.multiModuleProjectDirectory");
         if (multiModuleProjectDirectory == null) {
