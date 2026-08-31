@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -124,7 +125,9 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         }
         Path path = DynamicResolutionStore.defaultPath(Path.of(multiModuleProjectDirectory));
         try {
-            DynamicResolutionStore.write(path, recorded.keySet());
+            Set<RecordedArtifact> merged = new TreeSet<>(recorded.keySet());
+            merged.addAll(DynamicResolutionStore.read(path));
+            DynamicResolutionStore.write(path, merged);
         } catch (IOException e) {
             System.err.println("[maven-lockfile] Could not write recorded dynamic resolutions: " + e.getMessage());
         }
