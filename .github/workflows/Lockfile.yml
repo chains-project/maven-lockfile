@@ -40,9 +40,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Dogfooding: this build's own dynamically-resolved artifacts (e.g. Surefire's
-      # test-framework provider) get captured by the maven-lockfile core extension
-      # (registered in .mvn/extensions.xml) and merged into the lockfile below via `hermetic: true`.
+      # Capture dependencies resolved at runtime (e.g. Surefire's test-framework
+      # provider) using an EventSpy, merged into the lockfile below via `hermetic: true`.
       - name: mvn test (drive dynamic-resolution capture for hermetic mode)
         run: mvn --batch-mode test
 
