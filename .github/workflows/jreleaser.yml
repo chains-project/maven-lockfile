@@ -93,13 +93,12 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
 
-      # .mvn/extensions.xml pins maven-lockfile as a core extension at ${released.version}, so it must
-      # keep pointing at an artifact Maven can already resolve.
+      # .mvn/extensions.xml and action.yml pin maven-lockfile as a core extension / plugin coordinate
+      # at ${project.version}, which above is already the release version (not -SNAPSHOT) - so it
+      # must keep pointing at an artifact Maven can already resolve, i.e. this deploy must run before
+      # they're regenerated below.
       - name: Stage release
         run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
-
-      - name: Track released version
-        run: mvn --no-transfer-progress --batch-mode versions:set-property -Dproperty=released.version -DnewVersion=$NEXT_VERSION
 
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
@@ -153,12 +152,12 @@ jobs:
          echo "NEXT_RELEASE_VERSION=$(semver next patch $NEXT_VERSION)-SNAPSHOT" >> $GITHUB_ENV
          echo "NEXT_RELEASE_VERSION_WITHOUT_SNAPSHOT=$(semver next patch $NEXT_VERSION)" >> $GITHUB_ENV
 
+      # action.yml/.mvn/extensions.xml are NOT regenerated here: they're templated on
+      # ${project.version}, and this step bumps <version> to a -SNAPSHOT, which is never a valid,
+      # resolvable coordinate for either of them to point at. They stay pinned to the release
+      # version committed above until the next real release.
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_RELEASE_VERSION -DprocessAllModules
-
-      # Update action.yml with current version
-      - name: Generate Readme
-        run : mvn generate-resources resources:copy-resources -q
 
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate

@@ -89,13 +89,12 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_BETA_VERSION -DprocessAllModules
 
-      # .mvn/extensions.xml pins maven-lockfile as a core extension at ${released.version}, so it must
-      # keep pointing at an artifact Maven can already resolve.
+      # .mvn/extensions.xml and action.yml pin maven-lockfile as a core extension / plugin coordinate
+      # at ${project.version}, which above is already the beta release version - so it must keep
+      # pointing at an artifact Maven can already resolve, i.e. this deploy must run before they're
+      # regenerated below.
       - name: Stage release
         run:  mvn --no-transfer-progress --batch-mode -Ppublication clean deploy -DaltDeploymentRepository=local::file:./target/staging-deploy -Dsigstore.skip=false
-
-      - name: Track released version
-        run: mvn --no-transfer-progress --batch-mode versions:set-property -Dproperty=released.version -DnewVersion=$NEXT_BETA_VERSION
 
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
