@@ -2792,3 +2792,26 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
+
+# 5.18.3
+## Changelog
+
+## 🐛 Fixes
+- 25211be fix: stop jreleaser workflows from leaking unrelated hermetic captures (#1641)
+- 14a8c84 fix: hermetic capture wiped by the action's own checkout before it's read (#1639)
+
+## 🧰 Tasks
+- 8a6d498 chore: release version 5.18.3
+- 9ffde82 chore: bump outdated pinned GitHub Actions (#1642)
+- 2eb6a9e chore: delete redundant workflow (#1638)
+- 8da62fe chore: update lockfile
+- b6841ad chore: bump lockfile actions version to `5.18.2`
+- d0759ef chore: set snapshot version 5.18.3-SNAPSHOT
+- a42b518 chore: release version 5.18.2
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Sonnet 5 ()
+- algomaster99 ([@algomaster99](https://github.com/algomaster99))
