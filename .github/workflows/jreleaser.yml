@@ -103,8 +103,9 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
+      # hermetic=false: otherwise inherits hermetic:true from the committed lockfile.json and merges in unrelated captures from earlier commands in this job.
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate
+        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
         shell: bash
 
       - name: commit changes
@@ -159,8 +160,9 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_RELEASE_VERSION -DprocessAllModules
 
+      # hermetic=false: same as above, and generate buildinfo file ran in between too.
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate
+        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
         shell: bash
 
       - name: Commit & Push changes
