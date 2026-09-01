@@ -1,14 +1,14 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.18.2",
+  "version": "5.18.3-SNAPSHOT",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile",
-    "version": "5.18.2",
+    "version": "5.18.3-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "d695ce603e583335080ffba12ba9bb5bb04dbc48759e851b7e80a3aa317f7799"
+    "checksum": "ddc434be76382e4662aa3024bc7b900523d6633837ad78b1432971a4db46590c"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -10929,6 +10929,20 @@
         {
           "groupId": "commons-codec",
           "artifactId": "commons-codec",
+          "version": "1.15",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "b3e9f6d63a790109bf0d056611fbed1cf69055826defeb9894a71369d246ed63",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.15/commons-codec-1.15.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "commons-codec:commons-codec:1.15",
+          "children": [],
+          "boms": []
+        },
+        {
+          "groupId": "commons-codec",
+          "artifactId": "commons-codec",
           "version": "1.19.0",
           "checksumAlgorithm": "SHA-256",
           "checksum": "5c3881e4f556855e9c532927ee0c9dfde94cc66760d5805c031a59887070af5f",
@@ -11015,6 +11029,20 @@
           "boms": []
         },
         {
+          "groupId": "commons-io",
+          "artifactId": "commons-io",
+          "version": "2.6",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "f877d304660ac2a142f3865badfc971dec7ed73c747c7f8d5d2f5139ca736513",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.6/commons-io-2.6.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "commons-io:commons-io:2.6",
+          "children": [],
+          "boms": []
+        },
+        {
           "groupId": "javax.inject",
           "artifactId": "javax.inject",
           "version": "1",
@@ -11026,6 +11054,20 @@
           "selectedVersion": "1",
           "included": true,
           "id": "javax.inject:javax.inject:1",
+          "children": [],
+          "boms": []
+        },
+        {
+          "groupId": "org.apache.maven",
+          "artifactId": "maven-archiver",
+          "version": "3.6.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "020221526ffc406d04c2ba5913a4201c55635a620302bdecc7de400e3681a754",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.0/maven-archiver-3.6.0.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "org.apache.maven:maven-archiver:3.6.0",
           "children": [],
           "boms": []
         },
@@ -15671,6 +15713,48 @@
               "boms": []
             }
           ],
+          "boms": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-archiver",
+          "version": "4.4.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "43c75ef577d610ab77ec2894acbde0c72604416ba8ba8b49e9a740d045a40250",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.4.0/plexus-archiver-4.4.0.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "org.codehaus.plexus:plexus-archiver:4.4.0",
+          "children": [],
+          "boms": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-io",
+          "version": "3.4.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "cd4da2ffd9adddfa30878350878286a5cfb332f7aeb08a39f24465c55e0cfb38",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.0/plexus-io-3.4.0.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "org.codehaus.plexus:plexus-io:3.4.0",
+          "children": [],
+          "boms": []
+        },
+        {
+          "groupId": "org.codehaus.plexus",
+          "artifactId": "plexus-utils",
+          "version": "3.5.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "e5182eb3e5e73cf89d6426ca7f5cbae2e72819b9bed68d872f80f3b535269cb8",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.0/plexus-utils-3.5.0.jar",
+          "repositoryId": "central",
+          "included": false,
+          "id": "org.codehaus.plexus:plexus-utils:3.5.0",
+          "children": [],
           "boms": []
         },
         {

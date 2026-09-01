@@ -2771,3 +2771,24 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
+
+# 5.18.2
+## Changelog
+
+## 🚀 Features
+- 7720ed8 feat: dogfood hermetic build mode in this repo's own CI (#1631)
+
+## 🐛 Fixes
+- 9f22659 fix: derive released.version from project.version, drop doc.yml (#1635)
+- 300a24f fix: preserve dynamic-resolution capture across separate mvn invocations (#1633)
+
+## 🧰 Tasks
+- 8f003cd chore: release version 5.18.2
+- 8fe9e96 chore: set snapshot version 5.18.2-SNAPSHOT
+- 7ee92b9 chore: release version 5.18.1
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Sonnet 5 ()
