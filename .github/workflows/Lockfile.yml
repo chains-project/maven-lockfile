@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@1743d256b365af76a9dbee7de8b5cac745d5ff35 # 5.18.1
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
 
       - name: Set up JDK 17
         uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
@@ -46,7 +46,7 @@ jobs:
         run: mvn --batch-mode test
 
       - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@1743d256b365af76a9dbee7de8b5cac745d5ff35 # 5.18.1
+        uses: chains-project/maven-lockfile@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true

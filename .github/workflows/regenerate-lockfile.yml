@@ -32,7 +32,7 @@ jobs:
         uses: chains-project/maven-lockfile/.github/actions/ghasum@965b5aeb7c07fc4483409f041706e6642e6967a7 # 5.17.3
 
       - name: run maven-lockfile
-        uses: chains-project/maven-lockfile@965b5aeb7c07fc4483409f041706e6642e6967a7 # 5.17.3
+        uses: chains-project/maven-lockfile@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           allow-environmental-validation-failure: true
