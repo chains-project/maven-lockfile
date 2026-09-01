@@ -99,8 +99,12 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
+      # hermetic=false: without it, this silently inherits hermetic:true from the previously-
+      # committed lockfile.json's config, merging in whatever the DynamicResolutionSpy core
+      # extension recorded from earlier commands in this job (e.g. Stage release's `clean deploy`)
+      # that have nothing to do with a real hermetic build.
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:$NEXT_BETA_VERSION:generate
+        run: mvn io.github.chains-project:maven-lockfile:$NEXT_BETA_VERSION:generate -Dhermetic=false
         shell: bash
 
       - name: commit changes
