@@ -103,10 +103,7 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
-      # hermetic=false: without it, this silently inherits hermetic:true from the previously-
-      # committed lockfile.json's config, merging in whatever the DynamicResolutionSpy core
-      # extension recorded from earlier commands in this job (e.g. Stage release's `clean deploy`)
-      # that have nothing to do with a real hermetic build.
+      # hermetic=false: otherwise inherits hermetic:true from the committed lockfile.json and merges in unrelated captures from earlier commands in this job.
       - name: run maven-lockfile (generate new lockfile for release version)
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
         shell: bash
@@ -163,9 +160,7 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_RELEASE_VERSION -DprocessAllModules
 
-      # hermetic=false: see the comment on the release-version generate step above - this one is
-      # even more exposed, since generate buildinfo file (mvn org.apache.maven.plugins:maven-
-      # artifact-plugin:3.4.1:buildinfo) runs between the two generate calls.
+      # hermetic=false: same as above, and generate buildinfo file ran in between too.
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
         shell: bash
