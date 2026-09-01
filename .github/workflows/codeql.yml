@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@20cf305ff2072d973412fa9b1e3a4f227bda3c76 # v2.14.0
+        uses: step-security/harden-runner@9ca718d3bf646d6534007c269a635b3e54cadf99 # v2.19.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -60,13 +60,13 @@ jobs:
             uploads.github.com:443
 
       - name: Checkout repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Verify action checksums
         uses: chains-project/maven-lockfile/.github/actions/ghasum@3ddcf33c03217482c614440fd714375e9053e732 # 5.16.0
 
       - name: Set up JDK 17
-        uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
           java-version: '17'
           distribution: 'temurin'

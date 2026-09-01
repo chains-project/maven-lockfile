@@ -12,7 +12,7 @@ jobs:
       contents: write # To push a commit
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@20cf305ff2072d973412fa9b1e3a4f227bda3c76 # v2.14.0
+        uses: step-security/harden-runner@9ca718d3bf646d6534007c269a635b3e54cadf99 # v2.19.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -24,7 +24,7 @@ jobs:
 
       - name: Checkout repository
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -38,7 +38,7 @@ jobs:
 
       - name: Commit gha.sum
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
         with:
           commit_message: "chore: update ghasum checksums"
           file_pattern: .github/workflows/gha.sum
