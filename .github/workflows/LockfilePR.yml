@@ -31,12 +31,9 @@ jobs:
       - name: Verify action checksums
         uses: chains-project/maven-lockfile/.github/actions/ghasum@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
 
-      # TEST ONLY - revert to the released pin before merge: this points at this PR's own head
-      # commit so it actually exercises the action.yml change in this PR, instead of the already-
-      # released 5.18.2 commit this pin normally points to.
       - name: run maven-lockfile
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: chains-project/maven-lockfile@08e74bb3718f9d7cd86e40595aa01c6d949b4d28 # test-only
+        uses: chains-project/maven-lockfile@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true
