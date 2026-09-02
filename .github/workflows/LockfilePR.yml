@@ -33,7 +33,7 @@ jobs:
 
       - name: run maven-lockfile
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: chains-project/maven-lockfile@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
+        uses: chains-project/maven-lockfile@8a6d498dd36dafd533d1dfb2fb16fce223ee0882 # 5.18.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true
@@ -42,7 +42,7 @@ jobs:
 
       - name: run maven-lockfile (fork/external)
         if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
-        uses: chains-project/maven-lockfile@8f003cd1e37b4e2c34620dc49c388485019d9553 # 5.18.2
+        uses: chains-project/maven-lockfile@8a6d498dd36dafd533d1dfb2fb16fce223ee0882 # 5.18.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           include-maven-plugins: true
