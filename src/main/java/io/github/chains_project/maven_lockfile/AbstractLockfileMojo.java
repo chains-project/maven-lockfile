@@ -249,6 +249,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
      * is null (not explicitly set), the stored value from the lockfile config is preserved.
      */
     protected Config mergeConfigWithCliArgs(Config base) {
+        ChecksumModes chosenChecksumMode =
+                Strings.isNullOrEmpty(checksumMode) ? base.getChecksumMode() : ChecksumModes.fromName(checksumMode);
+        String chosenChecksumAlgorithm =
+                Strings.isNullOrEmpty(checksumAlgorithm) ? base.getChecksumAlgorithm() : checksumAlgorithm;
         Config.MavenPluginsInclusion pluginsInclusion = includeMavenPlugins != null
                 ? (includeMavenPlugins ? Config.MavenPluginsInclusion.Include : Config.MavenPluginsInclusion.Exclude)
                 : base.getMavenPluginsInclusion();
@@ -308,8 +312,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 environmentInclusion,
                 base.getReductionState(),
                 base.getMavenLockfileVersion(),
-                base.getChecksumMode(),
-                base.getChecksumAlgorithm(),
+                chosenChecksumMode,
+                chosenChecksumAlgorithm,
                 bomsInclusion,
                 onBomValidationFailure,
                 parentPomInclusion,
