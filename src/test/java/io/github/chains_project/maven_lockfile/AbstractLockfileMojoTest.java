@@ -61,4 +61,30 @@ class AbstractLockfileMojoTest {
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
         assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
     }
+
+    @Test
+    void cliChecksumModeOverridesStoredConfig() {
+        // storedConfig() is already ChecksumModes.LOCAL, so exercise the override with REMOTE
+        // to prove the CLI value is actually picked up rather than the stored one re-emitted.
+        var m = mojo();
+        m.checksumMode = "remote";
+        m.checksumAlgorithm = "SHA-512";
+
+        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+
+        assertThat(merged.getChecksumMode()).isEqualTo(ChecksumModes.REMOTE);
+        assertThat(merged.getChecksumAlgorithm()).isEqualTo("SHA-512");
+    }
+
+    @Test
+    void storedChecksumModeUsedWhenCliArgNotSet() {
+        var m = mojo();
+        assertThat(m.checksumMode).isNull();
+        assertThat(m.checksumAlgorithm).isNull();
+
+        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+
+        assertThat(merged.getChecksumMode()).isEqualTo(ChecksumModes.LOCAL);
+        assertThat(merged.getChecksumAlgorithm()).isEqualTo("SHA-256");
+    }
 }
