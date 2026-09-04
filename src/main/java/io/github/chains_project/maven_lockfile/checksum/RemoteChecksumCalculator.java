@@ -75,7 +75,7 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             String version = artifact.getVersion();
             String baseVersion = artifact.getBaseVersion();
             String classifier = artifact.getClassifier();
-            if (classifier == null) {
+            if (classifier == null || classifier.isEmpty()) {
                 classifier = "";
             } else {
                 classifier = "-" + classifier;
