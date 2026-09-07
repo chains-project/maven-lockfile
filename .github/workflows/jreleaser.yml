@@ -86,6 +86,7 @@ jobs:
             include-maven-plugins: true
             allow-environmental-validation-failure: true
             commit-lockfile: false
+            hermetic: true
 
       - name: set branchname to next version
         run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
