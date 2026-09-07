@@ -2815,3 +2815,22 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.4-beta-1
+## Changelog
+
+## 🐛 Fixes
+- 6f96831 fix: pass hermetic:true to release validate steps (#1647)
+- f5b73d4 fix: respect CLI-provided checksumMode/checksumAlgorithm when a lockfile already exists (#1645)
+
+## 🧰 Tasks
+- d759749 chore: release version 5.18.4-beta-1
+- 6125115 chore: bump lockfile actions version to `5.18.3`
+- 3c97713 chore: set snapshot version 5.18.4-SNAPSHOT
+- fdaade3 chore: release version 5.18.3
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Sonnet 5 ()
