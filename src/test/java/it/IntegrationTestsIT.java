@@ -1024,6 +1024,34 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @MavenGoal("verify")
+    public void dynamicResolutionCaptureRemote(MavenExecutionResult result) throws Exception {
+        // contract: same as 'dynamicResolutionCapture', but with checksumMode=remote. Dynamically
+        // resolved artifacts (LockFileFacade.addDynamicDependency) must get real checksums in
+        // remote mode too, not just local mode.
+        System.out.println("Running 'dynamicResolutionCaptureRemote' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        assertThat(lockFile.getConfig().isHermetic()).isTrue();
+
+        var surefirePlugin = lockFile.getMavenPlugins().stream()
+                .filter(plugin ->
+                        "maven-surefire-plugin".equals(plugin.getArtifactId().getValue()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("maven-surefire-plugin not found in lockfile"));
+
+        assertThat(surefirePlugin.getDependencies())
+                .as("dynamically-resolved dependencies of maven-surefire-plugin must all have a "
+                        + "real (non-empty) checksum in remote mode too")
+                .allSatisfy(dep -> assertThat(dep.getChecksum())
+                        .as("checksum for %s:%s:%s", dep.getGroupId(), dep.getArtifactId(), dep.getVersion())
+                        .isNotEmpty());
+    }
+
+    @MavenTest
     public void hermeticOnboarding(MavenExecutionResult result) throws Exception {
         // contract: hermetic=true only works if this plugin is also registered as a Maven core
         // extension via .mvn/extensions.xml. This fixture intentionally ships without that file,

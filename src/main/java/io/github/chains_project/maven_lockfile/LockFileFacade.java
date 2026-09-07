@@ -304,8 +304,11 @@ public class LockFileFacade {
                     artifact.getExtension(),
                     artifact.getClassifier(),
                     new DefaultArtifactHandler(artifact.getExtension()));
-            RepositoryInformation repositoryInformation = checksumCalculator.getArtifactResolvedField(mavenArtifact);
-            String checksum = checksumCalculator.calculateArtifactChecksum(mavenArtifact);
+            // These artifacts are triggered by a plugin's Mojo execution (e.g. Surefire pulling in
+            // its JUnit-Platform provider chain), so they were resolved via plugin repositories, not
+            // the project's artifact repositories - use the plugin-scoped checksum/resolution path.
+            RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
+            String checksum = checksumCalculator.calculatePluginChecksum(mavenArtifact);
             io.github.chains_project.maven_lockfile.graph.DependencyNode node =
                     io.github.chains_project.maven_lockfile.graph.DependencyNode.of(
                             ArtifactId.of(artifact.getArtifactId()),
