@@ -2815,3 +2815,21 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.4-beta-2
+## Changelog
+
+## 🐛 Fixes
+- ed70aff fix: resolve checksums for dynamically-resolved deps via plugin repos in remote mode (#1646)
+
+## 🧰 Tasks
+- 2534e9c chore: release version 5.18.4-beta-2
+
+---
+- 32d4eb5 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-plugin-plugin to v3.16.0 (#1648)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Sonnet 5 ()
