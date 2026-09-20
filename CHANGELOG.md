@@ -2815,3 +2815,9 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.4-beta-3
+## Changelog
+
+## 🧰 Tasks
+- f651426 chore: release version 5.18.4-beta-3
