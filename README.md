@@ -13,7 +13,7 @@ This plugin is a state-of-the-art solution for validating the integrity of a mav
 * validate the integrity of a build environment prior to building.
 * rebuild old versions with the pinned versions from the lockfile 
 
-Reference: [Maven-Lockfile: High Integrity Rebuild of Past Java Releases](https://arxiv.org/abs/2510.00730), Technical report 2510.00730, arXiv, 2025.
+Reference: [Maven-Lockfile: High Integrity Rebuild of Past Java Releases](https://arxiv.org/abs/2510.00730), doi: [10.1145/3774748.3787615](https://doi.org/10.1145/3774748.3787615), 2025.
 
 <details>
 <summary>
