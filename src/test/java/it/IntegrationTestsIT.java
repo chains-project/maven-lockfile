@@ -820,10 +820,11 @@ public class IntegrationTestsIT {
                         p -> p.getDependencies() != null && !p.getDependencies().isEmpty());
         // Verify the plugin version from the lock file is pinned in the frozen POM,
         // otherwise Maven would resolve a different plugin version at build time.
+        // Plugin versions must not be ranges: Maven cannot resolve them for plugins.
         assertThat(lockfilePom.getBuild().getPlugins())
                 .filteredOn(p -> p.getArtifactId().equals("maven-compiler-plugin"))
                 .extracting(Plugin::getVersion)
-                .containsExactly("[3.11.0]");
+                .containsExactly("3.11.0");
         // Verify plugin dependencies only have valid scopes (compile, runtime, system)
         for (Plugin plugin : lockfilePom.getBuild().getPlugins()) {
             for (Dependency dep : plugin.getDependencies()) {
