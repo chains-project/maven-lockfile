@@ -2815,3 +2815,17 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Sonnet 5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.4-beta-5
+## Changelog
+
+## 🧰 Tasks
+- 3a5094a chore: release version 5.18.4-beta-5
+
+---
+- e100e32 doc: Revise reference in README.md for clarity (#1649)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Martin Monperrus ([@monperrus](https://github.com/monperrus))
