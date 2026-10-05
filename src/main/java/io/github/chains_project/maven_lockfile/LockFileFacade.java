@@ -617,6 +617,13 @@ public class LockFileFacade {
                             "Built plugin project %s with %d declared dependencies",
                             pluginProject.getArtifact(), declaredDeps));
 
+            // Maven never resolves a plugin's own provided/test dependencies, so drop them before
+            // collecting. Otherwise they win version conflicts (e.g. a provided maven-core) and hide
+            // the transitive artifacts Maven actually loads.
+            pluginProject.setDependencies(pluginProject.getDependencies().stream()
+                    .filter(dep -> !"provided".equals(dep.getScope()) && !"test".equals(dep.getScope()))
+                    .collect(Collectors.toList()));
+
             // Merge user-declared dependencies into the plugin project
             // User-declared dependencies override the plugin's default dependencies (e.g., scope changes)
             if (!userDeclaredDeps.isEmpty()) {
