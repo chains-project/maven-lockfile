@@ -10,8 +10,6 @@
   </properties>
   <build>
     <plugins>
-      <!-- Released version under test: its POM declares maven-core:3.9.11 as provided, while
-           maven-artifact-transfer:0.13.1 pulls in maven-core:3.0 at compile scope. -->
       <plugin>
         <groupId>io.github.chains-project</groupId>
         <artifactId>maven-lockfile</artifactId>

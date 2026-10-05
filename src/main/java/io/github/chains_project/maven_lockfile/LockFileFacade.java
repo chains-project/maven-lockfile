@@ -619,7 +619,10 @@ public class LockFileFacade {
 
             // Maven never resolves a plugin's own provided/test dependencies, so drop them before
             // collecting. Otherwise they win version conflicts (e.g. a provided maven-core) and hide
-            // the transitive artifacts Maven actually loads.
+            // the transitive artifacts Maven actually loads. Maven collects with the plugin as root,
+            // so its dependencies count as transitive and the session's
+            // ScopeDependencySelector("test", "provided") excludes them:
+            // https://github.com/apache/maven/blob/maven-3.9.14/maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java#L185-L201
             pluginProject.setDependencies(pluginProject.getDependencies().stream()
                     .filter(dep -> !"provided".equals(dep.getScope()) && !"test".equals(dep.getScope()))
                     .collect(Collectors.toList()));
