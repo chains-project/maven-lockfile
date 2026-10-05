@@ -254,6 +254,44 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:generate")
+    public void pluginProvidedDependencyExcluded(MavenExecutionResult result) throws Exception {
+        // contract: Maven never resolves a plugin's own provided dependencies, so they must not win
+        // version conflicts in the recorded graph. maven-lockfile:5.18.3 declares maven-core:3.9.11
+        // as provided; Maven instead loads maven-core:3.0 (via maven-artifact-transfer) and its
+        // transitive dependencies, which must be recorded for a hermetic build to resolve the plugin.
+        System.out.println("Running 'pluginProvidedDependencyExcluded' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        var lockfilePlugin = lockFile.getMavenPlugins().stream()
+                .filter(plugin -> "maven-lockfile".equals(plugin.getArtifactId().getValue())
+                        && "5.18.3".equals(plugin.getVersion().getValue()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("maven-lockfile:5.18.3 not found in lockfile"));
+
+        List<String> gavs = new ArrayList<>();
+        List<DependencyNode> queue = new ArrayList<>(lockfilePlugin.getDependencies());
+        while (!queue.isEmpty()) {
+            DependencyNode node = queue.remove(0);
+            gavs.add(node.getGroupId().getValue() + ":"
+                    + node.getArtifactId().getValue() + ":"
+                    + node.getVersion().getValue());
+            queue.addAll(node.getChildren());
+        }
+
+        assertThat(gavs)
+                .contains(
+                        "org.apache.maven:maven-core:3.0",
+                        "org.sonatype.aether:aether-util:1.7",
+                        "org.codehaus.plexus:plexus-interpolation:1.14",
+                        "commons-io:commons-io:2.5")
+                .doesNotContain("org.apache.maven:maven-core:3.9.11");
+    }
+
+    @MavenTest
     public void freezeJunit(MavenExecutionResult result) throws Exception {
         System.out.println("Running 'freezeJunit' integration test.");
         assertThat(result).isSuccessful();

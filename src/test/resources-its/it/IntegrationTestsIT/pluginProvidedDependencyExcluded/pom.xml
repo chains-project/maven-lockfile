@@ -1,0 +1,24 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>plugin-provided-dependency-excluded</artifactId>
+  <packaging>jar</packaging>
+  <version>1</version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>5.18.3</version>
+        <configuration>
+          <checksumMode>local</checksumMode>
+          <includeMavenPlugins>true</includeMavenPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
