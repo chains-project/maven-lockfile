@@ -114,6 +114,76 @@ class BomResolverTest {
         }
 
         @Test
+        void resolveForProject_interpolatesMultiplePlaceholdersInVersion() {
+            Properties properties = new Properties();
+            properties.setProperty("main.version.number", "1.2");
+            properties.setProperty("minor.version.number", ".3");
+            Model model = createModelWithBomImport(
+                    "com.example",
+                    "test-project",
+                    "1.0.0",
+                    properties,
+                    "com.example.bom",
+                    "test-bom",
+                    "${main.version.number}${minor.version.number}");
+
+            MavenProject project = buildMavenProject(model);
+
+            assertBomIsResolvedWith(
+                    project,
+                    "com.example.bom",
+                    "test-bom",
+                    "1.2.3",
+                    "Property interpolation should have resolved both placeholders to 1.2.3");
+        }
+
+        @Test
+        void resolveForProject_interpolatesPlaceholderCombinedWithLiteralText() {
+            Properties properties = new Properties();
+            properties.setProperty("main.version.number", "1.2");
+            Model model = createModelWithBomImport(
+                    "com.example",
+                    "test-project",
+                    "1.0.0",
+                    properties,
+                    "com.example.bom",
+                    "test-bom",
+                    "${main.version.number}.0-SNAPSHOT");
+
+            MavenProject project = buildMavenProject(model);
+
+            assertBomIsResolvedWith(
+                    project,
+                    "com.example.bom",
+                    "test-bom",
+                    "1.2.0-SNAPSHOT",
+                    "Property interpolation should have resolved the placeholder inside literal text");
+        }
+
+        @Test
+        void resolveForProject_leavesUnknownPlaceholderUntouched() {
+            Properties properties = new Properties();
+            properties.setProperty("main.version.number", "1.2");
+            Model model = createModelWithBomImport(
+                    "com.example",
+                    "test-project",
+                    "1.0.0",
+                    properties,
+                    "com.example.bom",
+                    "test-bom",
+                    "${main.version.number}-${unknown.property}");
+
+            MavenProject project = buildMavenProject(model);
+
+            assertBomIsResolvedWith(
+                    project,
+                    "com.example.bom",
+                    "test-bom",
+                    "1.2-${unknown.property}",
+                    "Unknown placeholders should be left untouched");
+        }
+
+        @Test
         void resolveForProject_interpolatesPropertiesInNestedTransitiveBom() {
             // Arrange: Create a parent project with properties
             Model parentModel = new Model();

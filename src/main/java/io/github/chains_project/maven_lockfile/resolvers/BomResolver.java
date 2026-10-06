@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
@@ -109,27 +111,37 @@ public class BomResolver {
         });
     }
 
-    /** Limitation
-     *  This does not work when there are multiple placeholders in the text like ${main.version.number}${minor.version.number}
-     *  I am not aware of any project which could use it like that.*/
-    private String interpolateProperty(String textOrPlaceholder, MavenProject project) {
-        if (textOrPlaceholder != null && textOrPlaceholder.startsWith("${") && textOrPlaceholder.endsWith("}")) {
-            String propertyName = textOrPlaceholder.substring(2, textOrPlaceholder.length() - 1);
+    private static final Pattern PLACEHOLDER = Pattern.compile("\\$\\{([^}]+)}");
 
-            // Check project properties (interpolated model has all properties resolved)
-            var propertyValue = project.getModel().getProperties().getProperty(propertyName);
-
-            if (propertyValue != null) {
-                return propertyValue;
-            }
-            if ("project.version".equals(propertyName)) {
-                return project.getVersion();
-            } else if ("project.groupId".equals(propertyName)) {
-                return project.getGroupId();
-            }
+    /**
+     * Replaces every {@code ${...}} placeholder in the given text with its value.
+     * Placeholders that cannot be resolved are left untouched.
+     *
+     * <p>Limitation: properties defined in a parent POM are still not evaluated.
+     */
+    private String interpolateProperty(String text, MavenProject project) {
+        if (text == null) {
+            return null;
         }
+        return PLACEHOLDER.matcher(text).replaceAll(match -> {
+            String value = resolveProperty(match.group(1), project);
+            return Matcher.quoteReplacement(value != null ? value : match.group());
+        });
+    }
 
-        return textOrPlaceholder;
+    private String resolveProperty(String propertyName, MavenProject project) {
+        // Check project properties (interpolated model has all properties resolved)
+        var propertyValue = project.getModel().getProperties().getProperty(propertyName);
+        if (propertyValue != null) {
+            return propertyValue;
+        }
+        if ("project.version".equals(propertyName)) {
+            return project.getVersion();
+        }
+        if ("project.groupId".equals(propertyName)) {
+            return project.getGroupId();
+        }
+        return null;
     }
 
     private Pom resolveBomParents(MavenProject start) {
