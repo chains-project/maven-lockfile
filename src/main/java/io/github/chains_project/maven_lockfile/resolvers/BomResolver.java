@@ -116,6 +116,8 @@ public class BomResolver {
     /**
      * Replaces every {@code ${...}} placeholder in the given text with its value.
      * Placeholders that cannot be resolved are left untouched.
+     *
+     * <p>Limitation: properties defined in a parent POM are still not evaluated.
      */
     private String interpolateProperty(String text, MavenProject project) {
         if (text == null) {
