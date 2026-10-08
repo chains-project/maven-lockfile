@@ -55,12 +55,12 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();
             }
-            MetaData metaData = new MetaData(environment, config);
 
             if (lockFileFromFile == null) {
                 getLog().info("No lockfile found. Generating new lockfile.");
             }
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
+            MetaData metaData = new MetaData(environment, withRunningMavenLockfile(config, checksumCalculator));
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
 

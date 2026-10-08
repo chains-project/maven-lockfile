@@ -49,8 +49,8 @@ public class ValidateMojo extends AbstractLockfileMojo {
             if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();
             }
-            MetaData metaData = new MetaData(environment, config);
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config, true);
+            MetaData metaData = new MetaData(environment, withRunningMavenLockfile(config, checksumCalculator));
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
             for (var phase : ValidationPhases.all()) {

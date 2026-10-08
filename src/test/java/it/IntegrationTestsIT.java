@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.google.common.collect.Ordering;
+import com.google.common.io.BaseEncoding;
 import com.soebes.itf.jupiter.extension.MavenGoal;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -716,6 +718,35 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
+    }
+
+    @MavenTest
+    public void mavenLockfileChecksumRoundTrip(MavenExecutionResult result) throws Exception {
+        // contract: generate records the checksum of the maven-lockfile plugin artifact that ran it, and validate
+        // with the same plugin artifact accepts it.
+        System.out.println("Running 'mavenLockfileChecksumRoundTrip' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        var config = LockFile.readLockFile(lockFilePath).getConfig();
+        String version = config.getMavenLockfileVersion();
+        Path pluginJar = Path.of(
+                "target/itf-repo/io/github/chains-project/maven-lockfile",
+                version,
+                "maven-lockfile-" + version + ".jar");
+        String expectedChecksum = BaseEncoding.base16()
+                .lowerCase()
+                .encode(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(pluginJar)));
+        assertThat(config.getMavenLockfileChecksum()).isEqualTo(expectedChecksum);
+    }
+
+    @MavenTest
+    public void mavenLockfileChecksumCheckShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: validation fails if the maven-lockfile plugin running it is not the artifact recorded in the
+        // lockfile for the same version. The fixture equals singleDependencyCheckCorrect except for that checksum.
+        System.out.println("Running 'mavenLockfileChecksumCheckShouldFail' integration test.");
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout).contains("maven-lockfile checksum mismatch.");
     }
 
     @MavenTest

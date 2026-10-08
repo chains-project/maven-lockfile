@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
@@ -231,6 +232,16 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 hermeticInclusion);
     }
 
+    /**
+     * Returns {@code config} recording the maven-lockfile plugin running this goal: its version and the checksum of
+     * its artifact, so the lockfile pins the exact plugin binary that produced or validated it.
+     */
+    protected Config withRunningMavenLockfile(Config config, AbstractChecksumCalculator checksumCalculator) {
+        Artifact pluginArtifact = mojo.getMojoDescriptor().getPluginDescriptor().getPluginArtifact();
+        return config.withMavenLockfile(
+                mojo.getPlugin().getVersion(), checksumCalculator.calculatePluginChecksum(pluginArtifact));
+    }
+
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
@@ -303,7 +314,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.HermeticInclusion hermeticInclusion = hermetic != null
                 ? (hermetic ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude)
                 : base.getHermeticInclusion();
-        return new Config(
+        Config merged = new Config(
                 pluginsInclusion,
                 onValidationFailure,
                 onPomValidationFailure,
@@ -321,5 +332,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 mavenExtensionsInclusion,
                 onMavenExtensionsValidationFailure,
                 hermeticInclusion);
+        // The plugin checksum is not a CLI option; keep the one stored alongside the version.
+        return merged.withMavenLockfile(base.getMavenLockfileVersion(), base.getMavenLockfileChecksum());
     }
 }

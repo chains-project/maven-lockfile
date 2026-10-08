@@ -57,4 +57,15 @@ class ValidateMojoTest {
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
         assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
     }
+
+    @Test
+    void storedMavenLockfileChecksumIsPreserved() {
+        var m = mojo();
+        m.allowEnvironmentalValidationFailure = true;
+
+        Config merged = m.mergeConfigWithCliArgs(storedConfig().withMavenLockfile("5.16.0", "abc123"));
+
+        assertThat(merged.getMavenLockfileVersion()).isEqualTo("5.16.0");
+        assertThat(merged.getMavenLockfileChecksum()).isEqualTo("abc123");
+    }
 }

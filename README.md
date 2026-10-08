@@ -53,6 +53,10 @@ mvn io.github.chains-project:maven-lockfile:validate
 If this runs successfully, the repository is valid. All dependencies defined are still the same as when the lock file was generated.
 If the command fails, this means a dependency has changed.
 
+The lockfile also records the version (`mavenLockfileVersion`) and checksum (`mavenLockfileChecksum`) of the maven-lockfile plugin that generated it.
+When `validate` runs with the same plugin version, it also checks that the plugin artifact being executed matches the recorded checksum, and fails otherwise (set `allowMavenPluginValidationFailure` to only warn).
+When it runs with a different plugin version, it prints a warning instead, since the checksum cannot be compared; regenerate the lockfile to pin the new version.
+
 ###  Rebuild old versions with the pinned versions from the lockfile.
 
 First create `pom.lockfile.xml`
@@ -262,6 +266,7 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.14.1-beta-1",
+      "mavenLockfileChecksum": "2567930670c8da5bda8739f2fbd6509f1af9eeddf13397209fe01f72e22eb66a",
       "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256"
     }

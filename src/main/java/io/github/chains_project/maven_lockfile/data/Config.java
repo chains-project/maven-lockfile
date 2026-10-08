@@ -13,6 +13,7 @@ public class Config {
     private final boolean includeEnvironment;
     private final boolean reduced;
     private final String mavenLockfileVersion;
+    private final String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
     private final boolean includeBoms;
@@ -51,6 +52,7 @@ public class Config {
         this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
         this.reduced = reduced.equals(ReductionState.Reduced);
         this.mavenLockfileVersion = mavenLockfileVersion;
+        this.mavenLockfileChecksum = null;
         this.checksumMode = checksumMode;
         this.checksumAlgorithm = checksumAlgorithm;
         this.includeBoms = includeBoms.equals(BomsInclusion.Include);
@@ -73,6 +75,7 @@ public class Config {
         this.includeEnvironment = true;
         this.reduced = false;
         this.mavenLockfileVersion = "1";
+        this.mavenLockfileChecksum = null;
         this.checksumMode = ChecksumModes.LOCAL;
         this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
         this.includeBoms = false;
@@ -82,6 +85,35 @@ public class Config {
         this.includeMavenExtensions = false;
         this.allowMavenExtensionsValidationFailure = false;
         this.hermetic = false;
+    }
+
+    private Config(Config other, String mavenLockfileVersion, String mavenLockfileChecksum) {
+        this.includeMavenPlugins = other.includeMavenPlugins;
+        this.allowValidationFailure = other.allowValidationFailure;
+        this.allowPomValidationFailure = other.allowPomValidationFailure;
+        this.allowMavenPluginValidationFailure = other.allowMavenPluginValidationFailure;
+        this.allowEnvironmentalValidationFailure = other.allowEnvironmentalValidationFailure;
+        this.includeEnvironment = other.includeEnvironment;
+        this.reduced = other.reduced;
+        this.mavenLockfileVersion = mavenLockfileVersion;
+        this.mavenLockfileChecksum = mavenLockfileChecksum;
+        this.checksumMode = other.checksumMode;
+        this.checksumAlgorithm = other.checksumAlgorithm;
+        this.includeBoms = other.includeBoms;
+        this.allowBomValidationFailure = other.allowBomValidationFailure;
+        this.includeParentPom = other.includeParentPom;
+        this.allowParentPomValidationFailure = other.allowParentPomValidationFailure;
+        this.includeMavenExtensions = other.includeMavenExtensions;
+        this.allowMavenExtensionsValidationFailure = other.allowMavenExtensionsValidationFailure;
+        this.hermetic = other.hermetic;
+    }
+
+    /**
+     * @return a copy of this config recording the given maven-lockfile plugin version and the checksum of its
+     *     artifact, calculated with {@link #getChecksumAlgorithm()}
+     */
+    public Config withMavenLockfile(String mavenLockfileVersion, String mavenLockfileChecksum) {
+        return new Config(this, mavenLockfileVersion, mavenLockfileChecksum);
     }
     /**
      * @return the includeMavenPlugins
@@ -173,6 +205,13 @@ public class Config {
      */
     public String getMavenLockfileVersion() {
         return mavenLockfileVersion;
+    }
+    /**
+     * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile, or {@code null} for
+     *     lockfiles generated before it was recorded
+     */
+    public String getMavenLockfileChecksum() {
+        return mavenLockfileChecksum;
     }
     /**
      * @return the checksumMode
