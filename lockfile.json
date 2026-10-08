@@ -8,7 +8,7 @@
     "version": "5.18.5-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "d262f8461e6a0c9fa7e145ee1fc71d4f5cd8b2ab67e8f19cb0566f15b891e121"
+    "checksum": "53874fb78cc7d8161ff4bb4fe067d2a5fcf31c2c798bed7ecf08201d97275e25"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -1361,7 +1361,7 @@
               }
             }
           },
-          "selectedVersion": "2.0.14",
+          "selectedVersion": "2.0.24",
           "included": false,
           "id": "org.apache.maven.resolver:maven-resolver-api:1.9.18",
           "parent": "org.apache.maven:maven-compat:3.9.6",
@@ -2258,7 +2258,7 @@
               "scope": "provided",
               "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.9.24/maven-resolver-api-1.9.24.jar",
               "repositoryId": "central",
-              "selectedVersion": "2.0.14",
+              "selectedVersion": "2.0.24",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.24",
               "parent": "org.apache.maven:maven-resolver-provider:3.9.11",
@@ -2685,7 +2685,7 @@
               ]
             }
           },
-          "selectedVersion": "2.0.14",
+          "selectedVersion": "2.0.24",
           "included": false,
           "id": "org.apache.maven.resolver:maven-resolver-api:1.9.24",
           "parent": "org.apache.maven:maven-core:3.9.11",
@@ -2753,7 +2753,7 @@
               "scope": "provided",
               "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.9.24/maven-resolver-api-1.9.24.jar",
               "repositoryId": "central",
-              "selectedVersion": "2.0.14",
+              "selectedVersion": "2.0.24",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.24",
               "parent": "org.apache.maven.resolver:maven-resolver-impl:1.9.24",
@@ -2943,7 +2943,7 @@
               "scope": "provided",
               "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.9.24/maven-resolver-api-1.9.24.jar",
               "repositoryId": "central",
-              "selectedVersion": "2.0.14",
+              "selectedVersion": "2.0.24",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.24",
               "parent": "org.apache.maven.resolver:maven-resolver-spi:1.9.24",
@@ -3014,7 +3014,7 @@
               "scope": "compile",
               "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.9.24/maven-resolver-api-1.9.24.jar",
               "repositoryId": "central",
-              "selectedVersion": "2.0.14",
+              "selectedVersion": "2.0.24",
               "included": false,
               "id": "org.apache.maven.resolver:maven-resolver-api:1.9.24",
               "parent": "org.apache.maven.resolver:maven-resolver-util:1.9.24",
@@ -3889,46 +3889,46 @@
     {
       "groupId": "org.apache.maven.resolver",
       "artifactId": "maven-resolver-api",
-      "version": "2.0.14",
+      "version": "2.0.24",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "4d301cc79e5b5183ac31b318fdc79c93b1938d23ddd2cbbb409f84bd0237c1f8",
+      "checksum": "1ec0c3370158fd631dc3dcfc8b8f24041e6081f34f329dab1b8fe75c1007ca33",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/2.0.14/maven-resolver-api-2.0.14.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver-api/2.0.24/maven-resolver-api-2.0.24.jar",
       "repositoryId": "central",
       "parentPom": {
         "groupId": "org.apache.maven.resolver",
         "artifactId": "maven-resolver",
-        "version": "2.0.14",
-        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver/2.0.14/maven-resolver-2.0.14.pom",
+        "version": "2.0.24",
+        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/resolver/maven-resolver/2.0.24/maven-resolver-2.0.24.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "7a24ec0cd843f343c34ad70d7a8d58fbfc00d4e77776acb546b1da717a7c26f2",
+        "checksum": "84e91db544a36e0a9671626c4c89870f52ad54592e449def1b2b64c97696444b",
         "parent": {
           "groupId": "org.apache.maven",
           "artifactId": "maven-parent",
-          "version": "45",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/45/maven-parent-45.pom",
+          "version": "50",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/50/maven-parent-50.pom",
           "repositoryId": "central",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "94fe869eb9b4ce9fce3995d05ea86b168c85d927f9d17beb814a1960c76d7e6f",
+          "checksum": "cf9f5cddd094740deb8912cfe06ddeda81f8bd914779aa9037488c27d08fe7da",
           "parent": {
             "groupId": "org.apache",
             "artifactId": "apache",
-            "version": "35",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/35/apache-35.pom",
+            "version": "40",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/40/apache-40.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8"
+            "checksum": "9c79f575a59ab5b622f591169411a4fdcfab71f8dc0440beaed87ac6b9b941f7"
           },
           "boms": [
             {
               "groupId": "org.junit",
               "artifactId": "junit-bom",
-              "version": "5.13.1",
-              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.1/junit-bom-5.13.1.pom",
+              "version": "5.14.4",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "fa68451ea830572ed43ffe51d75b6a05f7a5e665a602a51f49d6be02063a65f3"
+              "checksum": "5706e8f29a0a07f56efbbea4a0670793414194bb8d24d8143ba1e787a2f32856"
             }
           ]
         },
@@ -3936,17 +3936,17 @@
           {
             "groupId": "org.eclipse.jetty",
             "artifactId": "jetty-bom",
-            "version": "10.0.26",
-            "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-bom/10.0.26/jetty-bom-10.0.26.pom",
+            "version": "12.1.13",
+            "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jetty/jetty-bom/12.1.13/jetty-bom-12.1.13.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "6f34be425e33901574faa37c8b5bd2cc975694787a856eb3df5b5a29ac45198a"
+            "checksum": "7ace21d11ae572bf8053ba5b200c6b19d0db661db304cb006510f078e4102658"
           }
         ]
       },
-      "selectedVersion": "2.0.14",
+      "selectedVersion": "2.0.24",
       "included": true,
-      "id": "org.apache.maven.resolver:maven-resolver-api:2.0.14",
+      "id": "org.apache.maven.resolver:maven-resolver-api:2.0.24",
       "children": [],
       "boms": []
     },
