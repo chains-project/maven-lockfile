@@ -4,11 +4,12 @@ import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.util.stream.Collectors;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -92,9 +93,7 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             Path remoteRepositoriesPath = artifactFolderPath.resolve("_remote.repositories");
             List<String> locallySavedRemoteRepositories = Files.readAllLines(remoteRepositoriesPath);
 
-            Set<String> remoteRepositoriesSet = buildingRequest.getRemoteRepositories().stream()
-                    .map(ArtifactRepository::getId)
-                    .collect(Collectors.toSet());
+            Map<String, String> repositoryIdsByKey = repositoryIdsByKey(buildingRequest);
 
             String repository = null;
             boolean foundWithEmptyRepoId = false;
@@ -117,7 +116,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     repository = null;
                     continue;
                 }
-                if (!remoteRepositoriesSet.contains(repository)) {
+                repository = repositoryIdsByKey.get(repository);
+                if (repository == null) {
                     continue;
                 }
 
@@ -141,10 +141,8 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                                 if (!line.startsWith(artifactFileName)) continue;
 
                                 String remoteRepository = parseRepositoryIdFromLine(line, artifactFileName);
-                                if (remoteRepository != null
-                                        && !remoteRepository.isEmpty()
-                                        && remoteRepositoriesSet.contains(remoteRepository)) {
-                                    repository = remoteRepository;
+                                if (remoteRepository != null && repositoryIdsByKey.containsKey(remoteRepository)) {
+                                    repository = repositoryIdsByKey.get(remoteRepository);
                                     break;
                                 }
                             }
@@ -182,6 +180,23 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
                     .warn(String.format("Could not fetch remote repository for artifact %s", artifact), e);
             return Optional.empty();
         }
+    }
+
+    /**
+     * Maps each key a repository may be recorded under in _remote.repositories to its ID. Maven
+     * 3.9 records the plain ID; Maven 3.10 (Resolver 2) records {@code <id>-<sha1 of url>}.
+     */
+    private static Map<String, String> repositoryIdsByKey(ProjectBuildingRequest buildingRequest)
+            throws NoSuchAlgorithmException {
+        Map<String, String> idsByKey = new HashMap<>();
+        for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
+            byte[] urlHash = MessageDigest.getInstance("SHA-1")
+                    .digest(repository.getUrl().getBytes(StandardCharsets.UTF_8));
+            idsByKey.put(repository.getId(), repository.getId());
+            idsByKey.put(
+                    repository.getId() + "-" + BaseEncoding.base16().lowerCase().encode(urlHash), repository.getId());
+        }
+        return idsByKey;
     }
 
     /**

@@ -104,11 +104,25 @@ public class ProjectBuilder {
     }
 
     private Optional<MavenProject> buildProjectFromPomFile(File pomFile) {
+        try {
+            return buildProjectFromPomFile(pomFile, true);
+        } catch (IllegalArgumentException e) {
+            // Maven 3.10+ rejects dependencies with unresolvable coordinates (e.g. a classifier of
+            // ${os.detected.classifier}, which only a build extension sets) by throwing, where older
+            // Maven recorded a problem and still returned the project. Fall back to the model alone.
+            log.debug(String.format(
+                    "Couldn't resolve dependencies of %s, building it without them: %s",
+                    pomFile.getAbsoluteFile(), e.getMessage()));
+            return buildProjectFromPomFile(pomFile, false);
+        }
+    }
+
+    private Optional<MavenProject> buildProjectFromPomFile(File pomFile, boolean resolveDependencies) {
         // Build MavenProject from plugin POM
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(repositories);
         buildingRequest.setProcessPlugins(false);
-        buildingRequest.setResolveDependencies(true);
+        buildingRequest.setResolveDependencies(resolveDependencies);
 
         try {
             // Note: getContainer() is deprecated but there's no clear replacement in the current Maven API
