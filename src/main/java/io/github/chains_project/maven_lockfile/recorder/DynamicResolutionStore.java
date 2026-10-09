@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -28,7 +29,15 @@ public final class DynamicResolutionStore {
 
     public static void write(Path path, Collection<RecordedArtifact> artifacts) throws IOException {
         Files.createDirectories(path.getParent());
-        Files.writeString(path, GSON.toJson(new TreeSet<>(artifacts), LIST_TYPE));
+        // Write to a sibling temp file and move it into place, so a concurrent reader never sees a
+        // truncated or partially-written file.
+        Path tmp = Files.createTempFile(path.getParent(), path.getFileName().toString(), ".tmp");
+        try {
+            Files.writeString(tmp, GSON.toJson(new TreeSet<>(artifacts), LIST_TYPE));
+            Files.move(tmp, path, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } finally {
+            Files.deleteIfExists(tmp);
+        }
     }
 
     public static List<RecordedArtifact> read(Path path) throws IOException {

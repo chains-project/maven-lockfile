@@ -118,7 +118,12 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         flushMarker();
     }
 
-    private void flushMarker() {
+    /**
+     * Synchronized because the resolver fires {@code ARTIFACT_RESOLVED} from several threads at once
+     * (e.g. the BF dependency collector's parallel POM resolution); unsynchronized read-merge-write
+     * cycles would drop artifacts and could leave trailing bytes from a longer, overlapping write.
+     */
+    private synchronized void flushMarker() {
         String multiModuleProjectDirectory = System.getProperty("maven.multiModuleProjectDirectory");
         if (multiModuleProjectDirectory == null) {
             return;
