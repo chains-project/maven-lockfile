@@ -413,7 +413,7 @@ public class LockFileFacade {
 
                 RepositoryInformation repositoryInformation = checksumCalculator.getPluginResolvedField(mavenArtifact);
 
-                Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGav(
+                Optional<MavenProject> extensionProjectOptional = extensionProjectBuilder.buildFromGavWithDependencies(
                         artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
 
                 // Resolve extension's transitive dependencies using the existing mechanism
@@ -543,7 +543,8 @@ public class LockFileFacade {
             String pluginKey = pluginArtifact.getGroupId() + ":" + pluginArtifact.getArtifactId();
             List<Dependency> userDeclaredDeps = userPluginDependencies.getOrDefault(pluginKey, Collections.emptyList());
 
-            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGav(
+            // Resolved artifacts let GraphBuildingNodeVisitor pin RELEASE/LATEST plugin dependencies.
+            Optional<MavenProject> pluginProjectOptional = projectBuilder.buildFromGavWithDependencies(
                     pluginArtifact.getGroupId(), pluginArtifact.getArtifactId(), pluginArtifact.getBaseVersion());
 
             if (pluginProjectOptional.isEmpty()) {

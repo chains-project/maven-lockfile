@@ -34,12 +34,28 @@ public class ProjectBuilder {
     }
 
     /**
-     * Builds a MavenProject from a GAV specification.
+     * Builds a MavenProject from a GAV specification, without resolving its dependencies. The
+     * model (parent chain, dependency management, declared dependencies) is complete, but
+     * {@link MavenProject#getArtifacts()} is empty.
      *
      * @return an Optional that contains the MavenProject in case it was successfully built.
      */
     public Optional<MavenProject> buildFromGav(String groupId, String artifactId, String version) {
-        log.debug(String.format("Resolving dependencies for %s:%s:%s", groupId, artifactId, version));
+        return findPomFile(groupId, artifactId, version).flatMap(pomFile -> buildProjectFromPomFile(pomFile, false));
+    }
+
+    /**
+     * Like {@link #buildFromGav}, but also resolves the project's dependencies, so
+     * {@link MavenProject#getArtifacts()} is populated.
+     *
+     * @return an Optional that contains the MavenProject in case it was successfully built.
+     */
+    public Optional<MavenProject> buildFromGavWithDependencies(String groupId, String artifactId, String version) {
+        return findPomFile(groupId, artifactId, version).flatMap(this::buildProjectWithDependencies);
+    }
+
+    private Optional<File> findPomFile(String groupId, String artifactId, String version) {
+        log.debug(String.format("Building project for %s:%s:%s", groupId, artifactId, version));
 
         var pomFileOptional = lookForPomFileInLocalRepository(groupId, artifactId, version);
 
@@ -47,11 +63,7 @@ public class ProjectBuilder {
             pomFileOptional = resolvePomFile(groupId, artifactId, version);
         }
 
-        if (pomFileOptional.isPresent()) {
-            return buildProjectFromPomFile(pomFileOptional.get());
-        }
-
-        return Optional.empty();
+        return pomFileOptional;
     }
 
     private Optional<File> lookForPomFileInLocalRepository(String groupId, String artifactId, String version) {
@@ -103,12 +115,27 @@ public class ProjectBuilder {
         return Optional.empty();
     }
 
-    private Optional<MavenProject> buildProjectFromPomFile(File pomFile) {
+    private Optional<MavenProject> buildProjectWithDependencies(File pomFile) {
+        try {
+            return buildProjectFromPomFile(pomFile, true);
+        } catch (IllegalArgumentException e) {
+            // Maven 3.10+ rejects dependencies with unresolvable coordinates (e.g. a classifier of
+            // ${os.detected.classifier}, which only a build extension sets) by throwing, where older
+            // Maven recorded a problem and still returned the project. Fall back to the model alone,
+            // as older Maven would have returned it.
+            log.debug(String.format(
+                    "Couldn't resolve dependencies of %s, building it without them: %s",
+                    pomFile.getAbsoluteFile(), e.getMessage()));
+            return buildProjectFromPomFile(pomFile, false);
+        }
+    }
+
+    private Optional<MavenProject> buildProjectFromPomFile(File pomFile, boolean resolveDependencies) {
         // Build MavenProject from plugin POM
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(repositories);
         buildingRequest.setProcessPlugins(false);
-        buildingRequest.setResolveDependencies(true);
+        buildingRequest.setResolveDependencies(resolveDependencies);
 
         try {
             // Note: getContainer() is deprecated but there's no clear replacement in the current Maven API
