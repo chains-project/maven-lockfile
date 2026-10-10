@@ -118,7 +118,7 @@ public class DynamicResolutionSpy extends AbstractEventSpy {
         flushMarker();
     }
 
-    private void flushMarker() {
+    private synchronized void flushMarker() {
         String multiModuleProjectDirectory = System.getProperty("maven.multiModuleProjectDirectory");
         if (multiModuleProjectDirectory == null) {
             return;
