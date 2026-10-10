@@ -26,6 +26,13 @@ jobs:
 
     environment: release
 
+    # Temporary, until the actions are bumped past 5.18.4, whose spy and plugin predate Maven 3.10
+    # (Resolver 2) support. df: Resolver 2 collects with 5 threads by default, which corrupts the
+    # 5.18.4 spy's capture file. nid: Resolver 2 keys _remote.repositories as <id>-<sha1 of url>,
+    # which 5.18.4 doesn't recognise, so it records every artifact as unresolved.
+    env:
+      MAVEN_OPTS: -Daether.dependencyCollector.impl=df -Daether.system.trackingRepositoryKeyFunction=nid
+
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@9ca718d3bf646d6534007c269a635b3e54cadf99 # v2.19.2
