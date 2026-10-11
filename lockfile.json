@@ -9281,24 +9281,7 @@
               "included": true,
               "id": "org.bouncycastle:bcutil-jdk18on:1.81",
               "parent": "org.apache.maven.plugins:maven-gpg-plugin:3.2.8",
-              "children": [
-                {
-                  "groupId": "org.bouncycastle",
-                  "artifactId": "bcprov-jdk18on",
-                  "version": "1.81",
-                  "checksumAlgorithm": "SHA-256",
-                  "checksum": "249f396412b0c0ce67f25c8197da757b241b8be3ec4199386c00704a2457459b",
-                  "scope": "runtime",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/1.81/bcprov-jdk18on-1.81.jar",
-                  "repositoryId": "central",
-                  "selectedVersion": "1.81",
-                  "included": false,
-                  "id": "org.bouncycastle:bcprov-jdk18on:1.81",
-                  "parent": "org.bouncycastle:bcutil-jdk18on:1.81",
-                  "children": [],
-                  "boms": []
-                }
-              ],
+              "children": [],
               "boms": []
             },
             {
@@ -29077,8 +29060,8 @@
   "metaData": {
     "environment": {
       "osName": "Linux",
-      "mavenVersion": "3.9.14",
-      "javaVersion": "25.0.2"
+      "mavenVersion": "3.10.0",
+      "javaVersion": "17.0.20.1"
     },
     "config": {
       "includeMavenPlugins": true,
