@@ -2843,3 +2843,30 @@ We'd like to thank the following people for their contributions:
 - Claude Opus 5.5 ()
 - Claude Sonnet 5 ()
 - Martin Monperrus ([@monperrus](https://github.com/monperrus))
+
+# 5.18.5
+## Changelog
+
+## 🐛 Fixes
+- 5cd911f fix: serialize DynamicResolutionSpy writes so concurrent resolution can't corrupt the capture file (#1669)
+- d0d9d98 fix: support Maven 3.10 (Resolver 2) in generate
+- 16a57bf fix: resolve multiple property placeholders in BOM coordinates (#1656)
+
+## 🧰 Tasks
+- 26437c1 chore: release version 5.18.5
+- ce31e11 chore: work around Maven 3.10 in release until actions move past 5.18.4 (#1672)
+- b0f5b53 chore: bump lockfile actions version to `5.18.4`
+- 4cc6bab chore: set snapshot version 5.18.5-SNAPSHOT
+- bedb02c chore: release version 5.18.4
+- b1e3eee chore: run smoke tests only on manual dispatch (#1654)
+
+---
+- e02fc57 :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.24 (#1661)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()
+- adammojzo ([@adammojzo](https://github.com/adammojzo))
