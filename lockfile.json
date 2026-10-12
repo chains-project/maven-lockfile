@@ -8,7 +8,7 @@
     "version": "5.18.6-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "275a328a260dea99357d9415160a9db01ad71e22eb286213fcaa44c4f6fe6dd2"
+    "checksum": "402b0e18fbce5fcc7c9adb1f84a1997bbeb144170b705bc23cc6aaa387ea044c"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -16111,53 +16111,53 @@
     {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-jar-plugin",
-      "version": "3.5.0",
-      "checksum": "7562657fc3492649dee836ffdda07990aaf46f4133cad048c4dcd7330bfd3917",
+      "version": "3.5.1",
+      "checksum": "c83db6059be3fec9a4a68a0e226caefaa944663008617c697e087444415181d5",
       "checksumAlgorithm": "SHA-256",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.0/maven-jar-plugin-3.5.0.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.5.1/maven-jar-plugin-3.5.1.jar",
       "repositoryId": "central",
       "dependencies": [
         {
           "groupId": "commons-io",
           "artifactId": "commons-io",
-          "version": "2.21.0",
+          "version": "2.22.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "7d643a2afea8b058b762aa6fb90e5b256f6c729739f8b3784c3370ddc609e88d",
+          "checksum": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.21.0/commons-io-2.21.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.apache.commons",
             "artifactId": "commons-parent",
-            "version": "91",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/91/commons-parent-91.pom",
+            "version": "98",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/98/commons-parent-98.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "d2f8b6fd4800b6aaf120f5a38226d5f9d5fc6db837af99e2f9b33067868b9872",
+            "checksum": "d40318527f56033e0ff0789971cc38c856aa99a685eea11270814e7f1eda9fba",
             "parent": {
               "groupId": "org.apache",
               "artifactId": "apache",
-              "version": "35",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/35/apache-35.pom",
+              "version": "37",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/37/apache-37.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8"
+              "checksum": "524ec4787aff73af6b3a9fafa154c7f1881b648299b663fdbfcadda1286f2353"
             },
             "boms": [
               {
                 "groupId": "org.junit",
                 "artifactId": "junit-bom",
-                "version": "5.13.4",
-                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.4/junit-bom-5.13.4.pom",
+                "version": "5.14.2",
+                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.2/junit-bom-5.14.2.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "d7a08a99b2502f0bb68cd4e1f984f0bf69324aaa208bd0f73366c03fc3548a42"
+                "checksum": "ed2dcc7855bd460bccc93a1bf0c962e63b566ff7d8f1ded0f1f2593ba8183aaf"
               }
             ]
           },
-          "selectedVersion": "2.21.0",
+          "selectedVersion": "2.22.0",
           "included": true,
-          "id": "commons-io:commons-io:2.21.0",
+          "id": "commons-io:commons-io:2.22.0",
           "children": [],
           "boms": []
         },
@@ -16179,11 +16179,11 @@
         {
           "groupId": "org.apache.maven",
           "artifactId": "maven-archiver",
-          "version": "3.6.5",
+          "version": "3.6.6",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "cea5dd2b7c6be818fa8d6b73cff4edacaecefec5842d361a791b7f47974fe156",
+          "checksum": "9037dee318a68d7ee5dd2e20f2e657a39597ed2622b52e325ab9becddfbc4d38",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.5/maven-archiver-3.6.5.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.6/maven-archiver-3.6.6.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.apache.maven.shared",
@@ -16223,27 +16223,27 @@
               ]
             }
           },
-          "selectedVersion": "3.6.5",
+          "selectedVersion": "3.6.6",
           "included": true,
-          "id": "org.apache.maven:maven-archiver:3.6.5",
+          "id": "org.apache.maven:maven-archiver:3.6.6",
           "children": [
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-archiver",
-              "version": "4.10.2",
+              "version": "4.10.4",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "a4f3f36a96505d833c2fb3a1e7cc2ddbeb28a85dbefe7b94955d41c2c0c4d889",
+              "checksum": "1f39d4f2906a04f501567cd1211cef3fd95fea4cb979e1eba1d8dd84e4b67098",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.10.2/plexus-archiver-4.10.2.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.10.4/plexus-archiver-4.10.4.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
                 "artifactId": "plexus",
-                "version": "23",
-                "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/23/plexus-23.pom",
+                "version": "24",
+                "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/24/plexus-24.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "7728c57471730a6ec9e04654b60f37f57c01a2708e53aa6a0d7005aad29cbb10",
+                "checksum": "89a1bc79e46c35ab108b7e215bb2c5c215ff8f3af1ae3cfef82d9a2b33b06c51",
                 "boms": [
                   {
                     "groupId": "org.junit",
@@ -16256,46 +16256,46 @@
                   }
                 ]
               },
-              "selectedVersion": "4.10.4",
+              "selectedVersion": "4.12.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-archiver:4.10.2",
-              "parent": "org.apache.maven:maven-archiver:3.6.5",
+              "id": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "parent": "org.apache.maven:maven-archiver:3.6.6",
               "children": [],
               "boms": []
             },
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-interpolation",
-              "version": "1.28",
+              "version": "1.29",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ab2a8715570438a2e4164d85ad3e8d489eabc38ea5093c2eb8ab7f58403535b5",
+              "checksum": "088d444dbcedfb384630d8686697ece3c401d6f33c8f8b3aa7259ea1c6996878",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.28/plexus-interpolation-1.28.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.29/plexus-interpolation-1.29.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
                 "artifactId": "plexus",
-                "version": "20",
-                "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/20/plexus-20.pom",
+                "version": "24",
+                "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/24/plexus-24.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "a7b594b002fc791733c8e94470d09045f4fd69a93ad5c375752f2057f84633b4",
+                "checksum": "89a1bc79e46c35ab108b7e215bb2c5c215ff8f3af1ae3cfef82d9a2b33b06c51",
                 "boms": [
                   {
                     "groupId": "org.junit",
                     "artifactId": "junit-bom",
-                    "version": "5.11.4",
-                    "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.4/junit-bom-5.11.4.pom",
+                    "version": "5.13.4",
+                    "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.4/junit-bom-5.13.4.pom",
                     "repositoryId": "central",
                     "checksumAlgorithm": "SHA-256",
-                    "checksum": "19d4b747b204805325b6334553296f986562277a4ac1cb5e593a5e4c4f5e4115"
+                    "checksum": "d7a08a99b2502f0bb68cd4e1f984f0bf69324aaa208bd0f73366c03fc3548a42"
                   }
                 ]
               },
-              "selectedVersion": "1.28",
+              "selectedVersion": "1.29",
               "included": true,
-              "id": "org.codehaus.plexus:plexus-interpolation:1.28",
-              "parent": "org.apache.maven:maven-archiver:3.6.5",
+              "id": "org.codehaus.plexus:plexus-interpolation:1.29",
+              "parent": "org.apache.maven:maven-archiver:3.6.6",
               "children": [],
               "boms": []
             },
@@ -16331,7 +16331,7 @@
               "selectedVersion": "3.0.1",
               "included": true,
               "id": "org.codehaus.plexus:plexus-xml:3.0.1",
-              "parent": "org.apache.maven:maven-archiver:3.6.5",
+              "parent": "org.apache.maven:maven-archiver:3.6.6",
               "children": [],
               "boms": []
             }
@@ -16427,7 +16427,7 @@
                   }
                 ]
               },
-              "selectedVersion": "2.21.0",
+              "selectedVersion": "2.22.0",
               "included": false,
               "id": "commons-io:commons-io:2.19.0",
               "parent": "org.apache.maven.shared:file-management:3.2.0",
@@ -16437,15 +16437,35 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.0.2",
+              "version": "4.0.3",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "8957274e75fe2c278b1428dd16a0daeee1dd38152cb6eff816177ac28fccb697",
+              "checksum": "421ff6ed146c53a9d4eaade8f629b52b12af7187101f1bd06c2c64e904019f3c",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.2/plexus-utils-4.0.2.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.jar",
               "repositoryId": "central",
-              "selectedVersion": "4.0.2",
+              "parentPom": {
+                "groupId": "org.codehaus.plexus",
+                "artifactId": "plexus",
+                "version": "25",
+                "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/25/plexus-25.pom",
+                "repositoryId": "central",
+                "checksumAlgorithm": "SHA-256",
+                "checksum": "faa7947c2020967ad0c92b259ee9fa361d05e90cd036d17c37098bb1edaea3a3",
+                "boms": [
+                  {
+                    "groupId": "org.junit",
+                    "artifactId": "junit-bom",
+                    "version": "5.14.1",
+                    "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.1/junit-bom-5.14.1.pom",
+                    "repositoryId": "central",
+                    "checksumAlgorithm": "SHA-256",
+                    "checksum": "01b01dfa366550b40ac5760548a7d728b6109d17c451e83864d1e5e0ce862c94"
+                  }
+                ]
+              },
+              "selectedVersion": "4.0.3",
               "included": true,
-              "id": "org.codehaus.plexus:plexus-utils:4.0.2",
+              "id": "org.codehaus.plexus:plexus-utils:4.0.3",
               "parent": "org.apache.maven.shared:file-management:3.2.0",
               "children": [],
               "boms": []
@@ -16472,85 +16492,65 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-archiver",
-          "version": "4.10.4",
+          "version": "4.12.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "1f39d4f2906a04f501567cd1211cef3fd95fea4cb979e1eba1d8dd84e4b67098",
+          "checksum": "b1e9798a6d711d1e7760d50c78be8be746bb546b87df0a2d7ef67db5eda5431e",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.10.4/plexus-archiver-4.10.4.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.12.0/plexus-archiver-4.12.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
             "artifactId": "plexus",
-            "version": "24",
-            "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/24/plexus-24.pom",
+            "version": "25",
+            "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/25/plexus-25.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "89a1bc79e46c35ab108b7e215bb2c5c215ff8f3af1ae3cfef82d9a2b33b06c51",
+            "checksum": "faa7947c2020967ad0c92b259ee9fa361d05e90cd036d17c37098bb1edaea3a3",
             "boms": [
               {
                 "groupId": "org.junit",
                 "artifactId": "junit-bom",
-                "version": "5.13.4",
-                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.4/junit-bom-5.13.4.pom",
+                "version": "5.14.1",
+                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.1/junit-bom-5.14.1.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "d7a08a99b2502f0bb68cd4e1f984f0bf69324aaa208bd0f73366c03fc3548a42"
+                "checksum": "01b01dfa366550b40ac5760548a7d728b6109d17c451e83864d1e5e0ce862c94"
               }
             ]
           },
-          "selectedVersion": "4.10.4",
+          "selectedVersion": "4.12.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-archiver:4.10.4",
+          "id": "org.codehaus.plexus:plexus-archiver:4.12.0",
           "children": [
             {
               "groupId": "com.github.luben",
               "artifactId": "zstd-jni",
-              "version": "1.5.7-6",
+              "version": "1.5.7-9",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "8d6feb1da335f3ab13c584c613e23c7b3c61b392e37956872057baf8f0ca1d6f",
+              "checksum": "087d02f39a46ab79b18f883ac7c3a3d6c2df1fd3bf7eaafeade699e0743d0dbe",
               "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-6/zstd-jni-1.5.7-6.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/com/github/luben/zstd-jni/1.5.7-9/zstd-jni-1.5.7-9.jar",
               "repositoryId": "central",
-              "selectedVersion": "1.5.7-6",
+              "selectedVersion": "1.5.7-9",
               "included": true,
-              "id": "com.github.luben:zstd-jni:1.5.7-6",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "id": "com.github.luben:zstd-jni:1.5.7-9",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             },
             {
-              "groupId": "io.airlift",
-              "artifactId": "aircompressor",
-              "version": "0.27",
+              "groupId": "commons-io",
+              "artifactId": "commons-io",
+              "version": "2.22.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "fdbef3137a28f63bb0cb93487803080ede746a4ec3d421e36c6f0c305c35e5e4",
+              "checksum": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/io/airlift/aircompressor/0.27/aircompressor-0.27.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar",
               "repositoryId": "central",
-              "parentPom": {
-                "groupId": "io.airlift",
-                "artifactId": "airbase",
-                "version": "112",
-                "resolved": "https://repo.maven.apache.org/maven2/io/airlift/airbase/112/airbase-112.pom",
-                "repositoryId": "central",
-                "checksumAlgorithm": "SHA-256",
-                "checksum": "18ccd104cbd97eb44bd57b68c047ab7ff81fbc800987f82d815c68ac4c2304ce",
-                "boms": [
-                  {
-                    "groupId": "org.junit",
-                    "artifactId": "junit-bom",
-                    "version": "5.8.0-M1",
-                    "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.8.0-M1/junit-bom-5.8.0-M1.pom",
-                    "repositoryId": "central",
-                    "checksumAlgorithm": "SHA-256",
-                    "checksum": "77144432ffc68bd98a790ab1069619d91032cfc0e4e13c08163aa03da36fd6e2"
-                  }
-                ]
-              },
-              "selectedVersion": "0.27",
-              "included": true,
-              "id": "io.airlift:aircompressor:0.27",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "selectedVersion": "2.22.0",
+              "included": false,
+              "id": "commons-io:commons-io:2.22.0",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             },
@@ -16566,7 +16566,7 @@
               "selectedVersion": "1",
               "included": false,
               "id": "javax.inject:javax.inject:1",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             },
@@ -16611,7 +16611,7 @@
               "selectedVersion": "1.28.0",
               "included": true,
               "id": "org.apache.commons:commons-compress:1.28.0",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [
                 {
                   "groupId": "commons-codec",
@@ -16696,7 +16696,7 @@
                       }
                     ]
                   },
-                  "selectedVersion": "2.21.0",
+                  "selectedVersion": "2.22.0",
                   "included": false,
                   "id": "commons-io:commons-io:2.20.0",
                   "parent": "org.apache.commons:commons-compress:1.28.0",
@@ -16783,7 +16783,7 @@
               "selectedVersion": "3.6.0",
               "included": true,
               "id": "org.codehaus.plexus:plexus-io:3.6.0",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [
                 {
                   "groupId": "commons-io",
@@ -16794,7 +16794,7 @@
                   "scope": "compile",
                   "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar",
                   "repositoryId": "central",
-                  "selectedVersion": "2.21.0",
+                  "selectedVersion": "2.22.0",
                   "included": false,
                   "id": "commons-io:commons-io:2.20.0",
                   "parent": "org.codehaus.plexus:plexus-io:3.6.0",
@@ -16820,15 +16820,15 @@
                 {
                   "groupId": "org.codehaus.plexus",
                   "artifactId": "plexus-utils",
-                  "version": "4.0.2",
+                  "version": "4.0.3",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "8957274e75fe2c278b1428dd16a0daeee1dd38152cb6eff816177ac28fccb697",
+                  "checksum": "421ff6ed146c53a9d4eaade8f629b52b12af7187101f1bd06c2c64e904019f3c",
                   "scope": "compile",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.2/plexus-utils-4.0.2.jar",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.jar",
                   "repositoryId": "central",
-                  "selectedVersion": "4.0.2",
+                  "selectedVersion": "4.0.3",
                   "included": false,
-                  "id": "org.codehaus.plexus:plexus-utils:4.0.2",
+                  "id": "org.codehaus.plexus:plexus-utils:4.0.3",
                   "parent": "org.codehaus.plexus:plexus-io:3.6.0",
                   "children": [],
                   "boms": []
@@ -16839,16 +16839,16 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.0.2",
+              "version": "4.0.3",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "8957274e75fe2c278b1428dd16a0daeee1dd38152cb6eff816177ac28fccb697",
+              "checksum": "421ff6ed146c53a9d4eaade8f629b52b12af7187101f1bd06c2c64e904019f3c",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.2/plexus-utils-4.0.2.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.3/plexus-utils-4.0.3.jar",
               "repositoryId": "central",
-              "selectedVersion": "4.0.2",
+              "selectedVersion": "4.0.3",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.0.2",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "id": "org.codehaus.plexus:plexus-utils:4.0.3",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             },
@@ -16864,23 +16864,23 @@
               "selectedVersion": "1.7.36",
               "included": false,
               "id": "org.slf4j:slf4j-api:1.7.36",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             },
             {
               "groupId": "org.tukaani",
               "artifactId": "xz",
-              "version": "1.10",
+              "version": "1.12",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "95c63c1a55b22dd6453890a419cc1a640f790bbf7d8ae82db1e30aefefb08888",
+              "checksum": "3e158a87bd73d8afb4b6e8239c013b7d049c48563f45860ce99cd2e448cf4a6b",
               "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/org/tukaani/xz/1.10/xz-1.10.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/tukaani/xz/1.12/xz-1.12.jar",
               "repositoryId": "central",
-              "selectedVersion": "1.10",
+              "selectedVersion": "1.12",
               "included": true,
-              "id": "org.tukaani:xz:1.10",
-              "parent": "org.codehaus.plexus:plexus-archiver:4.10.4",
+              "id": "org.tukaani:xz:1.12",
+              "parent": "org.codehaus.plexus:plexus-archiver:4.12.0",
               "children": [],
               "boms": []
             }
@@ -16915,37 +16915,37 @@
       "parentPom": {
         "groupId": "org.apache.maven.plugins",
         "artifactId": "maven-plugins",
-        "version": "45",
-        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/45/maven-plugins-45.pom",
+        "version": "49",
+        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/49/maven-plugins-49.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "c0f58b12039f152641e3e53a07acc12887012ef149fac83065a9785aac51de0e",
+        "checksum": "4225f860bccdcb48a315de478e70ab817b411077974de5c9d1b8e2761be5f515",
         "parent": {
           "groupId": "org.apache.maven",
           "artifactId": "maven-parent",
-          "version": "45",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/45/maven-parent-45.pom",
+          "version": "49",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/49/maven-parent-49.pom",
           "repositoryId": "central",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "94fe869eb9b4ce9fce3995d05ea86b168c85d927f9d17beb814a1960c76d7e6f",
+          "checksum": "ca906201ee34de09e76632c5dec04a9b868ee38ce68c134b765fd1871d1d3eed",
           "parent": {
             "groupId": "org.apache",
             "artifactId": "apache",
-            "version": "35",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/35/apache-35.pom",
+            "version": "39",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/39/apache-39.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8"
+            "checksum": "71752ed4c2435a1d8385fe0a4d330f39d04efec89f0d1ba5d1598d39f7397a44"
           },
           "boms": [
             {
               "groupId": "org.junit",
               "artifactId": "junit-bom",
-              "version": "5.13.1",
-              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.1/junit-bom-5.13.1.pom",
+              "version": "5.14.4",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "fa68451ea830572ed43ffe51d75b6a05f7a5e665a602a51f49d6be02063a65f3"
+              "checksum": "5706e8f29a0a07f56efbbea4a0670793414194bb8d24d8143ba1e787a2f32856"
             }
           ]
         }
