@@ -8,7 +8,7 @@
     "version": "5.18.6-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "402b0e18fbce5fcc7c9adb1f84a1997bbeb144170b705bc23cc6aaa387ea044c"
+    "checksum": "bfefe62f73122bd0d8f791ef5a74da4c7f7546cf40c35df362944bd69d892377"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -27217,25 +27217,25 @@
         {
           "groupId": "org.apache.groovy",
           "artifactId": "groovy",
-          "version": "5.0.3",
+          "version": "5.1.3",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "3f34a6e4a9104c492dbd397691d3e1d1863568b19c3132471bde0a65611b5156",
+          "checksum": "705346207f0736f3419826bbe6c7cf77baaad13d9c14b29c916e75bc43dd9210",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/groovy/groovy/5.0.3/groovy-5.0.3.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/groovy/groovy/5.1.3/groovy-5.1.3.jar",
           "repositoryId": "central",
-          "selectedVersion": "5.0.3",
+          "selectedVersion": "5.1.3",
           "included": true,
-          "id": "org.apache.groovy:groovy:5.0.3",
+          "id": "org.apache.groovy:groovy:5.1.3",
           "children": [],
           "boms": [
             {
               "groupId": "org.apache.groovy",
               "artifactId": "groovy-bom",
-              "version": "5.0.3",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apache/groovy/groovy-bom/5.0.3/groovy-bom-5.0.3.pom",
+              "version": "5.1.3",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/groovy/groovy-bom/5.1.3/groovy-bom-5.1.3.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "8357a46ee0189a98fe63afcc4a24e36e6eb7b6c31cc7ef02273e00d9aede50fb"
+              "checksum": "481e79dd51cb00e58123b0a1c4c67dcc60a264ba7cb09fb6084c2b90f76675cc"
             }
           ]
         },
