@@ -8,54 +8,54 @@
     "version": "5.18.6-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "f0d0669cd56e996ef6ce207946b6f30a93d8bfba21b34f76db1ea4ff03d62c47"
+    "checksum": "1a50fce732645045c6aaa8be16ac3cab92d30a055ac2f635f34838ee4d394085"
   },
   "lockFileVersion": 1,
   "dependencies": [
     {
       "groupId": "com.google.code.gson",
       "artifactId": "gson",
-      "version": "2.13.2",
+      "version": "2.14.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "dd0ce1b55a3ed2080cb70f9c655850cda86c206862310009dcb5e5c95265a5e0",
+      "checksum": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar",
       "repositoryId": "central",
       "parentPom": {
         "groupId": "com.google.code.gson",
         "artifactId": "gson-parent",
-        "version": "2.13.2",
-        "resolved": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson-parent/2.13.2/gson-parent-2.13.2.pom",
+        "version": "2.14.0",
+        "resolved": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson-parent/2.14.0/gson-parent-2.14.0.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "83ab528a9d50fd76aeb8ad6f727b3ee9cb766586255774ed16ca8c4c76d9dacd"
+        "checksum": "82b0f6694c5758ab8bb07e05630208d50f589d4b5e04fd0a046d59cdf7ba3d1d"
       },
-      "selectedVersion": "2.13.2",
+      "selectedVersion": "2.14.0",
       "included": true,
-      "id": "com.google.code.gson:gson:2.13.2",
+      "id": "com.google.code.gson:gson:2.14.0",
       "children": [
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
-          "version": "2.41.0",
+          "version": "2.48.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "a56e782b5b50811ac204073a355a21d915a2107fce13ec711331ad036f660fcc",
+          "checksum": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.48.0/error_prone_annotations-2.48.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "com.google.errorprone",
             "artifactId": "error_prone_parent",
-            "version": "2.41.0",
-            "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.41.0/error_prone_parent-2.41.0.pom",
+            "version": "2.48.0",
+            "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.48.0/error_prone_parent-2.48.0.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "c538388d760a5c1c98dcf06f6ed3cfe5f11a651827db5cbd2ed8288c795cad42"
+            "checksum": "b33fa8a45c9f1794a5008c0b2d83a84eb28b5d0117a6d156f003f9f09be7410f"
           },
-          "selectedVersion": "2.41.0",
+          "selectedVersion": "2.48.0",
           "included": true,
-          "id": "com.google.errorprone:error_prone_annotations:2.41.0",
-          "parent": "com.google.code.gson:gson:2.13.2",
+          "id": "com.google.errorprone:error_prone_annotations:2.48.0",
+          "parent": "com.google.code.gson:gson:2.14.0",
           "children": [],
           "boms": []
         }
@@ -93,7 +93,16 @@
           "scope": "compile",
           "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.41.0/error_prone_annotations-2.41.0.jar",
           "repositoryId": "central",
-          "selectedVersion": "2.41.0",
+          "parentPom": {
+            "groupId": "com.google.errorprone",
+            "artifactId": "error_prone_parent",
+            "version": "2.41.0",
+            "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.41.0/error_prone_parent-2.41.0.pom",
+            "repositoryId": "central",
+            "checksumAlgorithm": "SHA-256",
+            "checksum": "c538388d760a5c1c98dcf06f6ed3cfe5f11a651827db5cbd2ed8288c795cad42"
+          },
+          "selectedVersion": "2.48.0",
           "included": false,
           "id": "com.google.errorprone:error_prone_annotations:2.41.0",
           "parent": "com.google.guava:guava:33.5.0-jre",
