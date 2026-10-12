@@ -199,9 +199,6 @@ jobs:
             out/jreleaser/trace.log
             out/jreleaser/output.properties
 
-  # GITHUB_TOKEN can never push changes under .github/workflows/, so pointing this repo's own
-  # maven-lockfile pins (and gha.sum) at the release just published needs a GitHub App token.
-  # Its push is also what starts CI on the release PR - `gh pr create` with GITHUB_TOKEN doesn't.
   bump-action-pins:
     name: Bump maven-lockfile action pins
     needs: build
