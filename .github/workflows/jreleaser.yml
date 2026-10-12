@@ -26,6 +26,10 @@ jobs:
 
     environment: release
 
+    outputs:
+      version: ${{ steps.branch.outputs.version }}
+      branch: ${{ steps.branch.outputs.branch }}
+
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@9ca718d3bf646d6534007c269a635b3e54cadf99 # v2.19.2
@@ -89,7 +93,11 @@ jobs:
             hermetic: true
 
       - name: set branchname to next version
-        run: echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
+        id: branch
+        run: |
+          echo "BRANCH_NAME=release/$NEXT_VERSION" >> $GITHUB_ENV
+          echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "branch=release/$NEXT_VERSION" >> $GITHUB_OUTPUT
 
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_VERSION -DprocessAllModules
@@ -190,3 +198,75 @@ jobs:
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
+
+  # GITHUB_TOKEN can never push changes under .github/workflows/, so pointing this repo's own
+  # maven-lockfile pins (and gha.sum) at the release just published needs a GitHub App token.
+  # Its push is also what starts CI on the release PR - `gh pr create` with GITHUB_TOKEN doesn't.
+  bump-action-pins:
+    name: Bump maven-lockfile action pins
+    needs: build
+
+    permissions:
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    environment: release
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@9ca718d3bf646d6534007c269a635b3e54cadf99 # v2.19.2
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            github.com:443
+            objects.githubusercontent.com:443
+            release-assets.githubusercontent.com:443
+
+      - name: Checkout release branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.build.outputs.branch }}
+          persist-credentials: false
+
+      - name: Verify action checksums
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@26437c117c3fd926c3fac10e3fd537c81fcb92cc # v5.18.5
+
+      - name: Point maven-lockfile pins at the release tag
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          git fetch --no-tags --depth=1 origin "refs/tags/v$VERSION:refs/tags/v$VERSION"
+          TAG_SHA=$(git rev-parse "v$VERSION^{commit}")
+          sed -i -E "s|(chains-project/maven-lockfile(/\.github/actions/ghasum)?@)[0-9a-f]{40} # (v?)[^[:space:]]+|\1$TAG_SHA # \3$VERSION|" .github/workflows/*.yml
+          if grep -hoE 'chains-project/maven-lockfile[^@[:space:]]*@[0-9a-f]{40}' .github/workflows/*.yml | grep -v "@$TAG_SHA$"; then
+            echo "::error::Above maven-lockfile pins were not bumped to $TAG_SHA"
+            exit 1
+          fi
+
+      - name: Update gha.sum
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@26437c117c3fd926c3fac10e3fd537c81fcb92cc # v5.18.5
+        with:
+          mode: update
+
+      - name: Create automation token
+        id: automation-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_KEY }}
+          permission-contents: write # To push a commit
+          permission-workflows: write # To push changes under .github/workflows/
+
+      - name: Commit & Push pin bump
+        env:
+          BRANCH: ${{ needs.build.outputs.branch }}
+          GH_TOKEN: ${{ steps.automation-token.outputs.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git commit -am "chore: bump lockfile actions version to \`$VERSION\`"
+          git push "https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY" "HEAD:$BRANCH"
