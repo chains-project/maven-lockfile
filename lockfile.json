@@ -8,7 +8,7 @@
     "version": "5.18.6-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "08e248d31e31fce2cc4afd3f4761b59987082e68a71a9821d4524876174e33ce"
+    "checksum": "3731ef2c20789e31707e7d670d0875b5a9573c2d7dae9da7b862793a1e7bdfa9"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -3834,64 +3834,53 @@
     {
       "groupId": "org.apache.maven.plugin-tools",
       "artifactId": "maven-plugin-annotations",
-      "version": "3.15.2",
+      "version": "3.16.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "979d3cf8f4ac804cc27d2f8a6db07f2149d58ccd59bb3d589cc46bb9a44c0b4b",
+      "checksum": "bcd4036f03758dde0937431393e5513d32d34497c19e66d60d78441032041341",
       "scope": "provided",
-      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.15.2/maven-plugin-annotations-3.15.2.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.16.0/maven-plugin-annotations-3.16.0.jar",
       "repositoryId": "central",
       "parentPom": {
         "groupId": "org.apache.maven.plugin-tools",
         "artifactId": "maven-plugin-tools",
-        "version": "3.15.2",
-        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-tools/3.15.2/maven-plugin-tools-3.15.2.pom",
+        "version": "3.16.0",
+        "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-tools/3.16.0/maven-plugin-tools-3.16.0.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "c6b46826a30f98091eb294a449b062178c3e107a9be1f5afb05d202a1a30cb28",
+        "checksum": "c1ab0c36e10e321e89e04d961f7aabde9f5847ad2d41ef7243e16f801db6e3d4",
         "parent": {
           "groupId": "org.apache.maven",
           "artifactId": "maven-parent",
-          "version": "45",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/45/maven-parent-45.pom",
+          "version": "49",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/49/maven-parent-49.pom",
           "repositoryId": "central",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "94fe869eb9b4ce9fce3995d05ea86b168c85d927f9d17beb814a1960c76d7e6f",
+          "checksum": "ca906201ee34de09e76632c5dec04a9b868ee38ce68c134b765fd1871d1d3eed",
           "parent": {
             "groupId": "org.apache",
             "artifactId": "apache",
-            "version": "35",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/35/apache-35.pom",
+            "version": "39",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/39/apache-39.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8"
+            "checksum": "71752ed4c2435a1d8385fe0a4d330f39d04efec89f0d1ba5d1598d39f7397a44"
           },
           "boms": [
             {
               "groupId": "org.junit",
               "artifactId": "junit-bom",
-              "version": "5.13.1",
-              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.1/junit-bom-5.13.1.pom",
+              "version": "5.14.4",
+              "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.4/junit-bom-5.14.4.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "fa68451ea830572ed43ffe51d75b6a05f7a5e665a602a51f49d6be02063a65f3"
+              "checksum": "5706e8f29a0a07f56efbbea4a0670793414194bb8d24d8143ba1e787a2f32856"
             }
           ]
-        },
-        "boms": [
-          {
-            "groupId": "org.junit",
-            "artifactId": "junit-bom",
-            "version": "5.14.0",
-            "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.0/junit-bom-5.14.0.pom",
-            "repositoryId": "central",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "f5aa47b366483e8d1f9bef10e67a0c66f66afc0f331c9f966b1310bad60d0f6f"
-          }
-        ]
+        }
       },
-      "selectedVersion": "3.15.2",
+      "selectedVersion": "3.16.0",
       "included": true,
-      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.15.2",
+      "id": "org.apache.maven.plugin-tools:maven-plugin-annotations:3.16.0",
       "children": [],
       "boms": []
     },
