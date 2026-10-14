@@ -285,7 +285,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.0</version>
         <!-- kept plugin-level: the release workflows call `mvn resources:copy-resources` directly
              from the CLI to regenerate action.yml/.mvn/extensions.xml at a specific point in the
              release job, not as part of every normal build. -->
