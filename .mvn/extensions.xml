@@ -1,10 +1,5 @@
 <extensions>
   <extension>
-    <groupId>com.gradle</groupId>
-    <artifactId>gradle-enterprise-maven-extension</artifactId>
-    <version>1.17</version>
-  </extension>
-  <extension>
     <groupId>io.github.chains-project</groupId>
     <artifactId>maven-lockfile</artifactId>
     <version>5.18.5</version>
