@@ -8,7 +8,7 @@
     "version": "5.18.6-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "3f2ace6c2252eed24f80144d153a0092d0f4d68a61a0506c816442504c206b26"
+    "checksum": "59cc4786978afd7d3dca576cba3a2d1192339c875dafcd39e78f282c5705ea06"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -5100,20 +5100,20 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "5.5.1",
+      "version": "5.6.0",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "4c067058038a6f5f0139c7680b21e0e4d90d540899839bc6273283c3d4250229",
+      "checksum": "17c7ecc0e775bdf9d6d20edcddb181fd54c36c5d1b91ece82119c43571b2b04a",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-junit/5.5.1/instancio-junit-5.5.1.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-junit/5.6.0/instancio-junit-5.6.0.jar",
       "repositoryId": "central",
       "parentPom": {
         "groupId": "org.instancio",
         "artifactId": "instancio-parent",
-        "version": "5.5.1",
-        "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-parent/5.5.1/instancio-parent-5.5.1.pom",
+        "version": "5.6.0",
+        "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-parent/5.6.0/instancio-parent-5.6.0.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "773d7c53580129b7785dd0b209733ee4ef795ba58c3f0648e4cce4ff8e1de611",
+        "checksum": "9d78d6769f70511a46d6392042098864da5d2176dc0e0456ff9bd74deab6d4ea",
         "boms": [
           {
             "groupId": "org.junit",
@@ -5126,27 +5126,27 @@
           }
         ]
       },
-      "selectedVersion": "5.5.1",
+      "selectedVersion": "5.6.0",
       "included": true,
-      "id": "org.instancio:instancio-junit:5.5.1",
+      "id": "org.instancio:instancio-junit:5.6.0",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "5.5.1",
+          "version": "5.6.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "cf941a74d3fe7bd822233385b30342129ea300e9e7d15edcd99ab6c10eda2f8d",
+          "checksum": "f513a6f8bee0db192d250de0490c4e2286ad5a61848ec32451397b908041a871",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-core/5.5.1/instancio-core-5.5.1.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-core/5.6.0/instancio-core-5.6.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.instancio",
             "artifactId": "instancio-parent",
-            "version": "5.5.1",
-            "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-parent/5.5.1/instancio-parent-5.5.1.pom",
+            "version": "5.6.0",
+            "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-parent/5.6.0/instancio-parent-5.6.0.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "773d7c53580129b7785dd0b209733ee4ef795ba58c3f0648e4cce4ff8e1de611",
+            "checksum": "9d78d6769f70511a46d6392042098864da5d2176dc0e0456ff9bd74deab6d4ea",
             "boms": [
               {
                 "groupId": "org.junit",
@@ -5159,10 +5159,10 @@
               }
             ]
           },
-          "selectedVersion": "5.5.1",
+          "selectedVersion": "5.6.0",
           "included": true,
-          "id": "org.instancio:instancio-core:5.5.1",
-          "parent": "org.instancio:instancio-junit:5.5.1",
+          "id": "org.instancio:instancio-core:5.6.0",
+          "parent": "org.instancio:instancio-junit:5.6.0",
           "children": [
             {
               "groupId": "org.slf4j",
@@ -5176,7 +5176,7 @@
               "selectedVersion": "1.7.36",
               "included": false,
               "id": "org.slf4j:slf4j-api:2.0.17",
-              "parent": "org.instancio:instancio-core:5.5.1",
+              "parent": "org.instancio:instancio-core:5.6.0",
               "children": [],
               "boms": []
             }
