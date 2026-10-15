@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.google.common.collect.Ordering;
+import com.google.common.io.BaseEncoding;
 import com.soebes.itf.jupiter.extension.MavenGoal;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -716,6 +718,23 @@ public class IntegrationTestsIT {
         assertThat(result).isFailure();
         String stdout = Files.readString(result.getMavenLog().getStdout());
         assertThat(stdout.contains("Pom checksum mismatch.")).isTrue();
+    }
+
+    @MavenTest
+    public void mavenLockfileChecksumRecorded(MavenExecutionResult result) throws Exception {
+        // contract: the lockfile records the checksum of the maven-lockfile plugin artifact that generated it.
+        System.out.println("Running 'mavenLockfileChecksumRecorded' integration test.");
+        assertThat(result).isSuccessful();
+        var config = LockFile.readLockFile(findFile(result, "lockfile.json")).getConfig();
+        String version = config.getMavenLockfileVersion();
+        Path pluginJar = Path.of(
+                "target/itf-repo/io/github/chains-project/maven-lockfile",
+                version,
+                "maven-lockfile-" + version + ".jar");
+        String expectedChecksum = BaseEncoding.base16()
+                .lowerCase()
+                .encode(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(pluginJar)));
+        assertThat(config.getMavenLockfileChecksum()).isEqualTo(expectedChecksum);
     }
 
     @MavenTest

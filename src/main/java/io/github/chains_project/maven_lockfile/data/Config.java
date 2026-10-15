@@ -13,6 +13,7 @@ public class Config {
     private final boolean includeEnvironment;
     private final boolean reduced;
     private final String mavenLockfileVersion;
+    private String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
     private final boolean includeBoms;
@@ -173,6 +174,16 @@ public class Config {
      */
     public String getMavenLockfileVersion() {
         return mavenLockfileVersion;
+    }
+    /**
+     * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile
+     */
+    public String getMavenLockfileChecksum() {
+        return mavenLockfileChecksum;
+    }
+
+    public void setMavenLockfileChecksum(String mavenLockfileChecksum) {
+        this.mavenLockfileChecksum = mavenLockfileChecksum;
     }
     /**
      * @return the checksumMode

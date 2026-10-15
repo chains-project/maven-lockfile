@@ -262,6 +262,7 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.14.1-beta-1",
+      "mavenLockfileChecksum": "2567930670c8da5bda8739f2fbd6509f1af9eeddf13397209fe01f72e22eb66a",
       "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256"
     }
