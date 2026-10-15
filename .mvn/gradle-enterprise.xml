@@ -1,5 +1,0 @@
-<gradleEnterprise>
-  <buildScan>
-    <publish>ON_DEMAND</publish>
-  </buildScan>
-</gradleEnterprise>
