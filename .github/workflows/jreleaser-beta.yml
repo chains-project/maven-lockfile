@@ -36,6 +36,18 @@ jobs:
       - name: Verify action checksums
         uses: chains-project/maven-lockfile/.github/actions/ghasum@26437c117c3fd926c3fac10e3fd537c81fcb92cc # v5.18.5
 
+      # Keep this before any step that populates ~/.m2 (setup-java cache, mvn). The action restores
+      # its own Maven cache on top, and where that cache only has a plugin's POM, a JAR downloaded
+      # earlier loses its _remote.repositories entry and validate records the plugin as unresolved.
+      - name: run maven-lockfile (validate lockfile)
+        uses: chains-project/maven-lockfile@26437c117c3fd926c3fac10e3fd537c81fcb92cc # 5.18.5
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            include-maven-plugins: true
+            allow-environmental-validation-failure: true
+            commit-lockfile: false
+            hermetic: true
+
       - name: Set up JDK 17
         uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
         with:
@@ -74,15 +86,6 @@ jobs:
           echo "NEW_BETA_NUMBER $NEW_BETA_NUMBER"
           echo "NEXT_BETA_VERSION=$CURRENT_VERSION-beta-$NEW_BETA_NUMBER" >> $GITHUB_ENV
         shell: bash
-
-      - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@26437c117c3fd926c3fac10e3fd537c81fcb92cc # 5.18.5
-        with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            include-maven-plugins: true
-            allow-environmental-validation-failure: true
-            commit-lockfile: false
-            hermetic: true
 
       - name: set branchname to next version
         run: echo "BRANCH_NAME=beta-release/$NEXT_BETA_VERSION" >> $GITHUB_ENV
