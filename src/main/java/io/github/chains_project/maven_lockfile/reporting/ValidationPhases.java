@@ -24,7 +24,8 @@ public final class ValidationPhases {
                 new MavenPluginsPhase(),
                 new BomsPhase(),
                 new ParentPomPhase(),
-                new ExtensionsPhase());
+                new ExtensionsPhase(),
+                new MavenLockfilePhase());
     }
 
     private static final class EnvironmentPhase implements ValidationPhase {
@@ -209,6 +210,32 @@ public final class ValidationPhases {
         @Override
         public boolean isWarn(Config config) {
             return config.getOnMavenExtensionsValidationFailure() == Config.OnMavenExtensionsValidationFailure.Warn;
+        }
+    }
+
+    private static final class MavenLockfilePhase implements ValidationPhase {
+
+        @Override
+        public boolean isEnabled(Config config) {
+            return true;
+        }
+
+        @Override
+        public Optional<String> validate(LockFile fromFile, LockFile fromProject, Config config) {
+            // ValidateMojo only calculates the checksum when the lockfile records one.
+            String actual = fromProject.getConfig().getMavenLockfileChecksum();
+            Config fileConfig = fromFile.getConfig();
+            if (actual == null || actual.equals(fileConfig.getMavenLockfileChecksum())) {
+                return Optional.empty();
+            }
+            return Optional.of("maven-lockfile " + fileConfig.getMavenLockfileVersion() + " checksum mismatch.\n"
+                    + "Lockfile checksum: " + fileConfig.getMavenLockfileChecksum() + "\n"
+                    + "Plugin checksum:   " + actual + "\n");
+        }
+
+        @Override
+        public boolean isWarn(Config config) {
+            return config.getOnMavenPluginValidationFailure() == Config.OnMavenPluginValidationFailure.Warn;
         }
     }
 }

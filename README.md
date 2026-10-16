@@ -262,6 +262,7 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.14.1-beta-1",
+      "mavenLockfileChecksum": "2567930670c8da5bda8739f2fbd6509f1af9eeddf13397209fe01f72e22eb66a",
       "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256"
     }
@@ -272,6 +273,8 @@ This is close to the format of the lock file in the npm package-lock.json file.
 We made some java-specific changes to the format, e.g., we added the `groupId` field.
 
 In case the artifact url cannot be resolved or the checksum cannot be calculated or downloaded (depending on `checksumMode`) an empty string will be recorded in the respective `resolved` or `checksum` field.
+
+`mavenLockfileChecksum` is the checksum of the maven-lockfile plugin that generated the lockfile. `validate` checks it against the checksum published for that plugin version in the plugin repositories (Maven Central by default), even if a different version is running, and reports a mismatch like a Maven plugin mismatch (see `allowMavenPluginValidationFailure`).
 
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.

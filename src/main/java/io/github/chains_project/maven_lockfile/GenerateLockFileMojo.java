@@ -61,6 +61,8 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 getLog().info("No lockfile found. Generating new lockfile.");
             }
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config);
+            config.setMavenLockfileChecksum(checksumCalculator.calculatePluginChecksum(
+                    mojo.getMojoDescriptor().getPluginDescriptor().getPluginArtifact()));
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
 

@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
@@ -10,6 +11,8 @@ import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.reporting.ValidationPhases;
 import java.io.IOException;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.ArtifactUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -51,6 +54,19 @@ public class ValidateMojo extends AbstractLockfileMojo {
             }
             MetaData metaData = new MetaData(environment, config);
             AbstractChecksumCalculator checksumCalculator = getChecksumCalculator(config, true);
+            String recordedChecksum = baseConfig.getMavenLockfileChecksum();
+            if (recordedChecksum != null && !recordedChecksum.isEmpty()) {
+                // Compare with the published checksum of the maven-lockfile version that generated the lockfile,
+                // which may not be the one running.
+                Artifact generatingArtifact = ArtifactUtils.copyArtifact(
+                        mojo.getMojoDescriptor().getPluginDescriptor().getPluginArtifact());
+                generatingArtifact.setVersion(baseConfig.getMavenLockfileVersion());
+                config.setMavenLockfileChecksum(new RemoteChecksumCalculator(
+                                config.getChecksumAlgorithm(),
+                                newResolveArtifactProjectBuildingRequest(),
+                                newResolvePluginProjectBuildingRequest())
+                        .calculatePluginChecksum(generatingArtifact));
+            }
             LockFile lockFileFromProject = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
             for (var phase : ValidationPhases.all()) {
