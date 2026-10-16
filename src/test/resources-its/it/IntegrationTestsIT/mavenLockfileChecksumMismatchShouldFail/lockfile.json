@@ -1,0 +1,30 @@
+{
+  "artifactId": "maven-lockfile-checksum-mismatch-should-fail",
+  "groupId": "com.mycompany.app",
+  "version": "1",
+  "pom": {
+    "groupId": "com.mycompany.app",
+    "artifactId": "maven-lockfile-checksum-mismatch-should-fail",
+    "version": "1",
+    "relativePath": "pom.xml",
+    "checksumAlgorithm": "SHA-256",
+    "checksum": "b06b0c2feadd5ac0b59f281af47595f67606bbf991b66c9a552a5a3322999fcb"
+  },
+  "lockFileVersion": 1,
+  "dependencies": [],
+  "mavenPlugins": [],
+  "metaData": {
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
+      "allowEnvironmentalValidationFailure": true,
+      "includeEnvironment": false,
+      "reduced": false,
+      "mavenLockfileVersion": "5.18.5",
+      "mavenLockfileChecksum": "0000000000000000000000000000000000000000000000000000000000000000",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}

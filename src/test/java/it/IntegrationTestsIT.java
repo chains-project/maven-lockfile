@@ -738,6 +738,25 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void mavenLockfileChecksumMismatchShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: if the recorded maven-lockfile checksum does not match that plugin version, validation fails.
+        System.out.println("Running 'mavenLockfileChecksumMismatchShouldFail' integration test.");
+        assertThat(result).isFailure();
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout)
+                .contains(
+                        "Lockfile checksum: " + "0".repeat(64),
+                        "Plugin checksum:   b3991b98be86f94a899533250fb6e4b2fed8ba983ffd6d5cebb889d536a7a947");
+    }
+
+    @MavenTest
+    public void mavenLockfileChecksumOtherVersionShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a checksum recorded by an older maven-lockfile version is validated against that version.
+        System.out.println("Running 'mavenLockfileChecksumOtherVersionShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+    }
+
+    @MavenTest
     public void pomParentCheckShouldFail(MavenExecutionResult result) throws Exception {
         // contract: if the pom checksum of a parent of the pom does not match is should fail with reason being pom
         // didn't match.
