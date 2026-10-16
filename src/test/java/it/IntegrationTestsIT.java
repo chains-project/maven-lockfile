@@ -868,6 +868,25 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void relativeParentPomOfSiblingDependency(MavenExecutionResult result) throws Exception {
+        // contract: relativePath is relative to the lockfile's directory, so the reactor parent
+        // gets the same path whether it is reached as the project's parent or as the parent of
+        // a sibling dependency.
+        System.out.println("Running 'relativeParentPomOfSiblingDependency' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+
+        assertThat(lockFile.getPom().getParent().getRelativePath()).isEqualTo("../pom.xml");
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(moduleB.getParentPom().getRelativePath()).isEqualTo("../pom.xml");
+    }
+
+    @MavenTest
     public void artifactTypeProject(MavenExecutionResult result) throws Exception {
         // contract: dependencies with non-jar types should have their type recorded in the lockfile
         assertThat(result).isSuccessful();
