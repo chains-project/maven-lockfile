@@ -108,11 +108,15 @@ jobs:
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_BETA_VERSION:generate -Dhermetic=false
         shell: bash
 
-      - name: commit changes
+      # Not pushed until Maven Central has the artifacts (see "Push release branch and tag"). Until then
+      # the commit only exists here: the bundle (uploaded below) keeps it in case the job dies after
+      # Maven Central has published the release.
+      - name: Commit and tag release
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
           git commit -am "chore: release version ${{ env.NEXT_BETA_VERSION }}"
-          git push --set-upstream origin ${{ env.BRANCH_NAME }}
+          git tag "v${{ env.NEXT_BETA_VERSION }}"
+          git bundle create target/release.bundle ${{ env.BRANCH_NAME }} "v${{ env.NEXT_BETA_VERSION }}" "^${{ github.sha }}"
 
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
@@ -120,12 +124,34 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
-      - name: Run JReleaser
+      # deploy and release are separate runs so that nothing is pushed until Maven Central has the
+      # artifacts. If this fails, nothing is on GitHub yet.
+      - name: Deploy to Maven Central
         uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
         with:
           setup-java: false
           version: 1.21.0
-          arguments: full-release 
+          arguments: deploy
+        env:
+          JRELEASER_PROJECT_VERSION: ${{ env.NEXT_BETA_VERSION }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN }}
+
+      - name: Push release branch and tag
+        run: git push --atomic --set-upstream origin ${{ env.BRANCH_NAME }} "refs/tags/v${{ env.NEXT_BETA_VERSION }}"
+
+      # Creates the GitHub pre-release on the tag pushed above. release.github.skipTag in jreleaser.yml
+      # keeps JReleaser from tagging again, and the excluded deployer already ran.
+      - name: Create GitHub release
+        uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
+        with:
+          setup-java: false
+          version: 1.21.0
+          arguments: release --exclude-deployer-name=maven-central
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_BETA_VERSION }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -157,3 +183,4 @@ jobs:
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
+            target/release.bundle
