@@ -48,7 +48,7 @@ jobs:
         git submodule update --recursive
 
     - name: "Run scanner on existing code"
-      uses: google/osv-scanner-action/osv-scanner-action@375a0e8ebdc98e99b02ac4338a724f5750f21213 # v2.3.1
+      uses: google/osv-scanner-action/osv-scanner-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
       continue-on-error: true
       with:
         scan-args: |-
@@ -63,7 +63,7 @@ jobs:
         git submodule update --recursive
 
     - name: "Run scanner on new code"
-      uses: google/osv-scanner-action/osv-scanner-action@375a0e8ebdc98e99b02ac4338a724f5750f21213 # v2.3.1
+      uses: google/osv-scanner-action/osv-scanner-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
       with:
         scan-args: |-
           --format=json
@@ -72,7 +72,7 @@ jobs:
       continue-on-error: true
 
     - name: "Run osv-scanner-reporter"
-      uses: google/osv-scanner-action/osv-reporter-action@375a0e8ebdc98e99b02ac4338a724f5750f21213 # v2.3.1
+      uses: google/osv-scanner-action/osv-reporter-action@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
       with:
         scan-args: |-
           --output=results.sarif
