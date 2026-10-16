@@ -13,10 +13,6 @@ on:
           - minor
           - patch
 
-# Nothing reaches GitHub until Maven Central has accepted the artifacts, so a failed upload leaves
-# nothing to clean up. release/X.Y.Z then holds three commits - the release commit (tagged vX.Y.Z,
-# which Reproducible Central rebuilds), the next -SNAPSHOT and the action pins - and its PR is
-# merged with a merge commit, which keeps the tagged commit's SHA on main even if main moved.
 jobs:
   build:
     name: Build and release
@@ -201,8 +197,6 @@ jobs:
           git commit -am "chore: set snapshot version ${{ env.NEXT_RELEASE_VERSION }}"
           git bundle create target/release.bundle ${{ env.BRANCH_NAME }} "v${{ env.NEXT_VERSION }}" "^${{ github.sha }}"
 
-      # deploy and release are separate runs so that nothing is pushed until Maven Central has the
-      # artifacts. If this fails, nothing is on GitHub yet and a new run can simply release again.
       - name: Deploy to Maven Central
         uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
         with:

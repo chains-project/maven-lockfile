@@ -108,9 +108,6 @@ jobs:
         run: mvn io.github.chains-project:maven-lockfile:$NEXT_BETA_VERSION:generate -Dhermetic=false
         shell: bash
 
-      # Not pushed until Maven Central has the artifacts (see "Push release branch and tag"). Until then
-      # the commit only exists here: the bundle (uploaded below) keeps it in case the job dies after
-      # Maven Central has published the release.
       - name: Commit and tag release
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
@@ -124,8 +121,6 @@ jobs:
       - name: Print next version
         run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's/-SNAPSHOT//'
 
-      # deploy and release are separate runs so that nothing is pushed until Maven Central has the
-      # artifacts. If this fails, nothing is on GitHub yet.
       - name: Deploy to Maven Central
         uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
         with:
