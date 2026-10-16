@@ -2870,3 +2870,57 @@ We'd like to thank the following people for their contributions:
 - Claude ()
 - Claude Opus 5.5 ()
 - adammojzo ([@adammojzo](https://github.com/adammojzo))
+
+# 5.18.6
+## Changelog
+
+## 🧰 Tasks
+- a52aca3 chore: release version 5.18.6
+- 6b2d307 chore: validate the lockfile before any Maven step in release workflows (#1703)
+- 7caed1d chore: bump actions/setup-java to v6.1.0 (#1704)
+- dd09c49 chore: remove the unused Gradle Enterprise Maven extension (#1705)
+- 48c480c chore: bump action pins and gha.sum on release via a GitHub App token (#1683)
+- bd17d09 chore: update ghasum checksums
+- 01c6a54 chore: update ghasum checksums for actions/upload-artifact v7.0.2 (#1674)
+- e839602 chore: update lockfile
+- b947804 chore: drop Maven 3.10 release workaround now that actions are on 5.18.5
+- 996ea47 chore: bump lockfile actions version to `5.18.5`
+- 95ba9d7 chore: set snapshot version 5.18.6-SNAPSHOT
+- 6ce2d22 chore: release version 5.18.5
+
+---
+- 192de49 :arrow_up:(deps): Update actions/checkout action to v7 (#1702)
+- 49cf244 :arrow_up:(deps): Update actions/create-github-app-token action to v3.3.0 (#1693)
+- 5bb6805 :arrow_up:(deps): Update junit-framework monorepo to v6.1.3 (#1699)
+- 69793ba :arrow_up:(deps): Update dependency org.instancio:instancio-junit to v5.6.0 (#1695)
+- 04602c5 :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-xml to v4.2.0 (#1694)
+- 4a358f8 :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-utils to v4.1.0 (#1692)
+- 30fb3c1 :arrow_up:(deps): Update dependency org.codehaus.gmavenplus:gmavenplus-plugin to v4.3.1 (#1691)
+- b1b2248 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-surefire-plugin to v3.6.0 (#1690)
+- 70da0ad :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-site-plugin to v3.22.0 (#1688)
+- 68c1138 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-resources-plugin to v3.5.0 (#1687)
+- 53692fb :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-install-plugin to v3.2.0 (#1686)
+- 586288f :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-failsafe-plugin to v3.6.0 (#1685)
+- df8c9f7 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-deploy-plugin to v3.2.0 (#1684)
+- 8cd427f :arrow_up:(deps): Update ossf/scorecard-action action to v2.5.0 (#1689)
+- 77bcf76 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-compiler-plugin to v3.16.0 (#1682)
+- 97a53d6 :arrow_up:(deps): Update dependency org.apache.maven.plugin-tools:maven-plugin-annotations to v3.16.0 (#1680)
+- 19b2067 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-artifact-plugin to v3.7.0 (#1681)
+- 1efdc07 :arrow_up:(deps): Update dependency commons-io:commons-io to v2.22.0 (#1676)
+- 4ea4426 :arrow_up:(deps): Update dependency com.google.code.gson:gson to v2.14.0 (#1668)
+- b0a426a :arrow_up:(deps): Update dependency org.cyclonedx:cyclonedx-maven-plugin to v2.9.3 (#1662)
+- 808d45f :arrow_up:(deps): Update chains-project/maven-lockfile action to v5.18.5 (#1679)
+- 38396d6 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-jar-plugin to v3.5.1 (#1659)
+- fe68f01 :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.6.3 (#1658)
+- 6cafcd6 :arrow_up:(deps): Update ossf/scorecard-action action to v2.4.4 (#1663)
+- 1849d23 :arrow_up:(deps): Update actions/checkout action to v6.1.0 (#1664)
+- 2f7fb12 :arrow_up:(deps): Update chains-project/maven-lockfile action to v5.18.4 (#1666)
+- 746377a :arrow_up:(deps): Update actions/setup-java action to v5.7.0 (#1665)
+- 9b1836d :arrow_up:(deps): Update actions/upload-artifact action to v7.0.2 (#1660)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Opus 5.5 ()
+- algomaster99 ([@algomaster99](https://github.com/algomaster99))
