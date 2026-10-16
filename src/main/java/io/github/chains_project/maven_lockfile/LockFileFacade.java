@@ -751,6 +751,9 @@ public class LockFileFacade {
         @SuppressWarnings("deprecation")
         Path localRepoBasePath =
                 session.getRepositorySession().getLocalRepository().getBasedir().toPath();
+        // Relative to the lockfile's directory, not initialProject's: for a dependency's or
+        // plugin's chain, initialProject is the parent POM itself.
+        Path lockfileDir = session.getCurrentProject().getBasedir().toPath();
 
         Pom lastPom = null;
         Collections.reverse(recursiveProjects);
@@ -762,9 +765,7 @@ public class LockFileFacade {
             String relativePath = isExternalPom
                     ? null
                     : StreamSupport.stream(
-                                    initialProject
-                                            .getBasedir()
-                                            .toPath()
+                                    lockfileDir
                                             .relativize(project.getFile().toPath())
                                             .spliterator(),
                                     false)
