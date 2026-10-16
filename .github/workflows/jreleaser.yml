@@ -16,11 +16,12 @@ on:
 jobs:
   build:
     name: Build and release
+    # The release PR targets main, so the release has to be built from main.
+    if: github.ref == 'refs/heads/main'
 
     permissions:
       id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
-      contents: write
-      pull-requests: write
+      contents: write # To push the release branch and tag, and create the GitHub release
 
     runs-on: ubuntu-latest
 
@@ -29,6 +30,7 @@ jobs:
     outputs:
       version: ${{ steps.branch.outputs.version }}
       branch: ${{ steps.branch.outputs.branch }}
+      pushed: ${{ steps.push.outputs.pushed }}
 
     steps:
       - name: Harden Runner
@@ -115,17 +117,22 @@ jobs:
       - name: Generate Readme
         run : mvn generate-resources resources:copy-resources
 
-      # hermetic=false: otherwise inherits hermetic:true from the committed lockfile.json and merges in unrelated captures from earlier commands in this job.
+      # Hermetic, like the action's validate: `mvn test` in a fresh copy of the tree, then generate. The
+      # copy leaves out target/, which holds the staged release and the captures of the commands above.
       - name: run maven-lockfile (generate new lockfile for release version)
-        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
+        run: |
+          rm -rf "$RUNNER_TEMP/hermetic"
+          rsync -a --exclude=/target ./ "$RUNNER_TEMP/hermetic/"
+          (cd "$RUNNER_TEMP/hermetic" && mvn --batch-mode test && mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=true)
+          cp "$RUNNER_TEMP/hermetic/lockfile.json" lockfile.json
         shell: bash
 
-      - name: commit changes
+      # Not pushed until Maven Central has the artifacts (see "Push release branch and tag").
+      - name: Commit and tag release
         run: |
           git checkout -b ${{ env.BRANCH_NAME }}
           git commit -am "chore: release version ${{ env.NEXT_VERSION }}"
-          git push --set-upstream origin ${{ env.BRANCH_NAME }}
-
+          git tag "v${{ env.NEXT_VERSION }}"
 
       - name: generate buildinfo file
         run: mvn org.apache.maven.plugins:maven-artifact-plugin:3.4.1:buildinfo
@@ -136,12 +143,14 @@ jobs:
       - name: Remove beta tags for changelog to be from previous non-beta release
         run: git tag | grep beta | xargs -n 1 git tag -d
 
-      - name: Run JReleaser
+      # The snapshot commit is prepared before the upload, so that once the release is public only
+      # pushes and the GitHub release are left to fail.
+      - name: Generate changelog
         uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
         with:
           setup-java: false
           version: 1.21.0
-          arguments: full-release 
+          arguments: changelog
         env:
           JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -172,25 +181,62 @@ jobs:
       - name: Set release version
         run: mvn --no-transfer-progress --batch-mode versions:set -DnewVersion=$NEXT_RELEASE_VERSION -DprocessAllModules
 
-      # hermetic=false: same as above, and generate buildinfo file ran in between too.
+      # Same hermetic generation as for the release version.
       - name: run maven-lockfile (generate new lockfile for -SNAPSHOT version)
-        run: mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=false
+        run: |
+          rm -rf "$RUNNER_TEMP/hermetic"
+          rsync -a --exclude=/target ./ "$RUNNER_TEMP/hermetic/"
+          (cd "$RUNNER_TEMP/hermetic" && mvn --batch-mode test && mvn io.github.chains-project:maven-lockfile:$NEXT_VERSION:generate -Dhermetic=true)
+          cp "$RUNNER_TEMP/hermetic/lockfile.json" lockfile.json
         shell: bash
 
-      - name: Commit & Push changes
+      # Until they're pushed these commits only exist here: the bundle (uploaded below) keeps them in
+      # case the job dies after Maven Central has published the release.
+      - name: Commit snapshot version
         run: |
           git commit -am "chore: set snapshot version ${{ env.NEXT_RELEASE_VERSION }}"
-          git push --set-upstream origin ${{ env.BRANCH_NAME }}
+          git bundle create target/release.bundle ${{ env.BRANCH_NAME }} "v${{ env.NEXT_VERSION }}" "^${{ github.sha }}"
 
-      - name: Create Pull Request for Release
-        run: |
-          gh pr create \
-            --title "Release version ${{ env.NEXT_VERSION }}" \
-            --body "This PR updates the project to version ${{ env.NEXT_VERSION }} and sets the next SNAPSHOT version to ${{ env.NEXT_RELEASE_VERSION }}.\n\nThis PR should be rebased and merged into main." \
-            --base main \
-            --head "${{ env.BRANCH_NAME }}"
+      - name: Deploy to Maven Central
+        uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
+        with:
+          setup-java: false
+          version: 1.21.0
+          arguments: deploy
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN }}
+
+      # The release is public from here on: don't re-run this job, Maven Central rejects the second
+      # upload. bump-action-pins still runs if a later step of this job fails.
+      - name: Push release branch and tag
+        id: push
+        run: |
+          git push --atomic --set-upstream origin ${{ env.BRANCH_NAME }} "refs/tags/v${{ env.NEXT_VERSION }}"
+          echo "pushed=true" >> $GITHUB_OUTPUT
+
+      # Creates the immutable GitHub release on the tag pushed above. The changelog covers the previous
+      # tag up to this tag, so the snapshot commit on top isn't in it. release.github.skipTag in
+      # jreleaser.yml keeps JReleaser from tagging again, and the excluded deployer already ran.
+      - name: Create GitHub release
+        uses: jreleaser/release-action@90ac653bb9c79d11179e65d81499f3f34527dcd5 # 2.5.0
+        with:
+          setup-java: false
+          version: 1.21.0
+          arguments: release --exclude-deployer-name=maven-central
+        env:
+          JRELEASER_PROJECT_VERSION: ${{ env.NEXT_VERSION }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_USERNAME }}
+          JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_MAVEN_CENTRAL_TOKEN }}
 
       # Log failure:
       - name: JReleaser release output
@@ -201,10 +247,14 @@ jobs:
           path: |
             out/jreleaser/trace.log
             out/jreleaser/output.properties
+            target/release.bundle
 
   bump-action-pins:
     name: Bump maven-lockfile action pins
     needs: build
+    # Also after a failure in build once the branch is up (e.g. creating the GitHub release), so the
+    # release PR still gets opened.
+    if: ${{ !cancelled() && needs.build.outputs.pushed == 'true' }}
 
     permissions:
       contents: read
@@ -259,6 +309,7 @@ jobs:
           private-key: ${{ secrets.AUTOMATION_APP_KEY }}
           permission-contents: write # To push a commit
           permission-workflows: write # To push changes under .github/workflows/
+          permission-pull-requests: write # To open the release PR and enable auto-merge
 
       - name: Commit & Push pin bump
         env:
@@ -270,3 +321,19 @@ jobs:
           git config user.email "<>"
           git commit -am "chore: bump lockfile actions version to \`$VERSION\`"
           git push "https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY" "HEAD:$BRANCH"
+
+      # Opened with the app token so the PR's checks run. Auto-merge uses a merge commit, which keeps
+      # the tagged release commit's SHA on main; rebase or squash would rewrite it.
+      - name: Open release PR with auto-merge
+        env:
+          BRANCH: ${{ needs.build.outputs.branch }}
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ steps.automation-token.outputs.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          gh pr create \
+            --title "Release version $VERSION" \
+            --body "Version $VERSION is already on Maven Central, tagged \`v$VERSION\`. Auto-merge is on with a merge commit, which keeps the tagged commit's SHA on main: don't rebase or squash this PR. If main has moved, use \"Update branch\" -> \"Update with merge commit\", not rebase." \
+            --base main \
+            --head "$BRANCH"
+          gh pr merge "$BRANCH" --auto --merge

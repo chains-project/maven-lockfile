@@ -20,10 +20,14 @@ release:
   github:
     owner: chains-project
     immutableRelease: true
+    # The release workflows push the tag themselves, once Maven Central has the artifacts.
+    skipTag: true
     prerelease:
       pattern: .*beta.*
     changelog:
       formatted: ALWAYS
+      # Release PRs are merged with a merge commit, to keep the tagged commit's SHA on main.
+      skipMergeCommits: true
       preset: 'conventional-commits'
       format: '- {{commitShortHash}} {{commitTitle}}'
       contributors:
