@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.data.Pom;
+import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.util.Collections;
 import java.util.Objects;
@@ -120,7 +121,7 @@ public final class LockFileEquality {
         for (MavenPlugin pA : a.getMavenPlugins()) {
             Optional<MavenPlugin> pB = findMatchingPlugin(pA, b.getMavenPlugins());
             if (pB.isEmpty()) return false;
-            if (!Objects.equals(pA.getParentPom(), pB.get().getParentPom())) return false;
+            if (!parentPomEqual(pA.getParentPom(), pB.get().getParentPom())) return false;
             if (!nodeParentPomsEqual(pA.getDependencies(), pB.get().getDependencies())) return false;
         }
         return true;
@@ -132,8 +133,27 @@ public final class LockFileEquality {
                         .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
                                 && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
                                 && Objects.equals(nA.getVersion(), nB.getVersion())
-                                && Objects.equals(nA.getParentPom(), nB.getParentPom())
+                                && parentPomEqual(nA.getParentPom(), nB.getParentPom())
                                 && nodeParentPomsEqual(nA.getChildren(), nB.getChildren())));
+    }
+
+    /**
+     * {@link Pom#equals} without relativePath: older lockfiles recorded it relative to the parent
+     * POM's own directory rather than the lockfile's, so it must not fail their validation.
+     */
+    private static boolean parentPomEqual(Pom a, Pom b) {
+        if (a == null || b == null) return a == b;
+        return Objects.equals(a.getGroupId(), b.getGroupId())
+                && Objects.equals(a.getArtifactId(), b.getArtifactId())
+                && Objects.equals(a.getVersion(), b.getVersion())
+                && Objects.equals(orNone(a.getRepositoryId()), orNone(b.getRepositoryId()))
+                && Objects.equals(a.getChecksumAlgorithm(), b.getChecksumAlgorithm())
+                && Objects.equals(a.getChecksum(), b.getChecksum())
+                && parentPomEqual(a.getParent(), b.getParent());
+    }
+
+    private static RepositoryId orNone(RepositoryId repositoryId) {
+        return repositoryId == null ? RepositoryId.None() : repositoryId;
     }
 
     private static Optional<MavenPlugin> findMatchingPlugin(MavenPlugin target, Set<MavenPlugin> plugins) {
