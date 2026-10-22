@@ -17,7 +17,6 @@ import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
-import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
 import org.eclipse.aether.RepositorySystem;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
@@ -36,9 +35,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
      */
     @Component(hint = "default")
     protected DependencyCollectorBuilder dependencyCollectorBuilder;
-
-    @Component
-    protected DependencyResolver dependencyResolver;
 
     @Component
     protected RepositorySystem repositorySystem;
@@ -122,7 +118,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         switch (checksumModeEnum) {
             case LOCAL:
                 return new FileSystemChecksumCalculator(
-                        dependencyResolver, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
+                        repositorySystem, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
             case REMOTE:
                 return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
             default:
@@ -147,7 +143,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         switch (checksumModeEnum) {
             case LOCAL:
                 return new FileSystemChecksumCalculator(
-                        dependencyResolver,
+                        repositorySystem,
                         artifactBuildingRequest,
                         pluginBuildingRequest,
                         config.getChecksumAlgorithm());

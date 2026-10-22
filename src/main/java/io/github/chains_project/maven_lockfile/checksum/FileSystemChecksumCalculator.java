@@ -10,52 +10,39 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.apache.maven.shared.transfer.dependencies.resolve.DependencyResolver;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.resolution.ArtifactRequest;
 
 public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
 
-    private final DependencyResolver resolver;
+    private final RepositorySystem repositorySystem;
     private final ProjectBuildingRequest artifactBuildingRequest;
     private final ProjectBuildingRequest pluginBuildingRequest;
 
     public FileSystemChecksumCalculator(
-            DependencyResolver resolver,
+            RepositorySystem repositorySystem,
             ProjectBuildingRequest artifactBuildingRequest,
             ProjectBuildingRequest pluginBuildingRequest,
             String checksumAlgorithm) {
         super(checksumAlgorithm);
-        this.resolver = resolver;
+        this.repositorySystem = repositorySystem;
         this.artifactBuildingRequest = artifactBuildingRequest;
         this.pluginBuildingRequest = pluginBuildingRequest;
     }
 
-    /**
-     * Create a dependency from an artifact. This is necessary because the API of the dependency resolver expects a dependency.
-     * @param node  The artifact to create a dependency from.
-     * @return  The dependency
-     */
-    private Dependency createDependency(Artifact node) {
-        Dependency dependency = new Dependency();
-        dependency.setGroupId(node.getGroupId());
-        dependency.setArtifactId(node.getArtifactId());
-        dependency.setVersion(node.getVersion());
-        dependency.setScope(node.getScope());
-        dependency.setType(node.getType());
-        dependency.setClassifier(node.getClassifier());
-        dependency.setOptional(node.isOptional());
-        return dependency;
-    }
-
     private Artifact resolveDependency(Artifact artifact, ProjectBuildingRequest buildingRequest) {
         try {
-            return resolver.resolveDependencies(buildingRequest, List.of(createDependency(artifact)), null, null)
-                    .iterator()
-                    .next()
-                    .getArtifact();
+            ArtifactRequest request = new ArtifactRequest(
+                    RepositoryUtils.toArtifact(artifact),
+                    RepositoryUtils.toRepos(buildingRequest.getRemoteRepositories()),
+                    null);
+            return RepositoryUtils.toArtifact(repositorySystem
+                    .resolveArtifact(buildingRequest.getRepositorySession(), request)
+                    .getArtifact());
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not resolve artifact: %s", artifact.getArtifactId()), e);
