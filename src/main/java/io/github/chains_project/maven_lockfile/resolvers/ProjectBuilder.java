@@ -7,17 +7,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.building.ModelBuildingRequest;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.*;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolver;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResolverException;
-import org.apache.maven.shared.transfer.artifact.resolve.ArtifactResult;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.resolution.ArtifactResolutionException;
+import org.eclipse.aether.resolution.ArtifactResult;
 
 public class ProjectBuilder {
     private final MavenSession session;
@@ -86,17 +87,14 @@ public class ProjectBuilder {
 
     private Optional<File> resolvePomFile(String groupId, String artifactId, String version) {
         try {
-            @SuppressWarnings("deprecation")
-            ArtifactFactory artifactFactory = session.getContainer().lookup(ArtifactFactory.class);
-            Artifact pomArtifact = artifactFactory.createArtifact(groupId, artifactId, version, null, "pom");
-
-            ProjectBuildingRequest pomBuildingRequest =
-                    new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-            pomBuildingRequest.setRemoteRepositories(repositories);
+            ArtifactRequest request = new ArtifactRequest(
+                    new DefaultArtifact(groupId, artifactId, "pom", version),
+                    RepositoryUtils.toRepos(repositories),
+                    null);
 
             @SuppressWarnings("deprecation")
-            ArtifactResolver artifactResolver = session.getContainer().lookup(ArtifactResolver.class);
-            ArtifactResult result = artifactResolver.resolveArtifact(pomBuildingRequest, pomArtifact);
+            RepositorySystem repositorySystem = session.getContainer().lookup(RepositorySystem.class);
+            ArtifactResult result = repositorySystem.resolveArtifact(session.getRepositorySession(), request);
 
             if (result != null
                     && result.getArtifact() != null
@@ -107,7 +105,7 @@ public class ProjectBuilder {
             log.warn(String.format(
                     "Couldn't resolve POM file for %s:%s:%s: resolver returned an empty result",
                     groupId, artifactId, version));
-        } catch (ComponentLookupException | ArtifactResolverException e) {
+        } catch (ComponentLookupException | ArtifactResolutionException e) {
             log.warn(String.format(
                     "Couldn't resolve POM file for %s:%s:%s: %s", groupId, artifactId, version, e.getMessage()));
         }
