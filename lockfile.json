@@ -8,7 +8,7 @@
     "version": "5.18.7-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "6bf642af94a0299c12a371bbf8c7071e569318d08dc4baaa5da271e5d404fb37"
+    "checksum": "8e6dd8ef910b101b10088746e14a89873d7d7f7ff72e3825f6a6b701d728b98d"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -26180,128 +26180,54 @@
     {
       "groupId": "org.codehaus.gmavenplus",
       "artifactId": "gmavenplus-plugin",
-      "version": "4.3.1",
-      "checksum": "1691aa2b1fbf7abace9408d05aae2a163cd230f212f161922378904f1d755616",
+      "version": "5.1.0",
+      "checksum": "91321530ab638dc9f3cf52918ee48c54142cf31c4d33f1c292fd0959dd76f6e0",
       "checksumAlgorithm": "SHA-256",
-      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/4.3.1/gmavenplus-plugin-4.3.1.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/gmavenplus/gmavenplus-plugin/5.1.0/gmavenplus-plugin-5.1.0.jar",
       "repositoryId": "central",
       "dependencies": [
         {
           "groupId": "commons-io",
           "artifactId": "commons-io",
-          "version": "2.21.0",
+          "version": "2.22.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "7d643a2afea8b058b762aa6fb90e5b256f6c729739f8b3784c3370ddc609e88d",
+          "checksum": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.21.0/commons-io-2.21.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.22.0/commons-io-2.22.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.apache.commons",
             "artifactId": "commons-parent",
-            "version": "91",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/91/commons-parent-91.pom",
+            "version": "98",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/98/commons-parent-98.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "d2f8b6fd4800b6aaf120f5a38226d5f9d5fc6db837af99e2f9b33067868b9872",
+            "checksum": "d40318527f56033e0ff0789971cc38c856aa99a685eea11270814e7f1eda9fba",
             "parent": {
               "groupId": "org.apache",
               "artifactId": "apache",
-              "version": "35",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/35/apache-35.pom",
+              "version": "37",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/37/apache-37.pom",
               "repositoryId": "central",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8"
+              "checksum": "524ec4787aff73af6b3a9fafa154c7f1881b648299b663fdbfcadda1286f2353"
             },
             "boms": [
               {
                 "groupId": "org.junit",
                 "artifactId": "junit-bom",
-                "version": "5.13.4",
-                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.13.4/junit-bom-5.13.4.pom",
+                "version": "5.14.2",
+                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.14.2/junit-bom-5.14.2.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "d7a08a99b2502f0bb68cd4e1f984f0bf69324aaa208bd0f73366c03fc3548a42"
+                "checksum": "ed2dcc7855bd460bccc93a1bf0c962e63b566ff7d8f1ded0f1f2593ba8183aaf"
               }
             ]
           },
-          "selectedVersion": "2.21.0",
+          "selectedVersion": "2.22.0",
           "included": true,
-          "id": "commons-io:commons-io:2.21.0",
+          "id": "commons-io:commons-io:2.22.0",
           "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "jline",
-          "artifactId": "jline",
-          "version": "2.14.6",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "97d1acaac82409be42e622d7a54d3ae9d08517e8aefdea3d2ba9791150c2f02d",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/jline/jline/2.14.6/jline-2.14.6.jar",
-          "repositoryId": "central",
-          "parentPom": {
-            "groupId": "org.sonatype.oss",
-            "artifactId": "oss-parent",
-            "version": "9",
-            "resolved": "https://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/9/oss-parent-9.pom",
-            "repositoryId": "central",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "fb40265f982548212ff82e362e59732b2187ec6f0d80182885c14ef1f982827a"
-          },
-          "selectedVersion": "2.14.6",
-          "included": true,
-          "id": "jline:jline:2.14.6",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.apache.ant",
-          "artifactId": "ant",
-          "version": "1.10.15",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "763acda4a69588c9ea8817a952851ff0c2fc4bffa1d081c2565dc407f29d5794",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.10.15/ant-1.10.15.jar",
-          "repositoryId": "central",
-          "parentPom": {
-            "groupId": "org.apache.ant",
-            "artifactId": "ant-parent",
-            "version": "1.10.15",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/ant/ant-parent/1.10.15/ant-parent-1.10.15.pom",
-            "repositoryId": "central",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "49884f1873c5107cc237f4285c4477479bb0804bf0737394801b08d75e2bbeb0"
-          },
-          "selectedVersion": "1.10.15",
-          "included": true,
-          "id": "org.apache.ant:ant:1.10.15",
-          "children": [
-            {
-              "groupId": "org.apache.ant",
-              "artifactId": "ant-launcher",
-              "version": "1.10.15",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "5c8551990307a032336d98ddaed549a39a689f07d4d4c6b950601bf22b3d6a1b",
-              "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.10.15/ant-launcher-1.10.15.jar",
-              "repositoryId": "central",
-              "parentPom": {
-                "groupId": "org.apache.ant",
-                "artifactId": "ant-parent",
-                "version": "1.10.15",
-                "resolved": "https://repo.maven.apache.org/maven2/org/apache/ant/ant-parent/1.10.15/ant-parent-1.10.15.pom",
-                "repositoryId": "central",
-                "checksumAlgorithm": "SHA-256",
-                "checksum": "49884f1873c5107cc237f4285c4477479bb0804bf0737394801b08d75e2bbeb0"
-              },
-              "selectedVersion": "1.10.15",
-              "included": true,
-              "id": "org.apache.ant:ant-launcher:1.10.15",
-              "parent": "org.apache.ant:ant:1.10.15",
-              "children": [],
-              "boms": []
-            }
-          ],
           "boms": []
         },
         {
@@ -26328,30 +26254,6 @@
               "checksum": "8357a46ee0189a98fe63afcc4a24e36e6eb7b6c31cc7ef02273e00d9aede50fb"
             }
           ]
-        },
-        {
-          "groupId": "org.apache.ivy",
-          "artifactId": "ivy",
-          "version": "2.5.3",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "9502aa5aabf0b1484924a13ef4b5d24f121f7f91aab6768f11cc9d0906c0803b",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/ivy/ivy/2.5.3/ivy-2.5.3.jar",
-          "repositoryId": "central",
-          "parentPom": {
-            "groupId": "org.apache",
-            "artifactId": "apache",
-            "version": "7",
-            "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/7/apache-7.pom",
-            "repositoryId": "central",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "1397ce1db433adc9f223dbf07496d133681448751f4ae29e58f68e78fb4b6c25"
-          },
-          "selectedVersion": "2.5.3",
-          "included": true,
-          "id": "org.apache.ivy:ivy:2.5.3",
-          "children": [],
-          "boms": []
         },
         {
           "groupId": "org.apache.maven",
@@ -26632,7 +26534,7 @@
                           }
                         ]
                       },
-                      "selectedVersion": "2.21.0",
+                      "selectedVersion": "2.22.0",
                       "included": false,
                       "id": "commons-io:commons-io:2.20.0",
                       "parent": "org.apache.commons:commons-compress:1.28.0",
@@ -26730,7 +26632,7 @@
                       "scope": "compile",
                       "resolved": "https://repo.maven.apache.org/maven2/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar",
                       "repositoryId": "central",
-                      "selectedVersion": "2.21.0",
+                      "selectedVersion": "2.22.0",
                       "included": false,
                       "id": "commons-io:commons-io:2.20.0",
                       "parent": "org.codehaus.plexus:plexus-io:3.6.0",
@@ -27011,30 +26913,6 @@
               "boms": []
             }
           ],
-          "boms": []
-        },
-        {
-          "groupId": "org.fusesource.jansi",
-          "artifactId": "jansi",
-          "version": "2.4.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "0b7b8b003a90ea491579b62f5118828e45112914c65589b00faa49d6ec785839",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/fusesource/jansi/jansi/2.4.2/jansi-2.4.2.jar",
-          "repositoryId": "central",
-          "parentPom": {
-            "groupId": "org.fusesource",
-            "artifactId": "fusesource-pom",
-            "version": "1.12",
-            "resolved": "https://repo.maven.apache.org/maven2/org/fusesource/fusesource-pom/1.12/fusesource-pom-1.12.pom",
-            "repositoryId": "central",
-            "checksumAlgorithm": "SHA-256",
-            "checksum": "c40d960daadcef7b01c1b1c6657afbac4fffb5e53168f8fcb0b28b84e6fdcca1"
-          },
-          "selectedVersion": "2.4.2",
-          "included": true,
-          "id": "org.fusesource.jansi:jansi:2.4.2",
-          "children": [],
           "boms": []
         }
       ]
