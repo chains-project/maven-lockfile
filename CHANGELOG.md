@@ -2924,3 +2924,27 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Opus 5.5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.7-beta-2
+## Changelog
+
+## 🐛 Fixes
+- ca758b9 fix: record relativePath relative to the lockfile's directory (#1714)
+
+## 🔄️ Changes
+- d8db961 refactor: replace maven-artifact-transfer with maven-resolver (#1717)
+
+## 🧰 Tasks
+- 1359404 chore: release version 5.18.7-beta-2
+
+---
+- f0254da :arrow_up:(deps): Update github/codeql-action action to v4.39.1 (#1718)
+- 94f3cd9 :arrow_up:(deps): Update step-security/harden-runner action to v2.22.2 (#1716)
+- 7f35a93 :arrow_up:(deps): Update dependency ubuntu to v26 (#1715)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()
