@@ -1,14 +1,14 @@
 {
   "artifactId": "maven-lockfile",
   "groupId": "io.github.chains-project",
-  "version": "5.18.7-SNAPSHOT",
+  "version": "5.18.7-beta-2",
   "pom": {
     "groupId": "io.github.chains-project",
     "artifactId": "maven-lockfile",
-    "version": "5.18.7-SNAPSHOT",
+    "version": "5.18.7-beta-2",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "6bf642af94a0299c12a371bbf8c7071e569318d08dc4baaa5da271e5d404fb37"
+    "checksum": "433e8490a8fe5418f9451405270377982434194e5ef21d6996a74b1e3c5f7d22"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -25017,20 +25017,6 @@
       "dependencies": [
         {
           "groupId": "org.apache.maven.surefire",
-          "artifactId": "common-java5",
-          "version": "3.6.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "861ce45ca43dfd4edb8c098fee859e0107935ba2a69f179f9c1154e4037413e7",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/surefire/common-java5/3.6.0/common-java5-3.6.0.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.apache.maven.surefire:common-java5:3.6.0",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.apache.maven.surefire",
           "artifactId": "maven-surefire-common",
           "version": "3.6.0",
           "checksumAlgorithm": "SHA-256",
@@ -26030,91 +26016,6 @@
               "boms": []
             }
           ],
-          "boms": []
-        },
-        {
-          "groupId": "org.apache.maven.surefire",
-          "artifactId": "surefire-junit-platform",
-          "version": "3.6.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "f11e8ec1fe63ec8d6842ca52cba407e85c5b64cc2012df5c0a67fbe7d8bd7ab1",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.6.0/surefire-junit-platform-3.6.0.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.apache.maven.surefire:surefire-junit-platform:3.6.0",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.apache.maven.surefire",
-          "artifactId": "surefire-providers",
-          "version": "3.6.0",
-          "type": "pom",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "4be32a6a44a70fcc1cb0890feb8a51abf440cc0ab920d45271598a47ddd597b4",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/3.6.0/surefire-providers-3.6.0.pom",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.apache.maven.surefire:surefire-providers:3.6.0",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.junit.platform",
-          "artifactId": "junit-platform-commons",
-          "version": "1.14.4",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "55c8a0c069ac1bc4e1f8bbb26b5eae95cbd10e4ff1b23248441ab61a607381e1",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.junit.platform:junit-platform-commons:1.14.4",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.junit.platform",
-          "artifactId": "junit-platform-engine",
-          "version": "1.14.4",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "3c7f3f84a6747aef0db6bd5fdd2a6c8fe37132e653c939bd67387377af66d91c",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-engine/1.14.4/junit-platform-engine-1.14.4.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.junit.platform:junit-platform-engine:1.14.4",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.junit.platform",
-          "artifactId": "junit-platform-launcher",
-          "version": "1.14.4",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "768d62f1b2a523713b702db53609c230af62bbd645fc2c07a7d794df4da32228",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/1.14.4/junit-platform-launcher-1.14.4.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.junit.platform:junit-platform-launcher:1.14.4",
-          "children": [],
-          "boms": []
-        },
-        {
-          "groupId": "org.junit.platform",
-          "artifactId": "junit-platform-launcher",
-          "version": "6.1.3",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "1dec64b1fc0b7c47a11302aa5b4d37d8160c041b396e27067709ce775601a7b6",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.1.3/junit-platform-launcher-6.1.3.jar",
-          "repositoryId": "central",
-          "included": false,
-          "id": "org.junit.platform:junit-platform-launcher:6.1.3",
-          "children": [],
           "boms": []
         }
       ],
@@ -28232,7 +28133,8 @@
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
-      "mavenLockfileVersion": "5.18.6",
+      "mavenLockfileVersion": "5.18.7-beta-2",
+      "mavenLockfileChecksum": "",
       "checksumMode": "remote",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
@@ -28241,7 +28143,7 @@
       "allowParentPomValidationFailure": false,
       "includeMavenExtensions": true,
       "allowMavenExtensionsValidationFailure": false,
-      "hermetic": true
+      "hermetic": false
     }
   },
   "boms": []
