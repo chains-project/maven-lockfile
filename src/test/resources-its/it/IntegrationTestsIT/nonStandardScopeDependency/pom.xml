@@ -1,0 +1,42 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>non-standard-scope-dependency</artifactId>
+  <packaging>jar</packaging>
+  <version>1</version>
+  <properties>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+    <!-- Its POM declares spring-boot-configuration-processor with the non-standard scope 'annotationProcessor'. -->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-circuitbreaker-resilience4j</artifactId>
+      <version>5.0.1</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>
+          maven-lockfile</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>
+                generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <checksumMode>local</checksumMode>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

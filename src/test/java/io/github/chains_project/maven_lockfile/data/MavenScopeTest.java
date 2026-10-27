@@ -1,7 +1,12 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.chains_project.maven_lockfile.JsonUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -48,5 +53,43 @@ class MavenScopeTest {
     void fromStringWithEmpty() {
         MavenScope scope = MavenScope.fromString("");
         assertEquals(MavenScope.COMPILE, scope);
+    }
+
+    /**
+     * Tests that standard scopes are matched case-insensitively and map to the shared constants.
+     */
+    @Test
+    @DisplayName("fromString matches standard scopes case-insensitively")
+    void fromStringStandardScopeIgnoresCase() {
+        MavenScope scope = MavenScope.fromString("Provided");
+        assertSame(MavenScope.PROVIDED, scope);
+        assertTrue(scope.isStandard());
+    }
+
+    /**
+     * Tests that a non-standard scope, such as {@code annotationProcessor} found in some published POMs,
+     * is accepted and its original value is kept.
+     */
+    @Test
+    @DisplayName("fromString keeps the value of a non-standard scope")
+    void fromStringWithNonStandardScope() {
+        MavenScope scope = MavenScope.fromString("annotationProcessor");
+        assertEquals("annotationProcessor", scope.getValue());
+        assertFalse(scope.isStandard());
+        assertEquals(MavenScope.fromString("annotationProcessor"), scope);
+        assertNotEquals(MavenScope.fromString("kapt"), scope);
+        assertNotEquals(MavenScope.COMPILE, scope);
+    }
+
+    /**
+     * Tests that a non-standard scope survives a JSON round trip unchanged.
+     */
+    @Test
+    @DisplayName("Non-standard scope survives a JSON round trip")
+    void nonStandardScopeJsonRoundTrip() {
+        MavenScope scope = MavenScope.fromString("annotationProcessor");
+        String json = JsonUtils.toJson(scope);
+        assertEquals("\"annotationProcessor\"", json);
+        assertEquals(scope, JsonUtils.fromJson(json, MavenScope.class));
     }
 }

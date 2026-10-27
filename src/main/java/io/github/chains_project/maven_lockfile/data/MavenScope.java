@@ -1,29 +1,36 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
- * Represents the Maven scopes.
+ * Represents a Maven dependency scope.
+ * The standard scopes are available as constants. Any other scope found in a POM (e.g. {@code annotationProcessor})
+ * is kept verbatim so that it can be written back unchanged.
  */
-public enum MavenScope {
-    COMPILE("compile"),
-    PROVIDED("provided"),
-    RUNTIME("runtime"),
-    TEST("test"),
-    SYSTEM("system"),
-    IMPORT("import");
+public final class MavenScope {
+    public static final MavenScope COMPILE = new MavenScope("compile");
+    public static final MavenScope PROVIDED = new MavenScope("provided");
+    public static final MavenScope RUNTIME = new MavenScope("runtime");
+    public static final MavenScope TEST = new MavenScope("test");
+    public static final MavenScope SYSTEM = new MavenScope("system");
+    public static final MavenScope IMPORT = new MavenScope("import");
+
+    private static final List<MavenScope> STANDARD_SCOPES = List.of(COMPILE, PROVIDED, RUNTIME, TEST, SYSTEM, IMPORT);
 
     private final String value;
 
-    /**
-     * Creates a new MavenScope with the specified value.
-     *
-     * @param value the string representation of the scope
-     * @throws IllegalArgumentException if the specified value is null or empty
-     */
-    MavenScope(String value) {
-        if (value == null || value.isEmpty()) {
-            throw new IllegalArgumentException("Maven scope value cannot be null or empty");
-        }
+    private MavenScope(String value) {
         this.value = value;
+    }
+
+    /**
+     * Returns the standard Maven scopes.
+     *
+     * @return the standard Maven scopes
+     */
+    public static List<MavenScope> values() {
+        return STANDARD_SCOPES;
     }
 
     /**
@@ -36,21 +43,50 @@ public enum MavenScope {
     }
 
     /**
+     * Returns whether this scope is one of the standard Maven scopes.
+     *
+     * @return true if this scope is one of the standard Maven scopes, false otherwise
+     */
+    public boolean isStandard() {
+        return STANDARD_SCOPES.contains(this);
+    }
+
+    /**
      * Returns the MavenScope object that corresponds to the specified string.
      *
      * @param value the string representation of the scope, or null/empty to return the default scope (compile)
-     * @return the MavenScope object that corresponds to the specified string, or the default scope if the specified value is null or empty
-     * @throws IllegalArgumentException if the specified value does not correspond to a MavenScope object
+     * @return the standard MavenScope that matches the specified string, the default scope if the specified value is
+     * null or empty, or a non-standard MavenScope holding the specified value otherwise
      */
     public static MavenScope fromString(String value) {
         if (value == null || value.isEmpty()) {
             return MavenScope.COMPILE;
         }
-        for (MavenScope scope : MavenScope.values()) {
+        for (MavenScope scope : STANDARD_SCOPES) {
             if (scope.value.equalsIgnoreCase(value)) {
                 return scope;
             }
         }
-        throw new IllegalArgumentException("Invalid Maven scope value: " + value);
+        return new MavenScope(value);
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " MavenScope='" + getValue() + "'" + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof MavenScope)) {
+            return false;
+        }
+        MavenScope mavenScope = (MavenScope) o;
+        return Objects.equals(value, mavenScope.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
     }
 }
