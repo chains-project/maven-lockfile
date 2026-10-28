@@ -449,9 +449,11 @@ public class IntegrationTestsIT {
                 .filter(dep -> dep.getArtifactId().getValue().equals("spring-boot-configuration-processor"))
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("spring-boot-configuration-processor not found in lockfile"));
-        assertThat(processorDep.getScope().getValue()).isEqualTo("annotationProcessor");
+        String nonStandardScope = "annotationProcessor";
+        assertThat(processorDep.getScope()).isEqualTo(MavenScope.fromString(nonStandardScope));
+        assertThat(processorDep.getScope().getValue()).isEqualTo(nonStandardScope);
         String stdout = Files.readString(result.getMavenLog().getStdout());
-        assertThat(stdout).contains("non-standard scope 'annotationProcessor'");
+        assertThat(stdout).contains("non-standard scope '" + nonStandardScope + "'");
     }
 
     @MavenTest
