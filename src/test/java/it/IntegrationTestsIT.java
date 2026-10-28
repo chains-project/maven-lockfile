@@ -431,6 +431,32 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void nonStandardScopeDependency(MavenExecutionResult result) throws Exception {
+        // contract: a transitive dependency with a non-standard scope (here 'annotationProcessor') must not break
+        // graph generation, and its scope must be recorded verbatim in the lockfile.
+        System.out.println("Running 'nonStandardScopeDependency' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getDependencies()).hasSize(1);
+        var circuitBreakerDep = lockFile.getDependencies().iterator().next();
+        assertThat(circuitBreakerDep.getArtifactId())
+                .extracting(ArtifactId::getValue)
+                .isEqualTo("spring-cloud-circuitbreaker-resilience4j");
+
+        var processorDep = circuitBreakerDep.getChildren().stream()
+                .filter(dep -> dep.getArtifactId().getValue().equals("spring-boot-configuration-processor"))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("spring-boot-configuration-processor not found in lockfile"));
+        String nonStandardScope = "annotationProcessor";
+        assertThat(processorDep.getScope()).isEqualTo(MavenScope.fromString(nonStandardScope));
+        assertThat(processorDep.getScope().getValue()).isEqualTo(nonStandardScope);
+        String stdout = Files.readString(result.getMavenLog().getStdout());
+        assertThat(stdout).contains("non-standard scope '" + nonStandardScope + "'");
+    }
+
+    @MavenTest
     void classifierDependency(MavenExecutionResult result) throws Exception {
         System.out.println("Running 'classifierDependency' integration test.");
         classifier(result);

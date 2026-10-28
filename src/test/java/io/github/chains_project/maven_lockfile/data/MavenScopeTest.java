@@ -1,7 +1,10 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.github.chains_project.maven_lockfile.JsonUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -48,5 +51,25 @@ class MavenScopeTest {
     void fromStringWithEmpty() {
         MavenScope scope = MavenScope.fromString("");
         assertEquals(MavenScope.COMPILE, scope);
+    }
+
+    @Test
+    @DisplayName("fromString matches standard scopes case-insensitively")
+    void fromStringStandardScopeIgnoresCase() {
+        MavenScope scope = MavenScope.fromString("Provided");
+        assertSame(MavenScope.PROVIDED, scope);
+        assertTrue(scope.isStandard());
+    }
+
+    /**
+     * Tests that a non-standard scope survives a JSON round trip unchanged.
+     */
+    @Test
+    @DisplayName("Non-standard scope survives a JSON round trip")
+    void nonStandardScopeJsonRoundTrip() {
+        MavenScope scope = MavenScope.fromString("annotationProcessor");
+        String json = JsonUtils.toJson(scope);
+        assertEquals("\"annotationProcessor\"", json);
+        assertEquals(scope, JsonUtils.fromJson(json, MavenScope.class));
     }
 }

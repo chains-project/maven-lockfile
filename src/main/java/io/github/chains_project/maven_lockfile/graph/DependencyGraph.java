@@ -138,6 +138,12 @@ public class DependencyGraph {
         var checksum =
                 isRoot || reactorGavs.contains(reactorGav) ? "" : calc.calculateArtifactChecksum(node.getArtifact());
         var scope = MavenScope.fromString(node.getArtifact().getScope());
+        if (!scope.isStandard()) {
+            PluginLogManager.getLog()
+                    .warn(String.format(
+                            "Dependency %s has non-standard scope '%s'; recording it as is",
+                            node.toNodeString(), scope.getValue()));
+        }
         PluginLogManager.getLog().debug(String.format("Resolving repository information for %s", node.toNodeString()));
         var repositoryInformation =
                 isRoot ? RepositoryInformation.Unresolved() : calc.getArtifactResolvedField(node.getArtifact());
