@@ -28222,7 +28222,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.10.0",
-      "javaVersion": "17.0.20.1"
+      "javaVersion": "17.0.21"
     },
     "config": {
       "includeMavenPlugins": true,
