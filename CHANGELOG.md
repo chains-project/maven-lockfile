@@ -2924,3 +2924,25 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Opus 5.5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.7-beta-3
+## Changelog
+
+## 🐛 Fixes
+- a651451 fix: accept non-standard dependency scopes (#1723)
+
+## 🧰 Tasks
+- 1875a1d chore: release version 5.18.7-beta-3
+- 86a0275 chore: bump guava to 33.7.2-jre (GHSA-xxph-c9ww-hj94) (#1724)
+- 00d3420 chore: remove the Codeset-generated knowledge base (#1722)
+
+---
+- aac9f22 :arrow_up:(deps): Update step-security/harden-runner action to v2.22.3 (#1726)
+- 60fb910 :arrow_up:(deps): Update stefanzweifel/git-auto-commit-action action to v7.2.1 (#1719)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()
