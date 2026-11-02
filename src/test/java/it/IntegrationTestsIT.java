@@ -110,6 +110,24 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void reactorReleaseSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a release-versioned reactor sibling (module-b 1.0.0) drifts like a SNAPSHOT, so
+        // its dependency checksum is skipped while the release poms keep a real checksum. See #1650.
+        System.out.println("Running 'reactorReleaseSiblingShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(moduleB.getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isNotEmpty();
+    }
+
+    @MavenTest
     public void singleModuleSnapshotShouldKeepOwnPomChecksum(MavenExecutionResult result) throws Exception {
         // contract: reactor-local snapshot detection must not treat the project's own pom
         // as a sibling reactor module. In a single-module build the project is the only

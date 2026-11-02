@@ -720,8 +720,7 @@ public class LockFileFacade {
                             "Resolved %4d dependencies for project %s",
                             graph.nodes().size(), project.getArtifactId()));
 
-            // Reactor-local SNAPSHOTs are rebuilt every run, so their checksums drift and
-            // are skipped during recording/validation.
+            // Reactor siblings' checksums drift between generate and validate, so skip them. #1650
             return DependencyGraph.of(graph, checksumCalculator, reduced, reactorGavs(session));
         } catch (DependencyCollectorBuilderException e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
@@ -739,7 +738,7 @@ public class LockFileFacade {
 
         BomResolver bomResolver =
                 new BomResolver(session, initialProject.getRemoteArtifactRepositories(), checksumCalculator);
-        Set<String> reactorGavs = reactorGavs(session);
+        Set<String> reactorGavs = reactorSnapshotGavs(session);
         List<MavenProject> recursiveProjects = new ArrayList<>();
         MavenProject currentProject = initialProject;
         recursiveProjects.add(currentProject);
@@ -849,11 +848,33 @@ public class LockFileFacade {
     }
 
     /**
-     * GAVs of the SNAPSHOT modules built in the current reactor. If there's only one
-     * project, it's the root project the pom is being generated for, not a sibling module.
+     * GAVs of every module in the reactor, from {@link MavenSession#getAllProjects()} so siblings
+     * outside {@code --projects} are still seen. A reactor sibling's dependency checksum drifts
+     * regardless of version, so it's skipped on membership alone, not on the SNAPSHOT suffix. See
+     * #1650.
      */
     static Set<String> reactorGavs(MavenSession session) {
-        List<MavenProject> projects = session.getProjects();
+        List<MavenProject> projects = session.getAllProjects();
+        if (projects == null) {
+            projects = session.getProjects();
+        }
+        if (projects.size() <= 1) {
+            return Set.of();
+        }
+        return projects.stream()
+                .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * GAVs of the SNAPSHOT reactor modules. Pom checksums are skipped only for SNAPSHOTs; a release
+     * pom is stable and keeps a real checksum. See #1650.
+     */
+    static Set<String> reactorSnapshotGavs(MavenSession session) {
+        List<MavenProject> projects = session.getAllProjects();
+        if (projects == null) {
+            projects = session.getProjects();
+        }
         if (projects.size() <= 1) {
             return Set.of();
         }

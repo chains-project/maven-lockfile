@@ -130,8 +130,8 @@ public class DependencyGraph {
         var classifier = Classifier.of(node.getArtifact().getClassifier());
         var type = ArtifactType.of(node.getArtifact().getType());
         PluginLogManager.getLog().debug(String.format("Calculating checksum for %s", node.toNodeString()));
-        // Reactor-local SNAPSHOTs are rebuilt every run, so their checksum drifts and
-        // can't be pinned; leave it empty (releases still get a real checksum). See #1610.
+        // Reactor siblings' checksums drift between generate and validate (any version), so leave
+        // them empty. See #1610, #1650.
         var nodeArtifact = node.getArtifact();
         var reactorGav =
                 nodeArtifact.getGroupId() + ":" + nodeArtifact.getArtifactId() + ":" + nodeArtifact.getBaseVersion();
