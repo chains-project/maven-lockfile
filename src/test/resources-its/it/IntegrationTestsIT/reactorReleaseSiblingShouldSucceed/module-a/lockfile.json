@@ -8,14 +8,14 @@
     "version": "1.0.0",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "1050ead1629b993e8ef10cd1c9e8797639496b57f87792f791a9e35a507ba85c",
+    "checksum": "",
     "parent": {
       "groupId": "com.mycompany.app",
       "artifactId": "reactor-release-sibling-parent",
       "version": "1.0.0",
       "relativePath": "../pom.xml",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "47008c8048a04e8d9503ae5719034a5dd8369d7867081ec0c425af5df1196f86"
+      "checksum": ""
     }
   },
   "lockFileVersion": 1,
@@ -35,7 +35,7 @@
         "version": "1.0.0",
         "relativePath": "../pom.xml",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "47008c8048a04e8d9503ae5719034a5dd8369d7867081ec0c425af5df1196f86"
+        "checksum": ""
       },
       "selectedVersion": "1.0.0",
       "included": true,
@@ -55,7 +55,7 @@
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": false,
       "reduced": false,
-      "mavenLockfileVersion": "5.18.7-SNAPSHOT",
+      "mavenLockfileVersion": "5.17.1-SNAPSHOT",
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
       "includeBoms": true,
@@ -63,8 +63,7 @@
       "includeParentPom": true,
       "allowParentPomValidationFailure": false,
       "includeMavenExtensions": true,
-      "allowMavenExtensionsValidationFailure": false,
-      "hermetic": false
+      "allowMavenExtensionsValidationFailure": false
     }
   },
   "boms": []

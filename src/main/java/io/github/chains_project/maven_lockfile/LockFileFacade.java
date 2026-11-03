@@ -18,7 +18,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.ArtifactUtils;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -738,7 +737,7 @@ public class LockFileFacade {
 
         BomResolver bomResolver =
                 new BomResolver(session, initialProject.getRemoteArtifactRepositories(), checksumCalculator);
-        Set<String> reactorGavs = reactorSnapshotGavs(session);
+        Set<String> reactorGavs = reactorGavs(session);
         List<MavenProject> recursiveProjects = new ArrayList<>();
         MavenProject currentProject = initialProject;
         recursiveProjects.add(currentProject);
@@ -776,8 +775,7 @@ public class LockFileFacade {
             RepositoryId repoId = null;
             if (reactorGavs.contains(
                     project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion())) {
-                // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts
-                // and can't be pinned; leave it empty (releases still get a real checksum).
+                // Reactor pom drifts between generate and validate, so leave its checksum empty.
                 checksum = "";
             } else if (isExternalPom) {
                 // External POM (not in project directory) - get repository information
@@ -849,9 +847,8 @@ public class LockFileFacade {
 
     /**
      * GAVs of every module in the reactor, from {@link MavenSession#getAllProjects()} so siblings
-     * outside {@code --projects} are still seen. A reactor sibling's dependency checksum drifts
-     * regardless of version, so it's skipped on membership alone, not on the SNAPSHOT suffix. See
-     * #1650.
+     * outside {@code --projects} are still seen. Reactor members drift between generate and validate
+     * regardless of version, so their checksums are skipped on membership alone. See #1650.
      */
     static Set<String> reactorGavs(MavenSession session) {
         List<MavenProject> projects = session.getAllProjects();
@@ -862,24 +859,6 @@ public class LockFileFacade {
             return Set.of();
         }
         return projects.stream()
-                .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
-                .collect(Collectors.toSet());
-    }
-
-    /**
-     * GAVs of the SNAPSHOT reactor modules. Pom checksums are skipped only for SNAPSHOTs; a release
-     * pom is stable and keeps a real checksum. See #1650.
-     */
-    static Set<String> reactorSnapshotGavs(MavenSession session) {
-        List<MavenProject> projects = session.getAllProjects();
-        if (projects == null) {
-            projects = session.getProjects();
-        }
-        if (projects.size() <= 1) {
-            return Set.of();
-        }
-        return projects.stream()
-                .filter(p -> ArtifactUtils.isSnapshot(p.getVersion()))
                 .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
                 .collect(Collectors.toSet());
     }

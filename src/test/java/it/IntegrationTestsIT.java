@@ -112,7 +112,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void reactorReleaseSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: a release-versioned reactor sibling (module-b 1.0.0) drifts like a SNAPSHOT, so
-        // its dependency checksum is skipped while the release poms keep a real checksum. See #1650.
+        // every reactor member is recorded with an empty checksum. See #1650.
         System.out.println("Running 'reactorReleaseSiblingShouldSucceed' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -123,8 +123,25 @@ public class IntegrationTestsIT {
                 .findFirst()
                 .orElseThrow();
         assertThat(moduleB.getChecksum()).isEmpty();
-        assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
-        assertThat(lockFile.getPom().getParent().getChecksum()).isNotEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
+    }
+
+    @MavenTest
+    @MavenGoal({"-pl", "module-a", "-am", "verify"})
+    public void reactorReleaseSiblingWithProjectListShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: building module-a with -pl/-am still records the reactor sibling module-b with
+        // an empty checksum, because reactor membership comes from getAllProjects(). See #1650.
+        System.out.println("Running 'reactorReleaseSiblingWithProjectListShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var moduleB = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(moduleB.getChecksum()).isEmpty();
     }
 
     @MavenTest
