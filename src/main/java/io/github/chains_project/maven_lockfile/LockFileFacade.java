@@ -784,7 +784,7 @@ public class LockFileFacade {
                 // External POM (not in project directory) - get repository information
                 Artifact artifact = project.getArtifact();
                 // Use an explicit POM handler so getArtifactHandler().getExtension() reliably
-                // returns "pom", which is required for parsing _remote.repositories correctly.
+                // returns "pom", which is required for looking up its origin and URL correctly.
                 Artifact pomArtifact = new DefaultArtifact(
                         artifact.getGroupId(),
                         artifact.getArtifactId(),
@@ -794,7 +794,7 @@ public class LockFileFacade {
                         artifact.getClassifier(),
                         new org.apache.maven.artifact.handler.DefaultArtifactHandler("pom"));
                 if (cachedInLocalRepo) {
-                    // Pre-set the file so getArtifactResolvedField can read _remote.repositories
+                    // Pre-set the file so getArtifactResolvedField can look up its origin
                     // even if the POM-type dependency resolution fails
                     pomArtifact.setFile(project.getFile());
                     checksum = checksumCalculator.calculatePomChecksum(
