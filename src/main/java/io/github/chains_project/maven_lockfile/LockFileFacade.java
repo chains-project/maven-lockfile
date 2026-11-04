@@ -720,8 +720,7 @@ public class LockFileFacade {
                             "Resolved %4d dependencies for project %s",
                             graph.nodes().size(), project.getArtifactId()));
 
-            // Reactor-local SNAPSHOTs are rebuilt every run, so their checksums drift and
-            // are skipped during recording/validation.
+            // Reactor siblings' checksums drift between generate and validate, so skip them. #1650
             return DependencyGraph.of(graph, checksumCalculator, reduced, reactorGavs(session));
         } catch (DependencyCollectorBuilderException e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
@@ -775,10 +774,10 @@ public class LockFileFacade {
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
-            if (reactorGavs.contains(
-                    project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion())) {
-                // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts
-                // and can't be pinned; leave it empty (releases still get a real checksum).
+            String gav = project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion();
+            if (ArtifactUtils.isSnapshot(project.getVersion()) && reactorGavs.contains(gav)) {
+                // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts; leave it
+                // empty. A release pom is stable and keeps a real checksum.
                 checksum = "";
             } else if (isExternalPom) {
                 // External POM (not in project directory) - get repository information
@@ -849,16 +848,19 @@ public class LockFileFacade {
     }
 
     /**
-     * GAVs of the SNAPSHOT modules built in the current reactor. If there's only one
-     * project, it's the root project the pom is being generated for, not a sibling module.
+     * GAVs of every module in the reactor, from {@link MavenSession#getAllProjects()} so siblings
+     * outside {@code --projects} are still seen. Reactor members drift between generate and validate
+     * regardless of version, so their checksums are skipped on membership alone. See #1650.
      */
     static Set<String> reactorGavs(MavenSession session) {
-        List<MavenProject> projects = session.getProjects();
+        List<MavenProject> projects = session.getAllProjects();
+        if (projects == null) {
+            projects = session.getProjects();
+        }
         if (projects.size() <= 1) {
             return Set.of();
         }
         return projects.stream()
-                .filter(p -> ArtifactUtils.isSnapshot(p.getVersion()))
                 .map(p -> p.getGroupId() + ":" + p.getArtifactId() + ":" + p.getVersion())
                 .collect(Collectors.toSet());
     }
