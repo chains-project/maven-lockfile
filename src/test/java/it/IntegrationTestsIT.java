@@ -112,7 +112,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void reactorReleaseSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: a release-versioned reactor sibling (module-b 1.0.0) drifts like a SNAPSHOT, so
-        // every reactor member is recorded with an empty checksum. See #1650.
+        // its dependency checksum is skipped, while the release poms keep a real checksum. See #1650.
         System.out.println("Running 'reactorReleaseSiblingShouldSucceed' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
@@ -123,8 +123,8 @@ public class IntegrationTestsIT {
                 .findFirst()
                 .orElseThrow();
         assertThat(moduleB.getChecksum()).isEmpty();
-        assertThat(lockFile.getPom().getChecksum()).isEmpty();
-        assertThat(lockFile.getPom().getParent().getChecksum()).isEmpty();
+        assertThat(lockFile.getPom().getChecksum()).isNotBlank();
+        assertThat(lockFile.getPom().getParent().getChecksum()).isNotBlank();
     }
 
     @MavenTest

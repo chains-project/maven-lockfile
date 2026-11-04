@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.ArtifactUtils;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -773,9 +774,10 @@ public class LockFileFacade {
             String checksum;
             ResolvedUrl resolved = null;
             RepositoryId repoId = null;
-            if (reactorGavs.contains(
-                    project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion())) {
-                // Reactor pom drifts between generate and validate, so leave its checksum empty.
+            String gav = project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion();
+            if (ArtifactUtils.isSnapshot(project.getVersion()) && reactorGavs.contains(gav)) {
+                // Reactor-local SNAPSHOT pom is rebuilt every run, so its checksum drifts; leave it
+                // empty. A release pom is stable and keeps a real checksum.
                 checksum = "";
             } else if (isExternalPom) {
                 // External POM (not in project directory) - get repository information

@@ -8,14 +8,14 @@
     "version": "1.0.0",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "",
+    "checksum": "1050ead1629b993e8ef10cd1c9e8797639496b57f87792f791a9e35a507ba85c",
     "parent": {
       "groupId": "com.mycompany.app",
       "artifactId": "reactor-release-sibling-parent",
       "version": "1.0.0",
       "relativePath": "../pom.xml",
       "checksumAlgorithm": "SHA-256",
-      "checksum": ""
+      "checksum": "47008c8048a04e8d9503ae5719034a5dd8369d7867081ec0c425af5df1196f86"
     }
   },
   "lockFileVersion": 1,
@@ -35,7 +35,7 @@
         "version": "1.0.0",
         "relativePath": "../pom.xml",
         "checksumAlgorithm": "SHA-256",
-        "checksum": ""
+        "checksum": "47008c8048a04e8d9503ae5719034a5dd8369d7867081ec0c425af5df1196f86"
       },
       "selectedVersion": "1.0.0",
       "included": true,
@@ -50,7 +50,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
-      "allowPomValidationFailure": false,
+      "allowPomValidationFailure": true,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": false,
