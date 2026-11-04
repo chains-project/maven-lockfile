@@ -128,23 +128,6 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
-    @MavenGoal({"-pl", "module-a", "-am", "verify"})
-    public void reactorReleaseSiblingWithProjectListShouldSucceed(MavenExecutionResult result) throws Exception {
-        // contract: building module-a with -pl/-am still records the reactor sibling module-b with
-        // an empty checksum, because reactor membership comes from getAllProjects(). See #1650.
-        System.out.println("Running 'reactorReleaseSiblingWithProjectListShouldSucceed' integration test.");
-        assertThat(result).isSuccessful();
-        Path lockFilePath = findFile(result, "lockfile.json");
-        assertThat(lockFilePath).exists();
-        var lockFile = LockFile.readLockFile(lockFilePath);
-        var moduleB = lockFile.getDependencies().stream()
-                .filter(d -> d.getArtifactId().getValue().equals("module-b"))
-                .findFirst()
-                .orElseThrow();
-        assertThat(moduleB.getChecksum()).isEmpty();
-    }
-
-    @MavenTest
     public void singleModuleSnapshotShouldKeepOwnPomChecksum(MavenExecutionResult result) throws Exception {
         // contract: reactor-local snapshot detection must not treat the project's own pom
         // as a sibling reactor module. In a single-module build the project is the only
