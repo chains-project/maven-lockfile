@@ -2924,3 +2924,49 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Opus 5.5 ()
 - algomaster99 ([@algomaster99](https://github.com/algomaster99))
+
+# 5.18.7
+## Changelog
+
+## 🚀 Features
+- 5068a7d feat: record the checksum of the maven-lockfile plugin in the lockfile (#1709)
+
+## 🐛 Fixes
+- 05ae1de fix: skip reactor dependency checksums regardless of version (#1728)
+- a651451 fix: accept non-standard dependency scopes (#1723)
+- ca758b9 fix: record relativePath relative to the lockfile's directory (#1714)
+
+## 🔄️ Changes
+- d8db961 refactor: replace maven-artifact-transfer with maven-resolver (#1717)
+
+## 🧰 Tasks
+- 810c6d3 chore: release version 5.18.7
+- 86a0275 chore: bump guava to 33.7.2-jre (GHSA-xxph-c9ww-hj94) (#1724)
+- 00d3420 chore: remove the Codeset-generated knowledge base (#1722)
+- 083b879 chore: squash-merge Renovate PRs explicitly (#1713)
+- 52bb877 chore: push releases only after Maven Central (#1712)
+- d69c1c6 chore: update lockfile
+- b838a8f chore: bump lockfile actions version to `5.18.6`
+- 3aba952 chore: set snapshot version 5.18.7-SNAPSHOT
+
+---
+- 799562e :arrow_up:(deps): Update dependency org.apache.maven.plugins:maven-enforcer-plugin to v3.7.0 (#1727)
+- aac9f22 :arrow_up:(deps): Update step-security/harden-runner action to v2.22.3 (#1726)
+- 60fb910 :arrow_up:(deps): Update stefanzweifel/git-auto-commit-action action to v7.2.1 (#1719)
+- f0254da :arrow_up:(deps): Update github/codeql-action action to v4.39.1 (#1718)
+- 94f3cd9 :arrow_up:(deps): Update step-security/harden-runner action to v2.22.2 (#1716)
+- 7f35a93 :arrow_up:(deps): Update dependency ubuntu to v26 (#1715)
+- 7b5761d :arrow_up:(deps): Update step-security/harden-runner action to v2.22.1 (#1701)
+- 730516a :arrow_up:(deps): Update github/codeql-action action to v4.38.3 (#1696)
+- 82f1a55 :arrow_up:(deps): Update google/osv-scanner-action action to v2.7.0 (#1698)
+- 36a5dc3 :arrow_up:(deps): Update actions/setup-java action to v6 (#1706)
+- 6530cff :arrow_up:(deps): Update stefanzweifel/git-auto-commit-action action to v7.2.0 (#1700)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()
+- Noaa Maman ()
+- noaa maman ([@noaamaman325158](https://github.com/noaamaman325158))
