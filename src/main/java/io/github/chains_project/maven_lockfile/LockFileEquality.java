@@ -59,6 +59,7 @@ public final class LockFileEquality {
                 && Objects.equals(a.getChecksum(), b.getChecksum())
                 && Objects.equals(a.getScope(), b.getScope())
                 && Objects.equals(a.getSelectedVersion(), b.getSelectedVersion())
+                && a.isIncluded() == b.isIncluded()
                 && Objects.equals(a.getParent(), b.getParent())
                 && dependencySetsEqual(a.getChildren(), b.getChildren());
     }
