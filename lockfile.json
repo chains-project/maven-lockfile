@@ -8,7 +8,7 @@
     "version": "5.18.9-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "070c26a793c59ac2d12e7250e5fd42a5f2af1093200c0ad5b948bdd5b396db6b"
+    "checksum": "36a3f65e263e9e6ba6ca745ed84e4951f07478b7c0cc9a765c123bb48d2349d8"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -6327,10 +6327,10 @@
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
-      "version": "3.10.4",
-      "checksum": "607543d56ba22d10d27aa72cc6be746e2cdf73e2f43dcef24a85a9782551a877",
+      "version": "3.11.0",
+      "checksum": "30ca83165e4ef0c47038f70b553ca9d644408077e2b0cc59d629c93d3b63badb",
       "checksumAlgorithm": "SHA-256",
-      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.10.4/spotless-maven-plugin-3.10.4.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.11.0/spotless-maven-plugin-3.11.0.jar",
       "repositoryId": "central",
       "dependencies": [
         {
@@ -6431,30 +6431,30 @@
         {
           "groupId": "com.diffplug.spotless",
           "artifactId": "spotless-lib",
-          "version": "4.10.4",
+          "version": "4.11.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "efd428f9e4fdf187dc0eca0aee020d639874cd839b458f39566bf105f61502aa",
+          "checksum": "daa762461c24feef790f83e9e9f2a24884b2ab5c9d2553719cdfe48f1bd15c36",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.10.4/spotless-lib-4.10.4.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.11.0/spotless-lib-4.11.0.jar",
           "repositoryId": "central",
-          "selectedVersion": "4.10.4",
+          "selectedVersion": "4.11.0",
           "included": true,
-          "id": "com.diffplug.spotless:spotless-lib:4.10.4",
+          "id": "com.diffplug.spotless:spotless-lib:4.11.0",
           "children": [],
           "boms": []
         },
         {
           "groupId": "com.diffplug.spotless",
           "artifactId": "spotless-lib-extra",
-          "version": "4.10.4",
+          "version": "4.11.0",
           "checksumAlgorithm": "SHA-256",
           "checksum": "8384f38f6f31fd902aecadf788877110d6b4031cd5c27e066044b1e7383b0a1b",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib-extra/4.10.4/spotless-lib-extra-4.10.4.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib-extra/4.11.0/spotless-lib-extra-4.11.0.jar",
           "repositoryId": "central",
-          "selectedVersion": "4.10.4",
+          "selectedVersion": "4.11.0",
           "included": true,
-          "id": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+          "id": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
           "children": [
             {
               "groupId": "com.diffplug.durian",
@@ -6468,7 +6468,7 @@
               "selectedVersion": "1.2.0",
               "included": false,
               "id": "com.diffplug.durian:durian-collect:1.2.0",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             },
@@ -6484,23 +6484,23 @@
               "selectedVersion": "1.2.0",
               "included": false,
               "id": "com.diffplug.durian:durian-core:1.2.0",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             },
             {
               "groupId": "com.diffplug.spotless",
               "artifactId": "spotless-lib",
-              "version": "4.10.4",
+              "version": "4.11.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "efd428f9e4fdf187dc0eca0aee020d639874cd839b458f39566bf105f61502aa",
+              "checksum": "daa762461c24feef790f83e9e9f2a24884b2ab5c9d2553719cdfe48f1bd15c36",
               "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.10.4/spotless-lib-4.10.4.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.11.0/spotless-lib-4.11.0.jar",
               "repositoryId": "central",
-              "selectedVersion": "4.10.4",
+              "selectedVersion": "4.11.0",
               "included": false,
-              "id": "com.diffplug.spotless:spotless-lib:4.10.4",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "id": "com.diffplug.spotless:spotless-lib:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             },
@@ -6525,7 +6525,7 @@
               "selectedVersion": "2.6.1",
               "included": true,
               "id": "com.googlecode.concurrent-trees:concurrent-trees:2.6.1",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             },
@@ -6541,7 +6541,7 @@
               "selectedVersion": "1.8.2",
               "included": true,
               "id": "dev.equo.ide:solstice:1.8.2",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [
                 {
                   "groupId": "com.diffplug.durian",
@@ -6822,7 +6822,7 @@
               "selectedVersion": "7.8.0.202609011348-r",
               "included": false,
               "id": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             },
@@ -6838,7 +6838,7 @@
               "selectedVersion": "3.24.300",
               "included": true,
               "id": "org.eclipse.platform:org.eclipse.osgi:3.24.300",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.10.4",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
               "children": [],
               "boms": []
             }
