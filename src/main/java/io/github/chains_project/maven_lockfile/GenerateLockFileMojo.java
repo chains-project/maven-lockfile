@@ -11,6 +11,7 @@ import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -65,6 +66,11 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                     mojo.getMojoDescriptor().getPluginDescriptor().getPluginArtifact()));
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
+            List<String> conflicts = lockFile.conflictingChecksums();
+            if (!conflicts.isEmpty()) {
+                throw new MojoExecutionException("These artifacts were resolved with different checksums, so the"
+                        + " lockfile cannot pin which file is used:\n  " + String.join("\n  ", conflicts));
+            }
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);
             Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
