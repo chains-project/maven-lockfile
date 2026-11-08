@@ -478,6 +478,17 @@ public class IntegrationTestsIT {
     void classifierDependency(MavenExecutionResult result) throws Exception {
         System.out.println("Running 'classifierDependency' integration test.");
         classifier(result);
+
+        // contract: junit-platform-commons sits under each of the three junit-jupiter-api roots, and
+        // every occurrence records its BOM, not only the first one
+        var lockFile = LockFile.readLockFile(findFile(result, "lockfile.json"));
+        var platformCommons = lockFile.getDependencies().stream()
+                .flatMap(v -> flattenDependencies(v).stream())
+                .filter(n -> n.getArtifactId().getValue().equals("junit-platform-commons"))
+                .collect(Collectors.toList());
+        assertThat(platformCommons).hasSize(3);
+        assertThat(platformCommons).allSatisfy(n -> assertThat(n.getBoms())
+                .anySatisfy(bom -> assertThat(bom.getArtifactId().getValue()).isEqualTo("junit-bom")));
     }
 
     @MavenTest

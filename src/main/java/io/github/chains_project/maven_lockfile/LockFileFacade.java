@@ -485,6 +485,9 @@ public class LockFileFacade {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
+        // Resolve once per unique artifact, then attach the result to every occurrence of it.
+        Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Pom> parentPoms = new TreeMap<>();
+        Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Set<Pom>> bomsByArtifact = new TreeMap<>();
         graph.getDependencySet().forEach(node -> {
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
@@ -503,17 +506,25 @@ public class LockFileFacade {
             if (mavenProject.hasParent()) {
                 PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
 
-                // Optimization, not to resolve parent if already resolved
-                // It has to be written in full form before lockfile v2
-                Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
-                node.setParentPom(pom);
+                parentPoms.put(node, constructRecursivePom(mavenProject.getParent(), session, checksumCalculator));
             }
 
             Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
             if (!boms.isEmpty()) {
-                node.setBoms(boms);
+                bomsByArtifact.put(node, boms);
             }
         });
+
+        for (io.github.chains_project.maven_lockfile.graph.DependencyNode node : graph.getAllNodes()) {
+            Pom parentPom = parentPoms.get(node);
+            if (parentPom != null) {
+                node.setParentPom(parentPom);
+            }
+            Set<Pom> boms = bomsByArtifact.get(node);
+            if (boms != null) {
+                node.setBoms(boms);
+            }
+        }
     }
 
     private static Set<MavenPlugin> getAllPlugins(

@@ -58,6 +58,25 @@ public class DependencyGraph {
         return dependencySet;
     }
 
+    /**
+     * Unlike {@link #getDependencySet()}, keeps every occurrence of an artifact that appears at
+     * several places in the tree.
+     *
+     * @return every node instance in the graph
+     */
+    public List<DependencyNode> getAllNodes() {
+        var nodes = new ArrayList<DependencyNode>();
+        var queue = new LinkedList<>(getRoots());
+
+        while (!queue.isEmpty()) {
+            DependencyNode current = queue.poll();
+            nodes.add(current);
+            queue.addAll(current.getChildren());
+        }
+
+        return nodes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
