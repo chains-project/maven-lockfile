@@ -2970,3 +2970,31 @@ We'd like to thank the following people for their contributions:
 - Claude Opus 5.5 ()
 - Noaa Maman ()
 - noaa maman ([@noaamaman325158](https://github.com/noaamaman325158))
+
+# 5.18.8
+## Changelog
+
+## 🐛 Fixes
+- 4bff7f0 fix: validate the included flag of dependency nodes (#1734)
+- 06613f1 fix: mark hermetic-captured plugin dependencies as included (#1733)
+- 17f2cd0 fix: record parentPom and BOMs on every occurrence of a dependency (#1731)
+
+## 🧰 Tasks
+- f483f2e chore: release version 5.18.8
+- 74103e5 chore: pin palantir-java-format to 2.80.0 (#1738)
+- d787149 chore(deps): update lagging dependencies and action pins (#1736)
+- 86ef8ff chore: mark hermetic mode as experimental (#1735)
+- 690439c chore: pin Maven-running jobs to ubuntu-26.04 (#1730)
+- 56ed0ee chore: update lockfile
+- 9d5c016 chore: bump lockfile actions version to `5.18.7`
+- 2d2c32a chore: set snapshot version 5.18.8-SNAPSHOT
+
+---
+- 15361a4 :arrow_up:(deps): Update actions/setup-java action to v6.2.0 (#1740)
+- 1558c8a :arrow_up:(deps): Update github/codeql-action action to v4.39.3 (#1739)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude Opus 5.5 ()

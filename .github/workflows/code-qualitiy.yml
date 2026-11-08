@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@810c6d3f71657fcd45677e1e9926b126bdd978ed # v5.18.7
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@f483f2e8a68c01d3b6f6875c79720939c1374766 # v5.18.8
 
       - name: Set up JDK 17
         uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
@@ -83,7 +83,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@810c6d3f71657fcd45677e1e9926b126bdd978ed # v5.18.7
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@f483f2e8a68c01d3b6f6875c79720939c1374766 # v5.18.8
 
       - name: Set up JDK 17
         uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
