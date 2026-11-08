@@ -487,8 +487,10 @@ public class IntegrationTestsIT {
                 .filter(n -> n.getArtifactId().getValue().equals("junit-platform-commons"))
                 .collect(Collectors.toList());
         assertThat(platformCommons).hasSize(3);
-        assertThat(platformCommons).allSatisfy(n -> assertThat(n.getBoms())
-                .anySatisfy(bom -> assertThat(bom.getArtifactId().getValue()).isEqualTo("junit-bom")));
+        assertThat(platformCommons)
+                .allSatisfy(n -> assertThat(n.getBoms())
+                        .anySatisfy(bom ->
+                                assertThat(bom.getArtifactId().getValue()).isEqualTo("junit-bom")));
     }
 
     @MavenTest

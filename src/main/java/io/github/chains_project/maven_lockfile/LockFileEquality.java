@@ -107,16 +107,21 @@ public final class LockFileEquality {
             Map<DependencyNode, Set<Pom>> knownB,
             boolean compareParentChains) {
         return a.size() == b.size()
-                && a.stream().allMatch(nA -> b.stream()
-                        .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
-                                && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
-                                && Objects.equals(nA.getVersion(), nB.getVersion())
-                                && pomSetsEqual(
-                                        orKnown(nA, nonEmptyBoms(nA), knownA),
-                                        orKnown(nB, nonEmptyBoms(nB), knownB),
-                                        compareParentChains)
-                                && nodeBomsEqual(
-                                        nA.getChildren(), nB.getChildren(), knownA, knownB, compareParentChains)));
+                && a.stream()
+                        .allMatch(nA -> b.stream()
+                                .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
+                                        && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
+                                        && Objects.equals(nA.getVersion(), nB.getVersion())
+                                        && pomSetsEqual(
+                                                orKnown(nA, nonEmptyBoms(nA), knownA),
+                                                orKnown(nB, nonEmptyBoms(nB), knownB),
+                                                compareParentChains)
+                                        && nodeBomsEqual(
+                                                nA.getChildren(),
+                                                nB.getChildren(),
+                                                knownA,
+                                                knownB,
+                                                compareParentChains)));
     }
 
     private static Set<Pom> nonEmptyBoms(DependencyNode node) {
@@ -171,13 +176,15 @@ public final class LockFileEquality {
             Map<DependencyNode, Pom> knownA,
             Map<DependencyNode, Pom> knownB) {
         return a.size() == b.size()
-                && a.stream().allMatch(nA -> b.stream()
-                        .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
-                                && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
-                                && Objects.equals(nA.getVersion(), nB.getVersion())
-                                && parentPomEqual(
-                                        orKnown(nA, nA.getParentPom(), knownA), orKnown(nB, nB.getParentPom(), knownB))
-                                && nodeParentPomsEqual(nA.getChildren(), nB.getChildren(), knownA, knownB)));
+                && a.stream()
+                        .allMatch(nA -> b.stream()
+                                .anyMatch(nB -> Objects.equals(nA.getGroupId(), nB.getGroupId())
+                                        && Objects.equals(nA.getArtifactId(), nB.getArtifactId())
+                                        && Objects.equals(nA.getVersion(), nB.getVersion())
+                                        && parentPomEqual(
+                                                orKnown(nA, nA.getParentPom(), knownA),
+                                                orKnown(nB, nB.getParentPom(), knownB))
+                                        && nodeParentPomsEqual(nA.getChildren(), nB.getChildren(), knownA, knownB)));
     }
 
     // TODO(#1732): remove firstPerArtifact and orKnown in the next major version.
