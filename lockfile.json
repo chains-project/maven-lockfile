@@ -8,7 +8,7 @@
     "version": "5.18.9-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "de6ab90e75fe07989903731ae16a904f7aa613a831d8382d4346e8adf7810a54"
+    "checksum": "070c26a793c59ac2d12e7250e5fd42a5f2af1093200c0ad5b948bdd5b396db6b"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -65,47 +65,47 @@
     {
       "groupId": "com.google.guava",
       "artifactId": "guava",
-      "version": "33.7.2-jre",
+      "version": "33.8.0-jre",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "b530942257fb935f8b2cfaa5f8eb5bd59c555fd8e8d01b8ce98912e077ea606c",
+      "checksum": "97b79ec3f2c0a6313a0c2df51ce1abdf8907e6531803467b81efcaaf99b35161",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.7.2-jre/guava-33.7.2-jre.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava/33.8.0-jre/guava-33.8.0-jre.jar",
       "repositoryId": "central",
       "parentPom": {
         "groupId": "com.google.guava",
         "artifactId": "guava-parent",
-        "version": "33.7.2-jre",
-        "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/33.7.2-jre/guava-parent-33.7.2-jre.pom",
+        "version": "33.8.0-jre",
+        "resolved": "https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/33.8.0-jre/guava-parent-33.8.0-jre.pom",
         "repositoryId": "central",
         "checksumAlgorithm": "SHA-256",
-        "checksum": "a81570d53c8710355e0216a4405afa93834b17c4cdd0ed9aa8beede3a132bbbe"
+        "checksum": "31b614120ff2858dd84fded11a96b8c00cb75abc8bfcdd14b6551050e27bcdc1"
       },
-      "selectedVersion": "33.7.2-jre",
+      "selectedVersion": "33.8.0-jre",
       "included": true,
-      "id": "com.google.guava:guava:33.7.2-jre",
+      "id": "com.google.guava:guava:33.8.0-jre",
       "children": [
         {
           "groupId": "com.google.errorprone",
           "artifactId": "error_prone_annotations",
-          "version": "2.50.0",
+          "version": "2.52.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "4667724877f1d37a689202da191e23efa7657c62eef93ccdac406eccfe5cdd0a",
+          "checksum": "24822b246a2da324006fc5a1c940b1d2cf9cd716e530155c39fea695d5ab01c4",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_annotations/2.52.0/error_prone_annotations-2.52.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "com.google.errorprone",
             "artifactId": "error_prone_parent",
-            "version": "2.50.0",
-            "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.50.0/error_prone_parent-2.50.0.pom",
+            "version": "2.52.0",
+            "resolved": "https://repo.maven.apache.org/maven2/com/google/errorprone/error_prone_parent/2.52.0/error_prone_parent-2.52.0.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "abf45a019db125b50ff55134ec2af94ae3519761038adf0a60b9bd7b4b8b6254"
+            "checksum": "67f0b8d1b2d06ff9e9abe4b747d5b49fe444555d24c9755c7d2f0c97407b25e3"
           },
           "selectedVersion": "2.50.0",
           "included": false,
-          "id": "com.google.errorprone:error_prone_annotations:2.50.0",
-          "parent": "com.google.guava:guava:33.7.2-jre",
+          "id": "com.google.errorprone:error_prone_annotations:2.52.0",
+          "parent": "com.google.guava:guava:33.8.0-jre",
           "children": [],
           "boms": []
         },
@@ -130,7 +130,7 @@
           "selectedVersion": "1.0.3",
           "included": false,
           "id": "com.google.guava:failureaccess:1.0.3",
-          "parent": "com.google.guava:guava:33.7.2-jre",
+          "parent": "com.google.guava:guava:33.8.0-jre",
           "children": [],
           "boms": []
         },
@@ -164,7 +164,7 @@
           "selectedVersion": "9999.0-empty-to-avoid-conflict-with-guava",
           "included": true,
           "id": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
-          "parent": "com.google.guava:guava:33.7.2-jre",
+          "parent": "com.google.guava:guava:33.8.0-jre",
           "children": [],
           "boms": []
         },
@@ -180,7 +180,7 @@
           "selectedVersion": "3.1",
           "included": true,
           "id": "com.google.j2objc:j2objc-annotations:3.1",
-          "parent": "com.google.guava:guava:33.7.2-jre",
+          "parent": "com.google.guava:guava:33.8.0-jre",
           "children": [],
           "boms": []
         },
@@ -196,7 +196,7 @@
           "selectedVersion": "1.0.0",
           "included": false,
           "id": "org.jspecify:jspecify:1.0.1",
-          "parent": "com.google.guava:guava:33.7.2-jre",
+          "parent": "com.google.guava:guava:33.8.0-jre",
           "children": [],
           "boms": []
         }
@@ -1834,7 +1834,7 @@
             "checksumAlgorithm": "SHA-256",
             "checksum": "a03c5199a1be14443df7fd40ba8673b1c6aae04deef6688ce7d573ea489e3a20"
           },
-          "selectedVersion": "33.7.2-jre",
+          "selectedVersion": "33.8.0-jre",
           "included": false,
           "id": "com.google.guava:guava:33.4.8-jre",
           "parent": "org.apache.maven:maven-core:3.9.11",
