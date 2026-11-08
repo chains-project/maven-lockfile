@@ -39,23 +39,22 @@ public class DependencyGraph {
     }
 
     /**
-     * Uses breadth-first search to traverse the dependency graph and generate a flat dependency set.
+     * Traverses the dependency tree breadth-first. An artifact that appears at several places in
+     * the tree is returned once per occurrence.
      *
-     * @return a set of all the dependencies
+     * @return every node instance in the graph
      */
-    public Set<DependencyNode> getDependencySet() {
-        var dependencySet = new TreeSet<DependencyNode>();
+    public List<DependencyNode> getAllNodes() {
+        var nodes = new ArrayList<DependencyNode>();
         var queue = new LinkedList<>(getRoots());
 
         while (!queue.isEmpty()) {
             DependencyNode current = queue.poll();
-            if (dependencySet.add(current)) {
-                // Only add children if this node was newly added (avoids cycles)
-                queue.addAll(current.getChildren());
-            }
+            nodes.add(current);
+            queue.addAll(current.getChildren());
         }
 
-        return dependencySet;
+        return nodes;
     }
 
     @Override

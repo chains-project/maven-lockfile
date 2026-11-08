@@ -273,6 +273,7 @@
     },
     "config": {
       "includeMavenPlugins": false,
+      "includeBoms": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": true,
       "allowEnvironmentalValidationFailure": true,

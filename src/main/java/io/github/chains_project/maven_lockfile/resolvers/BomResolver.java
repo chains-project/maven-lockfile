@@ -5,7 +5,6 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
-import io.github.chains_project.maven_lockfile.graph.DependencyGraph;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,36 +78,6 @@ public class BomResolver {
         }
 
         return boms;
-    }
-
-    /**
-     * Resolve the BOM POMs for all the dependencies in a DependencyGraph.
-     *
-     * @param graph The dependency graph
-     */
-    @SuppressWarnings("deprecation")
-    public void resolveBomsForDependencies(DependencyGraph graph) {
-        ProjectBuilder projectBuilder = new ProjectBuilder(session, repositories);
-        BomResolver bomResolver = new BomResolver(session, repositories, checksumCalculator);
-
-        graph.getDependencySet().forEach(node -> {
-            var projectOptional = projectBuilder.buildFromGav(
-                    node.getGroupId().getValue(),
-                    node.getArtifactId().getValue(),
-                    node.getVersion().getValue());
-
-            if (projectOptional.isEmpty()) {
-                PluginLogManager.getLog().warn(String.format("Skipping BOM resolution for %s", node));
-                return;
-            }
-
-            Set<Pom> boms = bomResolver.resolveForProject(projectOptional.get());
-
-            if (!boms.isEmpty()) {
-                // TODO: Avoid the mutation of the graph within this function
-                node.setBoms(boms);
-            }
-        });
     }
 
     private static final Pattern PLACEHOLDER = Pattern.compile("\\$\\{([^}]+)}");

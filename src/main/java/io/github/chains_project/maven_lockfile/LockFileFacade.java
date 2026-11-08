@@ -485,7 +485,12 @@ public class LockFileFacade {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
-        graph.getDependencySet().forEach(node -> {
+        // Resolve once per unique artifact (the TreeSet dedups by groupId:artifactId:version:classifier),
+        // then attach the result to every occurrence of it.
+        List<io.github.chains_project.maven_lockfile.graph.DependencyNode> allNodes = graph.getAllNodes();
+        Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Pom> parentPoms = new TreeMap<>();
+        Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Set<Pom>> bomsByArtifact = new TreeMap<>();
+        new TreeSet<>(allNodes).forEach(node -> {
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
@@ -503,17 +508,25 @@ public class LockFileFacade {
             if (mavenProject.hasParent()) {
                 PluginLogManager.getLog().debug(String.format("Writting parent POM for dependency %s", node));
 
-                // Optimization, not to resolve parent if already resolved
-                // It has to be written in full form before lockfile v2
-                Pom pom = constructRecursivePom(mavenProject.getParent(), session, checksumCalculator);
-                node.setParentPom(pom);
+                parentPoms.put(node, constructRecursivePom(mavenProject.getParent(), session, checksumCalculator));
             }
 
             Set<Pom> boms = bomResolver.resolveForProject(mavenProject);
             if (!boms.isEmpty()) {
-                node.setBoms(boms);
+                bomsByArtifact.put(node, boms);
             }
         });
+
+        for (io.github.chains_project.maven_lockfile.graph.DependencyNode node : allNodes) {
+            Pom parentPom = parentPoms.get(node);
+            if (parentPom != null) {
+                node.setParentPom(parentPom);
+            }
+            Set<Pom> boms = bomsByArtifact.get(node);
+            if (boms != null) {
+                node.setBoms(boms);
+            }
+        }
     }
 
     private static Set<MavenPlugin> getAllPlugins(
