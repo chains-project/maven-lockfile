@@ -15,6 +15,20 @@
   "semanticCommits": "enabled",
   "minimumReleaseAge": "1d",
   "automergeStrategy": "squash",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "palantir-java-format version pinned in the spotless configuration",
+      "managerFilePatterns": [
+        "/^pom\\.xml$/"
+      ],
+      "matchStrings": [
+        "<palantirJavaFormat>\\s*<version>(?<currentValue>[^<]+)</version>"
+      ],
+      "depNameTemplate": "com.palantir.javaformat:palantir-java-format",
+      "datasourceTemplate": "maven"
+    }
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": [
@@ -57,6 +71,13 @@
       "matchPackageNames": [
         "/org.apache.maven:/"
       ]
+    },
+    {
+      "description": "Formatter bumps need a manual mvn spotless:apply before merging",
+      "matchPackageNames": [
+        "com.palantir.javaformat:palantir-java-format"
+      ],
+      "automerge": false
     }
   ]
 }

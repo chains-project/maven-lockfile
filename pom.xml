@@ -241,7 +241,9 @@
             </format>
           </formats>
           <java>
-            <palantirJavaFormat/>
+            <palantirJavaFormat>
+              <version>2.103.0</version>
+            </palantirJavaFormat>
           </java>
           <pom>
             <includes>
