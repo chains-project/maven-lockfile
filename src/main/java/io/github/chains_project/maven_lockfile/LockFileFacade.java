@@ -485,10 +485,12 @@ public class LockFileFacade {
         BomResolver bomResolver =
                 new BomResolver(session, rootProject.getRemoteArtifactRepositories(), checksumCalculator);
 
-        // Resolve once per unique artifact, then attach the result to every occurrence of it.
+        // Resolve once per unique artifact (the TreeSet dedups by groupId:artifactId:version:classifier),
+        // then attach the result to every occurrence of it.
+        List<io.github.chains_project.maven_lockfile.graph.DependencyNode> allNodes = graph.getAllNodes();
         Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Pom> parentPoms = new TreeMap<>();
         Map<io.github.chains_project.maven_lockfile.graph.DependencyNode, Set<Pom>> bomsByArtifact = new TreeMap<>();
-        graph.getDependencySet().forEach(node -> {
+        new TreeSet<>(allNodes).forEach(node -> {
             var projectOptional = builder.buildFromGav(
                     node.getGroupId().getValue(),
                     node.getArtifactId().getValue(),
@@ -515,7 +517,7 @@ public class LockFileFacade {
             }
         });
 
-        for (io.github.chains_project.maven_lockfile.graph.DependencyNode node : graph.getAllNodes()) {
+        for (io.github.chains_project.maven_lockfile.graph.DependencyNode node : allNodes) {
             Pom parentPom = parentPoms.get(node);
             if (parentPom != null) {
                 node.setParentPom(parentPom);
