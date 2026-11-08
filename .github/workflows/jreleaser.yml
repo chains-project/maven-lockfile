@@ -23,7 +23,7 @@ jobs:
       id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
       contents: write # To push the release branch and tag, and create the GitHub release
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
 
     environment: release
 
