@@ -90,6 +90,38 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void lockfileV2CheckCorrect(MavenExecutionResult result) throws Exception {
+        // contract: validate reads a lockFileVersion 2 lockfile (the singleDependencyCheckCorrect lockfile in v2).
+        assertThat(result).isSuccessful();
+        assertThat(Files.readString(result.getMavenLog().getStdout())).contains("Lockfile successfully validated.");
+    }
+
+    @MavenTest
+    public void lockfileV2StaysV2OnGenerate(MavenExecutionResult result) throws Exception {
+        // contract: without -DlockfileVersion, generate keeps the format of the existing lockfile.
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(Files.readString(lockFilePath))
+                .contains(
+                        "\"lockFileVersion\": 2",
+                        "\"artifact\": \"pkg:maven/org.junit.jupiter/junit-jupiter-api@5.9.2\"");
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        assertThat(lockFile.getLockfileVersion()).isEqualTo(2);
+        var junitDep = lockFile.getDependencies().toArray(DependencyNode[]::new)[0];
+        assertThat(junitDep.getArtifactId()).extracting(ArtifactId::getValue).isEqualTo("junit-jupiter-api");
+        assertThat(junitDep.getChecksum())
+                .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
+    }
+
+    @MavenTest
+    public void newerLockfileVersionShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: a lockfile in a format newer than this release fails with a clear error.
+        assertThat(result).isFailure();
+        assertThat(Files.readString(result.getMavenLog().getStdout()))
+                .contains("lockfile.json has lockFileVersion 99", "Upgrade maven-lockfile");
+    }
+
+    @MavenTest
     public void reactorSnapshotSiblingShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: a reactor-local sibling -SNAPSHOT (module-b) is rebuilt every run, so
         // its checksum drifts and can't be pinned. maven-lockfile leaves its checksum

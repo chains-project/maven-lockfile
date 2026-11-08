@@ -1,5 +1,8 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 import io.github.chains_project.maven_lockfile.JsonUtils;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
@@ -22,6 +25,11 @@ import java.util.stream.Stream;
  *
  */
 public class LockFile {
+
+    /** The newest {@code lockFileVersion} this release reads and writes. */
+    public static final int LATEST_LOCKFILE_VERSION = LockFileV2.VERSION;
+
+    private static final String LOCKFILE_VERSION_FIELD = "lockFileVersion";
 
     @SerializedName(
             value = "artifactId",
@@ -74,14 +82,101 @@ public class LockFile {
         this.boms = boms;
     }
     /**
-     * Create a lock file object from a serialized JSON string.
+     * Read a lock file in any supported format version.
      * @param lockFilePath the path to the lock file
      * @return a lock file object
+     * @throws LockFileFormatException if the lock file has an unsupported {@code lockFileVersion} or is malformed
      * @throws IOException if the lock file could not be read
      */
     public static LockFile readLockFile(Path lockFilePath) throws IOException {
-        String lockFileContents = Files.readString(lockFilePath);
-        return JsonUtils.fromJson(lockFileContents, LockFile.class);
+        return fromJson(
+                Files.readString(lockFilePath), lockFilePath.getFileName().toString());
+    }
+
+    /**
+     * Create a lock file object from a serialized JSON string in any supported format version.
+     * @param json the lock file contents
+     * @param name the lock file name, for error messages
+     * @return a lock file object
+     * @throws LockFileFormatException if the lock file has an unsupported {@code lockFileVersion} or is malformed
+     */
+    public static LockFile fromJson(String json, String name) throws LockFileFormatException {
+        JsonElement parsed = JsonParser.parseString(json);
+        if (!parsed.isJsonObject()) {
+            throw new LockFileFormatException(name + " is not a JSON object");
+        }
+        JsonObject root = parsed.getAsJsonObject();
+        int version = lockfileVersionOf(root, name);
+        if (version == LockFileV2.VERSION) {
+            root = LockFileV2.decode(root);
+        } else if (version > LATEST_LOCKFILE_VERSION) {
+            throw new LockFileFormatException(name + " has lockFileVersion " + version
+                    + ", but this release of maven-lockfile only reads lockFileVersion 1 to " + LATEST_LOCKFILE_VERSION
+                    + ". Upgrade maven-lockfile" + generatedBy(root) + ".");
+        } else if (version < 1) {
+            throw new LockFileFormatException(name + " has an invalid lockFileVersion " + version);
+        }
+        root.addProperty(LOCKFILE_VERSION_FIELD, version);
+        return JsonUtils.fromJson(root, LockFile.class);
+    }
+
+    private static int lockfileVersionOf(JsonObject root, String name) throws LockFileFormatException {
+        JsonElement version = root.get(LOCKFILE_VERSION_FIELD);
+        if (version == null || version.isJsonNull()) {
+            return 1;
+        }
+        try {
+            return version.getAsInt();
+        } catch (RuntimeException e) {
+            throw new LockFileFormatException(name + " has an invalid lockFileVersion " + version);
+        }
+    }
+
+    /** The release recorded in the lock file's config, as a hint for which release to upgrade to. */
+    private static String generatedBy(JsonObject root) {
+        try {
+            String release = root.getAsJsonObject("metaData")
+                    .getAsJsonObject("config")
+                    .get("mavenLockfileVersion")
+                    .getAsString();
+            return " to at least " + release + ", the release that generated it";
+        } catch (RuntimeException e) {
+            return "";
+        }
+    }
+
+    /**
+     * Serialize this lock file in the given format version. Both versions hold the same content; version 2 stores
+     * each artifact's coordinates, checksum and repository once instead of at every occurrence.
+     * @param lockfileVersion a supported {@code lockFileVersion}
+     * @return the JSON lock file
+     */
+    public String toJson(int lockfileVersion) {
+        JsonObject v1 = JsonUtils.toJsonTree(this).getAsJsonObject();
+        v1.addProperty(LOCKFILE_VERSION_FIELD, lockfileVersion);
+        switch (lockfileVersion) {
+            case 1:
+                return JsonUtils.toJson(v1);
+            case LockFileV2.VERSION:
+                return JsonUtils.toJsonKeepingNulls(LockFileV2.encode(v1));
+            default:
+                throw new IllegalArgumentException("Unsupported lockFileVersion " + lockfileVersion);
+        }
+    }
+
+    /**
+     * @param lockfileVersion a {@code lockFileVersion}
+     * @return whether this release can read and write that format version
+     */
+    public static boolean isSupportedLockfileVersion(int lockfileVersion) {
+        return lockfileVersion >= 1 && lockfileVersion <= LATEST_LOCKFILE_VERSION;
+    }
+
+    /**
+     * @return the format version of the file this lock file was read from, or 1 for a lock file generated in memory
+     */
+    public int getLockfileVersion() {
+        return lockfileVersion;
     }
 
     /**

@@ -6,6 +6,7 @@ import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculat
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.LockFileFormatException;
 import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
@@ -35,6 +36,14 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
     boolean getConfigFromFile;
 
     /**
+     * The lockfile format to write: {@code 1}, or {@code 2}, which records each artifact's checksum and repository
+     * once instead of at every occurrence. Defaults to the format of the existing lockfile, or {@code 1} if there is
+     * none.
+     */
+    @Parameter(property = "lockfileVersion")
+    Integer lockfileVersion;
+
+    /**
      * Generate a lock file for the dependencies of the current project.
      * @throws MojoExecutionException if the lock file could not be written or the generation failed.
      */
@@ -48,6 +57,13 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
                     : null;
+            int formatVersion = lockfileVersion != null
+                    ? lockfileVersion
+                    : lockFileFromFile != null ? lockFileFromFile.getLockfileVersion() : 1;
+            if (!LockFile.isSupportedLockfileVersion(formatVersion)) {
+                throw new MojoExecutionException("Unsupported lockfileVersion " + formatVersion
+                        + ". Supported versions are 1 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
+            }
             Config config = getConfigFromFile ? getConfig(lockFileFromFile) : getConfig();
             if (config.isHermetic()) {
                 ensureHermeticExtensionRegistered();
@@ -73,8 +89,10 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             }
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);
-            Files.writeString(lockFilePath, JsonUtils.toJson(lockFile));
+            Files.writeString(lockFilePath, lockFile.toJson(formatVersion));
             getLog().info("Lockfile written to " + lockFilePath);
+        } catch (LockFileFormatException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         } catch (IOException e) {
             getLog().error(e);
         }

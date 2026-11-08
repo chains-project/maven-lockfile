@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.LockFileFormatException;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
@@ -71,6 +72,8 @@ public class FreezeDependencyMojo extends AbstractMojo {
             updateDependencies(pomModel, filteredDependencies);
             updatePlugins(pomModel, lockFile.getMavenPlugins());
             writePomLockFile(pomModel, pomLockFile);
+        } catch (LockFileFormatException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         } catch (IOException | XmlPullParserException e) {
             throw new MojoExecutionException("Could not freeze versions", e);
         }
