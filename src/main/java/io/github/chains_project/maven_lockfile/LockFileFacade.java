@@ -321,6 +321,10 @@ public class LockFileFacade {
                             repositoryInformation.getRepositoryId(),
                             checksumCalculator.getChecksumAlgorithm(),
                             checksum);
+            // Resolved outside the dependency graph, so no conflict resolution applies: the recorded
+            // version is the one used.
+            node.setSelectedVersion(artifact.getVersion());
+            node.setIncluded(true);
             String pluginKey = gavKey(artifact.getTriggeringPluginGroupId(), artifact.getTriggeringPluginArtifactId());
             byPlugin.computeIfAbsent(pluginKey, k -> new TreeSet<>()).add(node);
         } catch (Exception e) {
