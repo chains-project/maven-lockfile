@@ -1,11 +1,13 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.github.packageurl.MalformedPackageURLException;
+import com.github.packageurl.PackageURL;
+import com.github.packageurl.PackageURLBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -308,8 +310,9 @@ final class LockFileV2 {
     }
 
     /**
-     * The package URL of the coordinates, e.g. {@code pkg:maven/org.example/lib@1.0?classifier=sources&type=jar}, or
-     * {@code null} if the group, artifact or version is missing.
+     * The canonical package URL of the coordinates, e.g.
+     * {@code pkg:maven/org.example/lib@1.0?classifier=sources&type=jar}, or {@code null} if the group, artifact or
+     * version is missing or the coordinates do not form a valid package URL.
      */
     static String purlOf(JsonObject coordinates) {
         String groupId = stringOrNull(coordinates, "groupId");
@@ -318,21 +321,22 @@ final class LockFileV2 {
         if (groupId == null || artifactId == null || version == null) {
             return null;
         }
-        StringBuilder purl = new StringBuilder("pkg:maven/")
-                .append(percentEncode(groupId))
-                .append('/')
-                .append(percentEncode(artifactId))
-                .append('@')
-                .append(percentEncode(version));
-        char separator = '?';
+        PackageURLBuilder purl = PackageURLBuilder.aPackageURL()
+                .withType(PackageURL.StandardTypes.MAVEN)
+                .withNamespace(groupId)
+                .withName(artifactId)
+                .withVersion(version);
         for (String qualifier : List.of("classifier", "type")) {
             String value = stringOrNull(coordinates, qualifier);
             if (value != null) {
-                purl.append(separator).append(qualifier).append('=').append(percentEncode(value));
-                separator = '&';
+                purl.withQualifier(qualifier, value);
             }
         }
-        return purl.toString();
+        try {
+            return purl.build().canonicalize();
+        } catch (MalformedPackageURLException e) {
+            return null;
+        }
     }
 
     private static JsonElement derivedId(JsonObject coordinates) {
@@ -348,18 +352,5 @@ final class LockFileV2 {
     private static String stringOrNull(JsonObject object, String field) {
         JsonElement value = object.get(field);
         return value != null && value.isJsonPrimitive() ? value.getAsString() : null;
-    }
-
-    private static String percentEncode(String value) {
-        StringBuilder encoded = new StringBuilder();
-        for (byte b : value.getBytes(StandardCharsets.UTF_8)) {
-            int c = b & 0xFF;
-            if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || ".-_~".indexOf(c) >= 0) {
-                encoded.append((char) c);
-            } else {
-                encoded.append('%').append(String.format("%02X", c));
-            }
-        }
-        return encoded.toString();
     }
 }
