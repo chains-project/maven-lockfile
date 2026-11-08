@@ -90,12 +90,12 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.14.0</version>
+      <version>2.15.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.resolver</groupId>
       <artifactId>maven-resolver-api</artifactId>
-      <version>2.0.24</version>
+      <version>2.0.25</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-testing</groupId>
@@ -142,7 +142,14 @@
     <dependency>
       <groupId>org.instancio</groupId>
       <artifactId>instancio-junit</artifactId>
-      <version>5.6.0</version>
+      <version>6.2.1</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- instancio 6 needs the slf4j 2.x API; maven-core otherwise puts 1.7.x on the test classpath -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.20</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -196,7 +203,7 @@
       <plugin>
         <groupId>dev.sigstore</groupId>
         <artifactId>sigstore-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.3.0</version>
         <configuration>
           <skip>${sigstore.skip}</skip>
         </configuration>
@@ -217,7 +224,7 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.10.4</version>
         <configuration>
           <formats>
             <format>
@@ -252,12 +259,12 @@
       <plugin>
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
-        <version>4.3.1</version>
+        <version>5.1.0</version>
         <dependencies>
           <dependency>
             <groupId>org.apache.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>5.0.3</version>
+            <version>6.0.0</version>
             <scope>runtime</scope>
           </dependency>
         </dependencies>
@@ -387,7 +394,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -436,7 +443,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.6.1</version>
         <configuration>
           <!--
                ! currently needed to run integration tests.
