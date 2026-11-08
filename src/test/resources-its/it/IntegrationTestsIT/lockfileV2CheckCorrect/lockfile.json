@@ -60,32 +60,6 @@
     }
   ],
   "mavenPlugins": [],
-  "metaData": {
-    "environment": {
-      "osName": "Linux",
-      "mavenVersion": "3.9.9",
-      "javaVersion": "21.0.9"
-    },
-    "config": {
-      "includeMavenPlugins": false,
-      "allowValidationFailure": false,
-      "allowPomValidationFailure": true,
-      "allowMavenPluginValidationFailure": false,
-      "allowEnvironmentalValidationFailure": true,
-      "includeEnvironment": true,
-      "reduced": false,
-      "mavenLockfileVersion": "5.14.3-SNAPSHOT",
-      "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256",
-      "includeBoms": false,
-      "allowBomValidationFailure": false,
-      "includeParentPom": false,
-      "allowParentPomValidationFailure": false,
-      "includeMavenExtensions": false,
-      "allowMavenExtensionsValidationFailure": false,
-      "hermetic": false
-    }
-  },
   "artifacts": {
     "pkg:maven/com.mycompany.app/single-dependency-check-correct@1?type=pom": {
       "groupId": "com.mycompany.app",
@@ -140,6 +114,32 @@
       "checksum": "58812de60898d976fb81ef3b62da05c6604c18fd4a249f5044282479fc286af2",
       "resolved": "https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar",
       "repositoryId": "central"
+    }
+  },
+  "metaData": {
+    "environment": {
+      "osName": "Linux",
+      "mavenVersion": "3.9.9",
+      "javaVersion": "21.0.9"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "allowPomValidationFailure": true,
+      "allowMavenPluginValidationFailure": false,
+      "allowEnvironmentalValidationFailure": true,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.14.3-SNAPSHOT",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "includeMavenExtensions": false,
+      "allowMavenExtensionsValidationFailure": false,
+      "hermetic": false
     }
   }
 }

@@ -308,7 +308,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
     },
     ...
   },
-  ...
+  "metaData": {...}
 }
 ```
 If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.

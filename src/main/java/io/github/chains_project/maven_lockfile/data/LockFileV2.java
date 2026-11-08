@@ -65,8 +65,22 @@ final class LockFileV2 {
         }
         JsonObject table = new JsonObject();
         artifacts.forEach(table::add);
-        v2.add(ARTIFACTS, table);
-        return v2;
+        return withArtifactsBeforeMetaData(v2, table);
+    }
+
+    /** Places the table above {@code metaData}, or last if there is none. */
+    private static JsonObject withArtifactsBeforeMetaData(JsonObject v2, JsonObject table) {
+        JsonObject ordered = new JsonObject();
+        for (Map.Entry<String, JsonElement> member : v2.entrySet()) {
+            if (member.getKey().equals("metaData")) {
+                ordered.add(ARTIFACTS, table);
+            }
+            ordered.add(member.getKey(), member.getValue());
+        }
+        if (!ordered.has(ARTIFACTS)) {
+            ordered.add(ARTIFACTS, table);
+        }
+        return ordered;
     }
 
     /**

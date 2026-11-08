@@ -65,6 +65,9 @@ class LockFileV2Test {
                 JsonParser.parseString(read(Path.of("lockfile.json"))).getAsJsonObject());
         String json = JsonUtils.toJsonKeepingNulls(v2);
 
+        List<String> keys = List.copyOf(v2.keySet());
+        assertThat(keys.indexOf("artifacts")).isEqualTo(keys.indexOf("metaData") - 1);
+
         assertThat(v2.getAsJsonObject("artifacts").keySet())
                 .contains("pkg:maven/com.google.code.gson/gson@2.14.0", "pkg:maven/org.apache/apache@35?type=pom");
         // Each checksum appears once, in the artifacts table.
