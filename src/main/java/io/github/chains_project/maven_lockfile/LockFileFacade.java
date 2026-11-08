@@ -154,6 +154,10 @@ public class LockFileFacade {
         Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
         if (config.isHermetic()) {
+            PluginLogManager.getLog()
+                    .warn("hermetic=true is EXPERIMENTAL: its behaviour and the lockfile content it produces may "
+                            + "change or be removed in any release without notice. Do not rely on it for "
+                            + "production builds.");
             plugins =
                     attachDynamicallyResolvedDependencies(session, checksumCalculator, pom, roots, plugins, extensions);
         }

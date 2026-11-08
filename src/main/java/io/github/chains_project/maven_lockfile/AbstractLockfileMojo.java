@@ -77,6 +77,10 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowMavenExtensionsValidationFailure")
     protected Boolean allowMavenExtensionsValidationFailure;
 
+    /**
+     * <b>Experimental.</b> Merge artifacts dynamically resolved during a real build into the lockfile.
+     * Behaviour and lockfile output may change or be removed in any release without notice.
+     */
     @Parameter(property = "hermetic")
     protected Boolean hermetic;
 
