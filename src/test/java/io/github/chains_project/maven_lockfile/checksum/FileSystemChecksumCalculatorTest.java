@@ -14,6 +14,13 @@ import org.apache.maven.artifact.repository.MavenArtifactRepository;
 import org.apache.maven.artifact.repository.layout.DefaultRepositoryLayout;
 import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.internal.impl.DefaultLocalPathComposer;
+import org.eclipse.aether.internal.impl.DefaultLocalPathPrefixComposerFactory;
+import org.eclipse.aether.internal.impl.DefaultTrackingFileManager;
+import org.eclipse.aether.internal.impl.EnhancedLocalRepositoryManagerFactory;
+import org.eclipse.aether.repository.LocalRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -21,6 +28,17 @@ public class FileSystemChecksumCalculatorTest {
 
     @TempDir
     Path tempDir;
+
+    /** A session whose local repository is {@link #tempDir}, read by the resolver's own manager. */
+    private RepositorySystemSession localRepositorySession() throws Exception {
+        DefaultRepositorySystemSession session = new DefaultRepositorySystemSession(onSessionEnded -> false);
+        session.setLocalRepositoryManager(new EnhancedLocalRepositoryManagerFactory(
+                        new DefaultLocalPathComposer(),
+                        new DefaultTrackingFileManager(),
+                        new DefaultLocalPathPrefixComposerFactory())
+                .newInstance(session, new LocalRepository(tempDir.toFile())));
+        return session;
+    }
 
     @Test
     void snapshotArtifactResolvedUrlUsesBaseVersion() throws Exception {
@@ -61,6 +79,7 @@ public class FileSystemChecksumCalculatorTest {
 
         // Set up the building request with a remote repository
         DefaultProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        buildingRequest.setRepositorySession(localRepositorySession());
         MavenArtifactRepository centralRepo = new MavenArtifactRepository(
                 repositoryId,
                 repositoryUrl,
@@ -112,6 +131,7 @@ public class FileSystemChecksumCalculatorTest {
         artifact.setFile(artifactFile.toFile());
 
         DefaultProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        buildingRequest.setRepositorySession(localRepositorySession());
         MavenArtifactRepository centralRepo = new MavenArtifactRepository(
                 repositoryId,
                 repositoryUrl,
@@ -161,6 +181,7 @@ public class FileSystemChecksumCalculatorTest {
         artifact.setFile(artifactFile.toFile());
 
         DefaultProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        buildingRequest.setRepositorySession(localRepositorySession());
         MavenArtifactRepository redHatGARepo = new MavenArtifactRepository(
                 repositoryId,
                 repositoryUrl,

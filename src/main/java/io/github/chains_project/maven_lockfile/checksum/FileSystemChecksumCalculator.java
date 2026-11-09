@@ -4,17 +4,22 @@ import com.google.common.io.BaseEncoding;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.repository.LocalArtifactRequest;
+import org.eclipse.aether.repository.LocalArtifactResult;
+import org.eclipse.aether.repository.LocalRepository;
+import org.eclipse.aether.repository.LocalRepositoryManager;
+import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.resolution.ArtifactRequest;
 
 public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
@@ -76,92 +81,43 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
             return Optional.empty();
         }
         try {
-            Path artifactFolderPath = artifact.getFile().toPath().getParent();
-            Path remoteRepositoriesPath = artifactFolderPath.resolve("_remote.repositories");
-            List<String> locallySavedRemoteRepositories = Files.readAllLines(remoteRepositoriesPath);
-
-            Map<String, String> repositoryIdsByKey = repositoryIdsByKey(buildingRequest);
-
-            String repository = null;
-            boolean foundWithEmptyRepoId = false;
-
-            String type = artifact.getArtifactHandler().getExtension();
-
-            String classifier = artifact.getClassifier() == null ? "" : "-" + artifact.getClassifier();
-            String artifactFileName = artifact.getArtifactId() + "-" + artifact.getVersion() + classifier + "." + type;
-
-            for (String remoteRepository : locallySavedRemoteRepositories) {
-                if (!remoteRepository.startsWith(artifactFileName)) {
-                    continue;
-                }
-                // Parsing 'repository' from 'artifactId-version.type>repository='
-                repository = parseRepositoryIdFromLine(remoteRepository, artifactFileName);
-                if (repository != null && repository.isEmpty()) {
-                    // Empty repo ID means the artifact was resolved locally (e.g. copied from user's
-                    // .m2 to an isolated repo). Record this and keep looking for a non-empty entry.
-                    foundWithEmptyRepoId = true;
-                    repository = null;
-                    continue;
-                }
-                repository = repositoryIdsByKey.get(repository);
-                if (repository == null) {
-                    continue;
-                }
-
-                break;
-            }
-
-            if (repository == null) {
-                if (foundWithEmptyRepoId) {
-                    // Artifact was locally installed/copied (no remote attribution in _remote.repositories).
-                    // Attempt to find the correct repo by checking the user's default .m2 repository,
-                    // which retains the original remote attribution from when the artifact was downloaded.
-                    Path isoRepoBase = java.nio.file.Paths.get(
-                            buildingRequest.getLocalRepository().getBasedir());
-                    if (artifactFolderPath.startsWith(isoRepoBase)) {
-                        Path relPath = isoRepoBase.relativize(artifactFolderPath);
-                        Path userM2 = java.nio.file.Paths.get(System.getProperty("user.home"), ".m2", "repository");
-                        Path fallbackFolder = userM2.resolve(relPath);
-                        Path remoteRepositoriesFile = fallbackFolder.resolve("_remote.repositories");
-                        if (Files.exists(remoteRepositoriesFile)) {
-                            for (String line : Files.readAllLines(remoteRepositoriesFile)) {
-                                if (!line.startsWith(artifactFileName)) continue;
-
-                                String remoteRepository = parseRepositoryIdFromLine(line, artifactFileName);
-                                if (remoteRepository != null && repositoryIdsByKey.containsKey(remoteRepository)) {
-                                    repository = repositoryIdsByKey.get(remoteRepository);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (repository == null) {
-                    // No repository found, possible locally installed artifact or unknown format
-                    return Optional.empty();
-                }
-            }
-
-            // Convert repository to url
-            final String finalRepository = repository;
-            Optional<ArtifactRepository> remoteRepository = buildingRequest.getRemoteRepositories().stream()
-                    .filter(repo -> (repo.getId().equals(finalRepository)))
-                    .findFirst();
-
-            if (remoteRepository.isEmpty()) {
-                PluginLogManager.getLog()
-                        .warn(String.format("Could not find repository '%s' in building request.", finalRepository));
+            // The local repository manager knows how the running Maven records an artifact's origin
+            // (_remote.repositories keys differ between Resolver 1 and 2 and are configurable), so
+            // ask it instead of parsing that resolver-internal file.
+            RepositorySystemSession session = buildingRequest.getRepositorySession();
+            LocalArtifactRequest request = new LocalArtifactRequest(
+                    RepositoryUtils.toArtifact(artifact),
+                    RepositoryUtils.toRepos(buildingRequest.getRemoteRepositories()),
+                    null);
+            // File-based accessors are deprecated in Resolver 2 but the Path ones do not exist in
+            // Resolver 1, which Maven 3.9 provides at runtime.
+            LocalArtifactResult local = session.getLocalRepositoryManager().find(session, request);
+            if (local.getFile() == null || !directoryOf(local.getFile()).equals(directoryOf(artifact.getFile()))) {
+                // The file was not taken from the local repository (e.g. a reactor module's output).
                 return Optional.empty();
             }
+
+            RemoteRepository repository = local.getRepository();
+            if (repository == null && local.isAvailable()) {
+                repository = findInUserLocalRepository(session, request);
+            }
+            if (repository == null) {
+                // Locally installed artifact, or downloaded from a repository this build does not use.
+                return Optional.empty();
+            }
+
+            String type = artifact.getArtifactHandler().getExtension();
+            String classifier = artifact.getClassifier() == null ? "" : "-" + artifact.getClassifier();
+            String artifactFileName = artifact.getArtifactId() + "-" + artifact.getVersion() + classifier + "." + type;
 
             String groupId = artifact.getGroupId().replace(".", "/");
             String artifactId = artifact.getArtifactId();
             String baseVersion = artifact.getBaseVersion();
 
-            String url = remoteRepository.get().getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/"
-                    + baseVersion + "/" + artifactFileName;
+            String url = repository.getUrl().replaceAll("/$", "") + "/" + groupId + "/" + artifactId + "/" + baseVersion
+                    + "/" + artifactFileName;
 
-            return Optional.of(new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository)));
+            return Optional.of(new RepositoryInformation(ResolvedUrl.of(url), RepositoryId.of(repository.getId())));
         } catch (Exception e) {
             PluginLogManager.getLog()
                     .warn(String.format("Could not fetch remote repository for artifact %s", artifact), e);
@@ -170,44 +126,29 @@ public class FileSystemChecksumCalculator extends AbstractChecksumCalculator {
     }
 
     /**
-     * Maps each key a repository may be recorded under in _remote.repositories to its ID. Maven
-     * 3.9 records the plain ID; Maven 3.10 (Resolver 2) records {@code <id>-<sha1 of url>}.
+     * An artifact copied into an isolated local repository (e.g. by an integration test harness) is
+     * recorded there as locally installed. The user's default local repository may still record
+     * where it was downloaded from.
      */
-    private static Map<String, String> repositoryIdsByKey(ProjectBuildingRequest buildingRequest)
-            throws NoSuchAlgorithmException {
-        Map<String, String> idsByKey = new HashMap<>();
-        for (ArtifactRepository repository : buildingRequest.getRemoteRepositories()) {
-            byte[] urlHash = MessageDigest.getInstance("SHA-1")
-                    .digest(repository.getUrl().getBytes(StandardCharsets.UTF_8));
-            idsByKey.put(repository.getId(), repository.getId());
-            idsByKey.put(
-                    repository.getId() + "-" + BaseEncoding.base16().lowerCase().encode(urlHash), repository.getId());
+    private RemoteRepository findInUserLocalRepository(RepositorySystemSession session, LocalArtifactRequest request) {
+        Path userLocalRepository = Paths.get(System.getProperty("user.home"), ".m2", "repository")
+                .toAbsolutePath()
+                .normalize();
+        Path sessionLocalRepository = session.getLocalRepository()
+                .getBasedir()
+                .toPath()
+                .toAbsolutePath()
+                .normalize();
+        if (userLocalRepository.equals(sessionLocalRepository) || !Files.isDirectory(userLocalRepository)) {
+            return null;
         }
-        return idsByKey;
+        LocalRepositoryManager userManager =
+                repositorySystem.newLocalRepositoryManager(session, new LocalRepository(userLocalRepository.toFile()));
+        return userManager.find(session, request).getRepository();
     }
 
-    /**
-     * Parses a repository ID from a _remote.repositories file line.
-     * Format: "filename&gt;repositoryId="
-     *
-     * @param line The line to parse
-     * @param artifactFilename The artifact filename to match
-     * @return The repository ID if line matches (may be empty string), null if line doesn't match
-     */
-    private String parseRepositoryIdFromLine(String line, String artifactFilename) {
-        if (!line.startsWith(artifactFilename + ">")) {
-            return null;
-        }
-
-        int start = line.indexOf(">");
-        int end = line.indexOf("=");
-
-        if (start == -1 || end == -1) {
-            PluginLogManager.getLog().warn("Possible unknown _remote.repositories format: " + line);
-            return null;
-        }
-
-        return line.substring(start + 1, end);
+    private static Path directoryOf(File file) {
+        return file.toPath().toAbsolutePath().normalize().getParent();
     }
 
     @Override
