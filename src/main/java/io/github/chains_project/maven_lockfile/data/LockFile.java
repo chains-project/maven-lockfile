@@ -126,6 +126,8 @@ public class LockFile {
 
     private static final String NO_VALUE = "<none>";
 
+    // TODO: merge addNode and addPom once DependencyNode, Pom and AbstractMavenComponent share a unified artifact
+    // model; they differ only in the coordinates and nested artifacts each class exposes.
     private static void addNode(Map<String, Map<String, Set<String>>> attributesByArtifact, DependencyNode node) {
         add(
                 attributesByArtifact,
