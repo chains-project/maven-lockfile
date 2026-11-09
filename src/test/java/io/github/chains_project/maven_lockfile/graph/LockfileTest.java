@@ -77,7 +77,8 @@ public class LockfileTest {
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("1");
-        // The plugin's B has another checksum; its A2s have the same one, or none.
+        // The plugin's B has another checksum
+        // `other` and `B` (from dependencyNodeB)
         var otherB = jar("B", "Bg", "other");
         otherB.addChild(jar("A2", "Ag2", ""));
         var plugin = new MavenPlugin(
