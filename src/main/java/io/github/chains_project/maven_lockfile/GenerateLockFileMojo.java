@@ -66,10 +66,11 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                     mojo.getMojoDescriptor().getPluginDescriptor().getPluginArtifact()));
             LockFile lockFile = LockFileFacade.generateLockFileFromProject(
                     session, project, dependencyCollectorBuilder, checksumCalculator, metaData, repositorySystem);
-            List<String> conflicts = lockFile.conflictingChecksums();
+            List<String> conflicts = lockFile.conflictingArtifacts();
             if (!conflicts.isEmpty()) {
-                throw new MojoExecutionException("These artifacts were resolved with different checksums, so the"
-                        + " lockfile cannot pin which file is used:\n  " + String.join("\n  ", conflicts));
+                throw new MojoExecutionException("These artifacts were resolved with different checksums or sources,"
+                        + " but the lockfile records exactly one checksum and one source per artifact:\n  "
+                        + String.join("\n  ", conflicts));
             }
 
             Path lockFilePath = LockFileFacade.getLockFilePath(project, lockfileName);

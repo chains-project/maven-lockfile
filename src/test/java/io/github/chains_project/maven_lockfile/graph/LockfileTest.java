@@ -77,8 +77,8 @@ public class LockfileTest {
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
         var version = VersionNumber.of("1");
-        // The plugin's B has another checksum
-        // `other` and `B` (from dependencyNodeB)
+        // The plugin's B has checksum `other` instead of `B` (from dependencyNodeB), and its A2 has no checksum
+        // instead of `2` (from dependencyNodeAChild2): a missing checksum conflicts too.
         var otherB = jar("B", "Bg", "other");
         otherB.addChild(jar("A2", "Ag2", ""));
         var plugin = new MavenPlugin(
@@ -102,7 +102,93 @@ public class LockfileTest {
                 null,
                 Set.of());
 
-        assertThat(lockFile.conflictingChecksums()).containsExactly("Bg:B:1::jar [B, other]");
+        assertThat(lockFile.conflictingArtifacts())
+                .containsExactly("Ag2:A2:1::jar checksum [2, <none>]", "Bg:B:1::jar checksum [B, other]");
+    }
+
+    @Test
+    void shouldReportArtifactsResolvedFromDifferentRepositories() {
+        var version = VersionNumber.of("1");
+        // Same file, but the plugin's copy of B was recorded from another repository than the project's.
+        var plugin = new MavenPlugin(
+                GroupId.of("PgA"),
+                ArtifactId.of("PA"),
+                version,
+                ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
+                "SHA-1",
+                "PA",
+                Set.of(jarB("jboss", "https://jboss.example/Bg/B/1/B-1.jar")),
+                null);
+        var lockFile = new LockFile(
+                GroupId.of("g"),
+                ArtifactId.of("a"),
+                version,
+                null,
+                Set.of(jarB("central", "https://central.example/Bg/B/1/B-1.jar")),
+                Set.of(plugin),
+                Set.of(),
+                null,
+                Set.of());
+
+        assertThat(lockFile.conflictingArtifacts())
+                .containsExactly(
+                        "Bg:B:1::jar resolved [https://central.example/Bg/B/1/B-1.jar,"
+                                + " https://jboss.example/Bg/B/1/B-1.jar]",
+                        "Bg:B:1::jar repositoryId [central, jboss]");
+    }
+
+    @Test
+    void shouldReportPomsResolvedFromDifferentRepositories() {
+        var groupId = GroupId.of("g");
+        var artifactId = ArtifactId.of("a");
+        var version = VersionNumber.of("1");
+        // The project's parent and a BOM are the same POM, recorded from different repositories.
+        var parent = pomX("mirror", "https://mirror.example/Xg/X/1/X-1.pom");
+        var bom = pomX("central", "https://central.example/Xg/X/1/X-1.pom");
+        var lockFile = new LockFile(
+                groupId,
+                artifactId,
+                version,
+                new Pom(groupId, artifactId, version, "pom.xml", null, null, "SHA-256", "POM-CHECKSUM", parent),
+                Set.of(),
+                Set.of(),
+                Set.of(),
+                null,
+                Set.of(bom));
+
+        assertThat(lockFile.conflictingArtifacts())
+                .containsExactly(
+                        "Xg:X:1::pom resolved [https://central.example/Xg/X/1/X-1.pom,"
+                                + " https://mirror.example/Xg/X/1/X-1.pom]",
+                        "Xg:X:1::pom repositoryId [central, mirror]");
+    }
+
+    private DependencyNode jarB(String repositoryId, String resolved) {
+        return new DependencyNode(
+                ArtifactId.of("B"),
+                GroupId.of("Bg"),
+                VersionNumber.of("1"),
+                null,
+                ArtifactType.of("jar"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.of(resolved),
+                RepositoryId.of(repositoryId),
+                "SHA-1",
+                "B");
+    }
+
+    private Pom pomX(String repositoryId, String resolved) {
+        return new Pom(
+                GroupId.of("Xg"),
+                ArtifactId.of("X"),
+                VersionNumber.of("1"),
+                null,
+                ResolvedUrl.of(resolved),
+                RepositoryId.of(repositoryId),
+                "SHA-256",
+                "X",
+                null);
     }
 
     private DependencyNode jar(String artifactId, String groupId, String checksum) {

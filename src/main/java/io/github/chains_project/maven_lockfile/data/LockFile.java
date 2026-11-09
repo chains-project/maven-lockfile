@@ -6,14 +6,15 @@ import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -85,42 +86,110 @@ public class LockFile {
     }
 
     /**
-     * Artifacts that occur more than once with different checksums, so the lockfile cannot pin which file is used.
-     * Covers the dependencies, plugins and extensions with their dependencies, and skips occurrences without a
-     * checksum. Other fields such as {@code resolved} may legitimately differ for the same file.
+     * Artifacts whose occurrences disagree on {@code checksumAlgorithm}, {@code checksum}, {@code resolved} or
+     * {@code repositoryId}. Each artifact must have exactly one checksum and one source, so the lockfile pins one
+     * file and one place to fetch it from; a missing value differs from any present one. Covers the project POM,
+     * BOMs, parent POMs, dependencies, and plugins and extensions with their dependencies. A plugin or extension is
+     * the same artifact as a JAR dependency with its coordinates, and a POM the same as a dependency of type pom.
      *
-     * @return one {@code groupId:artifactId:version:classifier:type [checksums]} line per conflicting artifact
+     * @return one {@code groupId:artifactId:version:classifier:type attribute [values]} line per attribute that
+     *     differs, where {@code <none>} stands for a missing value
      */
-    public List<String> conflictingChecksums() {
-        Map<String, Set<String>> checksums = new TreeMap<>();
-        Stream.concat(mavenPlugins.stream(), mavenExtensions.stream()).forEach(component -> {
-            String coordinates = component.getGroupId().getValue() + ":"
-                    + component.getArtifactId().getValue() + ":"
-                    + component.getVersion().getValue() + "::jar";
-            addChecksum(checksums, coordinates, component.getChecksum());
-            component.getDependencies().forEach(node -> addChecksums(checksums, node));
-        });
-        dependencies.forEach(node -> addChecksums(checksums, node));
-        return checksums.entrySet().stream()
-                .filter(entry -> entry.getValue().size() > 1)
-                .map(entry -> entry.getKey() + " " + entry.getValue())
-                .collect(Collectors.toList());
-    }
-
-    private static void addChecksums(Map<String, Set<String>> checksums, DependencyNode node) {
-        String coordinates = node.getGroupId().getValue() + ":"
-                + node.getArtifactId().getValue() + ":"
-                + node.getVersion().getValue() + ":"
-                + (node.getClassifier() == null ? "" : node.getClassifier().getValue()) + ":"
-                + (node.getType() == null ? "jar" : node.getType().getValue());
-        addChecksum(checksums, coordinates, node.getChecksum());
-        node.getChildren().forEach(child -> addChecksums(checksums, child));
-    }
-
-    private static void addChecksum(Map<String, Set<String>> checksums, String coordinates, String checksum) {
-        if (checksum != null && !checksum.isEmpty()) {
-            checksums.computeIfAbsent(coordinates, ignored -> new TreeSet<>()).add(checksum);
+    public List<String> conflictingArtifacts() {
+        Map<String, Map<String, Set<String>>> attributesByArtifact = new TreeMap<>();
+        if (pom != null) {
+            addPom(attributesByArtifact, pom);
         }
+        getBoms().forEach(bom -> addPom(attributesByArtifact, bom));
+        getDependencies().forEach(node -> addNode(attributesByArtifact, node));
+        Stream.concat(getMavenPlugins().stream(), getMavenExtensions().stream()).forEach(component -> {
+            add(
+                    attributesByArtifact,
+                    coordinates(component.getGroupId(), component.getArtifactId(), component.getVersion(), "", "jar"),
+                    component.getChecksumAlgorithm(),
+                    component.getChecksum(),
+                    component.getResolved(),
+                    component.getRepositoryId());
+            if (component.getParentPom() != null) {
+                addPom(attributesByArtifact, component.getParentPom());
+            }
+            component.getDependencies().forEach(node -> addNode(attributesByArtifact, node));
+        });
+        List<String> conflicts = new ArrayList<>();
+        attributesByArtifact.forEach((artifact, attributes) -> attributes.forEach((attribute, values) -> {
+            if (values.size() > 1) {
+                conflicts.add(artifact + " " + attribute + " " + values);
+            }
+        }));
+        return conflicts;
+    }
+
+    private static final String NO_VALUE = "<none>";
+
+    private static void addNode(Map<String, Map<String, Set<String>>> attributesByArtifact, DependencyNode node) {
+        add(
+                attributesByArtifact,
+                coordinates(
+                        node.getGroupId(),
+                        node.getArtifactId(),
+                        node.getVersion(),
+                        node.getClassifier() == null ? "" : node.getClassifier().getValue(),
+                        node.getType() == null ? "jar" : node.getType().getValue()),
+                node.getChecksumAlgorithm(),
+                node.getChecksum(),
+                node.getResolved(),
+                node.getRepositoryId());
+        if (node.getParentPom() != null) {
+            addPom(attributesByArtifact, node.getParentPom());
+        }
+        if (node.getBoms() != null) {
+            node.getBoms().forEach(bom -> addPom(attributesByArtifact, bom));
+        }
+        node.getChildren().forEach(child -> addNode(attributesByArtifact, child));
+    }
+
+    private static void addPom(Map<String, Map<String, Set<String>>> attributesByArtifact, Pom pom) {
+        add(
+                attributesByArtifact,
+                coordinates(pom.getGroupId(), pom.getArtifactId(), pom.getVersion(), "", "pom"),
+                pom.getChecksumAlgorithm(),
+                pom.getChecksum(),
+                pom.getResolved(),
+                pom.getRepositoryId());
+        if (pom.getParent() != null) {
+            addPom(attributesByArtifact, pom.getParent());
+        }
+        if (pom.getBoms() != null) {
+            pom.getBoms().forEach(bom -> addPom(attributesByArtifact, bom));
+        }
+    }
+
+    private static String coordinates(
+            GroupId groupId, ArtifactId artifactId, VersionNumber version, String classifier, String type) {
+        return groupId.getValue() + ":" + artifactId.getValue() + ":" + version.getValue() + ":" + classifier + ":"
+                + type;
+    }
+
+    private static void add(
+            Map<String, Map<String, Set<String>>> attributesByArtifact,
+            String artifact,
+            String checksumAlgorithm,
+            String checksum,
+            ResolvedUrl resolved,
+            RepositoryId repositoryId) {
+        // Insertion order lists the attributes in lockfile order in the report.
+        Map<String, Set<String>> attributes =
+                attributesByArtifact.computeIfAbsent(artifact, ignored -> new LinkedHashMap<>());
+        addValue(attributes, "checksumAlgorithm", checksumAlgorithm);
+        addValue(attributes, "checksum", checksum);
+        addValue(attributes, "resolved", resolved == null ? null : resolved.getValue());
+        addValue(attributes, "repositoryId", repositoryId == null ? null : repositoryId.getValue());
+    }
+
+    private static void addValue(Map<String, Set<String>> attributes, String attribute, String value) {
+        attributes
+                .computeIfAbsent(attribute, ignored -> new TreeSet<>())
+                .add(value == null || value.isEmpty() ? NO_VALUE : value);
     }
 
     /**
