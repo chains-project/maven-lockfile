@@ -142,6 +142,7 @@ public class LockFileFacade {
                 project.getRemoteArtifactRepositories(),
                 dependencyCollectorBuilder,
                 checksumCalculator,
+                false,
                 null,
                 config.isReduced());
 
@@ -694,6 +695,7 @@ public class LockFileFacade {
                     repositories,
                     dependencyCollectorBuilder,
                     checksumCalculator,
+                    true, // look the dependencies up in the plugin repositories they were collected from
                     filter,
                     false);
 
@@ -723,6 +725,7 @@ public class LockFileFacade {
             List<ArtifactRepository> repositories,
             DependencyCollectorBuilder dependencyCollectorBuilder,
             AbstractChecksumCalculator checksumCalculator,
+            boolean pluginDependencies,
             ArtifactFilter filter,
             boolean reduced) {
         try {
@@ -742,10 +745,11 @@ public class LockFileFacade {
                             graph.nodes().size(), project.getArtifactId()));
 
             // Reactor siblings' checksums drift between generate and validate, so skip them. #1650
-            return DependencyGraph.of(graph, checksumCalculator, reduced, reactorGavs(session));
+            return DependencyGraph.of(graph, checksumCalculator, pluginDependencies, reduced, reactorGavs(session));
         } catch (DependencyCollectorBuilderException e) {
             PluginLogManager.getLog().warn("Could not generate graph", e);
-            return DependencyGraph.of(GraphBuilder.directed().build(), checksumCalculator, reduced, Set.of());
+            return DependencyGraph.of(
+                    GraphBuilder.directed().build(), checksumCalculator, pluginDependencies, reduced, Set.of());
         }
     }
 

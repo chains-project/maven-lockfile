@@ -303,6 +303,15 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
 
     @Override
     public void prewarmArtifactCache(Collection<Artifact> artifacts) {
+        prewarm(artifacts, artifactBuildingRequest);
+    }
+
+    @Override
+    public void prewarmPluginCache(Collection<Artifact> artifacts) {
+        prewarm(artifacts, pluginBuildingRequest);
+    }
+
+    private void prewarm(Collection<Artifact> artifacts, ProjectBuildingRequest buildingRequest) {
         if (artifacts.isEmpty()) {
             return;
         }
@@ -316,8 +325,8 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
             List<Future<?>> futures = new ArrayList<>();
             for (var artifact : artifacts) {
                 futures.add(executor.submit(() -> {
-                    calculateArtifactChecksum(artifact);
-                    getArtifactResolvedField(artifact);
+                    calculateChecksumInternal(artifact, buildingRequest);
+                    getResolvedFieldInternal(artifact, buildingRequest);
                 }));
             }
             for (var future : futures) {
