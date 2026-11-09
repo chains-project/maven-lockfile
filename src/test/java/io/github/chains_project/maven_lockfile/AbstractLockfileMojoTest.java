@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.Config;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.jupiter.api.Test;
 
@@ -41,11 +43,13 @@ class AbstractLockfileMojoTest {
     void cliArgOverridesStoredConfig() {
         var m = mojo();
         m.allowEnvironmentalValidationFailure = true;
+        m.reduced = true;
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
 
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Warn);
+        assertThat(merged.getReductionState()).isEqualTo(Config.ReductionState.Reduced);
         // Unset CLI args preserve stored values
         assertThat(merged.getOnValidationFailure()).isEqualTo(Config.OnValidationFailure.Error);
         assertThat(merged.getOnPomValidationFailure()).isEqualTo(Config.OnPomValidationFailure.Warn);
@@ -55,11 +59,26 @@ class AbstractLockfileMojoTest {
     void storedConfigUsedWhenCliArgNotSet() {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
+        assertThat(m.reduced).isNull();
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
         assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
+        assertThat(merged.getReductionState()).isEqualTo(Config.ReductionState.NonReduced);
+    }
+
+    @Test
+    void newLockfileUsesDefaultsWhenCliArgsNotSet() {
+        var m = mojo();
+        var plugin = new Plugin();
+        plugin.setVersion("5.18.9");
+        m.mojo = new MojoExecution(plugin, "generate", "default");
+
+        Config config = m.getConfig();
+
+        assertThat(config.getChecksumMode()).isEqualTo(ChecksumModes.REMOTE);
+        assertThat(config.getReductionState()).isEqualTo(Config.ReductionState.NonReduced);
     }
 
     @Test

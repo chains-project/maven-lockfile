@@ -85,10 +85,10 @@ mvn -f pom.lockfile.xml
 - `includeMavenExtensions` (`-DincludeMavenExtensions=true`, default=true) controls whether Maven build extensions are included in the lockfile.
 - `allowMavenExtensionsValidationFailure` (`-DallowMavenExtensionsValidationFailure=true`, default=false) allow Maven extensions validation failures, printing a warning instead of an error.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
-- `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information.
+- `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information. Defaults to `remote`.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
-- `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+- `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile. Flags that are set override the stored values; flags that are not set keep them.
 - `hermetic` (`-Dhermetic=true`, default=false) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
