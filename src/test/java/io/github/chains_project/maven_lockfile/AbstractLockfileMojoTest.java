@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.Config;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.junit.jupiter.api.Test;
 
@@ -60,6 +62,18 @@ class AbstractLockfileMojoTest {
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
         assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
+    }
+
+    @Test
+    void newLockfileDefaultsToRemoteChecksumMode() {
+        var m = mojo();
+        var plugin = new Plugin();
+        plugin.setVersion("5.18.9");
+        m.mojo = new MojoExecution(plugin, "generate", "default");
+
+        Config config = m.getConfig();
+
+        assertThat(config.getChecksumMode()).isEqualTo(ChecksumModes.REMOTE);
     }
 
     @Test

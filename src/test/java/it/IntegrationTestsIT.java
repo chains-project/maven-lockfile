@@ -11,6 +11,7 @@ import com.soebes.itf.jupiter.extension.MavenGoal;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.*;
 import io.github.chains_project.maven_lockfile.graph.DependencyNode;
 import java.io.FileNotFoundException;
@@ -599,6 +600,18 @@ public class IntegrationTestsIT {
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
         assertThat(lockFile.getEnvironment()).isNotNull();
+    }
+
+    @MavenTest
+    @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:generate")
+    public void regenerateKeepsStoredChecksumMode(MavenExecutionResult result) throws Exception {
+        // contract: regenerating an existing lockfile from the command line without -DchecksumMode keeps the
+        // stored checksumMode=local, although new lockfiles default to remote.
+        System.out.println("Running 'regenerateKeepsStoredChecksumMode' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(LockFile.readLockFile(lockFilePath).getConfig().getChecksumMode())
+                .isEqualTo(ChecksumModes.LOCAL);
     }
 
     @MavenTest

@@ -93,7 +93,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
-    @Parameter(defaultValue = "remote", property = "checksumMode")
+    // No defaultValue: null means "not set", so a regenerated lockfile keeps the stored checksumMode (see
+    // mergeConfigWithCliArgs). The default for new lockfiles is applied in getConfig().
+    @Parameter(property = "checksumMode")
     protected String checksumMode;
 
     @Parameter(defaultValue = "false", property = "reduced")
@@ -111,23 +113,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected Environment generateMetaInformation() {
         String osName = System.getProperty("os.name");
         return new Environment(osName, mavenVersion, javaVersion);
-    }
-
-    protected AbstractChecksumCalculator getChecksumCalculator() throws MojoExecutionException {
-        ProjectBuildingRequest artifactBuildingRequest = newResolveArtifactProjectBuildingRequest();
-        ProjectBuildingRequest pluginBuildingRequest = newResolvePluginProjectBuildingRequest();
-
-        ChecksumModes checksumModeEnum = ChecksumModes.fromName(checksumMode);
-
-        switch (checksumModeEnum) {
-            case LOCAL:
-                return new FileSystemChecksumCalculator(
-                        repositorySystem, artifactBuildingRequest, pluginBuildingRequest, checksumAlgorithm);
-            case REMOTE:
-                return new RemoteChecksumCalculator(checksumAlgorithm, artifactBuildingRequest, pluginBuildingRequest);
-            default:
-                throw new MojoExecutionException("Invalid checksum mode: " + checksumMode);
-        }
     }
 
     protected AbstractChecksumCalculator getChecksumCalculator(Config config) throws MojoExecutionException {
@@ -162,7 +147,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     protected Config getConfig() {
         String chosenChecksumAlgorithm = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
         ChecksumModes chosenChecksumMode =
-                Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.LOCAL : ChecksumModes.fromName(checksumMode);
+                Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.REMOTE : ChecksumModes.fromName(checksumMode);
         // includeMavenPlugins defaults to true when not explicitly set
         Config.MavenPluginsInclusion mavenPluginsInclusion = Boolean.FALSE.equals(includeMavenPlugins)
                 ? Config.MavenPluginsInclusion.Exclude
