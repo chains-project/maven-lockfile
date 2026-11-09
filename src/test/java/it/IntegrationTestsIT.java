@@ -10,7 +10,6 @@ import com.google.common.io.BaseEncoding;
 import com.soebes.itf.jupiter.extension.MavenGoal;
 import com.soebes.itf.jupiter.extension.MavenJupiterExtension;
 import com.soebes.itf.jupiter.extension.MavenTest;
-import com.soebes.itf.jupiter.extension.SystemProperty;
 import com.soebes.itf.jupiter.maven.MavenExecutionResult;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.*;
@@ -605,17 +604,14 @@ public class IntegrationTestsIT {
 
     @MavenTest
     @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:generate")
-    @SystemProperty(value = "reduced", content = "true")
-    public void regenerateKeepsStoredConfigUnlessOverridden(MavenExecutionResult result) throws Exception {
-        // contract: regenerating an existing lockfile from the command line keeps its stored config, except for
-        // flags that are set. The stored checksumMode=local survives although new lockfiles default to remote,
-        // and -Dreduced=true replaces the stored reduced=false.
-        System.out.println("Running 'regenerateKeepsStoredConfigUnlessOverridden' integration test.");
+    public void regenerateKeepsStoredChecksumMode(MavenExecutionResult result) throws Exception {
+        // contract: regenerating an existing lockfile from the command line without -DchecksumMode keeps the
+        // stored checksumMode=local, although new lockfiles default to remote.
+        System.out.println("Running 'regenerateKeepsStoredChecksumMode' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
-        var config = LockFile.readLockFile(lockFilePath).getConfig();
-        assertThat(config.getChecksumMode()).isEqualTo(ChecksumModes.LOCAL);
-        assertThat(config.isReduced()).isTrue();
+        assertThat(LockFile.readLockFile(lockFilePath).getConfig().getChecksumMode())
+                .isEqualTo(ChecksumModes.LOCAL);
     }
 
     @MavenTest

@@ -43,13 +43,11 @@ class AbstractLockfileMojoTest {
     void cliArgOverridesStoredConfig() {
         var m = mojo();
         m.allowEnvironmentalValidationFailure = true;
-        m.reduced = true;
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
 
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Warn);
-        assertThat(merged.getReductionState()).isEqualTo(Config.ReductionState.Reduced);
         // Unset CLI args preserve stored values
         assertThat(merged.getOnValidationFailure()).isEqualTo(Config.OnValidationFailure.Error);
         assertThat(merged.getOnPomValidationFailure()).isEqualTo(Config.OnPomValidationFailure.Warn);
@@ -59,17 +57,15 @@ class AbstractLockfileMojoTest {
     void storedConfigUsedWhenCliArgNotSet() {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
-        assertThat(m.reduced).isNull();
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
         assertThat(merged.getOnEnvironmentalValidationFailure())
                 .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
         assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
-        assertThat(merged.getReductionState()).isEqualTo(Config.ReductionState.NonReduced);
     }
 
     @Test
-    void newLockfileUsesDefaultsWhenCliArgsNotSet() {
+    void newLockfileDefaultsToRemoteChecksumMode() {
         var m = mojo();
         var plugin = new Plugin();
         plugin.setVersion("5.18.9");
@@ -78,7 +74,6 @@ class AbstractLockfileMojoTest {
         Config config = m.getConfig();
 
         assertThat(config.getChecksumMode()).isEqualTo(ChecksumModes.REMOTE);
-        assertThat(config.getReductionState()).isEqualTo(Config.ReductionState.NonReduced);
     }
 
     @Test

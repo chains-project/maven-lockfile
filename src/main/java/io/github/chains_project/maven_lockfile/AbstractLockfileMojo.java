@@ -93,13 +93,13 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumAlgorithm")
     protected String checksumAlgorithm;
 
-    // No defaultValue on checksumMode and reduced: null means "not set", so a regenerated lockfile keeps the
-    // stored value (see mergeConfigWithCliArgs). The defaults for new lockfiles are applied in getConfig().
+    // No defaultValue: null means "not set", so a regenerated lockfile keeps the stored checksumMode (see
+    // mergeConfigWithCliArgs). The default for new lockfiles is applied in getConfig().
     @Parameter(property = "checksumMode")
     protected String checksumMode;
 
-    @Parameter(property = "reduced")
-    protected Boolean reduced;
+    @Parameter(defaultValue = "false", property = "reduced")
+    protected boolean reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
     protected boolean skip;
@@ -171,7 +171,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 ? Config.EnvironmentInclusion.Exclude
                 : Config.EnvironmentInclusion.Include;
         Config.ReductionState reductionState =
-                Boolean.TRUE.equals(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+                reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
         // include* flags default to true when not explicitly set
         Config.BomsInclusion bomsInclusion =
                 Boolean.FALSE.equals(includeBoms) ? Config.BomsInclusion.Exclude : Config.BomsInclusion.Include;
@@ -260,9 +260,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         Config.EnvironmentInclusion environmentInclusion = includeEnvironment != null
                 ? (includeEnvironment ? Config.EnvironmentInclusion.Include : Config.EnvironmentInclusion.Exclude)
                 : base.getEnvironmentInclusion();
-        Config.ReductionState reductionState = reduced != null
-                ? (reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced)
-                : base.getReductionState();
         Config.BomsInclusion bomsInclusion = includeBoms != null
                 ? (includeBoms ? Config.BomsInclusion.Include : Config.BomsInclusion.Exclude)
                 : base.getBomsInclusion();
@@ -298,7 +295,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 onMavenPluginValidationFailure,
                 onEnvFailure,
                 environmentInclusion,
-                reductionState,
+                base.getReductionState(),
                 base.getMavenLockfileVersion(),
                 chosenChecksumMode,
                 chosenChecksumAlgorithm,
