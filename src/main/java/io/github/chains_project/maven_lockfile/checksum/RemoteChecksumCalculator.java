@@ -115,8 +115,10 @@ public class RemoteChecksumCalculator extends AbstractChecksumCalculator {
                         continue;
                     }
 
+                    // Expected for most artifacts (Maven Central rarely publishes .sha256), so keep it out of
+                    // the default output. The download is still verified against SHA-1 below.
                     PluginLogManager.getLog()
-                            .info(String.format(
+                            .debug(String.format(
                                     "Unable to find %s checksum for %s on remote. Downloading and calculating locally.",
                                     checksumAlgorithm, artifact));
 
