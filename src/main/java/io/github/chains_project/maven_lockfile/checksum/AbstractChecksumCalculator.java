@@ -47,6 +47,11 @@ public abstract class AbstractChecksumCalculator {
         // No-op by default; overridden by RemoteChecksumCalculator
     }
 
+    /** Like {@link #prewarmArtifactCache}, for artifacts looked up in the plugin repositories. */
+    public void prewarmPluginCache(Collection<Artifact> artifacts) {
+        // No-op by default; overridden by RemoteChecksumCalculator
+    }
+
     public String calculatePomChecksum(Path path) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(checksumAlgorithm);
