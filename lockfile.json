@@ -8,10 +8,25 @@
     "version": "5.18.9-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "e1e6fb27f4cc586f5ed15f4ec49d6bf2228aab82b06543ed2633e48623d9abe5"
+    "checksum": "fe3d79ca309b768a6b0f510440cef9c2fefadd1bf35a40e6a44c713f7bd819b6"
   },
   "lockFileVersion": 1,
   "dependencies": [
+    {
+      "groupId": "com.github.package-url",
+      "artifactId": "packageurl-java",
+      "version": "1.5.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "e45551727707acc0c56ac62d56964332ea0f138d6cc3656d988b9369150f5247",
+      "scope": "compile",
+      "resolved": "https://repo.maven.apache.org/maven2/com/github/package-url/packageurl-java/1.5.0/packageurl-java-1.5.0.jar",
+      "repositoryId": "central",
+      "selectedVersion": "1.5.0",
+      "included": true,
+      "id": "com.github.package-url:packageurl-java:1.5.0",
+      "children": [],
+      "boms": []
+    },
     {
       "groupId": "com.google.code.gson",
       "artifactId": "gson",
