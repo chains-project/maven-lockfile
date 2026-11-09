@@ -72,6 +72,53 @@ public class LockfileTest {
         assertThat(lock1).isEqualTo(lock2);
     }
 
+    @Test
+    void shouldReportArtifactsWithDifferentChecksums() {
+        var groupId = GroupId.of("g");
+        var artifactId = ArtifactId.of("a");
+        var version = VersionNumber.of("1");
+        // The plugin's B has another checksum
+        // `other` and `B` (from dependencyNodeB)
+        var otherB = jar("B", "Bg", "other");
+        otherB.addChild(jar("A2", "Ag2", ""));
+        var plugin = new MavenPlugin(
+                GroupId.of("PgA"),
+                ArtifactId.of("PA"),
+                version,
+                ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
+                "SHA-1",
+                "PA",
+                Set.of(otherB, dependencyNodeAChild2()),
+                null);
+        var lockFile = new LockFile(
+                groupId,
+                artifactId,
+                version,
+                null,
+                Set.of(dependencyNodeA(dependencyNodeAChild1(), dependencyNodeAChild2()), dependencyNodeB()),
+                Set.of(plugin),
+                Set.of(),
+                null,
+                Set.of());
+
+        assertThat(lockFile.conflictingChecksums()).containsExactly("Bg:B:1::jar [B, other]");
+    }
+
+    private DependencyNode jar(String artifactId, String groupId, String checksum) {
+        return new DependencyNode(
+                ArtifactId.of(artifactId),
+                GroupId.of(groupId),
+                VersionNumber.of("1"),
+                null,
+                ArtifactType.of("jar"),
+                MavenScope.RUNTIME,
+                ResolvedUrl.Unresolved(),
+                RepositoryId.None(),
+                "SHA-1",
+                checksum);
+    }
+
     private DependencyNode dependencyNodeA(DependencyNode child1, DependencyNode child2) {
         var node = new DependencyNode(
                 ArtifactId.of("A"),

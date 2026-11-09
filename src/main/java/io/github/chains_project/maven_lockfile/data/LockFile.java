@@ -7,8 +7,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A lock file contains a list of dependencies, and the version of the lock file format.
@@ -76,6 +82,45 @@ public class LockFile {
     public static LockFile readLockFile(Path lockFilePath) throws IOException {
         String lockFileContents = Files.readString(lockFilePath);
         return JsonUtils.fromJson(lockFileContents, LockFile.class);
+    }
+
+    /**
+     * Artifacts that occur more than once with different checksums, so the lockfile cannot pin which file is used.
+     * Covers the dependencies, plugins and extensions with their dependencies, and skips occurrences without a
+     * checksum. Other fields such as {@code resolved} may legitimately differ for the same file.
+     *
+     * @return one {@code groupId:artifactId:version:classifier:type [checksums]} line per conflicting artifact
+     */
+    public List<String> conflictingChecksums() {
+        Map<String, Set<String>> checksums = new TreeMap<>();
+        Stream.concat(mavenPlugins.stream(), mavenExtensions.stream()).forEach(component -> {
+            String coordinates = component.getGroupId().getValue() + ":"
+                    + component.getArtifactId().getValue() + ":"
+                    + component.getVersion().getValue() + "::jar";
+            addChecksum(checksums, coordinates, component.getChecksum());
+            component.getDependencies().forEach(node -> addChecksums(checksums, node));
+        });
+        dependencies.forEach(node -> addChecksums(checksums, node));
+        return checksums.entrySet().stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .map(entry -> entry.getKey() + " " + entry.getValue())
+                .collect(Collectors.toList());
+    }
+
+    private static void addChecksums(Map<String, Set<String>> checksums, DependencyNode node) {
+        String coordinates = node.getGroupId().getValue() + ":"
+                + node.getArtifactId().getValue() + ":"
+                + node.getVersion().getValue() + ":"
+                + (node.getClassifier() == null ? "" : node.getClassifier().getValue()) + ":"
+                + (node.getType() == null ? "jar" : node.getType().getValue());
+        addChecksum(checksums, coordinates, node.getChecksum());
+        node.getChildren().forEach(child -> addChecksums(checksums, child));
+    }
+
+    private static void addChecksum(Map<String, Set<String>> checksums, String coordinates, String checksum) {
+        if (checksum != null && !checksum.isEmpty()) {
+            checksums.computeIfAbsent(coordinates, ignored -> new TreeSet<>()).add(checksum);
+        }
     }
 
     /**
