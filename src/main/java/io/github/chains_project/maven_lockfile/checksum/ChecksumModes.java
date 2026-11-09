@@ -13,12 +13,14 @@ public enum ChecksumModes {
      * on the downloaded artifact. The download will be verified with the SHA-1 checksum if it available in the remote
      * repository.
      */
-    @SerializedName("remote")
+    // maven_central: name used before 5.9.0, still found in older lockfiles
+    @SerializedName(value = "remote", alternate = "maven_central")
     REMOTE("remote"),
     /**
      * Calculates the checksum from the downloaded artifact in the local m2 folder.
      */
-    @SerializedName("local")
+    // maven_local: name used before 5.9.0, still found in older lockfiles
+    @SerializedName(value = "local", alternate = "maven_local")
     LOCAL("local");
 
     /**
