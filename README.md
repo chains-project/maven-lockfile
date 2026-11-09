@@ -313,7 +313,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 ```
 If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.
 
-`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Releases before version 2 support cannot read it, and fail validation with a list of missing dependencies; releases with version 2 support reject a lockfile with a newer `lockFileVersion` and ask you to upgrade maven-lockfile.
+`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
 
 
 ## GithubAction
