@@ -18,11 +18,17 @@ import org.junit.jupiter.api.TestFactory;
 
 class LockFileV2Test {
 
-    /** This repository's lockfile and every lockfile fixture of the integration tests. */
+    /**
+     * A lockfile with repeated artifacts and a parent POM. A fixture rather than this repository's lockfile, which
+     * changes with every dependency update.
+     */
+    private static final Path FIXTURE =
+            Path.of("src/test/resources-its/it/IntegrationTestsIT/freezeWithoutDepManagement/lockfile.json");
+
+    /** Every lockfile fixture of the integration tests. */
     static List<Path> v1LockFiles() throws IOException {
         try (Stream<Path> fixtures = Files.walk(Path.of("src/test/resources-its"))) {
-            return Stream.concat(Stream.of(Path.of("lockfile.json")), fixtures)
-                    .filter(path -> path.toString().endsWith(".json"))
+            return fixtures.filter(path -> path.toString().endsWith(".json"))
                     .filter(path -> read(path).contains("\"lockFileVersion\": 1"))
                     .sorted()
                     .collect(Collectors.toList());
@@ -61,15 +67,16 @@ class LockFileV2Test {
 
     @Test
     void v2_stores_each_artifact_once() throws IOException {
-        JsonObject v2 = LockFileV2.encode(
-                JsonParser.parseString(read(Path.of("lockfile.json"))).getAsJsonObject());
+        JsonObject v2 = LockFileV2.encode(JsonParser.parseString(read(FIXTURE)).getAsJsonObject());
         String json = JsonUtils.toJsonKeepingNulls(v2);
 
         List<String> keys = List.copyOf(v2.keySet());
         assertThat(keys.indexOf("artifacts")).isEqualTo(keys.indexOf("metaData") - 1);
 
         assertThat(v2.getAsJsonObject("artifacts").keySet())
-                .contains("pkg:maven/com.google.code.gson/gson@2.14.0", "pkg:maven/org.apache/apache@35?type=pom");
+                .contains(
+                        "pkg:maven/org.springframework/spring-core@5.3.24",
+                        "pkg:maven/org.springframework.boot/spring-boot-starter-parent@2.7.6?type=pom");
         // Each checksum appears once, in the artifacts table.
         assertThat(json.split("\"checksum\":", -1))
                 .hasSize(v2.getAsJsonObject("artifacts").size() + 1);
@@ -78,7 +85,7 @@ class LockFileV2Test {
 
     @Test
     void occurrence_with_different_metadata_keeps_it_inline() throws IOException {
-        JsonObject v1 = JsonParser.parseString(read(Path.of("lockfile.json"))).getAsJsonObject();
+        JsonObject v1 = JsonParser.parseString(read(FIXTURE)).getAsJsonObject();
         JsonObject first = v1.getAsJsonArray("dependencies").get(0).getAsJsonObject();
         JsonObject copy = first.deepCopy();
         copy.remove("children");
