@@ -156,7 +156,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.7.2-jre</version>
+      <version>33.8.0-jre</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
@@ -225,7 +225,7 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>3.10.4</version>
+        <version>3.11.0</version>
         <configuration>
           <formats>
             <format>
