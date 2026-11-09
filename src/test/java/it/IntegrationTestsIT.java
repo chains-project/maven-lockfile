@@ -98,7 +98,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void lockfileV2StaysV2OnGenerate(MavenExecutionResult result) throws Exception {
-        // contract: without -DlockfileVersion, generate keeps the format of the existing lockfile.
+        // contract: the fixture's existing lockfile is v2, so without -DlockfileVersion generate infers v2 from it.
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(Files.readString(lockFilePath))
