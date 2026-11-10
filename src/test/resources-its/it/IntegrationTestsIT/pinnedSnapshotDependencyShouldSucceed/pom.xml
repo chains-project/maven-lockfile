@@ -1,0 +1,29 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>pinned-snapshot-dependency</artifactId>
+  <packaging>jar</packaging>
+  <version>1</version>
+  <repositories>
+    <!-- hosts the snapshot builds of Spoon up to 10.4.3-SNAPSHOT -->
+    <repository>
+      <id>ow2.org-snapshot</id>
+      <url>https://repository.ow2.org/nexus/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>fr.inria.gforge.spoon</groupId>
+      <artifactId>spoon-core</artifactId>
+      <!-- one timestamped build of 10.4.0-SNAPSHOT: unlike the -SNAPSHOT version, it always resolves to the same file -->
+      <version>10.4.0-20230706.181106-217</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -142,6 +142,38 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
     }
 
+    @MavenTest
+    @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:validate")
+    @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:generate")
+    public void pinnedSnapshotDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a remote -SNAPSHOT version is a moving target, but a timestamped build of it always
+        // resolves to the same file. A dependency pinned to such a build (spoon-core
+        // 10.4.0-20230706.181106-217 instead of 10.4.0-SNAPSHOT) is locked like a release: `validate`
+        // passes against the committed lockfile without any allow*ValidationFailure flag. `generate`
+        // then rewrites the lockfile, so the assertions below are on a freshly generated one. See #1752.
+        //
+        // This build was chosen because OW2 only keeps the latest build of each snapshot line, and the
+        // 10.4.0-SNAPSHOT line gets no new builds.
+        System.out.println("Running 'pinnedSnapshotDependencyShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        assertThat(lockFilePath).exists();
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var spoonCore = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("spoon-core"))
+                .findFirst()
+                .orElseThrow();
+        // the pinned build is recorded as the version, with a real checksum
+        assertThat(spoonCore.getVersion().getValue()).isEqualTo("10.4.0-20230706.181106-217");
+        assertThat(spoonCore.getChecksum())
+                .isEqualTo("904d1b1f1b2055f4379b54e9d50a38fed4bdf65f1ba6120bed805d6127a21fce");
+        // and it resolves to its timestamped file, which the repository keeps in the -SNAPSHOT directory
+        assertThat(spoonCore.getResolved())
+                .isEqualTo(ResolvedUrl.of("https://repository.ow2.org/nexus/content/repositories/snapshots"
+                        + "/fr/inria/gforge/spoon/spoon-core/10.4.0-SNAPSHOT"
+                        + "/spoon-core-10.4.0-20230706.181106-217.jar"));
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest
