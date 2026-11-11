@@ -144,14 +144,7 @@ public class IntegrationTestsIT {
 
     @MavenTest
     public void pinnedSnapshotDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
-        // contract: a remote -SNAPSHOT version is a moving target, but a timestamped build of it always
-        // resolves to the same file. A dependency pinned to such a build (spoon-core
-        // 10.4.0-20230706.181106-217 instead of 10.4.0-SNAPSHOT) is locked like a release: `generate`,
-        // bound in the fixture pom, records the pinned build as the version, with the checksum of its
-        // file. The checksum fixes the jar's content, so no committed lockfile is needed. See #1752.
-        //
-        // This build was chosen because OW2 only keeps the latest build of each snapshot line, and the
-        // 10.4.0-SNAPSHOT line gets no new builds.
+        // contract: a dependency pinned to a timestamped snapshot build is locked with that version and its checksum.
         System.out.println("Running 'pinnedSnapshotDependencyShouldSucceed' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
