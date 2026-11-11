@@ -142,6 +142,24 @@ public class IntegrationTestsIT {
         assertThat(lockFile.getPom().getChecksum()).isNotEmpty();
     }
 
+    @MavenTest
+    public void pinnedSnapshotDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a dependency pinned to a timestamped snapshot build is locked with that version and its checksum.
+        System.out.println("Running 'pinnedSnapshotDependencyShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        Path lockFilePath = findFile(result, "lockfile.json");
+        var lockFile = LockFile.readLockFile(lockFilePath);
+        var spoonCore = lockFile.getDependencies().stream()
+                .filter(d -> d.getArtifactId().getValue().equals("spoon-core"))
+                .findFirst()
+                .orElseThrow();
+        assertThat(spoonCore.getGroupId().getValue()).isEqualTo("fr.inria.gforge.spoon");
+        assertThat(spoonCore.getArtifactId().getValue()).isEqualTo("spoon-core");
+        assertThat(spoonCore.getVersion().getValue()).isEqualTo("10.4.0-20230706.181106-217");
+        assertThat(spoonCore.getChecksum())
+                .isEqualTo("904d1b1f1b2055f4379b54e9d50a38fed4bdf65f1ba6120bed805d6127a21fce");
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest
