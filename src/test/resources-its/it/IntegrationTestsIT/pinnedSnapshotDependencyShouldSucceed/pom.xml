@@ -26,4 +26,24 @@
       <version>10.4.0-20230706.181106-217</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <checksumMode>local</checksumMode>
+          <includeMavenPlugins>false</includeMavenPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -636,7 +636,7 @@
     "config": {
       "includeMavenPlugins": false,
       "allowValidationFailure": false,
-      "allowPomValidationFailure": false,
+      "allowPomValidationFailure": true,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,
       "includeEnvironment": false,
