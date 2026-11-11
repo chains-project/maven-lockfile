@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <version>1</version>
   <repositories>
-    <!-- hosts the snapshot builds of Spoon up to 10.4.3-SNAPSHOT -->
+    <!-- hosts Spoon's snapshot builds, including the 10.4.0-SNAPSHOT build pinned below -->
     <repository>
       <id>ow2.org-snapshot</id>
       <url>https://repository.ow2.org/nexus/content/repositories/snapshots/</url>
