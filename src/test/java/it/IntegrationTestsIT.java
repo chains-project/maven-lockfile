@@ -146,22 +146,22 @@ public class IntegrationTestsIT {
     public void pinnedSnapshotDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: a remote -SNAPSHOT version is a moving target, but a timestamped build of it always
         // resolves to the same file. A dependency pinned to such a build (spoon-core
-        // 10.4.0-20230706.181106-217 instead of 10.4.0-SNAPSHOT) is locked like a release: `validate`,
-        // bound in the fixture pom, passes against the committed lockfile. Only the pom check is relaxed,
-        // because the plugin version filtered into the pom changes its checksum every release. See #1752.
+        // 10.4.0-20230706.181106-217 instead of 10.4.0-SNAPSHOT) is locked like a release: `generate`,
+        // bound in the fixture pom, records the pinned build as the version, with the checksum of its
+        // file. The checksum fixes the jar's content, so no committed lockfile is needed. See #1752.
         //
         // This build was chosen because OW2 only keeps the latest build of each snapshot line, and the
         // 10.4.0-SNAPSHOT line gets no new builds.
         System.out.println("Running 'pinnedSnapshotDependencyShouldSucceed' integration test.");
         assertThat(result).isSuccessful();
-        // guard the fixture: the committed lockfile, which `validate` just matched, records the pinned
-        // build as the version, with a real checksum
         Path lockFilePath = findFile(result, "lockfile.json");
         var lockFile = LockFile.readLockFile(lockFilePath);
         var spoonCore = lockFile.getDependencies().stream()
                 .filter(d -> d.getArtifactId().getValue().equals("spoon-core"))
                 .findFirst()
                 .orElseThrow();
+        assertThat(spoonCore.getGroupId().getValue()).isEqualTo("fr.inria.gforge.spoon");
+        assertThat(spoonCore.getArtifactId().getValue()).isEqualTo("spoon-core");
         assertThat(spoonCore.getVersion().getValue()).isEqualTo("10.4.0-20230706.181106-217");
         assertThat(spoonCore.getChecksum())
                 .isEqualTo("904d1b1f1b2055f4379b54e9d50a38fed4bdf65f1ba6120bed805d6127a21fce");

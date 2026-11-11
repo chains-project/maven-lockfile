@@ -35,7 +35,7 @@
         <executions>
           <execution>
             <goals>
-              <goal>validate</goal>
+              <goal>generate</goal>
             </goals>
           </execution>
         </executions>
