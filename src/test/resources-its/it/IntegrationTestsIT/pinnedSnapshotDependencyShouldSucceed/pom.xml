@@ -23,6 +23,7 @@
       <groupId>fr.inria.gforge.spoon</groupId>
       <artifactId>spoon-core</artifactId>
       <!-- one timestamped build of 10.4.0-SNAPSHOT: unlike the -SNAPSHOT version, it always resolves to the same file -->
+      <!-- OW2 only keeps the latest build of each snapshot line, and 10.4.0-SNAPSHOT gets no new builds, so this one stays available -->
       <version>10.4.0-20230706.181106-217</version>
     </dependency>
   </dependencies>
