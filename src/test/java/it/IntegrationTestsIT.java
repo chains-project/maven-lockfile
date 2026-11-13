@@ -193,6 +193,7 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    @MavenGoal("${project.groupId}:${project.artifactId}:${project.version}:generate")
     public void aarOnlyDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
         // contract: a dependency without a jar (here an aar) must not fail the build. See #1552.
         System.out.println("Running 'aarOnlyDependencyShouldSucceed' integration test.");
