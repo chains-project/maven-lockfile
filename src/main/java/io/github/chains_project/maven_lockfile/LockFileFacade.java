@@ -53,6 +53,9 @@ public class LockFileFacade {
     private static final class GraphBuildingNodeVisitor implements DependencyNodeVisitor {
         private final MutableGraph<DependencyNode> graph;
         private final MavenProject project;
+        private final RepositorySystem repositorySystem;
+        private final RepositorySystemSession repoSession;
+        private final List<RemoteRepository> remoteRepositories;
 
         /**
          * Create a new instance of the visitor.
@@ -62,26 +65,61 @@ public class LockFileFacade {
          *                This is useful to resolve `RELEASE` and `LATEST` versions, which are not resolved
          *                by dependency collector.
          */
-        private GraphBuildingNodeVisitor(MutableGraph<DependencyNode> graph, MavenProject project) {
+        private GraphBuildingNodeVisitor(
+                MutableGraph<DependencyNode> graph,
+                MavenProject project,
+                RepositorySystem repositorySystem,
+                RepositorySystemSession repoSession,
+                List<RemoteRepository> remoteRepositories) {
             this.graph = graph;
             this.project = project;
+            this.repositorySystem = repositorySystem;
+            this.repoSession = repoSession;
+            this.remoteRepositories = remoteRepositories;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
             String version = node.getArtifact().getVersion();
             if (isSpecialVersion(version)) {
-                project.getArtifacts().stream()
+                Optional<Artifact> resolved = project.getArtifacts().stream()
                         .filter(a -> a.getDependencyConflictId()
                                 .equals(node.getArtifact().getDependencyConflictId()))
-                        .findFirst()
-                        .ifPresent(resolved -> {
-                            node.getArtifact().setVersion(resolved.getVersion());
-                            node.getArtifact().setFile(resolved.getFile());
-                        });
+                        .findFirst();
+                if (resolved.isPresent()) {
+                    node.getArtifact().setVersion(resolved.get().getVersion());
+                    node.getArtifact().setFile(resolved.get().getFile());
+                } else if (repositorySystem != null) {
+                    // The project's dependencies are not resolved up front (so that artifacts without a jar,
+                    // e.g. Android aar, do not fail the build), so resolve the version ourselves.
+                    resolveSpecialVersion(node);
+                }
             }
             node.getChildren().forEach(v -> graph.putEdge(node, v));
             return true;
+        }
+
+        private void resolveSpecialVersion(DependencyNode node) {
+            Artifact artifact = node.getArtifact();
+            String extension = artifact.getArtifactHandler() != null
+                    ? artifact.getArtifactHandler().getExtension()
+                    : artifact.getType();
+            try {
+                VersionRequest request = new VersionRequest(
+                        new org.eclipse.aether.artifact.DefaultArtifact(
+                                artifact.getGroupId(),
+                                artifact.getArtifactId(),
+                                artifact.getClassifier() == null ? "" : artifact.getClassifier(),
+                                extension,
+                                artifact.getVersion()),
+                        remoteRepositories,
+                        null);
+                artifact.setVersion(
+                        repositorySystem.resolveVersion(repoSession, request).getVersion());
+            } catch (VersionResolutionException e) {
+                PluginLogManager.getLog()
+                        .warn(String.format("Could not resolve version %s of %s", artifact.getVersion(), artifact), e);
+            }
         }
 
         @Override
@@ -144,7 +182,8 @@ public class LockFileFacade {
                 checksumCalculator,
                 false,
                 null,
-                config.isReduced());
+                config.isReduced(),
+                repositorySystem);
 
         var roots = dependencyGraph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
@@ -697,7 +736,8 @@ public class LockFileFacade {
                     checksumCalculator,
                     true, // look the dependencies up in the plugin repositories they were collected from
                     filter,
-                    false);
+                    false,
+                    null);
 
             if (config.isIncludeParentPom() || config.isIncludeBoms()) {
                 resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
@@ -727,7 +767,8 @@ public class LockFileFacade {
             AbstractChecksumCalculator checksumCalculator,
             boolean pluginDependencies,
             ArtifactFilter filter,
-            boolean reduced) {
+            boolean reduced,
+            RepositorySystem repositorySystem) {
         try {
             ProjectBuildingRequest buildingRequest =
                     new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
@@ -737,7 +778,12 @@ public class LockFileFacade {
             DependencyNode rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(graph, project));
+            rootNode.accept(new GraphBuildingNodeVisitor(
+                    graph,
+                    project,
+                    repositorySystem,
+                    session.getRepositorySession(),
+                    project.getRemoteProjectRepositories()));
 
             PluginLogManager.getLog()
                     .info(String.format(

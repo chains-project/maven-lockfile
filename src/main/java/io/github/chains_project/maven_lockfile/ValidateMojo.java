@@ -26,7 +26,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 @Mojo(
         name = "validate",
         defaultPhase = LifecyclePhase.COMPILE,
-        requiresDependencyResolution = ResolutionScope.COMPILE,
+        requiresDependencyResolution = ResolutionScope.NONE,
         requiresOnline = true)
 public class ValidateMojo extends AbstractLockfileMojo {
 
