@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.LockFileFormatException;
 import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import io.github.chains_project.maven_lockfile.reporting.ValidationPhases;
@@ -80,6 +81,8 @@ public class ValidateMojo extends AbstractLockfileMojo {
                 }
             }
 
+        } catch (LockFileFormatException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         } catch (IOException e) {
             throw new MojoExecutionException("Could not read lock file", e);
         }

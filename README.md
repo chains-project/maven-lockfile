@@ -91,6 +91,7 @@ mvn -f pom.lockfile.xml
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
+- `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or 1) sets the format `generate` writes. Version 2 stores each artifact once; see [Lockfile version 2](#lockfile-version-2).
 - `hermetic` (`-Dhermetic=true`, default=false) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
@@ -280,6 +281,41 @@ In case the artifact url cannot be resolved or the checksum cannot be calculated
 
 For each artifact, we store the hashes of all transitive dependencies in the `children` field.
 This allows us to validate the integrity of the transitive dependencies as well.
+
+### Lockfile version 2
+
+`generate -DlockfileVersion=2` writes the same content in a smaller format: each artifact's coordinates, checksum and repository are stored once in a top-level `artifacts` table, keyed by [package URL](https://github.com/package-url/purl-spec). Every occurrence in `dependencies`, `mavenPlugins`, `mavenExtensions`, `boms` and the POM trees refers to its entry through `artifact` and keeps only what belongs to that occurrence, such as `scope`, `selectedVersion`, `included`, `parentPom` and `children`. A node's `id` and `parent` are left out because they follow from its coordinates and its place in the tree.
+```json
+{
+  "lockFileVersion": 2,
+  "dependencies": [
+    {
+      "artifact": "pkg:maven/org.junit.jupiter/junit-jupiter-api@5.9.2",
+      "scope": "test",
+      "selectedVersion": "5.9.2",
+      "included": true,
+      "children": [{...}],
+      "boms": [{ "artifact": "pkg:maven/org.junit/junit-bom@5.9.2?type=pom" }]
+    }
+  ],
+  "artifacts": {
+    "pkg:maven/org.junit.jupiter/junit-jupiter-api@5.9.2": {
+      "groupId": "org.junit.jupiter",
+      "artifactId": "junit-jupiter-api",
+      "version": "5.9.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5",
+      "resolved": "https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar",
+      "repositoryId": "central"
+    },
+    ...
+  },
+  "metaData": {...}
+}
+```
+If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.
+
+`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
 
 
 ## GithubAction

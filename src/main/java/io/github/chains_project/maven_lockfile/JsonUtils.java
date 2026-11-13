@@ -3,6 +3,7 @@ package io.github.chains_project.maven_lockfile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializer;
 import io.github.chains_project.maven_lockfile.data.ArtifactId;
@@ -66,7 +67,28 @@ public class JsonUtils {
         return getGson().toJson(it);
     }
 
+    public static JsonElement toJsonTree(Object it) {
+        return getGson().toJsonTree(it);
+    }
+
+    /**
+     * Pretty-prints a JSON tree, keeping explicit {@code null} members and without HTML escaping (so that e.g. the
+     * {@code =} and {@code &} of a package URL stay readable).
+     */
+    public static String toJsonKeepingNulls(JsonElement it) {
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .disableHtmlEscaping()
+                .create()
+                .toJson(it);
+    }
+
     public static <T> T fromJson(String it, Class<T> type) {
+        return getGson().fromJson(it, type);
+    }
+
+    public static <T> T fromJson(JsonElement it, Class<T> type) {
         return getGson().fromJson(it, type);
     }
 }
