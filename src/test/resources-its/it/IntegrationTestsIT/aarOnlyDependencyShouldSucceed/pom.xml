@@ -1,0 +1,36 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.mycompany.app</groupId>
+  <artifactId>aar-only-dependency</artifactId>
+  <packaging>jar</packaging>
+  <version>1</version>
+  <dependencies>
+    <dependency>
+      <!-- central only hosts an aar for these coordinates, so the default jar type does not resolve -->
+      <groupId>com.lorentzos.swipecards</groupId>
+      <artifactId>library</artifactId>
+      <version>1.0.9</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <checksumMode>local</checksumMode>
+          <includeMavenPlugins>false</includeMavenPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -192,6 +192,17 @@ public class IntegrationTestsIT {
                 .isEqualTo("904d1b1f1b2055f4379b54e9d50a38fed4bdf65f1ba6120bed805d6127a21fce");
     }
 
+    @MavenTest
+    public void aarOnlyDependencyShouldSucceed(MavenExecutionResult result) throws Exception {
+        // contract: a dependency without a jar (here an aar) must not fail the build. See #1552.
+        System.out.println("Running 'aarOnlyDependencyShouldSucceed' integration test.");
+        assertThat(result).isSuccessful();
+        var lockFile = LockFile.readLockFile(findFile(result, "lockfile.json"));
+        assertThat(lockFile.getDependencies())
+                .extracting(d -> d.getArtifactId().getValue())
+                .containsExactly("library");
+    }
+
     @Nested
     class SpecialVersionDependencyResolution {
         @MavenTest

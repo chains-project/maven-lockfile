@@ -54,8 +54,7 @@ public class LockFileFacade {
         private final MutableGraph<DependencyNode> graph;
         private final MavenProject project;
         private final RepositorySystem repositorySystem;
-        private final RepositorySystemSession repoSession;
-        private final List<RemoteRepository> remoteRepositories;
+        private final MavenSession session;
 
         /**
          * Create a new instance of the visitor.
@@ -69,20 +68,18 @@ public class LockFileFacade {
                 MutableGraph<DependencyNode> graph,
                 MavenProject project,
                 RepositorySystem repositorySystem,
-                RepositorySystemSession repoSession,
-                List<RemoteRepository> remoteRepositories) {
+                MavenSession session) {
             this.graph = graph;
             this.project = project;
             this.repositorySystem = repositorySystem;
-            this.repoSession = repoSession;
-            this.remoteRepositories = remoteRepositories;
+            this.session = session;
         }
 
         @Override
         public boolean visit(DependencyNode node) {
             String version = node.getArtifact().getVersion();
             if (isSpecialVersion(version)) {
-                Optional<Artifact> resolved = project.getArtifacts().stream()
+                var resolved = project.getArtifacts().stream()
                         .filter(a -> a.getDependencyConflictId()
                                 .equals(node.getArtifact().getDependencyConflictId()))
                         .findFirst();
@@ -90,8 +87,7 @@ public class LockFileFacade {
                     node.getArtifact().setVersion(resolved.get().getVersion());
                     node.getArtifact().setFile(resolved.get().getFile());
                 } else if (repositorySystem != null) {
-                    // The project's dependencies are not resolved up front (so that artifacts without a jar,
-                    // e.g. Android aar, do not fail the build), so resolve the version ourselves.
+                    // Project dependencies are not resolved up front (see #1552), so resolve the version here.
                     resolveSpecialVersion(node);
                 }
             }
@@ -100,25 +96,18 @@ public class LockFileFacade {
         }
 
         private void resolveSpecialVersion(DependencyNode node) {
-            Artifact artifact = node.getArtifact();
-            String extension = artifact.getArtifactHandler() != null
-                    ? artifact.getArtifactHandler().getExtension()
-                    : artifact.getType();
+            Artifact a = node.getArtifact();
             try {
-                VersionRequest request = new VersionRequest(
+                var request = new VersionRequest(
                         new org.eclipse.aether.artifact.DefaultArtifact(
-                                artifact.getGroupId(),
-                                artifact.getArtifactId(),
-                                artifact.getClassifier() == null ? "" : artifact.getClassifier(),
-                                extension,
-                                artifact.getVersion()),
-                        remoteRepositories,
+                                a.getGroupId(), a.getArtifactId(), a.getType(), a.getVersion()),
+                        project.getRemoteProjectRepositories(),
                         null);
-                artifact.setVersion(
-                        repositorySystem.resolveVersion(repoSession, request).getVersion());
+                a.setVersion(repositorySystem
+                        .resolveVersion(session.getRepositorySession(), request)
+                        .getVersion());
             } catch (VersionResolutionException e) {
-                PluginLogManager.getLog()
-                        .warn(String.format("Could not resolve version %s of %s", artifact.getVersion(), artifact), e);
+                PluginLogManager.getLog().warn("Could not resolve version of " + a, e);
             }
         }
 
@@ -778,12 +767,7 @@ public class LockFileFacade {
             DependencyNode rootNode = dependencyCollectorBuilder.collectDependencyGraph(buildingRequest, filter);
 
             MutableGraph<DependencyNode> graph = GraphBuilder.directed().build();
-            rootNode.accept(new GraphBuildingNodeVisitor(
-                    graph,
-                    project,
-                    repositorySystem,
-                    session.getRepositorySession(),
-                    project.getRemoteProjectRepositories()));
+            rootNode.accept(new GraphBuildingNodeVisitor(graph, project, repositorySystem, session));
 
             PluginLogManager.getLog()
                     .info(String.format(
