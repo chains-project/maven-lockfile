@@ -87,7 +87,7 @@ public class LockFileFacade {
                     node.getArtifact().setVersion(resolved.get().getVersion());
                     node.getArtifact().setFile(resolved.get().getFile());
                 } else if (repositorySystem != null) {
-                    // Project dependencies are not resolved up front (see #1552), so resolve the version here.
+                    // getArtifacts() is empty because dependencies are not resolved up front (see #1552)
                     resolveSpecialVersion(node);
                 }
             }
