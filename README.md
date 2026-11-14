@@ -315,7 +315,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 ```
 If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.
 
-`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
+`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. To switch with the GitHub Action, set its `lockfile-version` input (see [Arguments](#arguments)) to `2`. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
 
 
 ## GithubAction
@@ -396,6 +396,14 @@ Extended github actions example with all available options:
     #  See https://github.com/chains-project/maven-lockfile/issues/1583.
     # Defaults to false.
     - allow-environmental-validation-failure: false
+
+    # Optional. The lockfile format version to write when the action generates the lockfile,
+    #  e.g. 2 - see "Lockfile version 2" above. Empty keeps the version of the existing lockfile,
+    #  or 1 if there is none. The action generates only when the pom.xml or workflow file changed
+    #  and 'commit-lockfile' is true, so adding this input to the workflow converts the lockfile
+    #  in that same pull request. Validation reads every supported version regardless of this input.
+    # Defaults to ''.
+    - lockfile-version: ''
 
     # Optional. EXPERIMENTAL - may change or be removed in any release without notice.
     #  Merge artifacts dynamically resolved during a real build (e.g. Surefire's

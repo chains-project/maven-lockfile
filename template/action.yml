@@ -35,6 +35,10 @@ inputs:
     description: 'Allow environmental validation failures (e.g. Maven version changes between runner image updates) to produce a warning instead of failing the build. Recommended when using GitHub-hosted runners where the Maven version is not pinned. See https://github.com/chains-project/maven-lockfile/issues/1583.'
     required: false
     default: true
+  lockfile-version:
+    description: 'Lockfile format version to write when the action generates the lockfile, e.g. 2 for the smaller format that stores each artifact once (see "Lockfile version 2" in the README). Leave empty to keep the version of the existing lockfile, or version 1 if there is none. Validation reads every supported version regardless of this input.'
+    required: false
+    default: ''
   hermetic:
     description: 'EXPERIMENTAL - may change or be removed in any release without notice. Merge artifacts dynamically resolved during a real build (e.g. Surefire test-framework providers) into the lockfile, via a DynamicResolutionSpy Maven core extension. Requires this plugin to also be registered in .mvn/extensions.xml (the generate goal creates it automatically on first run if missing). When enabled, this action runs `mvn test` itself, right after its own checkout, so the capture reflects only that build - not whatever else may have run earlier in the job. Only artifacts resolved during the `test` phase are captured this way; other lifecycle phases (e.g. Failsafe integration tests during `verify`) are not, since running the whole build just for capture is prohibitively expensive on large projects.'
     required: false
@@ -106,6 +110,7 @@ runs:
         LOCKFILE_NAME="${{ inputs.lockfile-name }}"
         ALLOW_ENV_VALIDATION_FAILURE="${{ inputs.allow-environmental-validation-failure }}"
         HERMETIC="${{ inputs.hermetic }}"
+        LOCKFILE_VERSION="${{ inputs.lockfile-version }}"
         POM_CHANGED="${POM_CHANGED}"
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
 
@@ -125,6 +130,15 @@ runs:
 
         if [ "$HERMETIC" == "true" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -Dhermetic=true"
+        fi
+
+        if [ -n "$LOCKFILE_VERSION" ]; then
+          if ! [[ "$LOCKFILE_VERSION" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::lockfile-version must be a positive whole number, got '$LOCKFILE_VERSION'"
+            echo "::endgroup::"
+            exit 1
+          fi
+          MAVEN_ARGS="$MAVEN_ARGS -DlockfileVersion=$LOCKFILE_VERSION"
         fi
         
         # Function to execute Maven plugin and handle errors
