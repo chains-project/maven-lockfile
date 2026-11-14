@@ -2998,3 +2998,46 @@ We'd like to thank the following people for their contributions:
 We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude Opus 5.5 ()
+
+# 5.19.0
+## Changelog
+
+## 🚀 Features
+- 3316c40 feat: add opt-in lockfile format version 2 (#1737)
+
+## 🐛 Fixes
+- 88eafc9 fix: do not require jar resolution of dependencies so AAR-only artifacts work (#1756)
+- 4ab39bc fix: read pre-5.9.0 checksumMode names from old lockfiles (#1751)
+- f0a67ca fix: keep the stored checksumMode when regenerating a lockfile (#1749)
+- 3834547 fix: use the plugin repositories for plugin dependency checksums (#1748)
+- 3e704c8 fix: get an artifact's origin from the local repository manager (#1746)
+- 5b91b65 fix: fail generate when an artifact has conflicting checksums (#1744)
+
+## 🔄️ Changes
+- 9929e99 style: log missing remote checksum at debug level (#1750)
+
+## 🧪 Tests
+- d257a3b test: lock a dependency pinned to a timestamped snapshot build (#1753)
+
+## 🧰 Tasks
+- 96a3f6f chore: release version 5.19.0
+- 3b48ea3 chore: make -DskipTests skip integration tests again (#1742)
+- 2fc2d26 chore: update lockfile
+- 97cc75a chore: bump lockfile actions version to `5.18.8`
+- d2fb9b4 chore: set snapshot version 5.18.9-SNAPSHOT
+
+## 📝 Documentation
+- 6e245d9 docs: link the hermetic builds talk in the README (#1754)
+
+---
+- d697a43 :arrow_up:(deps): Update google/osv-scanner-action action to v2.7.1 (#1755)
+- cf6c9c9 :arrow_up:(deps): Update dependency dev.sigstore:sigstore-maven-plugin to v2.3.0 (#1677)
+- 9ca1109 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3.10.3 (#1667)
+- 164574b :arrow_up:(deps): Update dependency com.google.guava:guava to v33.8.0 (#1741)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()
