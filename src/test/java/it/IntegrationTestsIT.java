@@ -200,8 +200,10 @@ public class IntegrationTestsIT {
         assertThat(result).isSuccessful();
         var lockFile = LockFile.readLockFile(findFile(result, "lockfile.json"));
         assertThat(lockFile.getDependencies())
-                .extracting(d -> d.getGroupId().getValue(), d -> d.getArtifactId().getValue(), d -> d.getVersion()
-                        .getValue())
+                .extracting(
+                        d -> d.getGroupId().getValue(),
+                        d -> d.getArtifactId().getValue(),
+                        d -> d.getVersion().getValue())
                 .containsExactly(tuple("com.lorentzos.swipecards", "library", "1.0.9"));
     }
 
