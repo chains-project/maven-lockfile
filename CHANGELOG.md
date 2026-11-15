@@ -3041,3 +3041,12 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
 - Claude Opus 5.5 ()
+
+# 5.19.1-beta-1
+## Changelog
+
+## 🧰 Tasks
+- f0df9b8 chore: release version 5.19.1-beta-1
+- bfb3ab6 chore: update lockfile
+- a9a33ab chore: bump lockfile actions version to `5.19.0`
+- 5eb19d4 chore: set snapshot version 5.19.1-SNAPSHOT
