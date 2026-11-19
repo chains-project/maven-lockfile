@@ -8,7 +8,7 @@
     "version": "5.19.1-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "4f332c672a89d693c6457f0b7c95db70bdf4604e15909441155834b455500618"
+    "checksum": "17f62f3b06b18c5c74a8c93358c9c2139c881ea606124340080f6f439baf53bf"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -1003,11 +1003,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -1029,9 +1029,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": false,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven:maven-artifact:3.9.11",
           "children": [],
           "boms": []
@@ -1596,11 +1596,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "test",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -1622,9 +1622,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.apache.maven.wagon:wagon-provider-api:3.5.3",
               "children": [],
               "boms": []
@@ -1694,11 +1694,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -1720,9 +1720,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": false,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven:maven-compat:3.9.6",
           "children": [],
           "boms": []
@@ -2541,11 +2541,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "provided",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -2567,9 +2567,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.apache.maven:maven-repository-metadata:3.9.11",
               "children": [],
               "boms": []
@@ -3026,11 +3026,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "provided",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -3052,9 +3052,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.apache.maven:maven-resolver-provider:3.9.11",
               "children": [],
               "boms": []
@@ -3117,11 +3117,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "provided",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -3143,9 +3143,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.apache.maven:maven-settings:3.9.11",
               "children": [],
               "boms": []
@@ -3449,11 +3449,11 @@
                 {
                   "groupId": "org.codehaus.plexus",
                   "artifactId": "plexus-utils",
-                  "version": "4.1.0",
+                  "version": "4.2.0",
                   "checksumAlgorithm": "SHA-256",
-                  "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+                  "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
                   "scope": "provided",
-                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
                   "repositoryId": "central",
                   "parentPom": {
                     "groupId": "org.codehaus.plexus",
@@ -3475,9 +3475,9 @@
                       }
                     ]
                   },
-                  "selectedVersion": "4.1.0",
+                  "selectedVersion": "4.2.0",
                   "included": false,
-                  "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+                  "id": "org.codehaus.plexus:plexus-utils:4.2.0",
                   "parent": "org.codehaus.plexus:plexus-sec-dispatcher:2.0",
                   "children": [],
                   "boms": []
@@ -3488,11 +3488,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "provided",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -3514,9 +3514,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.apache.maven:maven-settings-builder:3.9.11",
               "children": [],
               "boms": []
@@ -4307,11 +4307,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -4333,9 +4333,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": false,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven:maven-core:3.9.11",
           "children": [],
           "boms": []
@@ -4545,11 +4545,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -4571,9 +4571,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": false,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven:maven-model:3.9.11",
           "children": [],
           "boms": []
@@ -4779,11 +4779,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "provided",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -4805,9 +4805,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven:maven-plugin-api:3.9.11",
           "children": [],
           "boms": []
@@ -4908,11 +4908,11 @@
             {
               "groupId": "org.codehaus.plexus",
               "artifactId": "plexus-utils",
-              "version": "4.1.0",
+              "version": "4.2.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+              "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
               "scope": "provided",
-              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.codehaus.plexus",
@@ -4934,9 +4934,9 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
-              "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+              "id": "org.codehaus.plexus:plexus-utils:4.2.0",
               "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M4",
               "children": [],
               "boms": []
@@ -4979,11 +4979,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -5005,9 +5005,9 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": false,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "parent": "org.apache.maven.plugin-testing:maven-plugin-testing-harness:4.0.0-beta-4",
           "children": [],
           "boms": []
