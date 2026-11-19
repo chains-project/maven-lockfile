@@ -34,4 +34,4 @@ jobs:
         uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
 
       - name: Dependency review
-        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        uses: actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec # v5.0.1
