@@ -2,7 +2,7 @@ version 1
 
 actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 z6Iq5XkqjRTJQewDNenT1vRIB68wEIX+YMCtBPcmOdQ=
 actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 p0BRRBYZ4J6k1xNZKT4KZRtiX1Qjb4OFlVQ31S9Sm3U=
-actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 JHzhxjG+riHsVg8rnk1pqDj//Cw1DKcf2PuAbxzA+gk=
+actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc /C79PotkPv5KS827tQaeaChpdEzNO/5zCmlDQTUzxRU=
 actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec ZmeT/L+pG+qc9Cx/pnV4UZfze9AKgDwRAFim5ccxgyw=
 actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 d8x52dXjFXLVYmTrkqoyvgtUkncgeSLSPMfbyz3UL/M=
 actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 VeyqYdf/AgpNIOqAYfp30cBRy4UW0FRhH4Ru5hBqovY=
