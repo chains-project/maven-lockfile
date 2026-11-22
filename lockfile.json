@@ -8,7 +8,7 @@
     "version": "5.19.1-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "17f62f3b06b18c5c74a8c93358c9c2139c881ea606124340080f6f439baf53bf"
+    "checksum": "d4f334ae51a9ead494adc0075d374263f63f8f8db314feff9110c1fafca7d237"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -6342,10 +6342,10 @@
     {
       "groupId": "com.diffplug.spotless",
       "artifactId": "spotless-maven-plugin",
-      "version": "3.11.0",
-      "checksum": "30ca83165e4ef0c47038f70b553ca9d644408077e2b0cc59d629c93d3b63badb",
+      "version": "3.12.0",
+      "checksum": "475c23c873a88c5e5bec31a5f04858873ac504be3fc56b72721c2b4e83b77a49",
       "checksumAlgorithm": "SHA-256",
-      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.11.0/spotless-maven-plugin-3.11.0.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-maven-plugin/3.12.0/spotless-maven-plugin-3.12.0.jar",
       "repositoryId": "central",
       "dependencies": [
         {
@@ -6446,30 +6446,30 @@
         {
           "groupId": "com.diffplug.spotless",
           "artifactId": "spotless-lib",
-          "version": "4.11.0",
+          "version": "4.12.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "daa762461c24feef790f83e9e9f2a24884b2ab5c9d2553719cdfe48f1bd15c36",
+          "checksum": "ef1b90784d99b5a2ba4f72d26eba61375a8e94d544d36f144067d945fad01eb2",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.11.0/spotless-lib-4.11.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.12.0/spotless-lib-4.12.0.jar",
           "repositoryId": "central",
-          "selectedVersion": "4.11.0",
+          "selectedVersion": "4.12.0",
           "included": true,
-          "id": "com.diffplug.spotless:spotless-lib:4.11.0",
+          "id": "com.diffplug.spotless:spotless-lib:4.12.0",
           "children": [],
           "boms": []
         },
         {
           "groupId": "com.diffplug.spotless",
           "artifactId": "spotless-lib-extra",
-          "version": "4.11.0",
+          "version": "4.12.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "8384f38f6f31fd902aecadf788877110d6b4031cd5c27e066044b1e7383b0a1b",
+          "checksum": "735c7b5805cc7ed30308219b9771ff89b7853592a7d6b07eededc32db392e1f6",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib-extra/4.11.0/spotless-lib-extra-4.11.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib-extra/4.12.0/spotless-lib-extra-4.12.0.jar",
           "repositoryId": "central",
-          "selectedVersion": "4.11.0",
+          "selectedVersion": "4.12.0",
           "included": true,
-          "id": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+          "id": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
           "children": [
             {
               "groupId": "com.diffplug.durian",
@@ -6483,7 +6483,7 @@
               "selectedVersion": "1.2.0",
               "included": false,
               "id": "com.diffplug.durian:durian-collect:1.2.0",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [],
               "boms": []
             },
@@ -6499,23 +6499,23 @@
               "selectedVersion": "1.2.0",
               "included": false,
               "id": "com.diffplug.durian:durian-core:1.2.0",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [],
               "boms": []
             },
             {
               "groupId": "com.diffplug.spotless",
               "artifactId": "spotless-lib",
-              "version": "4.11.0",
+              "version": "4.12.0",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "daa762461c24feef790f83e9e9f2a24884b2ab5c9d2553719cdfe48f1bd15c36",
+              "checksum": "ef1b90784d99b5a2ba4f72d26eba61375a8e94d544d36f144067d945fad01eb2",
               "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.11.0/spotless-lib-4.11.0.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/com/diffplug/spotless/spotless-lib/4.12.0/spotless-lib-4.12.0.jar",
               "repositoryId": "central",
-              "selectedVersion": "4.11.0",
+              "selectedVersion": "4.12.0",
               "included": false,
-              "id": "com.diffplug.spotless:spotless-lib:4.11.0",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "id": "com.diffplug.spotless:spotless-lib:4.12.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [],
               "boms": []
             },
@@ -6540,7 +6540,7 @@
               "selectedVersion": "2.6.1",
               "included": true,
               "id": "com.googlecode.concurrent-trees:concurrent-trees:2.6.1",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [],
               "boms": []
             },
@@ -6556,7 +6556,7 @@
               "selectedVersion": "1.8.2",
               "included": true,
               "id": "dev.equo.ide:solstice:1.8.2",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [
                 {
                   "groupId": "com.diffplug.durian",
@@ -6819,25 +6819,25 @@
             {
               "groupId": "org.eclipse.jgit",
               "artifactId": "org.eclipse.jgit",
-              "version": "7.8.0.202609011348-r",
+              "version": "7.8.1.202611041320-r",
               "checksumAlgorithm": "SHA-256",
-              "checksum": "cc63976f92e8058d05a543f320a6237accf2f17b745ab20946f246ac0b54dfd6",
+              "checksum": "acca09a77e74440fd24af72c8af4c496e42650d8092a4691a2935d9ce21d05d7",
               "scope": "runtime",
-              "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit/7.8.0.202609011348-r/org.eclipse.jgit-7.8.0.202609011348-r.jar",
+              "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit/7.8.1.202611041320-r/org.eclipse.jgit-7.8.1.202611041320-r.jar",
               "repositoryId": "central",
               "parentPom": {
                 "groupId": "org.eclipse.jgit",
                 "artifactId": "org.eclipse.jgit-parent",
-                "version": "7.8.0.202609011348-r",
-                "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/7.8.0.202609011348-r/org.eclipse.jgit-parent-7.8.0.202609011348-r.pom",
+                "version": "7.8.1.202611041320-r",
+                "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/7.8.1.202611041320-r/org.eclipse.jgit-parent-7.8.1.202611041320-r.pom",
                 "repositoryId": "central",
                 "checksumAlgorithm": "SHA-256",
-                "checksum": "cac56ca6025066d1b5187f834f75e7e73a95d30cb4d05432cf09e512b7767de0"
+                "checksum": "73f666a9b58dce5db8485ab38625f5f8563139325bff6587772c9d2b4b4f31f1"
               },
-              "selectedVersion": "7.8.0.202609011348-r",
+              "selectedVersion": "7.8.1.202611041320-r",
               "included": false,
-              "id": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "id": "org.eclipse.jgit:org.eclipse.jgit:7.8.1.202611041320-r",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
               "children": [],
               "boms": []
             },
@@ -6853,7 +6853,190 @@
               "selectedVersion": "3.24.300",
               "included": true,
               "id": "org.eclipse.platform:org.eclipse.osgi:3.24.300",
-              "parent": "com.diffplug.spotless:spotless-lib-extra:4.11.0",
+              "parent": "com.diffplug.spotless:spotless-lib-extra:4.12.0",
+              "children": [],
+              "boms": []
+            }
+          ],
+          "boms": []
+        },
+        {
+          "groupId": "org.apache.maven.doxia",
+          "artifactId": "doxia-sink-api",
+          "version": "2.0.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "fba33eaee3b01547bcd14b05ebc37f7dacef1819ad9ee7a5b27899afd3472cf4",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/2.0.0/doxia-sink-api-2.0.0.jar",
+          "repositoryId": "central",
+          "parentPom": {
+            "groupId": "org.apache.maven.doxia",
+            "artifactId": "doxia",
+            "version": "2.0.0",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/2.0.0/doxia-2.0.0.pom",
+            "repositoryId": "central",
+            "checksumAlgorithm": "SHA-256",
+            "checksum": "59f40c92b9f525bb6ca6f8845ec63b13dab18c3c1da93d17620cb8d2ea4c61b8",
+            "parent": {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-parent",
+              "version": "43",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom",
+              "repositoryId": "central",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "468a1262e9aaa5febf9d604e2836267f815351f2b4520f28fb17f53c71e33554",
+              "parent": {
+                "groupId": "org.apache",
+                "artifactId": "apache",
+                "version": "33",
+                "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/33/apache-33.pom",
+                "repositoryId": "central",
+                "checksumAlgorithm": "SHA-256",
+                "checksum": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+              },
+              "boms": [
+                {
+                  "groupId": "org.junit",
+                  "artifactId": "junit-bom",
+                  "version": "5.10.3",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.3/junit-bom-5.10.3.pom",
+                  "repositoryId": "central",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "10937d44c425984cb8739225d34712e1a3145641ca93ac3f7ef186fa25f6babc"
+                }
+              ]
+            },
+            "boms": [
+              {
+                "groupId": "org.junit",
+                "artifactId": "junit-bom",
+                "version": "5.11.1",
+                "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.1/junit-bom-5.11.1.pom",
+                "repositoryId": "central",
+                "checksumAlgorithm": "SHA-256",
+                "checksum": "c72124a9c9a79910c1858766b72c350e1a39244cbfb4b076348fbfe078281965"
+              }
+            ]
+          },
+          "selectedVersion": "2.0.0",
+          "included": true,
+          "id": "org.apache.maven.doxia:doxia-sink-api:2.0.0",
+          "children": [],
+          "boms": []
+        },
+        {
+          "groupId": "org.apache.maven.reporting",
+          "artifactId": "maven-reporting-api",
+          "version": "4.0.0",
+          "checksumAlgorithm": "SHA-256",
+          "checksum": "cb2cbde3c9c7288f7398a250dcf3c90cf92714cff301f22b298e1091b5def33c",
+          "scope": "runtime",
+          "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/reporting/maven-reporting-api/4.0.0/maven-reporting-api-4.0.0.jar",
+          "repositoryId": "central",
+          "parentPom": {
+            "groupId": "org.apache.maven.shared",
+            "artifactId": "maven-shared-components",
+            "version": "43",
+            "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/43/maven-shared-components-43.pom",
+            "repositoryId": "central",
+            "checksumAlgorithm": "SHA-256",
+            "checksum": "6072dd103bdba3199584c5b73ed45b00567cd3ea918e2160b10bc7437c9e8181",
+            "parent": {
+              "groupId": "org.apache.maven",
+              "artifactId": "maven-parent",
+              "version": "43",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom",
+              "repositoryId": "central",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "468a1262e9aaa5febf9d604e2836267f815351f2b4520f28fb17f53c71e33554",
+              "parent": {
+                "groupId": "org.apache",
+                "artifactId": "apache",
+                "version": "33",
+                "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/33/apache-33.pom",
+                "repositoryId": "central",
+                "checksumAlgorithm": "SHA-256",
+                "checksum": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+              },
+              "boms": [
+                {
+                  "groupId": "org.junit",
+                  "artifactId": "junit-bom",
+                  "version": "5.10.3",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.3/junit-bom-5.10.3.pom",
+                  "repositoryId": "central",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "10937d44c425984cb8739225d34712e1a3145641ca93ac3f7ef186fa25f6babc"
+                }
+              ]
+            }
+          },
+          "selectedVersion": "4.0.0",
+          "included": true,
+          "id": "org.apache.maven.reporting:maven-reporting-api:4.0.0",
+          "children": [
+            {
+              "groupId": "org.apache.maven.doxia",
+              "artifactId": "doxia-sink-api",
+              "version": "2.0.0",
+              "checksumAlgorithm": "SHA-256",
+              "checksum": "fba33eaee3b01547bcd14b05ebc37f7dacef1819ad9ee7a5b27899afd3472cf4",
+              "scope": "runtime",
+              "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia-sink-api/2.0.0/doxia-sink-api-2.0.0.jar",
+              "repositoryId": "central",
+              "parentPom": {
+                "groupId": "org.apache.maven.doxia",
+                "artifactId": "doxia",
+                "version": "2.0.0",
+                "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/doxia/doxia/2.0.0/doxia-2.0.0.pom",
+                "repositoryId": "central",
+                "checksumAlgorithm": "SHA-256",
+                "checksum": "59f40c92b9f525bb6ca6f8845ec63b13dab18c3c1da93d17620cb8d2ea4c61b8",
+                "parent": {
+                  "groupId": "org.apache.maven",
+                  "artifactId": "maven-parent",
+                  "version": "43",
+                  "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/43/maven-parent-43.pom",
+                  "repositoryId": "central",
+                  "checksumAlgorithm": "SHA-256",
+                  "checksum": "468a1262e9aaa5febf9d604e2836267f815351f2b4520f28fb17f53c71e33554",
+                  "parent": {
+                    "groupId": "org.apache",
+                    "artifactId": "apache",
+                    "version": "33",
+                    "resolved": "https://repo.maven.apache.org/maven2/org/apache/apache/33/apache-33.pom",
+                    "repositoryId": "central",
+                    "checksumAlgorithm": "SHA-256",
+                    "checksum": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+                  },
+                  "boms": [
+                    {
+                      "groupId": "org.junit",
+                      "artifactId": "junit-bom",
+                      "version": "5.10.3",
+                      "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.3/junit-bom-5.10.3.pom",
+                      "repositoryId": "central",
+                      "checksumAlgorithm": "SHA-256",
+                      "checksum": "10937d44c425984cb8739225d34712e1a3145641ca93ac3f7ef186fa25f6babc"
+                    }
+                  ]
+                },
+                "boms": [
+                  {
+                    "groupId": "org.junit",
+                    "artifactId": "junit-bom",
+                    "version": "5.11.1",
+                    "resolved": "https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.11.1/junit-bom-5.11.1.pom",
+                    "repositoryId": "central",
+                    "checksumAlgorithm": "SHA-256",
+                    "checksum": "c72124a9c9a79910c1858766b72c350e1a39244cbfb4b076348fbfe078281965"
+                  }
+                ]
+              },
+              "selectedVersion": "2.0.0",
+              "included": false,
+              "id": "org.apache.maven.doxia:doxia-sink-api:2.0.0",
+              "parent": "org.apache.maven.reporting:maven-reporting-api:4.0.0",
               "children": [],
               "boms": []
             }
@@ -6863,11 +7046,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-resources",
-          "version": "1.4.0",
+          "version": "1.4.1",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "32e7870a04ec6493c348435350cda357ca2de346e130e4960bc1f69b74a02751",
+          "checksum": "0285ec96271bd51e315543edeea9c6256156474f1c3b70364a1c0975cb454882",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-resources/1.4.0/plexus-resources-1.4.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-resources/1.4.1/plexus-resources-1.4.1.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -6889,9 +7072,9 @@
               }
             ]
           },
-          "selectedVersion": "1.4.0",
+          "selectedVersion": "1.4.1",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-resources:1.4.0",
+          "id": "org.codehaus.plexus:plexus-resources:1.4.1",
           "children": [
             {
               "groupId": "javax.inject",
@@ -6905,7 +7088,7 @@
               "selectedVersion": "1",
               "included": true,
               "id": "javax.inject:javax.inject:1",
-              "parent": "org.codehaus.plexus:plexus-resources:1.4.0",
+              "parent": "org.codehaus.plexus:plexus-resources:1.4.1",
               "children": [],
               "boms": []
             },
@@ -6938,10 +7121,10 @@
                   }
                 ]
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
               "id": "org.codehaus.plexus:plexus-utils:4.1.0",
-              "parent": "org.codehaus.plexus:plexus-resources:1.4.0",
+              "parent": "org.codehaus.plexus:plexus-resources:1.4.1",
               "children": [],
               "boms": []
             },
@@ -6977,7 +7160,7 @@
               "selectedVersion": "3.1.0",
               "included": true,
               "id": "org.codehaus.plexus:plexus-xml:3.1.0",
-              "parent": "org.codehaus.plexus:plexus-resources:1.4.0",
+              "parent": "org.codehaus.plexus:plexus-resources:1.4.1",
               "children": [],
               "boms": []
             },
@@ -7002,7 +7185,7 @@
               "selectedVersion": "1.7.36",
               "included": true,
               "id": "org.slf4j:slf4j-api:1.7.36",
-              "parent": "org.codehaus.plexus:plexus-resources:1.4.0",
+              "parent": "org.codehaus.plexus:plexus-resources:1.4.1",
               "children": [],
               "boms": []
             }
@@ -7012,11 +7195,11 @@
         {
           "groupId": "org.codehaus.plexus",
           "artifactId": "plexus-utils",
-          "version": "4.1.0",
+          "version": "4.2.0",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "6a2fe69e98301882bb2bb05afe36414eb82d6f7c63299cccdb2dc02b4358a968",
+          "checksum": "67a4240e08284c7514bf1e34de349125dfce7a3d1f51aaab32010d5b61df5068",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.1.0/plexus-utils-4.1.0.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.2.0/plexus-utils-4.2.0.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.codehaus.plexus",
@@ -7038,33 +7221,33 @@
               }
             ]
           },
-          "selectedVersion": "4.1.0",
+          "selectedVersion": "4.2.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-utils:4.1.0",
+          "id": "org.codehaus.plexus:plexus-utils:4.2.0",
           "children": [],
           "boms": []
         },
         {
           "groupId": "org.eclipse.jgit",
           "artifactId": "org.eclipse.jgit",
-          "version": "7.8.0.202609011348-r",
+          "version": "7.8.1.202611041320-r",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "cc63976f92e8058d05a543f320a6237accf2f17b745ab20946f246ac0b54dfd6",
+          "checksum": "acca09a77e74440fd24af72c8af4c496e42650d8092a4691a2935d9ce21d05d7",
           "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit/7.8.0.202609011348-r/org.eclipse.jgit-7.8.0.202609011348-r.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit/7.8.1.202611041320-r/org.eclipse.jgit-7.8.1.202611041320-r.jar",
           "repositoryId": "central",
           "parentPom": {
             "groupId": "org.eclipse.jgit",
             "artifactId": "org.eclipse.jgit-parent",
-            "version": "7.8.0.202609011348-r",
-            "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/7.8.0.202609011348-r/org.eclipse.jgit-parent-7.8.0.202609011348-r.pom",
+            "version": "7.8.1.202611041320-r",
+            "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/jgit/org.eclipse.jgit-parent/7.8.1.202611041320-r/org.eclipse.jgit-parent-7.8.1.202611041320-r.pom",
             "repositoryId": "central",
             "checksumAlgorithm": "SHA-256",
-            "checksum": "cac56ca6025066d1b5187f834f75e7e73a95d30cb4d05432cf09e512b7767de0"
+            "checksum": "73f666a9b58dce5db8485ab38625f5f8563139325bff6587772c9d2b4b4f31f1"
           },
-          "selectedVersion": "7.8.0.202609011348-r",
+          "selectedVersion": "7.8.1.202611041320-r",
           "included": true,
-          "id": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
+          "id": "org.eclipse.jgit:org.eclipse.jgit:7.8.1.202611041320-r",
           "children": [
             {
               "groupId": "com.googlecode.javaewah",
@@ -7087,7 +7270,7 @@
               "selectedVersion": "1.2.3",
               "included": true,
               "id": "com.googlecode.javaewah:JavaEWAH:1.2.3",
-              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
+              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.1.202611041320-r",
               "children": [],
               "boms": []
             },
@@ -7141,7 +7324,7 @@
               "selectedVersion": "1.22.1",
               "included": true,
               "id": "commons-codec:commons-codec:1.22.1",
-              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
+              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.1.202611041320-r",
               "children": [],
               "boms": []
             },
@@ -7175,7 +7358,7 @@
               "selectedVersion": "1.7.36",
               "included": false,
               "id": "org.slf4j:slf4j-api:2.0.18",
-              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.0.202609011348-r",
+              "parent": "org.eclipse.jgit:org.eclipse.jgit:7.8.1.202611041320-r",
               "children": [],
               "boms": []
             }
@@ -7231,7 +7414,7 @@
                 "checksumAlgorithm": "SHA-256",
                 "checksum": "e246e2a062b5d989fdefc521c9c56431ba5554ff8d2344edee9218a34a546a33"
               },
-              "selectedVersion": "4.1.0",
+              "selectedVersion": "4.2.0",
               "included": false,
               "id": "org.codehaus.plexus:plexus-utils:1.5.8",
               "parent": "org.sonatype.plexus:plexus-build-api:0.0.7",
