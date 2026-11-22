@@ -3041,3 +3041,25 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
 - Claude Opus 5.5 ()
+
+# 5.19.1-beta-2
+## Changelog
+
+## 🧰 Tasks
+- 7028e25 chore: release version 5.19.1-beta-2
+
+---
+- 3c9d5ee :arrow_up:(deps): Update github/codeql-action action to v4.39.4 (#1766)
+- 873bf0b :arrow_up:(deps): Update ossf/scorecard-action action to v2.6.0 (#1765)
+- 97bcd57 :arrow_up:(deps): Update actions/create-github-app-token action to v3.4.0 (#1764)
+- b7c676c :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-utils to v4.2.0 (#1760)
+- 3e20f94 :arrow_up:(deps): Update step-security/harden-runner action to v2.23.0 (#1763)
+- f3931d9 :arrow_up:(deps): Update actions/dependency-review-action action to v5.0.1 (#1762)
+- 1148e2c :arrow_up:(deps): Update actions/setup-go action to v7.1.0 (#1761)
+- 11d0640 :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-xml to v4.2.1 (#1759)
+- 6d99ed3 :arrow_up:(deps): Update actions/setup-java action to v6.3.0 (#1758)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
