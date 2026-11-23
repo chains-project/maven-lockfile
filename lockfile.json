@@ -8,7 +8,7 @@
     "version": "5.19.1-SNAPSHOT",
     "relativePath": "pom.xml",
     "checksumAlgorithm": "SHA-256",
-    "checksum": "d4f334ae51a9ead494adc0075d374263f63f8f8db314feff9110c1fafca7d237"
+    "checksum": "50a3e8636b695a362ad24d646158c54447dfb09c45b3879ae3340f49bdba54c4"
   },
   "lockFileVersion": 1,
   "dependencies": [
@@ -5906,29 +5906,29 @@
     {
       "groupId": "org.instancio",
       "artifactId": "instancio-junit",
-      "version": "6.2.1",
+      "version": "6.2.2",
       "checksumAlgorithm": "SHA-256",
-      "checksum": "61373d9afa52d1a8bde8327ca82384618292e83f062dff182bdc541a0771ba7f",
+      "checksum": "42e00baeb95962e24ac26f868dabed2f5e76c21df0befb133f0198521ed02f34",
       "scope": "test",
-      "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-junit/6.2.1/instancio-junit-6.2.1.jar",
+      "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-junit/6.2.2/instancio-junit-6.2.2.jar",
       "repositoryId": "central",
-      "selectedVersion": "6.2.1",
+      "selectedVersion": "6.2.2",
       "included": true,
-      "id": "org.instancio:instancio-junit:6.2.1",
+      "id": "org.instancio:instancio-junit:6.2.2",
       "children": [
         {
           "groupId": "org.instancio",
           "artifactId": "instancio-core",
-          "version": "6.2.1",
+          "version": "6.2.2",
           "checksumAlgorithm": "SHA-256",
-          "checksum": "8e65b350fb5daa46dd0939af74d1e52154e6c855b12e59304abb4a62ef779ff8",
+          "checksum": "0959bd983555bad0313480135b32e735827fbe2b6af4edd37a4d0d251ff9a0f1",
           "scope": "test",
-          "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-core/6.2.1/instancio-core-6.2.1.jar",
+          "resolved": "https://repo.maven.apache.org/maven2/org/instancio/instancio-core/6.2.2/instancio-core-6.2.2.jar",
           "repositoryId": "central",
-          "selectedVersion": "6.2.1",
+          "selectedVersion": "6.2.2",
           "included": true,
-          "id": "org.instancio:instancio-core:6.2.1",
-          "parent": "org.instancio:instancio-junit:6.2.1",
+          "id": "org.instancio:instancio-core:6.2.2",
+          "parent": "org.instancio:instancio-junit:6.2.2",
           "children": [
             {
               "groupId": "org.jspecify",
@@ -5942,7 +5942,7 @@
               "selectedVersion": "1.0.0",
               "included": false,
               "id": "org.jspecify:jspecify:1.0.1",
-              "parent": "org.instancio:instancio-core:6.2.1",
+              "parent": "org.instancio:instancio-core:6.2.2",
               "children": [],
               "boms": []
             },
@@ -5976,7 +5976,7 @@
               "selectedVersion": "2.0.20",
               "included": false,
               "id": "org.slf4j:slf4j-api:2.0.20",
-              "parent": "org.instancio:instancio-core:6.2.1",
+              "parent": "org.instancio:instancio-core:6.2.2",
               "children": [],
               "boms": []
             }

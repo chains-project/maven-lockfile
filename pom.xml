@@ -148,7 +148,7 @@
     <dependency>
       <groupId>org.instancio</groupId>
       <artifactId>instancio-junit</artifactId>
-      <version>6.2.1</version>
+      <version>6.2.2</version>
       <scope>test</scope>
     </dependency>
     <!-- instancio 6 needs the slf4j 2.x API; maven-core otherwise puts 1.7.x on the test classpath -->
