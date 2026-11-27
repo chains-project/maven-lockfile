@@ -23,11 +23,6 @@
         <executions>
           <execution><goals><goal>validate</goal></goals></execution>
         </executions>
-        <configuration>
-          <checksumMode>local</checksumMode>
-          <includeMavenPlugins>false</includeMavenPlugins>
-          <includeEnvironment>false</includeEnvironment>
-        </configuration>
       </plugin>
     </plugins>
   </build>

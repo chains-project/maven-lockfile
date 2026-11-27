@@ -1,24 +1,27 @@
 package io.github.chains_project.maven_lockfile;
 
-import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
-import io.github.chains_project.maven_lockfile.data.FeatureConfig;
-import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.descriptor.MojoDescriptor;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyCollectorBuilder;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.aether.RepositorySystem;
 
 public abstract class AbstractLockfileMojo extends AbstractMojo {
@@ -41,68 +44,11 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Component
     protected RepositorySystem repositorySystem;
 
-    @Parameter(property = "includeMavenPlugins")
-    protected Boolean includeMavenPlugins;
-
-    @Parameter(property = "allowValidationFailure")
-    protected Boolean allowValidationFailure;
-
-    @Parameter(property = "allowPomValidationFailure")
-    protected Boolean allowPomValidationFailure;
-
-    @Parameter(property = "allowMavenPluginValidationFailure")
-    protected Boolean allowMavenPluginValidationFailure;
-
-    // For CI with GitHub Actions, set to true; runner environments (Maven version, OS) can change between updates and
-    // are not fully controllable.
-    @Parameter(property = "allowEnvironmentalValidationFailure")
-    protected Boolean allowEnvironmentalValidationFailure;
-
-    @Parameter(property = "includeEnvironment")
-    protected Boolean includeEnvironment;
-
-    @Parameter(property = "includeBoms")
-    protected Boolean includeBoms;
-
-    @Parameter(property = "allowBomValidationFailure")
-    protected Boolean allowBomValidationFailure;
-
-    @Parameter(property = "includeParentPom")
-    protected Boolean includeParentPom;
-
-    @Parameter(property = "allowParentPomValidationFailure")
-    protected Boolean allowParentPomValidationFailure;
-
-    @Parameter(property = "includeMavenExtensions")
-    protected Boolean includeMavenExtensions;
-
-    @Parameter(property = "allowMavenExtensionsValidationFailure")
-    protected Boolean allowMavenExtensionsValidationFailure;
-
-    /**
-     * <b>Experimental.</b> Merge artifacts dynamically resolved during a real build into the lockfile.
-     * Behaviour and lockfile output may change or be removed in any release without notice.
-     */
-    @Parameter(property = "hermetic")
-    protected Boolean hermetic;
-
     @Parameter(defaultValue = "${maven.version}")
     protected String mavenVersion;
 
     @Parameter(defaultValue = "${java.version}")
     protected String javaVersion;
-
-    @Parameter(property = "checksumAlgorithm")
-    protected String checksumAlgorithm;
-
-    // No defaultValue: null means "not set", so a regenerated lockfile keeps the stored checksumMode (see
-    // mergeConfigWithCliArgs). The default for new lockfiles is applied in getConfig().
-    @Parameter(property = "checksumMode")
-    protected String checksumMode;
-
-    // No defaultValue: null means "not set", so validate can warn when it is passed (see Deprecations).
-    @Parameter(property = "reduced")
-    protected Boolean reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
     protected boolean skip;
@@ -147,32 +93,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         }
     }
 
-    protected Config getConfig() {
-        String chosenChecksumAlgorithm = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
-        ChecksumModes chosenChecksumMode =
-                Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.REMOTE : ChecksumModes.fromName(checksumMode);
-        Config.ReductionState reductionState =
-                Boolean.TRUE.equals(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
-        // hermetic defaults to false (opt-in) when not explicitly set
-        Config.HermeticInclusion hermeticInclusion =
-                Boolean.TRUE.equals(hermetic) ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude;
-        // New lockfiles include every feature and fail on its mismatches, unless a flag says otherwise.
-        FeatureConfig defaults = new FeatureConfig(true, ValidationPolicy.Error);
-        return new Config(
-                merge(defaults, includeMavenPlugins, allowMavenPluginValidationFailure),
-                merge(ValidationPolicy.Error, allowValidationFailure),
-                merge(defaults, includeEnvironment, allowEnvironmentalValidationFailure),
-                merge(ValidationPolicy.Error, allowPomValidationFailure),
-                reductionState,
-                mojo.getPlugin().getVersion(),
-                chosenChecksumMode,
-                chosenChecksumAlgorithm,
-                merge(defaults, includeBoms, allowBomValidationFailure),
-                merge(defaults, includeParentPom, allowParentPomValidationFailure),
-                merge(defaults, includeMavenExtensions, allowMavenExtensionsValidationFailure),
-                hermeticInclusion);
-    }
-
     protected ProjectBuildingRequest newResolveArtifactProjectBuildingRequest() throws MojoExecutionException {
         ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
         buildingRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
@@ -186,40 +106,38 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     }
 
     /**
-     * Returns a Config that starts from {@code base} (typically the stored lockfile config) and overrides
-     * only the fields that were explicitly set via CLI or pom.xml configuration (non-null). When a flag
-     * is null (not explicitly set), the stored value from the lockfile config is preserved.
+     * Fails if a parameter that only another goal of this plugin declares is set, as a user property or in this
+     * plugin's POM configuration, because Maven would silently ignore it.
      */
-    protected Config mergeConfigWithCliArgs(Config base) {
-        ChecksumModes chosenChecksumMode =
-                Strings.isNullOrEmpty(checksumMode) ? base.getChecksumMode() : ChecksumModes.fromName(checksumMode);
-        String chosenChecksumAlgorithm =
-                Strings.isNullOrEmpty(checksumAlgorithm) ? base.getChecksumAlgorithm() : checksumAlgorithm;
-        Config.HermeticInclusion hermeticInclusion = hermetic != null
-                ? (hermetic ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude)
-                : base.getHermeticInclusion();
-        return new Config(
-                merge(base.mavenPlugins(), includeMavenPlugins, allowMavenPluginValidationFailure),
-                merge(base.getOnValidationFailure(), allowValidationFailure),
-                merge(base.environment(), includeEnvironment, allowEnvironmentalValidationFailure),
-                merge(base.getOnPomValidationFailure(), allowPomValidationFailure),
-                base.getReductionState(),
-                base.getMavenLockfileVersion(),
-                chosenChecksumMode,
-                chosenChecksumAlgorithm,
-                merge(base.boms(), includeBoms, allowBomValidationFailure),
-                merge(base.parentPom(), includeParentPom, allowParentPomValidationFailure),
-                merge(base.mavenExtensions(), includeMavenExtensions, allowMavenExtensionsValidationFailure),
-                hermeticInclusion);
-    }
-
-    /** {@code base}, with the flags that were set replacing its values. */
-    private static FeatureConfig merge(FeatureConfig base, Boolean include, Boolean allowFailure) {
-        return new FeatureConfig(
-                include != null ? include : base.isIncluded(), merge(base.getOnFailure(), allowFailure));
-    }
-
-    private static ValidationPolicy merge(ValidationPolicy base, Boolean allowFailure) {
-        return allowFailure != null ? ValidationPolicy.of(allowFailure) : base;
+    static void rejectParametersOfOtherGoals(MojoExecution execution, MavenProject project, MavenSession session)
+            throws MojoExecutionException {
+        MojoDescriptor goal = execution.getMojoDescriptor();
+        List<Xpp3Dom> configurations = new ArrayList<>();
+        Plugin plugin = project.getPlugin(execution.getPlugin().getKey());
+        if (plugin != null) {
+            configurations.add((Xpp3Dom) plugin.getConfiguration());
+            PluginExecution pluginExecution = plugin.getExecutionsAsMap().get(execution.getExecutionId());
+            if (pluginExecution != null) {
+                configurations.add((Xpp3Dom) pluginExecution.getConfiguration());
+            }
+        }
+        for (MojoDescriptor other : goal.getPluginDescriptor().getMojos()) {
+            if (other.getParameters() == null) {
+                continue;
+            }
+            for (org.apache.maven.plugin.descriptor.Parameter parameter : other.getParameters()) {
+                String name = parameter.getName();
+                if (!parameter.isEditable() || goal.getParameterMap().containsKey(name)) {
+                    continue;
+                }
+                if (session.getUserProperties().containsKey(name)
+                        || configurations.stream().anyMatch(c -> c != null && c.getChild(name) != null)) {
+                    throw new MojoExecutionException(String.format(
+                            "Parameter '%s' belongs to the '%s' goal, not '%s'. Pass it only to '%2$s', for example"
+                                    + " in the configuration of that goal's <execution>.",
+                            name, other.getGoal(), goal.getGoal()));
+                }
+            }
+        }
     }
 }

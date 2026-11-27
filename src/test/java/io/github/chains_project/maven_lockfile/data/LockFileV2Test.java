@@ -26,48 +26,34 @@ class LockFileV2Test {
             Path.of("src/test/resources-its/it/IntegrationTestsIT/freezeWithoutDepManagement/lockfile.json");
 
     /** Every lockfile fixture of the integration tests. */
-    static List<Path> v1LockFiles() throws IOException {
+    static List<Path> lockFiles() throws IOException {
         try (Stream<Path> fixtures = Files.walk(Path.of("src/test/resources-its"))) {
             return fixtures.filter(path -> path.toString().endsWith(".json"))
-                    .filter(path -> read(path).contains("\"lockFileVersion\": 1"))
+                    .filter(path -> read(path).contains("\"lockFileVersion\": 2"))
                     .sorted()
                     .collect(Collectors.toList());
         }
     }
 
     @TestFactory
-    Stream<DynamicTest> v2_holds_the_same_content_as_v1() throws IOException {
-        return v1LockFiles().stream()
-                .map(path -> DynamicTest.dynamicTest(path.toString(), () -> assertRoundTrips(path)));
+    Stream<DynamicTest> v2_round_trips_through_the_model() throws IOException {
+        return lockFiles().stream().map(path -> DynamicTest.dynamicTest(path.toString(), () -> assertRoundTrips(path)));
     }
 
     private static void assertRoundTrips(Path path) throws IOException {
-        JsonObject v1 = JsonParser.parseString(read(path)).getAsJsonObject();
-
-        JsonObject v2 = LockFileV2.encode(v1);
-        JsonObject decoded = LockFileV2.decode(v2);
-        decoded.addProperty("lockFileVersion", 1);
-        assertThat(decoded).isEqualTo(v1);
+        JsonObject v2 = JsonParser.parseString(read(path)).getAsJsonObject();
+        assertThat(LockFileV2.encode(LockFileV2.decode(v2))).isEqualTo(v2);
 
         // Through the model, including fields that equals() ignores, such as resolved.
-        LockFile fromV1 = LockFile.readLockFile(path);
-        LockFile fromV2 = LockFile.fromJson(fromV1.toJson(2), path.toString());
-        assertThat(fromV2.getLockfileVersion()).isEqualTo(2);
-        assertThat(fromV2.toJson(1)).isEqualTo(fromV1.toJson(1));
-    }
-
-    @TestFactory
-    Stream<DynamicTest> v1_output_is_unchanged() throws IOException {
-        return v1LockFiles().stream()
-                .map(path -> DynamicTest.dynamicTest(path.toString(), () -> {
-                    LockFile lockFile = LockFile.readLockFile(path);
-                    assertThat(lockFile.toJson(1)).isEqualTo(JsonUtils.toJson(lockFile));
-                }));
+        LockFile lockFile = LockFile.readLockFile(path);
+        assertThat(lockFile.getLockfileVersion()).isEqualTo(2);
+        String json = lockFile.toJson(2);
+        assertThat(LockFile.fromJson(json, path.toString()).toJson(2)).isEqualTo(json);
     }
 
     @Test
     void v2_stores_each_artifact_once() throws IOException {
-        JsonObject v2 = LockFileV2.encode(JsonParser.parseString(read(FIXTURE)).getAsJsonObject());
+        JsonObject v2 = JsonParser.parseString(read(FIXTURE)).getAsJsonObject();
         String json = JsonUtils.toJsonKeepingNulls(v2);
 
         List<String> keys = List.copyOf(v2.keySet());
@@ -85,7 +71,8 @@ class LockFileV2Test {
 
     @Test
     void occurrence_with_different_metadata_keeps_it_inline() throws IOException {
-        JsonObject v1 = JsonParser.parseString(read(FIXTURE)).getAsJsonObject();
+        JsonObject v1 = LockFileV2.decode(JsonParser.parseString(read(FIXTURE)).getAsJsonObject());
+        v1.addProperty("lockFileVersion", 1);
         JsonObject first = v1.getAsJsonArray("dependencies").get(0).getAsJsonObject();
         JsonObject copy = first.deepCopy();
         copy.remove("children");
@@ -108,8 +95,19 @@ class LockFileV2Test {
         assertThatThrownBy(() -> LockFile.fromJson(json, "lockfile.json"))
                 .isInstanceOf(LockFileFormatException.class)
                 .hasMessage("lockfile.json has lockFileVersion 3, but this release of maven-lockfile only reads"
-                        + " lockFileVersion 1 to 2. Upgrade maven-lockfile to at least 7.0.0, the release that"
+                        + " lockFileVersion 2. Upgrade maven-lockfile to at least 7.0.0, the release that"
                         + " generated it.");
+    }
+
+    @Test
+    void lockfile_version_1_is_rejected() {
+        // contract: 6.0.0 refuses version 1, including a lockfile that records no version.
+        for (String json : List.of("{\"lockFileVersion\": 1}", "{}")) {
+            assertThatThrownBy(() -> LockFile.fromJson(json, "lockfile.json"))
+                    .isInstanceOf(LockFileFormatException.class)
+                    .hasMessageStartingWith(
+                            "lockfile.json has lockFileVersion 1, which maven-lockfile 6 no longer reads.");
+        }
     }
 
     @Test

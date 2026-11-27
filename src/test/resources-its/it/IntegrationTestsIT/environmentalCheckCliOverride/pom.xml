@@ -25,7 +25,6 @@
           </execution>
         </executions>
         <configuration>
-          <checksumMode>local</checksumMode>
           <allowEnvironmentalValidationFailure>true</allowEnvironmentalValidationFailure>
         </configuration>
       </plugin>

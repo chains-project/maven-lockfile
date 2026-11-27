@@ -35,15 +35,16 @@ import org.junit.jupiter.api.Nested;
 public class IntegrationTestsIT {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
-        // contract: an empty project should generate an empty lock file
+        // contract: an empty project generates a lockfile without dependencies, and by default without plugins.
         System.out.println("Running 'simpleProject' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
-        assertThat(lockFile.getConfig().mavenPlugins().isIncluded()).isTrue();
-        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
+        assertThat(lockFile.getConfig().mavenPlugins().isIncluded()).isFalse();
+        assertThat(lockFile.getMavenPlugins()).isEmpty();
+        assertThat(lockFile.getConfig().isReduced()).isTrue();
     }
 
     @MavenTest
@@ -79,6 +80,15 @@ public class IntegrationTestsIT {
         assertThat(junitDep.getVersion()).extracting(VersionNumber::getValue).isEqualTo("5.9.2");
         assertThat(junitDep.getChecksum())
                 .isEqualTo("f767a170f97127b0ad3582bf3358eabbbbe981d9f96411853e629d9276926fd5");
+    }
+
+    @MavenTest
+    public void wrongGoalParameterShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: validate fails when it is given a parameter that only generate declares.
+        System.out.println("Running 'wrongGoalParameterShouldFail' integration test.");
+        assertThat(result).isFailure();
+        assertThat(Files.readString(result.getMavenLog().getStdout()))
+                .contains("Parameter 'includeMavenPlugins' belongs to the 'generate' goal, not 'validate'.");
     }
 
     @MavenTest
@@ -621,7 +631,7 @@ public class IntegrationTestsIT {
     @MavenTest
     public void singleDependencyCheckMustWarn(MavenExecutionResult result) throws Exception {
         // contract: a changed dependency should generate a warning on the build.
-        // if the allowValidationFailure parameter is true
+        // if the allowDependencyValidationFailure parameter is true
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",
         System.out.println("Running 'singleDependencyCheckMustWarn' integration test.");
         assertThat(result).isSuccessful();

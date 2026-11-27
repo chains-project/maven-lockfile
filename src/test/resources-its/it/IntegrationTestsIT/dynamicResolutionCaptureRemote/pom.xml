@@ -43,6 +43,7 @@
         </executions>
         <configuration>
           <checksumMode>remote</checksumMode>
+          <reduced>false</reduced>
           <includeMavenPlugins>true</includeMavenPlugins>
           <hermetic>true</hermetic>
         </configuration>

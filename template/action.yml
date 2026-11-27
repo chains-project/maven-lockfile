@@ -16,7 +16,40 @@ inputs:
     required: false
     default: 'chore: update lockfile'
   include-maven-plugins:
-    description: 'Include Maven plugins in the lockfile. If not set, a new lockfile includes them and an existing lockfile keeps the value it records.'
+    description: 'Include Maven plugins in the lockfile. If not set, a new lockfile excludes them and an existing lockfile keeps the value it records.'
+    required: false
+  include-environment:
+    description: "Record the Maven version, Java version and OS in the lockfile. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  include-boms:
+    description: "Record the BOMs that manage dependency versions. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  include-parent-pom:
+    description: "Record the parent POMs of the project, its dependencies and plugins. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  reduced:
+    description: "Keep only the dependency versions Maven puts on the classpath. Set it to false if a tool prefetches artifacts for offline builds. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  checksum-mode:
+    description: "How checksums are calculated: remote or local. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  checksum-algorithm:
+    description: "The checksum algorithm, such as SHA-256. If not set, a new lockfile uses the plugin's default and an existing lockfile keeps the value it records."
+    required: false
+  allow-dependency-validation-failure:
+    description: "Warn instead of failing when the project's coordinates or dependency tree differ from the lockfile. If not set, the value the lockfile records applies."
+    required: false
+  allow-pom-validation-failure:
+    description: "Warn instead of failing when the checksum of the project's POM differs. If not set, the value the lockfile records applies."
+    required: false
+  allow-maven-plugin-validation-failure:
+    description: 'Warn instead of failing when Maven plugins or build extensions differ. If not set, the value the lockfile records applies.'
+    required: false
+  allow-bom-validation-failure:
+    description: 'Warn instead of failing when BOMs differ. If not set, the value the lockfile records applies.'
+    required: false
+  allow-parent-pom-validation-failure:
+    description: 'Warn instead of failing when parent POMs differ. If not set, the value the lockfile records applies.'
     required: false
   lockfile-name:
     description: 'Name of the lockfile (default="lockfile.json")'
@@ -93,6 +126,20 @@ runs:
       shell: bash
     - name: Maven Lockfile Action
       id: maven-lockfile
+      env:
+        INCLUDE_MAVEN_PLUGINS: ${{ inputs.include-maven-plugins }}
+        INCLUDE_ENVIRONMENT: ${{ inputs.include-environment }}
+        INCLUDE_BOMS: ${{ inputs.include-boms }}
+        INCLUDE_PARENT_POM: ${{ inputs.include-parent-pom }}
+        REDUCED: ${{ inputs.reduced }}
+        CHECKSUM_MODE: ${{ inputs.checksum-mode }}
+        CHECKSUM_ALGORITHM: ${{ inputs.checksum-algorithm }}
+        ALLOW_DEPENDENCY_VALIDATION_FAILURE: ${{ inputs.allow-dependency-validation-failure }}
+        ALLOW_POM_VALIDATION_FAILURE: ${{ inputs.allow-pom-validation-failure }}
+        ALLOW_MAVEN_PLUGIN_VALIDATION_FAILURE: ${{ inputs.allow-maven-plugin-validation-failure }}
+        ALLOW_BOM_VALIDATION_FAILURE: ${{ inputs.allow-bom-validation-failure }}
+        ALLOW_PARENT_POM_VALIDATION_FAILURE: ${{ inputs.allow-parent-pom-validation-failure }}
+        ALLOW_ENVIRONMENTAL_VALIDATION_FAILURE: ${{ inputs.allow-environmental-validation-failure }}
       run: |
         #!/bin/bash
         set -e
@@ -101,31 +148,36 @@ runs:
         echo "::group::maven-lockfile"
         
         # Configuration from inputs
-        INCLUDE_MAVEN_PLUGINS="${{ inputs.include-maven-plugins }}"
         LOCKFILE_NAME="${{ inputs.lockfile-name }}"
-        ALLOW_ENV_VALIDATION_FAILURE="${{ inputs.allow-environmental-validation-failure }}"
         HERMETIC="${{ inputs.hermetic }}"
         POM_CHANGED="${POM_CHANGED}"
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
 
         # Convert to Maven plugin args
         PLUGIN_VERSION="${project.version}"
-        # MAVEN_ARGS go to both goals. Every other parameter belongs to one goal: validate takes the generate
-        # parameters from the lockfile (https://github.com/chains-project/maven-lockfile/issues/1575).
+        # MAVEN_ARGS go to both goals. Every other parameter belongs to one goal
+        # (https://github.com/chains-project/maven-lockfile/issues/1575), and is passed only when its input is set, so
+        # that the plugin's default or the value the lockfile records applies otherwise.
+        arg() { if [ -n "$2" ]; then printf ' -D%s=%s' "$1" "$2"; fi; }
         MAVEN_ARGS=""
         GENERATE_ARGS=""
-        # Pass it only when set, so regenerating keeps the value recorded in the lockfile.
-        if [ -n "$INCLUDE_MAVEN_PLUGINS" ]; then
-          GENERATE_ARGS="-DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
-        fi
+        GENERATE_ARGS+="$(arg includeMavenPlugins "$INCLUDE_MAVEN_PLUGINS")"
+        GENERATE_ARGS+="$(arg includeEnvironment "$INCLUDE_ENVIRONMENT")"
+        GENERATE_ARGS+="$(arg includeBoms "$INCLUDE_BOMS")"
+        GENERATE_ARGS+="$(arg includeParentPom "$INCLUDE_PARENT_POM")"
+        GENERATE_ARGS+="$(arg reduced "$REDUCED")"
+        GENERATE_ARGS+="$(arg checksumMode "$CHECKSUM_MODE")"
+        GENERATE_ARGS+="$(arg checksumAlgorithm "$CHECKSUM_ALGORITHM")"
         VALIDATE_ARGS=""
+        VALIDATE_ARGS+="$(arg allowDependencyValidationFailure "$ALLOW_DEPENDENCY_VALIDATION_FAILURE")"
+        VALIDATE_ARGS+="$(arg allowPomValidationFailure "$ALLOW_POM_VALIDATION_FAILURE")"
+        VALIDATE_ARGS+="$(arg allowMavenPluginValidationFailure "$ALLOW_MAVEN_PLUGIN_VALIDATION_FAILURE")"
+        VALIDATE_ARGS+="$(arg allowBomValidationFailure "$ALLOW_BOM_VALIDATION_FAILURE")"
+        VALIDATE_ARGS+="$(arg allowParentPomValidationFailure "$ALLOW_PARENT_POM_VALIDATION_FAILURE")"
+        VALIDATE_ARGS+="$(arg allowEnvironmentalValidationFailure "$ALLOW_ENVIRONMENTAL_VALIDATION_FAILURE")"
 
         if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -DlockfileName=$LOCKFILE_NAME"
-        fi
-
-        if [ "$ALLOW_ENV_VALIDATION_FAILURE" == "true" ]; then
-          VALIDATE_ARGS="$VALIDATE_ARGS -DallowEnvironmentalValidationFailure=true"
         fi
 
         if [ "$HERMETIC" == "true" ]; then

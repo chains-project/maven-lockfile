@@ -1,17 +1,23 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.google.gson.annotations.SerializedName;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 
 public class Config {
 
+    // includeMavenPlugins and allowMavenPluginValidationFailure also apply to build extensions.
     private final boolean includeMavenPlugins;
-    private final boolean allowValidationFailure;
+
+    // allowValidationFailure: the name before 6.0.0, still found in lockfiles that 5.x generated
+    @SerializedName(value = "allowDependencyValidationFailure", alternate = "allowValidationFailure")
+    private final boolean allowDependencyValidationFailure;
+
     private final boolean allowPomValidationFailure;
     private final boolean allowMavenPluginValidationFailure;
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
-    private String mavenLockfileVersion;
+    private final String mavenLockfileVersion;
     private String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
@@ -19,13 +25,11 @@ public class Config {
     private final boolean allowBomValidationFailure;
     private final boolean includeParentPom;
     private final boolean allowParentPomValidationFailure;
-    private final boolean includeMavenExtensions;
-    private final boolean allowMavenExtensionsValidationFailure;
     private final boolean hermetic;
 
     public Config(
             FeatureConfig mavenPlugins,
-            ValidationPolicy onValidationFailure,
+            ValidationPolicy onDependencyValidationFailure,
             FeatureConfig environment,
             ValidationPolicy onPomValidationFailure,
             ReductionState reduced,
@@ -34,11 +38,10 @@ public class Config {
             String checksumAlgorithm,
             FeatureConfig boms,
             FeatureConfig parentPom,
-            FeatureConfig mavenExtensions,
             HermeticInclusion hermetic) {
         this.includeMavenPlugins = mavenPlugins.isIncluded();
         this.allowMavenPluginValidationFailure = mavenPlugins.getOnFailure() == ValidationPolicy.Warn;
-        this.allowValidationFailure = onValidationFailure == ValidationPolicy.Warn;
+        this.allowDependencyValidationFailure = onDependencyValidationFailure == ValidationPolicy.Warn;
         this.allowPomValidationFailure = onPomValidationFailure == ValidationPolicy.Warn;
         this.includeEnvironment = environment.isIncluded();
         this.allowEnvironmentalValidationFailure = environment.getOnFailure() == ValidationPolicy.Warn;
@@ -50,28 +53,25 @@ public class Config {
         this.allowBomValidationFailure = boms.getOnFailure() == ValidationPolicy.Warn;
         this.includeParentPom = parentPom.isIncluded();
         this.allowParentPomValidationFailure = parentPom.getOnFailure() == ValidationPolicy.Warn;
-        this.includeMavenExtensions = mavenExtensions.isIncluded();
-        this.allowMavenExtensionsValidationFailure = mavenExtensions.getOnFailure() == ValidationPolicy.Warn;
         this.hermetic = hermetic.equals(HermeticInclusion.Include);
     }
 
+    /** The defaults for a new lockfile, which Gson also uses for a key the lockfile's config does not record. */
     public Config() {
-        this.includeMavenPlugins = true;
-        this.allowValidationFailure = false;
+        this.includeMavenPlugins = false;
+        this.allowDependencyValidationFailure = false;
         this.allowPomValidationFailure = false;
         this.allowMavenPluginValidationFailure = false;
-        this.allowEnvironmentalValidationFailure = false;
+        this.allowEnvironmentalValidationFailure = true;
         this.includeEnvironment = true;
-        this.reduced = false;
+        this.reduced = true;
         this.mavenLockfileVersion = "1";
-        this.checksumMode = ChecksumModes.LOCAL;
+        this.checksumMode = ChecksumModes.REMOTE;
         this.checksumAlgorithm = "SHA-256";
-        this.includeBoms = false;
+        this.includeBoms = true;
         this.allowBomValidationFailure = false;
-        this.includeParentPom = false;
+        this.includeParentPom = true;
         this.allowParentPomValidationFailure = false;
-        this.includeMavenExtensions = false;
-        this.allowMavenExtensionsValidationFailure = false;
         this.hermetic = false;
     }
 
@@ -95,12 +95,8 @@ public class Config {
         return feature(includeParentPom, allowParentPomValidationFailure);
     }
 
-    public FeatureConfig mavenExtensions() {
-        return feature(includeMavenExtensions, allowMavenExtensionsValidationFailure);
-    }
-
-    public ValidationPolicy getOnValidationFailure() {
-        return ValidationPolicy.of(allowValidationFailure);
+    public ValidationPolicy getOnDependencyValidationFailure() {
+        return ValidationPolicy.of(allowDependencyValidationFailure);
     }
 
     public ValidationPolicy getOnPomValidationFailure() {
@@ -125,9 +121,6 @@ public class Config {
         return mavenLockfileVersion;
     }
 
-    public void setMavenLockfileVersion(String mavenLockfileVersion) {
-        this.mavenLockfileVersion = mavenLockfileVersion;
-    }
     /**
      * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile
      */

@@ -49,7 +49,7 @@ public class LockFile {
 
     @SerializedName("lockFileVersion")
     @SuppressWarnings("FieldMayBeFinal")
-    private int lockfileVersion = 1; // TODO: we normally should create an enum with Name -> Numbers
+    private int lockfileVersion = LATEST_LOCKFILE_VERSION;
 
     private final Set<DependencyNode> dependencies;
 
@@ -107,15 +107,19 @@ public class LockFile {
         }
         JsonObject root = parsed.getAsJsonObject();
         int version = lockfileVersionOf(root, name);
-        if (version == LockFileV2.VERSION) {
-            root = LockFileV2.decode(root);
+        if (version == 1) {
+            throw new LockFileFormatException(name + " has lockFileVersion 1, which maven-lockfile 6 no longer reads."
+                    + " To keep its config, convert it with maven-lockfile 5.19 or later: 'mvn"
+                    + " io.github.chains-project:maven-lockfile:5.19.0:generate -DlockfileVersion=2'. Otherwise delete"
+                    + " it and run 'generate'.");
         } else if (version > LATEST_LOCKFILE_VERSION) {
             throw new LockFileFormatException(name + " has lockFileVersion " + version
-                    + ", but this release of maven-lockfile only reads lockFileVersion 1 to " + LATEST_LOCKFILE_VERSION
+                    + ", but this release of maven-lockfile only reads lockFileVersion " + LATEST_LOCKFILE_VERSION
                     + ". Upgrade maven-lockfile" + generatedBy(root) + ".");
         } else if (version < 1) {
             throw new LockFileFormatException(name + " has an invalid lockFileVersion " + version);
         }
+        root = LockFileV2.decode(root);
         root.addProperty(LOCKFILE_VERSION_FIELD, version);
         return JsonUtils.fromJson(root, LockFile.class);
     }
@@ -146,8 +150,7 @@ public class LockFile {
     }
 
     /**
-     * Serialize this lock file in the given format version. Both versions hold the same content; version 2 stores
-     * each artifact's coordinates, checksum and repository once instead of at every occurrence.
+     * Serialize this lock file in the given format version.
      * @param lockfileVersion a supported {@code lockFileVersion}
      * @return the JSON lock file
      */
@@ -155,8 +158,6 @@ public class LockFile {
         JsonObject v1 = JsonUtils.toJsonTree(this).getAsJsonObject();
         v1.addProperty(LOCKFILE_VERSION_FIELD, lockfileVersion);
         switch (lockfileVersion) {
-            case 1:
-                return JsonUtils.toJson(v1);
             case LockFileV2.VERSION:
                 return JsonUtils.toJsonKeepingNulls(LockFileV2.encode(v1));
             default:
@@ -169,11 +170,12 @@ public class LockFile {
      * @return whether this release can read and write that format version
      */
     public static boolean isSupportedLockfileVersion(int lockfileVersion) {
-        return lockfileVersion >= 1 && lockfileVersion <= LATEST_LOCKFILE_VERSION;
+        return lockfileVersion >= LockFileV2.VERSION && lockfileVersion <= LATEST_LOCKFILE_VERSION;
     }
 
     /**
-     * @return the format version of the file this lock file was read from, or 1 for a lock file generated in memory
+     * @return the format version of the file this lock file was read from, or the latest for a lock file generated in
+     *     memory
      */
     public int getLockfileVersion() {
         return lockfileVersion;

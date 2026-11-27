@@ -74,34 +74,32 @@ mvn -f pom.lockfile.xml
 ## Command line Flags
 
 Most flags belong to a single goal:
-- `generate`: `reduced`, `includeMavenPlugins`, `includeEnvironment`, `includeBoms`, `includeParentPom`, `includeMavenExtensions`, `checksumAlgorithm`, `checksumMode`, `hermetic`, `getConfigFromFile` and `lockfileVersion`. They decide what the lockfile records, and `validate` uses the values recorded in the lockfile.
+- `generate`: `reduced`, `includeMavenPlugins`, `includeEnvironment`, `includeBoms`, `includeParentPom`, `checksumAlgorithm`, `checksumMode`, `hermetic`, `getConfigFromFile` and `lockfileVersion`. They decide what the lockfile records, and `validate` uses the values recorded in the lockfile.
 - `validate`: the `allow*ValidationFailure` flags. To change the value `validate` uses by default, edit the flag under `metaData.config` in the lockfile. `generate` keeps the values it finds there.
 - `freeze`: `pomLockfileOutput` and `exactVersionStrings`, described below.
 
-`lockfileName` applies to all three goals, and `skip` to `generate` and `validate`.
+`lockfileName` and `skip` apply to all three goals.
 
-Passing a flag to a goal it does not belong to logs a deprecation warning, and will be an error in 6.0.0 (see [#1575](https://github.com/chains-project/maven-lockfile/issues/1575)).
+Passing a flag to a goal it does not belong to, as a user property (`-D`) or in the plugin's POM configuration, fails the build ([#1575](https://github.com/chains-project/maven-lockfile/issues/1575)). In the POM, set it in the configuration of that goal's `<execution>`.
 
-- `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
-- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
-- `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
+- `reduced` (`-Dreduced=false`, default=true) keeps only the dependency versions Maven puts on the classpath, which makes the lockfile smaller and easier to review. Tools that prefetch artifacts for offline builds need the conflict-losing versions too, because Maven reads their POMs while collecting dependencies, so they should set `-Dreduced=false`.
+- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=false) controls whether Maven plugins and build extensions are included in the lockfile. They are not part of the production binary, so they are left out by default. `hermetic=true` needs them, and `freeze` only pins plugin versions when they are included.
+- `allowDependencyValidationFailure` (`-DallowDependencyValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow a checksum mismatch of the project's POM, printing a warning instead of an error.
-- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowValidationFailure` is also enabled.
-- `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
+- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin and build extension validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowDependencyValidationFailure` is also enabled.
+- `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=false`, default=true) allow validation failure of the environment, printing a warning instead of an error when the Maven version, Java version or OS differs. A new lockfile records `true`; lockfiles that 5.x generated may record `false`.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
 - `allowBomValidationFailure` (`-DallowBomValidationFailure=true`, default=false) allow BOM validation failures, printing a warning instead of an error.
 - `includeParentPom` (`-DincludeParentPom=true`, default=true) controls whether parent POM data is included in the lockfile for dependencies and plugins.
 - `allowParentPomValidationFailure` (`-DallowParentPomValidationFailure=true`, default=false) allow parent POM validation failures, printing a warning instead of an error.
-- `includeMavenExtensions` (`-DincludeMavenExtensions=true`, default=true) controls whether Maven build extensions are included in the lockfile. Deprecated: 6.0.0 removes it, and `includeMavenPlugins` also decides whether extensions are included ([#1598](https://github.com/chains-project/maven-lockfile/issues/1598)).
-- `allowMavenExtensionsValidationFailure` (`-DallowMavenExtensionsValidationFailure=true`, default=false) allow Maven extensions validation failures, printing a warning instead of an error. Deprecated: 6.0.0 removes it, and `allowMavenPluginValidationFailure` also applies to extensions.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information. Defaults to `remote`.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
-- `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or 1) sets the format `generate` writes. Version 2 stores each artifact once; see [Lockfile version 2](#lockfile-version-2).
-- `hermetic` (`-Dhermetic=true`, default=false) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
+- `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or the latest) sets the format `generate` writes. The only format is version 2; see [Lockfile version 2](#lockfile-version-2).
+- `hermetic` (`-Dhermetic=true`, default=false, needs `includeMavenPlugins=true`) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
 - `pomLockfileOutput` (`-DpomLockfileOutput=pom.xml`, default=pom.lockfile.xml) sets the name of the generated flattened pom file. Default is to create a new file with the name `pom.lockfile.xml`, but you can also set it to `pom.xml` to overwrite the original pom file.
@@ -116,7 +114,7 @@ mvn io.github.chains-project:maven-lockfile:generate -DlockfileName=my-lockfile.
 
 ## Format
 
-An example lockfile is shown below. Note that large parts of it has been minimzed to `{...}` for readability.
+The content of a lockfile is shown below, with every artifact written out where it occurs. The file stores it in [version 2](#lockfile-version-2), which keeps each artifact's coordinates, checksum and repository in one table. Large parts have been minimized to `{...}` for readability.
 For a full example, see the [lockfile.json](/lockfile.json) file in this repository.
 ```json
 {
@@ -131,7 +129,6 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
     "checksumAlgorithm": "SHA-256",
     "checksum": "2152cc00c16d72fbf9430e6a95a56e9edf0180a500155490bf33a7349df75a1b"
   },
-  "lockFileVersion": 1,
   "dependencies": [
     {
       "groupId": "fr.inria.gforge.spoon",
@@ -267,16 +264,21 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
     },
     "config": {
       "includeMavenPlugins": true,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": false,
       "allowMavenPluginValidationFailure": false,
-      "allowEnvironmentalValidationFailure": false,
+      "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
-      "reduced": false,
-      "mavenLockfileVersion": "5.14.1-beta-1",
+      "reduced": true,
+      "mavenLockfileVersion": "6.0.0",
       "mavenLockfileChecksum": "2567930670c8da5bda8739f2fbd6509f1af9eeddf13397209fe01f72e22eb66a",
       "checksumMode": "remote",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": true,
+      "allowBomValidationFailure": false,
+      "includeParentPom": true,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }
@@ -293,7 +295,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 
 ### Lockfile version 2
 
-`generate -DlockfileVersion=2` writes the same content in a smaller format: each artifact's coordinates, checksum and repository are stored once in a top-level `artifacts` table, keyed by [package URL](https://github.com/package-url/purl-spec). Every occurrence in `dependencies`, `mavenPlugins`, `mavenExtensions`, `boms` and the POM trees refers to its entry through `artifact` and keeps only what belongs to that occurrence, such as `scope`, `selectedVersion`, `included`, `parentPom` and `children`. A node's `id` and `parent` are left out because they follow from its coordinates and its place in the tree.
+`generate` writes the content above in a smaller format: each artifact's coordinates, checksum and repository are stored once in a top-level `artifacts` table, keyed by [package URL](https://github.com/package-url/purl-spec). Every occurrence in `dependencies`, `mavenPlugins`, `mavenExtensions`, `boms` and the POM trees refers to its entry through `artifact` and keeps only what belongs to that occurrence, such as `scope`, `selectedVersion`, `included`, `parentPom` and `children`. A node's `id` and `parent` are left out because they follow from its coordinates and its place in the tree.
 ```json
 {
   "lockFileVersion": 2,
@@ -324,9 +326,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 ```
 If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.
 
-`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
-
-6.0.0 will not read version 1 ([#1732](https://github.com/chains-project/maven-lockfile/issues/1732)), so `generate`, `validate` and `freeze` warn when they meet it. Switch with `generate -DlockfileVersion=2`.
+maven-lockfile 6 only reads version 2 ([#1732](https://github.com/chains-project/maven-lockfile/issues/1732)), and fails on a lockfile with `lockFileVersion` 1. To keep that lockfile's config, convert it with maven-lockfile 5.19 or later, `mvn io.github.chains-project:maven-lockfile:5.19.0:generate -DlockfileVersion=2`, and then upgrade. Otherwise delete it and run `generate`. Releases before 5.19 cannot read version 2 and fail validation with missing dependencies. Each release rejects a newer `lockFileVersion` and asks you to upgrade.
 
 
 ## GithubAction
@@ -387,9 +387,22 @@ Extended github actions example with all available options:
     # Defaults to 'chore: update lockfile'
     - commit-message: 'chore: update lockfile'
 
-    # Optional. Whether to include Maven plugins in the lockfile.
-    # Defaults to true.
-    - include-maven-plugins: true
+    # Optional. Each of these sets the plugin flag of the same name (see Command line Flags
+    #  above) on the goal it belongs to. The action only passes the ones that are set, so
+    #  otherwise the plugin's default or the value the lockfile records applies. The values
+    #  shown are the defaults for a new lockfile.
+    - include-maven-plugins: false
+    - include-environment: true
+    - include-boms: true
+    - include-parent-pom: true
+    - reduced: true
+    - checksum-mode: remote
+    - checksum-algorithm: SHA-256
+    - allow-dependency-validation-failure: false
+    - allow-pom-validation-failure: false
+    - allow-maven-plugin-validation-failure: false
+    - allow-bom-validation-failure: false
+    - allow-parent-pom-validation-failure: false
 
     # Optional. The name of the lockfile to generate/validate.
     # Defaults to 'lockfile.json'.
@@ -404,9 +417,10 @@ Extended github actions example with all available options:
     #  GitHub-hosted runner image updates) to produce a warning instead of failing the build.
     #  Recommended when using GitHub-hosted runners where the exact Maven version is not pinned,
     #  because runner image updates can change the Maven version and cause spurious failures.
-    #  See https://github.com/chains-project/maven-lockfile/issues/1583.
-    # Defaults to false.
-    - allow-environmental-validation-failure: false
+    #  See https://github.com/chains-project/maven-lockfile/issues/1583. Passed to validate
+    #  always, because lockfiles that 5.x generated may record false.
+    # Defaults to true.
+    - allow-environmental-validation-failure: true
 
     # Optional. EXPERIMENTAL - may change or be removed in any release without notice.
     #  Merge artifacts dynamically resolved during a real build (e.g. Surefire's

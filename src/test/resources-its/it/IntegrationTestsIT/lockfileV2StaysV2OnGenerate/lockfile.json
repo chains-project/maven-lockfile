@@ -124,7 +124,7 @@
     },
     "config": {
       "includeMavenPlugins": false,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": true,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
@@ -137,8 +137,6 @@
       "allowBomValidationFailure": false,
       "includeParentPom": false,
       "allowParentPomValidationFailure": false,
-      "includeMavenExtensions": false,
-      "allowMavenExtensionsValidationFailure": false,
       "hermetic": false
     }
   }

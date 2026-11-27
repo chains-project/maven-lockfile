@@ -3,39 +3,53 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "groupId": "com.mycompany.app",
-    "artifactId": "build-extensions-validation-fail",
-    "version": "1",
-    "relativePath": "pom.xml",
-    "checksumAlgorithm": "SHA-256",
-    "checksum": "ed5fee5166f65120e1ec208e64462e1de7748ea382eaee80b2ee0256e9a68e64"
+    "artifact": "pkg:maven/com.mycompany.app/build-extensions-validation-fail@1?type=pom",
+    "relativePath": "pom.xml"
   },
-  "lockFileVersion": 1,
+  "lockFileVersion": 2,
   "dependencies": [],
   "mavenPlugins": [],
   "mavenExtensions": [
     {
-      "groupId": "kr.motd.maven",
-      "artifactId": "os-maven-plugin",
-      "version": "1.7.1",
-      "checksum": "TAMPERED_CHECKSUM_12345678901234567890123456789012345678901234567890123456",
-      "checksumAlgorithm": "SHA-256",
-      "resolved": "https://repo.maven.apache.org/maven2/kr/motd/maven/os-maven-plugin/1.7.1/os-maven-plugin-1.7.1.jar",
-      "repositoryId": "central",
+      "artifact": "pkg:maven/kr.motd.maven/os-maven-plugin@1.7.1",
       "dependencies": []
     }
   ],
+  "artifacts": {
+    "pkg:maven/com.mycompany.app/build-extensions-validation-fail@1?type=pom": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "build-extensions-validation-fail",
+      "version": "1",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "ed5fee5166f65120e1ec208e64462e1de7748ea382eaee80b2ee0256e9a68e64"
+    },
+    "pkg:maven/kr.motd.maven/os-maven-plugin@1.7.1": {
+      "groupId": "kr.motd.maven",
+      "artifactId": "os-maven-plugin",
+      "version": "1.7.1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "TAMPERED_CHECKSUM_12345678901234567890123456789012345678901234567890123456",
+      "resolved": "https://repo.maven.apache.org/maven2/kr/motd/maven/os-maven-plugin/1.7.1/os-maven-plugin-1.7.1.jar",
+      "repositoryId": "central"
+    }
+  },
   "metaData": {
     "config": {
-      "includeMavenPlugins": false,
-      "allowValidationFailure": false,
+      "includeMavenPlugins": true,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": true,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": false,
       "reduced": false,
       "checksumMode": "local",
       "checksumAlgorithm": "SHA-256",
-      "includeMavenExtensions": true
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }

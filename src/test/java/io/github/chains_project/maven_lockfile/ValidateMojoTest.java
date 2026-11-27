@@ -26,7 +26,6 @@ class ValidateMojoTest {
                 "SHA-256",
                 new FeatureConfig(false, ValidationPolicy.Error),
                 new FeatureConfig(false, ValidationPolicy.Error),
-                new FeatureConfig(false, ValidationPolicy.Error),
                 Config.HermeticInclusion.Exclude);
     }
 
@@ -35,11 +34,11 @@ class ValidateMojoTest {
         var m = mojo();
         m.allowEnvironmentalValidationFailure = true;
 
-        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+        Config merged = m.withParameters(storedConfig());
 
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         // Unset CLI args preserve stored values
-        assertThat(merged.getOnValidationFailure()).isEqualTo(ValidationPolicy.Error);
+        assertThat(merged.getOnDependencyValidationFailure()).isEqualTo(ValidationPolicy.Error);
         assertThat(merged.getOnPomValidationFailure()).isEqualTo(ValidationPolicy.Warn);
     }
 
@@ -48,7 +47,7 @@ class ValidateMojoTest {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
 
-        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+        Config merged = m.withParameters(storedConfig());
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Error);
         assertThat(merged.mavenPlugins().getOnFailure()).isEqualTo(ValidationPolicy.Error);
     }

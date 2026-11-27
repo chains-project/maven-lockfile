@@ -3,138 +3,153 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "groupId": "com.mycompany.app",
-    "artifactId": "freeze-with-dep-management",
-    "version": "1",
-    "relativePath": "pom.xml",
-    "checksumAlgorithm": "SHA-256",
-    "checksum": "aad917744a16306f27b5faffc227baf908ab5f3c8ef8835f455b32a1720808af"
+    "artifact": "pkg:maven/com.mycompany.app/freeze-with-dep-management@1?type=pom",
+    "relativePath": "pom.xml"
   },
-  "lockFileVersion": 1,
+  "lockFileVersion": 2,
   "dependencies": [
     {
-      "groupId": "org.eclipse.sisu",
-      "artifactId": "org.eclipse.sisu.plexus",
-      "version": "0.9.0.M2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "9500d303ce467e26d129dda8559c3f3a91277d41ab49d2c4b4a5779536a62fc1",
+      "artifact": "pkg:maven/org.eclipse.sisu/org.eclipse.sisu.plexus@0.9.0.M2",
       "scope": "compile",
-      "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.9.0.M2/org.eclipse.sisu.plexus-0.9.0.M2.jar",
-      "repositoryId": "central",
       "selectedVersion": "0.9.0.M2",
       "included": true,
-      "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
       "children": [
         {
-          "groupId": "javax.annotation",
-          "artifactId": "javax.annotation-api",
-          "version": "1.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "5909b396ca3a2be10d0eea32c74ef78d816e1b4ead21de1d78de1f890d033e04",
+          "artifact": "pkg:maven/javax.annotation/javax.annotation-api@1.2",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar",
-          "repositoryId": "central",
           "selectedVersion": "1.2",
           "included": true,
-          "id": "javax.annotation:javax.annotation-api:1.2",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": []
         },
         {
-          "groupId": "javax.enterprise",
-          "artifactId": "cdi-api",
-          "version": "1.2",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "cc5ce2cbc62fe96bf59af00bba00bde823a1094462b4364747863510b76c0518",
+          "artifact": "pkg:maven/javax.enterprise/cdi-api@1.2",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.2/cdi-api-1.2.jar",
-          "repositoryId": "central",
           "selectedVersion": "1.2",
           "included": true,
-          "id": "javax.enterprise:cdi-api:1.2",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": [
             {
-              "groupId": "javax.inject",
-              "artifactId": "javax.inject",
-              "version": "1",
-              "checksumAlgorithm": "SHA-256",
-              "checksum": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+              "artifact": "pkg:maven/javax.inject/javax.inject@1",
               "scope": "compile",
-              "resolved": "https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar",
-              "repositoryId": "central",
               "selectedVersion": "1",
               "included": true,
-              "id": "javax.inject:javax.inject:1",
-              "parent": "javax.enterprise:cdi-api:1.2",
               "children": []
             }
           ]
         },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-classworlds",
-          "version": "2.6.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "52f77c5ec49f787c9c417ebed5d6efd9922f44a202f217376e4f94c0d74f3549",
+          "artifact": "pkg:maven/org.codehaus.plexus/plexus-classworlds@2.6.0",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.6.0/plexus-classworlds-2.6.0.jar",
-          "repositoryId": "central",
           "selectedVersion": "2.6.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-classworlds:2.6.0",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": []
         },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-component-annotations",
-          "version": "2.1.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "bde3617ce9b5bcf9584126046080043af6a4b3baea40a3b153f02e7bbc32acac",
+          "artifact": "pkg:maven/org.codehaus.plexus/plexus-component-annotations@2.1.0",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/2.1.0/plexus-component-annotations-2.1.0.jar",
-          "repositoryId": "central",
           "selectedVersion": "2.1.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-component-annotations:2.1.0",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": []
         },
         {
-          "groupId": "org.codehaus.plexus",
-          "artifactId": "plexus-utils",
-          "version": "3.3.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "76d174792540e2775af94d03d10fb2d3c776e2cd0ac0ebf427d3e570072bb9ce",
+          "artifact": "pkg:maven/org.codehaus.plexus/plexus-utils@3.3.0",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar",
-          "repositoryId": "central",
           "selectedVersion": "3.3.0",
           "included": true,
-          "id": "org.codehaus.plexus:plexus-utils:3.3.0",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": []
         },
         {
-          "groupId": "org.eclipse.sisu",
-          "artifactId": "org.eclipse.sisu.inject",
-          "version": "0.9.0.M1",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "aaf75f6b2330d7cc4b2a1def89eac06ca64afa3c15b6b548fe8f27cdb768f67e",
+          "artifact": "pkg:maven/org.eclipse.sisu/org.eclipse.sisu.inject@0.9.0.M1",
           "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.9.0.M1/org.eclipse.sisu.inject-0.9.0.M1.jar",
-          "repositoryId": "central",
           "selectedVersion": "0.9.0.M1",
           "included": true,
-          "id": "org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M1",
-          "parent": "org.eclipse.sisu:org.eclipse.sisu.plexus:0.9.0.M2",
           "children": []
         }
       ]
     }
   ],
   "mavenPlugins": [],
+  "artifacts": {
+    "pkg:maven/com.mycompany.app/freeze-with-dep-management@1?type=pom": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "freeze-with-dep-management",
+      "version": "1",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "aad917744a16306f27b5faffc227baf908ab5f3c8ef8835f455b32a1720808af"
+    },
+    "pkg:maven/javax.annotation/javax.annotation-api@1.2": {
+      "groupId": "javax.annotation",
+      "artifactId": "javax.annotation-api",
+      "version": "1.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "5909b396ca3a2be10d0eea32c74ef78d816e1b4ead21de1d78de1f890d033e04",
+      "resolved": "https://repo.maven.apache.org/maven2/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/javax.enterprise/cdi-api@1.2": {
+      "groupId": "javax.enterprise",
+      "artifactId": "cdi-api",
+      "version": "1.2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "cc5ce2cbc62fe96bf59af00bba00bde823a1094462b4364747863510b76c0518",
+      "resolved": "https://repo.maven.apache.org/maven2/javax/enterprise/cdi-api/1.2/cdi-api-1.2.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/javax.inject/javax.inject@1": {
+      "groupId": "javax.inject",
+      "artifactId": "javax.inject",
+      "version": "1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "resolved": "https://repo.maven.apache.org/maven2/javax/inject/javax.inject/1/javax.inject-1.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.codehaus.plexus/plexus-classworlds@2.6.0": {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-classworlds",
+      "version": "2.6.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "52f77c5ec49f787c9c417ebed5d6efd9922f44a202f217376e4f94c0d74f3549",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-classworlds/2.6.0/plexus-classworlds-2.6.0.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.codehaus.plexus/plexus-component-annotations@2.1.0": {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-component-annotations",
+      "version": "2.1.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "bde3617ce9b5bcf9584126046080043af6a4b3baea40a3b153f02e7bbc32acac",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-component-annotations/2.1.0/plexus-component-annotations-2.1.0.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.codehaus.plexus/plexus-utils@3.3.0": {
+      "groupId": "org.codehaus.plexus",
+      "artifactId": "plexus-utils",
+      "version": "3.3.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "76d174792540e2775af94d03d10fb2d3c776e2cd0ac0ebf427d3e570072bb9ce",
+      "resolved": "https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.eclipse.sisu/org.eclipse.sisu.inject@0.9.0.M1": {
+      "groupId": "org.eclipse.sisu",
+      "artifactId": "org.eclipse.sisu.inject",
+      "version": "0.9.0.M1",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "aaf75f6b2330d7cc4b2a1def89eac06ca64afa3c15b6b548fe8f27cdb768f67e",
+      "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.inject/0.9.0.M1/org.eclipse.sisu.inject-0.9.0.M1.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.eclipse.sisu/org.eclipse.sisu.plexus@0.9.0.M2": {
+      "groupId": "org.eclipse.sisu",
+      "artifactId": "org.eclipse.sisu.plexus",
+      "version": "0.9.0.M2",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9500d303ce467e26d129dda8559c3f3a91277d41ab49d2c4b4a5779536a62fc1",
+      "resolved": "https://repo.maven.apache.org/maven2/org/eclipse/sisu/org.eclipse.sisu.plexus/0.9.0.M2/org.eclipse.sisu.plexus-0.9.0.M2.jar",
+      "repositoryId": "central"
+    }
+  },
   "metaData": {
     "environment": {
       "osName": "Linux",
@@ -143,14 +158,20 @@
     },
     "config": {
       "includeMavenPlugins": false,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": true,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }

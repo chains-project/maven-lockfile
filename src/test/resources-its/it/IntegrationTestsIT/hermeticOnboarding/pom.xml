@@ -28,7 +28,9 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
+          <reduced>false</reduced>
           <hermetic>true</hermetic>
+          <includeMavenPlugins>true</includeMavenPlugins>
         </configuration>
       </plugin>
     </plugins>

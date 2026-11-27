@@ -152,12 +152,9 @@ public class LockFileFacade {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Config config = metadata.getConfig();
         Set<MavenPlugin> plugins = new TreeSet<>();
+        Set<MavenExtension> extensions = new TreeSet<>();
         if (config.mavenPlugins().isIncluded()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, config);
-        }
-
-        Set<MavenExtension> extensions = new TreeSet<>();
-        if (config.mavenExtensions().isIncluded()) {
             extensions = getAllExtensions(
                     project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem, config);
         }

@@ -56,6 +56,7 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
+          <reduced>false</reduced>
         </configuration>
       </plugin>
     </plugins>

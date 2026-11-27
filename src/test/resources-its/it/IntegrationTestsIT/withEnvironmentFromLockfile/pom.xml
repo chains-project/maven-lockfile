@@ -26,10 +26,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <checksumMode>local</checksumMode>
-          <includeEnvironment>true</includeEnvironment>
-        </configuration>
       </plugin>
     </plugins>
   </build>

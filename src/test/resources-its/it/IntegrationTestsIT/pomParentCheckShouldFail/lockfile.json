@@ -3,30 +3,44 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "groupId": "com.mycompany.app",
-    "artifactId": "pom-parent-check-should-fail",
-    "version": "1",
+    "artifact": "pkg:maven/com.mycompany.app/pom-parent-check-should-fail@1?type=pom",
     "relativePath": "pom.xml",
-    "checksumAlgorithm": "SHA-256",
-    "checksum": "a2eca5aecc849600701b3642372b19fbb77a94487cd2824c55eb7a3ddda1b06c",
     "parent": {
-      "groupId": "org.springframework.boot",
-      "artifactId": "spring-boot-starter-parent",
-      "version": "3.3.2",
-      "checksumAlgorithm": "SHA-256",
-      "checksum": "9686e13ceaf6e58175afb27da5e8ab032cfc93e34ace74756f6bcf79555c8054",
+      "artifact": "pkg:maven/org.springframework.boot/spring-boot-starter-parent@3.3.2?type=pom",
       "parent": {
-        "groupId": "org.springframework.boot",
-        "artifactId": "spring-boot-dependencies",
-        "version": "3.3.2",
-        "checksumAlgorithm": "SHA-256",
-        "checksum": "42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK"
+        "artifact": "pkg:maven/org.springframework.boot/spring-boot-dependencies@3.3.2?type=pom"
       }
     }
   },
-  "lockFileVersion": 1,
+  "lockFileVersion": 2,
   "dependencies": [],
   "mavenPlugins": [],
+  "artifacts": {
+    "pkg:maven/com.mycompany.app/pom-parent-check-should-fail@1?type=pom": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "pom-parent-check-should-fail",
+      "version": "1",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "a2eca5aecc849600701b3642372b19fbb77a94487cd2824c55eb7a3ddda1b06c"
+    },
+    "pkg:maven/org.springframework.boot/spring-boot-dependencies@3.3.2?type=pom": {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-dependencies",
+      "version": "3.3.2",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "42a499ef30a02d54a826cdc21f289cf1eabfe561a7f0c5ca9e0ab7d9a5bb1a10_TAMPER_ATTACK"
+    },
+    "pkg:maven/org.springframework.boot/spring-boot-starter-parent@3.3.2?type=pom": {
+      "groupId": "org.springframework.boot",
+      "artifactId": "spring-boot-starter-parent",
+      "version": "3.3.2",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "9686e13ceaf6e58175afb27da5e8ab032cfc93e34ace74756f6bcf79555c8054"
+    }
+  },
   "metaData": {
     "environment": {
       "osName": "Linux",
@@ -35,14 +49,20 @@
     },
     "config": {
       "includeMavenPlugins": false,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }
