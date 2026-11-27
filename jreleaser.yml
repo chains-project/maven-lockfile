@@ -22,6 +22,8 @@ release:
     immutableRelease: true
     # The release workflows push the tag themselves, once Maven Central has the artifacts.
     skipTag: true
+    # 5.x is maintained next to 6.x, so its releases must not take GitHub's "Latest" label from 6.x.
+    makeLatest: 'FALSE'
     prerelease:
       pattern: .*beta.*
     changelog:
