@@ -1,5 +1,8 @@
 # Maven Lockfile
 
+> [!WARNING]
+> 5.x is in maintenance and gets no major changes, mostly bug and security fixes, to support existing users. The next major release, 6.x, is developed on [`main`](https://github.com/chains-project/maven-lockfile/tree/main).
+
 [![SemVersion](https://img.shields.io/badge/semver-2.0.0-blue)](https://img.shields.io/badge/semver-2.0.0-blue)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.chains-project/maven-lockfile.svg)](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.github.chains-project%22%20AND%20a%3A%22maven-lockfile%22)
 [![Lockfile](https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml/badge.svg)](https://github.com/chains-project/maven-lockfile/actions/workflows/Lockfile.yml)
