@@ -71,7 +71,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 ensureHermeticExtensionRegistered();
             }
             Environment environment = null;
-            if (config.isIncludeEnvironment()) {
+            if (config.environment().isIncluded()) {
                 environment = generateMetaInformation();
             }
             MetaData metaData = new MetaData(environment, config);
@@ -179,24 +179,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         }
 
         Config config = mergeConfigWithCliArgs(lockFileFromFile.getConfig());
-
-        return new Config(
-                config.getMavenPluginsInclusion(),
-                config.getOnValidationFailure(),
-                config.getOnPomValidationFailure(),
-                config.getOnMavenPluginValidationFailure(),
-                config.getOnEnvironmentalValidationFailure(),
-                config.getEnvironmentInclusion(),
-                config.getReductionState(),
-                mojo.getPlugin().getVersion(),
-                config.getChecksumMode(),
-                config.getChecksumAlgorithm(),
-                config.getBomsInclusion(),
-                config.getOnBomValidationFailure(),
-                config.getParentPomInclusion(),
-                config.getOnParentPomValidationFailure(),
-                config.getMavenExtensionsInclusion(),
-                config.getOnMavenExtensionsValidationFailure(),
-                config.getHermeticInclusion());
+        config.setMavenLockfileVersion(mojo.getPlugin().getVersion());
+        return config;
     }
 }

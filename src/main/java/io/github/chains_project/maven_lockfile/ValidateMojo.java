@@ -52,7 +52,7 @@ public class ValidateMojo extends AbstractLockfileMojo {
             Config config = mergeConfigWithCliArgs(baseConfig);
             Deprecations.warnAboutLockfile(this, mojo, lockfileName, lockFileFromFile.getLockfileVersion(), config);
             Environment environment = null;
-            if (config.isIncludeEnvironment()) {
+            if (config.environment().isIncluded()) {
                 environment = generateMetaInformation();
             }
             MetaData metaData = new MetaData(environment, config);

@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.Config;
+import io.github.chains_project.maven_lockfile.data.FeatureConfig;
+import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -20,22 +22,17 @@ class AbstractLockfileMojoTest {
 
     private static Config storedConfig() {
         return new Config(
-                Config.MavenPluginsInclusion.Exclude,
-                Config.OnValidationFailure.Error,
-                Config.OnPomValidationFailure.Warn,
-                Config.OnMavenPluginValidationFailure.Error,
-                Config.OnEnvironmentalValidationFailure.Error,
-                Config.EnvironmentInclusion.Include,
+                new FeatureConfig(false, ValidationPolicy.Error),
+                ValidationPolicy.Error,
+                new FeatureConfig(true, ValidationPolicy.Error),
+                ValidationPolicy.Warn,
                 Config.ReductionState.NonReduced,
                 "5.16.0",
                 ChecksumModes.LOCAL,
                 "SHA-256",
-                Config.BomsInclusion.Include,
-                Config.OnBomValidationFailure.Error,
-                Config.ParentPomInclusion.Include,
-                Config.OnParentPomValidationFailure.Error,
-                Config.MavenExtensionsInclusion.Include,
-                Config.OnMavenExtensionsValidationFailure.Error,
+                new FeatureConfig(true, ValidationPolicy.Error),
+                new FeatureConfig(true, ValidationPolicy.Error),
+                new FeatureConfig(true, ValidationPolicy.Error),
                 Config.HermeticInclusion.Exclude);
     }
 
@@ -46,11 +43,10 @@ class AbstractLockfileMojoTest {
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
 
-        assertThat(merged.getOnEnvironmentalValidationFailure())
-                .isEqualTo(Config.OnEnvironmentalValidationFailure.Warn);
+        assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         // Unset CLI args preserve stored values
-        assertThat(merged.getOnValidationFailure()).isEqualTo(Config.OnValidationFailure.Error);
-        assertThat(merged.getOnPomValidationFailure()).isEqualTo(Config.OnPomValidationFailure.Warn);
+        assertThat(merged.getOnValidationFailure()).isEqualTo(ValidationPolicy.Error);
+        assertThat(merged.getOnPomValidationFailure()).isEqualTo(ValidationPolicy.Warn);
     }
 
     @Test
@@ -59,9 +55,8 @@ class AbstractLockfileMojoTest {
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
 
         Config merged = m.mergeConfigWithCliArgs(storedConfig());
-        assertThat(merged.getOnEnvironmentalValidationFailure())
-                .isEqualTo(Config.OnEnvironmentalValidationFailure.Error);
-        assertThat(merged.getOnMavenPluginValidationFailure()).isEqualTo(Config.OnMavenPluginValidationFailure.Error);
+        assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Error);
+        assertThat(merged.mavenPlugins().getOnFailure()).isEqualTo(ValidationPolicy.Error);
     }
 
     @Test
