@@ -59,7 +59,6 @@
           <includeMavenPlugins>false</includeMavenPlugins>
           <includeBoms>false</includeBoms>
           <includeParentPom>false</includeParentPom>
-          <includeMavenExtensions>false</includeMavenExtensions>
           <includeEnvironment>false</includeEnvironment>
           <allowPomValidationFailure>true</allowPomValidationFailure>
         </configuration>

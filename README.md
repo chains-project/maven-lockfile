@@ -74,7 +74,7 @@ mvn -f pom.lockfile.xml
 ## Command line Flags
 
 Most flags belong to a single goal:
-- `generate`: `reduced`, `includeMavenPlugins`, `includeEnvironment`, `includeBoms`, `includeParentPom`, `includeMavenExtensions`, `checksumAlgorithm`, `checksumMode`, `hermetic`, `getConfigFromFile` and `lockfileVersion`. They decide what the lockfile records, and `validate` uses the values recorded in the lockfile.
+- `generate`: `reduced`, `includeMavenPlugins`, `includeEnvironment`, `includeBoms`, `includeParentPom`, `checksumAlgorithm`, `checksumMode`, `hermetic`, `getConfigFromFile` and `lockfileVersion`. They decide what the lockfile records, and `validate` uses the values recorded in the lockfile.
 - `validate`: the `allow*ValidationFailure` flags. To change the value `validate` uses by default, edit the flag under `metaData.config` in the lockfile. `generate` keeps the values it finds there.
 - `freeze`: `pomLockfileOutput` and `exactVersionStrings`, described below.
 
@@ -83,18 +83,16 @@ Most flags belong to a single goal:
 Passing a flag to a goal it does not belong to logs a deprecation warning, and will be an error in 6.0.0 (see [#1575](https://github.com/chains-project/maven-lockfile/issues/1575)).
 
 - `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
-- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
+- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins and build extensions are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
 - `allowDependencyValidationFailure` (`-DallowDependencyValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow a checksum mismatch of the project's POM, printing a warning instead of an error.
-- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowDependencyValidationFailure` is also enabled.
+- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin and build extension validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowDependencyValidationFailure` is also enabled.
 - `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
 - `allowBomValidationFailure` (`-DallowBomValidationFailure=true`, default=false) allow BOM validation failures, printing a warning instead of an error.
 - `includeParentPom` (`-DincludeParentPom=true`, default=true) controls whether parent POM data is included in the lockfile for dependencies and plugins.
 - `allowParentPomValidationFailure` (`-DallowParentPomValidationFailure=true`, default=false) allow parent POM validation failures, printing a warning instead of an error.
-- `includeMavenExtensions` (`-DincludeMavenExtensions=true`, default=true) controls whether Maven build extensions are included in the lockfile. Deprecated: 6.0.0 removes it, and `includeMavenPlugins` also decides whether extensions are included ([#1598](https://github.com/chains-project/maven-lockfile/issues/1598)).
-- `allowMavenExtensionsValidationFailure` (`-DallowMavenExtensionsValidationFailure=true`, default=false) allow Maven extensions validation failures, printing a warning instead of an error. Deprecated: 6.0.0 removes it, and `allowMavenPluginValidationFailure` also applies to extensions.
 - `checksumAlgorithm` (`-DchecksumAlgorithm=SHA-256`) will set the checksum algorithm used to generate the lockfile. If not explicitly provided it will use SHA-256.
 - `checksumMode` will set the checksum mode used to generate the lockfile. See [Checksum Modes](/src/main/java/io/github/chains_project/maven_lockfile/checksum/ChecksumModes.java) for more information. Defaults to `remote`.
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.

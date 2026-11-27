@@ -73,12 +73,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "allowParentPomValidationFailure")
     protected Boolean allowParentPomValidationFailure;
 
-    @Parameter(property = "includeMavenExtensions")
-    protected Boolean includeMavenExtensions;
-
-    @Parameter(property = "allowMavenExtensionsValidationFailure")
-    protected Boolean allowMavenExtensionsValidationFailure;
-
     /**
      * <b>Experimental.</b> Merge artifacts dynamically resolved during a real build into the lockfile.
      * Behaviour and lockfile output may change or be removed in any release without notice.
@@ -169,7 +163,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 chosenChecksumAlgorithm,
                 merge(defaults, includeBoms, allowBomValidationFailure),
                 merge(defaults, includeParentPom, allowParentPomValidationFailure),
-                merge(defaults, includeMavenExtensions, allowMavenExtensionsValidationFailure),
                 hermeticInclusion);
     }
 
@@ -209,7 +202,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 chosenChecksumAlgorithm,
                 merge(base.boms(), includeBoms, allowBomValidationFailure),
                 merge(base.parentPom(), includeParentPom, allowParentPomValidationFailure),
-                merge(base.mavenExtensions(), includeMavenExtensions, allowMavenExtensionsValidationFailure),
                 hermeticInclusion);
     }
 

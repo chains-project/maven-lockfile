@@ -32,7 +32,6 @@ class AbstractLockfileMojoTest {
                 "SHA-256",
                 new FeatureConfig(true, ValidationPolicy.Error),
                 new FeatureConfig(true, ValidationPolicy.Error),
-                new FeatureConfig(true, ValidationPolicy.Error),
                 Config.HermeticInclusion.Exclude);
     }
 

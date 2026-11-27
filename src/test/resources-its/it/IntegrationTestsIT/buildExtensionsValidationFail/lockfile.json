@@ -27,7 +27,7 @@
   ],
   "metaData": {
     "config": {
-      "includeMavenPlugins": false,
+      "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": true,
       "allowEnvironmentalValidationFailure": true,

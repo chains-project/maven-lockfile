@@ -38,7 +38,6 @@ public class LockfileTest {
                         "SHA-1",
                         new FeatureConfig(true, ValidationPolicy.Error),
                         new FeatureConfig(true, ValidationPolicy.Error),
-                        new FeatureConfig(true, ValidationPolicy.Error),
                         Config.HermeticInclusion.Exclude));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");

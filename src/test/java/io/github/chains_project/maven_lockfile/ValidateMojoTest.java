@@ -26,7 +26,6 @@ class ValidateMojoTest {
                 "SHA-256",
                 new FeatureConfig(false, ValidationPolicy.Error),
                 new FeatureConfig(false, ValidationPolicy.Error),
-                new FeatureConfig(false, ValidationPolicy.Error),
                 Config.HermeticInclusion.Exclude);
     }
 

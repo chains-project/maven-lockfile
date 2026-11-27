@@ -25,7 +25,6 @@ public final class ValidationPhases {
                 new MavenPluginsPhase(),
                 new BomsPhase(),
                 new ParentPomPhase(),
-                new ExtensionsPhase(),
                 new MavenLockfilePhase());
     }
 
@@ -114,6 +113,7 @@ public final class ValidationPhases {
         }
     }
 
+    /** Maven plugins and build extensions, which share the plugin flags. */
     private static final class MavenPluginsPhase implements ValidationPhase {
 
         @Override
@@ -123,15 +123,25 @@ public final class ValidationPhases {
 
         @Override
         public Optional<String> validate(LockFile fromFile, LockFile fromProject, Config config) {
-            if (LockFileEquality.mavenPluginsEqual(fromFile, fromProject)) {
+            boolean pluginsEqual = LockFileEquality.mavenPluginsEqual(fromFile, fromProject);
+            boolean extensionsEqual = Objects.equals(fromFile.getMavenExtensions(), fromProject.getMavenExtensions());
+            if (pluginsEqual && extensionsEqual) {
                 return Optional.empty();
             }
             var diff = LockFileDifference.diff(fromFile, fromProject);
-            String msg = "Maven plugin validation failed. Differences:\n"
-                    + "Missing plugins in lockfile:\n "
-                    + JsonUtils.toJson(diff.getMissingPluginsInFile()) + "\n"
-                    + "Missing plugins in project:\n "
-                    + JsonUtils.toJson(diff.getMissingPluginsInProject()) + "\n";
+            String msg = "Maven plugin validation failed. Differences:\n";
+            if (!pluginsEqual) {
+                msg += "Missing plugins in lockfile:\n "
+                        + JsonUtils.toJson(diff.getMissingPluginsInFile()) + "\n"
+                        + "Missing plugins in project:\n "
+                        + JsonUtils.toJson(diff.getMissingPluginsInProject()) + "\n";
+            }
+            if (!extensionsEqual) {
+                msg += "Missing extensions in lockfile:\n "
+                        + JsonUtils.toJson(diff.getMissingExtensionsInFile()) + "\n"
+                        + "Missing extensions in project:\n "
+                        + JsonUtils.toJson(diff.getMissingExtensionsInProject()) + "\n";
+            }
             return Optional.of(msg);
         }
 
@@ -185,33 +195,6 @@ public final class ValidationPhases {
         @Override
         public boolean isWarn(Config config) {
             return config.parentPom().getOnFailure() == ValidationPolicy.Warn;
-        }
-    }
-
-    private static final class ExtensionsPhase implements ValidationPhase {
-
-        @Override
-        public boolean isEnabled(Config config) {
-            return config.mavenExtensions().isIncluded();
-        }
-
-        @Override
-        public Optional<String> validate(LockFile fromFile, LockFile fromProject, Config config) {
-            if (Objects.equals(fromFile.getMavenExtensions(), fromProject.getMavenExtensions())) {
-                return Optional.empty();
-            }
-            var diff = LockFileDifference.diff(fromFile, fromProject);
-            String msg = "Maven extensions validation failed.\n"
-                    + "Missing extensions in lockfile:\n "
-                    + JsonUtils.toJson(diff.getMissingExtensionsInFile()) + "\n"
-                    + "Missing extensions in project:\n "
-                    + JsonUtils.toJson(diff.getMissingExtensionsInProject()) + "\n";
-            return Optional.of(msg);
-        }
-
-        @Override
-        public boolean isWarn(Config config) {
-            return config.mavenExtensions().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 

@@ -66,7 +66,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                         + ". Supported versions are 1 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
             }
             Config config = getConfigFromFile ? getConfig(lockFileFromFile) : getConfig();
-            Deprecations.warnAboutLockfile(this, mojo, lockfileName, formatVersion, config);
+            Deprecations.warnAboutLockfile(this, mojo, lockfileName, formatVersion);
             if (config.isHermetic()) {
                 ensureHermeticExtensionRegistered();
             }

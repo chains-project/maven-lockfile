@@ -1,12 +1,9 @@
 package io.github.chains_project.maven_lockfile;
 
-import io.github.chains_project.maven_lockfile.data.Config;
-import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
@@ -19,7 +16,6 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 final class Deprecations {
 
     private static final String GOAL_PARAMETERS_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1575";
-    private static final String EXTENSIONS_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1598";
     private static final String MAJOR_RELEASE_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1732";
 
     /**
@@ -32,7 +28,6 @@ final class Deprecations {
                 "includeEnvironment",
                 "includeBoms",
                 "includeParentPom",
-                "includeMavenExtensions",
                 "hermetic",
                 "reduced",
                 "checksumMode",
@@ -45,8 +40,7 @@ final class Deprecations {
                 "allowMavenPluginValidationFailure",
                 "allowEnvironmentalValidationFailure",
                 "allowBomValidationFailure",
-                "allowParentPomValidationFailure",
-                "allowMavenExtensionsValidationFailure"),
+                "allowParentPomValidationFailure"),
         FREEZE("pomLockfileOutput", "exactVersionStrings");
 
         private final List<String> parameters;
@@ -61,14 +55,9 @@ final class Deprecations {
         }
     }
 
-    /** The parameters that 6.0.0 removes, with the parameter that takes over. */
-    private static final Map<String, String> REMOVED_PARAMETERS = Map.of(
-            "includeMavenExtensions", "includeMavenPlugins",
-            "allowMavenExtensionsValidationFailure", "allowMavenPluginValidationFailure");
-
     private Deprecations() {}
 
-    /** Warns about each set parameter that belongs to another goal or that 6.0.0 removes. */
+    /** Warns about each set parameter that belongs to another goal. */
     static void warnAboutParameters(
             AbstractMojo mojo,
             Properties userProperties,
@@ -79,17 +68,8 @@ final class Deprecations {
         List<Object> configurations = pomConfigurations(project, execution);
         for (Goal ownGoal : Goal.values()) {
             for (String name : ownGoal.parameters) {
-                if (!isSet(mojo, name, userProperties, configurations)) {
-                    continue;
-                }
-                if (!ownGoal.toString().equals(goal)) {
+                if (!ownGoal.toString().equals(goal) && isSet(mojo, name, userProperties, configurations)) {
                     mojo.getLog().warn(wrongGoal(name, ownGoal.toString(), goal, lockfileName));
-                } else if (REMOVED_PARAMETERS.containsKey(name)) {
-                    mojo.getLog()
-                            .warn(String.format(
-                                    "Parameter '%s' is deprecated and will be removed in 6.0.0, where '%s' also"
-                                            + " applies to build extensions. See %s",
-                                    name, REMOVED_PARAMETERS.get(name), EXTENSIONS_ISSUE));
                 }
             }
         }
@@ -145,18 +125,12 @@ final class Deprecations {
                 name, ownGoal, goal, hint, GOAL_PARAMETERS_ISSUE);
     }
 
-    /**
-     * Warns if the lockfile that {@code mojo} reads or writes has {@code lockFileVersion} 1, and about each extension
-     * flag in {@code config} that differs from its plugin flag. {@code config} is {@code null} for {@code freeze}.
-     */
+    /** Warns if the lockfile that {@code mojo} reads or writes has {@code lockFileVersion} 1. */
     static void warnAboutLockfile(
-            AbstractMojo mojo, MojoExecution execution, String lockfileName, int lockfileVersion, Config config) {
+            AbstractMojo mojo, MojoExecution execution, String lockfileName, int lockfileVersion) {
         if (lockfileVersion == 1) {
             mojo.getLog()
                     .warn(lockfileVersion1(lockfileName, execution.getPlugin().getVersion()));
-        }
-        if (config != null) {
-            extensionFlagMismatches(config, lockfileName).forEach(mojo.getLog()::warn);
         }
     }
 
@@ -167,33 +141,5 @@ final class Deprecations {
                         + " 'generate' keep version 2, which needs maven-lockfile %2$s or later wherever %1$s is"
                         + " read. See %3$s",
                 lockfileName, pluginVersion, MAJOR_RELEASE_ISSUE);
-    }
-
-    /** 6.0.0 applies the plugin flags to build extensions, so an extension flag that differs changes behaviour. */
-    private static List<String> extensionFlagMismatches(Config config, String lockfileName) {
-        List<String> warnings = new ArrayList<>();
-        if (config.mavenExtensions().isIncluded() != config.mavenPlugins().isIncluded()) {
-            warnings.add(mismatch(
-                    "includeMavenExtensions",
-                    "includeMavenPlugins",
-                    config.mavenPlugins().isIncluded(),
-                    lockfileName));
-        }
-        if (config.mavenExtensions().getOnFailure() != config.mavenPlugins().getOnFailure()) {
-            warnings.add(mismatch(
-                    "allowMavenExtensionsValidationFailure",
-                    "allowMavenPluginValidationFailure",
-                    config.mavenPlugins().getOnFailure() == ValidationPolicy.Warn,
-                    lockfileName));
-        }
-        return warnings;
-    }
-
-    private static String mismatch(String extensionFlag, String pluginFlag, boolean pluginValue, String lockfileName) {
-        return String.format(
-                "'%1$s' differs from '%2$s'. 6.0.0 removes '%1$s' and applies '%2$s' to build extensions too."
-                        + " To switch now, set '%1$s' to %3$s under 'metaData.config' in %4$s and run 'generate'."
-                        + " See %5$s",
-                extensionFlag, pluginFlag, pluginValue, lockfileName, EXTENSIONS_ISSUE);
     }
 }

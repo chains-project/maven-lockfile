@@ -5,6 +5,7 @@ import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 
 public class Config {
 
+    // includeMavenPlugins and allowMavenPluginValidationFailure also apply to build extensions.
     private final boolean includeMavenPlugins;
 
     // allowValidationFailure: the name before 6.0.0, still found in lockfiles that 5.x generated
@@ -24,8 +25,6 @@ public class Config {
     private final boolean allowBomValidationFailure;
     private final boolean includeParentPom;
     private final boolean allowParentPomValidationFailure;
-    private final boolean includeMavenExtensions;
-    private final boolean allowMavenExtensionsValidationFailure;
     private final boolean hermetic;
 
     public Config(
@@ -39,7 +38,6 @@ public class Config {
             String checksumAlgorithm,
             FeatureConfig boms,
             FeatureConfig parentPom,
-            FeatureConfig mavenExtensions,
             HermeticInclusion hermetic) {
         this.includeMavenPlugins = mavenPlugins.isIncluded();
         this.allowMavenPluginValidationFailure = mavenPlugins.getOnFailure() == ValidationPolicy.Warn;
@@ -55,8 +53,6 @@ public class Config {
         this.allowBomValidationFailure = boms.getOnFailure() == ValidationPolicy.Warn;
         this.includeParentPom = parentPom.isIncluded();
         this.allowParentPomValidationFailure = parentPom.getOnFailure() == ValidationPolicy.Warn;
-        this.includeMavenExtensions = mavenExtensions.isIncluded();
-        this.allowMavenExtensionsValidationFailure = mavenExtensions.getOnFailure() == ValidationPolicy.Warn;
         this.hermetic = hermetic.equals(HermeticInclusion.Include);
     }
 
@@ -75,8 +71,6 @@ public class Config {
         this.allowBomValidationFailure = false;
         this.includeParentPom = false;
         this.allowParentPomValidationFailure = false;
-        this.includeMavenExtensions = false;
-        this.allowMavenExtensionsValidationFailure = false;
         this.hermetic = false;
     }
 
@@ -98,10 +92,6 @@ public class Config {
 
     public FeatureConfig parentPom() {
         return feature(includeParentPom, allowParentPomValidationFailure);
-    }
-
-    public FeatureConfig mavenExtensions() {
-        return feature(includeMavenExtensions, allowMavenExtensionsValidationFailure);
     }
 
     public ValidationPolicy getOnDependencyValidationFailure() {
