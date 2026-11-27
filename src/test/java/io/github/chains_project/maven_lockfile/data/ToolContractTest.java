@@ -47,7 +47,8 @@ class ToolContractTest {
 
     private static DynamicTest formatTest(LockFile lockFile, int version) {
         String json = lockFile.toJson(version);
-        return DynamicTest.dynamicTest("lockFileVersion " + version, () -> assertThat(violations(json)).isEmpty());
+        return DynamicTest.dynamicTest(
+                "lockFileVersion " + version, () -> assertThat(violations(json)).isEmpty());
     }
 
     @Test
@@ -151,7 +152,8 @@ class ToolContractTest {
             }
         }
         if (schema.has("properties")) {
-            for (Map.Entry<String, JsonElement> property : schema.getAsJsonObject("properties").entrySet()) {
+            for (Map.Entry<String, JsonElement> property :
+                    schema.getAsJsonObject("properties").entrySet()) {
                 JsonElement child = object.get(property.getKey());
                 if (child != null) {
                     check(property.getValue().getAsJsonObject(), child, path + "." + property.getKey(), violations);
