@@ -100,9 +100,16 @@ jobs:
         run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION_WITH_SNAPSHOT)" >> $GITHUB_ENV
 
       - name: Set next version
-        # semver next for a snapshot only releases the snapshot version, so we need to run it 2 times
+        # semver next for a snapshot only releases the snapshot version, so we need to run it 2 times.
+        # A snapshot that is already X.0.0 (major) or X.Y.0 (minor) is released as is, so that
+        # 6.0.0-SNAPSHOT becomes 6.0.0 and not 7.0.0.
         if: ${{ github.event.inputs.version == 'major'  || github.event.inputs.version == 'minor' }}
-        run: echo "NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION)" >> $GITHUB_ENV
+        run: |
+          case "${{ github.event.inputs.version }}:$CURRENT_VERSION" in
+            major:*.0.0 | minor:*.0) NEXT_VERSION=$CURRENT_VERSION ;;
+            *) NEXT_VERSION=$(semver next ${{ github.event.inputs.version }} $CURRENT_VERSION) ;;
+          esac
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
 
       - name: set branchname to next version
         id: branch
