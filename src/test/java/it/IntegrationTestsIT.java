@@ -35,15 +35,16 @@ import org.junit.jupiter.api.Nested;
 public class IntegrationTestsIT {
     @MavenTest
     public void simpleProject(MavenExecutionResult result) throws Exception {
-        // contract: an empty project should generate an empty lock file
+        // contract: an empty project generates a lockfile without dependencies, and by default without plugins.
         System.out.println("Running 'simpleProject' integration test.");
         assertThat(result).isSuccessful();
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
-        assertThat(lockFile.getConfig().mavenPlugins().isIncluded()).isTrue();
-        assertThat(lockFile.getMavenPlugins()).isNotEmpty();
+        assertThat(lockFile.getConfig().mavenPlugins().isIncluded()).isFalse();
+        assertThat(lockFile.getMavenPlugins()).isEmpty();
+        assertThat(lockFile.getConfig().isReduced()).isTrue();
     }
 
     @MavenTest

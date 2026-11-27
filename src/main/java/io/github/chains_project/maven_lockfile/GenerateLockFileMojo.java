@@ -11,7 +11,6 @@ import io.github.chains_project.maven_lockfile.data.FeatureConfig;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.LockFileFormatException;
 import io.github.chains_project.maven_lockfile.data.MetaData;
-import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,7 +37,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
     // Each parameter below is null unless set, so that regenerating keeps the value the lockfile's config records.
 
-    /** Include Maven plugins and build extensions. */
+    /** Include Maven plugins and build extensions. Defaults to {@code false}. */
     @Parameter(property = "includeMavenPlugins")
     Boolean includeMavenPlugins;
 
@@ -101,7 +100,11 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                         + ". Supported versions are 2 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
             }
             boolean keepConfig = getConfigFromFile && lockFileFromFile != null && lockFileFromFile.getConfig() != null;
-            Config config = withParameters(keepConfig ? lockFileFromFile.getConfig() : newLockfileConfig());
+            Config config = withParameters(keepConfig ? lockFileFromFile.getConfig() : new Config());
+            if (config.isHermetic() && !config.mavenPlugins().isIncluded()) {
+                throw new MojoExecutionException("hermetic=true needs includeMavenPlugins=true, because the artifacts"
+                        + " it captures are recorded on the plugins that resolve them.");
+            }
             if (config.isHermetic()) {
                 ensureHermeticExtensionRegistered();
             }
@@ -206,23 +209,6 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                                     + extensionsFile + " to enable dynamic-resolution capture.",
                             e);
         }
-    }
-
-    /** The config of a new lockfile, before the parameters that were set: every feature included, and fails. */
-    static Config newLockfileConfig() {
-        FeatureConfig defaults = new FeatureConfig(true, ValidationPolicy.Error);
-        return new Config(
-                defaults,
-                ValidationPolicy.Error,
-                defaults,
-                ValidationPolicy.Error,
-                Config.ReductionState.NonReduced,
-                null,
-                ChecksumModes.REMOTE,
-                "SHA-256",
-                defaults,
-                defaults,
-                Config.HermeticInclusion.Exclude);
     }
 
     /** {@code base}, with the parameters that were set replacing its values. */

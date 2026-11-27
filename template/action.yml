@@ -16,7 +16,7 @@ inputs:
     required: false
     default: 'chore: update lockfile'
   include-maven-plugins:
-    description: 'Include Maven plugins in the lockfile. If not set, a new lockfile includes them and an existing lockfile keeps the value it records.'
+    description: 'Include Maven plugins in the lockfile. If not set, a new lockfile excludes them and an existing lockfile keeps the value it records.'
     required: false
   lockfile-name:
     description: 'Name of the lockfile (default="lockfile.json")'

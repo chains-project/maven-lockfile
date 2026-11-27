@@ -56,20 +56,21 @@ public class Config {
         this.hermetic = hermetic.equals(HermeticInclusion.Include);
     }
 
+    /** The defaults for a new lockfile, which Gson also uses for a key the lockfile's config does not record. */
     public Config() {
-        this.includeMavenPlugins = true;
+        this.includeMavenPlugins = false;
         this.allowDependencyValidationFailure = false;
         this.allowPomValidationFailure = false;
         this.allowMavenPluginValidationFailure = false;
-        this.allowEnvironmentalValidationFailure = false;
+        this.allowEnvironmentalValidationFailure = true;
         this.includeEnvironment = true;
-        this.reduced = false;
+        this.reduced = true;
         this.mavenLockfileVersion = "1";
-        this.checksumMode = ChecksumModes.LOCAL;
+        this.checksumMode = ChecksumModes.REMOTE;
         this.checksumAlgorithm = "SHA-256";
-        this.includeBoms = false;
+        this.includeBoms = true;
         this.allowBomValidationFailure = false;
-        this.includeParentPom = false;
+        this.includeParentPom = true;
         this.allowParentPomValidationFailure = false;
         this.hermetic = false;
     }

@@ -82,12 +82,12 @@ Most flags belong to a single goal:
 
 Passing a flag to a goal it does not belong to, as a user property (`-D`) or in the plugin's POM configuration, fails the build ([#1575](https://github.com/chains-project/maven-lockfile/issues/1575)). In the POM, set it in the configuration of that goal's `<execution>`.
 
-- `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
-- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins and build extensions are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
+- `reduced` (`-Dreduced=false`, default=true) keeps only the dependency versions Maven puts on the classpath, which makes the lockfile smaller and easier to review. Tools that prefetch artifacts for offline builds need the conflict-losing versions too, because Maven reads their POMs while collecting dependencies, so they should set `-Dreduced=false`.
+- `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=false) controls whether Maven plugins and build extensions are included in the lockfile. They are not part of the production binary, so they are left out by default. `hermetic=true` needs them, and `freeze` only pins plugin versions when they are included.
 - `allowDependencyValidationFailure` (`-DallowDependencyValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow a checksum mismatch of the project's POM, printing a warning instead of an error.
 - `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin and build extension validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowDependencyValidationFailure` is also enabled.
-- `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
+- `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=false`, default=true) allow validation failure of the environment, printing a warning instead of an error when the Maven version, Java version or OS differs. A new lockfile records `true`; lockfiles that 5.x generated may record `false`.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
 - `allowBomValidationFailure` (`-DallowBomValidationFailure=true`, default=false) allow BOM validation failures, printing a warning instead of an error.
@@ -99,7 +99,7 @@ Passing a flag to a goal it does not belong to, as a user property (`-D`) or in 
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
 - `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or the latest) sets the format `generate` writes. The only format is version 2; see [Lockfile version 2](#lockfile-version-2).
-- `hermetic` (`-Dhermetic=true`, default=false) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
+- `hermetic` (`-Dhermetic=true`, default=false, needs `includeMavenPlugins=true`) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
 - `pomLockfileOutput` (`-DpomLockfileOutput=pom.xml`, default=pom.lockfile.xml) sets the name of the generated flattened pom file. Default is to create a new file with the name `pom.lockfile.xml`, but you can also set it to `pom.xml` to overwrite the original pom file.
@@ -267,13 +267,18 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
       "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": false,
       "allowMavenPluginValidationFailure": false,
-      "allowEnvironmentalValidationFailure": false,
+      "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
-      "reduced": false,
-      "mavenLockfileVersion": "5.14.1-beta-1",
+      "reduced": true,
+      "mavenLockfileVersion": "6.0.0",
       "mavenLockfileChecksum": "2567930670c8da5bda8739f2fbd6509f1af9eeddf13397209fe01f72e22eb66a",
       "checksumMode": "remote",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": true,
+      "allowBomValidationFailure": false,
+      "includeParentPom": true,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }

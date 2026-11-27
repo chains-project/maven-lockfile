@@ -37,13 +37,13 @@ class GenerateLockFileMojoTest {
 
     @Test
     void newLockfileDefaults() {
-        // contract: a new lockfile includes every feature, fails on its mismatches and uses remote checksums.
-        Config config = mojo().withParameters(GenerateLockFileMojo.newLockfileConfig());
+        // contract: a new lockfile records the 6.0.0 defaults.
+        Config config = mojo().withParameters(new Config());
 
-        assertThat(config.mavenPlugins().isIncluded()).isTrue();
-        assertThat(config.isReduced()).isFalse();
+        assertThat(config.mavenPlugins().isIncluded()).isFalse();
+        assertThat(config.isReduced()).isTrue();
         assertThat(config.environment().isIncluded()).isTrue();
-        assertThat(config.environment().getOnFailure()).isEqualTo(ValidationPolicy.Error);
+        assertThat(config.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         assertThat(config.boms().isIncluded()).isTrue();
         assertThat(config.parentPom().isIncluded()).isTrue();
         assertThat(config.getChecksumMode()).isEqualTo(ChecksumModes.REMOTE);

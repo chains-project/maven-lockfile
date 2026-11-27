@@ -20,6 +20,7 @@
         </executions>
         <configuration>
           <checksumMode>local</checksumMode>
+          <reduced>false</reduced>
           <includeMavenPlugins>false</includeMavenPlugins>
         </configuration>
       </plugin>
