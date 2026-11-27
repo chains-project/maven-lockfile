@@ -4,6 +4,7 @@ import io.github.chains_project.maven_lockfile.JsonUtils;
 import io.github.chains_project.maven_lockfile.LockFileEquality;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.LockFile;
+import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isEnabled(Config config) {
-            return config.isIncludeEnvironment();
+            return config.environment().isIncluded();
         }
 
         @Override
@@ -48,7 +49,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnEnvironmentalValidationFailure() == Config.OnEnvironmentalValidationFailure.Warn;
+            return config.environment().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -74,7 +75,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnPomValidationFailure() == Config.OnPomValidationFailure.Warn;
+            return config.getOnPomValidationFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -109,7 +110,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnValidationFailure() == Config.OnValidationFailure.Warn;
+            return config.getOnValidationFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -117,7 +118,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isEnabled(Config config) {
-            return config.isIncludeMavenPlugins();
+            return config.mavenPlugins().isIncluded();
         }
 
         @Override
@@ -136,7 +137,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnMavenPluginValidationFailure() == Config.OnMavenPluginValidationFailure.Warn;
+            return config.mavenPlugins().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -144,12 +145,13 @@ public final class ValidationPhases {
 
         @Override
         public boolean isEnabled(Config config) {
-            return config.isIncludeBoms();
+            return config.boms().isIncluded();
         }
 
         @Override
         public Optional<String> validate(LockFile fromFile, LockFile fromProject, Config config) {
-            if (LockFileEquality.bomsEqualForAll(fromFile, fromProject, config.isIncludeParentPom())) {
+            if (LockFileEquality.bomsEqualForAll(
+                    fromFile, fromProject, config.parentPom().isIncluded())) {
                 return Optional.empty();
             }
             return Optional.of("Bom validation failed."
@@ -159,7 +161,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnBomValidationFailure() == Config.OnBomValidationFailure.Warn;
+            return config.boms().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -167,7 +169,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isEnabled(Config config) {
-            return config.isIncludeParentPom();
+            return config.parentPom().isIncluded();
         }
 
         @Override
@@ -182,7 +184,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnParentPomValidationFailure() == Config.OnParentPomValidationFailure.Warn;
+            return config.parentPom().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -190,7 +192,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isEnabled(Config config) {
-            return config.isIncludeMavenExtensions();
+            return config.mavenExtensions().isIncluded();
         }
 
         @Override
@@ -209,7 +211,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnMavenExtensionsValidationFailure() == Config.OnMavenExtensionsValidationFailure.Warn;
+            return config.mavenExtensions().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 
@@ -235,7 +237,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnMavenPluginValidationFailure() == Config.OnMavenPluginValidationFailure.Warn;
+            return config.mavenPlugins().getOnFailure() == ValidationPolicy.Warn;
         }
     }
 }

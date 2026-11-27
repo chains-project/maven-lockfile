@@ -42,7 +42,7 @@ public class IntegrationTestsIT {
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
         assertThat(lockFile.getDependencies()).isEmpty();
-        assertThat(lockFile.getConfig().isIncludeMavenPlugins()).isTrue();
+        assertThat(lockFile.getConfig().mavenPlugins().isIncluded()).isTrue();
         assertThat(lockFile.getMavenPlugins()).isNotEmpty();
     }
 
@@ -639,7 +639,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
+        assertThat(lockFile.getConfig().environment().isIncluded()).isTrue();
         assertThat(lockFile.getEnvironment()).isNotNull();
     }
 
@@ -651,7 +651,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
+        assertThat(lockFile.getConfig().environment().isIncluded()).isFalse();
         assertThat(lockFile.getEnvironment()).isNull();
     }
 
@@ -663,7 +663,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isTrue();
+        assertThat(lockFile.getConfig().environment().isIncluded()).isTrue();
         assertThat(lockFile.getEnvironment()).isNotNull();
     }
 
@@ -687,7 +687,7 @@ public class IntegrationTestsIT {
         Path lockFilePath = findFile(result, "lockfile.json");
         assertThat(lockFilePath).exists();
         var lockFile = LockFile.readLockFile(lockFilePath);
-        assertThat(lockFile.getConfig().isIncludeEnvironment()).isFalse();
+        assertThat(lockFile.getConfig().environment().isIncluded()).isFalse();
         assertThat(lockFile.getEnvironment()).isNull();
     }
 

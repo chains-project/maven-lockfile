@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
-import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 
 public class Config {
 
@@ -12,7 +11,7 @@ public class Config {
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
-    private final String mavenLockfileVersion;
+    private String mavenLockfileVersion;
     private String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
@@ -25,43 +24,34 @@ public class Config {
     private final boolean hermetic;
 
     public Config(
-            MavenPluginsInclusion includeMavenPlugins,
-            OnValidationFailure allowValidationFailure,
-            OnPomValidationFailure allowPomValidationFailure,
-            OnMavenPluginValidationFailure allowMavenPluginValidationFailure,
-            OnEnvironmentalValidationFailure allowEnvironmentalValidationFailure,
-            EnvironmentInclusion includeEnvironment,
+            FeatureConfig mavenPlugins,
+            ValidationPolicy onValidationFailure,
+            FeatureConfig environment,
+            ValidationPolicy onPomValidationFailure,
             ReductionState reduced,
             String mavenLockfileVersion,
             ChecksumModes checksumMode,
             String checksumAlgorithm,
-            BomsInclusion includeBoms,
-            OnBomValidationFailure allowBomValidationFailure,
-            ParentPomInclusion includeParentPom,
-            OnParentPomValidationFailure allowParentPomValidationFailure,
-            MavenExtensionsInclusion includeMavenExtensions,
-            OnMavenExtensionsValidationFailure allowMavenExtensionsValidationFailure,
+            FeatureConfig boms,
+            FeatureConfig parentPom,
+            FeatureConfig mavenExtensions,
             HermeticInclusion hermetic) {
-        this.includeMavenPlugins = includeMavenPlugins.equals(MavenPluginsInclusion.Include);
-        this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
-        this.allowPomValidationFailure = allowPomValidationFailure.equals(OnPomValidationFailure.Warn);
-        this.allowMavenPluginValidationFailure =
-                allowMavenPluginValidationFailure.equals(OnMavenPluginValidationFailure.Warn);
-        this.allowEnvironmentalValidationFailure =
-                allowEnvironmentalValidationFailure.equals(OnEnvironmentalValidationFailure.Warn);
-        this.includeEnvironment = includeEnvironment.equals(EnvironmentInclusion.Include);
+        this.includeMavenPlugins = mavenPlugins.isIncluded();
+        this.allowMavenPluginValidationFailure = mavenPlugins.getOnFailure() == ValidationPolicy.Warn;
+        this.allowValidationFailure = onValidationFailure == ValidationPolicy.Warn;
+        this.allowPomValidationFailure = onPomValidationFailure == ValidationPolicy.Warn;
+        this.includeEnvironment = environment.isIncluded();
+        this.allowEnvironmentalValidationFailure = environment.getOnFailure() == ValidationPolicy.Warn;
         this.reduced = reduced.equals(ReductionState.Reduced);
         this.mavenLockfileVersion = mavenLockfileVersion;
         this.checksumMode = checksumMode;
         this.checksumAlgorithm = checksumAlgorithm;
-        this.includeBoms = includeBoms.equals(BomsInclusion.Include);
-        this.allowBomValidationFailure = allowBomValidationFailure.equals(OnBomValidationFailure.Warn);
-        this.includeParentPom = includeParentPom.equals(ParentPomInclusion.Include);
-        this.allowParentPomValidationFailure =
-                allowParentPomValidationFailure.equals(OnParentPomValidationFailure.Warn);
-        this.includeMavenExtensions = includeMavenExtensions.equals(MavenExtensionsInclusion.Include);
-        this.allowMavenExtensionsValidationFailure =
-                allowMavenExtensionsValidationFailure.equals(OnMavenExtensionsValidationFailure.Warn);
+        this.includeBoms = boms.isIncluded();
+        this.allowBomValidationFailure = boms.getOnFailure() == ValidationPolicy.Warn;
+        this.includeParentPom = parentPom.isIncluded();
+        this.allowParentPomValidationFailure = parentPom.getOnFailure() == ValidationPolicy.Warn;
+        this.includeMavenExtensions = mavenExtensions.isIncluded();
+        this.allowMavenExtensionsValidationFailure = mavenExtensions.getOnFailure() == ValidationPolicy.Warn;
         this.hermetic = hermetic.equals(HermeticInclusion.Include);
     }
 
@@ -75,7 +65,7 @@ public class Config {
         this.reduced = false;
         this.mavenLockfileVersion = "1";
         this.checksumMode = ChecksumModes.LOCAL;
-        this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
+        this.checksumAlgorithm = "SHA-256";
         this.includeBoms = false;
         this.allowBomValidationFailure = false;
         this.includeParentPom = false;
@@ -84,78 +74,37 @@ public class Config {
         this.allowMavenExtensionsValidationFailure = false;
         this.hermetic = false;
     }
-    /**
-     * @return the includeMavenPlugins
-     */
-    public boolean isIncludeMavenPlugins() {
-        return includeMavenPlugins;
-    }
-    /**
-     * @return the mavenPluginsInclusion enum
-     */
-    public MavenPluginsInclusion getMavenPluginsInclusion() {
-        return includeMavenPlugins ? MavenPluginsInclusion.Include : MavenPluginsInclusion.Exclude;
-    }
-    /**
-     * @return the allowValidationFailure
-     */
-    public boolean isAllowValidationFailure() {
-        return allowValidationFailure;
-    }
-    /**
-     * @return the onValidationFailure enum
-     */
-    public OnValidationFailure getOnValidationFailure() {
-        return allowValidationFailure ? OnValidationFailure.Warn : OnValidationFailure.Error;
-    }
-    /**
-     * @return the allowPomValidationFailure
-     */
-    public boolean isAllowPomValidationFailure() {
-        return allowPomValidationFailure;
-    }
-    /**
-     * @return the onPomValidationFailure enum
-     */
-    public OnPomValidationFailure getOnPomValidationFailure() {
-        return allowPomValidationFailure ? OnPomValidationFailure.Warn : OnPomValidationFailure.Error;
+
+    private static FeatureConfig feature(boolean include, boolean allowFailure) {
+        return new FeatureConfig(include, ValidationPolicy.of(allowFailure));
     }
 
-    public boolean isAllowMavenPluginValidationFailure() {
-        return allowMavenPluginValidationFailure;
+    public FeatureConfig mavenPlugins() {
+        return feature(includeMavenPlugins, allowMavenPluginValidationFailure);
     }
 
-    public OnMavenPluginValidationFailure getOnMavenPluginValidationFailure() {
-        return allowMavenPluginValidationFailure
-                ? OnMavenPluginValidationFailure.Warn
-                : OnMavenPluginValidationFailure.Error;
+    public FeatureConfig environment() {
+        return feature(includeEnvironment, allowEnvironmentalValidationFailure);
     }
 
-    /**
-     * @return the allowEnvironmentalValidationFailure
-     */
-    public boolean isAllowEnvironmentalValidationFailure() {
-        return allowEnvironmentalValidationFailure;
+    public FeatureConfig boms() {
+        return feature(includeBoms, allowBomValidationFailure);
     }
-    /**
-     * @return the onEnvironmentalValidationFailure enum
-     */
-    public OnEnvironmentalValidationFailure getOnEnvironmentalValidationFailure() {
-        return allowEnvironmentalValidationFailure
-                ? OnEnvironmentalValidationFailure.Warn
-                : OnEnvironmentalValidationFailure.Error;
+
+    public FeatureConfig parentPom() {
+        return feature(includeParentPom, allowParentPomValidationFailure);
     }
-    /**
-     * @return the includeEnvironment
-     */
-    public boolean isIncludeEnvironment() {
-        return includeEnvironment;
+
+    public FeatureConfig mavenExtensions() {
+        return feature(includeMavenExtensions, allowMavenExtensionsValidationFailure);
     }
-    /**
-     * @return the environmentInclusion enum
-     */
-    public EnvironmentInclusion getEnvironmentInclusion() {
-        return includeEnvironment ? EnvironmentInclusion.Include : EnvironmentInclusion.Exclude;
+
+    public ValidationPolicy getOnValidationFailure() {
+        return ValidationPolicy.of(allowValidationFailure);
+    }
+
+    public ValidationPolicy getOnPomValidationFailure() {
+        return ValidationPolicy.of(allowPomValidationFailure);
     }
     /**
      * @return the reduced
@@ -174,6 +123,10 @@ public class Config {
      */
     public String getMavenLockfileVersion() {
         return mavenLockfileVersion;
+    }
+
+    public void setMavenLockfileVersion(String mavenLockfileVersion) {
+        this.mavenLockfileVersion = mavenLockfileVersion;
     }
     /**
      * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile
@@ -198,56 +151,6 @@ public class Config {
         return checksumAlgorithm;
     }
 
-    public boolean isIncludeBoms() {
-        return includeBoms;
-    }
-
-    public BomsInclusion getBomsInclusion() {
-        return includeBoms ? BomsInclusion.Include : BomsInclusion.Exclude;
-    }
-
-    public boolean isAllowBomValidationFailure() {
-        return allowBomValidationFailure;
-    }
-
-    public OnBomValidationFailure getOnBomValidationFailure() {
-        return allowBomValidationFailure ? OnBomValidationFailure.Warn : OnBomValidationFailure.Error;
-    }
-
-    public boolean isIncludeParentPom() {
-        return includeParentPom;
-    }
-
-    public ParentPomInclusion getParentPomInclusion() {
-        return includeParentPom ? ParentPomInclusion.Include : ParentPomInclusion.Exclude;
-    }
-
-    public boolean isAllowParentPomValidationFailure() {
-        return allowParentPomValidationFailure;
-    }
-
-    public OnParentPomValidationFailure getOnParentPomValidationFailure() {
-        return allowParentPomValidationFailure ? OnParentPomValidationFailure.Warn : OnParentPomValidationFailure.Error;
-    }
-
-    public boolean isIncludeMavenExtensions() {
-        return includeMavenExtensions;
-    }
-
-    public MavenExtensionsInclusion getMavenExtensionsInclusion() {
-        return includeMavenExtensions ? MavenExtensionsInclusion.Include : MavenExtensionsInclusion.Exclude;
-    }
-
-    public boolean isAllowMavenExtensionsValidationFailure() {
-        return allowMavenExtensionsValidationFailure;
-    }
-
-    public OnMavenExtensionsValidationFailure getOnMavenExtensionsValidationFailure() {
-        return allowMavenExtensionsValidationFailure
-                ? OnMavenExtensionsValidationFailure.Warn
-                : OnMavenExtensionsValidationFailure.Error;
-    }
-
     /**
      * @return whether artifacts dynamically resolved during a real build (e.g. Surefire's
      *     test-framework provider), and captured by a {@code DynamicResolutionSpy} extension
@@ -261,69 +164,9 @@ public class Config {
         return hermetic ? HermeticInclusion.Include : HermeticInclusion.Exclude;
     }
 
-    public enum MavenPluginsInclusion {
-        Include,
-        Exclude
-    }
-
-    public enum OnValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum OnPomValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum OnMavenPluginValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum OnEnvironmentalValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum EnvironmentInclusion {
-        Include,
-        Exclude
-    }
-
     public enum ReductionState {
         Reduced,
         NonReduced
-    }
-
-    public enum BomsInclusion {
-        Include,
-        Exclude
-    }
-
-    public enum OnBomValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum ParentPomInclusion {
-        Include,
-        Exclude
-    }
-
-    public enum OnParentPomValidationFailure {
-        Warn,
-        Error
-    }
-
-    public enum MavenExtensionsInclusion {
-        Include,
-        Exclude
-    }
-
-    public enum OnMavenExtensionsValidationFailure {
-        Warn,
-        Error
     }
 
     public enum HermeticInclusion {

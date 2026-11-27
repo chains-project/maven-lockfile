@@ -1,6 +1,7 @@
 package io.github.chains_project.maven_lockfile;
 
 import io.github.chains_project.maven_lockfile.data.Config;
+import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,15 +172,18 @@ final class Deprecations {
     /** 6.0.0 applies the plugin flags to build extensions, so an extension flag that differs changes behaviour. */
     private static List<String> extensionFlagMismatches(Config config, String lockfileName) {
         List<String> warnings = new ArrayList<>();
-        if (config.isIncludeMavenExtensions() != config.isIncludeMavenPlugins()) {
+        if (config.mavenExtensions().isIncluded() != config.mavenPlugins().isIncluded()) {
             warnings.add(mismatch(
-                    "includeMavenExtensions", "includeMavenPlugins", config.isIncludeMavenPlugins(), lockfileName));
+                    "includeMavenExtensions",
+                    "includeMavenPlugins",
+                    config.mavenPlugins().isIncluded(),
+                    lockfileName));
         }
-        if (config.isAllowMavenExtensionsValidationFailure() != config.isAllowMavenPluginValidationFailure()) {
+        if (config.mavenExtensions().getOnFailure() != config.mavenPlugins().getOnFailure()) {
             warnings.add(mismatch(
                     "allowMavenExtensionsValidationFailure",
                     "allowMavenPluginValidationFailure",
-                    config.isAllowMavenPluginValidationFailure(),
+                    config.mavenPlugins().getOnFailure() == ValidationPolicy.Warn,
                     lockfileName));
         }
         return warnings;
