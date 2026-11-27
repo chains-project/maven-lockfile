@@ -16,9 +16,8 @@ inputs:
     required: false
     default: 'chore: update lockfile'
   include-maven-plugins:
-    description: 'Include Maven plugins in the lockfile'
+    description: 'Include Maven plugins in the lockfile. If not set, a new lockfile includes them and an existing lockfile keeps the value it records.'
     required: false
-    default: true
   lockfile-name:
     description: 'Name of the lockfile (default="lockfile.json")'
     required: false
@@ -114,7 +113,11 @@ runs:
         # MAVEN_ARGS go to both goals. Every other parameter belongs to one goal: validate takes the generate
         # parameters from the lockfile (https://github.com/chains-project/maven-lockfile/issues/1575).
         MAVEN_ARGS=""
-        GENERATE_ARGS="-DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
+        GENERATE_ARGS=""
+        # Pass it only when set, so regenerating keeps the value recorded in the lockfile.
+        if [ -n "$INCLUDE_MAVEN_PLUGINS" ]; then
+          GENERATE_ARGS="-DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
+        fi
         VALIDATE_ARGS=""
 
         if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
