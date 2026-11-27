@@ -53,6 +53,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
+        warnAboutValidateParameters();
         try {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
@@ -169,6 +170,20 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                                     + extensionsFile + " to enable dynamic-resolution capture.",
                             e);
         }
+    }
+
+    /**
+     * The {@code allow*ValidationFailure} parameters only change what {@code validate} does. {@code generate} keeps
+     * the values already in the lockfile, so they are changed by editing the lockfile.
+     */
+    void warnAboutValidateParameters() {
+        warnAboutParameters(
+                validateParameters(),
+                name -> String.format(
+                        "Parameter '%s' belongs to the 'validate' goal. Passing it to 'generate' is deprecated and"
+                                + " will be an error in 6.0.0. To change the value recorded in the lockfile, edit"
+                                + " '%s' under 'metaData.config' in %s. See %s",
+                        name, name, lockfileName, GOAL_PARAMETERS_ISSUE));
     }
 
     private Config getConfig(LockFile lockFileFromFile) {
