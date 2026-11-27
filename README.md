@@ -73,11 +73,14 @@ mvn -f pom.lockfile.xml
 
 ## Command line Flags
 
-Each flag belongs to one goal, except `skip` and `lockfileName`, which both goals use:
+Most flags belong to a single goal:
 - `generate`: `reduced`, `includeMavenPlugins`, `includeEnvironment`, `includeBoms`, `includeParentPom`, `includeMavenExtensions`, `checksumAlgorithm`, `checksumMode`, `hermetic`, `getConfigFromFile` and `lockfileVersion`. They decide what the lockfile records, and `validate` uses the values recorded in the lockfile.
 - `validate`: the `allow*ValidationFailure` flags. To change the value `validate` uses by default, edit the flag under `metaData.config` in the lockfile. `generate` keeps the values it finds there.
+- `freeze`: `pomLockfileOutput` and `exactVersionStrings`, described below.
 
-Passing a flag to the other goal logs a deprecation warning, and will be an error in 6.0.0 (see [#1575](https://github.com/chains-project/maven-lockfile/issues/1575)).
+`lockfileName` applies to all three goals, and `skip` to `generate` and `validate`.
+
+Passing a `generate` flag to `validate`, or a `validate` flag to `generate`, logs a deprecation warning, and will be an error in 6.0.0 (see [#1575](https://github.com/chains-project/maven-lockfile/issues/1575)).
 
 - `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
