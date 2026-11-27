@@ -325,14 +325,14 @@ Tools that regenerate lockfiles, such as dependency update bots, may rely on the
 |---|---|---|
 | `lockFileVersion` | integer, at least 1 | The format version. A release rejects a version newer than it can read. |
 | `metaData.config.mavenLockfileVersion` | non-empty string | The release that generated the file. |
-| `metaData.config.hermetic` | boolean | Whether the file holds artifacts resolved during a real build. |
 
 To regenerate a lockfile, a tool should:
 - run `mvn io.github.chains-project:maven-lockfile:<release>:generate` in the directory of the root `pom.xml`, without other flags. `generate` takes the rest of its configuration and the format version from the existing lockfile.
 - use `mavenLockfileVersion` or a newer release. An older release may not read the file, and `validate` fails when the release it runs with has a different checksum than the one the file records.
-- leave a file with `hermetic: true` alone. `generate` on its own cannot reproduce the artifacts captured during a build.
 
-Files written by older releases may lack `hermetic`, which then means `false`, or `mavenLockfileVersion`, in which case a tool cannot tell which release wrote the file.
+Files written by older releases may lack `mavenLockfileVersion`, in which case a tool cannot tell which release wrote the file.
+
+`metaData.config.hermetic` is experimental and not covered by this promise. While it exists, a file with `hermetic: true` holds artifacts captured during a build, which `generate` on its own cannot reproduce, so a tool should leave such a file alone. A missing `hermetic` means `false`.
 
 
 ## GithubAction
