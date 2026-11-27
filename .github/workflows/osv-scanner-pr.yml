@@ -5,9 +5,9 @@ name: OSV-Scanner PR Scan
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, 5.x]
   merge_group:
-    branches: [main]
+    branches: [main, 5.x]
 
 permissions:
   # Required to upload SARIF file to CodeQL. See: https://github.com/github/codeql-action/issues/2117
