@@ -17,7 +17,7 @@
       "scope": "compile",
       "parentPom": {
         "artifact": "pkg:maven/com.mycompany.app/reactor-snapshot-sibling-parent@1.0.0-SNAPSHOT?type=pom",
-        "relativePath": "pom.xml"
+        "relativePath": "../pom.xml"
       },
       "selectedVersion": "1.0.0-SNAPSHOT",
       "included": true,

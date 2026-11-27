@@ -69,7 +69,11 @@
           "selectedVersion": "1.9.2",
           "included": false,
           "children": [],
-          "boms": []
+          "boms": [
+            {
+              "artifact": "pkg:maven/org.junit/junit-bom@5.9.2?type=pom"
+            }
+          ]
         },
         {
           "artifact": "pkg:maven/org.opentest4j/opentest4j@1.2.0",
@@ -115,7 +119,11 @@
               "boms": []
             }
           ],
-          "boms": []
+          "boms": [
+            {
+              "artifact": "pkg:maven/org.junit/junit-bom@5.9.2?type=pom"
+            }
+          ]
         },
         {
           "artifact": "pkg:maven/org.opentest4j/opentest4j@1.2.0",
