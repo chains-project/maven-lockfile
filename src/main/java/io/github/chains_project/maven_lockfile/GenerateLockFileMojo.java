@@ -71,9 +71,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
     boolean getConfigFromFile;
 
     /**
-     * The lockfile format to write: {@code 1}, or {@code 2}, which records each artifact's checksum and repository
-     * once instead of at every occurrence. Defaults to the format of the existing lockfile, or {@code 1} if there is
-     * none.
+     * The lockfile format to write. Defaults to the format of the existing lockfile, or the latest if there is none.
      */
     @Parameter(property = "lockfileVersion")
     Integer lockfileVersion;
@@ -95,14 +93,15 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                     : null;
             int formatVersion = lockfileVersion != null
                     ? lockfileVersion
-                    : lockFileFromFile != null ? lockFileFromFile.getLockfileVersion() : 1;
+                    : lockFileFromFile != null
+                            ? lockFileFromFile.getLockfileVersion()
+                            : LockFile.LATEST_LOCKFILE_VERSION;
             if (!LockFile.isSupportedLockfileVersion(formatVersion)) {
                 throw new MojoExecutionException("Unsupported lockfileVersion " + formatVersion
-                        + ". Supported versions are 1 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
+                        + ". Supported versions are 2 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
             }
             boolean keepConfig = getConfigFromFile && lockFileFromFile != null && lockFileFromFile.getConfig() != null;
             Config config = withParameters(keepConfig ? lockFileFromFile.getConfig() : newLockfileConfig());
-            Deprecations.warnAboutLockfile(this, mojo, lockfileName, formatVersion);
             if (config.isHermetic()) {
                 ensureHermeticExtensionRegistered();
             }

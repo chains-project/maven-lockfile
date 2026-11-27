@@ -3,56 +3,69 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "groupId": "com.mycompany.app",
-    "artifactId": "freeze-plugin-dependencies",
-    "version": "1",
-    "relativePath": "pom.xml",
-    "checksumAlgorithm": "SHA-256",
-    "checksum": "0000000000000000000000000000000000000000000000000000000000000000"
+    "artifact": "pkg:maven/com.mycompany.app/freeze-plugin-dependencies@1?type=pom",
+    "relativePath": "pom.xml"
   },
-  "lockFileVersion": 1,
+  "lockFileVersion": 2,
   "dependencies": [],
   "mavenPlugins": [
     {
+      "artifact": "pkg:maven/org.apache.maven.plugins/maven-compiler-plugin@3.11.0",
+      "dependencies": [
+        {
+          "artifact": "pkg:maven/org.apache.commons/commons-lang3@3.12.0",
+          "scope": "compile",
+          "selectedVersion": "3.12.0",
+          "included": true,
+          "children": []
+        },
+        {
+          "artifact": "pkg:maven/org.ow2.asm/asm@9.5",
+          "scope": "runtime",
+          "selectedVersion": "9.5",
+          "included": true,
+          "children": []
+        }
+      ]
+    }
+  ],
+  "artifacts": {
+    "pkg:maven/com.mycompany.app/freeze-plugin-dependencies@1?type=pom": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "freeze-plugin-dependencies",
+      "version": "1",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "pkg:maven/org.apache.commons/commons-lang3@3.12.0": {
+      "groupId": "org.apache.commons",
+      "artifactId": "commons-lang3",
+      "version": "3.12.0",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar",
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.apache.maven.plugins/maven-compiler-plugin@3.11.0": {
       "groupId": "org.apache.maven.plugins",
       "artifactId": "maven-compiler-plugin",
       "version": "3.11.0",
       "checksumAlgorithm": "SHA-256",
       "checksum": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
       "resolved": "https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.11.0/maven-compiler-plugin-3.11.0.jar",
-      "repositoryId": "central",
-      "dependencies": [
-        {
-          "groupId": "org.apache.commons",
-          "artifactId": "commons-lang3",
-          "version": "3.12.0",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-          "scope": "compile",
-          "resolved": "https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar",
-          "repositoryId": "central",
-          "selectedVersion": "3.12.0",
-          "included": true,
-          "id": "org.apache.commons:commons-lang3:3.12.0",
-          "children": []
-        },
-        {
-          "groupId": "org.ow2.asm",
-          "artifactId": "asm",
-          "version": "9.5",
-          "checksumAlgorithm": "SHA-256",
-          "checksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
-          "scope": "runtime",
-          "resolved": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.5/asm-9.5.jar",
-          "repositoryId": "central",
-          "selectedVersion": "9.5",
-          "included": true,
-          "id": "org.ow2.asm:asm:9.5",
-          "children": []
-        }
-      ]
+      "repositoryId": "central"
+    },
+    "pkg:maven/org.ow2.asm/asm@9.5": {
+      "groupId": "org.ow2.asm",
+      "artifactId": "asm",
+      "version": "9.5",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "resolved": "https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.5/asm-9.5.jar",
+      "repositoryId": "central"
     }
-  ],
+  },
   "metaData": {
     "environment": {
       "osName": "Linux",
@@ -61,14 +74,20 @@
     },
     "config": {
       "includeMavenPlugins": true,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": true,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.13.2-SNAPSHOT",
       "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }

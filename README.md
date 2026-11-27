@@ -98,7 +98,7 @@ Passing a flag to a goal it does not belong to, as a user property (`-D`) or in 
 - `skip` (`-Dskip=true`) will skip the execution of the plugin. This is useful if you would like to disable the plugin for a specific module.
 - `lockfileName` (`-DlockfileName=my-lockfile.json` default="lockfile.json") will set the name of the lockfile file to be generated/read.
 - `getConfigFromFile` will read the configuration of maven lockfile from the existing lockfile.
-- `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or 1) sets the format `generate` writes. Version 2 stores each artifact once; see [Lockfile version 2](#lockfile-version-2).
+- `lockfileVersion` (`-DlockfileVersion=2`, default=version of the existing lockfile, or the latest) sets the format `generate` writes. The only format is version 2; see [Lockfile version 2](#lockfile-version-2).
 - `hermetic` (`-Dhermetic=true`, default=false) **⚠️ Experimental:** its behaviour and the lockfile content it produces may change or be removed in any release without notice, so do not rely on it for production builds. It merges artifacts that were dynamically resolved during a real build - i.e. resolved imperatively at execution time rather than declared in any POM, such as Surefire's test-framework provider - into the lockfile. This requires two things: this plugin must also be registered as a Maven core extension (in `.mvn/extensions.xml`; `generate` creates/repairs this file automatically, but the *next* build is the first one that can capture anything), and a build that actually triggers the dynamic resolution (e.g. `mvn verify`) must run before `generate`/`validate`, in the same Maven session. Without both, `hermetic=true` is a no-op. See [`DynamicResolutionSpy`](/src/main/java/io/github/chains_project/maven_lockfile/recorder/DynamicResolutionSpy.java).
 
 For `:freeze` target:
@@ -114,7 +114,7 @@ mvn io.github.chains-project:maven-lockfile:generate -DlockfileName=my-lockfile.
 
 ## Format
 
-An example lockfile is shown below. Note that large parts of it has been minimzed to `{...}` for readability.
+The content of a lockfile is shown below, with every artifact written out where it occurs. The file stores it in [version 2](#lockfile-version-2), which keeps each artifact's coordinates, checksum and repository in one table. Large parts have been minimized to `{...}` for readability.
 For a full example, see the [lockfile.json](/lockfile.json) file in this repository.
 ```json
 {
@@ -129,7 +129,6 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
     "checksumAlgorithm": "SHA-256",
     "checksum": "2152cc00c16d72fbf9430e6a95a56e9edf0180a500155490bf33a7349df75a1b"
   },
-  "lockFileVersion": 1,
   "dependencies": [
     {
       "groupId": "fr.inria.gforge.spoon",
@@ -291,7 +290,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 
 ### Lockfile version 2
 
-`generate -DlockfileVersion=2` writes the same content in a smaller format: each artifact's coordinates, checksum and repository are stored once in a top-level `artifacts` table, keyed by [package URL](https://github.com/package-url/purl-spec). Every occurrence in `dependencies`, `mavenPlugins`, `mavenExtensions`, `boms` and the POM trees refers to its entry through `artifact` and keeps only what belongs to that occurrence, such as `scope`, `selectedVersion`, `included`, `parentPom` and `children`. A node's `id` and `parent` are left out because they follow from its coordinates and its place in the tree.
+`generate` writes the content above in a smaller format: each artifact's coordinates, checksum and repository are stored once in a top-level `artifacts` table, keyed by [package URL](https://github.com/package-url/purl-spec). Every occurrence in `dependencies`, `mavenPlugins`, `mavenExtensions`, `boms` and the POM trees refers to its entry through `artifact` and keeps only what belongs to that occurrence, such as `scope`, `selectedVersion`, `included`, `parentPom` and `children`. A node's `id` and `parent` are left out because they follow from its coordinates and its place in the tree.
 ```json
 {
   "lockFileVersion": 2,
@@ -322,9 +321,7 @@ This allows us to validate the integrity of the transitive dependencies as well.
 ```
 If one occurrence of an artifact has a different checksum or repository than its entry, that occurrence keeps the differing fields inline.
 
-`validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
-
-6.0.0 will not read version 1 ([#1732](https://github.com/chains-project/maven-lockfile/issues/1732)), so `generate`, `validate` and `freeze` warn when they meet it. Switch with `generate -DlockfileVersion=2`.
+maven-lockfile 6 only reads version 2 ([#1732](https://github.com/chains-project/maven-lockfile/issues/1732)), and fails on a lockfile with `lockFileVersion` 1. To keep that lockfile's config, convert it with maven-lockfile 5.19 or later, `mvn io.github.chains-project:maven-lockfile:5.19.0:generate -DlockfileVersion=2`, and then upgrade. Otherwise delete it and run `generate`. Releases before 5.19 cannot read version 2 and fail validation with missing dependencies. Each release rejects a newer `lockFileVersion` and asks you to upgrade.
 
 
 ## GithubAction

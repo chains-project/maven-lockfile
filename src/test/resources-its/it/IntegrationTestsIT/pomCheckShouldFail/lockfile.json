@@ -3,16 +3,22 @@
   "groupId": "com.mycompany.app",
   "version": "1",
   "pom": {
-    "groupId": "com.mycompany.app",
-    "artifactId": "pom-check-should-fail",
-    "version": "1",
-    "relativePath": "pom.xml",
-    "checksumAlgorithm": "SHA-256",
-    "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
+    "artifact": "pkg:maven/com.mycompany.app/pom-check-should-fail@1?type=pom",
+    "relativePath": "pom.xml"
   },
-  "lockFileVersion": 1,
+  "lockFileVersion": 2,
   "dependencies": [],
   "mavenPlugins": [],
+  "artifacts": {
+    "pkg:maven/com.mycompany.app/pom-check-should-fail@1?type=pom": {
+      "groupId": "com.mycompany.app",
+      "artifactId": "pom-check-should-fail",
+      "version": "1",
+      "type": "pom",
+      "checksumAlgorithm": "SHA-256",
+      "checksum": "024abe1f8dbfcc55a3236bacaf077cdbff6ed024e6d09fc4c6007fc1897b63da_TAMPER_ATTACK"
+    }
+  },
   "metaData": {
     "environment": {
       "osName": "Linux",
@@ -21,14 +27,20 @@
     },
     "config": {
       "includeMavenPlugins": false,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": false,
+      "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
       "includeEnvironment": true,
       "reduced": false,
       "mavenLockfileVersion": "5.11.1-SNAPSHOT",
       "checksumMode": "local",
-      "checksumAlgorithm": "SHA-256"
+      "checksumAlgorithm": "SHA-256",
+      "includeBoms": false,
+      "allowBomValidationFailure": false,
+      "includeParentPom": false,
+      "allowParentPomValidationFailure": false,
+      "hermetic": false
     }
   }
 }

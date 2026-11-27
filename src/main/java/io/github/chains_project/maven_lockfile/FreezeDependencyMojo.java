@@ -79,7 +79,6 @@ public class FreezeDependencyMojo extends AbstractMojo {
         File pomLockFile = new File(project.getBasedir(), pomLockfileOutput);
         try {
             LockFile lockFile = LockFile.readLockFile(LockFileFacade.getLockFilePath(project, lockfileName));
-            Deprecations.warnAboutLockfile(this, mojo, lockfileName, lockFile.getLockfileVersion());
             List<Dependency> filteredDependencies = getNearestVersionDependency(lockFile);
             Model pomModel = readPomFile(pomFile);
             updateDependencies(pomModel, filteredDependencies);
