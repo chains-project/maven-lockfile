@@ -3,13 +3,12 @@ on:
   push:
     branches:
       - main
+      - 5.x
 
 permissions:
   contents: read
 jobs:
   check-lockfile:
-    permissions:
-      contents: write
     runs-on: ubuntu-26.04
     steps:
       - name: Harden Runner
@@ -40,3 +39,6 @@ jobs:
           include-maven-plugins: true
           allow-environmental-validation-failure: true
           hermetic: true
+          # The ruleset only lets pull requests change these branches, where LockfilePR.yml regenerates the
+          # lockfile, so a push is only validated.
+          commit-lockfile: false

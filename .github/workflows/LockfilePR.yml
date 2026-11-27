@@ -6,8 +6,6 @@ permissions:
   contents: read
 jobs:
   check-lockfile:
-    permissions:
-      contents: write
     runs-on: ubuntu-26.04
     steps:
       - name: Harden Runner
@@ -31,11 +29,22 @@ jobs:
       - name: Verify action checksums
         uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
 
+      # A push with GITHUB_TOKEN does not start workflows, so CI would wait for approval on the regenerated
+      # lockfile. Only for pull requests from this repository: forks get no secrets and only verify.
+      - name: Create automation token
+        id: automation-token
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        with:
+          client-id: ${{ secrets.AUTOMATION_APP_ID }}
+          private-key: ${{ secrets.AUTOMATION_APP_KEY }}
+          permission-contents: write # To push the regenerated lockfile
+
       - name: run maven-lockfile
         if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
         uses: chains-project/maven-lockfile@96a3f6ff4a42f2a84173afab64803112714c6fe7 # 5.19.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.automation-token.outputs.token }}
           include-maven-plugins: true
           allow-environmental-validation-failure: true
           hermetic: true
