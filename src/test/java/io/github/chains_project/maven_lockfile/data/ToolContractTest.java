@@ -9,7 +9,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
-/** Checks the fields listed under "Fields other tools can rely on" in the README. */
+/**
+ * Checks the lockfile fields that tools regenerating lockfiles, such as dependency update bots, rely on. They keep
+ * their path and type in every {@code lockFileVersion}:
+ * <ul>
+ *   <li>{@code lockFileVersion}: integer, at least 1. The format version. A release rejects a version newer than it
+ *       can read.</li>
+ *   <li>{@code metaData.config.mavenLockfileVersion}: non-empty string. The release that generated the file.</li>
+ * </ul>
+ */
 class ToolContractTest {
 
     @Test
