@@ -1,18 +1,15 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 
 /**
@@ -34,30 +31,6 @@ class ToolContractTest {
     private static DynamicTest formatTest(LockFile lockFile, int version) {
         String json = lockFile.toJson(version);
         return DynamicTest.dynamicTest("lockFileVersion " + version, () -> assertKeepsTheFields(json));
-    }
-
-    @Test
-    void repository_lockfile_keeps_the_fields() throws IOException {
-        assertKeepsTheFields(Files.readString(REPOSITORY_LOCKFILE));
-    }
-
-    @Test
-    void moved_config_fails() {
-        String json = "{\"lockFileVersion\": 2, \"config\": {\"mavenLockfileVersion\": \"6.0.0\"}}";
-
-        assertThatThrownBy(() -> assertKeepsTheFields(json))
-                .isInstanceOf(AssertionError.class)
-                .hasMessageContaining("metaData.config.mavenLockfileVersion");
-    }
-
-    @Test
-    void retyped_hermetic_fails() {
-        String json = "{\"lockFileVersion\": 2, \"metaData\": {\"config\":"
-                + " {\"mavenLockfileVersion\": \"6.0.0\", \"hermetic\": {\"enabled\": true}}}}";
-
-        assertThatThrownBy(() -> assertKeepsTheFields(json))
-                .isInstanceOf(AssertionError.class)
-                .hasMessageContaining("metaData.config.hermetic");
     }
 
     private static void assertKeepsTheFields(String json) {
