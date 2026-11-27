@@ -17,9 +17,9 @@ class ValidateMojoTest {
     private static Config storedConfig() {
         return new Config(
                 new FeatureConfig(false, ValidationPolicy.Error),
-                Config.OnValidationFailure.Error,
-                ValidationPolicy.Warn,
+                ValidationPolicy.Error,
                 new FeatureConfig(true, ValidationPolicy.Error),
+                ValidationPolicy.Warn,
                 Config.ReductionState.NonReduced,
                 "5.16.0",
                 ChecksumModes.LOCAL,
@@ -39,7 +39,7 @@ class ValidateMojoTest {
 
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         // Unset CLI args preserve stored values
-        assertThat(merged.getOnValidationFailure()).isEqualTo(Config.OnValidationFailure.Error);
+        assertThat(merged.getOnValidationFailure()).isEqualTo(ValidationPolicy.Error);
         assertThat(merged.getOnPomValidationFailure()).isEqualTo(ValidationPolicy.Warn);
     }
 

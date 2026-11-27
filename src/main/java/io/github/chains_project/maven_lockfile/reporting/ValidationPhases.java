@@ -110,7 +110,7 @@ public final class ValidationPhases {
 
         @Override
         public boolean isWarn(Config config) {
-            return config.getOnValidationFailure() == Config.OnValidationFailure.Warn;
+            return config.getOnValidationFailure() == ValidationPolicy.Warn;
         }
     }
 

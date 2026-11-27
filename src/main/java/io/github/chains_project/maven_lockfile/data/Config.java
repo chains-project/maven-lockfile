@@ -1,7 +1,6 @@
 package io.github.chains_project.maven_lockfile.data;
 
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
-import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalculator;
 
 public class Config {
 
@@ -12,7 +11,7 @@ public class Config {
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
-    private final String mavenLockfileVersion;
+    private String mavenLockfileVersion;
     private String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
@@ -26,9 +25,9 @@ public class Config {
 
     public Config(
             FeatureConfig mavenPlugins,
-            OnValidationFailure allowValidationFailure,
-            ValidationPolicy onPomValidationFailure,
+            ValidationPolicy onValidationFailure,
             FeatureConfig environment,
+            ValidationPolicy onPomValidationFailure,
             ReductionState reduced,
             String mavenLockfileVersion,
             ChecksumModes checksumMode,
@@ -39,7 +38,7 @@ public class Config {
             HermeticInclusion hermetic) {
         this.includeMavenPlugins = mavenPlugins.isIncluded();
         this.allowMavenPluginValidationFailure = mavenPlugins.getOnFailure() == ValidationPolicy.Warn;
-        this.allowValidationFailure = allowValidationFailure.equals(OnValidationFailure.Warn);
+        this.allowValidationFailure = onValidationFailure == ValidationPolicy.Warn;
         this.allowPomValidationFailure = onPomValidationFailure == ValidationPolicy.Warn;
         this.includeEnvironment = environment.isIncluded();
         this.allowEnvironmentalValidationFailure = environment.getOnFailure() == ValidationPolicy.Warn;
@@ -66,7 +65,7 @@ public class Config {
         this.reduced = false;
         this.mavenLockfileVersion = "1";
         this.checksumMode = ChecksumModes.LOCAL;
-        this.checksumAlgorithm = new FileSystemChecksumCalculator(null, null, null, null).getDefaultChecksumAlgorithm();
+        this.checksumAlgorithm = "SHA-256";
         this.includeBoms = false;
         this.allowBomValidationFailure = false;
         this.includeParentPom = false;
@@ -100,17 +99,8 @@ public class Config {
         return feature(includeMavenExtensions, allowMavenExtensionsValidationFailure);
     }
 
-    /**
-     * @return the allowValidationFailure
-     */
-    public boolean isAllowValidationFailure() {
-        return allowValidationFailure;
-    }
-    /**
-     * @return the onValidationFailure enum
-     */
-    public OnValidationFailure getOnValidationFailure() {
-        return allowValidationFailure ? OnValidationFailure.Warn : OnValidationFailure.Error;
+    public ValidationPolicy getOnValidationFailure() {
+        return ValidationPolicy.of(allowValidationFailure);
     }
 
     public ValidationPolicy getOnPomValidationFailure() {
@@ -133,6 +123,10 @@ public class Config {
      */
     public String getMavenLockfileVersion() {
         return mavenLockfileVersion;
+    }
+
+    public void setMavenLockfileVersion(String mavenLockfileVersion) {
+        this.mavenLockfileVersion = mavenLockfileVersion;
     }
     /**
      * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile
@@ -168,11 +162,6 @@ public class Config {
 
     public HermeticInclusion getHermeticInclusion() {
         return hermetic ? HermeticInclusion.Include : HermeticInclusion.Exclude;
-    }
-
-    public enum OnValidationFailure {
-        Warn,
-        Error
     }
 
     public enum ReductionState {

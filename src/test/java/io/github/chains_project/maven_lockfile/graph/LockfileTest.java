@@ -29,9 +29,9 @@ public class LockfileTest {
                 new Environment("os", "mv", "jv"),
                 new Config(
                         new FeatureConfig(true, ValidationPolicy.Error),
-                        Config.OnValidationFailure.Error,
                         ValidationPolicy.Error,
                         new FeatureConfig(true, ValidationPolicy.Error),
+                        ValidationPolicy.Error,
                         Config.ReductionState.NonReduced,
                         "1",
                         ChecksumModes.LOCAL,

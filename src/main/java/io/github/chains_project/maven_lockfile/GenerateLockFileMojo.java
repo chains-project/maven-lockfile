@@ -179,19 +179,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         }
 
         Config config = mergeConfigWithCliArgs(lockFileFromFile.getConfig());
-
-        return new Config(
-                config.mavenPlugins(),
-                config.getOnValidationFailure(),
-                config.getOnPomValidationFailure(),
-                config.environment(),
-                config.getReductionState(),
-                mojo.getPlugin().getVersion(),
-                config.getChecksumMode(),
-                config.getChecksumAlgorithm(),
-                config.boms(),
-                config.parentPom(),
-                config.mavenExtensions(),
-                config.getHermeticInclusion());
+        config.setMavenLockfileVersion(mojo.getPlugin().getVersion());
+        return config;
     }
 }

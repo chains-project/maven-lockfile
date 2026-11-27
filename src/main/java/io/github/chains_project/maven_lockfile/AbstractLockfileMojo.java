@@ -151,9 +151,6 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         String chosenChecksumAlgorithm = Strings.isNullOrEmpty(checksumAlgorithm) ? "SHA-256" : checksumAlgorithm;
         ChecksumModes chosenChecksumMode =
                 Strings.isNullOrEmpty(checksumMode) ? ChecksumModes.REMOTE : ChecksumModes.fromName(checksumMode);
-        Config.OnValidationFailure onValidationFailure = Boolean.TRUE.equals(allowValidationFailure)
-                ? Config.OnValidationFailure.Warn
-                : Config.OnValidationFailure.Error;
         Config.ReductionState reductionState =
                 Boolean.TRUE.equals(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
         // hermetic defaults to false (opt-in) when not explicitly set
@@ -163,9 +160,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         FeatureConfig defaults = new FeatureConfig(true, ValidationPolicy.Error);
         return new Config(
                 merge(defaults, includeMavenPlugins, allowMavenPluginValidationFailure),
-                onValidationFailure,
-                merge(ValidationPolicy.Error, allowPomValidationFailure),
+                merge(ValidationPolicy.Error, allowValidationFailure),
                 merge(defaults, includeEnvironment, allowEnvironmentalValidationFailure),
+                merge(ValidationPolicy.Error, allowPomValidationFailure),
                 reductionState,
                 mojo.getPlugin().getVersion(),
                 chosenChecksumMode,
@@ -198,17 +195,14 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 Strings.isNullOrEmpty(checksumMode) ? base.getChecksumMode() : ChecksumModes.fromName(checksumMode);
         String chosenChecksumAlgorithm =
                 Strings.isNullOrEmpty(checksumAlgorithm) ? base.getChecksumAlgorithm() : checksumAlgorithm;
-        Config.OnValidationFailure onValidationFailure = allowValidationFailure != null
-                ? (allowValidationFailure ? Config.OnValidationFailure.Warn : Config.OnValidationFailure.Error)
-                : base.getOnValidationFailure();
         Config.HermeticInclusion hermeticInclusion = hermetic != null
                 ? (hermetic ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude)
                 : base.getHermeticInclusion();
         return new Config(
                 merge(base.mavenPlugins(), includeMavenPlugins, allowMavenPluginValidationFailure),
-                onValidationFailure,
-                merge(base.getOnPomValidationFailure(), allowPomValidationFailure),
+                merge(base.getOnValidationFailure(), allowValidationFailure),
                 merge(base.environment(), includeEnvironment, allowEnvironmentalValidationFailure),
+                merge(base.getOnPomValidationFailure(), allowPomValidationFailure),
                 base.getReductionState(),
                 base.getMavenLockfileVersion(),
                 chosenChecksumMode,
