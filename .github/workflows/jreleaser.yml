@@ -16,8 +16,9 @@ on:
 jobs:
   build:
     name: Build and release
-    # The release PR targets main, so the release has to be built from main.
-    if: github.ref == 'refs/heads/main'
+    # The release PR targets the branch the release is built from. 5.x is maintained after 6.0.0 and
+    # only gets minor and patch releases.
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/5.x'
 
     permissions:
       id-token: write # For Sigstore signing (https://github.com/sigstore/sigstore-java/tree/main/sigstore-maven-plugin)
@@ -37,6 +38,12 @@ jobs:
         uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
         with:
           egress-policy: audit
+
+      - name: Refuse a major release from 5.x
+        if: github.ref_name == '5.x' && inputs.version == 'major'
+        run: |
+          echo "::error::5.x only gets minor and patch releases. Release majors from main."
+          exit 1
 
       # Setups the environment
       - name: Checkout repository
@@ -323,9 +330,10 @@ jobs:
           git push "https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY" "HEAD:$BRANCH"
 
       # Opened with the app token so the PR's checks run. Auto-merge uses a merge commit, which keeps
-      # the tagged release commit's SHA on main; rebase or squash would rewrite it.
+      # the tagged release commit's SHA on the base branch; rebase or squash would rewrite it.
       - name: Open release PR with auto-merge
         env:
+          BASE: ${{ github.ref_name }}
           BRANCH: ${{ needs.build.outputs.branch }}
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ steps.automation-token.outputs.token }}
@@ -333,7 +341,7 @@ jobs:
         run: |
           gh pr create \
             --title "Release version $VERSION" \
-            --body "Version $VERSION is already on Maven Central, tagged \`v$VERSION\`. Auto-merge is on with a merge commit, which keeps the tagged commit's SHA on main: don't rebase or squash this PR. If main has moved, use \"Update branch\" -> \"Update with merge commit\", not rebase." \
-            --base main \
+            --body "Version $VERSION is already on Maven Central, tagged \`v$VERSION\`. Auto-merge is on with a merge commit, which keeps the tagged commit's SHA on $BASE: don't rebase or squash this PR. If $BASE has moved, use \"Update branch\" -> \"Update with merge commit\", not rebase." \
+            --base "$BASE" \
             --head "$BRANCH"
           gh pr merge "$BRANCH" --auto --merge
