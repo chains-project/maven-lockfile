@@ -152,12 +152,12 @@ public class LockFileFacade {
         PluginLogManager.getLog().info(String.format("Generating lock file for project %s", project.getArtifactId()));
         Config config = metadata.getConfig();
         Set<MavenPlugin> plugins = new TreeSet<>();
-        if (config.isIncludeMavenPlugins()) {
+        if (config.mavenPlugins().isIncluded()) {
             plugins = getAllPlugins(project, session, dependencyCollectorBuilder, checksumCalculator, config);
         }
 
         Set<MavenExtension> extensions = new TreeSet<>();
-        if (config.isIncludeMavenExtensions()) {
+        if (config.mavenExtensions().isIncluded()) {
             extensions = getAllExtensions(
                     project, session, dependencyCollectorBuilder, checksumCalculator, repositorySystem, config);
         }
@@ -177,10 +177,11 @@ public class LockFileFacade {
         var roots = dependencyGraph.getRoots();
         var pom = constructRecursivePom(project, session, checksumCalculator);
 
-        if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+        if (config.parentPom().isIncluded() || config.boms().isIncluded()) {
             resolveParentsAndBomsForDependencies(dependencyGraph, session, project, checksumCalculator);
         }
-        Set<Pom> boms = config.isIncludeBoms() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
+        Set<Pom> boms =
+                config.boms().isIncluded() ? resolveBoms(session, project, checksumCalculator) : new TreeSet<>();
 
         if (config.isHermetic()) {
             PluginLogManager.getLog()
@@ -728,7 +729,7 @@ public class LockFileFacade {
                     false,
                     null);
 
-            if (config.isIncludeParentPom() || config.isIncludeBoms()) {
+            if (config.parentPom().isIncluded() || config.boms().isIncluded()) {
                 resolveParentsAndBomsForDependencies(dependencyGraph, session, pluginProject, checksumCalculator);
             }
 

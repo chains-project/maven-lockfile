@@ -7,6 +7,7 @@ import io.github.chains_project.maven_lockfile.data.ArtifactId;
 import io.github.chains_project.maven_lockfile.data.ArtifactType;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import io.github.chains_project.maven_lockfile.data.FeatureConfig;
 import io.github.chains_project.maven_lockfile.data.GroupId;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.MavenPlugin;
@@ -15,6 +16,7 @@ import io.github.chains_project.maven_lockfile.data.MetaData;
 import io.github.chains_project.maven_lockfile.data.Pom;
 import io.github.chains_project.maven_lockfile.data.RepositoryId;
 import io.github.chains_project.maven_lockfile.data.ResolvedUrl;
+import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import io.github.chains_project.maven_lockfile.data.VersionNumber;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -26,22 +28,17 @@ public class LockfileTest {
         var metadata = new MetaData(
                 new Environment("os", "mv", "jv"),
                 new Config(
-                        Config.MavenPluginsInclusion.Include,
+                        new FeatureConfig(true, ValidationPolicy.Error),
                         Config.OnValidationFailure.Error,
-                        Config.OnPomValidationFailure.Error,
-                        Config.OnMavenPluginValidationFailure.Error,
-                        Config.OnEnvironmentalValidationFailure.Error,
-                        Config.EnvironmentInclusion.Include,
+                        ValidationPolicy.Error,
+                        new FeatureConfig(true, ValidationPolicy.Error),
                         Config.ReductionState.NonReduced,
                         "1",
                         ChecksumModes.LOCAL,
                         "SHA-1",
-                        Config.BomsInclusion.Include,
-                        Config.OnBomValidationFailure.Error,
-                        Config.ParentPomInclusion.Include,
-                        Config.OnParentPomValidationFailure.Error,
-                        Config.MavenExtensionsInclusion.Include,
-                        Config.OnMavenExtensionsValidationFailure.Error,
+                        new FeatureConfig(true, ValidationPolicy.Error),
+                        new FeatureConfig(true, ValidationPolicy.Error),
+                        new FeatureConfig(true, ValidationPolicy.Error),
                         Config.HermeticInclusion.Exclude));
         var groupId = GroupId.of("g");
         var artifactId = ArtifactId.of("a");
