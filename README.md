@@ -319,7 +319,7 @@ If one occurrence of an artifact has a different checksum or repository than its
 
 ### Fields other tools can rely on
 
-Tools that regenerate lockfiles, such as dependency update bots, may rely on the fields below. They keep their path and type in every `lockFileVersion`. Everything else in the lockfile may change between releases. `ToolContractTest` checks that every format `generate` can write keeps them.
+Tools that regenerate lockfiles, such as dependency update bots, may rely on the fields below. They keep their path and type in every `lockFileVersion`. Everything else in the lockfile may change between releases. `ToolContractTest` checks that this repository's lockfile has them.
 
 | Field | Type | Meaning |
 |---|---|---|
