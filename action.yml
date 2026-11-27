@@ -111,20 +111,22 @@ runs:
 
         # Convert to Maven plugin args
         PLUGIN_VERSION="5.19.0"
+        # MAVEN_ARGS go to both goals. Every other parameter belongs to one goal: validate takes the generate
+        # parameters from the lockfile (https://github.com/chains-project/maven-lockfile/issues/1575).
         MAVEN_ARGS=""
-
-        MAVEN_ARGS="$MAVEN_ARGS -DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
+        GENERATE_ARGS="-DincludeMavenPlugins=$INCLUDE_MAVEN_PLUGINS"
+        VALIDATE_ARGS=""
 
         if [ "$LOCKFILE_NAME" != "lockfile.json" ]; then
           MAVEN_ARGS="$MAVEN_ARGS -DlockfileName=$LOCKFILE_NAME"
         fi
 
         if [ "$ALLOW_ENV_VALIDATION_FAILURE" == "true" ]; then
-          MAVEN_ARGS="$MAVEN_ARGS -DallowEnvironmentalValidationFailure=true"
+          VALIDATE_ARGS="$VALIDATE_ARGS -DallowEnvironmentalValidationFailure=true"
         fi
 
         if [ "$HERMETIC" == "true" ]; then
-          MAVEN_ARGS="$MAVEN_ARGS -Dhermetic=true"
+          GENERATE_ARGS="$GENERATE_ARGS -Dhermetic=true"
         fi
         
         # Function to execute Maven plugin and handle errors
@@ -177,7 +179,7 @@ runs:
         if [ "$POM_CHANGED" == "true" ] && [ "$COMMIT_UPDATED_LOCKFILE" == "true" ] && [ "$SKIP_GENERATE" == "false" ]; then
           echo "::notice::Pom file changed, running lockfile generation"
         
-          GENERATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:generate"
+          GENERATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:generate $GENERATE_ARGS"
         
           if ! execute_maven_command "$GENERATE_COMMAND" "Lockfile Generation" "Lockfile generation succeeded" "Lockfile generation failed"; then
             echo "::endgroup::"
@@ -186,7 +188,7 @@ runs:
         else
           echo "::notice::Pom file not changed, running lockfile validation"
         
-          VALIDATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:validate"
+          VALIDATE_COMMAND="io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:validate $VALIDATE_ARGS"
           ADDITIONAL_FAILURE_MESSAGE="The lockfile is not up to date with the pom file. Please run io.github.chains-project:maven-lockfile:$PLUGIN_VERSION:generate to update the lockfile. For your convenience, you can also download the generated lockfile from the artifacts of this check run."
           ADDITIONAL_SUCCESS_MESSAGE="The lockfile is up to date with the pom files."
         
