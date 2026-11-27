@@ -44,7 +44,9 @@ class ToolContractTest {
     private static void assertField(JsonElement root, String path, Predicate<JsonElement> type) {
         JsonElement value = root;
         for (String key : path.split("\\.")) {
-            value = value != null && value.isJsonObject() ? value.getAsJsonObject().get(key) : null;
+            value = value != null && value.isJsonObject()
+                    ? value.getAsJsonObject().get(key)
+                    : null;
         }
         assertThat(value).as(path).isNotNull().matches(type);
     }
@@ -54,7 +56,9 @@ class ToolContractTest {
     }
 
     private static boolean isNonEmptyString(JsonElement value) {
-        return value.isJsonPrimitive() && value.getAsJsonPrimitive().isString() && !value.getAsString().isEmpty();
+        return value.isJsonPrimitive()
+                && value.getAsJsonPrimitive().isString()
+                && !value.getAsString().isEmpty();
     }
 
     private static boolean isBoolean(JsonElement value) {
