@@ -1,11 +1,16 @@
 package io.github.chains_project.maven_lockfile.data;
 
+import com.google.gson.annotations.SerializedName;
 import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 
 public class Config {
 
     private final boolean includeMavenPlugins;
-    private final boolean allowValidationFailure;
+
+    // allowValidationFailure: the name before 6.0.0, still found in lockfiles that 5.x generated
+    @SerializedName(value = "allowDependencyValidationFailure", alternate = "allowValidationFailure")
+    private final boolean allowDependencyValidationFailure;
+
     private final boolean allowPomValidationFailure;
     private final boolean allowMavenPluginValidationFailure;
     private final boolean allowEnvironmentalValidationFailure;
@@ -25,7 +30,7 @@ public class Config {
 
     public Config(
             FeatureConfig mavenPlugins,
-            ValidationPolicy onValidationFailure,
+            ValidationPolicy onDependencyValidationFailure,
             FeatureConfig environment,
             ValidationPolicy onPomValidationFailure,
             ReductionState reduced,
@@ -38,7 +43,7 @@ public class Config {
             HermeticInclusion hermetic) {
         this.includeMavenPlugins = mavenPlugins.isIncluded();
         this.allowMavenPluginValidationFailure = mavenPlugins.getOnFailure() == ValidationPolicy.Warn;
-        this.allowValidationFailure = onValidationFailure == ValidationPolicy.Warn;
+        this.allowDependencyValidationFailure = onDependencyValidationFailure == ValidationPolicy.Warn;
         this.allowPomValidationFailure = onPomValidationFailure == ValidationPolicy.Warn;
         this.includeEnvironment = environment.isIncluded();
         this.allowEnvironmentalValidationFailure = environment.getOnFailure() == ValidationPolicy.Warn;
@@ -57,7 +62,7 @@ public class Config {
 
     public Config() {
         this.includeMavenPlugins = true;
-        this.allowValidationFailure = false;
+        this.allowDependencyValidationFailure = false;
         this.allowPomValidationFailure = false;
         this.allowMavenPluginValidationFailure = false;
         this.allowEnvironmentalValidationFailure = false;
@@ -99,8 +104,8 @@ public class Config {
         return feature(includeMavenExtensions, allowMavenExtensionsValidationFailure);
     }
 
-    public ValidationPolicy getOnValidationFailure() {
-        return ValidationPolicy.of(allowValidationFailure);
+    public ValidationPolicy getOnDependencyValidationFailure() {
+        return ValidationPolicy.of(allowDependencyValidationFailure);
     }
 
     public ValidationPolicy getOnPomValidationFailure() {

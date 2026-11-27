@@ -84,9 +84,9 @@ Passing a flag to a goal it does not belong to logs a deprecation warning, and w
 
 - `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.
-- `allowValidationFailure` (`-DallowValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
+- `allowDependencyValidationFailure` (`-DallowDependencyValidationFailure=true`, default=false) allow a mismatch in the project's coordinates or its dependency tree, printing a warning instead of an error. It does not cover the other checks, which each have their own `allow*ValidationFailure` flag. Use with caution: the dependencies are then no longer guaranteed.
 - `allowPomValidationFailure` (`-DallowPomValidationFailure=true`, default=false) allow a checksum mismatch of the project's POM, printing a warning instead of an error.
-- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowValidationFailure` is also enabled.
+- `allowMavenPluginValidationFailure` (`-DallowMavenPluginValidationFailure=true`, default=false) allow Maven plugin validation failures, printing a warning instead of an error. Dependency validation still fails unless `allowDependencyValidationFailure` is also enabled.
 - `allowEnvironmentalValidationFailure` (`-DallowEnvironmentalValidationFailure=true`, default=false) allow validation failure of the environment. In case of environment mismatch prints a warning instead of default exception.
 - `includeEnvironment` (`-DincludeEnvironment=true`) will include the environment metadata in the lockfile. This is useful if you want to have warnings when the environment changes.
 - `includeBoms` (`-DincludeBoms=true`, default=true) controls whether BOM (bill of materials) POMs are included in the lockfile.
@@ -267,7 +267,7 @@ For a full example, see the [lockfile.json](/lockfile.json) file in this reposit
     },
     "config": {
       "includeMavenPlugins": true,
-      "allowValidationFailure": false,
+      "allowDependencyValidationFailure": false,
       "allowPomValidationFailure": false,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": false,

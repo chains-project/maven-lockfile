@@ -40,7 +40,7 @@ final class Deprecations {
                 "getConfigFromFile",
                 "lockfileVersion"),
         VALIDATE(
-                "allowValidationFailure",
+                "allowDependencyValidationFailure",
                 "allowPomValidationFailure",
                 "allowMavenPluginValidationFailure",
                 "allowEnvironmentalValidationFailure",

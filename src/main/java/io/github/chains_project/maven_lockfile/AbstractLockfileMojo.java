@@ -44,8 +44,8 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "includeMavenPlugins")
     protected Boolean includeMavenPlugins;
 
-    @Parameter(property = "allowValidationFailure")
-    protected Boolean allowValidationFailure;
+    @Parameter(property = "allowDependencyValidationFailure")
+    protected Boolean allowDependencyValidationFailure;
 
     @Parameter(property = "allowPomValidationFailure")
     protected Boolean allowPomValidationFailure;
@@ -160,7 +160,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
         FeatureConfig defaults = new FeatureConfig(true, ValidationPolicy.Error);
         return new Config(
                 merge(defaults, includeMavenPlugins, allowMavenPluginValidationFailure),
-                merge(ValidationPolicy.Error, allowValidationFailure),
+                merge(ValidationPolicy.Error, allowDependencyValidationFailure),
                 merge(defaults, includeEnvironment, allowEnvironmentalValidationFailure),
                 merge(ValidationPolicy.Error, allowPomValidationFailure),
                 reductionState,
@@ -200,7 +200,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 : base.getHermeticInclusion();
         return new Config(
                 merge(base.mavenPlugins(), includeMavenPlugins, allowMavenPluginValidationFailure),
-                merge(base.getOnValidationFailure(), allowValidationFailure),
+                merge(base.getOnDependencyValidationFailure(), allowDependencyValidationFailure),
                 merge(base.environment(), includeEnvironment, allowEnvironmentalValidationFailure),
                 merge(base.getOnPomValidationFailure(), allowPomValidationFailure),
                 base.getReductionState(),

@@ -45,7 +45,7 @@ class AbstractLockfileMojoTest {
 
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         // Unset CLI args preserve stored values
-        assertThat(merged.getOnValidationFailure()).isEqualTo(ValidationPolicy.Error);
+        assertThat(merged.getOnDependencyValidationFailure()).isEqualTo(ValidationPolicy.Error);
         assertThat(merged.getOnPomValidationFailure()).isEqualTo(ValidationPolicy.Warn);
     }
 
