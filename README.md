@@ -317,6 +317,23 @@ If one occurrence of an artifact has a different checksum or repository than its
 
 `validate` and `freeze` read both versions. `generate` keeps the version of the existing lockfile unless `lockfileVersion` is given, so regenerating, e.g. with the GitHub Action, does not switch formats. Older releases cannot read version 2 and fail validation with missing dependencies. Releases that support it reject any newer `lockFileVersion` and ask you to upgrade.
 
+### Fields other tools can rely on
+
+Tools that regenerate lockfiles, such as dependency update bots, may rely on the fields below. They keep their path and type in every `lockFileVersion`. Everything else in the lockfile may change between releases. [`schema/lockfile-tool-contract.schema.json`](/schema/lockfile-tool-contract.schema.json) describes them, and `ToolContractTest` checks every format `generate` can write against it.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `lockFileVersion` | integer, at least 1 | The format version. A release rejects a version newer than it can read. |
+| `metaData.config.mavenLockfileVersion` | non-empty string | The release that generated the file. |
+| `metaData.config.hermetic` | boolean | Whether the file holds artifacts resolved during a real build. |
+
+To regenerate a lockfile, a tool should:
+- run `mvn io.github.chains-project:maven-lockfile:<release>:generate` in the directory of the root `pom.xml`, without other flags. `generate` takes the rest of its configuration and the format version from the existing lockfile.
+- use `mavenLockfileVersion` or a newer release. An older release may not read the file, and `validate` fails when the release it runs with has a different checksum than the one the file records.
+- leave a file with `hermetic: true` alone. `generate` on its own cannot reproduce the artifacts captured during a build.
+
+Files written by older releases may lack `hermetic`, which then means `false`, or `mavenLockfileVersion`, in which case a tool cannot tell which release wrote the file.
+
 
 ## GithubAction
 
