@@ -40,7 +40,7 @@ public class ValidateMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
-        warnAboutGenerateParameters();
+        Deprecations.warnAboutParameters(this, session.getUserProperties(), project, mojo, lockfileName);
         try {
             getLog().info("Validating lock file ...");
             LockFile lockFileFromFile = LockFile.readLockFile(getLockFilePath(project, lockfileName));
@@ -50,6 +50,7 @@ public class ValidateMojo extends AbstractLockfileMojo {
                 baseConfig = getConfig();
             }
             Config config = mergeConfigWithCliArgs(baseConfig);
+            Deprecations.warnAboutLockfile(this, mojo, lockfileName, lockFileFromFile.getLockfileVersion(), config);
             Environment environment = null;
             if (config.isIncludeEnvironment()) {
                 environment = generateMetaInformation();
@@ -88,19 +89,5 @@ public class ValidateMojo extends AbstractLockfileMojo {
             throw new MojoExecutionException("Could not read lock file", e);
         }
         getLog().info("Lockfile successfully validated.");
-    }
-
-    /**
-     * {@code validate} rebuilds the lockfile from the project and compares it with the file, so it should use the
-     * config the file was generated with. A {@code generate} parameter passed here overrides that config.
-     */
-    void warnAboutGenerateParameters() {
-        warnAboutParameters(
-                generateParameters(),
-                name -> String.format(
-                        "Parameter '%s' belongs to the 'generate' goal. 'validate' should use the value recorded in"
-                                + " the lockfile. Passing it to 'validate' is deprecated and will be an error in"
-                                + " 6.0.0. See %s",
-                        name, GOAL_PARAMETERS_ISSUE));
     }
 }

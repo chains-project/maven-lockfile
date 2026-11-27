@@ -19,6 +19,7 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -56,6 +57,9 @@ public class FreezeDependencyMojo extends AbstractMojo {
     @Parameter(defaultValue = "true", property = "exactVersionStrings")
     private String exactVersionStrings;
 
+    @Parameter(defaultValue = "${mojoExecution}", readonly = true)
+    private MojoExecution mojo;
+
     /**
      * Freezes the dependencies of the project. Every dependency will be locked to a specific version.
      *
@@ -63,10 +67,12 @@ public class FreezeDependencyMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException {
         PluginLogManager.setLog(getLog());
+        Deprecations.warnAboutParameters(this, session.getUserProperties(), project, mojo, lockfileName);
         File pomFile = project.getFile();
         File pomLockFile = new File(project.getBasedir(), pomLockfileOutput);
         try {
             LockFile lockFile = LockFile.readLockFile(LockFileFacade.getLockFilePath(project, lockfileName));
+            Deprecations.warnAboutLockfile(this, mojo, lockfileName, lockFile.getLockfileVersion(), null);
             List<Dependency> filteredDependencies = getNearestVersionDependency(lockFile);
             Model pomModel = readPomFile(pomFile);
             updateDependencies(pomModel, filteredDependencies);
