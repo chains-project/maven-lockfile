@@ -4,6 +4,10 @@
     "helpers:pinGitHubActionDigests",
     "config:recommended"
   ],
+  "baseBranchPatterns": [
+    "main",
+    "5.x"
+  ],
   "gitIgnoredAuthors": [
     "41898282+github-actions[bot]@users.noreply.github.com",
     "github-actions[bot]@users.noreply.github.com"
@@ -78,6 +82,16 @@
         "com.palantir.javaformat:palantir-java-format"
       ],
       "automerge": false
+    },
+    {
+      "description": "5.x is maintained for bug and security fixes, so it gets no major updates",
+      "matchBaseBranches": [
+        "5.x"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
     }
   ]
 }
