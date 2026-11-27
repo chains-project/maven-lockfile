@@ -3041,3 +3041,48 @@ We'd like to thank the following people for their contributions:
 - Aman Sharma ([@algomaster99](https://github.com/algomaster99))
 - Claude ()
 - Claude Opus 5.5 ()
+
+# 5.19.1
+## Changelog
+
+## 🐛 Fixes
+- 88a99f6 fix: action keeps stored includeMavenPlugins (#1776)
+
+## 🔄️ Changes
+- 0ff0c33 refactor: add FeatureConfig view on Config (#1775)
+- 9c4e3b2 style: add deprecation warnings for 6.0.0 (#1774)
+- dd29d51 style: warn about wrong-goal parameters (#1773)
+
+## 🧰 Tasks
+- afe90be chore: release version 5.19.1
+- a96610a chore: release minor and patch versions from 5.x (#1778)
+- e86f042 chore: test the lockfile fields other tools rely on (#1772)
+- bfb3ab6 chore: update lockfile
+- a9a33ab chore: bump lockfile actions version to `5.19.0`
+- 5eb19d4 chore: set snapshot version 5.19.1-SNAPSHOT
+
+## 📝 Documentation
+- e5c9c07 docs: mark 5.x as maintenance branch (#1780)
+- ca09fcb docs: clarify what allowValidationFailure covers (#1777)
+
+---
+- 9de6f6f :arrow_up:(deps): Update github/codeql-action action to v4.39.5 (#1771)
+- b17d291 :arrow_up:(deps): Update dependency org.apache.maven.resolver:maven-resolver-api to v2.0.26 (#1768)
+- 7cac3db :arrow_up:(deps): Update dependency org.instancio:instancio-junit to v6.2.2 (#1769)
+- 48963c1 :arrow_up:(deps): Update dependency com.diffplug.spotless:spotless-maven-plugin to v3.12.0 (#1767)
+- 3c9d5ee :arrow_up:(deps): Update github/codeql-action action to v4.39.4 (#1766)
+- 873bf0b :arrow_up:(deps): Update ossf/scorecard-action action to v2.6.0 (#1765)
+- 97bcd57 :arrow_up:(deps): Update actions/create-github-app-token action to v3.4.0 (#1764)
+- b7c676c :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-utils to v4.2.0 (#1760)
+- 3e20f94 :arrow_up:(deps): Update step-security/harden-runner action to v2.23.0 (#1763)
+- f3931d9 :arrow_up:(deps): Update actions/dependency-review-action action to v5.0.1 (#1762)
+- 1148e2c :arrow_up:(deps): Update actions/setup-go action to v7.1.0 (#1761)
+- 11d0640 :arrow_up:(deps): Update dependency org.codehaus.plexus:plexus-xml to v4.2.1 (#1759)
+- 6d99ed3 :arrow_up:(deps): Update actions/setup-java action to v6.3.0 (#1758)
+
+
+## Contributors
+We'd like to thank the following people for their contributions:
+- Aman Sharma ([@algomaster99](https://github.com/algomaster99))
+- Claude ()
+- Claude Opus 5.5 ()

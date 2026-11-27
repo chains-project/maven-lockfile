@@ -109,7 +109,7 @@ runs:
         COMMIT_UPDATED_LOCKFILE="${COMMIT_UPDATED_LOCKFILE}"
 
         # Convert to Maven plugin args
-        PLUGIN_VERSION="5.19.0"
+        PLUGIN_VERSION="5.19.1"
         # MAVEN_ARGS go to both goals. Every other parameter belongs to one goal: validate takes the generate
         # parameters from the lockfile (https://github.com/chains-project/maven-lockfile/issues/1575).
         MAVEN_ARGS=""

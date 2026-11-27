@@ -53,13 +53,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@afe90beed184783242381d8d4ae0deb1c7cb0d47 # v5.19.1
 
       # Keep this before any step that populates ~/.m2 (setup-java cache, mvn). The action restores
       # its own Maven cache on top, and where that cache only has a plugin's POM, a JAR downloaded
       # earlier loses its _remote.repositories entry and validate records the plugin as unresolved.
       - name: run maven-lockfile (validate lockfile)
-        uses: chains-project/maven-lockfile@96a3f6ff4a42f2a84173afab64803112714c6fe7 # 5.19.0
+        uses: chains-project/maven-lockfile@afe90beed184783242381d8d4ae0deb1c7cb0d47 # 5.19.1
         with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             include-maven-plugins: true
@@ -289,7 +289,7 @@ jobs:
           persist-credentials: false
 
       - name: Verify action checksums
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@afe90beed184783242381d8d4ae0deb1c7cb0d47 # v5.19.1
 
       - name: Point maven-lockfile pins at the release tag
         env:
@@ -304,7 +304,7 @@ jobs:
           fi
 
       - name: Update gha.sum
-        uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
+        uses: chains-project/maven-lockfile/.github/actions/ghasum@afe90beed184783242381d8d4ae0deb1c7cb0d47 # v5.19.1
         with:
           mode: update
 
