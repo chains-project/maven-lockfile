@@ -7,6 +7,9 @@ import io.github.chains_project.maven_lockfile.checksum.FileSystemChecksumCalcul
 import io.github.chains_project.maven_lockfile.checksum.RemoteChecksumCalculator;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
@@ -98,8 +101,9 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
     @Parameter(property = "checksumMode")
     protected String checksumMode;
 
-    @Parameter(defaultValue = "false", property = "reduced")
-    protected boolean reduced;
+    // No defaultValue: null means "not set", so validate can warn when it is passed (see generateParameters).
+    @Parameter(property = "reduced")
+    protected Boolean reduced;
 
     @Parameter(defaultValue = "false", property = "skip")
     protected boolean skip;
@@ -109,6 +113,54 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     protected MojoExecution mojo;
+
+    static final String GOAL_PARAMETERS_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1575";
+
+    /**
+     * The parameters that decide what {@code generate} records in the lockfile, by name. {@code validate} should
+     * take these values from the lockfile it checks. A value is {@code null} when the parameter was not set.
+     */
+    protected Map<String, Object> generateParameters() {
+        Map<String, Object> parameters = new LinkedHashMap<>();
+        parameters.put("includeMavenPlugins", includeMavenPlugins);
+        parameters.put("includeEnvironment", includeEnvironment);
+        parameters.put("includeBoms", includeBoms);
+        parameters.put("includeParentPom", includeParentPom);
+        parameters.put("includeMavenExtensions", includeMavenExtensions);
+        parameters.put("hermetic", hermetic);
+        parameters.put("reduced", reduced);
+        parameters.put("checksumMode", checksumMode);
+        parameters.put("checksumAlgorithm", checksumAlgorithm);
+        return parameters;
+    }
+
+    /**
+     * The parameters that decide whether {@code validate} fails or only warns on a mismatch, by name. A value is
+     * {@code null} when the parameter was not set.
+     */
+    protected Map<String, Object> validateParameters() {
+        Map<String, Object> parameters = new LinkedHashMap<>();
+        parameters.put("allowValidationFailure", allowValidationFailure);
+        parameters.put("allowPomValidationFailure", allowPomValidationFailure);
+        parameters.put("allowMavenPluginValidationFailure", allowMavenPluginValidationFailure);
+        parameters.put("allowEnvironmentalValidationFailure", allowEnvironmentalValidationFailure);
+        parameters.put("allowBomValidationFailure", allowBomValidationFailure);
+        parameters.put("allowParentPomValidationFailure", allowParentPomValidationFailure);
+        parameters.put("allowMavenExtensionsValidationFailure", allowMavenExtensionsValidationFailure);
+        return parameters;
+    }
+
+    /**
+     * Logs {@code message} for every parameter in {@code parameters} that was set. {@code message} gets the
+     * parameter's name.
+     */
+    protected void warnAboutParameters(Map<String, Object> parameters, Function<String, String> message) {
+        parameters.forEach((name, value) -> {
+            if (value != null && !"".equals(value)) {
+                getLog().warn(message.apply(name));
+            }
+        });
+    }
 
     protected Environment generateMetaInformation() {
         String osName = System.getProperty("os.name");
@@ -171,7 +223,7 @@ public abstract class AbstractLockfileMojo extends AbstractMojo {
                 ? Config.EnvironmentInclusion.Exclude
                 : Config.EnvironmentInclusion.Include;
         Config.ReductionState reductionState =
-                reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
+                Boolean.TRUE.equals(reduced) ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced;
         // include* flags default to true when not explicitly set
         Config.BomsInclusion bomsInclusion =
                 Boolean.FALSE.equals(includeBoms) ? Config.BomsInclusion.Exclude : Config.BomsInclusion.Include;
