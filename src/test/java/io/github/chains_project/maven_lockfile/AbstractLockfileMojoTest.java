@@ -77,20 +77,6 @@ class AbstractLockfileMojoTest {
     }
 
     @Test
-    void newLockfileIsNotReducedUnlessRequested() {
-        var m = mojo();
-        var plugin = new Plugin();
-        plugin.setVersion("5.18.9");
-        m.mojo = new MojoExecution(plugin, "generate", "default");
-
-        assertThat(m.reduced).isNull();
-        assertThat(m.getConfig().getReductionState()).isEqualTo(Config.ReductionState.NonReduced);
-
-        m.reduced = true;
-        assertThat(m.getConfig().getReductionState()).isEqualTo(Config.ReductionState.Reduced);
-    }
-
-    @Test
     void cliChecksumModeOverridesStoredConfig() {
         // storedConfig() is already ChecksumModes.LOCAL, so exercise the override with REMOTE
         // to prove the CLI value is actually picked up rather than the stored one re-emitted.

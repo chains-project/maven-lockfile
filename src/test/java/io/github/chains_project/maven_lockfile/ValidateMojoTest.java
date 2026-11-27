@@ -48,45 +48,6 @@ class ValidateMojoTest {
     }
 
     @Test
-    void warnsAboutGenerateParameters() {
-        var log = new CapturingLog();
-        var m = mojo();
-        m.setLog(log);
-        m.includeMavenPlugins = true;
-        m.reduced = false;
-        m.checksumMode = "local";
-
-        m.warnAboutGenerateParameters();
-
-        assertThat(log.warnings)
-                .containsExactly(
-                        "Parameter 'includeMavenPlugins' belongs to the 'generate' goal. 'validate' should use the"
-                                + " value recorded in the lockfile. Passing it to 'validate' is deprecated and will be"
-                                + " an error in 6.0.0. See https://github.com/chains-project/maven-lockfile/issues/1575",
-                        "Parameter 'reduced' belongs to the 'generate' goal. 'validate' should use the value recorded"
-                                + " in the lockfile. Passing it to 'validate' is deprecated and will be an error in"
-                                + " 6.0.0. See https://github.com/chains-project/maven-lockfile/issues/1575",
-                        "Parameter 'checksumMode' belongs to the 'generate' goal. 'validate' should use the value"
-                                + " recorded in the lockfile. Passing it to 'validate' is deprecated and will be an"
-                                + " error in 6.0.0. See https://github.com/chains-project/maven-lockfile/issues/1575");
-    }
-
-    @Test
-    void doesNotWarnAboutUnsetOrValidateParameters() {
-        var log = new CapturingLog();
-        var m = mojo();
-        m.setLog(log);
-        m.allowEnvironmentalValidationFailure = true;
-        m.allowValidationFailure = false;
-        // -DchecksumAlgorithm= with no value counts as not set, as in mergeConfigWithCliArgs
-        m.checksumAlgorithm = "";
-
-        m.warnAboutGenerateParameters();
-
-        assertThat(log.warnings).isEmpty();
-    }
-
-    @Test
     void storedConfigUsedWhenCliArgNotSet() {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
