@@ -37013,7 +37013,7 @@
     "environment": {
       "osName": "Linux",
       "mavenVersion": "3.9.15",
-      "javaVersion": "17.0.21"
+      "javaVersion": "17.0.21.1"
     },
     "config": {
       "includeMavenPlugins": true,
