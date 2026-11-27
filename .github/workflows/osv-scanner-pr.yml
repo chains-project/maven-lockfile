@@ -40,7 +40,7 @@ jobs:
         fetch-depth: 0
 
     - name: Verify action checksums
-      uses: chains-project/maven-lockfile/.github/actions/ghasum@96a3f6ff4a42f2a84173afab64803112714c6fe7 # v5.19.0
+      uses: chains-project/maven-lockfile/.github/actions/ghasum@afe90beed184783242381d8d4ae0deb1c7cb0d47 # v5.19.1
 
     - name: "Checkout target branch"
       run: |
