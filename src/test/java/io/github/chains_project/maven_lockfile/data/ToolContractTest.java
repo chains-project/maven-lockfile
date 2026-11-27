@@ -19,7 +19,8 @@ class ToolContractTest {
         JsonObject config = lockFile.getAsJsonObject("metaData").getAsJsonObject("config");
 
         assertThat(lockFile.getAsJsonPrimitive("lockFileVersion").getAsInt()).isPositive();
-        assertThat(config.getAsJsonPrimitive("mavenLockfileVersion").getAsString()).isNotEmpty();
+        assertThat(config.getAsJsonPrimitive("mavenLockfileVersion").getAsString())
+                .isNotEmpty();
         assertThat(config.getAsJsonPrimitive("hermetic").isBoolean()).isTrue();
     }
 }
