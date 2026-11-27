@@ -64,7 +64,6 @@
           </execution>
         </executions>
         <configuration>
-          <checksumMode>local</checksumMode>
           <exactVersionStrings>false</exactVersionStrings>
         </configuration>
       </plugin>

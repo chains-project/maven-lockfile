@@ -34,7 +34,7 @@ class ValidateMojoTest {
         var m = mojo();
         m.allowEnvironmentalValidationFailure = true;
 
-        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+        Config merged = m.withParameters(storedConfig());
 
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Warn);
         // Unset CLI args preserve stored values
@@ -47,7 +47,7 @@ class ValidateMojoTest {
         var m = mojo();
         assertThat(m.allowEnvironmentalValidationFailure).isNull();
 
-        Config merged = m.mergeConfigWithCliArgs(storedConfig());
+        Config merged = m.withParameters(storedConfig());
         assertThat(merged.environment().getOnFailure()).isEqualTo(ValidationPolicy.Error);
         assertThat(merged.mavenPlugins().getOnFailure()).isEqualTo(ValidationPolicy.Error);
     }

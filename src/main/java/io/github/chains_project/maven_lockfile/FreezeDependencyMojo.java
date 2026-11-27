@@ -57,6 +57,9 @@ public class FreezeDependencyMojo extends AbstractMojo {
     @Parameter(defaultValue = "true", property = "exactVersionStrings")
     private String exactVersionStrings;
 
+    @Parameter(defaultValue = "false", property = "skip")
+    private boolean skip;
+
     @Parameter(defaultValue = "${mojoExecution}", readonly = true)
     private MojoExecution mojo;
 
@@ -66,8 +69,12 @@ public class FreezeDependencyMojo extends AbstractMojo {
      * @throws MojoExecutionException if the lock file is invalid or could not be read.
      */
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skipping maven-lockfile");
+            return;
+        }
         PluginLogManager.setLog(getLog());
-        Deprecations.warnAboutParameters(this, session.getUserProperties(), project, mojo, lockfileName);
+        AbstractLockfileMojo.rejectParametersOfOtherGoals(mojo, project, session);
         File pomFile = project.getFile();
         File pomLockFile = new File(project.getBasedir(), pomLockfileOutput);
         try {

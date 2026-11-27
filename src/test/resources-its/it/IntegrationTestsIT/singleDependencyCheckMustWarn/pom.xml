@@ -34,7 +34,6 @@
           </execution>
         </executions>
         <configuration>
-          <checksumMode>local</checksumMode>
           <allowDependencyValidationFailure>true</allowDependencyValidationFailure>
         </configuration>
       </plugin>

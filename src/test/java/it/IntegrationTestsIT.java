@@ -82,6 +82,15 @@ public class IntegrationTestsIT {
     }
 
     @MavenTest
+    public void wrongGoalParameterShouldFail(MavenExecutionResult result) throws Exception {
+        // contract: validate fails when it is given a parameter that only generate declares.
+        System.out.println("Running 'wrongGoalParameterShouldFail' integration test.");
+        assertThat(result).isFailure();
+        assertThat(Files.readString(result.getMavenLog().getStdout()))
+                .contains("Parameter 'includeMavenPlugins' belongs to the 'generate' goal, not 'validate'.");
+    }
+
+    @MavenTest
     public void singleDependencyCheckMustFail(MavenExecutionResult result) throws Exception {
         // contract: a changed dependency should fail the build.
         // we changed the group id of "groupId": "org.opentest4j", to "groupId": "org.opentest4j5",

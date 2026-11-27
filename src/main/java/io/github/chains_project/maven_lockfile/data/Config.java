@@ -17,7 +17,7 @@ public class Config {
     private final boolean allowEnvironmentalValidationFailure;
     private final boolean includeEnvironment;
     private final boolean reduced;
-    private String mavenLockfileVersion;
+    private final String mavenLockfileVersion;
     private String mavenLockfileChecksum;
     private final ChecksumModes checksumMode;
     private final String checksumAlgorithm;
@@ -120,9 +120,6 @@ public class Config {
         return mavenLockfileVersion;
     }
 
-    public void setMavenLockfileVersion(String mavenLockfileVersion) {
-        this.mavenLockfileVersion = mavenLockfileVersion;
-    }
     /**
      * @return the checksum of the maven-lockfile plugin artifact that generated the lockfile
      */

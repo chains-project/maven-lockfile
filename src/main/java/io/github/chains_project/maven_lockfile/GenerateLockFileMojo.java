@@ -2,12 +2,16 @@ package io.github.chains_project.maven_lockfile;
 
 import static io.github.chains_project.maven_lockfile.LockFileFacade.getLockFilePath;
 
+import com.google.common.base.Strings;
 import io.github.chains_project.maven_lockfile.checksum.AbstractChecksumCalculator;
+import io.github.chains_project.maven_lockfile.checksum.ChecksumModes;
 import io.github.chains_project.maven_lockfile.data.Config;
 import io.github.chains_project.maven_lockfile.data.Environment;
+import io.github.chains_project.maven_lockfile.data.FeatureConfig;
 import io.github.chains_project.maven_lockfile.data.LockFile;
 import io.github.chains_project.maven_lockfile.data.LockFileFormatException;
 import io.github.chains_project.maven_lockfile.data.MetaData;
+import io.github.chains_project.maven_lockfile.data.ValidationPolicy;
 import io.github.chains_project.maven_lockfile.reporting.PluginLogManager;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,6 +36,37 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
         requiresOnline = true)
 public class GenerateLockFileMojo extends AbstractLockfileMojo {
 
+    // Each parameter below is null unless set, so that regenerating keeps the value the lockfile's config records.
+
+    /** Include Maven plugins and build extensions. */
+    @Parameter(property = "includeMavenPlugins")
+    Boolean includeMavenPlugins;
+
+    @Parameter(property = "includeEnvironment")
+    Boolean includeEnvironment;
+
+    @Parameter(property = "includeBoms")
+    Boolean includeBoms;
+
+    @Parameter(property = "includeParentPom")
+    Boolean includeParentPom;
+
+    /**
+     * <b>Experimental.</b> Merge artifacts dynamically resolved during a real build into the lockfile.
+     * Behaviour and lockfile output may change or be removed in any release without notice.
+     */
+    @Parameter(property = "hermetic")
+    Boolean hermetic;
+
+    @Parameter(property = "reduced")
+    Boolean reduced;
+
+    @Parameter(property = "checksumMode")
+    String checksumMode;
+
+    @Parameter(property = "checksumAlgorithm")
+    String checksumAlgorithm;
+
     @Parameter(defaultValue = "true", property = "getConfigFromFile")
     boolean getConfigFromFile;
 
@@ -53,7 +88,7 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
             return;
         }
         PluginLogManager.setLog(getLog());
-        Deprecations.warnAboutParameters(this, session.getUserProperties(), project, mojo, lockfileName);
+        rejectParametersOfOtherGoals(mojo, project, session);
         try {
             LockFile lockFileFromFile = Files.exists(getLockFilePath(project, lockfileName))
                     ? LockFile.readLockFile(getLockFilePath(project, lockfileName))
@@ -65,7 +100,8 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
                 throw new MojoExecutionException("Unsupported lockfileVersion " + formatVersion
                         + ". Supported versions are 1 to " + LockFile.LATEST_LOCKFILE_VERSION + ".");
             }
-            Config config = getConfigFromFile ? getConfig(lockFileFromFile) : getConfig();
+            boolean keepConfig = getConfigFromFile && lockFileFromFile != null && lockFileFromFile.getConfig() != null;
+            Config config = withParameters(keepConfig ? lockFileFromFile.getConfig() : newLockfileConfig());
             Deprecations.warnAboutLockfile(this, mojo, lockfileName, formatVersion);
             if (config.isHermetic()) {
                 ensureHermeticExtensionRegistered();
@@ -173,13 +209,44 @@ public class GenerateLockFileMojo extends AbstractLockfileMojo {
         }
     }
 
-    private Config getConfig(LockFile lockFileFromFile) {
-        if (lockFileFromFile == null || lockFileFromFile.getConfig() == null) {
-            return getConfig();
-        }
+    /** The config of a new lockfile, before the parameters that were set: every feature included, and fails. */
+    static Config newLockfileConfig() {
+        FeatureConfig defaults = new FeatureConfig(true, ValidationPolicy.Error);
+        return new Config(
+                defaults,
+                ValidationPolicy.Error,
+                defaults,
+                ValidationPolicy.Error,
+                Config.ReductionState.NonReduced,
+                null,
+                ChecksumModes.REMOTE,
+                "SHA-256",
+                defaults,
+                defaults,
+                Config.HermeticInclusion.Exclude);
+    }
 
-        Config config = mergeConfigWithCliArgs(lockFileFromFile.getConfig());
-        config.setMavenLockfileVersion(mojo.getPlugin().getVersion());
-        return config;
+    /** {@code base}, with the parameters that were set replacing its values. */
+    Config withParameters(Config base) {
+        return new Config(
+                include(base.mavenPlugins(), includeMavenPlugins),
+                base.getOnDependencyValidationFailure(),
+                include(base.environment(), includeEnvironment),
+                base.getOnPomValidationFailure(),
+                reduced != null
+                        ? (reduced ? Config.ReductionState.Reduced : Config.ReductionState.NonReduced)
+                        : base.getReductionState(),
+                mojo.getPlugin().getVersion(),
+                Strings.isNullOrEmpty(checksumMode) ? base.getChecksumMode() : ChecksumModes.fromName(checksumMode),
+                Strings.isNullOrEmpty(checksumAlgorithm) ? base.getChecksumAlgorithm() : checksumAlgorithm,
+                include(base.boms(), includeBoms),
+                include(base.parentPom(), includeParentPom),
+                hermetic != null
+                        ? (hermetic ? Config.HermeticInclusion.Include : Config.HermeticInclusion.Exclude)
+                        : base.getHermeticInclusion());
+    }
+
+    private static FeatureConfig include(FeatureConfig base, Boolean include) {
+        return include != null ? new FeatureConfig(include, base.getOnFailure()) : base;
     }
 }

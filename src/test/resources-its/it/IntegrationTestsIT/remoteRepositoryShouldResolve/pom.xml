@@ -55,11 +55,6 @@
           </execution>
         </executions>
         <configuration>
-          <checksumMode>local</checksumMode>
-          <includeMavenPlugins>false</includeMavenPlugins>
-          <includeBoms>false</includeBoms>
-          <includeParentPom>false</includeParentPom>
-          <includeEnvironment>false</includeEnvironment>
           <allowPomValidationFailure>true</allowPomValidationFailure>
         </configuration>
       </plugin>

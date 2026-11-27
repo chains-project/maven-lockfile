@@ -78,9 +78,9 @@ Most flags belong to a single goal:
 - `validate`: the `allow*ValidationFailure` flags. To change the value `validate` uses by default, edit the flag under `metaData.config` in the lockfile. `generate` keeps the values it finds there.
 - `freeze`: `pomLockfileOutput` and `exactVersionStrings`, described below.
 
-`lockfileName` applies to all three goals, and `skip` to `generate` and `validate`.
+`lockfileName` and `skip` apply to all three goals.
 
-Passing a flag to a goal it does not belong to logs a deprecation warning, and will be an error in 6.0.0 (see [#1575](https://github.com/chains-project/maven-lockfile/issues/1575)).
+Passing a flag to a goal it does not belong to, as a user property (`-D`) or in the plugin's POM configuration, fails the build ([#1575](https://github.com/chains-project/maven-lockfile/issues/1575)). In the POM, set it in the configuration of that goal's `<execution>`.
 
 - `reduced` (`-Dreduced=false`) will reduce the lockfile only containing the dependencies after dependency resolution conflicts are resolved. This format is smaller, and easier to review and read. Only use this if you do not need the full dependency tree.
 - `includeMavenPlugins` (`-DincludeMavenPlugins=true`, default=true) controls whether Maven plugins and build extensions are included in the lockfile. Maven plugins are included by default so plugin artifacts are validated as part of the build. Set `-DincludeMavenPlugins=false` to opt out.

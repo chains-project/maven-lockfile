@@ -1,129 +1,14 @@
 package io.github.chains_project.maven_lockfile;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
-import org.apache.maven.model.Plugin;
-import org.apache.maven.model.PluginExecution;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
-import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 /** Warnings about what changes in 6.0.0 (#1732). Remove them in 6.0.0. */
 final class Deprecations {
 
-    private static final String GOAL_PARAMETERS_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1575";
     private static final String MAJOR_RELEASE_ISSUE = "https://github.com/chains-project/maven-lockfile/issues/1732";
 
-    /**
-     * The goals, each with the parameters that only it uses. In 6.0.0 these parameters move to fields of the goal's own
-     * mojo, so this list goes away.
-     */
-    private enum Goal {
-        GENERATE(
-                "includeMavenPlugins",
-                "includeEnvironment",
-                "includeBoms",
-                "includeParentPom",
-                "hermetic",
-                "reduced",
-                "checksumMode",
-                "checksumAlgorithm",
-                "getConfigFromFile",
-                "lockfileVersion"),
-        VALIDATE(
-                "allowDependencyValidationFailure",
-                "allowPomValidationFailure",
-                "allowMavenPluginValidationFailure",
-                "allowEnvironmentalValidationFailure",
-                "allowBomValidationFailure",
-                "allowParentPomValidationFailure"),
-        FREEZE("pomLockfileOutput", "exactVersionStrings");
-
-        private final List<String> parameters;
-
-        Goal(String... parameters) {
-            this.parameters = List.of(parameters);
-        }
-
-        @Override
-        public String toString() {
-            return name().toLowerCase(Locale.ROOT);
-        }
-    }
-
     private Deprecations() {}
-
-    /** Warns about each set parameter that belongs to another goal. */
-    static void warnAboutParameters(
-            AbstractMojo mojo,
-            Properties userProperties,
-            MavenProject project,
-            MojoExecution execution,
-            String lockfileName) {
-        String goal = execution.getGoal();
-        List<Object> configurations = pomConfigurations(project, execution);
-        for (Goal ownGoal : Goal.values()) {
-            for (String name : ownGoal.parameters) {
-                if (!ownGoal.toString().equals(goal) && isSet(mojo, name, userProperties, configurations)) {
-                    mojo.getLog().warn(wrongGoal(name, ownGoal.toString(), goal, lockfileName));
-                }
-            }
-        }
-    }
-
-    /**
-     * A parameter the goal declares is set if its field is. Maven ignores any other parameter, so it is set if it is a
-     * user property or in this plugin's POM configuration.
-     */
-    private static boolean isSet(Object mojo, String name, Properties userProperties, List<Object> configurations) {
-        for (Class<?> type = mojo.getClass(); type != null; type = type.getSuperclass()) {
-            try {
-                Field field = type.getDeclaredField(name);
-                field.setAccessible(true);
-                Object value = field.get(mojo);
-                return value != null && !"".equals(value);
-            } catch (NoSuchFieldException e) {
-                // declared on a superclass, or not at all
-            } catch (IllegalAccessException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-        return userProperties.containsKey(name)
-                || configurations.stream().anyMatch(c -> c instanceof Xpp3Dom && ((Xpp3Dom) c).getChild(name) != null);
-    }
-
-    /** The plugin's and the running execution's configuration in the POM. */
-    private static List<Object> pomConfigurations(MavenProject project, MojoExecution execution) {
-        List<Object> configurations = new ArrayList<>();
-        Plugin plugin = project.getPlugin(execution.getPlugin().getKey());
-        if (plugin != null) {
-            configurations.add(plugin.getConfiguration());
-            PluginExecution pluginExecution = plugin.getExecutionsAsMap().get(execution.getExecutionId());
-            if (pluginExecution != null) {
-                configurations.add(pluginExecution.getConfiguration());
-            }
-        }
-        return configurations;
-    }
-
-    private static String wrongGoal(String name, String ownGoal, String goal, String lockfileName) {
-        String hint = "";
-        if (ownGoal.equals("validate") && goal.equals("generate")) {
-            hint = String.format(
-                    " To change the value recorded in the lockfile, edit '%s' under 'metaData.config' in %s.",
-                    name, lockfileName);
-        } else if (ownGoal.equals("generate") && goal.equals("validate")) {
-            hint = " 'validate' should use the value recorded in the lockfile.";
-        }
-        return String.format(
-                "Parameter '%s' belongs to the '%s' goal. Passing it to '%s' is deprecated and will be an error in"
-                        + " 6.0.0.%s See %s",
-                name, ownGoal, goal, hint, GOAL_PARAMETERS_ISSUE);
-    }
 
     /** Warns if the lockfile that {@code mojo} reads or writes has {@code lockFileVersion} 1. */
     static void warnAboutLockfile(
