@@ -37010,18 +37010,13 @@
   ],
   "mavenExtensions": [],
   "metaData": {
-    "environment": {
-      "osName": "Linux",
-      "mavenVersion": "3.9.15",
-      "javaVersion": "17.0.21.1"
-    },
     "config": {
       "includeMavenPlugins": true,
       "allowValidationFailure": false,
       "allowPomValidationFailure": false,
       "allowMavenPluginValidationFailure": false,
       "allowEnvironmentalValidationFailure": true,
-      "includeEnvironment": true,
+      "includeEnvironment": false,
       "reduced": false,
       "mavenLockfileVersion": "5.19.1",
       "mavenLockfileChecksum": "97524c0edb96625feb426b6a5c11385acc1c40c24cec43a53bda8283460a6c96",
