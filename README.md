@@ -387,9 +387,22 @@ Extended github actions example with all available options:
     # Defaults to 'chore: update lockfile'
     - commit-message: 'chore: update lockfile'
 
-    # Optional. Whether to include Maven plugins in the lockfile.
-    # Defaults to true.
-    - include-maven-plugins: true
+    # Optional. Each of these sets the plugin flag of the same name (see Command line Flags
+    #  above) on the goal it belongs to. The action only passes the ones that are set, so
+    #  otherwise the plugin's default or the value the lockfile records applies. The values
+    #  shown are the defaults for a new lockfile.
+    - include-maven-plugins: false
+    - include-environment: true
+    - include-boms: true
+    - include-parent-pom: true
+    - reduced: true
+    - checksum-mode: remote
+    - checksum-algorithm: SHA-256
+    - allow-dependency-validation-failure: false
+    - allow-pom-validation-failure: false
+    - allow-maven-plugin-validation-failure: false
+    - allow-bom-validation-failure: false
+    - allow-parent-pom-validation-failure: false
 
     # Optional. The name of the lockfile to generate/validate.
     # Defaults to 'lockfile.json'.
@@ -404,9 +417,10 @@ Extended github actions example with all available options:
     #  GitHub-hosted runner image updates) to produce a warning instead of failing the build.
     #  Recommended when using GitHub-hosted runners where the exact Maven version is not pinned,
     #  because runner image updates can change the Maven version and cause spurious failures.
-    #  See https://github.com/chains-project/maven-lockfile/issues/1583.
-    # Defaults to false.
-    - allow-environmental-validation-failure: false
+    #  See https://github.com/chains-project/maven-lockfile/issues/1583. Passed to validate
+    #  always, because lockfiles that 5.x generated may record false.
+    # Defaults to true.
+    - allow-environmental-validation-failure: true
 
     # Optional. EXPERIMENTAL - may change or be removed in any release without notice.
     #  Merge artifacts dynamically resolved during a real build (e.g. Surefire's
